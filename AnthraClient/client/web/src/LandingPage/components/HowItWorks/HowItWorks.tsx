@@ -4,11 +4,16 @@ import stepOneImage from '../../assets/explore-anthra.png';
 import stepTwoImage from '../../assets/connections-anthra.png';
 import stepThreeImage from '../../assets/group-chat.jpg';
 import howItWorksVideo from '../../assets/air.mp4';
+import { useLanguage } from '../../../LanguageContext'; // Import the useLanguage hook
+import translations from '../../../languages/landingPageTranslations.json'; // Import the combined translations
 
 const HowItWorks: React.FC = () => {
     const step1Ref = useRef<HTMLDivElement>(null);
     const step2Ref = useRef<HTMLDivElement>(null);
     const step3Ref = useRef<HTMLDivElement>(null);
+
+    const { language } = useLanguage(); // Get the current language
+    const t = translations[language as keyof typeof translations].howItWorks; // Get HowItWorks translations
 
     useEffect(() => {
         const options: IntersectionObserverInit = {
@@ -38,42 +43,40 @@ const HowItWorks: React.FC = () => {
     }, []);
 
     return (
-            <div className="how-it-works-container">
-                <video autoPlay loop muted className="background-video">
-                    <source src={howItWorksVideo} type="video/mp4"/>
-                    Your browser does not support the video tag.
-                </video>
+        <div className="how-it-works-container">
+            <video autoPlay loop muted className="background-video">
+                <source src={howItWorksVideo} type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
 
-                <div className="content">
-                    <h1 className="title">How It Works</h1>
-                    <div ref={step1Ref} className="step step-1">
-                        <div className="step-content">
-                            <h2>Create your profile and explore</h2>
-                            <p>Create your own profile and dive into the explore page where you can send connection
-                                requests to others who pique your interest</p>
-                        </div>
-                        <img src={stepOneImage} className="step-image" alt="profile on explore page"/>
+            <div className="content">
+                <h1 className="title">{t.title}</h1> {/* Use translated title */}
+                <div ref={step1Ref} className="step step-1">
+                    <div className="step-content">
+                        <h2>{t.steps[0].heading}</h2> {/* Use translated step 1 heading */}
+                        <p>{t.steps[0].description}</p> {/* Use translated step 1 description */}
                     </div>
+                    <img src={stepOneImage} className="step-image" alt="profile on explore page" />
+                </div>
 
-                    <div ref={step2Ref} className="step step-2">
-                        <div className="step-content">
-                            <h2>Check your inbox</h2>
-                            <p>Check your inbox for requests from other users, and decide whether or not you want to
-                                commence the relationship</p>
-                        </div>
-                        <img src={stepTwoImage} className="step-image" alt="connection requests"/>
+                <div ref={step2Ref} className="step step-2">
+                    <div className="step-content">
+                        <h2>{t.steps[1].heading}</h2> {/* Use translated step 2 heading */}
+                        <p>{t.steps[1].description}</p> {/* Use translated step 2 description */}
                     </div>
+                    <img src={stepTwoImage} className="step-image" alt="connection requests" />
+                </div>
 
-                    <div ref={step3Ref} className="step step-3">
-                        <div className="step-content">
-                            <h2>Create forums</h2>
-                            <p>If you believe your partnership would be strengthened with more users, you always have
-                                the opportunity to create forums with your connections and their connections</p>
-                        </div>
-                        <img src={stepThreeImage} className="step-image" alt="group chat"/>
+                <div ref={step3Ref} className="step step-3">
+                    <div className="step-content">
+                        <h2>{t.steps[2].heading}</h2> {/* Use translated step 3 heading */}
+                        <p>{t.steps[2].description}</p> {/* Use translated step 3 description */}
                     </div>
+                    <img src={stepThreeImage} className="step-image" alt="group chat" />
                 </div>
             </div>
-        );
-}
+        </div>
+    );
+};
+
 export default HowItWorks;

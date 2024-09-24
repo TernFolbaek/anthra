@@ -9,10 +9,10 @@ using MyBackendApp.ViewModels;
 using System.Threading.Tasks;
 
 namespace MyBackendApp.Controllers
-{
-    [Route("api/[controller]")]
+{    
     [ApiController]
-    [Authorize]
+    [Route("api/[controller]")]
+
     public class ProfileController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -62,5 +62,35 @@ namespace MyBackendApp.Controllers
 
             return BadRequest(ModelState);
         }
+        
+        [HttpGet("GetProfile")]
+        public async Task<IActionResult> GetProfile()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+                return NotFound("User not found.");
+
+            var profile = new
+            {
+                user.UserName,
+                user.Email,
+                user.FirstName,
+                user.LastName,
+                user.Location,
+                user.Institution,
+                user.Work,
+                user.Course,
+                user.Subjects,
+                user.AboutMe,
+                user.Age,
+                user.ProfilePictureUrl,
+                user.CreatedProfile
+            };
+
+            return Ok(profile);
+        }
+
     }
 }

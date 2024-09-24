@@ -70,6 +70,7 @@ namespace MyBackendApp.Controllers
 
             if (result.Succeeded)
             {
+                var user = await _userManager.FindByNameAsync(model.Username);
                 return Ok("Login successful.");
             }
 

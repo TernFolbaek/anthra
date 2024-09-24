@@ -1,0 +1,152 @@
+{
+  "da": {
+    "howItWorks": {
+      "title": "Hvordan det virker",
+      "steps": [
+        {
+          "heading": "Opret din profil og udforsk",
+          "description": "Opret din egen profil og dyk ned på udforskningssiden, hvor du kan sende forbindelsesanmodninger til andre, der fanger din interesse"
+        },
+        {
+          "heading": "Tjek din indbakke",
+          "description": "Tjek din indbakke for anmodninger fra andre brugere, og beslut, om du vil starte relationen"
+        },
+        {
+          "heading": "Opret fora",
+          "description": "Hvis du mener, at dit partnerskab vil blive styrket med flere brugere, har du altid mulighed for at oprette fora med dine forbindelser og deres forbindelser"
+        }
+      ]
+    },
+    "features": {
+      "title": "Funktioner",
+      "featuresList": [
+        {
+          "title": "Fora",
+          "description": "Opret større fora med dine forbindelser og start dit eget fællesskab"
+        },
+        {
+          "title": "Forbindelsesanmodninger",
+          "description": "Se alle forbindelsesanmodninger, du har modtaget, på deres dedikerede side"
+        },
+        {
+          "title": "Selektiv Forbindelse",
+          "description": "Forbind kun med de personer, du ønsker at række ud til"
+        },
+        {
+          "title": "Ressourcedeling",
+          "description": "Del ressourcer i direkte beskeder og forumchats, hvilket gør arbejdsgangen lettere"
+        }
+      ]
+    },
+    "faq": {
+      "commonTitle": "Almindelige Spørgsmål",
+      "pricingTitle": "Prissætning",
+      "commonQuestions": [
+        {
+          "question": "Hvem bruger Anthra?",
+          "answer": "Anthra er en tjeneste, der bruges af en bred demografi. Tjenesten er for alle, der ønsker at fordybe sig yderligere i deres felt med selskab af en partner, samarbejdspartner eller studieven."
+        },
+        {
+          "question": "Hvordan opretter jeg nye forbindelser?",
+          "answer": "Send forbindelsesanmodninger og vent på deres svar. Forbindelsesanmodninger fra brugere, der ønsker at nå ud til dig, vil blive vist i din indbakke, hvor du kan vælge at acceptere eller afvise."
+        },
+        {
+          "question": "Hvorfor?",
+          "answer": "Alle har en passion, et nicheemne af interesse. At finde nogen eller en gruppe med den samme interesse skaber ofte en gensidig disciplin og en yderligere udvikling af glæden til emnet."
+        }
+      ],
+      "pricingQuestions": [
+        {
+          "question": "Kræver det et abonnement?",
+          "answer": "Nej. Der er ingen indbyggede betalinger i tjenesten."
+        },
+        {
+          "question": "Er der premiumfunktioner?",
+          "answer": "Ikke endnu, men vores team arbejder på at implementere brugerfeedback, som vi har modtaget undervejs."
+        }
+      ]
+    },
+    "contact": {
+      "title": "Kontakt Os",
+      "subjectLabel": "Emne",
+      "messageLabel": "Besked",
+      "submitButton": "Send Besked",
+      "footer": "Anthra. Alle rettigheder forbeholdes."
+    }
+  },
+  "en": {
+    "howItWorks": {
+      "title": "How It Works",
+      "steps": [
+        {
+          "heading": "Create your profile and explore",
+          "description": "Create your own profile and dive into the explore page where you can send connection requests to others who pique your interest"
+        },
+        {
+          "heading": "Check your inbox",
+          "description": "Check your inbox for requests from other users, and decide whether or not you want to commence the relationship"
+        },
+        {
+          "heading": "Create forums",
+          "description": "If you believe your partnership would be strengthened with more users, you always have the opportunity to create forums with your connections and their connections"
+        }
+      ]
+    },
+    "features": {
+      "title": "Features",
+      "featuresList": [
+        {
+          "title": "Forums",
+          "description": "Create larger forums with your connections, and begin your own community"
+        },
+        {
+          "title": "Connection Requests",
+          "description": "View all connection requests you have received on its dedicated page"
+        },
+        {
+          "title": "Selective Connecting",
+          "description": "Only connect with the individuals you wish to reach out to"
+        },
+        {
+          "title": "Resource Sharing",
+          "description": "Share resources in direct messages and forum chats allowing an easier workflow"
+        }
+      ]
+    },
+    "faq": {
+      "commonTitle": "Common Questions",
+      "pricingTitle": "Pricing",
+      "commonQuestions": [
+        {
+          "question": "Who uses Anthra?",
+          "answer": "Anthra is a service used by a wide demographic. The service is for anyone who wants to delve further into their field with the company of a partner, collaborator, or study buddy, whatever fits your needs."
+        },
+        {
+          "question": "How do I make new connections?",
+          "answer": "Send connection requests and await their response. Connection requests from users that wish to reach out to you will be shown in your inbox where you can decide to connect or decline."
+        },
+        {
+          "question": "Why?",
+          "answer": "Everyone has a passion, a niche topic of interest. Finding someone or a group of people with the same intrigue tends to create a reciprocal relationship of discipline and a further development of enjoyment in the subject."
+        }
+      ],
+      "pricingQuestions": [
+        {
+          "question": "Does it require a subscription?",
+          "answer": "No. There are no inbuilt payments into the service."
+        },
+        {
+          "question": "Are there premium features?",
+          "answer": "Not yet, but our team is working on implementing user feedback which we have received along our journey."
+        }
+      ]
+    },
+    "contact": {
+      "title": "Contact Us",
+      "subjectLabel": "Subject",
+      "messageLabel": "Message",
+      "submitButton": "Send Message",
+      "footer": "Anthra. All rights reserved."
+    }
+  }
+}

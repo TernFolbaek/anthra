@@ -11,6 +11,22 @@
     justify-content: center;
 }
 
+.progress-bar {
+    width: 100%;
+    max-width: 600px;
+    height: 8px;
+    background-color: #333;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: white;
+    transition: width 0.3s ease-in-out;
+}
+
 .create-profile-container {
     background-color: #1a1a1a;
     padding: 2rem;
@@ -26,13 +42,13 @@
     font-size: 2rem;
 }
 
-.create-profile-container form {
+.form-step {
     display: flex;
     flex-direction: column;
 }
 
-.create-profile-container input,
-.create-profile-container textarea {
+.form-step input,
+.form-step textarea {
     margin-bottom: 1rem;
     padding: 0.75rem;
     background-color: #333;
@@ -42,17 +58,24 @@
     font-size: 1rem;
 }
 
-.create-profile-container input::placeholder,
-.create-profile-container textarea::placeholder {
+.form-step input::placeholder,
+.form-step textarea::placeholder {
     color: #bbb;
 }
 
-.create-profile-container textarea {
+.form-step textarea {
     resize: vertical;
     min-height: 100px;
 }
 
-.submit-button {
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.back-button-profile,
+.next-button {
     background-color: transparent;
     border: 2px solid white;
     color: white;
@@ -60,10 +83,11 @@
     cursor: pointer;
     font-weight: 600;
     transition: background-color 0.3s;
-    margin-top: 0.5rem;
+    width: 48%;
 }
 
-.submit-button:hover {
+.back-button:hover,
+.next-button:hover {
     background-color: white;
     color: black;
 }
@@ -74,4 +98,5 @@
 
 .error-message {
     color: red;
+    margin-bottom: 1rem;
 }

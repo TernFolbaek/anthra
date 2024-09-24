@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.faq-container{
+    background-color: white;
+    width: 100%;
+    padding: 2rem;
+}
+.faq-section-container{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+.faq-title{
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 600;
+    font-size: 30px;
+}
+.faq-item-content {
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    font-size: 20px;
+}
+.faq-question{
+    font-size: 25px;
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: normal;
+}
+
+.faq-answer{
+    font-size: 20px;
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: lighter;
+}
+.faq-item-content.closed {
+    max-height: 0;
+}
+
+.faq-item-content.open {
+    max-height: 40rem;
+}
+
+.faq-item-icon {
+    transition: transform 0.2s ease-in-out;
+}
+
+.faq-item-icon.open {
+    transform: rotate(180deg);
+}

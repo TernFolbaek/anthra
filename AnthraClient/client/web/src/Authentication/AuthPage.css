@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap');
+
+.auth-page {
+    background-color: black;
+    color: white;
+    font-family: "IBM Plex Mono", monospace;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.auth-container {
+    background-color: #1a1a1a;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    animation: fade-in 1s forwards;
+    opacity: 0;
+}
+
+.auth-container h2 {
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+.auth-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-container input {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    background-color: #333;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.auth-container input::placeholder {
+    color: #bbb;
+}
+
+.submit-button {
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+    padding: 0.75rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    margin-top: 0.5rem;
+}
+
+.submit-button:hover {
+    background-color: white;
+    color: black;
+}
+
+.switch-button {
+    background: none;
+    border: none;
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 600;
+    margin-left: 0.25rem;
+}
+
+.back-button {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.auth-container p {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+@keyframes fade-in {
+    to {
+        opacity: 1;
+    }
+}

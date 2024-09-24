@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=anthra_user
+      - POSTGRES_PASSWORD=jelkokelkojelkomerlin
+      - POSTGRES_DB=anthra
+    ports:
+      - "5433:5432"  # Maps port 5432 in the container to 5433 on the host
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  backend:
+    image: anthra-backend  # Assuming you have built the image locally
+    # Alternatively, if you have a Dockerfile, uncomment the build context
+    # build: .
+    environment:
+      - DB_CONNECTION_STRING=Host=db;Port=5432;Database=anthra;Username=anthra_user;Password=jelkokelkojelkomerlin
+      - ASPNETCORE_URLS=http://+:80
+
+    ports:
+      - "8080:80"  # Maps port 80 in the container to 8080 on the host
+    depends_on:
+      - db
+    restart: unless-stopped
+
+volumes:
+  db_data:

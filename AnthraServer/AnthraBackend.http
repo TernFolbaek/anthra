@@ -1,0 +1,6 @@
+@AnthraBackend_HostAddress = http://localhost:5201
+
+GET {{AnthraBackend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

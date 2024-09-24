@@ -3,6 +3,9 @@ import './Navbar.css';
 import './Logo.css';
 import { useLanguage } from '../../../LanguageContext';
 import navbarTranslations from '../../../languages/navbarTranslations.json';
+import Danish from '../../assets/danish.jpg'
+import English from '../../assets/english.jpg'
+
 
 interface NavbarProps {
     onGetStartedClick: () => void;
@@ -11,6 +14,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for dropdown open/close
     const { language, switchLanguage } = useLanguage(); // Hook to get and switch language
     const t = navbarTranslations[language as keyof typeof navbarTranslations]; // Get the current language translation
 
@@ -39,6 +43,15 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
         }
     };
 
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
+
+    const handleLanguageChange = (lang: string) => {
+        switchLanguage(lang);
+        setIsDropdownOpen(false); // Close dropdown after selecting a language
+    };
+
     return (
         <nav className="home-navbar flex">
             <div className="logo flex" onClick={() => scrollToSection('home')}>
@@ -49,11 +62,31 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                 </ul>
                 <h1 id="logo-title" className="animate e">Anthra</h1>
             </div>
-            <div className="language-dropdown" style={{position: 'relative', marginLeft: 'auto'}}>
-                <select value={language} onChange={(e) => switchLanguage(e.target.value)}>
-                    <option value="da">Dansk</option>
-                    <option value="en">English</option>
-                </select>
+
+            {/* Custom Dropdown */}
+            <div className="language-dropdown" onClick={toggleDropdown}>
+                <div className="dropdown-header">
+                    {language === 'da' ? (
+                        <>
+                            <img src={Danish} alt="Danish" className="flag-icon" /> Dansk
+                        </>
+                    ) : (
+                        <>
+                            <img src={English} alt="English" className="flag-icon" /> English
+                        </>
+                    )}
+                </div>
+
+                {isDropdownOpen && (
+                    <div className="dropdown-menu">
+                        <div className="dropdown-item" onClick={() => handleLanguageChange('da')}>
+                            <img src={Danish} alt="Danish" className="flag-icon" /> Dansk
+                        </div>
+                        <div className="dropdown-item" onClick={() => handleLanguageChange('en')}>
+                            <img src={English} alt="English" className="flag-icon" /> English
+                        </div>
+                    </div>
+                )}
             </div>
 
             {isMobile ? (

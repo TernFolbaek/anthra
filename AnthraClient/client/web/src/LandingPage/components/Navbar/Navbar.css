@@ -58,21 +58,7 @@
     transform: translate(-50%, -50%);
 }
 
-/* New styling for the language dropdown */
-.language-dropdown select {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 1rem;
-    padding: 1rem;
-    background-color: transparent;
-    border: 1px solid white;
-    color: white;
-    cursor: pointer;
-    appearance: none;
-    position: relative;
-    width: 120px; /* Fixed width */
-    text-align: center;
-    border-radius: 4px;
-}
+
 
 .language-dropdown select:focus {
     outline: none;
@@ -113,6 +99,66 @@
     transform: rotate(45deg) translate(-5px, -6px);
 }
 
+.language-dropdown {
+    position: relative;
+    margin-left: auto;
+    cursor: pointer;
+    color: white;
+}
+
+.dropdown-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 140px;
+}
+
+.flag-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 4px;
+    width: 100%;
+    z-index: 10;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    color: white;
+}
+
+.dropdown-item:hover {
+    background-color: gray;
+}
+
+.dropdown-item img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+
+.language-select:focus {
+    outline: none;
+}
+
+
+
 .mobile-menu {
     display: none;
     position: fixed;
@@ -127,7 +173,6 @@
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
 }
-
 .mobile-menu.open {
     transform: translateX(0);
 }

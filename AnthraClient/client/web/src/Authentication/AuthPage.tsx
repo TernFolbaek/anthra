@@ -4,9 +4,10 @@ import axios from 'axios';
 
 interface AuthPageProps {
     onBackClick: () => void;
+    onAuthSuccess: (profileCreated: boolean) => void;
 }
 
-const AuthPage: React.FC<AuthPageProps> = ({ onBackClick }) => {
+const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
     const [isSignUp, setIsSignUp] = useState(true);
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -30,22 +31,31 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick }) => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const   endpoint = isSignUp
+        const endpoint = isSignUp
             ? 'http://localhost:5001/api/Auth/Register'
             : 'http://localhost:5001/api/Auth/Login';
 
         const payload = isSignUp
             ? { username, email, password }
-            : { email, password };
+            : { username, password };
 
         try {
-            const response = await axios.post(endpoint, payload);
+            const response = await axios.post(endpoint, payload, { withCredentials: true });
 
-            setMessage(response.data.message || 'Success!');
-            setError(null);
+            console.log(response);
+
+            // Fetch the user's profile to check 'createdProfile' flag
+            const profileResponse = await axios.get(
+                'http://localhost:5001/api/Profile/GetProfile',
+                { withCredentials: true }
+            );
+            const userProfile = profileResponse.data;
+
+            // Notify App.tsx of authentication success
+            onAuthSuccess(userProfile.createdProfile);
+
         } catch (err: any) {
             if (err.response && err.response.data) {
-                // Backend returned an error
                 const errorData = err.response.data;
                 setError(
                     errorData.Message ||
@@ -53,7 +63,6 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick }) => {
                     'An error occurred'
                 );
             } else {
-                // Network or other error
                 setError('An error occurred. Please try again.');
             }
             setMessage(null);
@@ -72,22 +81,22 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick }) => {
                 {error && <p className="error-message">{error}</p>}
 
                 <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        placeholder="Username"
+                        required
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
                     {isSignUp && (
                         <input
-                            type="text"
-                            placeholder="Username"
+                            type="email"
+                            placeholder="Email"
                             required
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     )}
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
                     <input
                         type="password"
                         placeholder="Password"

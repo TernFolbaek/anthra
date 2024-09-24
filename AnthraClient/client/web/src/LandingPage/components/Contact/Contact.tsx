@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import './Contact.css';
+import { useLanguage } from '../../../LanguageContext'; // Import useLanguage hook
+import translations from '../../../languages/landingPageTranslations.json'; // Import translations
 
 const Contact: React.FC = () => {
     const [subject, setSubject] = useState('');
     const [body, setBody] = useState('');
+    const { language } = useLanguage(); // Get the current language
+    const t = translations[language as keyof typeof translations].contact; // Get the Contact translations
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -14,11 +18,11 @@ const Contact: React.FC = () => {
     return (
         <div className="contact-container">
             <div className="contact-content">
-                <h2 className="contact-title">Contact Us</h2>
+                <h2 className="contact-title">{t.title}</h2> {/* Use translated title */}
                 <form onSubmit={handleSubmit} className="contact-form">
                     <div className="form-group">
                         <label htmlFor="subject" className="form-label">
-                            Subject
+                            {t.subjectLabel} {/* Use translated subject label */}
                         </label>
                         <input
                             type="text"
@@ -31,7 +35,7 @@ const Contact: React.FC = () => {
                     </div>
                     <div className="form-group">
                         <label htmlFor="body" className="form-label">
-                            Message
+                            {t.messageLabel} {/* Use translated message label */}
                         </label>
                         <textarea
                             id="body"
@@ -42,12 +46,12 @@ const Contact: React.FC = () => {
                         ></textarea>
                     </div>
                     <button type="submit" className="submit-button">
-                        Send Message
+                        {t.submitButton} {/* Use translated button text */}
                     </button>
                 </form>
             </div>
             <footer className="contact-footer">
-                <p>&copy; {new Date().getFullYear()} Anthra. All rights reserved.</p>
+                <p>&copy; {new Date().getFullYear()} {t.footer} {/* Use translated footer text */}</p>
             </footer>
         </div>
     );

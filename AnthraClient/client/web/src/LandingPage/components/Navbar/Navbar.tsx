@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Navbar.css';
 import './Logo.css';
+import { useLanguage } from '../../../LanguageContext';
+import navbarTranslations from '../../../languages/navbarTranslations.json';
 
 interface NavbarProps {
     onGetStartedClick: () => void;
@@ -9,6 +11,8 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const { language, switchLanguage } = useLanguage(); // Hook to get and switch language
+    const t = navbarTranslations[language as keyof typeof navbarTranslations]; // Get the current language translation
 
     useEffect(() => {
         const handleResize = () => {
@@ -45,6 +49,13 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                 </ul>
                 <h1 id="logo-title" className="animate e">Anthra</h1>
             </div>
+            <div className="language-dropdown" style={{position: 'relative', marginLeft: 'auto'}}>
+                <select value={language} onChange={(e) => switchLanguage(e.target.value)}>
+                    <option value="da">Dansk</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+
             {isMobile ? (
                 <>
                     <div className="burger-menu" onClick={toggleMenu}>
@@ -57,31 +68,31 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                             className="nav-button animate"
                             onClick={() => scrollToSection('how-it-works')}
                         >
-                            How It Works
+                            {t.howItWorks}
                         </button>
                         <button
                             className="nav-button animate"
                             onClick={() => scrollToSection('features')}
                         >
-                            Features
+                            {t.features}
                         </button>
                         <button
                             className="nav-button animate"
                             onClick={() => scrollToSection('faq')}
                         >
-                            FAQ
+                            {t.faq}
                         </button>
                         <button
                             className="nav-button animate"
                             onClick={() => scrollToSection('contact')}
                         >
-                            Contact
+                            {t.contact}
                         </button>
                         <button
                             className="nav-button animate"
                             onClick={onGetStartedClick}
                         >
-                            Get Started
+                            {t.getStarted}
                         </button>
                     </div>
                 </>
@@ -91,31 +102,31 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                         className="nav-button animate"
                         onClick={() => scrollToSection('features')}
                     >
-                        Features
+                        {t.features}
                     </button>
                     <button
                         className="nav-button animate"
                         onClick={() => scrollToSection('how-it-works')}
                     >
-                        How It Works
+                        {t.howItWorks}
                     </button>
                     <button
                         className="nav-button animate"
                         onClick={() => scrollToSection('faq')}
                     >
-                        FAQ
+                        {t.faq}
                     </button>
                     <button
                         className="nav-button animate"
                         onClick={() => scrollToSection('contact')}
                     >
-                        Contact
+                        {t.contact}
                     </button>
                     <button
                         className="nav-button animate"
                         onClick={onGetStartedClick}
                     >
-                        Get Started
+                        {t.getStarted}
                     </button>
                 </div>
             )}

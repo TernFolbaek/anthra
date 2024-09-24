@@ -5,7 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Prettify Features and Logo">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.yarn-integrity" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.yarn-integrity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machine-learning-andrew-ng/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machine-learning-andrew-ng/.idea/machine-learning-andrew-ng.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machine-learning-andrew-ng/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machine-learning-andrew-ng/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machine-learning-andrew-ng/ml-regularization/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machine-learning-andrew-ng/ml-regularization/regularization.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machine-learning-andrew-ng/ml-regularization/regularization.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,7 +24,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -45,7 +56,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "yarn",
-    "ts.external.directory.path": "/Users/tyf/WebstormProjects/personal-projects/Anthra/node_modules/typescript/lib",
+    "ts.external.directory.path": "/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraClient/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -78,7 +89,7 @@
       <workItem from="1726728543725" duration="705000" />
       <workItem from="1726746203954" duration="6426000" />
       <workItem from="1727005719603" duration="3611000" />
-      <workItem from="1727162647175" duration="387000" />
+      <workItem from="1727162647175" duration="2089000" />
     </task>
     <task id="LOCAL-00001" summary="Add Get started button and scroll to section functionality">
       <option name="closed" value="true" />

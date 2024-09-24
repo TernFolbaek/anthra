@@ -1,0 +1,18 @@
+{
+  "da": {
+    "howItWorks": "Hvordan det virker",
+    "features": "Funktioner",
+    "faq": "Ofte stillede spørgsmål",
+    "contact": "Kontakt",
+    "getStarted": "Kom i gang",
+    "language": "Sprog"
+  },
+  "en": {
+    "howItWorks": "How It Works",
+    "features": "Features",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "getStarted": "Get Started",
+    "language": "Language"
+  }
+}

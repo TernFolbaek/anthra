@@ -22,7 +22,6 @@ WORKDIR /app
 COPY --from=build-env /app/out .
 
 # Expose port 80 inside the container
-EXPOSE 80
-
+EXPOSE 5001
 # Set the entry point for the container
 ENTRYPOINT ["dotnet", "AnthraBackend.dll"]

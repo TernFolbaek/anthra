@@ -56,19 +56,26 @@ namespace MyBackendApp.Controllers
         }
 
 
-        // POST: api/Auth/Login
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+            var result = await _signInManager.PasswordSignInAsync(
+                userName: model.Username,
+                password: model.Password,
+                isPersistent: false,
+                lockoutOnFailure: false);
 
             if (result.Succeeded)
-                return Ok(new { Message = "Login successful" });
+            {
+                return Ok("Login successful.");
+            }
 
-            return Unauthorized(new { Message = "Invalid login attempt" });
+            return Unauthorized("Invalid username or password.");
         }
+
+
     }
 }

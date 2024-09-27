@@ -14,7 +14,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Configure Identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
 
 // Configure Authentication to use Identity's default cookie scheme
 builder.Services.AddAuthentication(options =>
@@ -45,6 +46,8 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.SecurePolicy = CookieSecurePolicy.None; // Allow cookies over HTTP
 });
 
+
+
 var app = builder.Build();
 
 // Apply migrations (if needed)
@@ -60,10 +63,12 @@ using (var scope = app.Services.CreateScope())
 
 app.UseCors("AllowSpecificOrigin");
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseStaticFiles();
+app.UseRouting();
 
 app.MapControllers();
+app.UseAuthentication();
+app.UseAuthorization();
 
 // Run the app on http://localhost:5001
 app.Urls.Add("http://*:5001");

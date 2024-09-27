@@ -40,6 +40,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
             : { username, password };
 
         try {
+            console.log(payload)
             const response = await axios.post(endpoint, payload, { withCredentials: true });
 
             console.log(response);
@@ -53,6 +54,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
 
             // Notify App.tsx of authentication success
             onAuthSuccess(userProfile.createdProfile);
+            console.log(userProfile);
 
         } catch (err: any) {
             if (err.response && err.response.data) {

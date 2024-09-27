@@ -6,7 +6,7 @@ import homeTranslations from '../../../languages/homeTranslations.json';
 import './Home.css';
 
 const Home: React.FC = () => {
-    const words = ["friendships", "collaborations", "partnerships"];
+    const words = ["study partner", "study group", "tutor"];
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [displayedText, setDisplayedText] = useState('');
     const [isDeleting, setIsDeleting] = useState(false);
@@ -43,7 +43,7 @@ const Home: React.FC = () => {
             <div className="home-content w-[100%] items-center flex flex-col gap-5 mt-[13%]">
                 <div className="mission"><h2>{t.mission}</h2></div>
                 <div className="home-content-text text-center text-white justify-center">
-                    <h3>{t.description}<span className="dynamic-text">{displayedText}</span>, along the way</h3>
+                    <h3>{t.description}<span className="dynamic-text">{displayedText}</span>?</h3>
                 </div>
                 <button className="flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-white text-[20px] uppercase align-middle transition-all rounded-lg select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none hover:bg-gray-900/50 active:bg-gray-900/20">
                     {t.getStarted}

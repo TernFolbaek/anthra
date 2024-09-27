@@ -7,12 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using MyBackendApp.Models;
 using MyBackendApp.ViewModels;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace MyBackendApp.Controllers
-{    
+{
     [ApiController]
     [Route("api/[controller]")]
-
+    [Authorize]
     public class ProfileController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -23,16 +24,41 @@ namespace MyBackendApp.Controllers
         }
 
         [HttpPost("UpdateProfile")]
-        public async Task<IActionResult> UpdateProfile([FromBody] UpdateProfileViewModel model)
+        public async Task<IActionResult> UpdateProfile([FromForm] UpdateProfileViewModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+                return Unauthorized("User is not authenticated.");
+
             var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null)
                 return NotFound("User not found.");
+
+            // Handle file upload
+            if (model.ProfilePicture != null && model.ProfilePicture.Length > 0)
+            {
+                var uploadsFolder = Path.Combine("wwwroot", "uploads");
+                Directory.CreateDirectory(uploadsFolder);
+
+                // Use the userId as part of the file name to ensure uniqueness
+                var uniqueFileName = $"{userId}{Path.GetExtension(model.ProfilePicture.FileName)}";
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await model.ProfilePicture.CopyToAsync(fileStream);
+                }
+
+                // Update the user's ProfilePictureUrl property
+                user.ProfilePictureUrl = "/uploads/" + uniqueFileName;
+            }
+            
+            Console.WriteLine("Yeehaw");
 
             // Update user properties
             user.FirstName = model.FirstName;
@@ -44,8 +70,7 @@ namespace MyBackendApp.Controllers
             user.Subjects = model.Subjects;
             user.AboutMe = model.AboutMe;
             user.Age = model.Age;
-            user.ProfilePictureUrl = model.ProfilePictureUrl;
-            user.CreatedProfile = true; // Set to true after profile completion
+            user.CreatedProfile = true;
 
             var result = await _userManager.UpdateAsync(user);
 
@@ -54,19 +79,19 @@ namespace MyBackendApp.Controllers
                 return Ok("Profile updated successfully.");
             }
 
-            // Handle errors
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
-
-            return BadRequest(ModelState);
+            var updateErrors = result.Errors.Select(e => e.Description);
+            return BadRequest(new { Errors = updateErrors });
         }
-        
+
+
         [HttpGet("GetProfile")]
         public async Task<IActionResult> GetProfile()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+                return Unauthorized("User is not authenticated.");
+
             var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null)
@@ -85,12 +110,11 @@ namespace MyBackendApp.Controllers
                 user.Subjects,
                 user.AboutMe,
                 user.Age,
-                user.ProfilePictureUrl,
+                ProfilePictureUrl = user.ProfilePictureUrl, // Use the correct property
                 user.CreatedProfile
             };
 
             return Ok(profile);
         }
-
     }
 }

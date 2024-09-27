@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useRef, useState} from 'react';
 import axios from 'axios';
 import './CreateProfile.css';
 
@@ -9,6 +9,7 @@ interface CreateProfileProps {
 const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
     // Step management
     const [step, setStep] = useState(1);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     // Form fields
     const [firstName, setFirstName] = useState('');
@@ -17,39 +18,60 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
     const [institution, setInstitution] = useState('');
     const [work, setWork] = useState('');
     const [course, setCourse] = useState('');
-    const [subjects, setSubjects] = useState('');
+    const [subjects, setSubjects] = useState<string[]>([]);
     const [aboutMe, setAboutMe] = useState('');
     const [age, setAge] = useState<number | ''>('');
-    const [profilePictureUrl, setProfilePictureUrl] = useState('');
+    const [profilePicture, setProfilePicture] = useState('');
     const [message, setMessage] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [previewUrl, setPreviewUrl] = useState<string|null>(null);
+
+    const handleSubjectsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setSubjects(value.split(',').map(s => s.trim()));
+    };
+
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            const file = e.target.files[0];
+            setPreviewUrl(URL.createObjectURL(file));
+            setProfilePicture(file.name)
+        }
+    };
 
     // Handle form submission
     const handleSubmit = async () => {
-        const payload = {
-            firstName,
-            lastName,
-            location,
-            institution,
-            work,
-            course,
-            subjects,
-            aboutMe,
-            age: age === '' ? null : age,
-            profilePictureUrl,
-        };
+        const formData = new FormData();
+
+        formData.append('FirstName', firstName);
+        formData.append('LastName', lastName);
+        formData.append('Location', location);
+        formData.append('Institution', institution);
+        formData.append('Work', work);
+        formData.append('Course', course);
+        formData.append('AboutMe', aboutMe);
+        formData.append('Age', age === '' ? '' : age.toString());
+
+        // Handle Subjects
+        subjects.forEach((subject) => formData.append('Subjects', subject));
+
+        // Append the file
+        if (fileInputRef.current && fileInputRef.current.files) {
+            formData.append('ProfilePicture', fileInputRef.current.files[0]);
+        }
 
         try {
-            await axios.post(
-                'http://localhost:5001/api/Profile/UpdateProfile',
-                payload,
-                { withCredentials: true }
-            );
+            await axios.post('http://localhost:5001/api/Profile/UpdateProfile', formData, {
+                withCredentials: true,
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
 
-            // Notify App.tsx that the profile has been created
             onProfileCreated();
-        } catch (err: any) {
+        }
+        catch (err: any) {
             if (err.response && err.response.data) {
+                console.log(err.response);
                 const errorData = err.response.data;
                 setError(
                     errorData.Message ||
@@ -66,8 +88,9 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
     // Handle next button click
     const handleNext = () => {
         if (step === 1) {
+            console.log(firstName, lastName, location, age, profilePicture);
             // Basic validation for step 1 fields
-            if (!firstName || !lastName || !age || !location || !profilePictureUrl) {
+            if (!firstName || !lastName || !age || !location || !profilePicture) {
                 setError('Please fill in all required fields.');
                 return;
             }
@@ -135,12 +158,13 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                             onChange={(e) => setLocation(e.target.value)}
                         />
                         <input
-                            type="text"
-                            placeholder="Profile Picture URL"
+                            type="file"
+                            accept="image/*"
                             required
-                            value={profilePictureUrl}
-                            onChange={(e) => setProfilePictureUrl(e.target.value)}
+                            ref={fileInputRef}
+                            onChange={handleFileChange}
                         />
+                        {previewUrl && <img src={previewUrl} alt="Preview" className="image-preview" />}
                     </div>
                 )}
 
@@ -171,9 +195,9 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                         />
                         <input
                             type="text"
-                            placeholder="Subjects"
-                            value={subjects}
-                            onChange={(e) => setSubjects(e.target.value)}
+                            placeholder="Subjects (separated by commas)"
+                            value={subjects.join(', ')}
+                            onChange={handleSubjectsChange}
                         />
                     </div>
                 )}

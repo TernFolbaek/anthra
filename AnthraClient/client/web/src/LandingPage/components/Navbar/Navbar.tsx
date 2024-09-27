@@ -63,31 +63,6 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                 <h1 id="logo-title" className="animate e">Anthra</h1>
             </div>
 
-            {/* Custom Dropdown */}
-            <div className="language-dropdown" onClick={toggleDropdown}>
-                <div className="dropdown-header">
-                    {language === 'da' ? (
-                        <>
-                            <img src={Danish} alt="Danish" className="flag-icon" /> Dansk
-                        </>
-                    ) : (
-                        <>
-                            <img src={English} alt="English" className="flag-icon" /> English
-                        </>
-                    )}
-                </div>
-
-                {isDropdownOpen && (
-                    <div className="dropdown-menu">
-                        <div className="dropdown-item" onClick={() => handleLanguageChange('da')}>
-                            <img src={Danish} alt="Danish" className="flag-icon" /> Dansk
-                        </div>
-                        <div className="dropdown-item" onClick={() => handleLanguageChange('en')}>
-                            <img src={English} alt="English" className="flag-icon" /> English
-                        </div>
-                    </div>
-                )}
-            </div>
 
             {isMobile ? (
                 <>
@@ -97,6 +72,30 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                         <div className={`burger-bar ${isMenuOpen ? 'open' : ''}`}></div>
                     </div>
                     <div className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}>
+                        <div className="language-dropdown  animate " onClick={toggleDropdown}>
+                            <div className="dropdown-header">
+                                {language === 'da' ? (
+                                    <>
+                                        <img src={Danish} alt="Danish" className="flag-icon"/> Dansk
+                                    </>
+                                ) : (
+                                    <>
+                                        <img src={English} alt="English" className="flag-icon"/> English
+                                    </>
+                                )}
+                            </div>
+
+                            {isDropdownOpen && (
+                                <div className="dropdown-menu animate">
+                                    <div className="dropdown-item" onClick={() => handleLanguageChange('da')}>
+                                        <img src={Danish} alt="Danish" className="flag-icon"/> Dansk
+                                    </div>
+                                    <div className="dropdown-item" onClick={() => handleLanguageChange('en')}>
+                                        <img src={English} alt="English" className="flag-icon"/> English
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                         <button
                             className="nav-button animate"
                             onClick={() => scrollToSection('how-it-works')}
@@ -131,6 +130,30 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                 </>
             ) : (
                 <div className="nav-buttons flex animate-nav-buttons">
+                    <div className="language-dropdown  animate" onClick={toggleDropdown}>
+                        <div className="dropdown-header">
+                            {language === 'da' ? (
+                                <>
+                                    <img src={Danish} alt="Danish" className="flag-icon"/> Dansk
+                                </>
+                            ) : (
+                                <>
+                                    <img src={English} alt="English" className="flag-icon"/> English
+                                </>
+                            )}
+                        </div>
+
+                        {isDropdownOpen && (
+                            <div className="dropdown-menu animate">
+                                <div className="dropdown-item" onClick={() => handleLanguageChange('da')}>
+                                    <img src={Danish} alt="Danish" className="flag-icon"/> Dansk
+                                </div>
+                                <div className="dropdown-item" onClick={() => handleLanguageChange('en')}>
+                                    <img src={English} alt="English" className="flag-icon"/> English
+                                </div>
+                            </div>
+                        )}
+                    </div>
                     <button
                         className="nav-button animate"
                         onClick={() => scrollToSection('features')}

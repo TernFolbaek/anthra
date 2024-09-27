@@ -43,6 +43,10 @@ namespace MyBackendApp.Controllers
             if (result.Succeeded)
             {
                 _logger.LogInformation("User created a new account with password.");
+
+                // Sign in the user to create the authentication cookie
+                await _signInManager.SignInAsync(user, isPersistent: false);
+
                 return Ok(new { Message = "Registration successful" });
             }
 
@@ -54,6 +58,7 @@ namespace MyBackendApp.Controllers
 
             return BadRequest(ModelState);
         }
+
 
 
         [HttpPost("Login")]

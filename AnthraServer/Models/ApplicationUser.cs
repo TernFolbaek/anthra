@@ -14,7 +14,7 @@ namespace MyBackendApp.Models
         public List<string>? Subjects { get; set; } // Use a collection type
         public string? AboutMe { get; set; }
         public int? Age { get; set; }
-        public string? ProfilePictureUrl { get; set; } // URL or path to the picture
-        public bool CreatedProfile { get; set; } = false; // Default to false
+        public string? ProfilePictureUrl { get; set; }
+        public bool CreatedProfile { get; set; }
     }
 }

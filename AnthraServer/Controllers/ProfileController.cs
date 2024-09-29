@@ -66,7 +66,7 @@ namespace MyBackendApp.Controllers
             user.Location = model.Location;
             user.Institution = model.Institution;
             user.Work = model.Work;
-            user.Course = model.Course;
+            user.Courses = model.Courses;
             user.Subjects = model.Subjects;
             user.AboutMe = model.AboutMe;
             user.Age = model.Age;
@@ -106,7 +106,7 @@ namespace MyBackendApp.Controllers
                 user.Location,
                 user.Institution,
                 user.Work,
-                user.Course,
+                user.Courses,
                 user.Subjects,
                 user.AboutMe,
                 user.Age,

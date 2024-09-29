@@ -7,6 +7,9 @@ namespace MyBackendApp.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<ConnectionRequest> ConnectionRequests { get; set; }
+
+
         // Constructor
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

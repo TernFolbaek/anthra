@@ -40,10 +40,14 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
             : { username, password };
 
         try {
-            console.log(payload)
+            console.log(payload);
             const response = await axios.post(endpoint, payload, { withCredentials: true });
 
-            console.log(response);
+            // Assuming the user ID is returned in the response data
+            const userId = response.data.userId;
+
+            // Store userId in localStorage
+            localStorage.setItem('userId', userId);
 
             // Fetch the user's profile to check 'createdProfile' flag
             const profileResponse = await axios.get(
@@ -70,6 +74,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
             setMessage(null);
         }
     };
+
 
     return (
         <div className="auth-page">

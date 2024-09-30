@@ -51,7 +51,7 @@ const App = () => {
                         <div>
                             <Navbar onGetStartedClick={handleGetStartedClick} />
                             <div id="home">
-                                <Home />
+                                <Home onGetStartedClick={handleGetStartedClick}  />
                             </div>
                             <div id="features">
                                 <Features />

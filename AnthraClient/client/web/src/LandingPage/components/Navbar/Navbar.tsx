@@ -14,9 +14,9 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for dropdown open/close
-    const { language, switchLanguage } = useLanguage(); // Hook to get and switch language
-    const t = navbarTranslations[language as keyof typeof navbarTranslations]; // Get the current language translation
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const { language, switchLanguage } = useLanguage();
+    const t = navbarTranslations[language as keyof typeof navbarTranslations];
 
     useEffect(() => {
         const handleResize = () => {
@@ -49,7 +49,7 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
 
     const handleLanguageChange = (lang: string) => {
         switchLanguage(lang);
-        setIsDropdownOpen(false); // Close dropdown after selecting a language
+        setIsDropdownOpen(false);
     };
 
     return (
@@ -73,7 +73,7 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                     </div>
                     <div className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}>
                         <div className="language-dropdown  animate " onClick={toggleDropdown}>
-                            <div className="dropdown-header">
+                            <div className="dropdown-header-home-navbar">
                                 {language === 'da' ? (
                                     <>
                                         <img src={Danish} alt="Danish" className="flag-icon"/> Dansk
@@ -131,7 +131,7 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
             ) : (
                 <div className="nav-buttons flex animate-nav-buttons">
                     <div className="language-dropdown  animate" onClick={toggleDropdown}>
-                        <div className="dropdown-header">
+                        <div className="dropdown-header-home-navbar">
                             {language === 'da' ? (
                                 <>
                                     <img src={Danish} alt="Danish" className="flag-icon"/> Dansk

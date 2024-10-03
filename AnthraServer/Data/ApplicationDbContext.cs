@@ -8,6 +8,8 @@ namespace MyBackendApp.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<ConnectionRequest> ConnectionRequests { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<SkippedUserModel> SkippedUsers { get; set; }
 
 
         // Constructor
@@ -20,7 +22,19 @@ namespace MyBackendApp.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            // Customize the ASP.NET Identity model if needed
+
+            // Configure relationships if necessary
+            builder.Entity<SkippedUserModel>()
+                .HasOne(su => su.User)
+                .WithMany()
+                .HasForeignKey(su => su.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<SkippedUserModel>()
+                .HasOne(su => su.SkippedUser)
+                .WithMany()
+                .HasForeignKey(su => su.SkippedUserId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

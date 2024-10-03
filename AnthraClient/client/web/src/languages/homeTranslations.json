@@ -1,12 +1,12 @@
 {
   "da": {
     "mission": "Vores Mission",
-    "description": "Leder efter en ",
+    "description": "Leder du efter en studie",
     "getStarted": "Kom i gang"
   },
   "en": {
     "mission": "Our Mission",
-    "description": "Looking for a ",
+    "description": "Are you looking for a study",
     "getStarted": "Get Started"
   }
 }

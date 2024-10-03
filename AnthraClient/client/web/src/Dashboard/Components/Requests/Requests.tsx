@@ -19,14 +19,12 @@ const Requests: React.FC = () => {
 
     useEffect(() => {
         if (!userId) {
-            console.error('User ID not found in localStorage.');
             return;
         }
         fetch(`http://localhost:5001/api/Request/Pending?userId=${userId}`)
             .then((response) => {
                 if (!response.ok) {
                     return response.text().then(text => {
-                        console.log('Full response:', text);
                         throw new Error(`HTTP error! status: ${response.status}`);
                     });
                 }
@@ -34,7 +32,6 @@ const Requests: React.FC = () => {
             })
             .then((data) => setRequests(data))
             .catch((error) => console.error('Error fetching requests:', error));
-        console.log(requests)
     }, [userId]);
 
     const handleAccept = (requestId: number) => {

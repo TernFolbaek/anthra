@@ -1,6 +1,7 @@
 import './AuthPage.css';
 import React, { useState } from 'react';
 import axios from 'axios';
+import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
 
 interface AuthPageProps {
     onBackClick: () => void;
@@ -24,6 +25,51 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
         setError(null);
     };
 
+    const handleGoogleSuccess = async (credentialResponse: CredentialResponse) => {
+
+        if (credentialResponse.credential) {
+            const tokenId = credentialResponse.credential;
+
+            try {
+                // Send the tokenId to your backend for verification
+                const backendResponse = await axios.post(
+                    'http://localhost:5001/api/Auth/GoogleLogin',
+                    { tokenId },
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    }
+                );
+                const { token, userId } = backendResponse.data;
+
+                // Store token and userId
+                localStorage.setItem('token', token);
+                localStorage.setItem('userId', userId);
+
+                // Fetch user profile
+                const profileResponse = await axios.get(
+                    'http://localhost:5001/api/Profile/GetProfile',
+                    { headers: {
+                            'Authorization': `Bearer ${token}`,
+                        }
+                    }
+                );
+                const userProfile = profileResponse.data;
+
+                onAuthSuccess(userProfile.createdProfile);
+            } catch (error) {
+                setError('Google login failed.');
+            }
+        } else {
+            setError('Google login failed.');
+        }
+    };
+
+    const handleGoogleFailure = () => {
+        setError('Google login failed.');
+    };
+
     const goBack = () => {
         onBackClick();
     };
@@ -40,26 +86,22 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
             : { username, password };
 
         try {
-            console.log(payload);
-            const response = await axios.post(endpoint, payload, { withCredentials: true });
+            const response = await axios.post(endpoint, payload);
 
-            // Assuming the user ID is returned in the response data
-            const userId = response.data.userId;
+            const { userId, token } = response.data;
 
-            // Store userId in localStorage
+            // Store token and userId
+            localStorage.setItem('token', token);
             localStorage.setItem('userId', userId);
 
-            // Fetch the user's profile to check 'createdProfile' flag
+            // Fetch the user's profile
             const profileResponse = await axios.get(
-                'http://localhost:5001/api/Profile/GetProfile',
-                { withCredentials: true }
+                'http://localhost:5001/api/Profile/GetProfile'
             );
             const userProfile = profileResponse.data;
 
             // Notify App.tsx of authentication success
             onAuthSuccess(userProfile.createdProfile);
-            console.log(userProfile);
-
         } catch (err: any) {
             if (err.response && err.response.data) {
                 const errorData = err.response.data;
@@ -75,7 +117,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
         }
     };
 
-
+    // @ts-ignore
     return (
         <div className="auth-page">
             <button className="back-button" onClick={goBack}>
@@ -115,6 +157,13 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                         {isSignUp ? 'Sign Up' : 'Log In'}
                     </button>
                 </form>
+                <div className="social-login">
+                    <GoogleLogin
+                        onSuccess={handleGoogleSuccess}
+                        onError={handleGoogleFailure}
+                    />
+                </div>
+
                 <p>
                     {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
                     <button className="switch-button" onClick={switchAuthMode}>

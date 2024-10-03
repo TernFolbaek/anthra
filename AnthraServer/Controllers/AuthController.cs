@@ -1,8 +1,15 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
 using MyBackendApp.Models;
 using MyBackendApp.ViewModels;
+using Google.Apis.Auth;
+
 
 namespace MyBackendApp.Controllers
 {
@@ -13,16 +20,67 @@ namespace MyBackendApp.Controllers
         private readonly ILogger<AuthController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IConfiguration _configuration;
 
         public AuthController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            ILogger<AuthController> logger)
+            ILogger<AuthController> logger,
+            IConfiguration configuration
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _configuration = configuration;
         }
 
+        [HttpPost("GoogleLogin")]
+        public async Task<IActionResult> GoogleLogin([FromBody] GoogleLoginViewModel model)
+        {
+            _logger.LogInformation("Received tokenId: {TokenId}", model.TokenId);
+
+            try
+            {
+                var settings = new GoogleJsonWebSignature.ValidationSettings()
+                {
+                    Audience = new List<string> { "995421977806-tf8qlcn3jt95q5m5ug5ppbqq4c0mnj6o.apps.googleusercontent.com" }
+                };
+
+                var payload = await GoogleJsonWebSignature.ValidateAsync(model.TokenId, settings);
+
+                // Check if the user already exists
+                var user = await _userManager.FindByEmailAsync(payload.Email);
+
+                if (user == null)
+                {
+                    // Create a new user without a password
+                    user = new ApplicationUser
+                    {
+                        UserName = payload.Email,
+                        Email = payload.Email,
+                        EmailConfirmed = true // Since Google already verified the email
+                    };
+
+                    var result = await _userManager.CreateAsync(user);
+                    if (!result.Succeeded)
+                    {
+                        
+                        return BadRequest("Failed to create user.");
+                    }
+                }
+
+                // Generate JWT token
+                var token = GenerateJwtToken(user);
+
+                return Ok(new { token, userId = user.Id });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Google login failed.");
+                
+                return StatusCode(500, new { Error = ex.Message });
+            }
+        }
         // POST: api/Auth/Register
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
@@ -47,7 +105,9 @@ namespace MyBackendApp.Controllers
                 // Sign in the user to create the authentication cookie
                 await _signInManager.SignInAsync(user, isPersistent: false);
 
-                return Ok(new { Message = "Registration successful" });
+                var token = GenerateJwtToken(user);
+
+                return Ok(new { Message = "Registration successful", userId = user.Id, token });
             }
 
             foreach (var error in result.Errors)
@@ -58,8 +118,6 @@ namespace MyBackendApp.Controllers
 
             return BadRequest(ModelState);
         }
-
-
 
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
@@ -76,11 +134,91 @@ namespace MyBackendApp.Controllers
             if (result.Succeeded)
             {
                 var user = await _userManager.FindByNameAsync(model.Username);
-                return Ok("Login successful.");
+                var token = GenerateJwtToken(user);
+
+                // cookie
+                return Ok(new { Message = "Registration successful", userId = user.Id, token });
             }
 
             return Unauthorized("Invalid username or password.");
         }
+
+        private string GenerateJwtToken(ApplicationUser user)
+        {
+            var jwtSettings = _configuration.GetSection("JwtSettings");
+            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings["Secret"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id),
+                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email)
+                // Add more claims if needed
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: jwtSettings["Issuer"],
+                audience: jwtSettings["Audience"],
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(double.Parse(jwtSettings["ExpirationInMinutes"])),
+                signingCredentials: creds);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+        
+        [HttpGet("ExternalLogin")]
+        public IActionResult ExternalLogin(string provider, string returnUrl = null)
+        {
+            var redirectUrl = Url.Action("ExternalLoginCallback", "Auth", new { returnUrl });
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return Challenge(properties, provider);
+        }
+
+        [HttpGet("ExternalLoginCallback")]
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
+        {
+            if (remoteError != null)
+            {
+                _logger.LogError("Error from external provider: {Error}", remoteError);
+                return BadRequest("Error from external provider.");
+            }
+
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                return BadRequest("Error loading external login information.");
+            }
+
+            var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
+
+            if (signInResult.Succeeded)
+            {
+                // User logged in with external provider
+                var user = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
+                var token = GenerateJwtToken(user);
+                return Redirect($"{returnUrl}?token={token}&userId={user.Id}");
+            }
+            else
+            {
+                // If the user does not have an account, create one
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+                var user = new ApplicationUser { UserName = email, Email = email };
+
+                var result = await _userManager.CreateAsync(user);
+                if (result.Succeeded)
+                {
+                    result = await _userManager.AddLoginAsync(user, info);
+                    if (result.Succeeded)
+                    {
+                        var token = GenerateJwtToken(user);
+                        return Redirect($"{returnUrl}?token={token}&userId={user.Id}");
+                    }
+                }
+                return BadRequest("External login failed.");
+            }
+        }
+
 
 
     }

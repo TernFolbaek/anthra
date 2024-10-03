@@ -4,10 +4,24 @@ namespace MyBackendApp.Models
 {
     public enum ConnectionStatus
     {
-        Pending,
-        Accepted,
-        Declined
+        Pending = 0,
+        Accepted = 1,
+        Declined = 2
     }
+
+    public class ConnectionRequestDTO
+    {
+        public int Id { get; set; }
+        public string SenderId { get; set; }
+        public string SenderName { get; set; }
+        public string SenderEmail { get; set; }
+        public string SenderProfilePicture { get; set; }
+        public string ReceiverId { get; set; }
+        public ConnectionStatus Status { get; set; }
+        public DateTime RequestedAt { get; set; }
+        public DateTime? RespondedAt { get; set; }
+    }
+
 
     public class ConnectionRequest
     {

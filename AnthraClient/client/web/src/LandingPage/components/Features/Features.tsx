@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Features.css';
-import { useLanguage } from '../../../LanguageContext'; // Import language context
-import translations from '../../../languages/landingPageTranslations.json'; // Import combined translations
+import { useLanguage } from '../../../LanguageContext';
+import translations from '../../../languages/landingPageTranslations.json';
+import pngTree from '../../assets/group-tree.png';
 
 interface Feature {
     title: string;
@@ -12,16 +13,16 @@ const Features: React.FC = () => {
     const [activeFeature, setActiveFeature] = useState(0);
     const [isVisible, setIsVisible] = useState(false);
     const featuresRef = useRef<HTMLDivElement>(null);
-    const { language } = useLanguage(); // Get the current language
-    const t = translations[language as keyof typeof translations].features; // Get the translations for Features
+    const { language } = useLanguage();
+    const t = translations[language as keyof typeof translations].features;
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setActiveFeature((prev) => (prev + 1) % t.featuresList.length); // Use the length of the translated features array
+            setActiveFeature((prev) => (prev + 1) % t.featuresList.length);
         }, 5000);
 
         return () => clearInterval(interval);
-    }, [t.featuresList.length]); // Watch for changes in translated features
+    }, [t.featuresList.length]);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -32,7 +33,7 @@ const Features: React.FC = () => {
                 }
             },
             {
-                threshold: 0.2, // 20% visibility
+                threshold: 0.2,
             }
         );
 
@@ -49,7 +50,7 @@ const Features: React.FC = () => {
 
     return (
         <div className={`feature-showcase ${isVisible ? 'visible' : ''}`} ref={featuresRef}>
-            <h1 className="feature-showcase-title">{t.title}</h1> {/* Use translated title */}
+            <h1 className="feature-showcase-title">{t.title}</h1>
             <div className="feature-container">
                 {t.featuresList.map((feature: Feature, index: number) => (
                     <div
@@ -58,8 +59,9 @@ const Features: React.FC = () => {
                         style={{ '--delay': `${index * 0.1}s` } as React.CSSProperties}
                         onClick={() => setActiveFeature(index)}
                     >
-                        <h3 className="feature-title">{feature.title}</h3> {/* Use translated title */}
-                        <p className="feature-description">{feature.description}</p> {/* Use translated description */}
+                        {/*<img src={pngTree} alt="Tree illustration" className="feature-tree" />*/}
+                        <h3 className="feature-title">{feature.title}</h3>
+                        <p className="feature-description">{feature.description}</p>
                     </div>
                 ))}
             </div>

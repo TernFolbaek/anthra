@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 
 .feature-showcase {
-    font-family: 'Arial', sans-serif;
+    font-family: "IBM Plex Mono", monospace;
     width: 100%;
+    font-weight: normal;
     margin: 0 auto;
     padding: 40px 20px;
     display: flex;
@@ -30,6 +31,7 @@
 }
 
 .feature-card {
+    position: relative; /* Ensure that child elements like the image can be absolutely positioned */
     background: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -44,6 +46,7 @@
     opacity: 0.7;
     transform: scale(0.95);
     height: 300px;
+    overflow: visible; /* Allow elements like the image to overflow */
 }
 
 .feature-card.active {
@@ -51,6 +54,21 @@
     transform: scale(1.05);
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
 }
+
+.feature-tree {
+    position: absolute;
+    top: -30px; /* Make sure it's outside the card for overlapping */
+    left: -30px; /* Adjust this to control the overlap */
+    width: 150px; /* Adjust the size to fit the desired design */
+    z-index: 0; /* Keep it behind the text */
+    opacity: 0.8; /* Slight transparency for subtle effect */
+}
+
+.feature-title, .feature-description {
+    position: relative;
+    z-index: 1; /* Ensure text is on top of the image */
+}
+
 
 .feature-icon {
     font-size: 48px;
@@ -69,9 +87,9 @@
 
 .feature-showcase-title {
     font-family: "IBM Plex Mono", monospace;
-    font-weight: 600;
+    font-weight: lighter;
     font-style: normal;
-    font-size: 40px;
+    font-size: 30px;
     width: 100%;
     text-align: center;
 }

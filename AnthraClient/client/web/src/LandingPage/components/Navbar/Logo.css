@@ -21,25 +21,6 @@
     animation-name: reveal;
 }
 
-ul {
-    margin: auto auto auto 1rem;
-    list-style: none;
-    height: 2rem;
-    display: flex;
-    flex-flow: column;
-    padding: 0;
-}
-
-li {
-    margin: auto;
-    width: 2vw;
-    height: 7%;
-    background-color: white;
-    opacity: 0;
-    position: relative;
-    animation-duration: 1.4s;
-    animation-fill-mode: forwards;
-}
 
 li.animate {
     animation-name: reveal;

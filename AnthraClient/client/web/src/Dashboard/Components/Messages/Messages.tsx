@@ -38,8 +38,6 @@ const Messages: React.FC = () => {
             connection
                 .start()
                 .then(() => {
-                    console.log('Connected to SignalR hub');
-
                     // Join group for this chat
                     if(userId!== undefined){
                         connection.invoke('JoinGroup', getChatGroupId(currentUserId!, userId));
@@ -61,9 +59,6 @@ const Messages: React.FC = () => {
             receiverId: userId,
             content: messageInput,
         };
-
-        console.log('Sending message:', message);
-
 
         try {
             const response = await fetch('http://localhost:5001/api/Messages/SendMessage', {

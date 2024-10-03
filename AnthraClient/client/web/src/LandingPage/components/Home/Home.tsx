@@ -4,15 +4,24 @@ import { mdiArrowRightThin } from '@mdi/js';
 import { useLanguage } from '../../../LanguageContext';
 import homeTranslations from '../../../languages/homeTranslations.json';
 import './Home.css';
+import cbsBanner from '../../assets/cbs-banner.png'
+import dtuBanner from '../../assets/dtu-banner.png'
+import kuBanner from '../../assets/ku-banner.png'
 
-const Home: React.FC = () => {
-    const words = ["study partner", "study group", "tutor"];
+interface NavbarProps {
+    onGetStartedClick: () => void;
+}
+
+const Home:  React.FC<NavbarProps> = ({onGetStartedClick}) => {
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [displayedText, setDisplayedText] = useState('');
     const [isDeleting, setIsDeleting] = useState(false);
     const [typingSpeed, setTypingSpeed] = useState(150);
     const { language } = useLanguage();
     const t = homeTranslations[language as keyof typeof homeTranslations];
+
+    // Dynamic words array based on the selected language
+    const words = language === 'da' ? ["makker", "gruppe"] : ["partner", "group"];
 
     useEffect(() => {
         const handleTyping = () => {
@@ -36,7 +45,7 @@ const Home: React.FC = () => {
         const typingTimeout = setTimeout(handleTyping, typingSpeed);
 
         return () => clearTimeout(typingTimeout);
-    }, [displayedText, isDeleting, currentWordIndex, typingSpeed]);
+    }, [displayedText, isDeleting, currentWordIndex, typingSpeed, words]);
 
     return (
         <div className="home-container">
@@ -45,11 +54,47 @@ const Home: React.FC = () => {
                 <div className="home-content-text text-center text-white justify-center">
                     <h3>{t.description}<span className="dynamic-text">{displayedText}</span>?</h3>
                 </div>
-                <button className="flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-white text-[20px] uppercase align-middle transition-all rounded-lg select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none hover:bg-gray-900/50 active:bg-gray-900/20">
+                <button
+                    className="flex items-center get-started-button" onClick={onGetStartedClick}
+                >
                     {t.getStarted}
-                    <Icon path={mdiArrowRightThin} size={1} />
+                    <Icon path={mdiArrowRightThin} size={1}/>
                 </button>
             </div>
+            <div className="image-banner">
+                <div className="image-track">
+                    <div className="banner-image">
+                        <img src={cbsBanner} alt="banner for university"/>
+                    </div>
+                    <div className="banner-image">
+                        <img src={dtuBanner} alt="banner for university"/>
+                    </div>
+                    <div className="banner-image">
+                        <img src={kuBanner} alt="banner for university"/>
+                    </div>
+                    {/* Duplicate images for seamless scrolling */}
+                    <div className="banner-image">
+                        <img src={cbsBanner} alt="banner for university"/>
+                    </div>
+                    <div className="banner-image">
+                        <img src={dtuBanner} alt="banner for university"/>
+                    </div>
+                    <div className="banner-image">
+                        <img src={kuBanner} alt="banner for university"/>
+                    </div>
+                    {/* Duplicate images for seamless scrolling */}
+                    <div className="banner-image">
+                        <img src={cbsBanner} alt="banner for university"/>
+                    </div>
+                    <div className="banner-image">
+                        <img src={dtuBanner} alt="banner for university"/>
+                    </div>
+                    <div className="banner-image">
+                        <img src={kuBanner} alt="banner for university"/>
+                    </div>
+                </div>
+            </div>
+
         </div>
     );
 };

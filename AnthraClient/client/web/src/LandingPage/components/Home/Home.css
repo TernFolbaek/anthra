@@ -77,8 +77,9 @@
     display: inline-block;
     min-width: 150px;
     text-align: center;
-    width: 405px;
+    width: 220px;
 }
+
 
 @screen md {
     .home-content-text {
@@ -91,3 +92,76 @@
         font-size: 3rem;
     }
 }
+
+.get-started-button {
+    font-family: "IBM Plex Mono", monospace;
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+    padding: 0.75rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    margin-top: 0.5rem;
+    font-size: 20px;
+    border-radius: 0.4rem;
+}
+
+.get-started-button:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Image Banner Styles */
+.image-banner {
+    overflow: hidden;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    margin-top: 50px; /* Add margin if needed */
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.image-track-title{
+    font-size: 20px;
+    font-family: inherit;
+    color: white;
+    position: absolute;
+    bottom: 100px;
+}
+
+.image-track {
+    display: flex;
+    width: calc(200%);
+    animation: scrollRight 15s linear infinite;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.banner-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 auto;
+    height: 100px;
+    padding: 0 10px;
+}
+
+.banner-image img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
+/* Animation to scroll from right to left */
+@keyframes scrollRight {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+
+

@@ -1,0 +1,50 @@
+/* MessageList.css */
+
+.message-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.conversation-row {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.conversation-row:hover {
+    background-color: #f9f9f9;
+}
+
+.conversation-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.conversation-info {
+    flex: 1;
+    margin-left: 15px;
+}
+
+.conversation-info h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.conversation-info .last-message {
+    margin: 5px 0 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.conversation-timestamp {
+    font-size: 0.8rem;
+    color: #999;
+    white-space: nowrap;
+}

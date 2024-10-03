@@ -8,6 +8,8 @@ import Messages from './Components/Messages/Messages';
 import Settings from './Components/Settings/Settings';
 import Requests from './Components/Requests/Requests';
 import Profile from './Components/Profile/Profile';
+import MessageList from "./Components/MessageList/MessageList";
+
 import './Main.css';
 
 const Dashboard: React.FC = () => {
@@ -19,9 +21,10 @@ const Dashboard: React.FC = () => {
                     <Navbar />
                     <div className="content-area">
                         <Routes>
+                            <Route path="/messages" element={<MessageList />} />
                             <Route path="/explore" element={<ExplorePage />} />
                             <Route path="/connections" element={<Connections />} />
-                            <Route path="/messages" element={<Messages />} />
+                            <Route path="/messages/:userId" element={<Messages />} />
                             <Route path="/settings" element={<Settings />} />
                             <Route path="/requests" element={<Requests />} />
                             <Route path="/profile" element={<Profile />} />

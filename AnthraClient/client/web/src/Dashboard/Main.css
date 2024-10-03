@@ -1,18 +1,36 @@
-/* Dashboard.css */
+/* Main.css */
 
 .dashboard-container {
     display: flex;
     height: 100vh;
 }
 
+.sidebar {
+    flex-shrink: 0;
+}
+
 .main-content {
     flex: 1;
     display: flex;
     flex-direction: column;
+    margin-left: 200px; /* Width of the sidebar */
 }
 
 .content-area {
     flex: 1;
     overflow-y: auto;
     padding: 20px;
+    margin-top: 80px; /* Height of the navbar */
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+    }
+    .sidebar {
+        display: none;
+    }
+    .home-navbar {
+        left: 0;
+    }
 }

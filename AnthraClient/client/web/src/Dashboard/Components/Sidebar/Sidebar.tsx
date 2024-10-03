@@ -22,7 +22,7 @@ const Sidebar: React.FC = () => {
             <NavLink
                 to="/messages"
                 className={({ isActive }) => `sidebar-link ${isActive ? 'active-link' : ''}`}
-                data-title="Messages"
+                data-title="MessageList"
             >
                 Messages
             </NavLink>

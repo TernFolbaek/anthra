@@ -49,14 +49,13 @@ const ExplorePage: React.FC = () => {
 
     const handleConnect = async () => {
         if (currentUser) {
-            // Send a connection request to the backend
+            // Send a connection request to the frontend
             try {
                 await axios.post(
                     'http://localhost:5001/api/Connections/SendRequest',
                     { targetUserId: currentUser.id },
                     { withCredentials: true }
                 );
-                console.log('Connection request sent to', currentUser.firstName);
             } catch (error) {
                 console.error('Error sending connection request:', error);
             }
@@ -66,15 +65,28 @@ const ExplorePage: React.FC = () => {
     };
 
     const handleSkip = () => {
+
         // Move to the next user
+        if(currentUser){
+            try {
+                 axios.post(
+                    'http://localhost:5001/api/Explore/SkipUser',
+                    { UserIdToSkip: currentUser.id },
+                );
+                // Update your UI accordingly
+            } catch (error) {
+                console.error('Error skipping user:', error);
+            }
+        };
+
         setCurrentIndex(currentIndex + 1);
     };
 
     return (
         <div className="explore-page">
             {currentUser ? (
-                <div className="user-card">
-                    <img src={`http://localhost:5001${currentUser.profilePictureUrl}`} alt="Profile" />
+                <div className="explore-user-card">
+                    <img className="explore-user-card-img" src={`http://localhost:5001${currentUser.profilePictureUrl}`} alt="Profile" />
                     <h2>
                         {currentUser.firstName} {currentUser.lastName}, {currentUser.age}
                     </h2>
@@ -83,9 +95,11 @@ const ExplorePage: React.FC = () => {
                     <p>{currentUser.work}</p>
                     <p>{currentUser.course}</p>
                     <p>{currentUser.aboutMe}</p>
-                    <p>Subjects: {currentUser.subjects.join(', ')}</p>
+                    {currentUser.subjects &&
+                        (<p>Subjects: {currentUser.subjects.join(', ')}</p>)
+                    }
                     <div className="button-container">
-                        <button className="connect-button" onClick={handleConnect}>
+                    <button className="connect-button" onClick={handleConnect}>
                             Connect
                         </button>
                         <button className="skip-button" onClick={handleSkip}>

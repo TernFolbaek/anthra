@@ -14,6 +14,6 @@ namespace MyBackendApp.ViewModels
         public List<string>? Subjects { get; set; }
         public string? AboutMe { get; set; }
         public int? Age { get; set; }
-        public IFormFile? ProfilePicture { get; set; }
+        public IFormFile ProfilePicture { get; set; }
     }
 }

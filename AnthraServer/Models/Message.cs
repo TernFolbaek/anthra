@@ -1,7 +1,8 @@
+// Models/Message.cs
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace MyBackendApp.Models
 {
@@ -10,15 +11,17 @@ namespace MyBackendApp.Models
         public int Id { get; set; }
 
         [Required]
-        [ForeignKey("senderId")]
         public string SenderId { get; set; }
-        public  ApplicationUser Sender { get; set; }
-        
-        [Required]
 
-        [ForeignKey("receiverId")]
+        [JsonIgnore]
+        [ValidateNever]
+        public ApplicationUser Sender { get; set; }
+
+        [Required]
         public string ReceiverId { get; set; }
 
+        [JsonIgnore]
+        [ValidateNever]
         public ApplicationUser Receiver { get; set; }
 
         [Required]

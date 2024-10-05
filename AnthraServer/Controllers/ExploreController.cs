@@ -12,7 +12,7 @@ namespace MyBackendApp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-
+    [Authorize]
     public class ExploreController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -29,19 +29,19 @@ namespace MyBackendApp.Controllers
         {
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            // Get IDs of connected users (both sent and received requests)
+            // Get IDs of connected users
             var connectedUserIds = await _context.ConnectionRequests
                 .Where(cr => cr.SenderId == currentUserId || cr.ReceiverId == currentUserId)
                 .Select(cr => cr.SenderId == currentUserId ? cr.ReceiverId : cr.SenderId)
                 .ToListAsync();
 
-            // Get IDs of users skipped by the current user
+            // Get IDs of skipped users
             var skippedUserIds = await _context.SkippedUsers
                 .Where(su => su.UserId == currentUserId)
                 .Select(su => su.SkippedUserId)
                 .ToListAsync();
 
-            // Combine all user IDs to exclude
+            // Combine IDs to exclude
             var excludedUserIds = connectedUserIds
                 .Concat(skippedUserIds)
                 .Append(currentUserId)
@@ -69,7 +69,6 @@ namespace MyBackendApp.Controllers
             return Ok(users);
         }
 
-        // Add an endpoint to record skipped users
         [HttpPost("SkipUser")]
         public async Task<IActionResult> SkipUser([FromBody] SkipUserModel model)
         {

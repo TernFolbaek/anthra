@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Home from './LandingPage/components/Home/Home';
 import HowItWorks from './LandingPage/components/HowItWorks/HowItWorks';
 import Features from "./LandingPage/components/Features/Features";
@@ -9,12 +9,39 @@ import CreateProfile from './CreateProfile/CreateProfile';
 import './App.css';
 import Navbar from './LandingPage/components/Navbar/Navbar';
 import Main from './Dashboard/Main'; // Placeholder for your main app after logins
-import { LanguageProvider } from './LanguageContext'; // Import the LanguageProvider
+import { LanguageProvider } from './LanguageContext';
+import axios from "axios"; // Import the LanguageProvider
 
 const App = () => {
     const [showAuthPage, setShowAuthPage] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [profileCreated, setProfileCreated] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const userId = localStorage.getItem('userId');
+
+        if (token && userId) {
+            // Optionally, verify token expiration here
+            // Fetch the user's profile
+            axios.get('http://localhost:5001/api/Profile/GetProfile', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(response => {
+                    const userProfile = response.data;
+                    setIsAuthenticated(true);
+                    setProfileCreated(userProfile.createdProfile);
+                })
+                .catch(error => {
+                    // Handle error, possibly invalid token
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('userId');
+                    setIsAuthenticated(false);
+                });
+        }
+    }, []);
 
     const handleGetStartedClick = () => {
         setShowAuthPage(true);

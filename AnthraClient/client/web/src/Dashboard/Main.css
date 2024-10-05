@@ -1,35 +1,29 @@
 /* Main.css */
-
 .dashboard-container {
     display: flex;
+    flex-direction: column;
     height: 100vh;
 }
 
+.content-wrapper {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
 .sidebar {
+    width: 200px;
     flex-shrink: 0;
 }
 
 .main-content {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    margin-left: 200px; /* Width of the sidebar */
-}
-
-.content-area {
-    flex: 1;
-    overflow-y: auto;
-    margin-top: 70px; /* Height of the navbar */
+    padding: 20px;
+    overflow: hidden;
 }
 
 @media (max-width: 768px) {
-    .main-content {
-        margin-left: 0;
-    }
     .sidebar {
         display: none;
-    }
-    .home-navbar {
-        left: 0;
     }
 }

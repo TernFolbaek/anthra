@@ -16,10 +16,10 @@ const Dashboard: React.FC = () => {
     return (
         <Router>
             <div className="dashboard-container">
-                <Sidebar />
-                <div className="main-content">
-                    <DashboardNavbar />
-                    <div className="content-area">
+                <DashboardNavbar />
+                <div className="content-wrapper">
+                    <Sidebar />
+                    <div className="main-content">
                         <Routes>
                             <Route path="/messages" element={<MessageList />} />
                             <Route path="/explore" element={<ExplorePage />} />
@@ -28,7 +28,7 @@ const Dashboard: React.FC = () => {
                             <Route path="/settings" element={<Settings />} />
                             <Route path="/requests" element={<Requests />} />
                             <Route path="/profile" element={<Profile />} />
-                            <Route path="/" element={<ExplorePage />} /> {/* Default route */}
+                            <Route path="/" element={<ExplorePage />} />
                         </Routes>
                     </div>
                 </div>

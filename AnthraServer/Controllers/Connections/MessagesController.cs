@@ -62,14 +62,22 @@ namespace MyBackendApp.Controllers
         }
 
         [HttpPost("SendMessage")]
-        public async Task<IActionResult> SendMessage([FromBody] Message message)
+        public async Task<IActionResult> SendMessage([FromBody] SendMessageModel model)
         {
             
             if (!ModelState.IsValid)
             {
                 return BadRequest("Invalid message data.");
             }
-            message.Timestamp = DateTime.UtcNow;
+
+            var message = new Message
+            {
+                SenderId = model.SenderId,
+                ReceiverId = model.ReceiverId,
+                Content = model.Content,
+                Timestamp = DateTime.UtcNow
+            };
+
 
             _context.Messages.Add(message);
             await _context.SaveChangesAsync();

@@ -20,13 +20,15 @@ const ExplorePage: React.FC = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentUser, setCurrentUser] = useState<User | null>(null);
-
+    const token = localStorage.getItem('token');
     useEffect(() => {
         // Fetch users from the backend
         const fetchUsers = async () => {
             try {
                 const response = await axios.get('http://localhost:5001/api/Explore/GetUsers', {
-                    withCredentials: true,
+                 headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
                 });
                 setUsers(response.data);
                 setCurrentIndex(0);
@@ -54,7 +56,9 @@ const ExplorePage: React.FC = () => {
                 await axios.post(
                     'http://localhost:5001/api/Connections/SendRequest',
                     { targetUserId: currentUser.id },
-                    { withCredentials: true }
+                    {   headers: {
+                            'Authorization': `Bearer ${token}`,
+                        }}
                 );
             } catch (error) {
                 console.error('Error sending connection request:', error);
@@ -64,23 +68,27 @@ const ExplorePage: React.FC = () => {
         setCurrentIndex(currentIndex + 1);
     };
 
-    const handleSkip = () => {
-
-        // Move to the next user
-        if(currentUser){
+    const handleSkip = async () => {
+        if (currentUser) {
+            console.log(token)
             try {
-                 axios.post(
+                await axios.post(
                     'http://localhost:5001/api/Explore/SkipUser',
                     { UserIdToSkip: currentUser.id },
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        }
+                    }
                 );
                 // Update your UI accordingly
             } catch (error) {
                 console.error('Error skipping user:', error);
             }
-        };
-
+        }
         setCurrentIndex(currentIndex + 1);
     };
+
 
     return (
         <div className="explore-page">

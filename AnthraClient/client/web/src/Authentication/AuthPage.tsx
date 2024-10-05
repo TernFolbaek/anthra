@@ -96,7 +96,10 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
 
             // Fetch the user's profile
             const profileResponse = await axios.get(
-                'http://localhost:5001/api/Profile/GetProfile'
+                'http://localhost:5001/api/Profile/GetProfile',
+            { headers: {
+                'Authorization': `Bearer ${token}`
+            }}
             );
             const userProfile = profileResponse.data;
 

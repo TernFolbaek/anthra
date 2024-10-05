@@ -54,7 +54,7 @@ const HowItWorks: React.FC = () => {
                 <div ref={step1Ref} className="step step-1">
                     <div className="step-content">
                         <h2>{t.steps[0].heading}</h2> {/* Use translated step 1 heading */}
-                        <p>{t.steps[0].description}</p> {/* Use translated step 1 description */}
+                        <p className="step-description">{t.steps[0].description}</p> {/* Use translated step 1 description */}
                     </div>
                     <img src={stepOneImage} className="step-image" alt="profile on explore page" />
                 </div>
@@ -62,7 +62,7 @@ const HowItWorks: React.FC = () => {
                 <div ref={step2Ref} className="step step-2">
                     <div className="step-content">
                         <h2>{t.steps[1].heading}</h2> {/* Use translated step 2 heading */}
-                        <p>{t.steps[1].description}</p> {/* Use translated step 2 description */}
+                        <p className="step-description">{t.steps[1].description}</p> {/* Use translated step 2 description */}
                     </div>
                     <img src={stepTwoImage} className="step-image" alt="connection requests" />
                 </div>
@@ -70,7 +70,7 @@ const HowItWorks: React.FC = () => {
                 <div ref={step3Ref} className="step step-3">
                     <div className="step-content">
                         <h2>{t.steps[2].heading}</h2> {/* Use translated step 3 heading */}
-                        <p>{t.steps[2].description}</p> {/* Use translated step 3 description */}
+                        <p className="step-description">{t.steps[2].description}</p> {/* Use translated step 3 description */}
                     </div>
                     <img src={stepThreeImage} className="step-image" alt="group chat" />
                 </div>

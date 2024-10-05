@@ -1,7 +1,9 @@
 .home-navbar {
     padding: 1rem;
     position: fixed;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.3); /* Black with 60% opacity */
+    backdrop-filter: blur(10px); /* Blur effect */
+    border-bottom: 0.5px solid white;
     width: 100%;
     z-index: 2;
     font-family: "IBM Plex Mono", monospace;
@@ -181,7 +183,7 @@
     margin: 10px 0;
     font-size: 1.5rem;
 }
-
+s
 @media (max-width: 1024px) {
     .nav-buttons {
         display: none;

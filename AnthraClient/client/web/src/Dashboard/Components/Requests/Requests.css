@@ -1,4 +1,5 @@
-/* Connections.css */
+/* Requests.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
 
 .connections-page {
     display: flex;
@@ -6,16 +7,23 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .user-card {
-    background-color: #1a1a1a;
-    color: white;
+    background-color: #ffffff;
+    color: #333;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 12px;
     width: 400px;
     text-align: center;
     margin: 10px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .user-card {
+    background-color: #1a1a1a;
+    color: #fff;
 }
 
 .user-card-img {
@@ -28,10 +36,12 @@
 
 .user-card h2 {
     margin-top: 10px;
+    font-size: 1.5rem;
 }
 
 .user-card p {
     margin: 5px 0;
+    font-size: 1rem;
 }
 
 .button-container {
@@ -43,16 +53,29 @@
 .connect-button,
 .skip-button {
     background-color: transparent;
-    border: 2px solid white;
-    color: white;
+    border: 2px solid #333;
+    color: #333;
     padding: 0.75rem 1.5rem;
     cursor: pointer;
     font-weight: 600;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 8px;
+}
+
+.dark-mode .connect-button,
+.dark-mode .skip-button {
+    border-color: #fff;
+    color: #fff;
 }
 
 .connect-button:hover,
 .skip-button:hover {
-    background-color: white;
-    color: black;
+    background-color: #333;
+    color: #fff;
+}
+
+.dark-mode .connect-button:hover,
+.dark-mode .skip-button:hover {
+    background-color: #fff;
+    color: #333;
 }

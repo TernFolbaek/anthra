@@ -78,7 +78,7 @@ const Requests: React.FC = () => {
                 requests.map((request) => (
                     <div key={request.id} className="user-card">
                         <img className="user-card-img"
-                            src={request.senderProfilePicture || '/default-profile.png'}
+                            src={`http://localhost:5001/${request.senderProfilePicture}` || '/default-profile.png'}
                             alt="Profile"
                         />
                         <h2>{request.senderName}</h2>

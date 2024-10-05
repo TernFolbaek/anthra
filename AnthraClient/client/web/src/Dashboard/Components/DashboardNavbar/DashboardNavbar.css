@@ -1,13 +1,19 @@
 /* DashboardNavbar.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
 
 .dashboard-navbar {
     position: fixed;
     top: 0;
     left: 200px; /* Adjust if sidebar width changes */
     right: 0;
-    background-color: #000;
+    background-color: #ffffff;
     z-index: 1000;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .dashboard-navbar {
+    background-color: #1a1a1a;
 }
 
 .dashboard-navbar__container {
@@ -17,8 +23,13 @@
 }
 
 .dashboard-navbar__logo h1 {
-    color: #fff;
+    color: #333;
     margin: 0;
+    font-size: 1.5rem;
+}
+
+.dark-mode .dashboard-navbar__logo h1 {
+    color: #fff;
 }
 
 .dashboard-navbar__links {
@@ -33,12 +44,16 @@
 }
 
 .dashboard-navbar__link {
-    color: #fff;
+    color: #333;
     text-decoration: none;
     font-weight: 600;
     position: relative;
     padding: 0.5rem 0;
     transition: color 0.2s ease-in-out;
+}
+
+.dark-mode .dashboard-navbar__link {
+    color: #fff;
 }
 
 .dashboard-navbar__link::after {
@@ -48,12 +63,16 @@
     left: 0;
     width: 0%;
     height: 2px;
-    background-color: #fff;
+    background-color: #007bff;
     transition: width 0.2s ease-in-out;
 }
 
 .dashboard-navbar__link:hover {
-    color: #ccc;
+    color: #007bff;
+}
+
+.dark-mode .dashboard-navbar__link:hover {
+    color: #66b2ff;
 }
 
 .dashboard-navbar__link:hover::after {
@@ -61,7 +80,11 @@
 }
 
 .dashboard-navbar__link--active {
-    color: #f0f0f0;
+    color: #007bff;
+}
+
+.dark-mode .dashboard-navbar__link--active {
+    color: #66b2ff;
 }
 
 .dashboard-navbar__link--active::after {
@@ -77,9 +100,13 @@
 .dashboard-navbar__burger-bar {
     width: 25px;
     height: 3px;
-    background-color: #fff;
+    background-color: #333;
     margin: 4px 0;
     transition: transform 0.3s ease-in-out;
+}
+
+.dark-mode .dashboard-navbar__burger-bar {
+    background-color: #fff;
 }
 
 .dashboard-navbar__burger-bar.open:nth-child(1) {
@@ -96,14 +123,18 @@
 
 .dashboard-navbar__mobile-menu {
     display: none;
-    background-color: #000;
+    background-color: #ffffff;
     position: fixed;
-    top: 60px; /* Adjust based on navbar height */
+    top: 70px; /* Adjust based on navbar height */
     left: 0;
     right: 0;
     list-style: none;
     padding: 1rem 0;
     margin: 0;
+}
+
+.dark-mode .dashboard-navbar__mobile-menu {
+    background-color: #1a1a1a;
 }
 
 .dashboard-navbar__mobile-menu li {
@@ -112,13 +143,21 @@
 }
 
 .dashboard-navbar__mobile-link {
-    color: #fff;
+    color: #333;
     text-decoration: none;
     font-size: 1.2rem;
 }
 
+.dark-mode .dashboard-navbar__mobile-link {
+    color: #fff;
+}
+
 .dashboard-navbar__mobile-link:hover {
-    color: #ccc;
+    color: #007bff;
+}
+
+.dark-mode .dashboard-navbar__mobile-link:hover {
+    color: #66b2ff;
 }
 
 @media (max-width: 768px) {

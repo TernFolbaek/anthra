@@ -89,7 +89,6 @@ const Connections: React.FC = () => {
 
     return (
         <div className="connections-container">
-            <h2>Your Connections</h2>
             {connections.length === 0 ? (
                 <p>You have no connections yet.</p>
             ) : (

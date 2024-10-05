@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Sidebar from './Components/Sidebar/Sidebar';
-import Navbar from './Components/DashboardNavbar/DashboardNavbar';
+import DashboardNavbar from './Components/DashboardNavbar/DashboardNavbar';
 import ExplorePage from './Components/ExplorePage/ExplorePage';
 import Connections from './Components/Connections/Connections';
 import Messages from './Components/Messages/Messages';
@@ -18,7 +18,7 @@ const Dashboard: React.FC = () => {
             <div className="dashboard-container">
                 <Sidebar />
                 <div className="main-content">
-                    <Navbar />
+                    <DashboardNavbar />
                     <div className="content-area">
                         <Routes>
                             <Route path="/messages" element={<MessageList />} />

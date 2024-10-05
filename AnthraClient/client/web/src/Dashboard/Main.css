@@ -19,8 +19,7 @@
 .content-area {
     flex: 1;
     overflow-y: auto;
-    padding: 20px;
-    margin-top: 80px; /* Height of the navbar */
+    margin-top: 70px; /* Height of the navbar */
 }
 
 @media (max-width: 768px) {

@@ -1,9 +1,17 @@
 /* Messages.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
 
 .messages-page {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 80px); /* Adjust based on navbar height */
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+.dark-mode .messages-page {
+  background-color: #121212;
 }
 
 .messages-container {
@@ -14,10 +22,13 @@
 
 .message-bubble {
   max-width: 60%;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 12px 16px;
+  border-radius: 20px;
   position: relative;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+
 }
 
 .message-bubble.sent {
@@ -26,32 +37,79 @@
   align-self: flex-end;
 }
 
+.dark-mode .message-bubble.sent {
+  background-color: #0056b3;
+}
+
 .message-bubble.received {
-  background-color: #e5e5ea;
-  color: black;
+  background-color: #e0e0e0;
+  color: white;
   align-self: flex-start;
 }
 
+.dark-mode .message-bubble.received {
+  background-color: #2c2c2c;
+  color: #fff;
+}
+
 .message-bubble span {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   position: absolute;
   bottom: -15px;
   right: 10px;
+  color: #666;
+}
+
+.dark-mode .message-bubble span {
+  color: #ccc;
 }
 
 .message-input-container {
   display: flex;
   padding: 10px;
-  background-color: #f1f1f1;
+  background-color: #ffffff;
+  border-top: 1px solid #ccc;
+}
+
+.dark-mode .message-input-container {
+  background-color: #1e1e1e;
+  border-top-color: #444;
 }
 
 .message-input-container input {
   flex: 1;
   padding: 10px;
   font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.dark-mode .message-input-container input {
+  background-color: #333;
+  border-color: #555;
+  color: #fff;
 }
 
 .message-input-container button {
   padding: 10px 20px;
   font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.message-input-container button:hover {
+  background-color: #0056b3;
+}
+
+.dark-mode .message-input-container button {
+  background-color: #0056b3;
+}
+
+.dark-mode .message-input-container button:hover {
+  background-color: #003d80;
 }

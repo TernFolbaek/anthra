@@ -1,3 +1,4 @@
+// Messages.tsx
 import React, { useEffect, useState } from 'react';
 import './Messages.css';
 import * as signalR from '@microsoft/signalr';
@@ -17,9 +18,18 @@ const Messages: React.FC = () => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [messageInput, setMessageInput] = useState('');
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
+    const token = localStorage.getItem('token');
+
     useEffect(() => {
         // Get messages
-        fetch(`http://localhost:5001/api/Messages/GetChatHistory?userId=${currentUserId}&contactId=${userId}`)
+        fetch(
+            `http://localhost:5001/api/Messages/GetChatHistory?userId=${currentUserId}&contactId=${userId}`,
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            }
+        )
             .then((response) => response.json())
             .then((data) => setMessages(data))
             .catch((error) => console.error('Error fetching messages:', error));
@@ -31,7 +41,7 @@ const Messages: React.FC = () => {
             .build();
 
         setConnection(newConnection);
-    }, [currentUserId, userId]);
+    }, [currentUserId, userId, token]);
 
     useEffect(() => {
         if (connection) {
@@ -39,7 +49,7 @@ const Messages: React.FC = () => {
                 .start()
                 .then(() => {
                     // Join group for this chat
-                    if(userId!== undefined){
+                    if (userId !== undefined) {
                         connection.invoke('JoinGroup', getChatGroupId(currentUserId!, userId));
                     }
 
@@ -60,16 +70,22 @@ const Messages: React.FC = () => {
             content: messageInput,
         };
 
+        console.log(message);
+
         try {
             const response = await fetch('http://localhost:5001/api/Messages/SendMessage', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify(message),
             });
 
             if (!response.ok) {
                 const errorData = await response.json();
                 console.error('Error sending message:', errorData);
+                return;
             }
 
             setMessageInput('');
@@ -77,7 +93,6 @@ const Messages: React.FC = () => {
             console.error('Error sending message:', error);
         }
     };
-
 
     const getChatGroupId = (userA: string, userB: string) => {
         return userA < userB ? `${userA}-${userB}` : `${userB}-${userA}`;

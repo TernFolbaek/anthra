@@ -28,5 +28,9 @@ namespace MyBackendApp.Models
         public string Content { get; set; }
 
         public DateTime Timestamp { get; set; }
+
+        // New properties for group invitations
+        public int? GroupId { get; set; }
+        public bool IsGroupInvitation { get; set; }
     }
 }

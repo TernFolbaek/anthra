@@ -1,148 +1,606 @@
 [
-  "”Citizenship Matters”: membership(s), models, functions and tranformations of citizenship in the EU context",
-  "Academic internship - BA",
-  "Academic internship - Master",
-  "Advanced Administrative Law",
-  "Advanced EU Constitutional Law",
-  "Advanced EU Internal Market Law",
-  "Advanced Family Law",
-  "Advanced Tax Law",
-  "Arbitration and Mediation in Commercial Disputes",
-  "Art Crime and the Law",
-  "Artificial Intelligence and Legal Disruption",
-  "Bachelor Dissertation",
-  "Banking and Finance",
-  "Biolaw and bioethics",
-  "Business law – companies, the financial sector and sustainability",
-  "Capital Markets Law",
-  "Children's and Young Person's Social Rights and Welfare Rights",
-  "Civil Procedure",
-  "Climate Change and the Law",
-  "Climate Change, Disasters and Human Mobility",
-  "Climate law: Regulations and enforcement",
-  "Collective Labour Law",
-  "Commercial property investments",
-  "Communication and Rhetoric in Legal and Cross-Disciplinary Contexts",
-  "Company Law",
-  "Company Law and capital market",
-  "Comparative Emergency Laws",
-  "Competition Law",
-  "Competition Law, unfair competition and marketing law",
-  "Compliance in the public sector",
-  "Constitutional Law and EU-Constitutional Law: Institutions",
-  "Construction Law",
-  "Contract law",
-  "Contract Law in Practice",
-  "Corporate Finance Law",
-  "Criminal Law and Criminal Procedure",
-  "Criminal Law and Human Rights",
-  "Criminal law regarding specific crimes",
-  "Criminal Procedure",
-  "Criminal Proceedings - Practice and Procedure",
-  "Criminological Theory",
-  "Criminology and Crime Prevention",
-  "Data Protection Law",
-  "DigiLawyer: Training lawyers for the challenge of digitalisation",
-  "Digital Goverment",
-  "Dispute Resolution and Conflict Management",
-  "Drafting and Negotiating International Contracts",
-  "Economic Crime",
-  "Employment Law",
-  "Energy contracts and liability",
-  "Entertainment Law",
-  "EU Competition Law",
-  "EU Law",
-  "EU Welfare Law",
-  "European Court of Human Rights",
-  "Family Law and Law of Wills and Succession",
-  "Forensic psychology",
-  "French Law and Language for an International Legal Career",
-  "Fundamental Rights of the Individual",
-  "Gender, Law and Legal Culture",
-  "General Administrative Law",
-  "Global Challenges in International Law",
-  "Global Challenges, Europe’s crises, and EU law",
-  "Health and Human Rights",
-  "Health Law",
-  "Health law (BA elective course)",
-  "How to Start a Start-up: the law of start-ups",
-  "Human Rights in Practice",
-  "Human Rights, Democracy and Digital Technology",
-  "Indigeneity, Law, and Nature",
-  "Information Law",
-  "Information Technology Law",
-  "Innovation law and stimulating green technologies to tackle climate change",
-  "Insolvency law",
-  "Insurance law",
-  "Intellectual Property Law",
-  "International Commercial Contracts",
-  "International Criminal Law and Procedure",
-  "International Dispute Resolution and International Courts",
-  "International Environmental Law",
-  "International Human Rights Law",
-  "International Investment Law and Sustainability",
-  "International Law",
-  "International Law of the Sea",
-  "International Migration Law",
-  "Introduction to Criminology",
-  "Introduction to Digital Law",
-  "Introduction to EU Law and Institutions",
-  "Islamic Law and Ethics",
-  "IT Contract Law",
-  "Labour Law (BA-elective course)",
-  "Labour Market Law",
-  "Law of Evidence",
-  "Law of Obligations",
-  "Law on municipalities",
-  "Laws of Armed Conflict: Rules, Principles, Context",
-  "Lawyers' Latin",
-  "Legal Communication and Rhetoric",
-  "Legal English",
-  "Legal history",
-  "Legal Method – legal argumentation",
-  "Legal Method – the sources of law",
-  "Legal Negotiation in Theory and Practice",
-  "Legal Reasoning and Argumentation",
-  "Legal systems, theories and research methods",
-  "Liability in Longterm Contracts",
-  "Life Science Law",
-  "Making and Breaking Constitutions",
-  "Market abuse and insider trading",
-  "Master Thesis",
-  "Mediation and Conflict Resolution",
-  "Mediation in Legal Contexts",
-  "Moot court competition about climate and sustainability",
-  "National Security Law",
-  "Non-discrimination and Equality",
-  "Peaceful Settlement of International Disputes",
-  "Personal Injury Claims",
-  "Philosophy of Law and Sociology of Law",
-  "Police and Police Law",
-  "Private international Law",
-  "Property and Creditor Law",
-  "Public Procurement Law",
-  "Purchase and Sale of Companies",
-  "Real estate - purchasing, pollution and planing regulation I",
-  "Regulating Big Tech",
-  "Rhetorical Argumentation",
-  "Shipping contracts and liability",
-  "Social Security Law and Social Welfare Law",
-  "Spcialized Marketing Law",
-  "Specialised Law of Torts",
-  "Sustainability Law",
-  "Tax Law",
-  "Tax Law and VAT Law",
-  "Tenancy Law",
-  "The Digital Age and Intellectual Property Rights",
-  "The Law of Asylum",
-  "The Law of Execution of Sentences",
-  "The Law of Foreigners",
-  "The Law of the Media",
-  "The Legal System and Legal Method",
-  "Theme lecture",
-  "Tort and contract",
-  "Tort Law in an Insurance Law Perspective",
-  "Trading real estate",
-  "Why punishment?",
-  "Written project"
+  {
+    "courseName": "”Citizenship Matters”: membership(s), models, functions and tranformations of citizenship in the EU context",
+    "courseLink": "/course/jjua55299u/2024-2025"
+  },
+  {
+    "courseName": "Academic internship - BA",
+    "courseLink": "/course/jjub55120u/2024-2025"
+  },
+  {
+    "courseName": "Academic internship - BA",
+    "courseLink": "/course/jjub55121u/2024-2025"
+  },
+  {
+    "courseName": "Academic internship - Master",
+    "courseLink": "/course/jjua55222u/2024-2025"
+  },
+  {
+    "courseName": "Academic internship - Master",
+    "courseLink": "/course/jjua55223u/2024-2025"
+  },
+  {
+    "courseName": "Advanced Administrative Law",
+    "courseLink": "/course/jjua55248u/2024-2025"
+  },
+  {
+    "courseName": "Advanced EU Constitutional Law",
+    "courseLink": "/course/jjua55117u/2024-2025"
+  },
+  {
+    "courseName": "Advanced EU Internal Market Law",
+    "courseLink": "/course/jjua55282u/2024-2025"
+  },
+  {
+    "courseName": "Advanced Family Law",
+    "courseLink": "/course/jjua55213u/2024-2025"
+  },
+  {
+    "courseName": "Advanced Tax Law",
+    "courseLink": "/course/jjua55902u/2024-2025"
+  },
+  {
+    "courseName": "Arbitration and Mediation in Commercial Disputes",
+    "courseLink": "/course/jjua55308u/2024-2025"
+  },
+  {
+    "courseName": "Art Crime and the Law",
+    "courseLink": "/course/jjua55244u/2024-2025"
+  },
+  {
+    "courseName": "Artificial Intelligence and Legal Disruption",
+    "courseLink": "/course/jjua55235u/2024-2025"
+  },
+  {
+    "courseName": "Bachelor Dissertation",
+    "courseLink": "/course/jjub57000e/2024-2025"
+  },
+  {
+    "courseName": "Banking and Finance",
+    "courseLink": "/course/jjua55134u/2024-2025"
+  },
+  {
+    "courseName": "Biolaw and bioethics",
+    "courseLink": "/course/jjua55181u/2024-2025"
+  },
+  {
+    "courseName": "Business law – companies, the financial sector and sustainability",
+    "courseLink": "/course/jcsk00007u/2024-2025"
+  },
+  {
+    "courseName": "Capital Markets Law",
+    "courseLink": "/course/jjua55287u/2024-2025"
+  },
+  {
+    "courseName": "Children's and Young Person's Social Rights and Welfare Rights",
+    "courseLink": "/course/jjua55212u/2024-2025"
+  },
+  {
+    "courseName": "Civil Procedure",
+    "courseLink": "/course/jjua55900u/2024-2025"
+  },
+  {
+    "courseName": "Climate Change and the Law",
+    "courseLink": "/course/jjua55120u/2024-2025"
+  },
+  {
+    "courseName": "Climate Change, Disasters and Human Mobility",
+    "courseLink": "/course/jjub55187u/2024-2025"
+  },
+  {
+    "courseName": "Climate law: Regulations and enforcement",
+    "courseLink": "/course/jjub55192u/2024-2025"
+  },
+  {
+    "courseName": "Collective Labour Law",
+    "courseLink": "/course/jjua55150u/2024-2025"
+  },
+  {
+    "courseName": "Commercial property investments",
+    "courseLink": "/course/jjua55315u/2024-2025"
+  },
+  {
+    "courseName": "Communication and Rhetoric in Legal and Cross-Disciplinary Contexts",
+    "courseLink": "/course/jcsk00005u/2024-2025"
+  },
+  {
+    "courseName": "Company Law",
+    "courseLink": "/course/jjua55170u/2024-2025"
+  },
+  {
+    "courseName": "Company Law and capital market",
+    "courseLink": "/course/jjub55118u/2024-2025"
+  },
+  {
+    "courseName": "Comparative Emergency Laws",
+    "courseLink": "/course/jjua55302u/2024-2025"
+  },
+  {
+    "courseName": "Competition Law",
+    "courseLink": "/course/jjua55152u/2024-2025"
+  },
+  {
+    "courseName": "Competition Law, unfair competition and marketing law",
+    "courseLink": "/course/jjub55154u/2024-2025"
+  },
+  {
+    "courseName": "Compliance in the public sector",
+    "courseLink": "/course/jjub55185u/2024-2025"
+  },
+  {
+    "courseName": "Constitutional Law and EU-Constitutional Law: Institutions",
+    "courseLink": "/course/jjub57006u/2024-2025"
+  },
+  {
+    "courseName": "Construction Law",
+    "courseLink": "/course/jjua55125u/2024-2025"
+  },
+  {
+    "courseName": "Contract law",
+    "courseLink": "/course/jcsk00003u/2024-2025"
+  },
+  {
+    "courseName": "Contract Law in Practice",
+    "courseLink": "/course/jjua55165u/2024-2025"
+  },
+  {
+    "courseName": "Corporate Finance Law",
+    "courseLink": "/course/jjua55115u/2024-2025"
+  },
+  {
+    "courseName": "Criminal Law and Criminal Procedure",
+    "courseLink": "/course/jjub57003u/2024-2025"
+  },
+  {
+    "courseName": "Criminal Law and Human Rights",
+    "courseLink": "/course/jjub55153u/2024-2025"
+  },
+  {
+    "courseName": "Criminal law regarding specific crimes",
+    "courseLink": "/course/jjua55175u/2024-2025"
+  },
+  {
+    "courseName": "Criminal Procedure",
+    "courseLink": "/course/jjua55176u/2024-2025"
+  },
+  {
+    "courseName": "Criminal Proceedings - Practice and Procedure",
+    "courseLink": "/course/jjua55215u/2024-2025"
+  },
+  {
+    "courseName": "Criminological Theory",
+    "courseLink": "/course/jjua55123u/2024-2025"
+  },
+  {
+    "courseName": "Criminology and Crime Prevention",
+    "courseLink": "/course/jjua55321u/2024-2025"
+  },
+  {
+    "courseName": "Data Protection Law",
+    "courseLink": "/course/jjua55301u/2024-2025"
+  },
+  {
+    "courseName": "DigiLawyer: Training lawyers for the challenge of digitalisation",
+    "courseLink": "/course/jjua55261u/2024-2025"
+  },
+  {
+    "courseName": "Digital Goverment",
+    "courseLink": "/course/jjua55317u/2024-2025"
+  },
+  {
+    "courseName": "Dispute Resolution and Conflict Management",
+    "courseLink": "/course/jjub55181u/2024-2025"
+  },
+  {
+    "courseName": "Drafting and Negotiating International Contracts",
+    "courseLink": "/course/jjua55109u/2024-2025"
+  },
+  {
+    "courseName": "Economic Crime",
+    "courseLink": "/course/jjua55316u/2024-2025"
+  },
+  {
+    "courseName": "Employment Law",
+    "courseLink": "/course/jjua55119u/2024-2025"
+  },
+  {
+    "courseName": "Energy contracts and liability",
+    "courseLink": "/course/jjub55189u/2024-2025"
+  },
+  {
+    "courseName": "Entertainment Law",
+    "courseLink": "/course/jjua55230u/2024-2025"
+  },
+  {
+    "courseName": "EU Competition Law",
+    "courseLink": "/course/jjua55127u/2024-2025"
+  },
+  {
+    "courseName": "EU Law",
+    "courseLink": "/course/jjub57108u/2024-2025"
+  },
+  {
+    "courseName": "EU Law",
+    "courseLink": "/course/jjub57008u/2024-2025"
+  },
+  {
+    "courseName": "EU Welfare Law",
+    "courseLink": "/course/jjua55290u/2024-2025"
+  },
+  {
+    "courseName": "European Court of Human Rights",
+    "courseLink": "/course/jjub55128u/2024-2025"
+  },
+  {
+    "courseName": "Family Law and Law of Wills and Succession",
+    "courseLink": "/course/jjub57001u/2024-2025"
+  },
+  {
+    "courseName": "Forensic psychology",
+    "courseLink": "/course/jjua55210u/2024-2025"
+  },
+  {
+    "courseName": "French Law and Language for an International Legal Career",
+    "courseLink": "/course/jjub55190u/2024-2025"
+  },
+  {
+    "courseName": "Fundamental Rights of the Individual",
+    "courseLink": "/course/jjub57005u/2024-2025"
+  },
+  {
+    "courseName": "Gender, Law and Legal Culture",
+    "courseLink": "/course/jjua55254u/2024-2025"
+  },
+  {
+    "courseName": "General Administrative Law",
+    "courseLink": "/course/jcsk00004u/2024-2025"
+  },
+  {
+    "courseName": "General Administrative Law",
+    "courseLink": "/course/jjub57010u/2024-2025"
+  },
+  {
+    "courseName": "Global Challenges in International Law",
+    "courseLink": "/course/jjub55175u/2024-2025"
+  },
+  {
+    "courseName": "Global Challenges, Europe’s crises, and EU law",
+    "courseLink": "/course/jjua55318u/2024-2025"
+  },
+  {
+    "courseName": "Health and Human Rights",
+    "courseLink": "/course/jjua55136u/2024-2025"
+  },
+  {
+    "courseName": "Health Law",
+    "courseLink": "/course/jjua55177u/2024-2025"
+  },
+  {
+    "courseName": "Health law (BA elective course)",
+    "courseLink": "/course/jjub55147u/2024-2025"
+  },
+  {
+    "courseName": "How to Start a Start-up: the law of start-ups",
+    "courseLink": "/course/jjua55238u/2024-2025"
+  },
+  {
+    "courseName": "Human Rights in Practice",
+    "courseLink": "/course/jjua55314u/2024-2025"
+  },
+  {
+    "courseName": "Human Rights, Democracy and Digital Technology",
+    "courseLink": "/course/jjua55285u/2024-2025"
+  },
+  {
+    "courseName": "Indigeneity, Law, and Nature",
+    "courseLink": "/course/jjua55309u/2024-2025"
+  },
+  {
+    "courseName": "Information Law",
+    "courseLink": "/course/jjub55117u/2024-2025"
+  },
+  {
+    "courseName": "Information Technology Law",
+    "courseLink": "/course/jjua55147u/2024-2025"
+  },
+  {
+    "courseName": "Innovation law and stimulating green technologies to tackle climate change",
+    "courseLink": "/course/jjua55294u/2024-2025"
+  },
+  {
+    "courseName": "Insolvency law",
+    "courseLink": "/course/jjua55138u/2024-2025"
+  },
+  {
+    "courseName": "Insurance law",
+    "courseLink": "/course/jjua55135u/2024-2025"
+  },
+  {
+    "courseName": "Intellectual Property Law",
+    "courseLink": "/course/jjua55137u/2024-2025"
+  },
+  {
+    "courseName": "International Commercial Contracts",
+    "courseLink": "/course/jjua55083u/2024-2025"
+  },
+  {
+    "courseName": "International Criminal Law and Procedure",
+    "courseLink": "/course/jjua55038u/2024-2025"
+  },
+  {
+    "courseName": "International Dispute Resolution and International Courts",
+    "courseLink": "/course/jjub55022u/2024-2025"
+  },
+  {
+    "courseName": "International Environmental Law",
+    "courseLink": "/course/jjua55140u/2024-2025"
+  },
+  {
+    "courseName": "International Human Rights Law",
+    "courseLink": "/course/jjua55141u/2024-2025"
+  },
+  {
+    "courseName": "International Investment Law and Sustainability",
+    "courseLink": "/course/jjua55305u/2024-2025"
+  },
+  {
+    "courseName": "International Law",
+    "courseLink": "/course/jjub57007u/2024-2025"
+  },
+  {
+    "courseName": "International Law of the Sea",
+    "courseLink": "/course/jjua55144u/2024-2025"
+  },
+  {
+    "courseName": "International Migration Law",
+    "courseLink": "/course/jjua55112u/2024-2025"
+  },
+  {
+    "courseName": "Introduction to Criminology",
+    "courseLink": "/course/jjub55168u/2024-2025"
+  },
+  {
+    "courseName": "Introduction to Digital Law",
+    "courseLink": "/course/jjua55239u/2024-2025"
+  },
+  {
+    "courseName": "Introduction to EU Law and Institutions",
+    "courseLink": "/course/jjua54029u/2024-2025"
+  },
+  {
+    "courseName": "Islamic Law and Ethics",
+    "courseLink": "/course/jjua55304u/2024-2025"
+  },
+  {
+    "courseName": "IT Contract Law",
+    "courseLink": "/course/jjua55195u/2024-2025"
+  },
+  {
+    "courseName": "Labour Law (BA-elective course)",
+    "courseLink": "/course/jjub55124u/2024-2025"
+  },
+  {
+    "courseName": "Labour Market Law",
+    "courseLink": "/course/jcsk00008u/2024-2025"
+  },
+  {
+    "courseName": "Law of Evidence",
+    "courseLink": "/course/jjua55260u/2024-2025"
+  },
+  {
+    "courseName": "Law of Obligations",
+    "courseLink": "/course/jjub57009u/2024-2025"
+  },
+  {
+    "courseName": "Law on municipalities",
+    "courseLink": "/course/jjua55310u/2024-2025"
+  },
+  {
+    "courseName": "Laws of Armed Conflict: Rules, Principles, Context",
+    "courseLink": "/course/jjua55102u/2024-2025"
+  },
+  {
+    "courseName": "Lawyers' Latin",
+    "courseLink": "/course/jjua14124u/2024-2025"
+  },
+  {
+    "courseName": "Legal Communication and Rhetoric",
+    "courseLink": "/course/jjua55256u/2024-2025"
+  },
+  {
+    "courseName": "Legal English",
+    "courseLink": "/course/jjua54019u/2024-2025"
+  },
+  {
+    "courseName": "Legal history",
+    "courseLink": "/course/jjub57013u/2024-2025"
+  },
+  {
+    "courseName": "Legal Method – legal argumentation",
+    "courseLink": "/course/jcsk00006u/2024-2025"
+  },
+  {
+    "courseName": "Legal Method – the sources of law",
+    "courseLink": "/course/jcsk00002u/2024-2025"
+  },
+  {
+    "courseName": "Legal Negotiation in Theory and Practice",
+    "courseLink": "/course/jjua55202u/2024-2025"
+  },
+  {
+    "courseName": "Legal Reasoning and Argumentation",
+    "courseLink": "/course/jjua55323u/2024-2025"
+  },
+  {
+    "courseName": "Legal systems, theories and research methods",
+    "courseLink": "/course/jcsk00001u/2024-2025"
+  },
+  {
+    "courseName": "Liability in Longterm Contracts",
+    "courseLink": "/course/jjub55143u/2024-2025"
+  },
+  {
+    "courseName": "Life Science Law",
+    "courseLink": "/course/jjua55156u/2024-2025"
+  },
+  {
+    "courseName": "Making and Breaking Constitutions",
+    "courseLink": "/course/jjua55272u/2024-2025"
+  },
+  {
+    "courseName": "Market abuse and insider trading",
+    "courseLink": "/course/jjub55012u/2024-2025"
+  },
+  {
+    "courseName": "Master Thesis",
+    "courseLink": "/course/jcsk00009e/2024-2025"
+  },
+  {
+    "courseName": "Master Thesis",
+    "courseLink": "/course/jjua13020e/2024-2025"
+  },
+  {
+    "courseName": "Mediation and Conflict Resolution",
+    "courseLink": "/course/jjua55151u/2024-2025"
+  },
+  {
+    "courseName": "Mediation in Legal Contexts",
+    "courseLink": "/course/jjua55205u/2024-2025"
+  },
+  {
+    "courseName": "Moot court competition about climate and sustainability",
+    "courseLink": "/course/jjua55312u/2024-2025"
+  },
+  {
+    "courseName": "National Security Law",
+    "courseLink": "/course/jjua55322u/2024-2025"
+  },
+  {
+    "courseName": "Non-discrimination and Equality",
+    "courseLink": "/course/jjub55149u/2024-2025"
+  },
+  {
+    "courseName": "Peaceful Settlement of International Disputes",
+    "courseLink": "/course/jjua55206u/2024-2025"
+  },
+  {
+    "courseName": "Personal Injury Claims",
+    "courseLink": "/course/jjua55164u/2024-2025"
+  },
+  {
+    "courseName": "Philosophy of Law and Sociology of Law",
+    "courseLink": "/course/jjub57112u/2024-2025"
+  },
+  {
+    "courseName": "Police and Police Law",
+    "courseLink": "/course/jjub55099u/2024-2025"
+  },
+  {
+    "courseName": "Private international Law",
+    "courseLink": "/course/jjub55193u/2024-2025"
+  },
+  {
+    "courseName": "Property and Creditor Law",
+    "courseLink": "/course/jjub57011u/2024-2025"
+  },
+  {
+    "courseName": "Public Procurement Law",
+    "courseLink": "/course/jjua55313u/2024-2025"
+  },
+  {
+    "courseName": "Purchase and Sale of Companies",
+    "courseLink": "/course/jjua55153u/2024-2025"
+  },
+  {
+    "courseName": "Real estate - purchasing, pollution and planing regulation I",
+    "courseLink": "/course/jjub55130u/2024-2025"
+  },
+  {
+    "courseName": "Regulating Big Tech",
+    "courseLink": "/course/jjua55320u/2024-2025"
+  },
+  {
+    "courseName": "Rhetorical Argumentation",
+    "courseLink": "/course/jjub55146u/2024-2025"
+  },
+  {
+    "courseName": "Shipping contracts and liability",
+    "courseLink": "/course/jjua55307u/2024-2025"
+  },
+  {
+    "courseName": "Social Security Law and Social Welfare Law",
+    "courseLink": "/course/jjua55172u/2024-2025"
+  },
+  {
+    "courseName": "Spcialized Marketing Law",
+    "courseLink": "/course/jjua55319u/2024-2025"
+  },
+  {
+    "courseName": "Specialised Law of Torts",
+    "courseLink": "/course/jjua55173u/2024-2025"
+  },
+  {
+    "courseName": "Sustainability Law",
+    "courseLink": "/course/jjua55311u/2024-2025"
+  },
+  {
+    "courseName": "Tax Law",
+    "courseLink": "/course/jjua55901u/2024-2025"
+  },
+  {
+    "courseName": "Tax Law and VAT Law",
+    "courseLink": "/course/jjua55904u/2024-2025"
+  },
+  {
+    "courseName": "Tenancy Law",
+    "courseLink": "/course/jjua55114u/2024-2025"
+  },
+  {
+    "courseName": "The Digital Age and Intellectual Property Rights",
+    "courseLink": "/course/jjub55170u/2024-2025"
+  },
+  {
+    "courseName": "The Law of Asylum",
+    "courseLink": "/course/jjua55275u/2024-2025"
+  },
+  {
+    "courseName": "The Law of Execution of Sentences",
+    "courseLink": "/course/jjua55280u/2024-2025"
+  },
+  {
+    "courseName": "The Law of Foreigners",
+    "courseLink": "/course/jjua55179u/2024-2025"
+  },
+  {
+    "courseName": "The Law of the Media",
+    "courseLink": "/course/jjua55158u/2024-2025"
+  },
+  {
+    "courseName": "The Legal System and Legal Method",
+    "courseLink": "/course/jjub57002u/2024-2025"
+  },
+  {
+    "courseName": "Theme lecture",
+    "courseLink": "/course/jjub55173u/2024-2025"
+  },
+  {
+    "courseName": "Tort and contract",
+    "courseLink": "/course/jjub57004u/2024-2025"
+  },
+  {
+    "courseName": "Tort Law in an Insurance Law Perspective",
+    "courseLink": "/course/jjub55127u/2024-2025"
+  },
+  {
+    "courseName": "Trading real estate",
+    "courseLink": "/course/jjua55162u/2024-2025"
+  },
+  {
+    "courseName": "Why punishment?",
+    "courseLink": "/course/jjub55135u/2024-2025"
+  },
+  {
+    "courseName": "Written project",
+    "courseLink": "/course/jjua55221u/2024-2025"
+  }
 ]

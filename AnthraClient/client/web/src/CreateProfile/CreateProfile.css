@@ -166,7 +166,7 @@
     margin: 0 auto;
 }
 
-.dropdown-header {
+.create-profile-dropdown-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -178,7 +178,7 @@
     font-weight: 600;
 }
 
-.dark-mode .dropdown-header {
+.dark-mode .create-profile-dropdown-header {
     background-color: #333;
     border-color: #555;
     color: #fff;
@@ -284,9 +284,8 @@
 
 .course-add-button {
     width: 50px;
-    display: inline-block;
     margin-left: 10px;
-    padding: 0.75rem;
+    padding: 0.75rem 0.75rem 0.75rem 0.55rem;
     background-color: #007bff;
     color: #fff;
     border: none;

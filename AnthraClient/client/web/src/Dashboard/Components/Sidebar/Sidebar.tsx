@@ -33,6 +33,20 @@ const Sidebar: React.FC = () => {
             >
                 Settings
             </NavLink>
+            <NavLink
+                to="/groups"
+                className={({ isActive }) => `sidebar-link ${isActive ? 'active-link' : ''}`}
+                data-title="Groups"
+            >
+                Groups
+            </NavLink>
+            <NavLink
+                to="/facilities"
+                className={({ isActive }) => `sidebar-link ${isActive ? 'active-link' : ''}`}
+                data-title="Facilities"
+            >
+                Facilities
+            </NavLink>
         </div>
     );
 };

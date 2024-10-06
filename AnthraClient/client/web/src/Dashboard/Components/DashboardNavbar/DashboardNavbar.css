@@ -1,16 +1,19 @@
 /* DashboardNavbar.css */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
 
+/* DashboardNavbar.css */
 .dashboard-navbar {
-    position: fixed;
+    position: sticky;
     top: 0;
-    left: 200px; /* Adjust if sidebar width changes */
+    left: 0;
     right: 0;
     background-color: #ffffff;
     z-index: 1000;
     font-family: 'Montserrat', sans-serif;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+/* Rest of the CSS remains the same */
 
 .dark-mode .dashboard-navbar {
     background-color: #1a1a1a;

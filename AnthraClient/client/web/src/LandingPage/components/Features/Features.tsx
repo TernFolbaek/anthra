@@ -59,7 +59,6 @@ const Features: React.FC = () => {
                         style={{ '--delay': `${index * 0.1}s` } as React.CSSProperties}
                         onClick={() => setActiveFeature(index)}
                     >
-                        {/*<img src={pngTree} alt="Tree illustration" className="feature-tree" />*/}
                         <h3 className="feature-title">{feature.title}</h3>
                         <p className="feature-description">{feature.description}</p>
                     </div>

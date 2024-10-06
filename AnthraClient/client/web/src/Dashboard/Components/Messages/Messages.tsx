@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import './Messages.css';
 import * as signalR from '@microsoft/signalr';
 import { useParams } from 'react-router-dom';
+import axios from "axios";
 
 interface Message {
     id: number;
@@ -10,6 +11,8 @@ interface Message {
     receiverId: string;
     content: string;
     timestamp: string;
+    isGroupInvitation: boolean;
+    groupId?: number;
 }
 
 const Messages: React.FC = () => {
@@ -61,6 +64,32 @@ const Messages: React.FC = () => {
         }
     }, [connection, currentUserId, userId]);
 
+    const handleAcceptInvitation = async (groupId: number) => {
+        try {
+            await axios.post(
+                'http://localhost:5001/api/Groups/RespondToInvitation',
+                { groupId, accept: true },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+            // Refresh messages or group list
+        } catch (error) {
+            console.error('Error accepting invitation:', error);
+        }
+    };
+
+    const handleDeclineInvitation = async (groupId: number) => {
+        try {
+            await axios.post(
+                'http://localhost:5001/api/Groups/RespondToInvitation',
+                { groupId, accept: false },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+            // Refresh messages
+        } catch (error) {
+            console.error('Error declining invitation:', error);
+        }
+    };
+
     const sendMessage = async () => {
         if (messageInput.trim() === '') return;
 
@@ -101,17 +130,28 @@ const Messages: React.FC = () => {
     return (
         <div className="messages-page">
             <div className="messages-container">
-                {messages.map((msg) => (
-                    <div
-                        key={msg.id}
-                        className={`message-bubble ${
-                            msg.senderId === currentUserId ? 'sent' : 'received'
-                        }`}
-                    >
-                        <p>{msg.content}</p>
-                        <span>{new Date(msg.timestamp).toLocaleTimeString()}</span>
-                    </div>
-                ))}
+                {messages.map((msg) =>
+                    msg.isGroupInvitation ? (
+                        <div className="invitation-message" key={msg.id}>
+                            <h3>{msg.content}</h3>
+                            <div className="invitation-buttons">
+                                <button className="invitation-accept-button" onClick={() => handleAcceptInvitation(msg.groupId!)}>Accept</button>
+                                <button className="invitation-decline-button" onClick={() => handleDeclineInvitation(msg.groupId!)}>Decline</button>
+                            </div>
+
+                        </div>
+                    ) : (
+                        <div
+                            key={msg.id}
+                            className={`message-bubble ${
+                                msg.senderId === currentUserId ? 'sent' : 'received'
+                            }`}
+                        >
+                            <p>{msg.content}</p>
+                            <span>{new Date(msg.timestamp).toLocaleTimeString()}</span>
+                        </div>
+                    )
+                )}
             </div>
             <div className="message-input-container">
                 <input
@@ -124,6 +164,7 @@ const Messages: React.FC = () => {
             </div>
         </div>
     );
+
 };
 
 export default Messages;

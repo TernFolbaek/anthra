@@ -1,661 +1,3034 @@
 [
-  "2nd Year Project in Public Health Science",
-  "Advanced Biotechnology and Intellectual Property Rights",
-  "Advanced Companion Animal Track",
-  "Advanced Direct Restorations 1",
-  "Advanced Endodontics 1",
-  "Advanced Epidemiology",
-  "Advanced Health Economics with STATA",
-  "Advanced Livestock and Equine Production Science",
-  "Advanced Manufacturing of Pharmaceuticals",
-  "Advanced Methods for the Analysis of Protein Disease Mechanisms - elective",
-  "Advanced Periodontology 1",
-  "Advanced Periodontology 2",
-  "Advanced Pharmaceutics",
-  "Advanced Physiological Modelling",
-  "Advanced Qualitative methods",
-  "Advanced Statistics",
-  "Advances in Medicinal Chemistry Research",
-  "Allergy and toxicology in the dentist's daily work (elective)",
-  "Anaesthesiology",
-  "Anatomy of the Head, the Neck, and the Central Nervous System",
-  "Ancient DNA and Evolution",
-  "Ancient Proteins and Evolution",
-  "Animal Breeding",
-  "Animal Nutrition",
-  "Animal Nutrition and Performance",
-  "Animals and Sustainability",
-  "Applied ethology",
-  "Applied Immunology",
-  "Applied Python Programming for Biomedical Sciences",
-  "Arctic Nature and Society",
-  "Bachelor Thesis",
-  "Bachelor's Project in Pharmacy",
-  "Bachelor's Thesis, Dental Surgery",
-  "Bachelor's Thesis, Health Informatics",
-  "Bachelor's Thesis, Medicine",
-  "Bachelor's Thesis, Medicine and Technology, 15 ECTS-credits",
-  "Bachelor's Thesis, Medicine and Technology, 17,5 ECTS-credits",
-  "Bachelor's Thesis, Medicine and Technology, 20 ECTS-credits",
-  "Bacterial Biofilms and Their Role in Chronic Infections",
-  "BA-project - credit transfer BA project at SUND",
-  "Basic Endodontology",
-  "Basic Human Biology and its Chemical Foundation, Dental Surgery",
-  "Basic Immunology",
-  "Basic Orthodontics 1",
-  "Basic Orthodontics 2",
-  "Basic Orthodontics 3",
-  "Basic Periodontology 1",
-  "Basic Periodontology 2",
-  "Basic Pharmacology",
-  "Basic Physiology",
-  "Basic research methodology",
-  "Basic Statistics and Epidemiology",
-  "Basic Surgical Principles and Methods",
-  "Basics of Personalised Medicine",
-  "Big Data Analytics and Machine Learning – Biostatistics and Epidemiology in Translational Medicine",
-  "Big Data Analytics and Machine Learning – Computational Biology in Translational Medicine",
-  "Big data, artificial intelligence and machine learning in drug safety",
-  "Biochemistry",
-  "Biochemistry and Cellular Biology",
-  "Bioinformatics",
-  "Biology (Pharmacy)",
-  "Biomechanics and Neural Control of Human Movement",
-  "Biomedicine",
-  "Biopharmaceuticals - Bioorganic Chemistry",
-  "Biopharmaceuticals – Quality Development and Documentation",
-  "Biopharmaceuticals: Design and Modification of Biomacromolecules",
-  "Biopharmaceuticals: Formulation of Peptides and Proteins",
-  "Biopharmaceuticals: Protein Production and Analysis",
-  "Biopharmaceutics: Aspects of Drug Delivery System Design",
-  "Biostatistics 1",
-  "Biostatistics 2",
-  "Biostatistics and Epidemiology",
-  "Biotherapeutics Drug Development",
-  "Breeding and Reproduction",
-  "Cardiommetabolic Health and Diseases in Global Populations",
-  "Cariology, Advanced Direct Restorations 2 and Advanced Endodontics 2",
-  "Cellular and Molecular Biology",
-  "Cellular and Molecular Immunology",
-  "Cellular neurophysiology, odontology",
-  "Cellular Neuroscience",
-  "Central nervous system",
-  "Characterization of Drug Substances and Drug Delivery Systems",
-  "Chemical Principles",
-  "Chemistry and Biochemistry for Veterinary Students",
-  "Chronic Inflammation. From Basic Research to Therapy",
-  "Climate Change and Biodiversity",
-  "Climate in and around Animal Houses",
-  "Clinical Course at a Specialized Headache Center",
-  "Clinical Course in Anaesthesia",
-  "Clinical Course in Dermatology and Venereology",
-  "Clinical Course in Elementary Medicine and Surgery",
-  "Clinical Course in Family Medicine",
-  "Clinical Course in Gynaecology and Obstetrics",
-  "Clinical Course in Internal Medicine",
-  "Clinical Course in Neurology and Neurosurgery",
-  "Clinical Course in Ophthalmology",
-  "Clinical Course in Ophthalmology in English",
-  "Clinical Course in Otorhinolaryngology",
-  "Clinical course in Paediatrics",
-  "Clinical Course in Psychiatry including Child and Adolescent Psychiatry",
-  "Clinical course in Social Medicine and Rehabilitation",
-  "Clinical Development and Documentation",
-  "Clinical Immunology",
-  "Clinical methods in diagnosis and treatment",
-  "Clinical Oral Anatomy and Hygiene",
-  "Clinical Oral Physiology 1",
-  "Clinical Oral Physiology 2",
-  "Clinical Pharmacology and Biostatistics",
-  "Clinical Pharmacy",
-  "Clinical Research",
-  "Clinical Rotation",
-  "Clinical Translational Medicine",
-  "Communication of Personalised Medicine",
-  "Community Dentistry",
-  "Community Dentistry and Forensic Dentistry",
-  "Companion Animal Behaviour and Welfare",
-  "Companion Animal Cardiology - Advanced Clinical Cardiology",
-  "Companion Animal Cardiology – Applied Clinical Cardiology",
-  "Companion Animal Cardiology – Diagnostic Cardiology",
-  "Companion Animal Dermatology – Advanced clinical dermatology",
-  "Companion Animal Dermatology – Applied Clinical Dermatology",
-  "Companion Animal Dermatology – Diagnostic Clinical Dermatology",
-  "Companion Animal Internal Medicine – Diagnosis and Treatment of Patients with Endocrine and Urological Diseases",
-  "Companion Animal Internal Medicine – Diagnosis and Treatment of Patients with Gastrointestinal and Respiratory Diseases",
-  "Companion Animal Internal Medicine and Speciality Cases - Systematic Diagnostic Decision Making",
-  "Companion Animal Internal Medicine -Diagnosis and Treatment of Patients with Haematological, Infectious and Critical Medical Diseases. Hands on: Cytol",
-  "Companion Animal Neurology - Advanced Diagnostic Clinical Neurology",
-  "Companion Animal Neurology - Applied Clinical Neurology",
-  "Companion Animal Neurology - Neurosurgery and Neuro-ophthalmology",
-  "Companion Animal Odontology– Advanced Clinical Companion Animal Odontology",
-  "Companion Animal Odontology– Applied Clinical Companion Animal Odontology",
-  "Companion Animal Odontology– Companion Animal Dental, Maxillofacial and Oral Surgery",
-  "Companion Animal Oncology - Medical Oncology I",
-  "Companion Animal Oncology - Medical Oncology II",
-  "Companion Animal Ophthalmology - Advanced Companion Animal Ophthalmology",
-  "Companion Animal Ophthalmology - Basic Companion Animal Ophthalmology",
-  "Companion Animal Ophthalmology - Companion Animal Ocular Surgery",
-  "Companion Animal Surgery - Cancer Surgery",
-  "Companion Animal Surgery – Endoscopic surgery - Arthroscopy, Laparoscopy, Thoracoscopy",
-  "Companion Animal Surgery - Good Surgical Practice (GSP)",
-  "Companion Animal Surgery – Neurosurgery and TPLO",
-  "Companion Animal Surgery – Orthopaedics I - Basic Orthopaedic Principles",
-  "Companion Animal Surgery – Orthopaedics II - Large Joint Surgery",
-  "Companion Animal Surgery – Orthopaedics III-Advanced Fracture and Joint Management",
-  "Companion Animal Surgery - Orthopedic Surgery",
-  "Companion Animal Surgery – Soft Tissue Surgery I",
-  "Companion Animal Surgery – Soft Tissue Surgery II. Advanced Soft Tissue Surgery-Cancer Surgery",
-  "Comprehensive Dentistry 1",
-  "Comprehensive Dentistry 2",
-  "Computational Immunology",
-  "Computational Neuroscience",
-  "Contemporary Social Pharmacy",
-  "Core Course 1: Disaster Risk Management - From Theory to Practice",
-  "Core Course 2: Preparedness and Response to Humanitarian Crises",
-  "Core Course 3: Disaster Recovery Planning and Development",
-  "Core Course 4: Research Methodology and Ethics",
-  "Country Exposure",
-  "Course and Exam in Clinical Decision-making",
-  "Course and Exam in Clinical Medicine",
-  "Course and Exam in Environmental and Occupational Medicine",
-  "Course and Exam in Forensic Medicine",
-  "Course and Exam in Tooth Morphology shapes and structures",
-  "Course in Advanced Cell Biology",
-  "Course in applied statistics in health research",
-  "Course in Basic and Clinical Sexology",
-  "Course in Basic Cariology",
-  "Course in Basic Pharmacology",
-  "Course in Bioinformatics and Systems Biology",
-  "Course in Biomechanics of the Locomotor System",
-  "Course in Cardiovascular and Pulmonary Systems",
-  "Course in Cell and Tissue Biology, Medicine and Technology",
-  "Course in Clinical Introduction",
-  "Course in Clinical Medicine",
-  "Course in Clinical Pharmacology and Therapy",
-  "Course in Clinical Surgery",
-  "Course in Endocrinology, the Reproductive System and Blood",
-  "Course in Ethical Dilemmas in Medicine - The Doctors Role: Literature and Film",
-  "Course in Ethics and Philosophy of Medicine",
-  "Course in Excitable Cells, Medicine",
-  "Course in Excitable Cells, Molecular Biomedicine",
-  "Course in First Aid",
-  "Course in General Pathology",
-  "Course in Gerontology",
-  "Course in Head, Neck, the Locomotor System and the Peripheral Nervous",
-  "Course in Immunology",
-  "Course in Inequality and Health",
-  "Course in Introduction",
-  "Course in Medical Cell and Tissue Biology, Medicine",
-  "Course in Medical Cell and Tissue Biology, Molecular Biomedicine",
-  "Course in Medical Genetics, Medicine",
-  "Course in Medical Genetics, Molecular Biomedicine",
-  "Course in Microbiology",
-  "Course in Modelling of Physiological Systems",
-  "Course in Molecular Biology and Genetics",
-  "Course in Organisation of Healthcare services and digital infrastructures",
-  "Course in Patient Care: Disease, Diagnosis and Treatment",
-  "Course in Quality and Patient Safety in the Context of a Digitalized Healthcare System",
-  "Course in Register Based Epidemiology",
-  "Course in Statistics, Epidemiology and Medical Sociology",
-  "Course in the Acute Patient",
-  "Course in the Kidney and the Urinary Tract",
-  "Course in the Stomach, the Intestines and the Liver",
-  "Course in the Structure and Function of the Central Nervous System",
-  "Course project in health innovation",
-  "Credit Transfer thesis 30 ECTS",
-  "Credit Transfer thesis 45 ECTS",
-  "Credit Transfer thesis 60 ECTS",
-  "CRISPR Tsunami: Design and Hands on Gene Editing",
-  "Current and Experimental Immunology",
-  "Current research at Copenhagen School of Dentistry (elective)",
-  "Cytology and Basic Histology",
-  "Data and Digitalization",
-  "Data Driven Personalised Medicine – From Epidemiology to Patient",
-  "Data in Medicine",
-  "Data Science",
-  "Dedicated Companion Animal Clinical Practice.",
-  "Demography",
-  "Design and Analysis of Experiments",
-  "Design, Synthesis and Reactivity in Medicinal and Biopharmaceutical Chemistry",
-  "Diagnostic Sciences",
-  "Diagnostic Sciences and Clinical Decision Making",
-  "Digestive system and metabolism",
-  "Digital Health",
-  "Direct Restorations 1",
-  "Direct Restorations 2",
-  "Disaster Recovery Planning and Development",
-  "Disaster Risk Management - From Theory to Practice",
-  "Discovery and Development of Medicines",
-  "Domestic Animal Anatomy and Physiology",
-  "Domestic Animal Parasitology",
-  "Drug Delivery to the Central Nervous System (CNS)",
-  "Drug development from molecule to man",
-  "Drug Discovery",
-  "Drug Discovery and Development",
-  "Drug discovery and development in Neuroscience",
-  "Drug Formulation and Delivery",
-  "Drug Metabolism and Toxicity",
-  "Drug Regulatory Affairs in Drug Development",
-  "Drug Regulatory Science",
-  "Drugs from Nature",
-  "Early Clinical Training",
-  "Early Clinical Training and Communication",
-  "Ecological Data Analysis with R (REcoStat)",
-  "Elective clinical stay",
-  "Emergency, Obstetrics, Critical Care and Clinical Anaesthesiology",
-  "Empirical data thesis seminars",
-  "Endocrinology and the Reproductive System",
-  "Entrepreneurship in Pharmaceuticals",
-  "Environment and Sustainability",
-  "Environmental Epidemiology",
-  "Epidemiology",
-  "Epidemiology 1",
-  "Epidemiology 2",
-  "Epidemiology and Diagnosis of Headache and Facial Pain",
-  "Equine Clinic Track",
-  "Ethical, Legal and Organisational Aspects of Personalised Medicine",
-  "Ethics and Health Policy Analysis",
-  "Ethics and Philosophy of Science for Odontology",
-  "Ethics in Translational Medicine I",
-  "Ethics in Translational Medicine II - Participant Related Issues",
-  "Ethics of AI",
-  "Ethics, Philosophy, Health Law and Decision-Making",
-  "Ethology",
-  "Evaluation of Pharmaceutical Substances",
-  "Evidence Based Clinical Application of Personalised Medicine",
-  "Evidence-based dentistry - handling of dentist-related problems",
-  "Exam in Basic Pharmacology, General Pathology and Immunology",
-  "Exam in Cardiovascular and Pulmonary Systems",
-  "Exam in Clinical Social Medicine and Rehabilitation",
-  "Exam in Dental Materials",
-  "Exam in Dermatology and Venereology",
-  "Exam in Dermatology and Venereology in English",
-  "Exam in Elementary Clinical Medicine and Surgery",
-  "Exam in Ethics and Philosophy of Medicine",
-  "Exam in Family Medicine",
-  "Exam in Gynaecology and Obstetrics",
-  "Exam in Head, Neck, the Locomotor System and the Peripheral Nervous",
-  "Exam in Internal Medicine, Surgery, Pathology, Anaesthesia and Patient Safety",
-  "Exam in Medical Cell and Tissue Biology and Excitable Cells, Medicine",
-  "Exam in Medical Cell and Tissue Biology and Excitable Cells, Molecular Biomedicine",
-  "Exam in Medical Genetics, Medicine",
-  "Exam in Medical Genetics, Molecular Biomedicine",
-  "Exam in Microbiology and Clinical Medicine",
-  "Exam in Molecular Biology and Genetics, Bioinformatics and Systems Biology and Advanced Cell Biology",
-  "Exam in Neurology, Neurosurgery and Psychiatry including Child and Adolescent Psychiatry",
-  "Exam in Odontological Clinic",
-  "Exam in ophthalmology",
-  "Exam in Ophthalmology in English",
-  "Exam in Oral Surgery, Oral Pathology and Medicine",
-  "Exam in Oto-Rhino-Laryngology",
-  "Exam in Otorhinolaryngology in English",
-  "Exam in Paediatrics",
-  "Exam in Statistics, Epidemiology and Medical Sociology",
-  "Exam in the Acute Patient",
-  "Exam in the Brain and Consciousness",
-  "Exam in the Renal System, Endocrinology and Blood",
-  "Exam in the Stomach, the Intestines and the Liver",
-  "Exam in the Structure and Function of the Central Nervous System",
-  "Experimental Animal Nutrition and Physiology",
-  "Experimental design in Neuroscience",
-  "Experimental Medical Microbiology: From Gene to Function in Pathogenic Bacteria",
-  "Fertility and health",
-  "Field Mycology and Identification of Fungi",
-  "Forensic Biology",
-  "From Omics to Personalised Medicine",
-  "From Real-World Data to Personalised Medicine",
-  "Fundamental Pharmacology and Bioavailability of Drugs",
-  "Gene Therapy",
-  "General Clinical Practice, Companion Animal",
-  "General Clinical Practice, Large Animals",
-  "Geo Information in Disaster Situations",
-  "Geoengineering",
-  "Global Health",
-  "Global Health and Diseases; Introduction and Major Challenges",
-  "Global Partners, Policies and Health Care Systems",
-  "Global Pharmaceutical Policy – Rationales and Stakeholders",
-  "Head, Neck, Locomotor System and Embriology",
-  "Health and Human Rights",
-  "Health and society in a multidisciplinary perspective",
-  "Health and Sociological Theory",
-  "Health and Welfare",
-  "Health Care Systems",
-  "Health economics",
-  "Health Economics",
-  "Health in Emergencies and Refugee Health",
-  "Health Informatics, Odontology",
-  "Health research master thesis planning",
-  "Health Research Methodology",
-  "HealthZup",
-  "HealthZup, Medicine",
-  "Heart, Respiration, Circulation, Kidney and Energy",
-  "Herd Health and Public Health",
-  "Herd Health Consultancy and Veterinary Public Health",
-  "Herd Health Management",
-  "Herpetology",
-  "Host-Microbiota Multi-Omics",
-  "Human Anatomy and Systems Physiology",
-  "Human Biology",
-  "Human Biology, Health Informatics",
-  "Human Biology, Medicine and Technology",
-  "Human Diseases for Non-Clinicians",
-  "Human Diseases for Non-Clinicians, Health Informatics",
-  "Human Diseases for Non-Clinicians, Medicine and Technology",
-  "Human Parasitology",
-  "Human Pathophysiology",
-  "Human Physiology",
-  "Immunology and Microbiology",
-  "Immunology, General Pathology and Pathophysiology",
-  "Immunology, microbiology and pathology",
-  "Implementation and evaluation",
-  "Implementation of research-based knowledge of neurorehabilitation - Organisation and change",
-  "Independent Elective Study",
-  "Indirect Restorations",
-  "Individual Study Element",
-  "Individual Study Programme",
-  "Individualised bachelor's project in pharmaceutical sciences",
-  "Individualised study unit",
-  "Infection Microbiology",
-  "Integrated Course in cells, tissue, organs, nutrition and metabolism",
-  "Integrated Course in Physical Activity",
-  "Integrated Course in the Brain and Consciousness",
-  "Integrated Course in the Heart and Lungs",
-  "Integrated Course in the Life Cycle",
-  "Intellectual Property Rights and Innovation in Pharmaceutical Sciences",
-  "Interdisciplinary Course and Exam in Tooth Development and Microscopic Structure",
-  "Internal Medicine and Pathological Anatomy",
-  "International Nature Conservation",
-  "International Study Exposure – Global Public Health",
-  "International Study Exposure – Health Provision in Tropical Africa",
-  "Internship",
-  "Internship (BSc)",
-  "Internship (MSc)",
-  "Internship for Human Biology",
-  "Intervention and evaluation",
-  "Introduction to Clinical Practise in Hospitals",
-  "Introduction to epidemiology and biostatistics",
-  "Introduction to recombinant DNA and Next Generation Sequencing techniques and applications",
-  "Introduction to the Master Thesis: Writing Process, Theories of Science, and Ethics",
-  "Introduction to the Patient and ethics",
-  "Introduction to the Study",
-  "Introduction to Written Project",
-  "Introductory Course",
-  "Investigations and Management of Headache and Facial Pain",
-  "In-vitro Techniques in Biochemistry and Pharmacology",
-  "Labelling as driver for Regulatory Strategy",
-  "Laboratory Animal Neuroscience and Neurosurgery",
-  "Laboratory Animal Science Function ABD",
-  "Laboratory Animal Science Function ABD for veterinary students",
-  "Laboratory Animal Science, Human Biology",
-  "Laboratory Animal Science, Immunology and Inflammation",
-  "Large Animal Basic Clinical Theory",
-  "Livestock and Equine Production Science",
-  "Local Analgesi",
-  "Macroecology and Community Ecology",
-  "Mammalian Genomics",
-  "Managing change in healthcare organisations",
-  "Marine Mammal Biology and Research",
-  "Market Access for Pharmaceutical Products – trends and challenges",
-  "Master thesis Animal Science 45 ECTS",
-  "Master's project",
-  "Master's Project - Neurorehabilitation",
-  "Master's Project - Personalised Medicine",
-  "Master's thesis",
-  "Master's Thesis",
-  "Master's Thesis (10 ECTS), Medicine",
-  "Master's Thesis (22,5 ECTS), Medicine",
-  "Master's Thesis in Neuroscience",
-  "Master's Thesis, Dental Surgery",
-  "Master's Thesis, Disaster Management",
-  "Master's Thesis, Health Informatics",
-  "Master's Thesis, Health Science",
-  "Master's Thesis, Human Biology",
-  "Master's Thesis, Medicine and Technology, 30 ECTS-credits",
-  "Master's Thesis, Medicine and Technology, 32,5 ECTS-credits",
-  "Master's Thesis, Medicine and Technology, 35 ECTS-credits",
-  "Master's Thesis, Public Health",
-  "Master's Thesis, Quantitative Biology and Disease Modelling, 30 ECTS-credits",
-  "Master's Thesis, Quantitative Biology and Disease Modelling, 32,5 ECTS-credits",
-  "Master's Thesis, Quantitative Biology and Disease Modelling, 35 ECTS-credits",
-  "MDMa Orientation Course",
-  "Mechanisms and Comorbidities of Headache and Facial Pain",
-  "Medical and Health Psychology",
-  "Medical cell and tissue biology",
-  "Medical Genetics, Dental Surgery",
-  "Medical Genetics, Medicine",
-  "Medical profession, healthcare system and Heart-lung resuscitation",
-  "Medical Science and Technology Studies",
-  "Medical Science and Technology Studies - Analysis and Writing",
-  "Medical specialty Focused Course an Exam in Anesthesiology: Anesthesia for the geriatric patient",
-  "Medical Specialty Focused Course and Exam in Child and Adolescent Psychiatry",
-  "Medical Specialty Focused Course and Exam in Clinical Oncology",
-  "Medical Specialty Focused Course and Exam in Clinical Physiology and Nuclear Medicine",
-  "Medical Specialty Focused Course and Exam in Gastroenterology and Hepatology: Inflammatory Intestinal Disease",
-  "Medical Specialty Focused Course and Exam in Internal Medicine: Cardiology",
-  "Medical Specialty Focused Course and Exam in Internal Medicine: Endocrinology",
-  "Medical Specialty Focused Course and Exam in Internal Medicine: Gastroenterology and Hepatology",
-  "Medical Specialty Focused Course and Exam in Internal Medicine: Geriatrics",
-  "Medical Specialty Focused Course and Exam in Internal Medicine: Infectious Diseases",
-  "Medical Specialty Focused Course and Exam in Internal Medicine: Respiratory Medicine",
-  "Medical Specialty Focused Course and Exam in Internal Medicine: Rheumatology",
-  "Medical Specialty Focused Course and Exam in Neurology: Apoplexy",
-  "Medical Specialty Focused Course and Exam in Ophthalmology: Medical Retina",
-  "Medical Specialty Focused Course and Exam in Orthopaedic Surgery",
-  "Medical Specialty Focused Course and Exam in Otorhinolaryngology",
-  "Medical Specialty Focused Course and Exam in Paediatric Obesity",
-  "Medical Specialty Focused Course and Exam in Pathology: Breast Cancer",
-  "Medical Specialty Focused Course and Exam in Psychiatry: Psychopathology and Psychotherapy",
-  "Medical Specialty Focused Course and Exam in Psychiatry: Sexology",
-  "Medical Specialty Focused Course and Exam in Radiology: Ultrasound Examination",
-  "Medical Specialty Focused Course and Exam in Reconstructive Plastic Surgery",
-  "Medical Specialty Focused Course and Exam in Thyroid Diseases",
-  "Medical Specialty Focused Course and Exam in Urology: Herlev",
-  "Medical Specialty Focused Course and Exam in Urology: Rigshospitalet",
-  "Medical Specialty Focused Course and in Ophthalmology",
-  "Medical Technological Innovation and Society",
-  "Medical Use of Radiation",
-  "Medicinal and Biostructural Chemistry",
-  "Medicinal Chemistry & Innovation",
-  "Medicine, Surgery and Reproduction - Companion Animals",
-  "Medicine, Surgery, Reproduction and Obstetrics- Large Animal",
-  "Methodology, Theory, Research and Neurorehabilitation",
-  "Methods and Procedures in Clinical Drug Development",
-  "Methods in Behavioral Sciences",
-  "Microbial Interactions",
-  "Microbiel Food Safety",
-  "Migration and Diversity in Health Care",
-  "Migration, diversity and health",
-  "Mixed methods in Public Health",
-  "Molecular Pathology",
-  "Molecular Pharmacology",
-  "Muscle pain, stress and bruxism (elective)",
-  "Nerve relations at amotio dentis, elective",
-  "Neurobiological basis for neurorehabilitation",
-  "Neuronal Signaling",
-  "Neuropharmacology",
-  "Neuroplasticity. The brains ability to change – from theory to practice",
-  "Neurorehabilitation: Off-site clinical course",
-  "Neuroscience I - Cells and circuits",
-  "Neuroscience II: Higher brain function",
-  "Non-clinical Safety and Toxicology",
-  "Nutrition and Management of Companion Animals",
-  "Nutritional Physiology",
-  "Occupational Epidemiology",
-  "One Health",
-  "Optional Clinical Course in Dermatology and Venereology in English",
-  "Optional Clinical Course in Otorhinolaryngology in English",
-  "Oral Microbiology",
-  "Oral Pathology and Medicine 1",
-  "Oral Pathology and Medicine 2",
-  "Oral Pathology and Medicine 3",
-  "Oral Radiology 1",
-  "Oral Radiology 2",
-  "Oral Rehabilitation 1",
-  "Oral Rehabilitation 2",
-  "Oral Rehabilitation 3",
-  "Oral Structure and Function",
-  "Oral Surgery 1",
-  "Oral Surgery 2",
-  "Oral Surgery 3",
-  "Organ Pharmacology",
-  "Organic Chemistry I - Physicochemical Proporties",
-  "Organic Chemistry II - Synthesis of Drug Compounds",
-  "Organisation Analysis and Philosophy of Science",
-  "Organisation, Management and Economics in Health Services",
-  "Organization of Headache Care and Clinical Practice",
-  "Organizational Analysis",
-  "Origins",
-  "Ornithology",
-  "OSCE (Objective Structured Clinical Exam)",
-  "OSCE in Internal Medicine, Surgery, Anaesthesiology and Diagnostic Sciences",
-  "Paedodontics and Clinical Genetics 1",
-  "Paedodontics and Clinical Genetics 2",
-  "Parasitic Zoonoses and One Health control approaches",
-  "Pathology and Pharmacology",
-  "Pathology, diagnosis and treatment",
-  "Pathophysiology",
-  "Patient Safety and Learning Culture: Analysing the Context",
-  "Patient safety and Learning Culture: Create and Anchor Improvements",
-  "Patient Triage",
-  "Pharma I - Drug Discovery and Preclinical Development",
-  "Pharma II - Drug Development and Regulation",
-  "Pharma III – Pharmaceutical and Biotech Regulation and Innovation",
-  "Pharmaceutical Analytical Chemistry",
-  "Pharmaceutical Modelling",
-  "Pharmaceutical Physical Chemistry I - Thermodynamics and Equilibria",
-  "Pharmaceutical Physical Chemistry II - Kinetics and Transport Phenomena",
-  "Pharmaceutical Policy",
-  "Pharmaceutics and Drug Development",
-  "Pharmaceutics I - Liquid and Semi-Solid Dosage Forms",
-  "Pharmaceutics II - Solid Dosage Forms",
-  "Pharmacoepidemiology",
-  "Pharmacoepidemiology and Pharmacovigilance",
-  "Pharmacoepidemiology and post-authorisation safety studies",
-  "Pharmacological and Clinical Aspects of Drug Safety",
-  "Pharmacology",
-  "Pharmacology and Innovation",
-  "Pharmacology and Toxicology",
-  "Pharmacology: From Physiology to Therapy",
-  "Pharmacometrics",
-  "Pharmacotherapy",
-  "Pharmacotherapy Practice",
-  "Pharmacovigilance: Signal detection and risk management",
-  "Pharmacy Internship (30 ECTS)",
-  "Philosophy of Science and Social Pharmacy",
-  "Philosophy of Science, Technology and Ethics",
-  "Physical activity in prevention, treatment and rehabilitation of diseases",
-  "Planetary Health Dynamics",
-  "POC for credit transfer students from SCIENCE",
-  "Practical Herd Health Management and Meat Inspection",
-  "Preclinical course in dental materials and restorative therapy",
-  "Preclinical course in Indirect Restorations",
-  "Preparatory Course in Bachelor's Thesis, Medicine",
-  "Preparedness and Response to Humanitarian Crises",
-  "Prevention and Health Promotion",
-  "Prevention and social inequality in health",
-  "Principles and Practice of Bioanalysis",
-  "Principles of Pharmacology",
-  "Process Development and Production of Active Pharmaceutical Ingredients (API)",
-  "Project in Practice in Animal Science",
-  "Project Management in Healthcare",
-  "Projects outside the course scope Animal and Veterinary Science 2,5 ECTS",
-  "Projects outside the course scope Animal and Veterinary Science 5 ECTS",
-  "Projects outside the course scope Animal Science 15 ECTS",
-  "Projects outside the course scope Animal Science 7,5 ECTS",
-  "Protection of personal and health data",
-  "Proteins from the Past: Palaeoproteomic Methods",
-  "Psychology and Behavioral Sciences",
-  "Psychology and Health Communication",
-  "Psychology and healthpsychology",
-  "Psychology in health and disease",
-  "Public Administration and Administrative Law",
-  "Public health project planning",
-  "QA, QC, GXP for Pharmaceutical Production",
-  "Qualitative Methods",
-  "Qualitative methods: Health Service, Culture, and Society",
-  "Quality – Drug Substance and Drug Product",
-  "Quantitative and qualitative research methods",
-  "Quantitative Genomics and Breeding",
-  "Quantitative Methods in Herd Management",
-  "Quaternary Geology (kvartær)",
-  "Questionnaire Construction",
-  "Radiopharmaceutical Chemistry",
-  "Regenerative periodontal surgery (elective)",
-  "Regulatory Science",
-  "Reproductive Technologies and Family Ties",
-  "Research Project in Pharmaceutics and Drug Delivery",
-  "Safety of Medicines - from Non-clinical Development to Pharmacovigilance",
-  "Science Communication and Media Skills",
-  "Shelter and Settlements in Disasters",
-  "Skin Immunology",
-  "Small Animal Basic Clinical Theory",
-  "Social exclusion: Sociological analyses of health-related problems",
-  "Social Medicine, disease prevention, and rehabilitation",
-  "Social Pharmacy – Method and Dissemination",
-  "Sociology of health and illness; analytical perspectives",
-  "Special Pathology and Poultry Diseases - Practicals",
-  "Special Pathology and Poultry Diseases - Theory",
-  "Stable Isotopes",
-  "Stardust to Planets: Building a Habitable Solar System",
-  "Statistical data analysis using the computer program SAS",
-  "Statistics",
-  "Statistics and Data Analysis for Human Biologists",
-  "Statistics for Health Sciences",
-  "Statistics, Dental Surgery",
-  "Stay at Foreign University Hospital",
-  "Stem Cells in Mammalian Development Differentiation and Disease",
-  "Strategies for Health Promotion and Disease Prevention",
-  "Structure and function of the organs - How the body works in health and disease",
-  "Structure-based Drug Research",
-  "Summer Course in Global Health Challenges",
-  "Summer Course in International Health",
-  "Summer School - Large Animals",
-  "Summer School Companion Animals",
-  "Survival and Event History Analysis",
-  "Sustainability and Climate Change in Global Health and Health Care Systems - From Global Systems to Community Action",
-  "Systems Pharmacology - Signaling Pathways",
-  "The ABC of grant application writing and how to pitch your research",
-  "The Anthropology of Global Health",
-  "The Economics of Personalised Medicine",
-  "The EU Regulatory Environment – Procedures and Applications",
-  "The Immune Defence and Cancer",
-  "The Immune Response to Infection",
-  "The US Regulatory Environment",
-  "Theories and Research Methods in Social and Clinical Pharmacy",
-  "Theory of Science",
-  "Theory of Science and Ethics for Molecular Biomedicines",
-  "Thesis",
-  "Thesis in Immunology and Inflammation",
-  "Toxicology and Drug Safety",
-  "Transdisciplinary project",
-  "Translational Discovery Omics I - Genomics, Epigenomics, and Transcriptomics",
-  "Translational Discovery Omics II - Proteomics",
-  "Translational Discovery Omics III - Metabolomics, Model Systems, and Precision Medicine",
-  "Translational Pharmacology - From Concept to Medical Drug and from Concept to Biotech Company",
-  "Translational Research Management and Leadership",
-  "Translational Tools I",
-  "Translational Tools II – New Methods",
-  "Transparency and Trustworthiness in Drug Development",
-  "Value Based Health Care - the future for the health care sector?",
-  "Veterinary Anatomy and Physiology - exam",
-  "Veterinary Anatomy and Physiology part 1",
-  "Veterinary Anatomy and Physiology part 2",
-  "Veterinary BSc project",
-  "Veterinary Ethics and Philosophy of Science",
-  "Veterinary Genetics",
-  "Veterinary Imaging",
-  "Veterinary Jurisprudence and Animal Welfare Assessment",
-  "Veterinary Jurisprudence and Laboratory Animal Science",
-  "Veterinary Methodology and Paraclinical Skills",
-  "Veterinary MSc thesis",
-  "Veterinary Paraclinics",
-  "Veterinary Pharmacology and Toxicology",
-  "Veterinary Project in Practice - externship (7.5 credits)",
-  "Veterinary Project in Practice - externship (15 credits)",
-  "Vulnerability and Risk Assessment Methods",
-  "Water Supply and Sanitation in Emergencies",
-  "Wet Lab Omics",
-  "Written Project",
-  "Zooarchaeology: Analyses and Interpretation of Animal Bones"
+  {
+    "courseName": "2nd Year Project in Public Health Science",
+    "courseLink": "/course/sfob20013u/2024-2025"
+  },
+  {
+    "courseName": "Advanced Biotechnology and Intellectual Property Rights",
+    "courseLink": "/course/sbik10194u/2024-2025"
+  },
+  {
+    "courseName": "Advanced Companion Animal Track",
+    "courseLink": "/course/svek13013u/2024-2025"
+  },
+  {
+    "courseName": "Advanced Direct Restorations 1",
+    "courseLink": "/course/sodk19012u/2024-2025"
+  },
+  {
+    "courseName": "Advanced Endodontics 1",
+    "courseLink": "/course/sodk19013u/2024-2025"
+  },
+  {
+    "courseName": "Advanced Epidemiology",
+    "courseLink": "/course/sfok23002u/2024-2025"
+  },
+  {
+    "courseName": "Advanced Health Economics with STATA",
+    "courseLink": "/course/sfok18006u/2024-2025"
+  },
+  {
+    "courseName": "Advanced Livestock and Equine Production Science",
+    "courseLink": "/course/sask16004u/2024-2025"
+  },
+  {
+    "courseName": "Advanced Manufacturing of Pharmaceuticals",
+    "courseLink": "/course/sfak20002u/2024-2025"
+  },
+  {
+    "courseName": "Advanced Methods for the Analysis of Protein Disease Mechanisms - elective",
+    "courseLink": "/course/shua13021u/2024-2025"
+  },
+  {
+    "courseName": "Advanced Periodontology 1",
+    "courseLink": "/course/sodk19016u/2024-2025"
+  },
+  {
+    "courseName": "Advanced Periodontology 2",
+    "courseLink": "/course/sodk19022u/2024-2025"
+  },
+  {
+    "courseName": "Advanced Pharmaceutics",
+    "courseLink": "/course/sfak20001u/2024-2025"
+  },
+  {
+    "courseName": "Advanced Physiological Modelling",
+    "courseLink": "/course/smtk20001u/2024-2025"
+  },
+  {
+    "courseName": "Advanced Qualitative methods",
+    "courseLink": "/course/sfok23003u/2024-2025"
+  },
+  {
+    "courseName": "Advanced Statistics",
+    "courseLink": "/course/sfok23001u/2024-2025"
+  },
+  {
+    "courseName": "Advances in Medicinal Chemistry Research",
+    "courseLink": "/course/slkkil110u/2024-2025"
+  },
+  {
+    "courseName": "Allergy and toxicology in the dentist's daily work (elective)",
+    "courseLink": "/course/sodb16073u/2024-2025"
+  },
+  {
+    "courseName": "Anaesthesiology",
+    "courseLink": "/course/sodk19014u/2024-2025"
+  },
+  {
+    "courseName": "Anatomy of the Head, the Neck, and the Central Nervous System",
+    "courseLink": "/course/sodb16032u/2024-2025"
+  },
+  {
+    "courseName": "Anatomy of the Head, the Neck, and the Central Nervous System",
+    "courseLink": "/course/sodb24009u/2024-2025"
+  },
+  {
+    "courseName": "Ancient DNA and Evolution",
+    "courseLink": "/course/sgbb20001u/2024-2025"
+  },
+  {
+    "courseName": "Ancient Proteins and Evolution",
+    "courseLink": "/course/sgbk20001u/2024-2025"
+  },
+  {
+    "courseName": "Animal Breeding",
+    "courseLink": "/course/sveb13015u/2024-2025"
+  },
+  {
+    "courseName": "Animal Nutrition",
+    "courseLink": "/course/sveb13005u/2024-2025"
+  },
+  {
+    "courseName": "Animal Nutrition and Performance",
+    "courseLink": "/course/sasa10143u/2024-2025"
+  },
+  {
+    "courseName": "Animals and Sustainability",
+    "courseLink": "/course/sasa10153u/2024-2025"
+  },
+  {
+    "courseName": "Applied ethology",
+    "courseLink": "/course/sveb13027u/2024-2025"
+  },
+  {
+    "courseName": "Applied Immunology",
+    "courseLink": "/course/siik20001u/2024-2025"
+  },
+  {
+    "courseName": "Applied Python Programming for Biomedical Sciences",
+    "courseLink": "/course/sbia21001u/2024-2025"
+  },
+  {
+    "courseName": "Arctic Nature and Society",
+    "courseLink": "/course/sgbk20008u/2024-2025"
+  },
+  {
+    "courseName": "Bachelor Thesis",
+    "courseLink": "/course/sfob20022u/2024-2025"
+  },
+  {
+    "courseName": "Bachelor's Project in Pharmacy",
+    "courseLink": "/course/sfabf243au/2024-2025"
+  },
+  {
+    "courseName": "Bachelor's Thesis, Dental Surgery",
+    "courseLink": "/course/sodb24034u/2024-2025"
+  },
+  {
+    "courseName": "Bachelor's Thesis, Dental Surgery",
+    "courseLink": "/course/sodb16060u/2024-2025"
+  },
+  {
+    "courseName": "Bachelor's Thesis, Health Informatics",
+    "courseLink": "/course/sita08010u/2024-2025"
+  },
+  {
+    "courseName": "Bachelor's Thesis, Medicine",
+    "courseLink": "/course/smeb12033e/2024-2025"
+  },
+  {
+    "courseName": "Bachelor's Thesis, Medicine",
+    "courseLink": "/course/smeb24019u/2024-2025"
+  },
+  {
+    "courseName": "Bachelor's Thesis, Medicine and Technology, 15 ECTS-credits",
+    "courseLink": "/course/scia10010u/2024-2025"
+  },
+  {
+    "courseName": "Bachelor's Thesis, Medicine and Technology, 17,5 ECTS-credits",
+    "courseLink": "/course/smtb20009e/2024-2025"
+  },
+  {
+    "courseName": "Bachelor's Thesis, Medicine and Technology, 20 ECTS-credits",
+    "courseLink": "/course/scia10009u/2024-2025"
+  },
+  {
+    "courseName": "Bacterial Biofilms and Their Role in Chronic Infections",
+    "courseLink": "/course/shua13013u/2024-2025"
+  },
+  {
+    "courseName": "BA-project - credit transfer BA project at SUND",
+    "courseLink": "/course/sgbb20008e/2024-2025"
+  },
+  {
+    "courseName": "Basic Endodontology",
+    "courseLink": "/course/sodb24033u/2024-2025"
+  },
+  {
+    "courseName": "Basic Endodontology",
+    "courseLink": "/course/sodb16064u/2024-2025"
+  },
+  {
+    "courseName": "Basic Human Biology and its Chemical Foundation, Dental Surgery",
+    "courseLink": "/course/sodb24002u/2024-2025"
+  },
+  {
+    "courseName": "Basic Immunology",
+    "courseLink": "/course/siik24001u/2024-2025"
+  },
+  {
+    "courseName": "Basic Immunology",
+    "courseLink": "/course/sbik19001u/2024-2025"
+  },
+  {
+    "courseName": "Basic Orthodontics 1",
+    "courseLink": "/course/sodk19017u/2024-2025"
+  },
+  {
+    "courseName": "Basic Orthodontics 2",
+    "courseLink": "/course/sodk19025u/2024-2025"
+  },
+  {
+    "courseName": "Basic Orthodontics 3",
+    "courseLink": "/course/sodk19032u/2024-2025"
+  },
+  {
+    "courseName": "Basic Periodontology 1",
+    "courseLink": "/course/sodb16051u/2024-2025"
+  },
+  {
+    "courseName": "Basic Periodontology 1",
+    "courseLink": "/course/sodb24027u/2024-2025"
+  },
+  {
+    "courseName": "Basic Periodontology 2",
+    "courseLink": "/course/sodb16065u/2024-2025"
+  },
+  {
+    "courseName": "Basic Periodontology 2",
+    "courseLink": "/course/sodb24037u/2024-2025"
+  },
+  {
+    "courseName": "Basic Pharmacology",
+    "courseLink": "/course/sfab20013u/2024-2025"
+  },
+  {
+    "courseName": "Basic Physiology",
+    "courseLink": "/course/sasb17002u/2024-2025"
+  },
+  {
+    "courseName": "Basic research methodology",
+    "courseLink": "/course/smeb24013u/2024-2025"
+  },
+  {
+    "courseName": "Basic Statistics and Epidemiology",
+    "courseLink": "/course/sveb13003u/2024-2025"
+  },
+  {
+    "courseName": "Basic Surgical Principles and Methods",
+    "courseLink": "/course/sodk19015u/2024-2025"
+  },
+  {
+    "courseName": "Basics of Personalised Medicine",
+    "courseLink": "/course/spmm21001u/2024-2025"
+  },
+  {
+    "courseName": "Big Data Analytics and Machine Learning – Biostatistics and Epidemiology in Translational Medicine",
+    "courseLink": "/course/sbri19012u/2024-2025"
+  },
+  {
+    "courseName": "Big Data Analytics and Machine Learning – Computational Biology in Translational Medicine",
+    "courseLink": "/course/sbri19004u/2024-2025"
+  },
+  {
+    "courseName": "Big data, artificial intelligence and machine learning in drug safety",
+    "courseLink": "/course/smim22002u/2024-2025"
+  },
+  {
+    "courseName": "Biochemistry",
+    "courseLink": "/course/sodb16042u/2024-2025"
+  },
+  {
+    "courseName": "Biochemistry",
+    "courseLink": "/course/sodb24013u/2024-2025"
+  },
+  {
+    "courseName": "Biochemistry and Cellular Biology",
+    "courseLink": "/course/smba21002u/2024-2025"
+  },
+  {
+    "courseName": "Bioinformatics",
+    "courseLink": "/course/spmm21006u/2024-2025"
+  },
+  {
+    "courseName": "Biology (Pharmacy)",
+    "courseLink": "/course/sfab20027u/2024-2025"
+  },
+  {
+    "courseName": "Biomechanics and Neural Control of Human Movement",
+    "courseLink": "/course/smtk21001u/2024-2025"
+  },
+  {
+    "courseName": "Biomedicine",
+    "courseLink": "/course/svek13010u/2024-2025"
+  },
+  {
+    "courseName": "Biopharmaceuticals - Bioorganic Chemistry",
+    "courseLink": "/course/sfab20015u/2024-2025"
+  },
+  {
+    "courseName": "Biopharmaceuticals – Quality Development and Documentation",
+    "courseLink": "/course/smrm18009u/2024-2025"
+  },
+  {
+    "courseName": "Biopharmaceuticals: Design and Modification of Biomacromolecules",
+    "courseLink": "/course/smps20001u/2024-2025"
+  },
+  {
+    "courseName": "Biopharmaceuticals: Formulation of Peptides and Proteins",
+    "courseLink": "/course/sfak20004u/2024-2025"
+  },
+  {
+    "courseName": "Biopharmaceuticals: Protein Production and Analysis",
+    "courseLink": "/course/sfak20005u/2024-2025"
+  },
+  {
+    "courseName": "Biopharmaceuticals: Protein Production and Analysis",
+    "courseLink": "/course/sfab21005u/2024-2025"
+  },
+  {
+    "courseName": "Biopharmaceutics: Aspects of Drug Delivery System Design",
+    "courseLink": "/course/sfak20003u/2024-2025"
+  },
+  {
+    "courseName": "Biostatistics 1",
+    "courseLink": "/course/ssua15011u/2024-2025"
+  },
+  {
+    "courseName": "Biostatistics 2",
+    "courseLink": "/course/ssua15031u/2024-2025"
+  },
+  {
+    "courseName": "Biostatistics and Epidemiology",
+    "courseLink": "/course/spum18005u/2024-2025"
+  },
+  {
+    "courseName": "Biostatistics and Epidemiology",
+    "courseLink": "/course/ssua15059u/2024-2025"
+  },
+  {
+    "courseName": "Biotherapeutics Drug Development",
+    "courseLink": "/course/smim23004u/2024-2025"
+  },
+  {
+    "courseName": "Breeding and Reproduction",
+    "courseLink": "/course/sasa10142u/2024-2025"
+  },
+  {
+    "courseName": "Cardiommetabolic Health and Diseases in Global Populations",
+    "courseLink": "/course/sglk23001u/2024-2025"
+  },
+  {
+    "courseName": "Cariology, Advanced Direct Restorations 2 and Advanced Endodontics 2",
+    "courseLink": "/course/sodk19021u/2024-2025"
+  },
+  {
+    "courseName": "Cellular and Molecular Biology",
+    "courseLink": "/course/sfab20004u/2024-2025"
+  },
+  {
+    "courseName": "Cellular and Molecular Immunology",
+    "courseLink": "/course/smoa09008u/2024-2025"
+  },
+  {
+    "courseName": "Cellular neurophysiology, odontology",
+    "courseLink": "/course/sodb24008u/2024-2025"
+  },
+  {
+    "courseName": "Cellular Neuroscience",
+    "courseLink": "/course/smob14001u/2024-2025"
+  },
+  {
+    "courseName": "Central nervous system",
+    "courseLink": "/course/smeb24008u/2024-2025"
+  },
+  {
+    "courseName": "Characterization of Drug Substances and Drug Delivery Systems",
+    "courseLink": "/course/sfab20037u/2024-2025"
+  },
+  {
+    "courseName": "Characterization of Drug Substances and Drug Delivery Systems",
+    "courseLink": "/course/sfak20037u/2024-2025"
+  },
+  {
+    "courseName": "Chemical Principles",
+    "courseLink": "/course/sfab20002u/2024-2025"
+  },
+  {
+    "courseName": "Chemistry and Biochemistry for Veterinary Students",
+    "courseLink": "/course/sveb22001u/2024-2025"
+  },
+  {
+    "courseName": "Chronic Inflammation. From Basic Research to Therapy",
+    "courseLink": "/course/smok14003u/2024-2025"
+  },
+  {
+    "courseName": "Climate Change and Biodiversity",
+    "courseLink": "/course/sgbk20007u/2024-2025"
+  },
+  {
+    "courseName": "Climate in and around Animal Houses",
+    "courseLink": "/course/stef10155u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Course at a Specialized Headache Center",
+    "courseLink": "/course/shdm16005u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Course in Anaesthesia",
+    "courseLink": "/course/smea15024u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Course in Dermatology and Venereology",
+    "courseLink": "/course/smea15033u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Course in Elementary Medicine and Surgery",
+    "courseLink": "/course/smea15011u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Course in Family Medicine",
+    "courseLink": "/course/smea15062u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Course in Gynaecology and Obstetrics",
+    "courseLink": "/course/smea15064u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Course in Internal Medicine",
+    "courseLink": "/course/smea15022u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Course in Neurology and Neurosurgery",
+    "courseLink": "/course/smea15042u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Course in Ophthalmology",
+    "courseLink": "/course/smea15034u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Course in Ophthalmology in English",
+    "courseLink": "/course/smea15037u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Course in Otorhinolaryngology",
+    "courseLink": "/course/smea15035u/2024-2025"
+  },
+  {
+    "courseName": "Clinical course in Paediatrics",
+    "courseLink": "/course/smea15063u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Course in Psychiatry including Child and Adolescent Psychiatry",
+    "courseLink": "/course/smea15041u/2024-2025"
+  },
+  {
+    "courseName": "Clinical course in Social Medicine and Rehabilitation",
+    "courseLink": "/course/smea15043u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Development and Documentation",
+    "courseLink": "/course/smrm18005u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Immunology",
+    "courseLink": "/course/siik24003u/2024-2025"
+  },
+  {
+    "courseName": "Clinical methods in diagnosis and treatment",
+    "courseLink": "/course/smtb20005u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Oral Anatomy and Hygiene",
+    "courseLink": "/course/sodb24011u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Oral Anatomy and Hygiene",
+    "courseLink": "/course/sodb16034u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Oral Physiology 1",
+    "courseLink": "/course/sodb24024u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Oral Physiology 1",
+    "courseLink": "/course/sodb16053u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Oral Physiology 2",
+    "courseLink": "/course/sodb24031u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Oral Physiology 2",
+    "courseLink": "/course/sodb16066u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Pharmacology and Biostatistics",
+    "courseLink": "/course/smimb1151u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Pharmacy",
+    "courseLink": "/course/sfak22001u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Research",
+    "courseLink": "/course/ssua15022u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Rotation",
+    "courseLink": "/course/shua13051u/2024-2025"
+  },
+  {
+    "courseName": "Clinical Translational Medicine",
+    "courseLink": "/course/sbri19015u/2024-2025"
+  },
+  {
+    "courseName": "Communication of Personalised Medicine",
+    "courseLink": "/course/spmm21007u/2024-2025"
+  },
+  {
+    "courseName": "Community Dentistry",
+    "courseLink": "/course/sodk19037u/2024-2025"
+  },
+  {
+    "courseName": "Community Dentistry and Forensic Dentistry",
+    "courseLink": "/course/sodk19044u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Behaviour and Welfare",
+    "courseLink": "/course/sask22002u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Cardiology - Advanced Clinical Cardiology",
+    "courseLink": "/course/scam13012u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Cardiology – Applied Clinical Cardiology",
+    "courseLink": "/course/scam13024u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Cardiology – Diagnostic Cardiology",
+    "courseLink": "/course/scam13011u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Dermatology – Advanced clinical dermatology",
+    "courseLink": "/course/scam13034u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Dermatology – Applied Clinical Dermatology",
+    "courseLink": "/course/scam13032u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Dermatology – Diagnostic Clinical Dermatology",
+    "courseLink": "/course/scam13033u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Internal Medicine – Diagnosis and Treatment of Patients with Endocrine and Urological Diseases",
+    "courseLink": "/course/scam13006u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Internal Medicine – Diagnosis and Treatment of Patients with Gastrointestinal and Respiratory Diseases",
+    "courseLink": "/course/scam13005u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Internal Medicine and Speciality Cases - Systematic Diagnostic Decision Making",
+    "courseLink": "/course/scam13002u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Internal Medicine -Diagnosis and Treatment of Patients with Haematological, Infectious and Critical Medical Diseases. Hands on: Cytol",
+    "courseLink": "/course/scam13007u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Neurology - Advanced Diagnostic Clinical Neurology",
+    "courseLink": "/course/scam13027u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Neurology - Applied Clinical Neurology",
+    "courseLink": "/course/scam13026u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Neurology - Neurosurgery and Neuro-ophthalmology",
+    "courseLink": "/course/scam13015u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Odontology– Advanced Clinical Companion Animal Odontology",
+    "courseLink": "/course/scam13039u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Odontology– Applied Clinical Companion Animal Odontology",
+    "courseLink": "/course/scam13038u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Odontology– Companion Animal Dental, Maxillofacial and Oral Surgery",
+    "courseLink": "/course/scam13040u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Oncology - Medical Oncology I",
+    "courseLink": "/course/scam13019u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Oncology - Medical Oncology II",
+    "courseLink": "/course/scam13020u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Ophthalmology - Advanced Companion Animal Ophthalmology",
+    "courseLink": "/course/scam13030u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Ophthalmology - Basic Companion Animal Ophthalmology",
+    "courseLink": "/course/scam13029u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Ophthalmology - Companion Animal Ocular Surgery",
+    "courseLink": "/course/scam13031u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Surgery - Cancer Surgery",
+    "courseLink": "/course/scam13010u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Surgery – Endoscopic surgery - Arthroscopy, Laparoscopy, Thoracoscopy",
+    "courseLink": "/course/scam21007u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Surgery - Good Surgical Practice (GSP)",
+    "courseLink": "/course/scam13003u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Surgery - Good Surgical Practice (GSP)",
+    "courseLink": "/course/scam21001u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Surgery – Neurosurgery and TPLO",
+    "courseLink": "/course/scam21008u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Surgery – Orthopaedics I - Basic Orthopaedic Principles",
+    "courseLink": "/course/scam21003u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Surgery – Orthopaedics II - Large Joint Surgery",
+    "courseLink": "/course/scam21004u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Surgery – Orthopaedics III-Advanced Fracture and Joint Management",
+    "courseLink": "/course/scam21006u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Surgery - Orthopedic Surgery",
+    "courseLink": "/course/scam13009u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Surgery – Soft Tissue Surgery I",
+    "courseLink": "/course/scam21002u/2024-2025"
+  },
+  {
+    "courseName": "Companion Animal Surgery – Soft Tissue Surgery II. Advanced Soft Tissue Surgery-Cancer Surgery",
+    "courseLink": "/course/scam21005u/2024-2025"
+  },
+  {
+    "courseName": "Comprehensive Dentistry 1",
+    "courseLink": "/course/sodk19034u/2024-2025"
+  },
+  {
+    "courseName": "Comprehensive Dentistry 2",
+    "courseLink": "/course/sodk19041u/2024-2025"
+  },
+  {
+    "courseName": "Computational Immunology",
+    "courseLink": "/course/siik24002u/2024-2025"
+  },
+  {
+    "courseName": "Computational Neuroscience",
+    "courseLink": "/course/sneu20007u/2024-2025"
+  },
+  {
+    "courseName": "Contemporary Social Pharmacy",
+    "courseLink": "/course/smps22003u/2024-2025"
+  },
+  {
+    "courseName": "Contemporary Social Pharmacy",
+    "courseLink": "/course/sfab22003u/2024-2025"
+  },
+  {
+    "courseName": "Core Course 1: Disaster Risk Management - From Theory to Practice",
+    "courseLink": "/course/sdmm15001u/2024-2025"
+  },
+  {
+    "courseName": "Core Course 2: Preparedness and Response to Humanitarian Crises",
+    "courseLink": "/course/sdmm15002u/2024-2025"
+  },
+  {
+    "courseName": "Core Course 3: Disaster Recovery Planning and Development",
+    "courseLink": "/course/sdmm15003u/2024-2025"
+  },
+  {
+    "courseName": "Core Course 4: Research Methodology and Ethics",
+    "courseLink": "/course/sdmm15004u/2024-2025"
+  },
+  {
+    "courseName": "Country Exposure",
+    "courseLink": "/course/sglk20004u/2024-2025"
+  },
+  {
+    "courseName": "Course and Exam in Clinical Decision-making",
+    "courseLink": "/course/smea15053u/2024-2025"
+  },
+  {
+    "courseName": "Course and Exam in Clinical Medicine",
+    "courseLink": "/course/smea15012u/2024-2025"
+  },
+  {
+    "courseName": "Course and Exam in Environmental and Occupational Medicine",
+    "courseLink": "/course/smea15032u/2024-2025"
+  },
+  {
+    "courseName": "Course and Exam in Forensic Medicine",
+    "courseLink": "/course/smea15044u/2024-2025"
+  },
+  {
+    "courseName": "Course and Exam in Tooth Morphology shapes and structures",
+    "courseLink": "/course/sodb24001u/2024-2025"
+  },
+  {
+    "courseName": "Course in Advanced Cell Biology",
+    "courseLink": "/course/shua13045u/2024-2025"
+  },
+  {
+    "courseName": "Course in applied statistics in health research",
+    "courseLink": "/course/smea20126u/2024-2025"
+  },
+  {
+    "courseName": "Course in Basic and Clinical Sexology",
+    "courseLink": "/course/smea20078u/2024-2025"
+  },
+  {
+    "courseName": "Course in Basic Cariology",
+    "courseLink": "/course/sodb16050u/2024-2025"
+  },
+  {
+    "courseName": "Course in Basic Cariology",
+    "courseLink": "/course/sodb24023u/2024-2025"
+  },
+  {
+    "courseName": "Course in Basic Pharmacology",
+    "courseLink": "/course/smeb12022u/2024-2025"
+  },
+  {
+    "courseName": "Course in Bioinformatics and Systems Biology",
+    "courseLink": "/course/shua13043u/2024-2025"
+  },
+  {
+    "courseName": "Course in Biomechanics of the Locomotor System",
+    "courseLink": "/course/smtb20007u/2024-2025"
+  },
+  {
+    "courseName": "Course in Cardiovascular and Pulmonary Systems",
+    "courseLink": "/course/smeb12012u/2024-2025"
+  },
+  {
+    "courseName": "Course in Cell and Tissue Biology, Medicine and Technology",
+    "courseLink": "/course/smtb20001u/2024-2025"
+  },
+  {
+    "courseName": "Course in Clinical Introduction",
+    "courseLink": "/course/sodb24016u/2024-2025"
+  },
+  {
+    "courseName": "Course in Clinical Introduction",
+    "courseLink": "/course/sodb16047u/2024-2025"
+  },
+  {
+    "courseName": "Course in Clinical Medicine",
+    "courseLink": "/course/smeb12025u/2024-2025"
+  },
+  {
+    "courseName": "Course in Clinical Pharmacology and Therapy",
+    "courseLink": "/course/smea15021u/2024-2025"
+  },
+  {
+    "courseName": "Course in Clinical Surgery",
+    "courseLink": "/course/smea15023u/2024-2025"
+  },
+  {
+    "courseName": "Course in Endocrinology, the Reproductive System and Blood",
+    "courseLink": "/course/smeb12035u/2024-2025"
+  },
+  {
+    "courseName": "Course in Ethical Dilemmas in Medicine - The Doctors Role: Literature and Film",
+    "courseLink": "/course/smea20079u/2024-2025"
+  },
+  {
+    "courseName": "Course in Ethics and Philosophy of Medicine",
+    "courseLink": "/course/smeb12038u/2024-2025"
+  },
+  {
+    "courseName": "Course in Excitable Cells, Medicine",
+    "courseLink": "/course/smeb12005u/2024-2025"
+  },
+  {
+    "courseName": "Course in Excitable Cells, Molecular Biomedicine",
+    "courseLink": "/course/smob15003u/2024-2025"
+  },
+  {
+    "courseName": "Course in First Aid",
+    "courseLink": "/course/sodb24004u/2024-2025"
+  },
+  {
+    "courseName": "Course in General Pathology",
+    "courseLink": "/course/smeb12021u/2024-2025"
+  },
+  {
+    "courseName": "Course in Gerontology",
+    "courseLink": "/course/smea20080u/2024-2025"
+  },
+  {
+    "courseName": "Course in Head, Neck, the Locomotor System and the Peripheral Nervous",
+    "courseLink": "/course/smeb12008u/2024-2025"
+  },
+  {
+    "courseName": "Course in Immunology",
+    "courseLink": "/course/smeb12020u/2024-2025"
+  },
+  {
+    "courseName": "Course in Inequality and Health",
+    "courseLink": "/course/smea21001u/2024-2025"
+  },
+  {
+    "courseName": "Course in Introduction",
+    "courseLink": "/course/sodb24003u/2024-2025"
+  },
+  {
+    "courseName": "Course in Medical Cell and Tissue Biology, Medicine",
+    "courseLink": "/course/smeb12004u/2024-2025"
+  },
+  {
+    "courseName": "Course in Medical Cell and Tissue Biology, Molecular Biomedicine",
+    "courseLink": "/course/smob15004u/2024-2025"
+  },
+  {
+    "courseName": "Course in Medical Genetics, Medicine",
+    "courseLink": "/course/smeb12006u/2024-2025"
+  },
+  {
+    "courseName": "Course in Medical Genetics, Molecular Biomedicine",
+    "courseLink": "/course/smob15002u/2024-2025"
+  },
+  {
+    "courseName": "Course in Microbiology",
+    "courseLink": "/course/smeb12026u/2024-2025"
+  },
+  {
+    "courseName": "Course in Modelling of Physiological Systems",
+    "courseLink": "/course/smtb20003u/2024-2025"
+  },
+  {
+    "courseName": "Course in Molecular Biology and Genetics",
+    "courseLink": "/course/shua13041u/2024-2025"
+  },
+  {
+    "courseName": "Course in Organisation of Healthcare services and digital infrastructures",
+    "courseLink": "/course/sitb18002u/2024-2025"
+  },
+  {
+    "courseName": "Course in Patient Care: Disease, Diagnosis and Treatment",
+    "courseLink": "/course/sitk16002u/2024-2025"
+  },
+  {
+    "courseName": "Course in Quality and Patient Safety in the Context of a Digitalized Healthcare System",
+    "courseLink": "/course/smea15028u/2024-2025"
+  },
+  {
+    "courseName": "Course in Register Based Epidemiology",
+    "courseLink": "/course/sitk23001u/2024-2025"
+  },
+  {
+    "courseName": "Course in Statistics, Epidemiology and Medical Sociology",
+    "courseLink": "/course/smea15031u/2024-2025"
+  },
+  {
+    "courseName": "Course in the Acute Patient",
+    "courseLink": "/course/smea15065u/2024-2025"
+  },
+  {
+    "courseName": "Course in the Kidney and the Urinary Tract",
+    "courseLink": "/course/smeb12016u/2024-2025"
+  },
+  {
+    "courseName": "Course in the Stomach, the Intestines and the Liver",
+    "courseLink": "/course/smeb12013u/2024-2025"
+  },
+  {
+    "courseName": "Course in the Structure and Function of the Central Nervous System",
+    "courseLink": "/course/smeb12009u/2024-2025"
+  },
+  {
+    "courseName": "Course project in health innovation",
+    "courseLink": "/course/sitk18006u/2024-2025"
+  },
+  {
+    "courseName": "Credit Transfer thesis 30 ECTS",
+    "courseLink": "/course/sgbk20013e/2024-2025"
+  },
+  {
+    "courseName": "Credit Transfer thesis 45 ECTS",
+    "courseLink": "/course/sgbk20014e/2024-2025"
+  },
+  {
+    "courseName": "Credit Transfer thesis 60 ECTS",
+    "courseLink": "/course/sgbk20015e/2024-2025"
+  },
+  {
+    "courseName": "CRISPR Tsunami: Design and Hands on Gene Editing",
+    "courseLink": "/course/svek23001u/2024-2025"
+  },
+  {
+    "courseName": "Current and Experimental Immunology",
+    "courseLink": "/course/sbik19002u/2024-2025"
+  },
+  {
+    "courseName": "Current research at Copenhagen School of Dentistry (elective)",
+    "courseLink": "/course/sodb16074u/2024-2025"
+  },
+  {
+    "courseName": "Cytology and Basic Histology",
+    "courseLink": "/course/sveb13000u/2024-2025"
+  },
+  {
+    "courseName": "Data and Digitalization",
+    "courseLink": "/course/sfok23004u/2024-2025"
+  },
+  {
+    "courseName": "Data Driven Personalised Medicine – From Epidemiology to Patient",
+    "courseLink": "/course/spmm21008u/2024-2025"
+  },
+  {
+    "courseName": "Data in Medicine",
+    "courseLink": "/course/smeb24005u/2024-2025"
+  },
+  {
+    "courseName": "Data Science",
+    "courseLink": "/course/spmm21009u/2024-2025"
+  },
+  {
+    "courseName": "Dedicated Companion Animal Clinical Practice.",
+    "courseLink": "/course/scam13004u/2024-2025"
+  },
+  {
+    "courseName": "Demography",
+    "courseLink": "/course/sfob20007u/2024-2025"
+  },
+  {
+    "courseName": "Design and Analysis of Experiments",
+    "courseLink": "/course/sfkkif102u/2024-2025"
+  },
+  {
+    "courseName": "Design and Analysis of Experiments",
+    "courseLink": "/course/sfkbif102u/2024-2025"
+  },
+  {
+    "courseName": "Design, Synthesis and Reactivity in Medicinal and Biopharmaceutical Chemistry",
+    "courseLink": "/course/sfab20039u/2024-2025"
+  },
+  {
+    "courseName": "Design, Synthesis and Reactivity in Medicinal and Biopharmaceutical Chemistry",
+    "courseLink": "/course/sfak20039u/2024-2025"
+  },
+  {
+    "courseName": "Diagnostic Sciences",
+    "courseLink": "/course/smeb12023u/2024-2025"
+  },
+  {
+    "courseName": "Diagnostic Sciences and Clinical Decision Making",
+    "courseLink": "/course/smeb24017u/2024-2025"
+  },
+  {
+    "courseName": "Digestive system and metabolism",
+    "courseLink": "/course/smeb24009u/2024-2025"
+  },
+  {
+    "courseName": "Digital Health",
+    "courseLink": "/course/smim20002u/2024-2025"
+  },
+  {
+    "courseName": "Direct Restorations 1",
+    "courseLink": "/course/sodb24029u/2024-2025"
+  },
+  {
+    "courseName": "Direct Restorations 1",
+    "courseLink": "/course/sodb16058u/2024-2025"
+  },
+  {
+    "courseName": "Direct Restorations 2",
+    "courseLink": "/course/sodb24032u/2024-2025"
+  },
+  {
+    "courseName": "Direct Restorations 2",
+    "courseLink": "/course/sodb16062u/2024-2025"
+  },
+  {
+    "courseName": "Disaster Recovery Planning and Development",
+    "courseLink": "/course/sglk13024u/2024-2025"
+  },
+  {
+    "courseName": "Disaster Risk Management - From Theory to Practice",
+    "courseLink": "/course/sglk13022u/2024-2025"
+  },
+  {
+    "courseName": "Discovery and Development of Medicines",
+    "courseLink": "/course/smimb1011u/2024-2025"
+  },
+  {
+    "courseName": "Domestic Animal Anatomy and Physiology",
+    "courseLink": "/course/sasb17001u/2024-2025"
+  },
+  {
+    "courseName": "Domestic Animal Parasitology",
+    "courseLink": "/course/sask20004u/2024-2025"
+  },
+  {
+    "courseName": "Drug Delivery to the Central Nervous System (CNS)",
+    "courseLink": "/course/slet000000/2024-2025"
+  },
+  {
+    "courseName": "Drug Delivery to the Central Nervous System (CNS)",
+    "courseLink": "/course/sfkbif103u/2024-2025"
+  },
+  {
+    "courseName": "Drug development from molecule to man",
+    "courseLink": "/course/sfab20001u/2024-2025"
+  },
+  {
+    "courseName": "Drug Discovery",
+    "courseLink": "/course/smimm1131u/2024-2025"
+  },
+  {
+    "courseName": "Drug Discovery and Development",
+    "courseLink": "/course/slvkb0392u/2024-2025"
+  },
+  {
+    "courseName": "Drug discovery and development in Neuroscience",
+    "courseLink": "/course/sneu20006u/2024-2025"
+  },
+  {
+    "courseName": "Drug Formulation and Delivery",
+    "courseLink": "/course/smima1161u/2024-2025"
+  },
+  {
+    "courseName": "Drug Metabolism and Toxicity",
+    "courseLink": "/course/smba21003u/2024-2025"
+  },
+  {
+    "courseName": "Drug Regulatory Affairs in Drug Development",
+    "courseLink": "/course/smima1081u/2024-2025"
+  },
+  {
+    "courseName": "Drug Regulatory Science",
+    "courseLink": "/course/smrm18006u/2024-2025"
+  },
+  {
+    "courseName": "Drugs from Nature",
+    "courseLink": "/course/sfab20008u/2024-2025"
+  },
+  {
+    "courseName": "Early Clinical Training",
+    "courseLink": "/course/smeb12010u/2024-2025"
+  },
+  {
+    "courseName": "Early Clinical Training and Communication",
+    "courseLink": "/course/smeb24010u/2024-2025"
+  },
+  {
+    "courseName": "Ecological Data Analysis with R (REcoStat)",
+    "courseLink": "/course/sgbb22001u/2024-2025"
+  },
+  {
+    "courseName": "Elective clinical stay",
+    "courseLink": "/course/ssua15054u/2024-2025"
+  },
+  {
+    "courseName": "Elective clinical stay",
+    "courseLink": "/course/ssua15055u/2024-2025"
+  },
+  {
+    "courseName": "Elective clinical stay",
+    "courseLink": "/course/ssua15053u/2024-2025"
+  },
+  {
+    "courseName": "Elective clinical stay",
+    "courseLink": "/course/ssua15056u/2024-2025"
+  },
+  {
+    "courseName": "Emergency, Obstetrics, Critical Care and Clinical Anaesthesiology",
+    "courseLink": "/course/svek13002u/2024-2025"
+  },
+  {
+    "courseName": "Empirical data thesis seminars",
+    "courseLink": "/course/sglk23003u/2024-2025"
+  },
+  {
+    "courseName": "Endocrinology and the Reproductive System",
+    "courseLink": "/course/smeb24011u/2024-2025"
+  },
+  {
+    "courseName": "Entrepreneurship in Pharmaceuticals",
+    "courseLink": "/course/sfak20007u/2024-2025"
+  },
+  {
+    "courseName": "Environment and Sustainability",
+    "courseLink": "/course/sfob20015u/2024-2025"
+  },
+  {
+    "courseName": "Environmental Epidemiology",
+    "courseLink": "/course/smkk09001u/2024-2025"
+  },
+  {
+    "courseName": "Epidemiology",
+    "courseLink": "/course/ssua15032u/2024-2025"
+  },
+  {
+    "courseName": "Epidemiology",
+    "courseLink": "/course/sitb23001u/2024-2025"
+  },
+  {
+    "courseName": "Epidemiology 1",
+    "courseLink": "/course/sfob20004u/2024-2025"
+  },
+  {
+    "courseName": "Epidemiology 2",
+    "courseLink": "/course/sfob20008u/2024-2025"
+  },
+  {
+    "courseName": "Epidemiology and Diagnosis of Headache and Facial Pain",
+    "courseLink": "/course/shdm16001u/2024-2025"
+  },
+  {
+    "courseName": "Equine Clinic Track",
+    "courseLink": "/course/svek13012u/2024-2025"
+  },
+  {
+    "courseName": "Ethical, Legal and Organisational Aspects of Personalised Medicine",
+    "courseLink": "/course/spmm21005u/2024-2025"
+  },
+  {
+    "courseName": "Ethics and Health Policy Analysis",
+    "courseLink": "/course/sfob20016u/2024-2025"
+  },
+  {
+    "courseName": "Ethics and Philosophy of Science for Odontology",
+    "courseLink": "/course/sodb24019u/2024-2025"
+  },
+  {
+    "courseName": "Ethics and Philosophy of Science for Odontology",
+    "courseLink": "/course/sodb16145u/2024-2025"
+  },
+  {
+    "courseName": "Ethics in Translational Medicine I",
+    "courseLink": "/course/sbri19006u/2024-2025"
+  },
+  {
+    "courseName": "Ethics in Translational Medicine II - Participant Related Issues",
+    "courseLink": "/course/sbri19010u/2024-2025"
+  },
+  {
+    "courseName": "Ethics of AI",
+    "courseLink": "/course/smea24001u/2024-2025"
+  },
+  {
+    "courseName": "Ethics of AI",
+    "courseLink": "/course/sitk23003u/2024-2025"
+  },
+  {
+    "courseName": "Ethics, Philosophy, Health Law and Decision-Making",
+    "courseLink": "/course/smeb24016u/2024-2025"
+  },
+  {
+    "courseName": "Ethology",
+    "courseLink": "/course/sask17003u/2024-2025"
+  },
+  {
+    "courseName": "Evaluation of Pharmaceutical Substances",
+    "courseLink": "/course/sfab20025u/2024-2025"
+  },
+  {
+    "courseName": "Evidence Based Clinical Application of Personalised Medicine",
+    "courseLink": "/course/spmm21004u/2024-2025"
+  },
+  {
+    "courseName": "Evidence-based dentistry - handling of dentist-related problems",
+    "courseLink": "/course/sodk23002u/2024-2025"
+  },
+  {
+    "courseName": "Exam in Basic Pharmacology, General Pathology and Immunology",
+    "courseLink": "/course/smeb12030e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Cardiovascular and Pulmonary Systems",
+    "courseLink": "/course/smeb12026e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Clinical Social Medicine and Rehabilitation",
+    "courseLink": "/course/smea15043e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Dental Materials",
+    "courseLink": "/course/sodk19011e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Dermatology and Venereology",
+    "courseLink": "/course/smea15033e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Dermatology and Venereology in English",
+    "courseLink": "/course/smea15036e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Elementary Clinical Medicine and Surgery",
+    "courseLink": "/course/smea15011e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Ethics and Philosophy of Medicine",
+    "courseLink": "/course/smeb12038e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Family Medicine",
+    "courseLink": "/course/smea15062e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Gynaecology and Obstetrics",
+    "courseLink": "/course/smea15064e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Head, Neck, the Locomotor System and the Peripheral Nervous",
+    "courseLink": "/course/smeb12008e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Internal Medicine, Surgery, Pathology, Anaesthesia and Patient Safety",
+    "courseLink": "/course/smea15022e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Medical Cell and Tissue Biology and Excitable Cells, Medicine",
+    "courseLink": "/course/smeb12004e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Medical Cell and Tissue Biology and Excitable Cells, Molecular Biomedicine",
+    "courseLink": "/course/smob15004e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Medical Genetics, Medicine",
+    "courseLink": "/course/smeb12006e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Medical Genetics, Molecular Biomedicine",
+    "courseLink": "/course/smob15002e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Microbiology and Clinical Medicine",
+    "courseLink": "/course/smeb12031e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Molecular Biology and Genetics, Bioinformatics and Systems Biology and Advanced Cell Biology",
+    "courseLink": "/course/shua13042e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Neurology, Neurosurgery and Psychiatry including Child and Adolescent Psychiatry",
+    "courseLink": "/course/smea15041e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Odontological Clinic",
+    "courseLink": "/course/sodk19041e/2024-2025"
+  },
+  {
+    "courseName": "Exam in ophthalmology",
+    "courseLink": "/course/smea15034e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Ophthalmology in English",
+    "courseLink": "/course/smea15037e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Oral Surgery, Oral Pathology and Medicine",
+    "courseLink": "/course/sodk19042e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Oto-Rhino-Laryngology",
+    "courseLink": "/course/smea15035e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Otorhinolaryngology in English",
+    "courseLink": "/course/smea15038e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Paediatrics",
+    "courseLink": "/course/smea15063e/2024-2025"
+  },
+  {
+    "courseName": "Exam in Statistics, Epidemiology and Medical Sociology",
+    "courseLink": "/course/smea15031e/2024-2025"
+  },
+  {
+    "courseName": "Exam in the Acute Patient",
+    "courseLink": "/course/smea15065e/2024-2025"
+  },
+  {
+    "courseName": "Exam in the Brain and Consciousness",
+    "courseLink": "/course/ssua15037e/2024-2025"
+  },
+  {
+    "courseName": "Exam in the Renal System, Endocrinology and Blood",
+    "courseLink": "/course/smeb12036e/2024-2025"
+  },
+  {
+    "courseName": "Exam in the Stomach, the Intestines and the Liver",
+    "courseLink": "/course/smeb12027e/2024-2025"
+  },
+  {
+    "courseName": "Exam in the Structure and Function of the Central Nervous System",
+    "courseLink": "/course/smeb12009e/2024-2025"
+  },
+  {
+    "courseName": "Experimental Animal Nutrition and Physiology",
+    "courseLink": "/course/sask20001u/2024-2025"
+  },
+  {
+    "courseName": "Experimental design in Neuroscience",
+    "courseLink": "/course/sneu23005u/2024-2025"
+  },
+  {
+    "courseName": "Experimental Medical Microbiology: From Gene to Function in Pathogenic Bacteria",
+    "courseLink": "/course/sbik22001u/2024-2025"
+  },
+  {
+    "courseName": "Fertility and health",
+    "courseLink": "/course/sfoa09046u/2024-2025"
+  },
+  {
+    "courseName": "Field Mycology and Identification of Fungi",
+    "courseLink": "/course/sgbk21001u/2024-2025"
+  },
+  {
+    "courseName": "Forensic Biology",
+    "courseLink": "/course/sgbk22000u/2024-2025"
+  },
+  {
+    "courseName": "From Omics to Personalised Medicine",
+    "courseLink": "/course/spmm21002u/2024-2025"
+  },
+  {
+    "courseName": "From Real-World Data to Personalised Medicine",
+    "courseLink": "/course/spmm21003u/2024-2025"
+  },
+  {
+    "courseName": "Fundamental Pharmacology and Bioavailability of Drugs",
+    "courseLink": "/course/sfabb1011u/2024-2025"
+  },
+  {
+    "courseName": "Gene Therapy",
+    "courseLink": "/course/smok14002u/2024-2025"
+  },
+  {
+    "courseName": "General Clinical Practice, Companion Animal",
+    "courseLink": "/course/svek13023u/2024-2025"
+  },
+  {
+    "courseName": "General Clinical Practice, Large Animals",
+    "courseLink": "/course/svek13008u/2024-2025"
+  },
+  {
+    "courseName": "Geo Information in Disaster Situations",
+    "courseLink": "/course/sdmm12008u/2024-2025"
+  },
+  {
+    "courseName": "Geo Information in Disaster Situations",
+    "courseLink": "/course/sglk23005u/2024-2025"
+  },
+  {
+    "courseName": "Geoengineering",
+    "courseLink": "/course/sgbk20005u/2024-2025"
+  },
+  {
+    "courseName": "Global Health",
+    "courseLink": "/course/sfob20011u/2024-2025"
+  },
+  {
+    "courseName": "Global Health and Diseases; Introduction and Major Challenges",
+    "courseLink": "/course/sglk15001u/2024-2025"
+  },
+  {
+    "courseName": "Global Partners, Policies and Health Care Systems",
+    "courseLink": "/course/sglk15006u/2024-2025"
+  },
+  {
+    "courseName": "Global Pharmaceutical Policy – Rationales and Stakeholders",
+    "courseLink": "/course/smrm18001u/2024-2025"
+  },
+  {
+    "courseName": "Head, Neck, Locomotor System and Embriology",
+    "courseLink": "/course/smeb24002u/2024-2025"
+  },
+  {
+    "courseName": "Health and Human Rights",
+    "courseLink": "/course/sfok24004u/2024-2025"
+  },
+  {
+    "courseName": "Health and society in a multidisciplinary perspective",
+    "courseLink": "/course/spum18003u/2024-2025"
+  },
+  {
+    "courseName": "Health and Sociological Theory",
+    "courseLink": "/course/sfob20012u/2024-2025"
+  },
+  {
+    "courseName": "Health and Welfare",
+    "courseLink": "/course/sasa10148u/2024-2025"
+  },
+  {
+    "courseName": "Health Care Systems",
+    "courseLink": "/course/sfob20003u/2024-2025"
+  },
+  {
+    "courseName": "Health economics",
+    "courseLink": "/course/ssua150x2u/2024-2025"
+  },
+  {
+    "courseName": "Health economics",
+    "courseLink": "/course/ssua15058u/2024-2025"
+  },
+  {
+    "courseName": "Health economics",
+    "courseLink": "/course/spum18007u/2024-2025"
+  },
+  {
+    "courseName": "Health Economics",
+    "courseLink": "/course/sfob20014u/2024-2025"
+  },
+  {
+    "courseName": "Health in Emergencies and Refugee Health",
+    "courseLink": "/course/sdmm16002u/2024-2025"
+  },
+  {
+    "courseName": "Health in Emergencies and Refugee Health",
+    "courseLink": "/course/sglk13019u/2024-2025"
+  },
+  {
+    "courseName": "Health Informatics, Odontology",
+    "courseLink": "/course/sodb16067u/2024-2025"
+  },
+  {
+    "courseName": "Health Informatics, Odontology",
+    "courseLink": "/course/sodb24020u/2024-2025"
+  },
+  {
+    "courseName": "Health research master thesis planning",
+    "courseLink": "/course/ssua15072u/2024-2025"
+  },
+  {
+    "courseName": "Health Research Methodology",
+    "courseLink": "/course/sglk20001u/2024-2025"
+  },
+  {
+    "courseName": "HealthZup",
+    "courseLink": "/course/sitk21001u/2024-2025"
+  },
+  {
+    "courseName": "HealthZup, Medicine",
+    "courseLink": "/course/smea15130u/2024-2025"
+  },
+  {
+    "courseName": "Heart, Respiration, Circulation, Kidney and Energy",
+    "courseLink": "/course/smeb24012u/2024-2025"
+  },
+  {
+    "courseName": "Herd Health and Public Health",
+    "courseLink": "/course/sveb10408u/2024-2025"
+  },
+  {
+    "courseName": "Herd Health Consultancy and Veterinary Public Health",
+    "courseLink": "/course/svek13114u/2024-2025"
+  },
+  {
+    "courseName": "Herd Health Management",
+    "courseLink": "/course/svek13111u/2024-2025"
+  },
+  {
+    "courseName": "Herpetology",
+    "courseLink": "/course/sgbb20007u/2024-2025"
+  },
+  {
+    "courseName": "Host-Microbiota Multi-Omics",
+    "courseLink": "/course/sgbk23001u/2024-2025"
+  },
+  {
+    "courseName": "Human Anatomy and Systems Physiology",
+    "courseLink": "/course/shua13004u/2024-2025"
+  },
+  {
+    "courseName": "Human Biology",
+    "courseLink": "/course/smoa09001u/2024-2025"
+  },
+  {
+    "courseName": "Human Biology",
+    "courseLink": "/course/sfob20001u/2024-2025"
+  },
+  {
+    "courseName": "Human Biology, Health Informatics",
+    "courseLink": "/course/sitb17002u/2024-2025"
+  },
+  {
+    "courseName": "Human Biology, Medicine and Technology",
+    "courseLink": "/course/smtb17001u/2024-2025"
+  },
+  {
+    "courseName": "Human Diseases for Non-Clinicians",
+    "courseLink": "/course/sfob20005u/2024-2025"
+  },
+  {
+    "courseName": "Human Diseases for Non-Clinicians, Health Informatics",
+    "courseLink": "/course/sitb15002u/2024-2025"
+  },
+  {
+    "courseName": "Human Diseases for Non-Clinicians, Medicine and Technology",
+    "courseLink": "/course/smtb15002u/2024-2025"
+  },
+  {
+    "courseName": "Human Parasitology",
+    "courseLink": "/course/sbik10200u/2024-2025"
+  },
+  {
+    "courseName": "Human Pathophysiology",
+    "courseLink": "/course/shua13049u/2024-2025"
+  },
+  {
+    "courseName": "Human Physiology",
+    "courseLink": "/course/smob15001u/2024-2025"
+  },
+  {
+    "courseName": "Immunology and Microbiology",
+    "courseLink": "/course/shua13026u/2024-2025"
+  },
+  {
+    "courseName": "Immunology, General Pathology and Pathophysiology",
+    "courseLink": "/course/sveb13025u/2024-2025"
+  },
+  {
+    "courseName": "Immunology, microbiology and pathology",
+    "courseLink": "/course/smeb24014u/2024-2025"
+  },
+  {
+    "courseName": "Implementation and evaluation",
+    "courseLink": "/course/sitk18005u/2024-2025"
+  },
+  {
+    "courseName": "Implementation of research-based knowledge of neurorehabilitation - Organisation and change",
+    "courseLink": "/course/snrm20004u/2024-2025"
+  },
+  {
+    "courseName": "Independent Elective Study",
+    "courseLink": "/course/smrmifi01u/2024-2025"
+  },
+  {
+    "courseName": "Independent Elective Study",
+    "courseLink": "/course/smimil02ie/2024-2025"
+  },
+  {
+    "courseName": "Indirect Restorations",
+    "courseLink": "/course/sodb16063u/2024-2025"
+  },
+  {
+    "courseName": "Indirect Restorations",
+    "courseLink": "/course/sodb24036u/2024-2025"
+  },
+  {
+    "courseName": "Individual Study Element",
+    "courseLink": "/course/sglk17002e/2024-2025"
+  },
+  {
+    "courseName": "Individual Study Programme",
+    "courseLink": "/course/sfoa09017e/2024-2025"
+  },
+  {
+    "courseName": "Individual Study Programme",
+    "courseLink": "/course/sfoa09074e/2024-2025"
+  },
+  {
+    "courseName": "Individual Study Programme",
+    "courseLink": "/course/sfoa09014e/2024-2025"
+  },
+  {
+    "courseName": "Individual Study Programme",
+    "courseLink": "/course/sfoa09015e/2024-2025"
+  },
+  {
+    "courseName": "Individual Study Programme",
+    "courseLink": "/course/sfoa09075e/2024-2025"
+  },
+  {
+    "courseName": "Individual Study Programme",
+    "courseLink": "/course/sfoa09076e/2024-2025"
+  },
+  {
+    "courseName": "Individualised bachelor's project in pharmaceutical sciences",
+    "courseLink": "/course/sfabil110u/2024-2025"
+  },
+  {
+    "courseName": "Individualised study unit",
+    "courseLink": "/course/itsekaba11/2024-2025"
+  },
+  {
+    "courseName": "Individualised study unit",
+    "courseLink": "/course/itskaba111/2024-2025"
+  },
+  {
+    "courseName": "Individualised study unit",
+    "courseLink": "/course/sita17001u/2024-2025"
+  },
+  {
+    "courseName": "Infection Microbiology",
+    "courseLink": "/course/sveb13026u/2024-2025"
+  },
+  {
+    "courseName": "Integrated Course in cells, tissue, organs, nutrition and metabolism",
+    "courseLink": "/course/ssua15019u/2024-2025"
+  },
+  {
+    "courseName": "Integrated Course in Physical Activity",
+    "courseLink": "/course/ssua15027u/2024-2025"
+  },
+  {
+    "courseName": "Integrated Course in the Brain and Consciousness",
+    "courseLink": "/course/ssua15036u/2024-2025"
+  },
+  {
+    "courseName": "Integrated Course in the Heart and Lungs",
+    "courseLink": "/course/ssua15038u/2024-2025"
+  },
+  {
+    "courseName": "Integrated Course in the Life Cycle",
+    "courseLink": "/course/ssua15070u/2024-2025"
+  },
+  {
+    "courseName": "Intellectual Property Rights and Innovation in Pharmaceutical Sciences",
+    "courseLink": "/course/sfab20040u/2024-2025"
+  },
+  {
+    "courseName": "Intellectual Property Rights and Innovation in Pharmaceutical Sciences",
+    "courseLink": "/course/sfak20040u/2024-2025"
+  },
+  {
+    "courseName": "Interdisciplinary Course and Exam in Tooth Development and Microscopic Structure",
+    "courseLink": "/course/sodb24006u/2024-2025"
+  },
+  {
+    "courseName": "Internal Medicine and Pathological Anatomy",
+    "courseLink": "/course/sodb16082u/2024-2025"
+  },
+  {
+    "courseName": "Internal Medicine and Pathological Anatomy",
+    "courseLink": "/course/sodb24021u/2024-2025"
+  },
+  {
+    "courseName": "International Nature Conservation",
+    "courseLink": "/course/sgbk20011u/2024-2025"
+  },
+  {
+    "courseName": "International Study Exposure – Global Public Health",
+    "courseLink": "/course/smea15076u/2024-2025"
+  },
+  {
+    "courseName": "International Study Exposure – Health Provision in Tropical Africa",
+    "courseLink": "/course/smea15075u/2024-2025"
+  },
+  {
+    "courseName": "Internship",
+    "courseLink": "/course/sglk13006u/2024-2025"
+  },
+  {
+    "courseName": "Internship",
+    "courseLink": "/course/sglk13007u/2024-2025"
+  },
+  {
+    "courseName": "Internship (BSc)",
+    "courseLink": "/course/sfob20021e/2024-2025"
+  },
+  {
+    "courseName": "Internship (MSc)",
+    "courseLink": "/course/sfoa09012u/2024-2025"
+  },
+  {
+    "courseName": "Internship (MSc)",
+    "courseLink": "/course/sfoa09008u/2024-2025"
+  },
+  {
+    "courseName": "Internship (MSc)",
+    "courseLink": "/course/sfoa09010u/2024-2025"
+  },
+  {
+    "courseName": "Internship (MSc)",
+    "courseLink": "/course/sfok15015u/2024-2025"
+  },
+  {
+    "courseName": "Internship (MSc)",
+    "courseLink": "/course/sfok23006e/2024-2025"
+  },
+  {
+    "courseName": "Internship for Human Biology",
+    "courseLink": "/course/shua13034u/2024-2025"
+  },
+  {
+    "courseName": "Intervention and evaluation",
+    "courseLink": "/course/sfob20017u/2024-2025"
+  },
+  {
+    "courseName": "Introduction to Clinical Practise in Hospitals",
+    "courseLink": "/course/scia10007u/2024-2025"
+  },
+  {
+    "courseName": "Introduction to epidemiology and biostatistics",
+    "courseLink": "/course/spum18001u/2024-2025"
+  },
+  {
+    "courseName": "Introduction to recombinant DNA and Next Generation Sequencing techniques and applications",
+    "courseLink": "/course/shua13058u/2024-2025"
+  },
+  {
+    "courseName": "Introduction to the Master Thesis: Writing Process, Theories of Science, and Ethics",
+    "courseLink": "/course/spum15002u/2024-2025"
+  },
+  {
+    "courseName": "Introduction to the Patient and ethics",
+    "courseLink": "/course/smeb24004u/2024-2025"
+  },
+  {
+    "courseName": "Introduction to the Study",
+    "courseLink": "/course/smeb12003u/2024-2025"
+  },
+  {
+    "courseName": "Introduction to Written Project",
+    "courseLink": "/course/ssua15017u/2024-2025"
+  },
+  {
+    "courseName": "Introductory Course",
+    "courseLink": "/course/sitb19001u/2024-2025"
+  },
+  {
+    "courseName": "Investigations and Management of Headache and Facial Pain",
+    "courseLink": "/course/shdm16003u/2024-2025"
+  },
+  {
+    "courseName": "In-vitro Techniques in Biochemistry and Pharmacology",
+    "courseLink": "/course/sfkk18004u/2024-2025"
+  },
+  {
+    "courseName": "Labelling as driver for Regulatory Strategy",
+    "courseLink": "/course/smrm18008u/2024-2025"
+  },
+  {
+    "courseName": "Laboratory Animal Neuroscience and Neurosurgery",
+    "courseLink": "/course/sneu23004u/2024-2025"
+  },
+  {
+    "courseName": "Laboratory Animal Science Function ABD",
+    "courseLink": "/course/svek17001u/2024-2025"
+  },
+  {
+    "courseName": "Laboratory Animal Science Function ABD for veterinary students",
+    "courseLink": "/course/svek20001u/2024-2025"
+  },
+  {
+    "courseName": "Laboratory Animal Science, Human Biology",
+    "courseLink": "/course/shua13047u/2024-2025"
+  },
+  {
+    "courseName": "Laboratory Animal Science, Immunology and Inflammation",
+    "courseLink": "/course/siik24004u/2024-2025"
+  },
+  {
+    "courseName": "Large Animal Basic Clinical Theory",
+    "courseLink": "/course/sveb13010u/2024-2025"
+  },
+  {
+    "courseName": "Livestock and Equine Production Science",
+    "courseLink": "/course/sask16002u/2024-2025"
+  },
+  {
+    "courseName": "Local Analgesi",
+    "courseLink": "/course/sodb16056u/2024-2025"
+  },
+  {
+    "courseName": "Local Analgesi",
+    "courseLink": "/course/sodb24025u/2024-2025"
+  },
+  {
+    "courseName": "Macroecology and Community Ecology",
+    "courseLink": "/course/sgbk20002u/2024-2025"
+  },
+  {
+    "courseName": "Mammalian Genomics",
+    "courseLink": "/course/sbib10170u/2024-2025"
+  },
+  {
+    "courseName": "Managing change in healthcare organisations",
+    "courseLink": "/course/spum18006u/2024-2025"
+  },
+  {
+    "courseName": "Managing change in healthcare organisations",
+    "courseLink": "/course/ssua15057u/2024-2025"
+  },
+  {
+    "courseName": "Marine Mammal Biology and Research",
+    "courseLink": "/course/sgbb20003u/2024-2025"
+  },
+  {
+    "courseName": "Market Access for Pharmaceutical Products – trends and challenges",
+    "courseLink": "/course/smimif115u/2024-2025"
+  },
+  {
+    "courseName": "Master thesis Animal Science 45 ECTS",
+    "courseLink": "/course/sask14301e/2024-2025"
+  },
+  {
+    "courseName": "Master's project",
+    "courseLink": "/course/smrmifs01u/2024-2025"
+  },
+  {
+    "courseName": "Master's project",
+    "courseLink": "/course/scam13025e/2024-2025"
+  },
+  {
+    "courseName": "Master's project",
+    "courseLink": "/course/smim24003u/2024-2025"
+  },
+  {
+    "courseName": "Master's Project - Neurorehabilitation",
+    "courseLink": "/course/snrm20007e/2024-2025"
+  },
+  {
+    "courseName": "Master's Project - Personalised Medicine",
+    "courseLink": "/course/spmm21012e/2024-2025"
+  },
+  {
+    "courseName": "Master's thesis",
+    "courseLink": "/course/specialeng/2024-2025"
+  },
+  {
+    "courseName": "Master's thesis",
+    "courseLink": "/course/sspecialeu/2024-2025"
+  },
+  {
+    "courseName": "Master's Thesis",
+    "courseLink": "/course/shdm16006u/2024-2025"
+  },
+  {
+    "courseName": "Master's Thesis (10 ECTS), Medicine",
+    "courseLink": "/course/smea15052e/2024-2025"
+  },
+  {
+    "courseName": "Master's Thesis (22,5 ECTS), Medicine",
+    "courseLink": "/course/smea20061e/2024-2025"
+  },
+  {
+    "courseName": "Master's Thesis in Neuroscience",
+    "courseLink": "/course/sneu20009u/2024-2025"
+  },
+  {
+    "courseName": "Master's Thesis, Dental Surgery",
+    "courseLink": "/course/sodk19045u/2024-2025"
+  },
+  {
+    "courseName": "Master's Thesis, Disaster Management",
+    "courseLink": "/course/sdmm12005u/2024-2025"
+  },
+  {
+    "courseName": "Master's Thesis, Health Informatics",
+    "courseLink": "/course/sita11009u/2024-2025"
+  },
+  {
+    "courseName": "Master's Thesis, Health Science",
+    "courseLink": "/course/ssua15041u/2024-2025"
+  },
+  {
+    "courseName": "Master's Thesis, Human Biology",
+    "courseLink": "/course/shua13012u/2024-2025"
+  },
+  {
+    "courseName": "Master's Thesis, Medicine and Technology, 30 ECTS-credits",
+    "courseLink": "/course/smtk12041e/2024-2025"
+  },
+  {
+    "courseName": "Master's Thesis, Medicine and Technology, 32,5 ECTS-credits",
+    "courseLink": "/course/smtk15001u/2024-2025"
+  },
+  {
+    "courseName": "Master's Thesis, Medicine and Technology, 35 ECTS-credits",
+    "courseLink": "/course/smtk12042e/2024-2025"
+  },
+  {
+    "courseName": "Master's Thesis, Public Health",
+    "courseLink": "/course/spum15003u/2024-2025"
+  },
+  {
+    "courseName": "Master's Thesis, Public Health",
+    "courseLink": "/course/sfoa09007e/2024-2025"
+  },
+  {
+    "courseName": "Master's Thesis, Quantitative Biology and Disease Modelling, 30 ECTS-credits",
+    "courseLink": "/course/skbk19001e/2024-2025"
+  },
+  {
+    "courseName": "Master's Thesis, Quantitative Biology and Disease Modelling, 32,5 ECTS-credits",
+    "courseLink": "/course/skbk19002e/2024-2025"
+  },
+  {
+    "courseName": "Master's Thesis, Quantitative Biology and Disease Modelling, 35 ECTS-credits",
+    "courseLink": "/course/skbk19003e/2024-2025"
+  },
+  {
+    "courseName": "MDMa Orientation Course",
+    "courseLink": "/course/sdmm24001u/2024-2025"
+  },
+  {
+    "courseName": "Mechanisms and Comorbidities of Headache and Facial Pain",
+    "courseLink": "/course/shdm16002u/2024-2025"
+  },
+  {
+    "courseName": "Medical and Health Psychology",
+    "courseLink": "/course/smeb12007u/2024-2025"
+  },
+  {
+    "courseName": "Medical cell and tissue biology",
+    "courseLink": "/course/sodb24007u/2024-2025"
+  },
+  {
+    "courseName": "Medical cell and tissue biology",
+    "courseLink": "/course/smeb24007u/2024-2025"
+  },
+  {
+    "courseName": "Medical Genetics, Dental Surgery",
+    "courseLink": "/course/sodb24005u/2024-2025"
+  },
+  {
+    "courseName": "Medical Genetics, Dental Surgery",
+    "courseLink": "/course/sodb16031u/2024-2025"
+  },
+  {
+    "courseName": "Medical Genetics, Medicine",
+    "courseLink": "/course/smeb24006u/2024-2025"
+  },
+  {
+    "courseName": "Medical profession, healthcare system and Heart-lung resuscitation",
+    "courseLink": "/course/smeb24001u/2024-2025"
+  },
+  {
+    "courseName": "Medical Science and Technology Studies",
+    "courseLink": "/course/smtb24001u/2024-2025"
+  },
+  {
+    "courseName": "Medical Science and Technology Studies - Analysis and Writing",
+    "courseLink": "/course/sfok24003u/2024-2025"
+  },
+  {
+    "courseName": "Medical specialty Focused Course an Exam in Anesthesiology: Anesthesia for the geriatric patient",
+    "courseLink": "/course/smea22001u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Child and Adolescent Psychiatry",
+    "courseLink": "/course/smea20086u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Clinical Oncology",
+    "courseLink": "/course/smea20109u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Clinical Physiology and Nuclear Medicine",
+    "courseLink": "/course/smea20108u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Gastroenterology and Hepatology: Inflammatory Intestinal Disease",
+    "courseLink": "/course/smea20089u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Internal Medicine: Cardiology",
+    "courseLink": "/course/smea20104u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Internal Medicine: Endocrinology",
+    "courseLink": "/course/smea20093u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Internal Medicine: Gastroenterology and Hepatology",
+    "courseLink": "/course/smea20094u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Internal Medicine: Geriatrics",
+    "courseLink": "/course/smea20097u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Internal Medicine: Infectious Diseases",
+    "courseLink": "/course/smea20099u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Internal Medicine: Respiratory Medicine",
+    "courseLink": "/course/smea20105u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Internal Medicine: Rheumatology",
+    "courseLink": "/course/smea20106u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Neurology: Apoplexy",
+    "courseLink": "/course/smea20110u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Ophthalmology: Medical Retina",
+    "courseLink": "/course/smea20112u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Orthopaedic Surgery",
+    "courseLink": "/course/smea20113u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Otorhinolaryngology",
+    "courseLink": "/course/smea20114u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Paediatric Obesity",
+    "courseLink": "/course/smea24005u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Pathology: Breast Cancer",
+    "courseLink": "/course/smea20131u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Psychiatry: Psychopathology and Psychotherapy",
+    "courseLink": "/course/smea24004u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Psychiatry: Sexology",
+    "courseLink": "/course/smea20116u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Radiology: Ultrasound Examination",
+    "courseLink": "/course/smea20119u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Reconstructive Plastic Surgery",
+    "courseLink": "/course/smea20120u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Thyroid Diseases",
+    "courseLink": "/course/smea20121u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Urology: Herlev",
+    "courseLink": "/course/smea20122u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and Exam in Urology: Rigshospitalet",
+    "courseLink": "/course/smea20123u/2024-2025"
+  },
+  {
+    "courseName": "Medical Specialty Focused Course and in Ophthalmology",
+    "courseLink": "/course/smea20111u/2024-2025"
+  },
+  {
+    "courseName": "Medical Technological Innovation and Society",
+    "courseLink": "/course/sitk16001u/2024-2025"
+  },
+  {
+    "courseName": "Medical Use of Radiation",
+    "courseLink": "/course/smtk20003u/2024-2025"
+  },
+  {
+    "courseName": "Medicinal and Biostructural Chemistry",
+    "courseLink": "/course/sfak24001u/2024-2025"
+  },
+  {
+    "courseName": "Medicinal Chemistry & Innovation",
+    "courseLink": "/course/smba21001u/2024-2025"
+  },
+  {
+    "courseName": "Medicine, Surgery and Reproduction - Companion Animals",
+    "courseLink": "/course/svek13005u/2024-2025"
+  },
+  {
+    "courseName": "Medicine, Surgery, Reproduction and Obstetrics- Large Animal",
+    "courseLink": "/course/svek13004u/2024-2025"
+  },
+  {
+    "courseName": "Methodology, Theory, Research and Neurorehabilitation",
+    "courseLink": "/course/snrm20001u/2024-2025"
+  },
+  {
+    "courseName": "Methods and Procedures in Clinical Drug Development",
+    "courseLink": "/course/smps20003u/2024-2025"
+  },
+  {
+    "courseName": "Methods in Behavioral Sciences",
+    "courseLink": "/course/ssua15033u/2024-2025"
+  },
+  {
+    "courseName": "Microbial Interactions",
+    "courseLink": "/course/sbib10140u/2024-2025"
+  },
+  {
+    "courseName": "Microbiel Food Safety",
+    "courseLink": "/course/sveb13006u/2024-2025"
+  },
+  {
+    "courseName": "Migration and Diversity in Health Care",
+    "courseLink": "/course/smea24003u/2024-2025"
+  },
+  {
+    "courseName": "Migration, diversity and health",
+    "courseLink": "/course/sfok23008u/2024-2025"
+  },
+  {
+    "courseName": "Mixed methods in Public Health",
+    "courseLink": "/course/sfok24001u/2024-2025"
+  },
+  {
+    "courseName": "Molecular Pathology",
+    "courseLink": "/course/smok15001u/2024-2025"
+  },
+  {
+    "courseName": "Molecular Pharmacology",
+    "courseLink": "/course/sfab20021u/2024-2025"
+  },
+  {
+    "courseName": "Muscle pain, stress and bruxism (elective)",
+    "courseLink": "/course/sodb16076u/2024-2025"
+  },
+  {
+    "courseName": "Nerve relations at amotio dentis, elective",
+    "courseLink": "/course/sodk19029u/2024-2025"
+  },
+  {
+    "courseName": "Neurobiological basis for neurorehabilitation",
+    "courseLink": "/course/snrm20002u/2024-2025"
+  },
+  {
+    "courseName": "Neuronal Signaling",
+    "courseLink": "/course/shua13060u/2024-2025"
+  },
+  {
+    "courseName": "Neuropharmacology",
+    "courseLink": "/course/sfkbil004u/2024-2025"
+  },
+  {
+    "courseName": "Neuropharmacology",
+    "courseLink": "/course/sfkkil004u/2024-2025"
+  },
+  {
+    "courseName": "Neuroplasticity. The brains ability to change – from theory to practice",
+    "courseLink": "/course/snrm20003u/2024-2025"
+  },
+  {
+    "courseName": "Neurorehabilitation: Off-site clinical course",
+    "courseLink": "/course/snrm20005u/2024-2025"
+  },
+  {
+    "courseName": "Neuroscience I - Cells and circuits",
+    "courseLink": "/course/sneu21001u/2024-2025"
+  },
+  {
+    "courseName": "Neuroscience II: Higher brain function",
+    "courseLink": "/course/sneu20004u/2024-2025"
+  },
+  {
+    "courseName": "Non-clinical Safety and Toxicology",
+    "courseLink": "/course/smimb1051u/2024-2025"
+  },
+  {
+    "courseName": "Nutrition and Management of Companion Animals",
+    "courseLink": "/course/sask23001u/2024-2025"
+  },
+  {
+    "courseName": "Nutritional Physiology",
+    "courseLink": "/course/sasa10145u/2024-2025"
+  },
+  {
+    "courseName": "Occupational Epidemiology",
+    "courseLink": "/course/sfok24005u/2024-2025"
+  },
+  {
+    "courseName": "One Health",
+    "courseLink": "/course/svek13112u/2024-2025"
+  },
+  {
+    "courseName": "Optional Clinical Course in Dermatology and Venereology in English",
+    "courseLink": "/course/smea15036u/2024-2025"
+  },
+  {
+    "courseName": "Optional Clinical Course in Otorhinolaryngology in English",
+    "courseLink": "/course/smea15038u/2024-2025"
+  },
+  {
+    "courseName": "Oral Microbiology",
+    "courseLink": "/course/sodb24012u/2024-2025"
+  },
+  {
+    "courseName": "Oral Microbiology",
+    "courseLink": "/course/sodb16043u/2024-2025"
+  },
+  {
+    "courseName": "Oral Pathology and Medicine 1",
+    "courseLink": "/course/sodk19027u/2024-2025"
+  },
+  {
+    "courseName": "Oral Pathology and Medicine 2",
+    "courseLink": "/course/sodk19036u/2024-2025"
+  },
+  {
+    "courseName": "Oral Pathology and Medicine 3",
+    "courseLink": "/course/sodk19043u/2024-2025"
+  },
+  {
+    "courseName": "Oral Radiology 1",
+    "courseLink": "/course/sodb24017u/2024-2025"
+  },
+  {
+    "courseName": "Oral Radiology 1",
+    "courseLink": "/course/sodb16049u/2024-2025"
+  },
+  {
+    "courseName": "Oral Radiology 2",
+    "courseLink": "/course/sodb24022u/2024-2025"
+  },
+  {
+    "courseName": "Oral Radiology 2",
+    "courseLink": "/course/sodb16080u/2024-2025"
+  },
+  {
+    "courseName": "Oral Rehabilitation 1",
+    "courseLink": "/course/sodk19011u/2024-2025"
+  },
+  {
+    "courseName": "Oral Rehabilitation 2",
+    "courseLink": "/course/sodk19023u/2024-2025"
+  },
+  {
+    "courseName": "Oral Rehabilitation 3",
+    "courseLink": "/course/sodk19033u/2024-2025"
+  },
+  {
+    "courseName": "Oral Structure and Function",
+    "courseLink": "/course/sodb24014u/2024-2025"
+  },
+  {
+    "courseName": "Oral Structure and Function",
+    "courseLink": "/course/sodb16044u/2024-2025"
+  },
+  {
+    "courseName": "Oral Surgery 1",
+    "courseLink": "/course/sodk19026u/2024-2025"
+  },
+  {
+    "courseName": "Oral Surgery 2",
+    "courseLink": "/course/sodk19035u/2024-2025"
+  },
+  {
+    "courseName": "Oral Surgery 3",
+    "courseLink": "/course/sodk19042u/2024-2025"
+  },
+  {
+    "courseName": "Organ Pharmacology",
+    "courseLink": "/course/sfab23001u/2024-2025"
+  },
+  {
+    "courseName": "Organic Chemistry I - Physicochemical Proporties",
+    "courseLink": "/course/sfab20006u/2024-2025"
+  },
+  {
+    "courseName": "Organic Chemistry II - Synthesis of Drug Compounds",
+    "courseLink": "/course/sfab20029u/2024-2025"
+  },
+  {
+    "courseName": "Organisation Analysis and Philosophy of Science",
+    "courseLink": "/course/sfob20010u/2024-2025"
+  },
+  {
+    "courseName": "Organisation, Management and Economics in Health Services",
+    "courseLink": "/course/spum18004u/2024-2025"
+  },
+  {
+    "courseName": "Organization of Headache Care and Clinical Practice",
+    "courseLink": "/course/shdm16004u/2024-2025"
+  },
+  {
+    "courseName": "Organizational Analysis",
+    "courseLink": "/course/sitb18005u/2024-2025"
+  },
+  {
+    "courseName": "Origins",
+    "courseLink": "/course/sgbb20002u/2024-2025"
+  },
+  {
+    "courseName": "Ornithology",
+    "courseLink": "/course/sgbk20003u/2024-2025"
+  },
+  {
+    "courseName": "OSCE (Objective Structured Clinical Exam)",
+    "courseLink": "/course/sodb16061e/2024-2025"
+  },
+  {
+    "courseName": "OSCE (Objective Structured Clinical Exam)",
+    "courseLink": "/course/sodb24035e/2024-2025"
+  },
+  {
+    "courseName": "OSCE in Internal Medicine, Surgery, Anaesthesiology and Diagnostic Sciences",
+    "courseLink": "/course/smea15025e/2024-2025"
+  },
+  {
+    "courseName": "Paedodontics and Clinical Genetics 1",
+    "courseLink": "/course/sodk19024u/2024-2025"
+  },
+  {
+    "courseName": "Paedodontics and Clinical Genetics 2",
+    "courseLink": "/course/sodk19031u/2024-2025"
+  },
+  {
+    "courseName": "Parasitic Zoonoses and One Health control approaches",
+    "courseLink": "/course/sask16001u/2024-2025"
+  },
+  {
+    "courseName": "Pathology and Pharmacology",
+    "courseLink": "/course/sfeb15001u/2024-2025"
+  },
+  {
+    "courseName": "Pathology, diagnosis and treatment",
+    "courseLink": "/course/smeb24020u/2024-2025"
+  },
+  {
+    "courseName": "Pathophysiology",
+    "courseLink": "/course/smtk12011u/2024-2025"
+  },
+  {
+    "courseName": "Patient Safety and Learning Culture: Analysing the Context",
+    "courseLink": "/course/spum19001u/2024-2025"
+  },
+  {
+    "courseName": "Patient safety and Learning Culture: Create and Anchor Improvements",
+    "courseLink": "/course/spum19002u/2024-2025"
+  },
+  {
+    "courseName": "Patient Triage",
+    "courseLink": "/course/sodb16057u/2024-2025"
+  },
+  {
+    "courseName": "Patient Triage",
+    "courseLink": "/course/sodb24028u/2024-2025"
+  },
+  {
+    "courseName": "Pharma I - Drug Discovery and Preclinical Development",
+    "courseLink": "/course/sbri19005u/2024-2025"
+  },
+  {
+    "courseName": "Pharma II - Drug Development and Regulation",
+    "courseLink": "/course/sbri19009u/2024-2025"
+  },
+  {
+    "courseName": "Pharma III – Pharmaceutical and Biotech Regulation and Innovation",
+    "courseLink": "/course/sbri19013u/2024-2025"
+  },
+  {
+    "courseName": "Pharmaceutical Analytical Chemistry",
+    "courseLink": "/course/sfab20035u/2024-2025"
+  },
+  {
+    "courseName": "Pharmaceutical Analytical Chemistry",
+    "courseLink": "/course/smps20006u/2024-2025"
+  },
+  {
+    "courseName": "Pharmaceutical Modelling",
+    "courseLink": "/course/sfak21002u/2024-2025"
+  },
+  {
+    "courseName": "Pharmaceutical Modelling",
+    "courseLink": "/course/sfab21002u/2024-2025"
+  },
+  {
+    "courseName": "Pharmaceutical Physical Chemistry I - Thermodynamics and Equilibria",
+    "courseLink": "/course/sfab20023u/2024-2025"
+  },
+  {
+    "courseName": "Pharmaceutical Physical Chemistry II - Kinetics and Transport Phenomena",
+    "courseLink": "/course/sfab20017u/2024-2025"
+  },
+  {
+    "courseName": "Pharmaceutical Policy",
+    "courseLink": "/course/sfak18003u/2024-2025"
+  },
+  {
+    "courseName": "Pharmaceutics and Drug Development",
+    "courseLink": "/course/smps20004u/2024-2025"
+  },
+  {
+    "courseName": "Pharmaceutics I - Liquid and Semi-Solid Dosage Forms",
+    "courseLink": "/course/sfab20031u/2024-2025"
+  },
+  {
+    "courseName": "Pharmaceutics II - Solid Dosage Forms",
+    "courseLink": "/course/sfab20010u/2024-2025"
+  },
+  {
+    "courseName": "Pharmacoepidemiology",
+    "courseLink": "/course/sfok24002u/2024-2025"
+  },
+  {
+    "courseName": "Pharmacoepidemiology and Pharmacovigilance",
+    "courseLink": "/course/sfak20009u/2024-2025"
+  },
+  {
+    "courseName": "Pharmacoepidemiology and post-authorisation safety studies",
+    "courseLink": "/course/smim20001u/2024-2025"
+  },
+  {
+    "courseName": "Pharmacological and Clinical Aspects of Drug Safety",
+    "courseLink": "/course/smim24001u/2024-2025"
+  },
+  {
+    "courseName": "Pharmacology",
+    "courseLink": "/course/sodb16054u/2024-2025"
+  },
+  {
+    "courseName": "Pharmacology",
+    "courseLink": "/course/sodb24030u/2024-2025"
+  },
+  {
+    "courseName": "Pharmacology",
+    "courseLink": "/course/smimb1041u/2024-2025"
+  },
+  {
+    "courseName": "Pharmacology and Innovation",
+    "courseLink": "/course/smeb24015u/2024-2025"
+  },
+  {
+    "courseName": "Pharmacology and Toxicology",
+    "courseLink": "/course/shua13053u/2024-2025"
+  },
+  {
+    "courseName": "Pharmacology: From Physiology to Therapy",
+    "courseLink": "/course/slvkb0362u/2024-2025"
+  },
+  {
+    "courseName": "Pharmacometrics",
+    "courseLink": "/course/sfkk18010u/2024-2025"
+  },
+  {
+    "courseName": "Pharmacometrics",
+    "courseLink": "/course/skbk18001u/2024-2025"
+  },
+  {
+    "courseName": "Pharmacotherapy",
+    "courseLink": "/course/sfab20019u/2024-2025"
+  },
+  {
+    "courseName": "Pharmacotherapy",
+    "courseLink": "/course/sfak20019u/2024-2025"
+  },
+  {
+    "courseName": "Pharmacotherapy Practice",
+    "courseLink": "/course/sfab20041u/2024-2025"
+  },
+  {
+    "courseName": "Pharmacotherapy Practice",
+    "courseLink": "/course/sfak20041u/2024-2025"
+  },
+  {
+    "courseName": "Pharmacovigilance: Signal detection and risk management",
+    "courseLink": "/course/smim22001u/2024-2025"
+  },
+  {
+    "courseName": "Pharmacy Internship (30 ECTS)",
+    "courseLink": "/course/sfak20021u/2024-2025"
+  },
+  {
+    "courseName": "Philosophy of Science and Social Pharmacy",
+    "courseLink": "/course/sfab20012u/2024-2025"
+  },
+  {
+    "courseName": "Philosophy of Science, Technology and Ethics",
+    "courseLink": "/course/sitb18003u/2024-2025"
+  },
+  {
+    "courseName": "Physical activity in prevention, treatment and rehabilitation of diseases",
+    "courseLink": "/course/smea21002u/2024-2025"
+  },
+  {
+    "courseName": "Planetary Health Dynamics",
+    "courseLink": "/course/sglk24001u/2024-2025"
+  },
+  {
+    "courseName": "POC for credit transfer students from SCIENCE",
+    "courseLink": "/course/stva16006e/2024-2025"
+  },
+  {
+    "courseName": "Practical Herd Health Management and Meat Inspection",
+    "courseLink": "/course/svek13006u/2024-2025"
+  },
+  {
+    "courseName": "Preclinical course in dental materials and restorative therapy",
+    "courseLink": "/course/sodb24015u/2024-2025"
+  },
+  {
+    "courseName": "Preclinical course in dental materials and restorative therapy",
+    "courseLink": "/course/sodb16046u/2024-2025"
+  },
+  {
+    "courseName": "Preclinical course in Indirect Restorations",
+    "courseLink": "/course/sodb24026u/2024-2025"
+  },
+  {
+    "courseName": "Preclinical course in Indirect Restorations",
+    "courseLink": "/course/sodb16059u/2024-2025"
+  },
+  {
+    "courseName": "Preparatory Course in Bachelor's Thesis, Medicine",
+    "courseLink": "/course/smeb12037u/2024-2025"
+  },
+  {
+    "courseName": "Preparedness and Response to Humanitarian Crises",
+    "courseLink": "/course/sglk13023u/2024-2025"
+  },
+  {
+    "courseName": "Prevention and Health Promotion",
+    "courseLink": "/course/spum15012u/2024-2025"
+  },
+  {
+    "courseName": "Prevention and social inequality in health",
+    "courseLink": "/course/spum20001u/2024-2025"
+  },
+  {
+    "courseName": "Prevention and social inequality in health",
+    "courseLink": "/course/ssua22001u/2024-2025"
+  },
+  {
+    "courseName": "Principles and Practice of Bioanalysis",
+    "courseLink": "/course/sfak20014u/2024-2025"
+  },
+  {
+    "courseName": "Principles of Pharmacology",
+    "courseLink": "/course/slvkb0352u/2024-2025"
+  },
+  {
+    "courseName": "Process Development and Production of Active Pharmaceutical Ingredients (API)",
+    "courseLink": "/course/smimm1151u/2024-2025"
+  },
+  {
+    "courseName": "Project in Practice in Animal Science",
+    "courseLink": "/course/sask14200e/2024-2025"
+  },
+  {
+    "courseName": "Project Management in Healthcare",
+    "courseLink": "/course/sfok23005u/2024-2025"
+  },
+  {
+    "courseName": "Projects outside the course scope Animal and Veterinary Science 2,5 ECTS",
+    "courseLink": "/course/svek21001u/2024-2025"
+  },
+  {
+    "courseName": "Projects outside the course scope Animal and Veterinary Science 5 ECTS",
+    "courseLink": "/course/svek21002u/2024-2025"
+  },
+  {
+    "courseName": "Projects outside the course scope Animal Science 15 ECTS",
+    "courseLink": "/course/sask14202e/2024-2025"
+  },
+  {
+    "courseName": "Projects outside the course scope Animal Science 7,5 ECTS",
+    "courseLink": "/course/sask14201e/2024-2025"
+  },
+  {
+    "courseName": "Protection of personal and health data",
+    "courseLink": "/course/sitb18010u/2024-2025"
+  },
+  {
+    "courseName": "Proteins from the Past: Palaeoproteomic Methods",
+    "courseLink": "/course/sgbk20012u/2024-2025"
+  },
+  {
+    "courseName": "Psychology and Behavioral Sciences",
+    "courseLink": "/course/sodk19018u/2024-2025"
+  },
+  {
+    "courseName": "Psychology and Health Communication",
+    "courseLink": "/course/sfob20018u/2024-2025"
+  },
+  {
+    "courseName": "Psychology and healthpsychology",
+    "courseLink": "/course/ssua15026u/2024-2025"
+  },
+  {
+    "courseName": "Psychology in health and disease",
+    "courseLink": "/course/smeb24018u/2024-2025"
+  },
+  {
+    "courseName": "Public Administration and Administrative Law",
+    "courseLink": "/course/sfoa09095u/2024-2025"
+  },
+  {
+    "courseName": "Public Administration and Administrative Law",
+    "courseLink": "/course/sfob20020u/2024-2025"
+  },
+  {
+    "courseName": "Public health project planning",
+    "courseLink": "/course/sfok20007u/2024-2025"
+  },
+  {
+    "courseName": "QA, QC, GXP for Pharmaceutical Production",
+    "courseLink": "/course/smima1101u/2024-2025"
+  },
+  {
+    "courseName": "Qualitative Methods",
+    "courseLink": "/course/ssua15064u/2024-2025"
+  },
+  {
+    "courseName": "Qualitative Methods",
+    "courseLink": "/course/sfob20009u/2024-2025"
+  },
+  {
+    "courseName": "Qualitative methods: Health Service, Culture, and Society",
+    "courseLink": "/course/spum18002u/2024-2025"
+  },
+  {
+    "courseName": "Quality – Drug Substance and Drug Product",
+    "courseLink": "/course/smrm18010u/2024-2025"
+  },
+  {
+    "courseName": "Quantitative and qualitative research methods",
+    "courseLink": "/course/sitb18009u/2024-2025"
+  },
+  {
+    "courseName": "Quantitative Genomics and Breeding",
+    "courseLink": "/course/sask16003u/2024-2025"
+  },
+  {
+    "courseName": "Quantitative Methods in Herd Management",
+    "courseLink": "/course/sask22001u/2024-2025"
+  },
+  {
+    "courseName": "Quaternary Geology (kvartær)",
+    "courseLink": "/course/sgbb20005u/2024-2025"
+  },
+  {
+    "courseName": "Questionnaire Construction",
+    "courseLink": "/course/sfoa09003u/2024-2025"
+  },
+  {
+    "courseName": "Radiopharmaceutical Chemistry",
+    "courseLink": "/course/sfab20043u/2024-2025"
+  },
+  {
+    "courseName": "Radiopharmaceutical Chemistry",
+    "courseLink": "/course/sfak20043u/2024-2025"
+  },
+  {
+    "courseName": "Regenerative periodontal surgery (elective)",
+    "courseLink": "/course/sodk23001u/2024-2025"
+  },
+  {
+    "courseName": "Regulatory Science",
+    "courseLink": "/course/sfak20044u/2024-2025"
+  },
+  {
+    "courseName": "Reproductive Technologies and Family Ties",
+    "courseLink": "/course/smea24002u/2024-2025"
+  },
+  {
+    "courseName": "Reproductive Technologies and Family Ties",
+    "courseLink": "/course/sfok19003u/2024-2025"
+  },
+  {
+    "courseName": "Reproductive Technologies and Family Ties",
+    "courseLink": "/course/sitk23002u/2024-2025"
+  },
+  {
+    "courseName": "Research Project in Pharmaceutics and Drug Delivery",
+    "courseLink": "/course/slvka0342u/2024-2025"
+  },
+  {
+    "courseName": "Safety of Medicines - from Non-clinical Development to Pharmacovigilance",
+    "courseLink": "/course/smrm18007u/2024-2025"
+  },
+  {
+    "courseName": "Science Communication and Media Skills",
+    "courseLink": "/course/sbri19014u/2024-2025"
+  },
+  {
+    "courseName": "Shelter and Settlements in Disasters",
+    "courseLink": "/course/sglk13014u/2024-2025"
+  },
+  {
+    "courseName": "Shelter and Settlements in Disasters",
+    "courseLink": "/course/sdmm20001u/2024-2025"
+  },
+  {
+    "courseName": "Skin Immunology",
+    "courseLink": "/course/siik19001u/2024-2025"
+  },
+  {
+    "courseName": "Small Animal Basic Clinical Theory",
+    "courseLink": "/course/sveb13009u/2024-2025"
+  },
+  {
+    "courseName": "Social exclusion: Sociological analyses of health-related problems",
+    "courseLink": "/course/sfok22004u/2024-2025"
+  },
+  {
+    "courseName": "Social Medicine, disease prevention, and rehabilitation",
+    "courseLink": "/course/sfob20002u/2024-2025"
+  },
+  {
+    "courseName": "Social Pharmacy – Method and Dissemination",
+    "courseLink": "/course/sfab20033u/2024-2025"
+  },
+  {
+    "courseName": "Sociology of health and illness; analytical perspectives",
+    "courseLink": "/course/sfob20019u/2024-2025"
+  },
+  {
+    "courseName": "Special Pathology and Poultry Diseases - Practicals",
+    "courseLink": "/course/sveb13032u/2024-2025"
+  },
+  {
+    "courseName": "Special Pathology and Poultry Diseases - Theory",
+    "courseLink": "/course/sveb13031u/2024-2025"
+  },
+  {
+    "courseName": "Stable Isotopes",
+    "courseLink": "/course/sgbk20004u/2024-2025"
+  },
+  {
+    "courseName": "Stardust to Planets: Building a Habitable Solar System",
+    "courseLink": "/course/sgbk20009u/2024-2025"
+  },
+  {
+    "courseName": "Statistical data analysis using the computer program SAS",
+    "courseLink": "/course/ssua23001u/2024-2025"
+  },
+  {
+    "courseName": "Statistics",
+    "courseLink": "/course/sfob20006u/2024-2025"
+  },
+  {
+    "courseName": "Statistics and Data Analysis for Human Biologists",
+    "courseLink": "/course/shua13024u/2024-2025"
+  },
+  {
+    "courseName": "Statistics for Health Sciences",
+    "courseLink": "/course/sitb18001u/2024-2025"
+  },
+  {
+    "courseName": "Statistics, Dental Surgery",
+    "courseLink": "/course/sodb16401u/2024-2025"
+  },
+  {
+    "courseName": "Statistics, Dental Surgery",
+    "courseLink": "/course/sodb24018u/2024-2025"
+  },
+  {
+    "courseName": "Stay at Foreign University Hospital",
+    "courseLink": "/course/smea15071u/2024-2025"
+  },
+  {
+    "courseName": "Stem Cells in Mammalian Development Differentiation and Disease",
+    "courseLink": "/course/shua13059u/2024-2025"
+  },
+  {
+    "courseName": "Strategies for Health Promotion and Disease Prevention",
+    "courseLink": "/course/sglk15007u/2024-2025"
+  },
+  {
+    "courseName": "Structure and function of the organs - How the body works in health and disease",
+    "courseLink": "/course/sodb16037u/2024-2025"
+  },
+  {
+    "courseName": "Structure and function of the organs - How the body works in health and disease",
+    "courseLink": "/course/sodb24010u/2024-2025"
+  },
+  {
+    "courseName": "Structure-based Drug Research",
+    "courseLink": "/course/slkkil112u/2024-2025"
+  },
+  {
+    "courseName": "Summer Course in Global Health Challenges",
+    "courseLink": "/course/smea15067u/2024-2025"
+  },
+  {
+    "courseName": "Summer Course in International Health",
+    "courseLink": "/course/smea15070u/2024-2025"
+  },
+  {
+    "courseName": "Summer School - Large Animals",
+    "courseLink": "/course/svek13034u/2024-2025"
+  },
+  {
+    "courseName": "Summer School - Large Animals",
+    "courseLink": "/course/svek13039u/2024-2025"
+  },
+  {
+    "courseName": "Summer School - Large Animals",
+    "courseLink": "/course/svek13035u/2024-2025"
+  },
+  {
+    "courseName": "Summer School - Large Animals",
+    "courseLink": "/course/svek13037u/2024-2025"
+  },
+  {
+    "courseName": "Summer School - Large Animals",
+    "courseLink": "/course/svek13036u/2024-2025"
+  },
+  {
+    "courseName": "Summer School - Large Animals",
+    "courseLink": "/course/svek13033u/2024-2025"
+  },
+  {
+    "courseName": "Summer School - Large Animals",
+    "courseLink": "/course/svek13038u/2024-2025"
+  },
+  {
+    "courseName": "Summer School Companion Animals",
+    "courseLink": "/course/svek13030u/2024-2025"
+  },
+  {
+    "courseName": "Summer School Companion Animals",
+    "courseLink": "/course/svek13026u/2024-2025"
+  },
+  {
+    "courseName": "Summer School Companion Animals",
+    "courseLink": "/course/svek13031u/2024-2025"
+  },
+  {
+    "courseName": "Summer School Companion Animals",
+    "courseLink": "/course/svek13029u/2024-2025"
+  },
+  {
+    "courseName": "Summer School Companion Animals",
+    "courseLink": "/course/svek13024u/2024-2025"
+  },
+  {
+    "courseName": "Summer School Companion Animals",
+    "courseLink": "/course/svek13025u/2024-2025"
+  },
+  {
+    "courseName": "Summer School Companion Animals",
+    "courseLink": "/course/svek13028u/2024-2025"
+  },
+  {
+    "courseName": "Summer School Companion Animals",
+    "courseLink": "/course/svek13027u/2024-2025"
+  },
+  {
+    "courseName": "Summer School Companion Animals",
+    "courseLink": "/course/svek13032u/2024-2025"
+  },
+  {
+    "courseName": "Survival and Event History Analysis",
+    "courseLink": "/course/sfok22003u/2024-2025"
+  },
+  {
+    "courseName": "Sustainability and Climate Change in Global Health and Health Care Systems - From Global Systems to Community Action",
+    "courseLink": "/course/sglk24002u/2024-2025"
+  },
+  {
+    "courseName": "Systems Pharmacology - Signaling Pathways",
+    "courseLink": "/course/sfabil117u/2024-2025"
+  },
+  {
+    "courseName": "The ABC of grant application writing and how to pitch your research",
+    "courseLink": "/course/shua23001u/2024-2025"
+  },
+  {
+    "courseName": "The Anthropology of Global Health",
+    "courseLink": "/course/sglk20003u/2024-2025"
+  },
+  {
+    "courseName": "The Economics of Personalised Medicine",
+    "courseLink": "/course/spmm21010u/2024-2025"
+  },
+  {
+    "courseName": "The EU Regulatory Environment – Procedures and Applications",
+    "courseLink": "/course/smrm18002u/2024-2025"
+  },
+  {
+    "courseName": "The Immune Defence and Cancer",
+    "courseLink": "/course/siik16003u/2024-2025"
+  },
+  {
+    "courseName": "The Immune Response to Infection",
+    "courseLink": "/course/siik16002u/2024-2025"
+  },
+  {
+    "courseName": "The US Regulatory Environment",
+    "courseLink": "/course/smrm18003u/2024-2025"
+  },
+  {
+    "courseName": "Theories and Research Methods in Social and Clinical Pharmacy",
+    "courseLink": "/course/sfak20016u/2024-2025"
+  },
+  {
+    "courseName": "Theory of Science",
+    "courseLink": "/course/ssua15012u/2024-2025"
+  },
+  {
+    "courseName": "Theory of Science and Ethics for Molecular Biomedicines",
+    "courseLink": "/course/smoa09004u/2024-2025"
+  },
+  {
+    "courseName": "Thesis",
+    "courseLink": "/course/sglk13010u/2024-2025"
+  },
+  {
+    "courseName": "Thesis in Immunology and Inflammation",
+    "courseLink": "/course/siik16007u/2024-2025"
+  },
+  {
+    "courseName": "Toxicology and Drug Safety",
+    "courseLink": "/course/sfak20017u/2024-2025"
+  },
+  {
+    "courseName": "Transdisciplinary project",
+    "courseLink": "/course/sitb18006u/2024-2025"
+  },
+  {
+    "courseName": "Translational Discovery Omics I - Genomics, Epigenomics, and Transcriptomics",
+    "courseLink": "/course/sbri19001u/2024-2025"
+  },
+  {
+    "courseName": "Translational Discovery Omics II - Proteomics",
+    "courseLink": "/course/sbri19002u/2024-2025"
+  },
+  {
+    "courseName": "Translational Discovery Omics III - Metabolomics, Model Systems, and Precision Medicine",
+    "courseLink": "/course/sbri19003u/2024-2025"
+  },
+  {
+    "courseName": "Translational Pharmacology - From Concept to Medical Drug and from Concept to Biotech Company",
+    "courseLink": "/course/shua13057u/2024-2025"
+  },
+  {
+    "courseName": "Translational Research Management and Leadership",
+    "courseLink": "/course/sbri19008u/2024-2025"
+  },
+  {
+    "courseName": "Translational Tools I",
+    "courseLink": "/course/sbri19007u/2024-2025"
+  },
+  {
+    "courseName": "Translational Tools II – New Methods",
+    "courseLink": "/course/sbri19011u/2024-2025"
+  },
+  {
+    "courseName": "Transparency and Trustworthiness in Drug Development",
+    "courseLink": "/course/smrm18004u/2024-2025"
+  },
+  {
+    "courseName": "Value Based Health Care - the future for the health care sector?",
+    "courseLink": "/course/smimif116u/2024-2025"
+  },
+  {
+    "courseName": "Veterinary Anatomy and Physiology - exam",
+    "courseLink": "/course/svebxxxxxe/2024-2025"
+  },
+  {
+    "courseName": "Veterinary Anatomy and Physiology part 1",
+    "courseLink": "/course/sveb13019u/2024-2025"
+  },
+  {
+    "courseName": "Veterinary Anatomy and Physiology part 2",
+    "courseLink": "/course/sveb13020u/2024-2025"
+  },
+  {
+    "courseName": "Veterinary BSc project",
+    "courseLink": "/course/svebbsch1e/2024-2025"
+  },
+  {
+    "courseName": "Veterinary Ethics and Philosophy of Science",
+    "courseLink": "/course/sveb13030u/2024-2025"
+  },
+  {
+    "courseName": "Veterinary Genetics",
+    "courseLink": "/course/sveb11001u/2024-2025"
+  },
+  {
+    "courseName": "Veterinary Imaging",
+    "courseLink": "/course/svek13043u/2024-2025"
+  },
+  {
+    "courseName": "Veterinary Jurisprudence and Animal Welfare Assessment",
+    "courseLink": "/course/svek13045u/2024-2025"
+  },
+  {
+    "courseName": "Veterinary Jurisprudence and Laboratory Animal Science",
+    "courseLink": "/course/sveb13024u/2024-2025"
+  },
+  {
+    "courseName": "Veterinary Methodology and Paraclinical Skills",
+    "courseLink": "/course/scam13001u/2024-2025"
+  },
+  {
+    "courseName": "Veterinary MSc thesis",
+    "courseLink": "/course/svek14002e/2024-2025"
+  },
+  {
+    "courseName": "Veterinary Paraclinics",
+    "courseLink": "/course/svek13044u/2024-2025"
+  },
+  {
+    "courseName": "Veterinary Pharmacology and Toxicology",
+    "courseLink": "/course/sveb13018u/2024-2025"
+  },
+  {
+    "courseName": "Veterinary Project in Practice - externship (7.5 credits)",
+    "courseLink": "/course/svek13041u/2024-2025"
+  },
+  {
+    "courseName": "Veterinary Project in Practice - externship (15 credits)",
+    "courseLink": "/course/svek13042u/2024-2025"
+  },
+  {
+    "courseName": "Vulnerability and Risk Assessment Methods",
+    "courseLink": "/course/sdmm13007u/2024-2025"
+  },
+  {
+    "courseName": "Water Supply and Sanitation in Emergencies",
+    "courseLink": "/course/sglk13018u/2024-2025"
+  },
+  {
+    "courseName": "Water Supply and Sanitation in Emergencies",
+    "courseLink": "/course/sdmm16001u/2024-2025"
+  },
+  {
+    "courseName": "Wet Lab Omics",
+    "courseLink": "/course/spmm21011u/2024-2025"
+  },
+  {
+    "courseName": "Written Project",
+    "courseLink": "/course/ssua15018u/2024-2025"
+  },
+  {
+    "courseName": "Zooarchaeology: Analyses and Interpretation of Animal Bones",
+    "courseLink": "/course/sgbb22000u/2024-2025"
+  }
 ]

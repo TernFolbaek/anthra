@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './ConfigurationSettings.css';
 
 const ConfigurationSettings: React.FC = () => {
-    const [darkMode, setDarkMode] = React.useState(false);
+    // Parse the value from localStorage and default to false if it's null
+    const storedDarkMode = localStorage.getItem('isDark') === 'true';
+    const [darkMode, setDarkMode] = useState(storedDarkMode);
 
     const toggleDarkMode = () => {
-        setDarkMode(!darkMode);
-        document.body.classList.toggle('dark-mode', !darkMode);
+        setDarkMode((prevMode) => {
+            const newMode = !prevMode;
+            // Update localStorage when the mode changes
+            localStorage.setItem('isDark', newMode.toString());
+            document.body.classList.toggle('dark-mode', newMode);
+            return newMode;
+        });
     };
+
+    useEffect(() => {
+        // Ensure the body class reflects the current dark mode setting on load
+        if (darkMode) {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
+    }, [darkMode]);
 
     return (
         <div className="configuration-settings">

@@ -47,6 +47,9 @@
 .auth-container input::placeholder {
     color: #bbb;
 }
+.social-login{
+    margin-top: 1rem;
+}
 
 .submit-button {
     background-color: transparent;

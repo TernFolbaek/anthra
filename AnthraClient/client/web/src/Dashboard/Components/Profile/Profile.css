@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
+
+.profile-card {
+    width: 600px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    font-family: 'Montserrat', sans-serif;
+    padding: 20px;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-header h2 {
+    margin: 0;
+}
+
+.profile-header button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.profile-header button:hover {
+    background-color: #0056b3;
+}
+
+.profile-content {
+    display: flex;
+    margin-top: 20px;
+}
+
+.profile-picture {
+    text-align: center;
+}
+
+.profile-picture img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.profile-picture input[type="file"] {
+    margin-top: 10px;
+    width: 200px;
+}
+
+.profile-info {
+    flex: 2;
+    margin-left: 20px;
+}
+
+.profile-info div {
+    margin-bottom: 15px;
+}
+
+.profile-info label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.profile-info span {
+    font-size: 1rem;
+}
+
+.profile-info input,
+.profile-info textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.save-button {
+    margin-top: 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.save-button:hover {
+    background-color: #218838;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+/* Dark mode styles */
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.dark-mode .profile-card {
+    background-color: #1e1e1e;
+    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .profile-header h2 {
+    color: #ffffff;
+}
+
+.dark-mode .profile-header button {
+    background-color: #444;
+    color: #ffffff;
+}
+
+.dark-mode .profile-header button:hover {
+    background-color: #333;
+}
+
+.dark-mode .profile-info label {
+    color: #ffffff;
+}
+
+.dark-mode .profile-info input,
+.dark-mode .profile-info textarea {
+    background-color: #333;
+    color: #ffffff;
+    border: 1px solid #555;
+}
+
+.dark-mode .save-button {
+    background-color: #444;
+    color: #ffffff;
+}
+
+.dark-mode .save-button:hover {
+    background-color: #333;
+}
+
+.dark-mode .error-message {
+    color: #ff6666;
+}

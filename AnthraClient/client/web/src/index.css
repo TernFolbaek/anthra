@@ -25,7 +25,7 @@ body.dark-mode .settings-card {
 }
 
 body.dark-mode .settings-tab {
-  color: #ccc;
+  color: rgba(113, 112, 112, 0.97);
 }
 
 body.dark-mode .settings-tab.active {

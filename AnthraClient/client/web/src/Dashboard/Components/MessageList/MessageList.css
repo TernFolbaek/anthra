@@ -8,6 +8,41 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+.dropdown-section {
+    margin-bottom: 20px;
+}
+
+.dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+}
+
+.dark-mode .dropdown-header {
+    background-color: #333;
+    color: #fff;
+}
+
+.dropdown-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.dropdown-arrow {
+    font-size: 1.2rem;
+}
+
+.conversation-list {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.dark-mode .conversation-list {
+    border-color: #444;
+}
+
 .conversation-row {
     display: flex;
     align-items: center;

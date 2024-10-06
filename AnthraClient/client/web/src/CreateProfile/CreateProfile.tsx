@@ -15,6 +15,12 @@ interface CreateProfileProps {
     onProfileCreated: () => void;
 }
 
+interface Course {
+    courseName: string;
+    courseLink: string;
+}
+
+
 const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
     // Step management
     const [step, setStep] = useState(1);
@@ -24,9 +30,10 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
     const [lastName, setLastName] = useState('');
     const [location, setLocation] = useState('');
     const [work, setWork] = useState('');
-    const [courses, setCourses] = useState<string[]>([]);
+    const [courses, setCourses] = useState<Course[]>([]);
     const [courseInput, setCourseInput] = useState('');
-    const [courseSuggestions, setCourseSuggestions] = useState<string[]>([]);
+    const [courseLinkInput, setCourseLinkInput] = useState(''); // New state for manual course link
+    const [courseSuggestions, setCourseSuggestions] = useState<Course[]>([]);
     const [subjects, setSubjects] = useState<string[]>([]);
     const [aboutMe, setAboutMe] = useState('');
     const [age, setAge] = useState<number | ''>('');
@@ -43,12 +50,25 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
     const faculties: string[] = ['Health & Medical','Humanities','Sciences','Theology','Social Sciences', 'Law'];
 
     const token = localStorage.getItem('token');
+    const cbsCoursesArray: Course[] = cbsCourses as Course[];
+    const dtuCoursesArray: Course[] = dtuCourses as Course[];
+    const lawCoursesArray: Course[] = lawCourses as Course[];
+    const humanitiesCoursesArray: Course[] = humanitiesCourses as Course[];
+    const sciencesCoursesArray: Course[] = sciencesCourses as Course[];
+    const socialSciencesCoursesArray: Course[] = socialSciencesCourses as Course[];
+    const theologyCoursesArray: Course[] = theologyCourses as Course[];
+    const healthAndMedicalCoursesArray: Course[] = healthAndMedicalCourses as Course[];
+
     const handleDropdownClick = () => {
         setIsOpen(!isOpen);
     };
 
-    const handleOptionClick = (institution: string) => {
-        setInstitution(institution);
+    const handleOptionClick = (selectedInstitution: string) => {
+        if (selectedInstitution !== institution) {
+            setCourses([]); // Clear courses
+            setFaculty(''); // Reset faculty
+        }
+        setInstitution(selectedInstitution);
         setIsOpen(false);
     };
 
@@ -57,6 +77,9 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
     }
 
     const handleFacultyOptionClick = (selectedFaculty: string) => {
+        if (selectedFaculty !== faculty) {
+            setCourses([]); // Clear courses
+        }
         setFaculty(selectedFaculty);
         setIsFacultyDropdownOpen(false);
     };
@@ -144,92 +167,105 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
         const value = e.target.value;
         setCourseInput(value);
 
+        if (value.trim() === '') {
+            setCourseSuggestions([]);
+            return;
+        }
+        let suggestions: Course[] = [];
+
+
         if (institution === 'CBS') {
-            const suggestions = cbsCourses
+            suggestions = cbsCoursesArray
                 .filter((course) =>
-                    course.toLowerCase().includes(value.toLowerCase())
+                    course.courseName.toLowerCase().includes(value.toLowerCase())
                 )
                 .slice(0, 5); // Get top 5 suggestions
             setCourseSuggestions(suggestions);
         } else if(institution === 'DTU') {
-            const suggestions = dtuCourses
+            suggestions = dtuCoursesArray
                 .filter((course) =>
-                    course.toLowerCase().includes(value.toLowerCase())
+                    course.courseName.toLowerCase().includes(value.toLowerCase())
                 )
                 .slice(0, 5); // Get top 5 suggestions
             setCourseSuggestions(suggestions);
         } else if(institution === 'KU'){
             if(faculty === 'Health & Medical'){
-                const suggestions = healthAndMedicalCourses
+                suggestions = healthAndMedicalCoursesArray
                     .filter((course) =>
-                        course.toLowerCase().includes(value.toLowerCase())
+                        course.courseName.toLowerCase().includes(value.toLowerCase())
                     )
                     .slice(0, 5); // Get top 5 suggestions
                 setCourseSuggestions(suggestions);
             }else if(faculty === "Law"){
-                const suggestions = lawCourses
+                suggestions = lawCoursesArray
                     .filter((course) =>
-                        course.toLowerCase().includes(value.toLowerCase())
+                        course.courseName.toLowerCase().includes(value.toLowerCase())
                     )
                     .slice(0, 5); // Get top 5 suggestions
                 setCourseSuggestions(suggestions);
             }else if(faculty === "Sciences"){
-                const suggestions = sciencesCourses
+                suggestions = sciencesCoursesArray
                     .filter((course) =>
-                        course.toLowerCase().includes(value.toLowerCase())
+                        course.courseName.toLowerCase().includes(value.toLowerCase())
                     )
                     .slice(0, 5); // Get top 5 suggestions
                 setCourseSuggestions(suggestions);
             }else if(faculty === "Theology"){
-                const suggestions = theologyCourses
+                suggestions = theologyCoursesArray
                     .filter((course) =>
-                        course.toLowerCase().includes(value.toLowerCase())
+                        course.courseName.toLowerCase().includes(value.toLowerCase())
                     )
                     .slice(0, 5); // Get top 5 suggestions
                 setCourseSuggestions(suggestions);
             }else if(faculty === "Social Sciences"){
-                const suggestions = socialSciencesCourses
+                suggestions = socialSciencesCoursesArray
                     .filter((course) =>
-                        course.toLowerCase().includes(value.toLowerCase())
+                        course.courseName.toLowerCase().includes(value.toLowerCase())
                     )
                     .slice(0, 5); // Get top 5 suggestions
                 setCourseSuggestions(suggestions);
             }else if(faculty === "Humanities"){
-                const suggestions = humanitiesCourses
+                suggestions = humanitiesCoursesArray
                     .filter((course) =>
-                        course.toLowerCase().includes(value.toLowerCase())
+                        course.courseName.toLowerCase().includes(value.toLowerCase())
                     )
                     .slice(0, 5); // Get top 5 suggestions
                 setCourseSuggestions(suggestions);
             }
         }else{
-            setCourseSuggestions([]);
+            suggestions = []
         }
+        setCourseSuggestions(suggestions);
 
     };
 
 
-    // Handle course selection from suggestions
-    const handleCourseSelect = (courseName: string) => {
-        if (!courses.includes(courseName)) {
-            setCourses([...courses, courseName]);
+    const handleCourseSelect = (course: Course) => {
+        if (!courses.some((c) => c.courseName === course.courseName)) {
+            setCourses([...courses, course]);
         }
         setCourseInput('');
         setCourseSuggestions([]);
     };
 
-    // Handle adding course manually
     const handleAddCourse = () => {
-        if (courseInput && !courses.includes(courseInput)) {
-            setCourses([...courses, courseInput]);
+        if (courseInput && !courses.some((c) => c.courseName === courseInput)) {
+            const newCourse: Course = {
+                courseName: courseInput,
+                courseLink: courseLinkInput || '',
+            };
+            setCourses([...courses, newCourse]);
             setCourseInput('');
+            setCourseLinkInput('');
             setCourseSuggestions([]);
         }
     };
 
+
+
     // Handle removing a course
     const handleRemoveCourse = (courseName: string) => {
-        setCourses(courses.filter((c) => c !== courseName));
+        setCourses(courses.filter((c) => c.courseName !== courseName));
     };
 
     // Handle profile picture preview (optional)
@@ -243,6 +279,18 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
         }
     };
 
+    const getCourseLinkPrefix = () => {
+        switch (institution) {
+            case 'KU':
+                return 'https://kurser.ku.dk';
+            case 'CBS':
+                return 'https://kursuskatalog.cbs.dk/';
+            case 'DTU':
+                return 'https://kurser.dtu.dk';
+            default:
+                return '';
+        }
+    };
 
 
     return (
@@ -315,7 +363,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
 
                         <div className="flex">
                             <div className="custom-dropdown flex items-center">
-                                <div className="dropdown-header mr-5" onClick={handleDropdownClick}>
+                                <div className="create-profile-dropdown-header mr-5" onClick={handleDropdownClick}>
                                     {institution ? institution : "Select Institution"}
                                     <span className="dropdown-arrow">▼</span>
                                 </div>
@@ -336,7 +384,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                             {institution === 'KU' && (
                                 <div className="custom-dropdown flex items-center gap-x-2">
                                     Faculty:
-                                    <div className="dropdown-header" onClick={handleFacultyDropdownClick}>
+                                    <div className="create-profile-dropdown-header" onClick={handleFacultyDropdownClick}>
                                         {faculty ? faculty : "Select Faculty"}
                                         <span className="dropdown-arrow">▼</span>
                                     </div>
@@ -371,35 +419,58 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                             </button>
                             {courseSuggestions.length > 0 && (
                                 <ul className="suggestions-list">
-                                    {courseSuggestions.map((suggestion, index) => (
+                                    {courseSuggestions.map((course, index) => (
                                         <li
                                             className="suggestion-item"
                                             key={index}
-                                            onClick={() => handleCourseSelect(suggestion)}
+                                            onClick={() => handleCourseSelect(course)}
                                         >
-                                            {suggestion}
+                                            {course.courseName}
                                         </li>
                                     ))}
                                 </ul>
                             )}
+                            {courseInput && courseSuggestions.length === 0 && institution && (
+                                <div>
+                                    <input
+                                        type="text"
+                                        placeholder="Course Link (optional)"
+                                        value={courseLinkInput}
+                                        onChange={(e) => setCourseLinkInput(e.target.value)}
+                                    />
+                                </div>
+                            )}
+
+
                         </div>
 
                         {/* Display selected courses */}
                         {courses.length > 0 && (
                             <div className="selected-courses">
-                                {courses.map((courseName, index) => (
+                                {courses.map((course, index) => (
                                     <span key={index} className="course-tag">
-                                        {courseName}
-                                        <button
-                                            type="button"
-                                            onClick={() => handleRemoveCourse(courseName)}
-                                        >
-                                            x
-                                        </button>
-                                    </span>
+                                    <a
+                                        href={
+                                            course.courseLink.startsWith('http')
+                                                ? course.courseLink
+                                                : `${getCourseLinkPrefix()}${course.courseLink}`
+                                        }
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                      {course.courseName}
+                                    </a>
+                                    <button
+                                        type="button"
+                                        onClick={() => handleRemoveCourse(course.courseName)}
+                                    >
+                                      x
+                                    </button>
+                                  </span>
                                 ))}
                             </div>
                         )}
+
                         {/* Subjects input */}
                         <input
                             type="text"

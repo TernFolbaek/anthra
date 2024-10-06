@@ -1,0 +1,32 @@
+/* Groups.css */
+
+.groups-container {
+    padding: 20px;
+}
+
+.create-group-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.create-group-button:hover {
+    background-color: #0069d9;
+}
+
+.groups-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.group-item {
+    background-color: #f8f9fa;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}

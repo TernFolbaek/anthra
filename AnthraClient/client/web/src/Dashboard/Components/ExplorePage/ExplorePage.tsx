@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './ExplorePage.css';
 
+interface Course {
+    courseName: string;
+    courseLink: string;
+}
+
 interface User {
     id: string;
     firstName: string;
@@ -9,7 +14,7 @@ interface User {
     location: string;
     institution: string;
     work: string;
-    course: string;
+    courses: Course[];  // Update to handle courses
     subjects: string[];
     aboutMe: string;
     age: number;
@@ -21,14 +26,15 @@ const ExplorePage: React.FC = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const token = localStorage.getItem('token');
+
     useEffect(() => {
         // Fetch users from the backend
         const fetchUsers = async () => {
             try {
                 const response = await axios.get('http://localhost:5001/api/Explore/GetUsers', {
-                 headers: {
-                    'Authorization': `Bearer ${token}`,
-                }
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
                 });
                 setUsers(response.data);
                 setCurrentIndex(0);
@@ -38,7 +44,7 @@ const ExplorePage: React.FC = () => {
         };
 
         fetchUsers();
-    }, []);
+    }, [token]);
 
     useEffect(() => {
         // Update the current user based on currentIndex
@@ -51,14 +57,16 @@ const ExplorePage: React.FC = () => {
 
     const handleConnect = async () => {
         if (currentUser) {
-            // Send a connection request to the frontend
+            // Send a connection request to the backend
             try {
                 await axios.post(
                     'http://localhost:5001/api/Connections/SendRequest',
                     { targetUserId: currentUser.id },
-                    {   headers: {
+                    {
+                        headers: {
                             'Authorization': `Bearer ${token}`,
-                        }}
+                        }
+                    }
                 );
             } catch (error) {
                 console.error('Error sending connection request:', error);
@@ -70,7 +78,6 @@ const ExplorePage: React.FC = () => {
 
     const handleSkip = async () => {
         if (currentUser) {
-            console.log(token)
             try {
                 await axios.post(
                     'http://localhost:5001/api/Explore/SkipUser',
@@ -81,14 +88,12 @@ const ExplorePage: React.FC = () => {
                         }
                     }
                 );
-                // Update your UI accordingly
             } catch (error) {
                 console.error('Error skipping user:', error);
             }
         }
         setCurrentIndex(currentIndex + 1);
     };
-
 
     return (
         <div className="explore-page">
@@ -101,13 +106,27 @@ const ExplorePage: React.FC = () => {
                     <p>{currentUser.location}</p>
                     <p>{currentUser.institution}</p>
                     <p>{currentUser.work}</p>
-                    <p>{currentUser.course}</p>
                     <p>{currentUser.aboutMe}</p>
                     {currentUser.subjects &&
                         (<p>Subjects: {currentUser.subjects.join(', ')}</p>)
                     }
+                    {/* Map over courses to display links */}
+                    {currentUser.courses && (
+                        <div>
+                            <h3>Courses:</h3>
+                            <ul>
+                                {currentUser.courses.map((course, index) => (
+                                    <li key={index}>
+                                        <a href={course.courseLink} target="_blank" rel="noopener noreferrer">
+                                            {course.courseName}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                     <div className="button-container">
-                    <button className="connect-button" onClick={handleConnect}>
+                        <button className="connect-button" onClick={handleConnect}>
                             Connect
                         </button>
                         <button className="skip-button" onClick={handleSkip}>

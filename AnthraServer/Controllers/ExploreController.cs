@@ -49,6 +49,7 @@ namespace MyBackendApp.Controllers
 
             // Fetch users excluding the ones in excludedUserIds
             var users = await _userManager.Users
+                .AsNoTracking()
                 .Where(u => !excludedUserIds.Contains(u.Id))
                 .Select(u => new
                 {

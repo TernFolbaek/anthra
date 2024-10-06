@@ -10,7 +10,8 @@ namespace MyBackendApp.Data
         public DbSet<ConnectionRequest> ConnectionRequests { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<SkippedUserModel> SkippedUsers { get; set; }
-
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<GroupMember> GroupMembers { get; set; }
 
         // Constructor
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -34,6 +35,23 @@ namespace MyBackendApp.Data
                 .HasOne(su => su.SkippedUser)
                 .WithMany()
                 .HasForeignKey(su => su.SkippedUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+           
+            builder.Entity<ApplicationUser>(b =>
+            {
+                b.OwnsMany(u => u.Courses);
+            });
+            
+            builder.Entity<Group>()
+                .HasMany(g => g.Members)
+                .WithOne(gm => gm.Group)
+                .HasForeignKey(gm => gm.GroupId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<GroupMember>()
+                .HasOne(gm => gm.User)
+                .WithMany()
+                .HasForeignKey(gm => gm.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

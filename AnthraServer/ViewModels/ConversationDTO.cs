@@ -8,5 +8,7 @@ namespace MyBackendApp.ViewModels
         public string UserProfilePicture { get; set; }
         public string LastMessageContent { get; set; }
         public DateTime? LastMessageTimestamp { get; set; }
+        public string LastMessageSenderId { get; set; } 
+
     }
 }

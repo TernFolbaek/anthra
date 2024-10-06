@@ -10,10 +10,10 @@ namespace MyBackendApp.ViewModels
         public string? Location { get; set; }
         public string? Institution { get; set; }
         public string? Work { get; set; }
-        public List<string?> Courses { get; set; }
+        public string Courses { get; set; } // JSON string of courses
         public List<string>? Subjects { get; set; }
         public string? AboutMe { get; set; }
         public int? Age { get; set; }
-        public IFormFile ProfilePicture { get; set; }
+        public IFormFile? ProfilePicture { get; set; }
     }
 }

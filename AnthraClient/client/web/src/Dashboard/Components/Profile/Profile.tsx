@@ -132,7 +132,7 @@ const Profile: React.FC = () => {
                         src={
                             selectedFile
                                 ? URL.createObjectURL(selectedFile)
-                                : `http://localhost:5001/${profile.profilePictureUrl}` || '/default-profile.png'
+                                : `http://localhost:5001${profile.profilePictureUrl}` || '/default-profile.png'
                         }
                         alt="Profile Picture"
                     />

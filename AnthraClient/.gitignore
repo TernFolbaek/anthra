@@ -1,3 +1,5 @@
 /node_modules
 AnthraClient/node_modules
 /AnthraClient/node_modules
+AnthraClient/client/web/node_modules
+/AnthraClient/client/web/node_modules

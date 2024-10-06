@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Newtonsoft.Json;
 
 namespace MyBackendApp.Controllers
 {
@@ -61,7 +62,10 @@ namespace MyBackendApp.Controllers
                 user.ProfilePictureUrl = "/uploads/" + uniqueFileName;
             }
             
-            Console.WriteLine("Yeehaw");
+            if (!string.IsNullOrEmpty(model.Courses))
+            {
+                user.Courses = JsonConvert.DeserializeObject<List<Course>>(model.Courses);
+            }
 
             // Update user properties
             user.FirstName = model.FirstName;
@@ -69,7 +73,7 @@ namespace MyBackendApp.Controllers
             user.Location = model.Location;
             user.Institution = model.Institution;
             user.Work = model.Work;
-            user.Courses = model.Courses;
+
             user.Subjects = model.Subjects;
             user.AboutMe = model.AboutMe;
             user.Age = model.Age;

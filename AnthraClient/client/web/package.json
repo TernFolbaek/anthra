@@ -16,6 +16,7 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "animejs": "^3.2.2",
+    "axios": "^1.7.7",
     "cheerio": "^1.0.0",
     "fs": "^0.0.1-security",
     "jquery": "^3.7.1",

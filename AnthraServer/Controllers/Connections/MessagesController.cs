@@ -41,7 +41,8 @@ namespace MyBackendApp.Controllers
                     UserEmail = g.Select(m => m.SenderId == g.Key ? m.Sender.Email : m.Receiver.Email).FirstOrDefault(),
                     UserProfilePicture = g.Select(m => m.SenderId == g.Key ? m.Sender.ProfilePictureUrl : m.Receiver.ProfilePictureUrl).FirstOrDefault(),
                     LastMessageContent = g.OrderByDescending(m => m.Timestamp).Select(m => m.Content).FirstOrDefault(),
-                    LastMessageTimestamp = g.Max(m => m.Timestamp)
+                    LastMessageTimestamp = g.Max(m => m.Timestamp),
+                    LastMessageSenderId = g.OrderByDescending(m => m.Timestamp).Select(m => m.SenderId).FirstOrDefault()
                 })
                 .ToListAsync();
 
@@ -54,12 +55,14 @@ namespace MyBackendApp.Controllers
             var messages = await _context.Messages
                 .Where(m =>
                     (m.SenderId == userId && m.ReceiverId == contactId) ||
-                    (m.SenderId == contactId && m.ReceiverId == userId))
+                    (m.SenderId == contactId && m.ReceiverId == userId) ||
+                    (m.ReceiverId == userId && m.IsGroupInvitation))
                 .OrderBy(m => m.Timestamp)
                 .ToListAsync();
 
             return Ok(messages);
         }
+
 
         [HttpPost("SendMessage")]
         public async Task<IActionResult> SendMessage([FromBody] SendMessageModel model)

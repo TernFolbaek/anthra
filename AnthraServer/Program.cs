@@ -56,6 +56,7 @@ builder.Services.AddAuthentication(options =>
         options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
     });
 
+//create env file
 // Configure CORS
 builder.Services.AddCors(options =>
 {

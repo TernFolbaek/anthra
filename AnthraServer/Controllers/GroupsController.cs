@@ -53,7 +53,8 @@ namespace MyBackendApp.Controllers
                 UserId = currentUserId,
                 IsAccepted = true
             };
-
+            
+            // create chathub membership
             _context.GroupMembers.Add(creatorMembership);
 
             // Invite other users

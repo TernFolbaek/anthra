@@ -9,6 +9,8 @@ import sciencesCourses from './ku/sciencesCourses.json';
 import socialSciencesCourses from './ku/socialSciencesCourses.json';
 import healthAndMedicalCourses from './ku/healthAndMedicalCourses.json';
 import theologyCourses from './ku/theologyCourses.json';
+import { FaTimes, FaExternalLinkAlt } from 'react-icons/fa'; // Import icons
+
 
 
 interface CreateProfileProps {
@@ -44,6 +46,8 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [isFacultyDropdownOpen, setIsFacultyDropdownOpen] = useState<boolean>(false);
     const [profilePictureFile, setProfilePictureFile] = useState<File | null>(null); // New state for profile picture
+    const [countryInput, setCountryInput] = useState('');  // New state for country input
+    const [countrySuggestions, setCountrySuggestions] = useState<string[]>([]);  // New state for suggestions
 
     const [faculty, setFaculty] = useState<string>("");
     const institutions: string[] = ["CBS", "DTU", "KU"];
@@ -58,6 +62,38 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
     const socialSciencesCoursesArray: Course[] = socialSciencesCourses as Course[];
     const theologyCoursesArray: Course[] = theologyCourses as Course[];
     const healthAndMedicalCoursesArray: Course[] = healthAndMedicalCourses as Course[];
+
+
+    useEffect(() => {
+        const fetchCountries = async () => {
+            if (countryInput.length < 2) {
+                setCountrySuggestions([]);
+                return;
+            }
+
+            try {
+                const response = await axios.get(`https://restcountries.com/v3.1/name/${countryInput}`);
+                const countryNames = response.data.map((country: any) => country.name.common);
+                setCountrySuggestions(countryNames.slice(0, 5)); // Get top 5 suggestions
+            } catch (error) {
+                console.error('Error fetching countries:', error);
+                setCountrySuggestions([]);
+            }
+        };
+
+        fetchCountries();
+    }, [countryInput]);
+
+    // Handle country input change
+    const handleCountryInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setCountryInput(value);
+    };
+
+    const handleCountrySelect = (country: string) => {
+        setLocation(country);
+        setCountrySuggestions([]); // Hide suggestions after selection
+    };
 
     const handleDropdownClick = () => {
         setIsOpen(!isOpen);
@@ -384,7 +420,8 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                             {institution === 'KU' && (
                                 <div className="custom-dropdown flex items-center gap-x-2">
                                     Faculty:
-                                    <div className="create-profile-dropdown-header" onClick={handleFacultyDropdownClick}>
+                                    <div className="create-profile-dropdown-header"
+                                         onClick={handleFacultyDropdownClick}>
                                         {faculty ? faculty : "Select Faculty"}
                                         <span className="dropdown-arrow">▼</span>
                                     </div>
@@ -449,24 +486,27 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                             <div className="selected-courses">
                                 {courses.map((course, index) => (
                                     <span key={index} className="course-tag">
-                                    <a
-                                        href={
-                                            course.courseLink.startsWith('http')
-                                                ? course.courseLink
-                                                : `${getCourseLinkPrefix()}${course.courseLink}`
-                                        }
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                      {course.courseName}
-                                    </a>
-                                    <button
-                                        type="button"
-                                        onClick={() => handleRemoveCourse(course.courseName)}
-                                    >
-                                      x
-                                    </button>
-                                  </span>
+                         <a
+                             href={
+                                 course.courseLink.startsWith('http')
+                                     ? course.courseLink
+                                     : `${getCourseLinkPrefix()}${course.courseLink}`
+                             }
+                             className="course-link"
+                             target="_blank"
+                             rel="noopener noreferrer"
+                         >
+                    {course.courseName}
+                             <FaExternalLinkAlt className="external-link-icon"/>
+                  </a>
+                  <button
+                      type="button"
+                      onClick={() => handleRemoveCourse(course.courseName)}
+                      className="remove-course-button"
+                  >
+                    <FaTimes/>
+                  </button>
+                </span>
                                 ))}
                             </div>
                         )}
@@ -477,17 +517,17 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                             placeholder="Subjects (comma-separated)"
                             value={subjects.join(', ')}
                             onChange={(e) =>
-                                setSubjects(e.target.value.split(',').map((s) => s.trim()))
-                            }
-                        />
-                        <input
-                            type="text"
-                            placeholder="Work"
-                            value={work}
-                            onChange={(e) => setWork(e.target.value)}
-                        />
+                                    setSubjects(e.target.value.split(',').map((s) => s.trim()))
+                                }
+                            />
+                            <input
+                                type="text"
+                                placeholder="Work"
+                                value={work}
+                                onChange={(e) => setWork(e.target.value)}
+                            />
                     </div>
-                )}
+                    )}
 
                 <div className="button-container">
                     {step > 1 && (

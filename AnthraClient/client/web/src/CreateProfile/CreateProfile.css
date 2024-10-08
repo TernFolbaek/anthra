@@ -374,10 +374,59 @@
     cursor: pointer;
     font-weight: bold;
 }
+.suggestions-list {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    width: 100%;
+    z-index: 1000;
+}
 
+.suggestion-item {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
 .course-tag button:hover {
     color: #ff0000;
 }
+/* Styles for the autocomplete container */
+.autocomplete-container {
+    position: relative;
+}
+
+/* Styles for the suggestions list */
+.suggestions-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    z-index: 1000;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Styles for each suggestion item */
+.suggestion-item {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+/* Hover effect for suggestion items */
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+
 
 .course-link {
     display: flex;

@@ -10,6 +10,7 @@ import './App.css';
 import Navbar from './LandingPage/components/Navbar/Navbar';
 import Main from './Dashboard/Main'; // Placeholder for your main app after logins
 import { LanguageProvider } from './LanguageContext';
+import DevelopmentTools from "./DevelopmentTools";
 import axios from "axios"; // Import the LanguageProvider
 
 const App = () => {
@@ -92,6 +93,7 @@ const App = () => {
                             <div id="contact">
                                 <Contact />
                             </div>
+                            {process.env.NODE_ENV === 'development' && <DevelopmentTools />}
                         </div>
                     )
                 )}

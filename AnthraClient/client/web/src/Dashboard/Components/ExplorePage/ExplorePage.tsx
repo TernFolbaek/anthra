@@ -14,7 +14,7 @@ interface User {
     location: string;
     institution: string;
     work: string;
-    courses: Course[];  // Update to handle courses
+    courses: Course[];
     subjects: string[];
     aboutMe: string;
     age: number;
@@ -28,7 +28,6 @@ const ExplorePage: React.FC = () => {
     const token = localStorage.getItem('token');
 
     useEffect(() => {
-        // Fetch users from the backend
         const fetchUsers = async () => {
             try {
                 const response = await axios.get('http://localhost:5001/api/Explore/GetUsers', {
@@ -47,7 +46,6 @@ const ExplorePage: React.FC = () => {
     }, [token]);
 
     useEffect(() => {
-        // Update the current user based on currentIndex
         if (users.length > 0 && currentIndex < users.length) {
             setCurrentUser(users[currentIndex]);
         } else {
@@ -57,7 +55,6 @@ const ExplorePage: React.FC = () => {
 
     const handleConnect = async () => {
         if (currentUser) {
-            // Send a connection request to the backend
             try {
                 await axios.post(
                     'http://localhost:5001/api/Connections/SendRequest',
@@ -72,7 +69,6 @@ const ExplorePage: React.FC = () => {
                 console.error('Error sending connection request:', error);
             }
         }
-        // Move to the next user
         setCurrentIndex(currentIndex + 1);
     };
 
@@ -100,31 +96,38 @@ const ExplorePage: React.FC = () => {
             {currentUser ? (
                 <div className="explore-user-card">
                     <img className="explore-user-card-img" src={`http://localhost:5001${currentUser.profilePictureUrl}`} alt="Profile" />
-                    <h2>
+                    <h2 className="user-name">
                         {currentUser.firstName} {currentUser.lastName}, {currentUser.age}
                     </h2>
-                    <p>{currentUser.location}</p>
-                    <p>{currentUser.institution}</p>
-                    <p>{currentUser.work}</p>
-                    <p>{currentUser.aboutMe}</p>
-                    {currentUser.subjects &&
-                        (<p>Subjects: {currentUser.subjects.join(', ')}</p>)
-                    }
-                    {/* Map over courses to display links */}
-                    {currentUser.courses && (
-                        <div>
-                            <h3>Courses:</h3>
-                            <ul>
-                                {currentUser.courses.map((course, index) => (
-                                    <li key={index}>
-                                        <a href={course.courseLink} target="_blank" rel="noopener noreferrer">
-                                            {course.courseName}
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
+                    <p className="user-location">{currentUser.location}</p>
+                    <div className="user-info">
+                        <h3>Institution</h3>
+                        <p>{currentUser.institution}</p>
+                        <h3>Work</h3>
+                        <p>{currentUser.work}</p>
+                        <h3>About Me</h3>
+                        <p>{currentUser.aboutMe}</p>
+                        {currentUser.subjects && (
+                            <div>
+                                <h3>Subjects</h3>
+                                <p>{currentUser.subjects.join(', ')}</p>
+                            </div>
+                        )}
+                        {currentUser.courses && (
+                            <div>
+                                <h3>Courses</h3>
+                                <ul className="courses-list">
+                                    {currentUser.courses.map((course, index) => (
+                                        <li key={index}>
+                                            <a href={course.courseLink} target="_blank" rel="noopener noreferrer">
+                                                {course.courseName}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+                    </div>
                     <div className="button-container">
                         <button className="connect-button" onClick={handleConnect}>
                             Connect

@@ -48,7 +48,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
     const [profilePictureFile, setProfilePictureFile] = useState<File | null>(null); // New state for profile picture
     const [countryInput, setCountryInput] = useState('');  // New state for country input
     const [countrySuggestions, setCountrySuggestions] = useState<string[]>([]);  // New state for suggestions
-
+    // add country suggestions
     const [faculty, setFaculty] = useState<string>("");
     const institutions: string[] = ["CBS", "DTU", "KU"];
     const faculties: string[] = ['Health & Medical','Humanities','Sciences','Theology','Social Sciences', 'Law'];

@@ -491,11 +491,11 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                                     <span className="dropdown-arrow">▼</span>
                                 </div>
                                 {isOpen && (
-                                    <div className="dropdown-menu">
+                                    <div className="uni-dropdown-menu">
                                         {institutions.map((inst) => (
                                             <div
                                                 key={inst}
-                                                className="dropdown-item"
+                                                className="uni-dropdown-item"
                                                 onClick={() => handleOptionClick(inst)}
                                             >
                                                 {inst}
@@ -513,11 +513,11 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                                         <span className="dropdown-arrow">▼</span>
                                     </div>
                                     {isFacultyDropdownOpen && (
-                                        <div className="dropdown-menu">
+                                        <div className="uni-dropdown-menu">
                                             {faculties.map((faculty) => (
                                                 <div
                                                     key={faculty}
-                                                    className="dropdown-item"
+                                                    className="uni-dropdown-item"
                                                     onClick={() => handleFacultyOptionClick(faculty)}
                                                 >
                                                     {faculty}

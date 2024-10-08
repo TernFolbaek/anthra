@@ -6,7 +6,7 @@
     align-items: center;
     min-height: calc(100vh - 60px);
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(135deg, #ebf3fd, #abddfb);
+    background: rgba(239, 189, 138, 0.5);
 }
 
 .dark-mode .explore-page {

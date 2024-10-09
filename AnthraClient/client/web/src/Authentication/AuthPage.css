@@ -1,9 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap');
-
 .auth-page {
-    background-color: black;
+    background-color: white;
     color: white;
-    font-family: "IBM Plex Mono", monospace;
+    font-family: 'Montserrat', sans-serif;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -83,7 +81,7 @@
     left: 1.5rem;
     background: none;
     border: none;
-    color: white;
+    color: black;
     cursor: pointer;
     font-weight: 600;
     font-size: 1rem;

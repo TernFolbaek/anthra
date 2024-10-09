@@ -4,36 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Ensure DashboardNavbar uses the full width">
+    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Style &quot;no conversations found&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/AnthraBackend.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/AnthraBackend.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Controllers/ProfileController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Controllers/ProfileController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/appsettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/bin/Debug/net8.0/AnthraBackend.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/bin/Debug/net8.0/AnthraBackend.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Authentication/AuthPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Authentication/AuthPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/ExplorePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/ExplorePage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Groups/Groups.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Groups/Groups.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Groups/Groups.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Groups/Groups.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/LandingPage/components/Home/Home.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/LandingPage/components/Home/Home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/LandingPage/components/Navbar/Navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/LandingPage/components/Navbar/Navbar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AnthraServer/bin/Debug/net8.0/AnthraBackend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/bin/Debug/net8.0/AnthraBackend.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AnthraServer/bin/Debug/net8.0/AnthraBackend.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/bin/Debug/net8.0/AnthraBackend.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/bin/Debug/net8.0/System.CodeDom.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/bin/Debug/net8.0/System.CodeDom.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/bin/Debug/net8.0/AnthraBackend.staticwebassets.runtime.json" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/bin/Debug/net8.0/AnthraBackend.staticwebassets.runtime.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AnthraServer/bin/Debug/net8.0/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/bin/Debug/net8.0/appsettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/AnthraBackend.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/AnthraBackend.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.sourcelink.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/ref/AnthraBackend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/ref/AnthraBackend.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/refint/AnthraBackend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/refint/AnthraBackend.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/staticwebassets.build.json" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/staticwebassets.build.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/staticwebassets.development.json" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/staticwebassets.development.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/staticwebassets.pack.json" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/staticwebassets.pack.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/staticwebassets/msbuild.AnthraBackend.Microsoft.AspNetCore.StaticWebAssets.props" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/staticwebassets/msbuild.AnthraBackend.Microsoft.AspNetCore.StaticWebAssets.props" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,32 +59,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraClient/client/web/src/Dashboard/Components",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "settings.editor.selected.configurable": "shared-indexes",
-    "ts.external.directory.path": "/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraClient/client/web/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraClient/client/web/src/Dashboard/Components&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;shared-indexes&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraClient/client/web/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/client/web/src/Dashboard/Components" />
       <recent name="$PROJECT_DIR$/client/web/src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client/web/src/LandingPage/assets" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/client/web" />
       <recent name="$PROJECT_DIR$/client/web/src/Dashboard/Components" />
       <recent name="$PROJECT_DIR$/client/web/src/Dashboard/Components/Settings/ConfigurationSettings" />
-      <recent name="$PROJECT_DIR$/client/web/src/Dashboard/Components/Settings/AdvancedSettings" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -140,94 +136,9 @@
       <workItem from="1728228140468" duration="80000" />
       <workItem from="1728228227604" duration="36000" />
       <workItem from="1728228269898" duration="84000" />
-    </task>
-    <task id="LOCAL-00033" summary="Add Sidebar styling">
-      <option name="closed" value="true" />
-      <created>1727412046599</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1727412046599</updated>
-    </task>
-    <task id="LOCAL-00034" summary="Add fetching of users for explore page">
-      <option name="closed" value="true" />
-      <created>1727445900430</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1727445900430</updated>
-    </task>
-    <task id="LOCAL-00035" summary="Add cbsCourses">
-      <option name="closed" value="true" />
-      <created>1727554075484</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1727554075484</updated>
-    </task>
-    <task id="LOCAL-00036" summary="add dtuCourses">
-      <option name="closed" value="true" />
-      <created>1727554085006</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1727554085006</updated>
-    </task>
-    <task id="LOCAL-00037" summary="add healthAndMedicalCourses">
-      <option name="closed" value="true" />
-      <created>1727554094384</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1727554094384</updated>
-    </task>
-    <task id="LOCAL-00038" summary="add humanitiesCourses.json">
-      <option name="closed" value="true" />
-      <created>1727554114075</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1727554114075</updated>
-    </task>
-    <task id="LOCAL-00039" summary="add sciencesCourses.json">
-      <option name="closed" value="true" />
-      <created>1727554122528</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1727554122528</updated>
-    </task>
-    <task id="LOCAL-00040" summary="add socialSciencesCourses.json">
-      <option name="closed" value="true" />
-      <created>1727554131073</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1727554131073</updated>
-    </task>
-    <task id="LOCAL-00041" summary="add theologyCourses.json">
-      <option name="closed" value="true" />
-      <created>1727554141872</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1727554141872</updated>
-    </task>
-    <task id="LOCAL-00042" summary="add lawCourses.json">
-      <option name="closed" value="true" />
-      <created>1727554152908</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1727554152908</updated>
-    </task>
-    <task id="LOCAL-00043" summary="add cbs logo for dropdown">
-      <option name="closed" value="true" />
-      <created>1727554165418</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1727554165418</updated>
+      <workItem from="1728365734238" duration="80000" />
+      <workItem from="1728365935230" duration="1815000" />
+      <workItem from="1728404747627" duration="11928000" />
     </task>
     <task id="LOCAL-00044" summary="add getStarted redirection to home.tsx">
       <option name="closed" value="true" />
@@ -533,20 +444,101 @@
       <option name="project" value="LOCAL" />
       <updated>1728137065724</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="fix url">
+      <option name="closed" value="true" />
+      <created>1728239841573</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1728239841573</updated>
+    </task>
+    <task id="LOCAL-00083" summary=".gitignore">
+      <option name="closed" value="true" />
+      <created>1728240032173</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1728240032173</updated>
+    </task>
+    <task id="LOCAL-00084" summary="begin country selection dropdown">
+      <option name="closed" value="true" />
+      <created>1728284618091</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1728284618091</updated>
+    </task>
+    <task id="LOCAL-00085" summary="begin country selection dropdown">
+      <option name="closed" value="true" />
+      <created>1728366027825</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1728366027827</updated>
+    </task>
+    <task id="LOCAL-00086" summary="begin country selection dropdown">
+      <option name="closed" value="true" />
+      <created>1728404767052</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1728404767053</updated>
+    </task>
+    <task id="LOCAL-00087" summary="developer tools">
+      <option name="closed" value="true" />
+      <created>1728418812895</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1728418812895</updated>
+    </task>
+    <task id="LOCAL-00088" summary="developer tools">
+      <option name="closed" value="true" />
+      <created>1728418843233</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1728418843233</updated>
+    </task>
+    <task id="LOCAL-00089" summary="explore page styling">
+      <option name="closed" value="true" />
+      <created>1728418855859</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1728418855859</updated>
+    </task>
+    <task id="LOCAL-00090" summary="explore page styling">
+      <option name="closed" value="true" />
+      <created>1728418870062</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1728418870062</updated>
+    </task>
+    <task id="LOCAL-00091" summary="Remove uneccessary padding from main-content">
+      <option name="closed" value="true" />
+      <created>1728418884347</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1728418884348</updated>
+    </task>
+    <task id="LOCAL-00092" summary="Style &quot;no conversations found&quot;">
+      <option name="closed" value="true" />
+      <created>1728418905080</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1728418905080</updated>
+    </task>
+    <option name="localTasksCounter" value="93" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Create Connections component" />
-    <MESSAGE value="Fix Contact log" />
-    <MESSAGE value="Fix Contact logAdd courses to create profile" />
-    <MESSAGE value="Fix styling for dashboardNavbar with media flexibility" />
-    <MESSAGE value="Allow json for typescript" />
-    <MESSAGE value="Begin implementing skipUser logic" />
-    <MESSAGE value="Add language translation for features" />
     <MESSAGE value="Add danish language to home dynamic text and uni banners" />
     <MESSAGE value="Add text" />
     <MESSAGE value="Google Auth" />
@@ -565,6 +557,13 @@
     <MESSAGE value="Add montserrat styling" />
     <MESSAGE value="Add montserrat styling with dark mode" />
     <MESSAGE value="Ensure DashboardNavbar uses the full width" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ensure DashboardNavbar uses the full width" />
+    <MESSAGE value="fix url" />
+    <MESSAGE value=".gitignore" />
+    <MESSAGE value="begin country selection dropdown" />
+    <MESSAGE value="developer tools" />
+    <MESSAGE value="explore page styling" />
+    <MESSAGE value="Remove uneccessary padding from main-content" />
+    <MESSAGE value="Style &quot;no conversations found&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Style &quot;no conversations found&quot;" />
   </component>
 </project>

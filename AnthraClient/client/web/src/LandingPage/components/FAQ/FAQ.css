@@ -14,7 +14,7 @@
     gap: 50px;
 }
 .faq-title{
-    font-family: "IBM Plex Mono", monospace;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: 30px;
 }
@@ -25,13 +25,13 @@
 }
 .faq-question{
     font-size: 25px;
-    font-family: "IBM Plex Mono", monospace;
+    font-family: 'Montserrat', sans-serif;
     font-weight: normal;
 }
 
 .faq-answer{
     font-size: 20px;
-    font-family: "IBM Plex Mono", monospace;
+    font-family: 'Montserrat', sans-serif;
     font-weight: lighter;
 }
 .faq-item-content.closed {

@@ -14,7 +14,9 @@
 }
 
 /* No Connections Card */
+
 .no-connections-card {
+    font-family: 'Montserrat', sans-serif;
     background-color: white;
     padding: 40px;
     border-radius: 12px;
@@ -22,6 +24,10 @@
     color: #333;
     max-width: 600px;
     margin: 0 auto;
+}
+
+.no-connections-card h2{
+    font-family: 'Montserrat', sans-serif;
 }
 
 /* Groups.css */

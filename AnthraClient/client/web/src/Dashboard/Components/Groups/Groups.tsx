@@ -26,7 +26,7 @@ const Groups: React.FC = () => {
     const navigate = useNavigate(); // Use useNavigate
 
     const token = localStorage.getItem('token');
-
+    const userId = localStorage.getItem('userId');
     useEffect(() => {
         fetchGroups();
         fetchConnections();
@@ -46,10 +46,31 @@ const Groups: React.FC = () => {
 
     const fetchConnections = async () => {
         try {
-            const response = await axios.get('http://localhost:5001/api/Connections/GetConnections', {
-                headers: { Authorization: `Bearer ${token}` },
+            // Fetch accepted connection requests involving the current user
+            const response = await axios.get('http://localhost:5001/api/Request/Accepted', {
+                params: { userId },
+                withCredentials: true,
             });
-            setConnections(response.data);
+            const connectionRequests: Connection[] = response.data;
+            const connectedUsers = connectionRequests.map((request) => {
+                if (request.id === userId) {
+                    // Assuming the receiver will always have the necessary fields
+                    return {
+                        id: request.id,
+                        firstName: request.firstName,
+                        lastName: request.lastName,
+                        profilePictureUrl: request.profilePictureUrl
+                    };
+                } else {
+                    return {
+                        id: request.id,
+                        firstName: request.firstName,
+                        lastName: request.lastName,
+                        profilePictureUrl: request.profilePictureUrl
+                    };
+                }
+            });
+            setConnections(connectedUsers);
         } catch (error) {
             console.error('Error fetching connections:', error);
         }

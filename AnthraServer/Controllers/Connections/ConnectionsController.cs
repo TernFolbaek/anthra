@@ -107,5 +107,32 @@ namespace MyBackendApp.Controllers
             }
             return BadRequest("Unable to process the connection request.");
         }
+        
+        [HttpGet("List")]
+        public async Task<IActionResult> GetConnections([FromQuery] string userId)
+        {
+            
+            var connections = await _context.Connections
+                .Include(c => c.User1)
+                .Include(c => c.User2)
+                .Where(c => c.UserId1 == userId || c.UserId2 == userId)
+                .Select(c => new
+                {
+                    ConnectionId = c.Id,
+                    ConnectedUser = c.UserId1 == userId ? c.User2 : c.User1,
+                    ConnectedAt = c.ConnectedAt
+                })
+                .ToListAsync();
+
+            var result = connections.Select(c => new
+            {
+                Id = c.ConnectedUser.Id,
+                FirstName = c.ConnectedUser.FirstName,
+                ProfilePictureUrl = c.ConnectedUser.ProfilePictureUrl,
+                ConnectedAt = c.ConnectedAt
+            });
+
+            return Ok(result);
+        }
     }
 }

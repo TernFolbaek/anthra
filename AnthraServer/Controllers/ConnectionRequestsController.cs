@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyBackendApp.Data;
@@ -78,22 +80,41 @@ namespace MyBackendApp.Controllers
         }
 
         [HttpPost("AcceptRequest")]
+        [Authorize]
         public async Task<IActionResult> AcceptRequest(int requestId)
         {
-            var connectionRequest = await _context.ConnectionRequests.FindAsync(requestId);
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var connectionRequest = await _context.ConnectionRequests
+                .FirstOrDefaultAsync(cr => cr.Id == requestId && cr.ReceiverId == currentUserId);
 
             if (connectionRequest == null)
             {
-                return NotFound("Connection request not found.");
+                return NotFound("Connection request not found or you are not authorized to accept it.");
+            }
+
+            if (connectionRequest.Status != ConnectionStatus.Pending)
+            {
+                return BadRequest("This connection request has already been processed.");
             }
 
             connectionRequest.Status = ConnectionStatus.Accepted;
             connectionRequest.RespondedAt = DateTime.UtcNow;
 
+            // Create a new Connection entry
+            var connection = new Connection
+            {
+                UserId1 = connectionRequest.SenderId,
+                UserId2 = connectionRequest.ReceiverId,
+                ConnectedAt = DateTime.UtcNow
+            };
+            _context.Connections.Add(connection);
+
             await _context.SaveChangesAsync();
 
-            return Ok("Connection request accepted.");
+            return Ok("Connection request accepted and users added to Connections table.");
         }
+
 
         [HttpPost("DeclineRequest")]
         public async Task<IActionResult> DeclineRequest(int requestId)

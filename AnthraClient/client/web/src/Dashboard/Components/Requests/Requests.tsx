@@ -16,7 +16,7 @@ interface ConnectionRequestDTO {
 const Requests: React.FC = () => {
     const [requests, setRequests] = useState<ConnectionRequestDTO[]>([]);
     const userId = localStorage.getItem('userId');
-
+    const token = localStorage.getItem('token');
     useEffect(() => {
         if (!userId) {
             return;
@@ -36,6 +36,9 @@ const Requests: React.FC = () => {
 
     const handleAccept = (requestId: number) => {
         fetch(`http://localhost:5001/api/Request/AcceptRequest?requestId=${requestId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
             method: 'POST',
         })
             .then((response) => {

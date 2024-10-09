@@ -19,11 +19,20 @@
 .main-content {
     position: relative;
     flex: 1;
-    overflow: hidden;
+    overflow-y: hidden;
+    padding-bottom: 60px; /* Height of the footer */
 }
 
+/* Hide the sidebar on iPad and smaller screens */
 @media (max-width: 768px) {
     .sidebar {
         display: none;
+    }
+}
+
+/* Adjust the main content when the sidebar is hidden */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 0 20px;
     }
 }

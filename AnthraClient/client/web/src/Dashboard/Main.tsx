@@ -1,3 +1,4 @@
+// src/main.tsx
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Sidebar from './Components/Sidebar/Sidebar';
@@ -10,6 +11,7 @@ import Requests from './Components/Requests/Requests';
 import Profile from './Components/Profile/Profile';
 import MessageList from "./Components/MessageList/MessageList";
 import Groups from './Components/Groups/Groups';
+import Footer from './Components/Footer/Footer'; // Import Footer
 import './Main.css';
 
 const Dashboard: React.FC = () => {
@@ -33,6 +35,7 @@ const Dashboard: React.FC = () => {
                         </Routes>
                     </div>
                 </div>
+                <Footer /> {/* Add Footer */}
             </div>
         </Router>
     );

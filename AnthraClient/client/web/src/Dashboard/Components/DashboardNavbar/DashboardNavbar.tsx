@@ -1,3 +1,4 @@
+// src/Components/DashboardNavbar/DashboardNavbar.tsx
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './DashboardNavbar.css';
@@ -9,6 +10,22 @@ const DashboardNavbar: React.FC = () => {
         setMenuOpen(!menuOpen);
     };
 
+    // Navbar links
+    const navbarLinks = [
+        { to: '/explore', label: 'Explore' },
+        { to: '/requests', label: 'Requests' },
+        { to: '/messages', label: 'Messages' },
+        { to: '/profile', label: 'Your Profile' },
+    ];
+
+    // Sidebar links
+    const sidebarLinks = [
+        { to: '/connections', label: 'Connections' },
+        { to: '/settings', label: 'Settings' },
+        { to: '/groups', label: 'Groups' },
+        { to: '/facilities', label: 'Facilities' },
+    ];
+
     return (
         <nav className="dashboard-navbar">
             <div className="dashboard-navbar__container">
@@ -16,46 +33,18 @@ const DashboardNavbar: React.FC = () => {
                     <h1>Anthra</h1>
                 </div>
                 <ul className="dashboard-navbar__links">
-                    <li>
-                        <NavLink
-                            to="/explore"
-                            className={({ isActive }) =>
-                                `dashboard-navbar__link ${isActive ? 'dashboard-navbar__link--active' : ''}`
-                            }
-                        >
-                            Explore
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            to="/requests"
-                            className={({ isActive }) =>
-                                `dashboard-navbar__link ${isActive ? 'dashboard-navbar__link--active' : ''}`
-                            }
-                        >
-                            Requests
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            to="/messages"
-                            className={({ isActive }) =>
-                                `dashboard-navbar__link ${isActive ? 'dashboard-navbar__link--active' : ''}`
-                            }
-                        >
-                            Messages
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            to="/profile"
-                            className={({ isActive }) =>
-                                `dashboard-navbar__link ${isActive ? 'dashboard-navbar__link--active' : ''}`
-                            }
-                        >
-                            Your Profile
-                        </NavLink>
-                    </li>
+                    {navbarLinks.map((link) => (
+                        <li key={link.to}>
+                            <NavLink
+                                to={link.to}
+                                className={({ isActive }) =>
+                                    `dashboard-navbar__link ${isActive ? 'dashboard-navbar__link--active' : ''}`
+                                }
+                            >
+                                {link.label}
+                            </NavLink>
+                        </li>
+                    ))}
                 </ul>
                 <div className="dashboard-navbar__burger" onClick={toggleMenu}>
                     <span className={`dashboard-navbar__burger-bar ${menuOpen ? 'open' : ''}`}></span>
@@ -65,42 +54,17 @@ const DashboardNavbar: React.FC = () => {
             </div>
             {menuOpen && (
                 <ul className="dashboard-navbar__mobile-menu">
-                    <li>
-                        <NavLink
-                            to="/explore"
-                            className="dashboard-navbar__mobile-link"
-                            onClick={toggleMenu}
-                        >
-                            Explore
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            to="/requests"
-                            className="dashboard-navbar__mobile-link"
-                            onClick={toggleMenu}
-                        >
-                            Requests
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            to="/messages"
-                            className="dashboard-navbar__mobile-link"
-                            onClick={toggleMenu}
-                        >
-                            Messages
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            to="/profile"
-                            className="dashboard-navbar__mobile-link"
-                            onClick={toggleMenu}
-                        >
-                            Your Profile
-                        </NavLink>
-                    </li>
+                    {navbarLinks.concat(sidebarLinks).map((link) => (
+                        <li key={link.to}>
+                            <NavLink
+                                to={link.to}
+                                className="dashboard-navbar__mobile-link"
+                                onClick={toggleMenu}
+                            >
+                                {link.label}
+                            </NavLink>
+                        </li>
+                    ))}
                 </ul>
             )}
         </nav>

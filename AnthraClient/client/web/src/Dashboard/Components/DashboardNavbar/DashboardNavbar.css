@@ -98,6 +98,7 @@
     display: none;
     flex-direction: column;
     cursor: pointer;
+    padding-right: 10px;
 }
 
 .dashboard-navbar__burger-bar {
@@ -164,10 +165,6 @@
 }
 
 @media (max-width: 768px) {
-    .dashboard-navbar {
-        left: 0;
-    }
-
     .dashboard-navbar__links {
         display: none;
     }
@@ -179,5 +176,12 @@
 
     .dashboard-navbar__mobile-menu {
         display: block;
+    }
+}
+
+/* Hide the navbar on mobile screens */
+@media (max-width: 480px) {
+    .dashboard-navbar {
+        display: none;
     }
 }

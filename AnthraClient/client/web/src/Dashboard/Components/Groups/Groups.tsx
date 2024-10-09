@@ -39,6 +39,7 @@ const Groups: React.FC = () => {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setGroups(response.data);
+            console.log(response)
         } catch (error) {
             console.error('Error fetching groups:', error);
         }
@@ -95,7 +96,6 @@ const Groups: React.FC = () => {
 
     return (
         <div className="groups-container">
-            <h1 className="groups-title">Your Groups</h1>
             {connections.length > 0 ? (
                 <>
                     <button className="create-group-button" onClick={handleCreateGroup}>

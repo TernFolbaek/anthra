@@ -1,5 +1,4 @@
-// Messages.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Messages.css';
 import * as signalR from '@microsoft/signalr';
 import { useParams } from 'react-router-dom';
@@ -21,7 +20,24 @@ const Messages: React.FC = () => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [messageInput, setMessageInput] = useState('');
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
     const token = localStorage.getItem('token');
+
+    useEffect(() => {
+        // Autofocus input when user starts typing
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (inputRef.current && !inputRef.current.contains(document.activeElement)) {
+                inputRef.current.focus();
+            }
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [messageInput]);
 
     useEffect(() => {
         // Get messages
@@ -155,6 +171,7 @@ const Messages: React.FC = () => {
             </div>
             <div className="message-input-container">
                 <input
+                    ref={inputRef}
                     type="text"
                     value={messageInput}
                     onChange={(e) => setMessageInput(e.target.value)}
@@ -164,7 +181,6 @@ const Messages: React.FC = () => {
             </div>
         </div>
     );
-
 };
 
 export default Messages;

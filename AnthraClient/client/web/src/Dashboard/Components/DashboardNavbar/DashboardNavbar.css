@@ -114,15 +114,16 @@
 }
 
 .dashboard-navbar__burger-bar.open:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
+    transform: translateY(11px) rotate(45deg);
 }
 
 .dashboard-navbar__burger-bar.open:nth-child(2) {
     opacity: 0;
+    transform: scale(0);
 }
 
 .dashboard-navbar__burger-bar.open:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
+    transform: translateY(-11px) rotate(-45deg);
 }
 
 .dashboard-navbar__mobile-menu {
@@ -133,8 +134,9 @@
     left: 0;
     right: 0;
     list-style: none;
-    padding: 1rem 0;
     margin: 0;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .dark-mode .dashboard-navbar__mobile-menu {
@@ -142,7 +144,7 @@
 }
 
 .dashboard-navbar__mobile-menu li {
-    margin: 1rem 0;
+    padding: 0.5rem 0;
     text-align: center;
 }
 
@@ -150,6 +152,11 @@
     color: #333;
     text-decoration: none;
     font-size: 1.2rem;
+}
+
+.dashboard-navbar__mobile-link:hover {
+    background-color: lightgray;
+    cursor: pointer;
 }
 
 .dark-mode .dashboard-navbar__mobile-link {

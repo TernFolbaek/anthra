@@ -55,10 +55,9 @@ const DashboardNavbar: React.FC = () => {
             {menuOpen && (
                 <ul className="dashboard-navbar__mobile-menu">
                     {navbarLinks.concat(sidebarLinks).map((link) => (
-                        <li key={link.to}>
+                        <li  className="dashboard-navbar__mobile-link" key={link.to} >
                             <NavLink
                                 to={link.to}
-                                className="dashboard-navbar__mobile-link"
                                 onClick={toggleMenu}
                             >
                                 {link.label}

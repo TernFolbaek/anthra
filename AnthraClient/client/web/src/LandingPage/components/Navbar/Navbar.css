@@ -60,8 +60,6 @@
     transform: translate(-50%, -50%);
 }
 
-
-
 .language-dropdown select:focus {
     outline: none;
 }
@@ -154,12 +152,9 @@
     margin-right: 10px;
 }
 
-
 .language-select:focus {
     outline: none;
 }
-
-
 
 .mobile-menu {
     display: none;
@@ -183,7 +178,7 @@
     margin: 10px 0;
     font-size: 1.5rem;
 }
-s
+
 @media (max-width: 1024px) {
     .nav-buttons {
         display: none;

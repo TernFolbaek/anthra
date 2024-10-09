@@ -20,7 +20,6 @@
     position: relative;
     flex: 1;
     overflow-y: hidden;
-    padding-bottom: 60px; /* Height of the footer */
 }
 
 /* Hide the sidebar on iPad and smaller screens */
@@ -34,5 +33,11 @@
 @media (max-width: 768px) {
     .main-content {
         padding: 0 20px;
+    }
+}
+
+@media (max-width: 500px) {
+    .main-content {
+        margin-bottom: 50px;
     }
 }

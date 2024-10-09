@@ -1,5 +1,7 @@
+/* ConfigurationSettings.css */
 .configuration-settings h2 {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
+    font-size: 1.5rem;
 }
 
 .toggle-group {
@@ -52,4 +54,20 @@
 
 .toggle-switch input:checked + label::after {
     transform: translateX(26px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .configuration-settings h2 {
+        font-size: 1.25rem;
+    }
+
+    .toggle-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .toggle-group label {
+        margin-bottom: 8px;
+    }
 }

@@ -55,17 +55,24 @@ namespace MyBackendApp.Controllers
                 {
                     if (existingRequest.SenderId == model.TargetUserId)
                     {
-                        // The target user has already sent a pending request to current user
                         // Accept the request
                         existingRequest.Status = ConnectionStatus.Accepted;
                         existingRequest.RespondedAt = DateTime.UtcNow;
+
+                        // Create a new Connection
+                        var connection = new Connection
+                        {
+                            UserId1 = existingRequest.SenderId,
+                            UserId2 = existingRequest.ReceiverId,
+                            ConnectedAt = DateTime.UtcNow
+                        };
+                        _context.Connections.Add(connection);
 
                         await _context.SaveChangesAsync();
                         return Ok("Connection request accepted.");
                     }
                     else
                     {
-                        // The current user has already sent a pending request to the target user
                         return BadRequest("Connection request already sent.");
                     }
                 }

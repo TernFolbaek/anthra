@@ -396,3 +396,4 @@
 /Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraServer/bin/Debug/net8.0/System.Management.dll
 /Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraServer/bin/Debug/net8.0/System.Memory.Data.dll
 /Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraServer/bin/Debug/net8.0/runtimes/win/lib/net7.0/System.Management.dll
+/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraServer/obj/Debug/net8.0/AnthraBackend.sourcelink.json

@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using MyBackendApp.Models;
 using MyBackendApp.ViewModels;
 using Google.Apis.Auth;
+using MyBackendApp.Data;
 
 
 namespace MyBackendApp.Controllers
@@ -21,13 +22,16 @@ namespace MyBackendApp.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IConfiguration _configuration;
+        private readonly ApplicationDbContext _context;
 
         public AuthController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<AuthController> logger,
-            IConfiguration configuration
+            IConfiguration configuration,
+            ApplicationDbContext context
             )
         {
+            _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
@@ -218,8 +222,6 @@ namespace MyBackendApp.Controllers
                 return BadRequest("External login failed.");
             }
         }
-
-
-
+        
     }
 }

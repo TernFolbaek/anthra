@@ -17,6 +17,7 @@ services:
     # Alternatively, if you have a Dockerfile, uncomment the build context
     # build: .
     environment:
+      - ASPNETCORE_ENVIRONMENT=Development
       - DB_CONNECTION_STRING=Host=db;Port=5432;Database=anthra;Username=anthra_user;Password=jelkokelkojelkomerlin
       - ASPNETCORE_URLS=http://+:80
 

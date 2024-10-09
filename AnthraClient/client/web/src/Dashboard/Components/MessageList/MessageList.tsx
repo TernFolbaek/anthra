@@ -82,8 +82,8 @@ const MessageList: React.FC = () => {
 
     return (
         <div className="message-list">
-            <div className="dropdown-section">
-                <div className="dropdown-header" onClick={() => setIsYourTurnOpen(!isYourTurnOpen)}>
+            <div className="message-list-dropdown-section">
+                <div className="message-list-dropdown-header" onClick={() => setIsYourTurnOpen(!isYourTurnOpen)}>
                     <h3>Your turn ({yourTurnConversations.length})</h3>
                     <span className="dropdown-arrow">{isYourTurnOpen ? '▲' : '▼'}</span>
                 </div>
@@ -97,8 +97,8 @@ const MessageList: React.FC = () => {
                     </div>
                 )}
             </div>
-            <div className="dropdown-section">
-                <div className="dropdown-header" onClick={() => setIsTheirTurnOpen(!isTheirTurnOpen)}>
+            <div className="message-list-dropdown-section">
+                <div className="message-list-dropdown-header" onClick={() => setIsTheirTurnOpen(!isTheirTurnOpen)}>
                     <h3>Their turn ({theirTurnConversations.length})</h3>
                     <span className="dropdown-arrow">{isTheirTurnOpen ? '▲' : '▼'}</span>
                 </div>

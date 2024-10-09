@@ -8,11 +8,11 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-.dropdown-section {
+.message-list-dropdown-section {
     margin-bottom: 20px;
 }
 
-.dropdown-header {
+.message-list-dropdown-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -21,8 +21,8 @@
     border-bottom: 1px solid #ccc;
 }
 
-.dark-mode .dropdown-header {
-    background-color: #333;
+.dark-mode .message-list-dropdown-header {
+    background-color: transparent;
     color: #fff;
 }
 

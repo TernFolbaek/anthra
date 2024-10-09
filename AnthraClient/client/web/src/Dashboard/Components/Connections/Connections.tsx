@@ -7,20 +7,7 @@ interface ApplicationUser {
     id: string;
     firstName: string;
     profilePictureUrl: string;
-}
-
-type ConnectionStatus = 'Pending' | 'Accepted' | 'Declined';
-
-interface ConnectionRequest {
-    id: number;
-    senderId: string;
-    senderName: string;
-    senderProfilePicture: string;
-    receiverId: string;
-    status: ConnectionStatus;
-    requestedAt: string;
-    respondedAt: string | null;
-    senderEmail: string;
+    connectedAt: string;
 }
 
 const Connections: React.FC = () => {
@@ -28,44 +15,17 @@ const Connections: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
-
+    const userId = localStorage.getItem('userId');
     useEffect(() => {
         const fetchConnections = async () => {
             try {
-                // Retrieve the current user's ID from localStorage
-                const userId = localStorage.getItem('userId');
-                if (!userId) {
-                    setError('User ID not found. Please log in again.');
-                    setLoading(false);
-                    return;
-                }
-
-                // Fetch accepted connection requests involving the current user
-                const response = await axios.get('http://localhost:5001/api/Request/Accepted', {
-                    params: { userId },
+                const response = await axios.get('http://localhost:5001/api/Connections/List', {
+                    params: {
+                        userId: userId,
+                    },
                     withCredentials: true,
                 });
-                const connectionRequests: ConnectionRequest[] = response.data;
-
-                // Extract the other users from the connection requests
-                const connectedUsers = connectionRequests.map((request) => {
-                    if (request.senderId === userId) {
-                        // Assuming the receiver will always have the necessary fields
-                        return {
-                            id: request.receiverId,
-                            firstName: request.senderName, // Adjust this to fetch actual values
-                            email: request.senderEmail,
-                            profilePictureUrl: request.senderProfilePicture
-                        };
-                    } else {
-                        return {
-                            id: request.senderId,
-                            firstName: request.senderName.split(' ')[0],
-                            lastName: request.senderName.split(' ')[1],
-                            profilePictureUrl: request.senderProfilePicture
-                        };
-                    }
-                });
+                const connectedUsers: ApplicationUser[] = response.data;
 
                 setConnections(connectedUsers);
                 setLoading(false);
@@ -97,10 +57,10 @@ const Connections: React.FC = () => {
                         <div key={user.id} className="connection-card">
                             <img
                                 src={`http://localhost:5001${user.profilePictureUrl}`}
-                                alt={`${user.firstName} `}
+                                alt={`${user.firstName}`}
                                 className="connection-profile-picture"
                             />
-                            <h3>{`${user.firstName}`}</h3>
+                            <h3>{user.firstName}</h3>
                             <div className="button-container">
                                 <button
                                     className="message-button"

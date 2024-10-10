@@ -8,6 +8,9 @@
     min-height: calc(100vh - 60px);
     font-family: 'Montserrat', sans-serif;
     padding: 20px; /* Added padding for better spacing */
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 .dark-mode .explore-page {
@@ -27,6 +30,8 @@
     gap: 15px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     transition: transform 0.2s ease-in-out;
+    position: absolute;
+    height: 100%;
 }
 
 .dark-mode .explore-user-card {
@@ -108,6 +113,33 @@
     gap: 10px;
     margin-top: 20px;
 }
+
+/* Initial state of entering component */
+.explore-card-enter {
+    transform: translateY(100%);
+    opacity: 0;
+}
+
+/* Entering component transition */
+.explore-card-enter-active {
+    transform: translateY(0%);
+    opacity: 1;
+    transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
+}
+
+/* Initial state of exiting component */
+.explore-card-exit {
+    transform: translateY(0%);
+    opacity: 1;
+}
+
+/* Exiting component transition */
+.explore-card-exit-active {
+    transform: translateY(100%);
+    opacity: 0;
+    transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
+}
+
 
 .connect-button,
 .skip-button {

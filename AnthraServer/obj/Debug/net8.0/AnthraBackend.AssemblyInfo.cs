@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AnthraBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+53954fe1cc505020e8e096af7636aff1cdaa5db3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+255f4507ce249cce1c7a6a10b0cae0fb53504436")]
 [assembly: System.Reflection.AssemblyProductAttribute("AnthraBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AnthraBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

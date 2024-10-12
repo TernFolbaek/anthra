@@ -129,7 +129,7 @@ const GroupMessage: React.FC = () => {
                                 <div className="group-message-sender-info">
                                     <img
                                         className="group-message-sender-avatar"
-                                        src={message.senderProfilePictureUrl}
+                                        src={`http://localhost:5001${message.senderProfilePictureUrl}`}
                                         alt={message.senderFirstName}
                                     />
                                     <span className="group-message-sender-name">{message.senderFirstName}</span>

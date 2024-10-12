@@ -110,6 +110,9 @@
   padding: 15px;
   border-radius: 8px;
   border: 1px solid #ddd;
+  font-weight: bolder;
+  max-width: 50%;
+  margin: 0 auto;
 }
 
 .invitation-buttons {
@@ -126,21 +129,21 @@
   font-size: 14px;
 }
 
-.accept-button {
+.invitation-accept-button {
   background-color: #28a745;
   color: white;
 }
 
-.accept-button:hover {
+.invitation-accept-button:hover {
   background-color: #218838;
 }
 
-.decline-button {
+.invitation-decline-button {
   background-color: #dc3545;
   color: white;
 }
 
-.decline-button:hover {
+.invitation-decline-button:hover {
   background-color: #c82333;
 }
 

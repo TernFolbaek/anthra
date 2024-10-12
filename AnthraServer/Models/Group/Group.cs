@@ -19,5 +19,7 @@ namespace MyBackendApp.Models
         public ApplicationUser Creator { get; set; }
 
         public ICollection<GroupMember> Members { get; set; } = new List<GroupMember>();
+
+        public ICollection<GroupMessage> Messages { get; set; } = new List<GroupMessage>();
     }
 }

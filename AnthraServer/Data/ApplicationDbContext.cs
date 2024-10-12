@@ -12,8 +12,8 @@ namespace MyBackendApp.Data
         public DbSet<SkippedUserModel> SkippedUsers { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupMember> GroupMembers { get; set; }
-        
         public DbSet<Connection> Connections { get; set; }
+        public DbSet<GroupMessage> GroupMessages { get; set; }
 
         // Constructor
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -66,6 +66,25 @@ namespace MyBackendApp.Data
                 .HasOne(c => c.User2)
                 .WithMany()
                 .HasForeignKey(c => c.UserId2)
+                .OnDelete(DeleteBehavior.Cascade);
+            
+            builder.Entity<GroupMessage>()
+                .HasOne(gm => gm.Group)
+                .WithMany(g => g.Messages)
+                .HasForeignKey(gm => gm.GroupId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<GroupMessage>()
+                .HasOne(gm => gm.Sender)
+                .WithMany()
+                .HasForeignKey(gm => gm.SenderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Ensure the Group model has a Messages collection
+            builder.Entity<Group>()
+                .HasMany(g => g.Messages)
+                .WithOne(gm => gm.Group)
+                .HasForeignKey(gm => gm.GroupId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

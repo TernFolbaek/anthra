@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyBackendApp.Data;
 using MyBackendApp.Models;
+using MyBackendApp.ViewModels;
 
 namespace MyBackendApp.Controllers
 {
@@ -117,21 +118,25 @@ namespace MyBackendApp.Controllers
 
 
         [HttpPost("DeclineRequest")]
-        public async Task<IActionResult> DeclineRequest(int requestId)
+        public async Task<IActionResult> DeclineRequest([FromBody] ConnectionRequestModel model)
         {
-            var connectionRequest = await _context.ConnectionRequests.FindAsync(requestId);
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (connectionRequest == null)
+            var existingRequest = await _context.ConnectionRequests
+                .FirstOrDefaultAsync(cr =>
+                    cr.SenderId == model.TargetUserId && cr.ReceiverId == currentUserId &&
+                    cr.Status == ConnectionStatus.Pending);
+
+            if (existingRequest != null)
             {
-                return NotFound("Connection request not found.");
+                existingRequest.Status = ConnectionStatus.Declined;
+                existingRequest.RespondedAt = DateTime.UtcNow;
+                await _context.SaveChangesAsync();
+                return Ok("Connection request declined.");
             }
 
-            connectionRequest.Status = ConnectionStatus.Declined;
-            connectionRequest.RespondedAt = DateTime.UtcNow;
-
-            await _context.SaveChangesAsync();
-
-            return Ok("Connection request declined.");
+            return BadRequest("No pending connection request found.");
         }
+
     }
 }

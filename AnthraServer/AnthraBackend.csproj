@@ -25,4 +25,20 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="DTO\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="DTO\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="DTO\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="DTO\**" />
+  </ItemGroup>
+
 </Project>

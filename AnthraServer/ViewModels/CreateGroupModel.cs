@@ -8,6 +8,8 @@ namespace MyBackendApp.ViewModels
     {
         [Required]
         public string Name { get; set; }
+        
+        public string AdminName { get; set; }
 
         [Required]
         public List<string> InvitedUserIds { get; set; } = new List<string>();

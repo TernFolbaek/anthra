@@ -40,7 +40,8 @@ namespace MyBackendApp.Controllers
             var group = new Group
             {
                 Name = model.Name,
-                CreatorId = currentUserId
+                CreatorId = currentUserId,
+                adminName = model.AdminName
             };
 
             _context.Groups.Add(group);
@@ -100,7 +101,8 @@ namespace MyBackendApp.Controllers
                 {
                     gm.Group.Id,
                     gm.Group.Name,
-                    gm.Group.CreatorId
+                    gm.Group.CreatorId,
+                    gm.Group.adminName
                 })
                 .ToListAsync();
 

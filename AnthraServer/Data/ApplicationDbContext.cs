@@ -55,7 +55,7 @@ namespace MyBackendApp.Data
                 .WithMany()
                 .HasForeignKey(gm => gm.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
-            
+       
             builder.Entity<Connection>()
                 .HasOne(c => c.User1)
                 .WithMany()

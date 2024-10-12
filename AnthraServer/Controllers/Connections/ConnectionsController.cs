@@ -134,5 +134,40 @@ namespace MyBackendApp.Controllers
 
             return Ok(result);
         }
+        
+        [HttpGet("ConnectionsGroupList")]
+        public async Task<IActionResult> GetConnectionsGroupList([FromQuery] string userId)
+        {
+            var connections = await _context.Connections
+                .Include(c => c.User1)
+                .Include(c => c.User2)
+                .Where(c => c.UserId1 == userId || c.UserId2 == userId)
+                .ToListAsync();
+
+            var connectedUsers = new List<ApplicationUser>();
+
+            foreach (var connection in connections)
+            {
+                if (connection.UserId1 == userId && connection.User2 != null)
+                {
+                    connectedUsers.Add(connection.User2);
+                }
+                else if (connection.UserId2 == userId && connection.User1 != null)
+                {
+                    connectedUsers.Add(connection.User1);
+                }
+            }
+
+            var result = connectedUsers.Select(u => new
+            {
+                Id = u.Id,
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                ProfilePictureUrl = u.ProfilePictureUrl
+            });
+
+            return Ok(result);
+        }
+
     }
 }

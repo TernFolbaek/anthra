@@ -11,7 +11,9 @@ import Requests from './Components/Requests/Requests';
 import Profile from './Components/Profile/Profile';
 import MessageList from "./Components/MessageList/MessageList";
 import Groups from './Components/Groups/Groups';
-import Footer from './Components/Footer/Footer'; // Import Footer
+import Footer from './Components/Footer/Footer';
+import GroupMessage from "./GroupMessages/GroupMessage";
+
 import './Main.css';
 
 const Dashboard: React.FC = () => {
@@ -30,6 +32,7 @@ const Dashboard: React.FC = () => {
                             <Route path="/settings" element={<Settings />} />
                             <Route path="/requests" element={<Requests />} />
                             <Route path="/profile" element={<Profile />} />
+                            <Route path="/groups/:groupId" element={<GroupMessage />} />
                             <Route path="/groups" element={<Groups />} />
                             <Route path="/" element={<ExplorePage />} />
                         </Routes>

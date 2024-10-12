@@ -56,6 +56,9 @@ const Messages: React.FC = () => {
         // Initialize SignalR connection
         const newConnection = new signalR.HubConnectionBuilder()
             .withUrl('http://localhost:5001/chatHub')
+            .withUrl('http://localhost:5001/chatHub', {
+                accessTokenFactory: () => token || '',
+            })
             .withAutomaticReconnect()
             .build();
 

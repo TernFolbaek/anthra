@@ -8,7 +8,9 @@ using MyBackendApp.ViewModels;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using MyBackendApp.Hubs;
 
 namespace MyBackendApp.Controllers
 {
@@ -19,11 +21,38 @@ namespace MyBackendApp.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IHubContext<ChatHub> _hubContext; // Add this
 
-        public GroupsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+
+        public GroupsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IHubContext<ChatHub> hubContext)
         {
             _context = context;
             _userManager = userManager;
+            _hubContext = hubContext;
+        }
+        
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetGroupById(int id)
+        {
+            var group = await _context.Groups
+                .Include(g => g.Creator)
+                .FirstOrDefaultAsync(g => g.Id == id);
+
+            if (group == null)
+            {
+                return NotFound();
+            }
+
+            var groupDetails = new
+            {
+                group.Id,
+                group.Name,
+                CreatorId = group.CreatorId,
+                CreatorName = group.adminName,
+
+            };
+
+            return Ok(groupDetails);
         }
 
         // Create a new group and invite users

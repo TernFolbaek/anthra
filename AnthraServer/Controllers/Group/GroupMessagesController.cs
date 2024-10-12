@@ -23,6 +23,8 @@ namespace MyBackendApp.Controllers
             _context = context;
             _hubContext = hubContext;
         }
+        
+        
 
         [HttpGet("GetGroupChatHistory")]
         public async Task<IActionResult> GetGroupChatHistory(int groupId)

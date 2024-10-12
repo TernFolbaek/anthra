@@ -49,6 +49,25 @@ builder.Services.AddAuthentication(options =>
             ValidAudience = jwtSettings["Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(key)
         };
+
+        // Add this block to read access tokens from the query string
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                var accessToken = context.Request.Query["access_token"];
+
+                // If the request is for our hub...
+                var path = context.HttpContext.Request.Path;
+                if (!string.IsNullOrEmpty(accessToken) &&
+                    (path.StartsWithSegments("/chatHub")))
+                {
+                    // Read the token out of the query string
+                    context.Token = accessToken;
+                }
+                return Task.CompletedTask;
+            }
+        };
     })
     .AddGoogle(options =>
     {

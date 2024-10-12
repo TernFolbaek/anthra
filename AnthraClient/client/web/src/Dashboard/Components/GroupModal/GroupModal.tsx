@@ -74,7 +74,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                 <button className="close-button" onClick={onClose}>
                     &times;
                 </button>
-                <h2>Create New Group</h2>
+                <h2 className="font-bold">Create New Group</h2>
                 <input
                     type="text"
                     placeholder="Group Name"
@@ -82,20 +82,20 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                     onChange={(e) => setGroupName(e.target.value)}
                     className="group-name-input"
                 />
-                <h3>Select Users to Invite</h3>
+                <h3 className="font-bold">Select Users to Invite</h3>
                 <ul className="connections-list">
                     {connections.map((user) => (
                         <li
                             key={user.id}
-                            className="connection-item cursor-pointer"
-                            onClick={() => handleUserSelect(user.id)} // Handle click event for toggling
+                            className="connection-item cursor-pointer w-full"
                         >
-                            <label className="cursor-pointer">
+                            <label
+                                className="cursor-pointer gap-4 flex items-center w-full"
+                                onClick={() => handleUserSelect(user.id)} // Move onClick to label
+                            >
                                 <input
                                     type="checkbox"
-                                    checked={selectedUserIds.includes(user.id)}
-                                    onChange={() => handleUserSelect(user.id)} // Ensures checkbox works as well
-                                    onClick={(e) => e.stopPropagation()} // Prevents checkbox click from triggering li click
+                                    onChange={() => handleUserSelect(user.id)}
                                 />
                                 {user.firstName} {user.lastName}
                             </label>

@@ -36,6 +36,8 @@
     padding: 10px;
     margin-bottom: 15px;
     font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 .connections-list {
@@ -74,12 +76,12 @@
 }
 
 .create-button {
-    background-color: #28a745;
+    background-color: #85bff8;
     color: white;
 }
 
 .create-button:hover {
-    background-color: #218838;
+    background-color: #2c91f4;
 }
 
 .cancel-button {

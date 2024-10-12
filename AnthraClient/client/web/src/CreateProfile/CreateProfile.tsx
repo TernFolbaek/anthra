@@ -362,18 +362,6 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
         }
     };
 
-    const getCourseLinkPrefix = () => {
-        switch (institution) {
-            case 'KU':
-                return 'https://kurser.ku.dk';
-            case 'CBS':
-                return 'https://kursuskatalog.cbs.dk/';
-            case 'DTU':
-                return 'https://kurser.dtu.dk';
-            default:
-                return '';
-        }
-    };
 
     return (
         <div className="create-profile-page">
@@ -575,7 +563,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                                             href={
                                                 course.courseLink.startsWith('http')
                                                     ? course.courseLink
-                                                    : `${getCourseLinkPrefix()}${course.courseLink}`
+                                                    : `${course.courseLink}`
                                             }
                                             className="course-link"
                                             target="_blank"

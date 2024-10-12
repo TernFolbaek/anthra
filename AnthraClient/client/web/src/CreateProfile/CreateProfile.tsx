@@ -201,6 +201,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                     'Authorization': `Bearer ${token}`,
                 },
             });
+            localStorage.setItem('fullName', `${firstName} ${lastName}`);
             onProfileCreated();
         } catch (err: any) {
             if (err.response && err.response.data) {
@@ -506,7 +507,6 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                             </div>
                             {institution === 'KU' && (
                                 <div className="custom-dropdown flex items-center gap-x-2">
-                                    Faculty:
                                     <div className="create-profile-dropdown-header"
                                          onClick={handleFacultyDropdownClick}>
                                         {faculty ? faculty : "Select Faculty"}

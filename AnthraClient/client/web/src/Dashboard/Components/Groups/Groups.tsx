@@ -9,7 +9,7 @@ interface Group {
     id: number;
     name: string;
     creatorId: string;
-    creatorName: string;
+    adminName: string;
 }
 
 interface Connection {
@@ -48,12 +48,12 @@ const Groups: React.FC = () => {
     const fetchConnections = async () => {
         try {
             // Fetch accepted connection requests involving the current user
-            const response = await axios.get('http://localhost:5001/api/Request/Accepted', {
+            const response = await axios.get('http://localhost:5001/api/Connections/List', {
                 params: { userId },
                 withCredentials: true,
             });
-            const connectionRequests: Connection[] = response.data;
-            const connectedUsers = connectionRequests.map((request) => {
+            const connections: Connection[] = response.data;
+            const connectedUsers = connections.map((request) => {
                 if (request.id === userId) {
                     // Assuming the receiver will always have the necessary fields
                     return {
@@ -105,7 +105,7 @@ const Groups: React.FC = () => {
                         {groups.map((group) => (
                             <div className="group-card" key={group.id} onClick={() => handleGroupClick(group.id)}>
                                 <h3 className="group-name">{group.name}</h3>
-                                <p className="group-admin">Admin: {group.creatorName}</p>
+                                <p className="group-admin">Admin: {group.adminName}</p>
                             </div>
                         ))}
                     </div>

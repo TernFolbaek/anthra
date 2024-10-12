@@ -160,6 +160,8 @@
 }
 
 .custom-dropdown {
+    display: flex;
+    justify-content: center;
     position: relative;
     width: 200px;
     cursor: pointer;

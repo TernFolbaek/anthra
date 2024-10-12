@@ -11,6 +11,7 @@ interface Props {
 interface Connection {
     id: string;
     firstName: string;
+    lastName: string;
     profilePictureUrl: string;
 }
 
@@ -25,39 +26,16 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
         fetchConnections();
     }, []);
 
-    interface ConnectionRequest {
-        id: number;
-        senderId: string;
-        senderName: string;
-        senderProfilePicture: string;
-        receiverId: string;
-    }
 
+    const fullName = localStorage.getItem('fullName');
     const fetchConnections = async () => {
         try {
-            const response = await axios.get('http://localhost:5001/api/Request/Accepted', {
-                params: {userId},
-                headers: { Authorization: `Bearer ${token}` },
+            const response = await axios.get('http://localhost:5001/api/Connections/ConnectionsGroupList', {
+                params: { userId },
+                withCredentials: true,
             });
-            const connectionRequests: ConnectionRequest[] = response.data;
-
-            const connectedUsers = connectionRequests.map((request) => {
-                if (request.senderId === userId) {
-                    // Assuming the receiver will always have the necessary fields
-                    return {
-                        id: request.receiverId,
-                        firstName: request.senderName, // Adjust this to fetch actual values
-                        profilePictureUrl: request.senderProfilePicture
-                    };
-                } else {
-                    return {
-                        id: request.senderId,
-                        firstName: request.senderName.split(' ')[0],
-                        profilePictureUrl: request.senderProfilePicture
-                    };
-                }
-            });
-            setConnections(connectedUsers);
+            const connections: Connection[] = response.data;
+            setConnections(connections);
         } catch (error) {
             console.error('Error fetching connections:', error);
         }
@@ -72,10 +50,12 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
     };
 
     const handleCreateGroup = async () => {
+
         try {
             const payload = {
                 name: groupName,
                 invitedUserIds: selectedUserIds,
+                adminName: fullName
             };
             console.log(payload)
 
@@ -105,18 +85,24 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                 <h3>Select Users to Invite</h3>
                 <ul className="connections-list">
                     {connections.map((user) => (
-                        <li key={user.id} className="connection-item">
-                            <label>
+                        <li
+                            key={user.id}
+                            className="connection-item cursor-pointer"
+                            onClick={() => handleUserSelect(user.id)} // Handle click event for toggling
+                        >
+                            <label className="cursor-pointer">
                                 <input
                                     type="checkbox"
                                     checked={selectedUserIds.includes(user.id)}
-                                    onChange={() => handleUserSelect(user.id)}
+                                    onChange={() => handleUserSelect(user.id)} // Ensures checkbox works as well
+                                    onClick={(e) => e.stopPropagation()} // Prevents checkbox click from triggering li click
                                 />
-                                {user.firstName}
+                                {user.firstName} {user.lastName}
                             </label>
                         </li>
                     ))}
                 </ul>
+
                 <div className="modal-buttons">
                     <button className="create-button" onClick={handleCreateGroup}>
                         Create Group

@@ -1,36 +1,37 @@
-// src/components/Groups.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Groups.css';
 import GroupModal from '../GroupModal/GroupModal';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
+
+interface GroupMember {
+    userId: string;
+    profilePictureUrl: string;
+}
 
 interface Group {
     id: number;
     name: string;
     creatorId: string;
     adminName: string;
+    members: GroupMember[];
 }
 
-interface Connection {
-    id: string;
-    firstName: string;
-    lastName: string;
-    profilePictureUrl: string;
-}
+interface Connection { id: string; firstName: string; lastName: string; profilePictureUrl: string; }
 
 const Groups: React.FC = () => {
     const [groups, setGroups] = useState<Group[]>([]);
     const [showModal, setShowModal] = useState(false);
     const [connections, setConnections] = useState<Connection[]>([]);
-    const navigate = useNavigate(); // Use useNavigate
+    const [openMenuGroupId, setOpenMenuGroupId] = useState<number | null>(null);
+    const navigate = useNavigate();
 
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
+
     useEffect(() => {
         fetchGroups();
         fetchConnections();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const fetchGroups = async () => {
@@ -38,40 +39,25 @@ const Groups: React.FC = () => {
             const response = await axios.get('http://localhost:5001/api/Groups/GetUserGroups', {
                 headers: { Authorization: `Bearer ${token}` },
             });
-            setGroups(response.data);
-            console.log(response)
+            const groupsWithMembers = response.data.map((group: Group) => ({
+                ...group,
+                members: group.members || [], // Ensure members is an array
+            }));
+            setGroups(groupsWithMembers);
         } catch (error) {
             console.error('Error fetching groups:', error);
         }
     };
 
+
+
     const fetchConnections = async () => {
         try {
-            // Fetch accepted connection requests involving the current user
             const response = await axios.get('http://localhost:5001/api/Connections/List', {
                 params: { userId },
                 withCredentials: true,
             });
-            const connections: Connection[] = response.data;
-            const connectedUsers = connections.map((request) => {
-                if (request.id === userId) {
-                    // Assuming the receiver will always have the necessary fields
-                    return {
-                        id: request.id,
-                        firstName: request.firstName,
-                        lastName: request.lastName,
-                        profilePictureUrl: request.profilePictureUrl
-                    };
-                } else {
-                    return {
-                        id: request.id,
-                        firstName: request.firstName,
-                        lastName: request.lastName,
-                        profilePictureUrl: request.profilePictureUrl
-                    };
-                }
-            });
-            setConnections(connectedUsers);
+            setConnections(response.data);
         } catch (error) {
             console.error('Error fetching connections:', error);
         }
@@ -87,11 +73,25 @@ const Groups: React.FC = () => {
     };
 
     const handleExplore = () => {
-        navigate('/explore'); // Use navigate instead of history.push
+        navigate('/explore');
     };
 
     const handleGroupClick = (groupId: number) => {
-        navigate(`/groups/${groupId}`); // Navigate to group details or chat
+        navigate(`/groups/${groupId}`);
+    };
+
+    const handleLeaveGroup = async (groupId: number) => {
+        // Implement the logic to leave the group
+        console.log(`Leave group ${groupId}`);
+        // Close the menu
+        setOpenMenuGroupId(null);
+    };
+
+    const handleGroupOversight = (groupId: number) => {
+        // Implement the logic to navigate to the group oversight page
+        console.log(`Group oversight for group ${groupId}`);
+        // Close the menu
+        setOpenMenuGroupId(null);
     };
 
     return (
@@ -103,9 +103,71 @@ const Groups: React.FC = () => {
                     </button>
                     <div className="groups-grid">
                         {groups.map((group) => (
-                            <div className="group-card" key={group.id} onClick={() => handleGroupClick(group.id)}>
-                                <h3 className="group-name">{group.name}</h3>
+                            <div
+                                className="group-card"
+                                key={group.id}
+                                onClick={() => handleGroupClick(group.id)}
+                            >
+                                <div className="group-card-header">
+                                    <h3 className="group-name">{group.name}</h3>
+                                    <div className="group-options">
+                                        <button
+                                            className="group-options-button"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setOpenMenuGroupId(
+                                                    openMenuGroupId === group.id ? null : group.id
+                                                );
+                                            }}
+                                        >
+                                            ⋯
+                                        </button>
+                                        {openMenuGroupId === group.id && (
+                                            <div
+                                                className="group-options-menu"
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
+                                                <button onClick={() => handleLeaveGroup(group.id)}>
+                                                    Leave Group
+                                                </button>
+                                                <button
+                                                    onClick={() => handleGroupOversight(group.id)}
+                                                >
+                                                    Group Oversight
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
                                 <p className="group-admin">Admin: {group.adminName}</p>
+                                {/* Members' profile pictures */}
+                                <div className="group-members">
+                                    {group.members && group.members.length > 0 ? (
+                                        group.members.slice(0, 5).map((member, index) => (
+                                            <img
+                                                key={member.userId}
+                                                src={`http://localhost:5001${member.profilePictureUrl}`}
+                                                alt="Member"
+                                                className="group-member-avatar"
+                                                style={{
+                                                    left: `${index * 20}px`,
+                                                    zIndex: group.members.length - index,
+                                                }}
+                                            />
+                                        ))
+                                    ) : (
+                                        <p className="no-members">No members yet</p>
+                                    )}
+                                    {group.members && group.members.length > 5 && (
+                                        <div
+                                            className="group-member-avatar more-members"
+                                            style={{left: `${5 * 20}px`}}
+                                        >
+                                            +{group.members.length - 5}
+                                        </div>
+                                    )}
+                                </div>
+
                             </div>
                         ))}
                     </div>

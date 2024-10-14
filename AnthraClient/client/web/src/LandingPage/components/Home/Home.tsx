@@ -52,7 +52,7 @@ const Home:  React.FC<NavbarProps> = ({onGetStartedClick}) => {
             <div className="home-content w-[100%] items-center flex flex-col gap-5 mt-[13%]">
                 <div className="mission"><h2>{t.mission}</h2></div>
                 <div className="home-content-text text-center text-white justify-center">
-                    <h3>{t.description}<span className="dynamic-text">{displayedText}</span>?</h3>
+                    <div>{t.description}<span className="dynamic-text">{displayedText}</span>?</div>
                 </div>
                 <button
                     className="flex items-center get-started-button" onClick={onGetStartedClick}

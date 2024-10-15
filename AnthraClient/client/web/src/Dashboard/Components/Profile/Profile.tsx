@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, {useState, useEffect, ChangeEvent} from 'react';
 import axios from 'axios';
 import './Profile.css';
 
@@ -48,7 +48,7 @@ const Profile: React.FC = () => {
     const handleInputChange = (
         e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setUpdatedProfile({
             ...updatedProfile,
             [name]: value,
@@ -137,7 +137,7 @@ const Profile: React.FC = () => {
                         alt="Profile Picture"
                     />
                     {isEditing && (
-                        <input type="file" accept="image/*" onChange={handleFileChange} />
+                        <input type="file" accept="image/*" onChange={handleFileChange}/>
                     )}
                 </div>
                 <div className="profile-info">

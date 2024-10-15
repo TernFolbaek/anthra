@@ -19,7 +19,6 @@
 .main-content {
     position: relative;
     flex: 1;
-    overflow-y: hidden;
 }
 
 /* Hide the sidebar on iPad and smaller screens */

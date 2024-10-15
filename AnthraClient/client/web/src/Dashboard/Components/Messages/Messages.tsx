@@ -21,6 +21,7 @@ const Messages: React.FC = () => {
     const [messageInput, setMessageInput] = useState('');
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
+    const messagesEndRef = useRef<HTMLDivElement>(null); // Ref for the scroll anchor
     const token = localStorage.getItem('token');
 
     useEffect(() => {
@@ -81,6 +82,13 @@ const Messages: React.FC = () => {
                 .catch((error) => console.error('Connection failed: ', error));
         }
     }, [connection, currentUserId, userId]);
+
+    useEffect(() => {
+        // Scroll to the bottom whenever messages change
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [messages]);
 
     const handleAcceptInvitation = async (groupId: number) => {
         try {
@@ -156,20 +164,19 @@ const Messages: React.FC = () => {
                                 <button className="invitation-accept-button" onClick={() => handleAcceptInvitation(msg.groupId!)}>Accept</button>
                                 <button className="invitation-decline-button" onClick={() => handleDeclineInvitation(msg.groupId!)}>Decline</button>
                             </div>
-
                         </div>
                     ) : (
                         <div
                             key={msg.id}
-                            className={`message-bubble ${
-                                msg.senderId === currentUserId ? 'sent' : 'received'
-                            }`}
+                            className={`message-bubble ${msg.senderId === currentUserId ? 'sent' : 'received'}`}
                         >
                             <p>{msg.content}</p>
                             <span>{new Date(msg.timestamp).toLocaleTimeString()}</span>
                         </div>
                     )
                 )}
+                {/* Scroll anchor */}
+                <div ref={messagesEndRef} />
             </div>
             <div className="message-input-container">
                 <input

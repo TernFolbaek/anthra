@@ -20,13 +20,13 @@
     border-radius: 4px;
 }
 
-.save-button {
+.profile-settings-save-button {
     padding: 10px 20px;
     background-color: #28a745;
     color: #fff;
     border: none;
     border-radius: 4px;
-    font-weight: 600;
+    font-weight: 400;
     cursor: pointer;
 }
 
@@ -40,7 +40,7 @@
 .logout-button, .delete-button {
     padding: 10px 20px;
     border-radius: 4px;
-    font-weight: 600;
+    font-weight: 400;
     cursor: pointer;
     flex: 1;
 }

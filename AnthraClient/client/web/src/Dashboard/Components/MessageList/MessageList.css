@@ -4,7 +4,8 @@
 .message-list {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 70%;
+    margin: auto;
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -106,3 +107,9 @@
 .dark-mode .conversation-timestamp {
     color: #aaa;
 }
+
+@media (max-width: 950px) {
+    .message-list {
+        width: 100%;
+    }
+    }

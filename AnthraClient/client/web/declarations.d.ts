@@ -4,6 +4,6 @@ declare module '*.json' {
 }
 
 declare module '*.riv' {
-    const value: any;
-    export default value;
+    const src: string;
+    export default src;
 }

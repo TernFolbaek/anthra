@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import {EventType, useRive, useStateMachineInput} from "@rive-app/react-canvas";
+// @ts-ignore
+import riveFile from  '../vehicles.riv';
 
 export default function Simple() {
     const { rive, RiveComponent } = useRive({
-        src: "https://cdn.rive.app/animations/vehicles.riv",
+        src: riveFile,
         stateMachines: "bumpy",
         autoplay: true,
         // We can pass the call back to the `useRive` hook
@@ -20,16 +22,16 @@ export default function Simple() {
     // pass it to the useRive hook as well, and vice versa.
     useEffect(() => {
         if (rive) {
-            // @ts-ignore
-            rive.on('statechange' as unknown as keyof EventType, (event: any) => {
+            rive.on('statechange' as EventType, (event) => {
+                // @ts-ignore
                 console.log(event.data[0]);
             });
         }
     }, [rive]);
 
-
     return (
         <RiveComponent
+            style={{ height: "100px" }}
             onClick={() => bumpInput && bumpInput.fire()}
         />
     );

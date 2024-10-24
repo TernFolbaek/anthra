@@ -1,7 +1,8 @@
 import './AuthPage.css';
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
+import {useRive, useStateMachineInput} from "@rive-app/react-canvas";
 
 interface AuthPageProps {
     onBackClick: () => void;
@@ -102,10 +103,12 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
             }}
             );
             const userProfile = profileResponse.data;
-
+            triggerSuccess()
             // Notify App.tsx of authentication success
+
             onAuthSuccess(userProfile.createdProfile);
         } catch (err: any) {
+            triggerFail()
             if (err.response && err.response.data) {
                 const errorData = err.response.data;
                 setError(
@@ -120,12 +123,90 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
         }
     };
 
-    // @ts-ignore
+    const STATE_MACHINE_NAME = "State Machine 1";
+
+    const {rive, RiveComponent} = useRive({
+        src: "520-990-teddy-login-screen.riv",
+        autoplay: true,
+        stateMachines: STATE_MACHINE_NAME
+    })
+    useEffect(() => {
+        setLook();
+    }, [username])
+
+    const stateSuccess = useStateMachineInput(
+        rive,
+        STATE_MACHINE_NAME,
+        'success'
+    )
+    const stateFail = useStateMachineInput(
+        rive,
+        STATE_MACHINE_NAME,
+        'fail'
+    )
+    const stateHandUp = useStateMachineInput(
+        rive,
+        STATE_MACHINE_NAME,
+        'hands_up'
+    )
+
+    const stateCheck = useStateMachineInput(
+        rive,
+        STATE_MACHINE_NAME,
+        'Check'
+    )
+    const stateLook = useStateMachineInput(
+        rive,
+        STATE_MACHINE_NAME,
+        'Look'
+    )
+
+
+    const triggerSuccess = () => {
+        stateSuccess && stateSuccess.fire();
+    }
+    const triggerFail = () => {
+        stateFail && stateFail.fire();
+    }
+
+
+    const setHangUp = (hangUp: any) => {
+        stateHandUp && (stateHandUp.value = hangUp);
+    }
+
+    const setLook = () => {
+        if (!stateLook || !stateCheck || !setHangUp) {
+            return;
+        }
+        setHangUp(false)
+        setCheck(true);
+        let nbChars = 0;
+        if (username) {
+            nbChars = username.split('').length;  // user is guaranteed to be a string here
+        }
+        let ratio = nbChars / parseFloat('41');
+
+        let lookToSet = ratio * 100 - 25
+        stateLook.value = Math.round(lookToSet);
+    }
+    const setCheck = (check: any) => {
+        if (stateCheck) {
+            stateCheck.value = check;
+        }
+
+    }
+    if (rive) {
+        console.log(rive.contents);
+    }
+
     return (
         <div className="auth-page">
             <button className="back-button" onClick={goBack}>
                 Back
             </button>
+            <div>
+                <RiveComponent className="teddy-bear-rive"/>
+            </div>
             <div className="auth-container">
                 <h2>{isSignUp ? 'Sign Up' : 'Log In'}</h2>
 
@@ -139,6 +220,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                         required
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
+
                     />
                     {isSignUp && (
                         <input
@@ -154,7 +236,8 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                         placeholder="Password"
                         required
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => {setPassword(e.target.value); setHangUp(true);
+                        }}
                     />
                     <button type="submit" className="submit-button">
                         {isSignUp ? 'Sign Up' : 'Log In'}

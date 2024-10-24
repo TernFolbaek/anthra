@@ -6,7 +6,6 @@ import navbarTranslations from '../../../languages/navbarTranslations.json';
 import Danish from '../../assets/danish.jpg'
 import English from '../../assets/english.jpg'
 
-
 interface NavbarProps {
     onGetStartedClick: () => void;
 }

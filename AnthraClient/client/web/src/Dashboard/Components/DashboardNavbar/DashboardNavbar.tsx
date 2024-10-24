@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './DashboardNavbar.css';
 import Simple from '../../../assets/RiveComponents/Vehicle'
+
 const DashboardNavbar: React.FC = () => {
     const [menuOpen, setMenuOpen] = useState(false);
 

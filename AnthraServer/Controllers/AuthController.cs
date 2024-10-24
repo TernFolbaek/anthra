@@ -10,7 +10,8 @@ using MyBackendApp.Models;
 using MyBackendApp.ViewModels;
 using Google.Apis.Auth;
 using MyBackendApp.Data;
-
+using System.Net.Mail;
+using System.Net;
 
 namespace MyBackendApp.Controllers
 {
@@ -222,6 +223,93 @@ namespace MyBackendApp.Controllers
                 return BadRequest("External login failed.");
             }
         }
+        
+
+        [HttpPost("ForgotPassword")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordViewModel model)
+        {
+            _logger.LogInformation("ForgotPassword action called");
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                return BadRequest("User not found.");
+            }
+
+            // Generate reset code
+            var resetCode = new Random().Next(100000, 999999).ToString();
+
+            // Set code and expiry
+            user.PasswordResetCode = resetCode;
+            user.PasswordResetExpiry = DateTime.UtcNow.AddHours(1);
+
+            await _userManager.UpdateAsync(user);
+
+            // Send email
+            try
+            {
+                var smtpClient = new SmtpClient("smtp.gmail.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential("your-email@gmail.com", "your-email-password"),
+                    EnableSsl = true,
+                };
+
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress("password-reset@yourdomain.com"),
+                    Subject = "Password Reset Code",
+                    Body = $"Your password reset code is: {resetCode}",
+                    IsBodyHtml = false,
+                };
+                mailMessage.To.Add(model.Email);
+
+                await smtpClient.SendMailAsync(mailMessage);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error sending password reset email.");
+                return StatusCode(500, "Error sending password reset email.");
+            }
+
+            return Ok("Password reset code sent to your email.");
+        }
+        
+        [HttpPost("ResetPassword")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordViewModel model)
+        {
+            _logger.LogInformation("ResetPassword action called");
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                return BadRequest("User not found.");
+            }
+
+            if (user.PasswordResetCode != model.Code || user.PasswordResetExpiry < DateTime.UtcNow)
+            {
+                return BadRequest("Invalid or expired reset code.");
+            }
+
+            var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var result = await _userManager.ResetPasswordAsync(user, resetToken, model.NewPassword);
+
+            if (result.Succeeded)
+            {
+                // Clear reset code and expiry
+                user.PasswordResetCode = null;
+                user.PasswordResetExpiry = null;
+                await _userManager.UpdateAsync(user);
+
+                return Ok("Password has been reset successfully.");
+            }
+            else
+            {
+                return BadRequest("Error resetting password.");
+            }
+        }
+
+
         
     }
 }

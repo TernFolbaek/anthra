@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
 import {useRive, useStateMachineInput} from "@rive-app/react-canvas";
+import ForgotPassword from "../ForgotPassword/ForgotPassword";
 
 interface AuthPageProps {
     onBackClick: () => void;
@@ -11,6 +12,7 @@ interface AuthPageProps {
 
 const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
     const [isSignUp, setIsSignUp] = useState(true);
+    const [showForgotPassword, setShowForgotPassword] = useState(false);
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -199,6 +201,12 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
         console.log(rive.contents);
     }
 
+    if (showForgotPassword) {
+        return (
+            <ForgotPassword onBack={() => setShowForgotPassword(false)} />
+        );
+    }
+
     return (
         <div className="auth-page">
             <button className="back-button" onClick={goBack}>
@@ -236,12 +244,21 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                         placeholder="Password"
                         required
                         value={password}
-                        onChange={(e) => {setPassword(e.target.value); setHangUp(true);
+                        onChange={(e) => {
+                            setPassword(e.target.value);
+                            setHangUp(true);
                         }}
                     />
                     <button type="submit" className="submit-button">
                         {isSignUp ? 'Sign Up' : 'Log In'}
                     </button>
+                    {!isSignUp && (
+                        <p>
+                            <button className="forgot-password-button" onClick={() => setShowForgotPassword(true)}>
+                                Forgot Password?
+                            </button>
+                        </p>
+                    )}
                 </form>
                 <div className="social-login">
                     <GoogleLogin

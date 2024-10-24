@@ -4,7 +4,7 @@ import HowItWorks from './LandingPage/components/HowItWorks/HowItWorks';
 import Features from "./LandingPage/components/Features/Features";
 import FAQ from "./LandingPage/components/FAQ/FAQ";
 import Contact from "./LandingPage/components/Contact/Contact";
-import AuthPage from "./Authentication/AuthPage";
+import AuthPage from "./Authentication/AuthPage/AuthPage";
 import CreateProfile from './CreateProfile/CreateProfile';
 import './App.css';
 import Navbar from './LandingPage/components/Navbar/Navbar';

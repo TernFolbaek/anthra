@@ -20,7 +20,7 @@
     animation: fade-in 1s forwards;
     opacity: 0;
     position: absolute;
-    top: 400px;
+    top: 450px;
     z-index: 2;
 }
 
@@ -101,7 +101,7 @@
     height: 400px;
     position: relative;
     z-index: 1;
-    margin-bottom: 450px;
+    margin-bottom: 500px;
     border-radius: 10px;
 }
 

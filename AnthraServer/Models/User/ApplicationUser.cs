@@ -16,5 +16,7 @@ namespace MyBackendApp.Models
         public int? Age { get; set; }
         public string? ProfilePictureUrl { get; set; }
         public bool CreatedProfile { get; set; }
+        public string PasswordResetCode { get; set; }
+        public DateTime? PasswordResetExpiry { get; set; }
     }
 }

@@ -22,13 +22,16 @@
 
 .profile-settings-save-button {
     padding: 10px 20px;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
+    color: #28a745;
+    border: 2px solid #28a745;
     border-radius: 4px;
     font-weight: 400;
     cursor: pointer;
 }
+.profile-settings-save-button:hover {
+    background-color: #c7f8d2;
+}
+
 
 .profile-settings-actions {
     margin-top: 20px;
@@ -56,13 +59,13 @@
 }
 
 .delete-button {
-    background-color: #dc3545;
+    background-color: #b8b6b6;
     color: #fff;
     border: none;
 }
 
 .delete-button:hover {
-    background-color: #c82333;
+    background-color: #616161;
 }
 
 /* Modal Styles */
@@ -129,7 +132,7 @@
 }
 
 .confirm-delete-button:hover {
-    background-color: #c82333;
+    background-color: #6c757d;
 }
 
 .cancel-button:hover {

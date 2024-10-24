@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './DashboardNavbar.css';
-import Simple from '../../../assets/RiveComponents/Vehicle'
 
 const DashboardNavbar: React.FC = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -34,7 +33,6 @@ const DashboardNavbar: React.FC = () => {
             <div className="dashboard-navbar__container">
                 <div className="dashboard-navbar__logo">
                     <h1>Anthra</h1>
-                    <Simple/>
                 </div>
                 <ul className="dashboard-navbar__links">
                     {navbarLinks.map((link) => (

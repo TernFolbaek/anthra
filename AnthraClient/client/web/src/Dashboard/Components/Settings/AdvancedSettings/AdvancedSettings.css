@@ -23,10 +23,14 @@
 
 .advanced-settings button {
     padding: 10px 20px;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
+    border: 2px solid #28a745;
+    color: #28a745;
     border-radius: 4px;
+}
+
+
+.advanced-settings button:hover {
+    background-color: #c7f8d2;
 }
 
 /* Responsive adjustments */

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
 import {useRive, useStateMachineInput} from "@rive-app/react-canvas";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
+import ResetPassword from "../ResetPassword/ResetPassword";
 
 interface AuthPageProps {
     onBackClick: () => void;
@@ -13,6 +14,7 @@ interface AuthPageProps {
 const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
     const [isSignUp, setIsSignUp] = useState(true);
     const [showForgotPassword, setShowForgotPassword] = useState(false);
+    const [showResetPassword, setShowResetPassword] = useState(false);
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -203,7 +205,18 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
 
     if (showForgotPassword) {
         return (
-            <ForgotPassword onBack={() => setShowForgotPassword(false)} />
+            <ForgotPassword
+                onBack={() => {
+                    setShowForgotPassword(false);
+                    setShowResetPassword(true);
+                }}
+            />
+        );
+    }
+
+    if (showResetPassword) {
+        return (
+            <ResetPassword onBack={() => setShowResetPassword(false)} />
         );
     }
 

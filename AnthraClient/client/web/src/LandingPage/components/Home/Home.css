@@ -2,78 +2,92 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Navbar */
+/* Home Container */
 .home-container {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
-    background-attachment: fixed;
     flex-direction: column;
     position: relative;
-    background-image: url('../../assets/anthra-background-home.jpg');
-    z-index: 1;
-    background-position: center;
+    overflow: hidden;
 }
 
-.home-content{
-    margin-top: 200px;
-}
-
-.home-container::before {
-    content: "";
-    position: absolute;
-    top: -10%;
-    left: -10%;
-    width: 120%;
-    height: 120%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: -2;
-}
-
-.home-container::after {
-    content: "";
+/* Spline Background */
+.spline-background {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: -1;
+    z-index: 0;
+    overflow: hidden;
+    background-color: #000; /* Placeholder background color */
 }
 
-.logo {
-    align-items: center;
+/* Hide the Spline component until it's loaded */
+.spline-background:not(.loaded) canvas {
+    opacity: 0;
 }
 
-.mission{
+/* Fade in the Spline component when loaded */
+.spline-background.loaded canvas {
+    opacity: 1;
+    transition: opacity 0.5s ease-in;
+}
+
+/* Spline Placeholder */
+.spline-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000; /* Match the placeholder background color */
+    z-index: 1;
+}
+
+/* Hide the placeholder when Spline is loaded */
+.spline-background.loaded .spline-placeholder {
+    display: none;
+}
+
+/* Adjust the canvas to be absolute and fill the container */
+.spline-background canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Home Content */
+.home-content {
+    position: relative;
+    z-index: 1;
+    margin-top: 200px;
+    pointer-events: none;
+}
+
+/* Mission Text */
+.mission {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-style: normal;
     color: white;
+    pointer-events: none;
 }
 
-/* Home Content */
-.home-content-title{
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    font-style: normal;
-    font-optical-sizing: auto;
-    font-size: 2rem;
-}
-
+/* Home Content Text */
 .home-content-text {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-style: normal;
-    font-optical-sizing: auto;
     font-size: 70px;
     display: flex;
     flex-direction: column;
     align-items: center;
     line-height: 1.5;
     width: 50%;
+    pointer-events: none;
+    color: white;
 }
 
 .dynamic-text {
@@ -83,16 +97,17 @@
     width: 300px;
 }
 
-
-@media(max-width: 700px) {
+@media (max-width: 700px) {
     .home-content-text {
         font-size: 40px;
     }
 }
 
+/* Get Started Button */
 .get-started-button {
+    pointer-events: auto;
     font-family: 'Montserrat', sans-serif;
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.4);
     border: 2px solid white;
     color: white;
     padding: 0.75rem;
@@ -115,15 +130,8 @@
     width: 100%;
     position: absolute;
     bottom: 0;
-    margin-top: 50px; /* Add margin if needed */
+    z-index: 1;
     background-color: rgba(0, 0, 0, 0.5);
-}
-.image-track-title{
-    font-size: 20px;
-    font-family: inherit;
-    color: white;
-    position: absolute;
-    bottom: 100px;
 }
 
 .image-track {
@@ -159,6 +167,3 @@
         transform: translateX(0%);
     }
 }
-
-
-

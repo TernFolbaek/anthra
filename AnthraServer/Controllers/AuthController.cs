@@ -10,8 +10,9 @@ using MyBackendApp.Models;
 using MyBackendApp.ViewModels;
 using Google.Apis.Auth;
 using MyBackendApp.Data;
-using System.Net.Mail;
-using System.Net;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+
 
 namespace MyBackendApp.Controllers
 {
@@ -245,26 +246,24 @@ namespace MyBackendApp.Controllers
 
             await _userManager.UpdateAsync(user);
 
-            // Send email
+            // Send email using SendGrid
             try
             {
-                var smtpClient = new SmtpClient("smtp.gmail.com")
-                {
-                    Port = 587,
-                    Credentials = new NetworkCredential("your-email@gmail.com", "your-email-password"),
-                    EnableSsl = true,
-                };
+                var apiKey = _configuration["SendGrid:ApiKey"];
+                var client = new SendGridClient(apiKey);
+                var from = new EmailAddress("tfolbaek@gmail.com", "Anthra");
+                var to = new EmailAddress(model.Email);
+                var subject = "Password Reset Code";
+                var plainTextContent = $"Your password reset code is: {resetCode}";
+                var htmlContent = $"<p>Your password reset code is: <strong>{resetCode}</strong></p>";
+                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
 
-                var mailMessage = new MailMessage
+                var response = await client.SendEmailAsync(msg);
+                if (response.StatusCode != System.Net.HttpStatusCode.Accepted)
                 {
-                    From = new MailAddress("password-reset@yourdomain.com"),
-                    Subject = "Password Reset Code",
-                    Body = $"Your password reset code is: {resetCode}",
-                    IsBodyHtml = false,
-                };
-                mailMessage.To.Add(model.Email);
-
-                await smtpClient.SendMailAsync(mailMessage);
+                    _logger.LogError("Failed to send email via SendGrid: {StatusCode}", response.StatusCode);
+                    return StatusCode(500, "Error sending password reset email.");
+                }
             }
             catch (Exception ex)
             {
@@ -274,6 +273,7 @@ namespace MyBackendApp.Controllers
 
             return Ok("Password reset code sent to your email.");
         }
+
         
         [HttpPost("ResetPassword")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordViewModel model)

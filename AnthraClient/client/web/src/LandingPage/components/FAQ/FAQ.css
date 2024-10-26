@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 .faq-container{
-    background-color: white;
+    background-color: rgb(242, 249, 251);
     width: 100%;
     padding: 2rem;
 }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "su84Rly0zTjeBwG2V7qfOCyId2YQqKRB2JFjHFSbi/c=",
+  "Hash": "FFDJNoWa1cvEQkCCh2sFawfr5gdD6ywfOVnSYLdbYfc=",
   "Source": "AnthraBackend",
   "BasePath": "_content/AnthraBackend",
   "Mode": "Default",
@@ -53,6 +53,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/uploads/03026cc7-1ffe-4037-8c55-e76646e11082.png"
+    },
+    {
+      "Identity": "/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraServer/wwwroot/uploads/0e4f9d24-e93c-4dce-96df-9ac37dc70383.png",
+      "SourceId": "AnthraBackend",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraServer/wwwroot/",
+      "BasePath": "_content/AnthraBackend",
+      "RelativePath": "uploads/0e4f9d24-e93c-4dce-96df-9ac37dc70383.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/uploads/0e4f9d24-e93c-4dce-96df-9ac37dc70383.png"
     },
     {
       "Identity": "/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraServer/wwwroot/uploads/18b5b81f-01f9-4c5a-b461-e29d02f56014.png",
@@ -150,6 +169,25 @@
       "OriginalItemSpec": "wwwroot/uploads/3c5fddaa-4402-4901-96ee-c2e5962ec721.png"
     },
     {
+      "Identity": "/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraServer/wwwroot/uploads/452e7492-97b7-4069-8bb0-9594950afe9a.jpeg",
+      "SourceId": "AnthraBackend",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraServer/wwwroot/",
+      "BasePath": "_content/AnthraBackend",
+      "RelativePath": "uploads/452e7492-97b7-4069-8bb0-9594950afe9a.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/uploads/452e7492-97b7-4069-8bb0-9594950afe9a.jpeg"
+    },
+    {
       "Identity": "/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraServer/wwwroot/uploads/4566de24-9a41-4a26-a5dd-2a26f0a71172.png",
       "SourceId": "AnthraBackend",
       "SourceType": "Discovered",
@@ -224,6 +262,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/uploads/58f48ab6-1b0e-4430-89f2-3e75dea0ea89.png"
+    },
+    {
+      "Identity": "/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraServer/wwwroot/uploads/5ab9d81e-7d04-4f81-9c4b-a181228f45aa.jpeg",
+      "SourceId": "AnthraBackend",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraServer/wwwroot/",
+      "BasePath": "_content/AnthraBackend",
+      "RelativePath": "uploads/5ab9d81e-7d04-4f81-9c4b-a181228f45aa.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/uploads/5ab9d81e-7d04-4f81-9c4b-a181228f45aa.jpeg"
     },
     {
       "Identity": "/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraServer/wwwroot/uploads/65fbc577-c59b-415b-b894-767ffc340c15.png",
@@ -376,6 +433,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/uploads/89ae0ca8-826e-49f2-a8fb-9ca987e69c5f.png"
+    },
+    {
+      "Identity": "/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraServer/wwwroot/uploads/8bbfd041-67d8-420e-a9c4-efa189adb438.png",
+      "SourceId": "AnthraBackend",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraServer/wwwroot/",
+      "BasePath": "_content/AnthraBackend",
+      "RelativePath": "uploads/8bbfd041-67d8-420e-a9c4-efa189adb438.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/uploads/8bbfd041-67d8-420e-a9c4-efa189adb438.png"
     },
     {
       "Identity": "/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraServer/wwwroot/uploads/8c33a4b6-cb4f-48ea-a2e8-7a710ecbd1e9.png",

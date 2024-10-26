@@ -226,53 +226,62 @@ namespace MyBackendApp.Controllers
         }
         
 
-        [HttpPost("ForgotPassword")]
-        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordViewModel model)
+   [HttpPost("ForgotPassword")]
+public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordViewModel model)
+{
+    _logger.LogInformation("ForgotPassword action called");
+
+    var user = await _userManager.FindByEmailAsync(model.Email);
+    if (user == null)
+    {
+        return BadRequest("User not found.");
+    }
+
+    // Generate reset code
+    var resetCode = new Random().Next(100000, 999999).ToString();
+
+    // Set code and expiry
+    user.PasswordResetCode = resetCode;
+    user.PasswordResetExpiry = DateTime.UtcNow.AddHours(1);
+
+    await _userManager.UpdateAsync(user);
+
+    // Send email using SendGrid
+    try
+    {
+        var apiKey = _configuration["SendGrid:ApiKey"];
+        if (string.IsNullOrEmpty(apiKey))
         {
-            _logger.LogInformation("ForgotPassword action called");
-
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null)
-            {
-                return BadRequest("User not found.");
-            }
-
-            // Generate reset code
-            var resetCode = new Random().Next(100000, 999999).ToString();
-
-            // Set code and expiry
-            user.PasswordResetCode = resetCode;
-            user.PasswordResetExpiry = DateTime.UtcNow.AddHours(1);
-
-            await _userManager.UpdateAsync(user);
-
-            // Send email using SendGrid
-            try
-            {
-                var apiKey = _configuration["SendGrid:ApiKey"];
-                var client = new SendGridClient(apiKey);
-                var from = new EmailAddress("tfolbaek@gmail.com", "Anthra");
-                var to = new EmailAddress(model.Email);
-                var subject = "Password Reset Code";
-                var plainTextContent = $"Your password reset code is: {resetCode}";
-                var htmlContent = $"<p>Your password reset code is: <strong>{resetCode}</strong></p>";
-                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-
-                var response = await client.SendEmailAsync(msg);
-                if (response.StatusCode != System.Net.HttpStatusCode.Accepted)
-                {
-                    _logger.LogError("Failed to send email via SendGrid: {StatusCode}", response.StatusCode);
-                    return StatusCode(500, "Error sending password reset email.");
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error sending password reset email.");
-                return StatusCode(500, "Error sending password reset email.");
-            }
-
-            return Ok("Password reset code sent to your email.");
+            _logger.LogError("SendGrid API Key is not configured.");
+            return StatusCode(500, "Email service is not configured.");
         }
+
+        var client = new SendGridClient(apiKey);
+        var fromEmail = "anthradk@gmail.com";
+        var from = new EmailAddress(fromEmail, "anthradk@gmail.com");
+        var to = new EmailAddress(model.Email);
+        var subject = "Password Reset Code";
+        var plainTextContent = $"Your password reset code is: {resetCode}";
+        var htmlContent = $"<p>Your password reset code is: <strong>{resetCode}</strong></p>";
+        var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+
+        var response = await client.SendEmailAsync(msg);
+        var responseBody = await response.Body.ReadAsStringAsync();
+
+        if (response.StatusCode != System.Net.HttpStatusCode.Accepted)
+        {
+            _logger.LogError("Failed to send email via SendGrid: {StatusCode} - {ResponseBody}", response.StatusCode, responseBody);
+            return StatusCode(500, "Error sending password reset email.");
+        }
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "Error sending password reset email.");
+        return StatusCode(500, "Error sending password reset email.");
+    }
+
+    return Ok("Password reset code sent to your email.");
+}
 
         
         [HttpPost("ResetPassword")]

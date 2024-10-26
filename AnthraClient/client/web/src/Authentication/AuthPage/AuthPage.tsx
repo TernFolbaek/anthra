@@ -199,9 +199,6 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
         }
 
     }
-    if (rive) {
-        console.log(rive.contents);
-    }
 
     if (showForgotPassword) {
         return (

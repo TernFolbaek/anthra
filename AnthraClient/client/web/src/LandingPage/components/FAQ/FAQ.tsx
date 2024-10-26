@@ -78,7 +78,7 @@ const FAQ: React.FC = () => {
                 } max-w-2xl mx-auto mt-8`}
             >
                 <div>
-                    <h2 className="faq-section text-2xl font-bold mb-6 faq-title">{t.commonTitle}</h2> {/* Translated title */}
+                    <p className="faq-section text-2xl font-bold mb-6 faq-title">{t.commonTitle}</p> {/* Translated title */}
                     <div className="space-y-2">
                         {t.commonQuestions.map((item: FAQItem, index: number) => (
                             <FAQItemComponent key={index} item={item} />
@@ -87,7 +87,7 @@ const FAQ: React.FC = () => {
                 </div>
 
                 <div>
-                    <h2 className="faq-section text-2xl font-bold mb-6 faq-title">{t.pricingTitle}</h2> {/* Translated title */}
+                    <p className="faq-section text-2xl font-bold mb-6 faq-title">{t.pricingTitle}</p> {/* Translated title */}
                     <div className="space-y-2">
                         {t.pricingQuestions.map((item: FAQItem, index: number) => (
                             <FAQItemComponent key={index} item={item} />

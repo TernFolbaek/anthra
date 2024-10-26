@@ -50,10 +50,10 @@ const HowItWorks: React.FC = () => {
             </video>
 
             <div className="content">
-                <h1 className="title">{t.title}</h1> {/* Use translated title */}
+                <h1 className="how-it-works-title">{t.title}</h1> {/* Use translated title */}
                 <div ref={step1Ref} className="step step-1">
                     <div className="step-content">
-                        <h2>{t.steps[0].heading}</h2> {/* Use translated step 1 heading */}
+                        <p className="step-content-title">{t.steps[0].heading}</p> {/* Use translated step 1 heading */}
                         <p className="step-description">{t.steps[0].description}</p> {/* Use translated step 1 description */}
                     </div>
                     <img src={stepOneImage} className="step-image" alt="profile on explore page" />
@@ -61,7 +61,7 @@ const HowItWorks: React.FC = () => {
 
                 <div ref={step2Ref} className="step step-2">
                     <div className="step-content">
-                        <h2>{t.steps[1].heading}</h2> {/* Use translated step 2 heading */}
+                        <p className="step-content-title">{t.steps[1].heading}</p> {/* Use translated step 2 heading */}
                         <p className="step-description">{t.steps[1].description}</p> {/* Use translated step 2 description */}
                     </div>
                     <img src={stepTwoImage} className="step-image" alt="connection requests" />
@@ -69,7 +69,7 @@ const HowItWorks: React.FC = () => {
 
                 <div ref={step3Ref} className="step step-3">
                     <div className="step-content">
-                        <h2>{t.steps[2].heading}</h2> {/* Use translated step 3 heading */}
+                        <p className="step-content-title">{t.steps[2].heading}</p> {/* Use translated step 3 heading */}
                         <p className="step-description">{t.steps[2].description}</p> {/* Use translated step 3 description */}
                     </div>
                     <img src={stepThreeImage} className="step-image" alt="group chat" />

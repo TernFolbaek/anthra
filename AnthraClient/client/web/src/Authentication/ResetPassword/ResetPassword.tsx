@@ -1,6 +1,7 @@
 // ResetPassword.tsx
 import React, { useState } from 'react';
 import axios from 'axios';
+import './ResetPassword.css'
 
 interface ResetPasswordProps {
     onBack: () => void;

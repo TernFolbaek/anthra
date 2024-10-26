@@ -1,7 +1,7 @@
 // ForgotPassword.tsx
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import './ForgotPassword.css'
 interface ForgotPasswordProps {
     onBack: () => void;
 }

@@ -62,8 +62,9 @@
 .home-content {
     position: relative;
     z-index: 1;
-    margin-top: 200px;
     pointer-events: none;
+    width: 100%;
+    margin-top: 13%;
 }
 
 /* Mission Text */
@@ -158,6 +159,11 @@
     vertical-align: middle;
 }
 
+@media (max-width: 768px ) {
+    .home-content{
+        margin-top: 25%;
+    }
+}
 /* Animation to scroll from right to left */
 @keyframes scrollRight {
     0% {

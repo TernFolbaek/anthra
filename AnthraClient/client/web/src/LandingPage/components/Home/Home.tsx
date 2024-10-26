@@ -80,7 +80,7 @@ const Home: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                     className="opacity-90"
                 />
             </div>
-            <div className="home-content w-[100%] items-center flex flex-col gap-5 mt-[13%]">
+            <div className="home-content items-center flex flex-col gap-5">
                 <div className="mission">
                     <h2>{t.mission}</h2>
                 </div>

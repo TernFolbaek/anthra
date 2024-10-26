@@ -1,12 +1,14 @@
 // ForgotPassword.tsx
 import React, { useState } from 'react';
 import axios from 'axios';
-import './ForgotPassword.css'
+import './ForgotPassword.css';
+
 interface ForgotPasswordProps {
     onBack: () => void;
+    onResetRequested: () => void; // Callback for when the reset request is successful
 }
 
-const ForgotPassword: React.FC<ForgotPasswordProps> = ({ onBack }) => {
+const ForgotPassword: React.FC<ForgotPasswordProps> = ({ onBack, onResetRequested }) => {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -19,6 +21,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ onBack }) => {
         try {
             await axios.post('http://localhost:5001/api/Auth/ForgotPassword', { email });
             setMessage('Password reset code sent to your email.');
+            onResetRequested(); // Redirect to ResetPassword component
         } catch (err: any) {
             setError('Error sending password reset email.');
         }

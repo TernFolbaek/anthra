@@ -1,10 +1,10 @@
 import './AuthPage.css';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
-import {useRive, useStateMachineInput} from "@rive-app/react-canvas";
-import ForgotPassword from "../ForgotPassword/ForgotPassword";
-import ResetPassword from "../ResetPassword/ResetPassword";
+import { useRive, useStateMachineInput } from '@rive-app/react-canvas';
+import ForgotPassword from '../ForgotPassword/ForgotPassword';
+import ResetPassword from '../ResetPassword/ResetPassword';
 
 interface AuthPageProps {
     onBackClick: () => void;
@@ -31,12 +31,10 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
     };
 
     const handleGoogleSuccess = async (credentialResponse: CredentialResponse) => {
-
         if (credentialResponse.credential) {
             const tokenId = credentialResponse.credential;
 
             try {
-                // Send the tokenId to your backend for verification
                 const backendResponse = await axios.post(
                     'http://localhost:5001/api/Auth/GoogleLogin',
                     { tokenId },
@@ -47,21 +45,18 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                     }
                 );
                 const { token, userId } = backendResponse.data;
-
-                // Store token and userId
                 localStorage.setItem('token', token);
                 localStorage.setItem('userId', userId);
 
-                // Fetch user profile
                 const profileResponse = await axios.get(
                     'http://localhost:5001/api/Profile/GetProfile',
-                    { headers: {
+                    {
+                        headers: {
                             'Authorization': `Bearer ${token}`,
                         }
                     }
                 );
                 const userProfile = profileResponse.data;
-
                 onAuthSuccess(userProfile.createdProfile);
             } catch (error) {
                 setError('Google login failed.');
@@ -92,27 +87,23 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
 
         try {
             const response = await axios.post(endpoint, payload);
-
             const { userId, token } = response.data;
-
-            // Store token and userId
             localStorage.setItem('token', token);
             localStorage.setItem('userId', userId);
 
-            // Fetch the user's profile
             const profileResponse = await axios.get(
                 'http://localhost:5001/api/Profile/GetProfile',
-            { headers: {
-                'Authorization': `Bearer ${token}`
-            }}
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                }
             );
             const userProfile = profileResponse.data;
-            triggerSuccess()
-            // Notify App.tsx of authentication success
-
+            triggerSuccess();
             onAuthSuccess(userProfile.createdProfile);
         } catch (err: any) {
-            triggerFail()
+            triggerFail();
             if (err.response && err.response.data) {
                 const errorData = err.response.data;
                 setError(
@@ -127,86 +118,63 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
         }
     };
 
-    const STATE_MACHINE_NAME = "State Machine 1";
-
-    const {rive, RiveComponent} = useRive({
-        src: "520-990-teddy-login-screen.riv",
+    const STATE_MACHINE_NAME = 'State Machine 1';
+    const { rive, RiveComponent } = useRive({
+        src: '520-990-teddy-login-screen.riv',
         autoplay: true,
-        stateMachines: STATE_MACHINE_NAME
-    })
+        stateMachines: STATE_MACHINE_NAME,
+    });
     useEffect(() => {
         setLook();
-    }, [username])
+    }, [username]);
 
-    const stateSuccess = useStateMachineInput(
-        rive,
-        STATE_MACHINE_NAME,
-        'success'
-    )
-    const stateFail = useStateMachineInput(
-        rive,
-        STATE_MACHINE_NAME,
-        'fail'
-    )
-    const stateHandUp = useStateMachineInput(
-        rive,
-        STATE_MACHINE_NAME,
-        'hands_up'
-    )
-
-    const stateCheck = useStateMachineInput(
-        rive,
-        STATE_MACHINE_NAME,
-        'Check'
-    )
-    const stateLook = useStateMachineInput(
-        rive,
-        STATE_MACHINE_NAME,
-        'Look'
-    )
-
+    const stateSuccess = useStateMachineInput(rive, STATE_MACHINE_NAME, 'success');
+    const stateFail = useStateMachineInput(rive, STATE_MACHINE_NAME, 'fail');
+    const stateHandUp = useStateMachineInput(rive, STATE_MACHINE_NAME, 'hands_up');
+    const stateCheck = useStateMachineInput(rive, STATE_MACHINE_NAME, 'Check');
+    const stateLook = useStateMachineInput(rive, STATE_MACHINE_NAME, 'Look');
 
     const triggerSuccess = () => {
         stateSuccess && stateSuccess.fire();
-    }
+    };
     const triggerFail = () => {
         stateFail && stateFail.fire();
-    }
-
+    };
 
     const setHangUp = (hangUp: any) => {
         stateHandUp && (stateHandUp.value = hangUp);
-    }
+    };
 
     const setLook = () => {
         if (!stateLook || !stateCheck || !setHangUp) {
             return;
         }
-        setHangUp(false)
+        setHangUp(false);
         setCheck(true);
         let nbChars = 0;
         if (username) {
-            nbChars = username.split('').length;  // user is guaranteed to be a string here
+            nbChars = username.split('').length;
         }
         let ratio = nbChars / parseFloat('41');
-
-        let lookToSet = ratio * 100 - 25
+        let lookToSet = ratio * 100 - 25;
         stateLook.value = Math.round(lookToSet);
-    }
+    };
     const setCheck = (check: any) => {
         if (stateCheck) {
             stateCheck.value = check;
         }
+    };
 
-    }
+    const handleForgotPasswordSuccess = () => {
+        setShowForgotPassword(false);
+        setShowResetPassword(true);
+    };
 
     if (showForgotPassword) {
         return (
             <ForgotPassword
-                onBack={() => {
-                    setShowForgotPassword(false);
-                    setShowResetPassword(true);
-                }}
+                onBack={() => setShowForgotPassword(false)}
+                onResetRequested={handleForgotPasswordSuccess}
             />
         );
     }
@@ -223,7 +191,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                 Back
             </button>
             <div>
-                <RiveComponent className="teddy-bear-rive"/>
+                <RiveComponent className="teddy-bear-rive" />
             </div>
             <div className="auth-container">
                 <h2>{isSignUp ? 'Sign Up' : 'Log In'}</h2>
@@ -238,7 +206,6 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                         required
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-
                     />
                     {isSignUp && (
                         <input
@@ -264,7 +231,10 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                     </button>
                     {!isSignUp && (
                         <p>
-                            <button className="forgot-password-button" onClick={() => setShowForgotPassword(true)}>
+                            <button
+                                className="forgot-password-button"
+                                onClick={() => setShowForgotPassword(true)}
+                            >
                                 Forgot Password?
                             </button>
                         </p>

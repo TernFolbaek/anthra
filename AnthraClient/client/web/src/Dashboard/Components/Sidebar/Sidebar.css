@@ -1,9 +1,7 @@
-/* Sidebar.css */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
 
-/* Sidebar.css */
 .sidebar {
-    width: 200px;
+    width: 250px;
     background-color: #ffffff;
     color: #333;
     display: flex;
@@ -12,9 +10,10 @@
     font-weight: 600;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     position: sticky;
-    top: 68px; /* Height of the navbar */
-    height: calc(100vh - 60px); /* Adjust height based on navbar height */
-    overflow-y: auto; /* Allow the sidebar to scroll if content exceeds */
+    top: 68px; /* Adjust based on navbar height */
+    height: calc(100vh - 68px);
+    overflow-y: auto;
+    transition: width 0.3s ease-in-out;
 }
 
 .dark-mode .sidebar {
@@ -22,33 +21,47 @@
     color: #fff;
 }
 
-/* Rest of your Sidebar.css */
-
-
 .sidebar-link {
+    display: flex;
+    align-items: center;
     color: #333;
-    padding: 15px 20px;
+    padding: 20px;
     text-decoration: none;
     position: relative;
     overflow: hidden;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, color 0.3s, padding 0.3s;
+    font-size: 18px;
+    gap: 10px;
 }
 
 .dark-mode .sidebar-link {
     color: #fff;
 }
 
+.sidebar-link .sidebar-icon {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-link:hover .sidebar-icon {
+    transform: scale(1.2);
+}
+
 .sidebar-link::before {
     content: "";
     position: absolute;
     left: 0;
-    top: 50%;
-    width: 0.5rem;
-    height: 0.5rem;
+    top: 0;
+    height: 100%;
+    width: 4px;
     background-color: #007bff;
-    border-radius: 50%;
-    transform: translate(-150%, -50%);
+    transform: scaleY(0);
     transition: transform 0.3s ease-in-out;
+}
+
+.sidebar-link:hover::before,
+.sidebar-link.active-link::before {
+    transform: scaleY(1);
 }
 
 .sidebar-link:hover {

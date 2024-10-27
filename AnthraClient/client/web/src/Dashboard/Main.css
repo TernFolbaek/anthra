@@ -12,15 +12,6 @@
     overflow: hidden; /* Prevent the content-wrapper from scrolling */
 }
 
-.sidebar {
-    width: 200px;
-    flex-shrink: 0;
-    height: calc(100vh - 60px); /* Adjust height based on navbar height */
-    position: sticky;
-    top: 68px; /* Height of the navbar */
-    overflow-y: auto; /* Allow the sidebar to scroll if content exceeds */
-}
-
 .main-content {
     position: relative;
     flex: 1;

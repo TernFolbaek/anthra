@@ -8,19 +8,22 @@
     color: #333;
     display: flex;
     flex-direction: column;
-    height: 100%;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    overflow-y: hidden;
+    position: sticky;
+    top: 60px; /* Height of the navbar */
+    height: calc(100vh - 60px); /* Adjust height based on navbar height */
+    overflow-y: auto; /* Allow the sidebar to scroll if content exceeds */
 }
-
-/* Rest of the CSS remains the same */
 
 .dark-mode .sidebar {
     background-color: #1a1a1a;
     color: #fff;
 }
+
+/* Rest of your Sidebar.css */
+
 
 .sidebar-link {
     color: #333;

@@ -1,16 +1,9 @@
-// src/Components/DashboardNavbar/DashboardNavbar.tsx
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { FaUser } from 'react-icons/fa';
 import './DashboardNavbar.css';
 
 const DashboardNavbar: React.FC = () => {
-    const [menuOpen, setMenuOpen] = useState(false);
-
-    const toggleMenu = () => {
-        setMenuOpen(!menuOpen);
-    };
-
-
     // Navbar links
     const navbarLinks = [
         { to: '/explore', label: 'Explore' },
@@ -18,15 +11,6 @@ const DashboardNavbar: React.FC = () => {
         { to: '/messages', label: 'Messages' },
         { to: '/profile', label: 'Your Profile' },
     ];
-
-    // Sidebar links
-    const sidebarLinks = [
-        { to: '/connections', label: 'Connections' },
-        { to: '/settings', label: 'Settings' },
-        { to: '/groups', label: 'Groups' },
-        { to: '/facilities', label: 'Facilities' },
-    ];
-
 
     return (
         <nav className="dashboard-navbar">
@@ -48,26 +32,12 @@ const DashboardNavbar: React.FC = () => {
                         </li>
                     ))}
                 </ul>
-                <div className="dashboard-navbar__burger" onClick={toggleMenu}>
-                    <span className={`dashboard-navbar__burger-bar ${menuOpen ? 'open' : ''}`}></span>
-                    <span className={`dashboard-navbar__burger-bar ${menuOpen ? 'open' : ''}`}></span>
-                    <span className={`dashboard-navbar__burger-bar ${menuOpen ? 'open' : ''}`}></span>
+                <div className="dashboard-navbar__profile-icon">
+                    <NavLink to="/profile">
+                        <FaUser className="profile-icon" />
+                    </NavLink>
                 </div>
             </div>
-            {menuOpen && (
-                <ul className="dashboard-navbar__mobile-menu">
-                    {navbarLinks.concat(sidebarLinks).map((link) => (
-                        <li  className="dashboard-navbar__mobile-link" key={link.to} >
-                            <NavLink
-                                to={link.to}
-                                onClick={toggleMenu}
-                            >
-                                {link.label}
-                            </NavLink>
-                        </li>
-                    ))}
-                </ul>
-            )}
         </nav>
     );
 };

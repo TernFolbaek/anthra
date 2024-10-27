@@ -94,101 +94,41 @@
     width: 100%;
 }
 
-.dashboard-navbar__burger {
+
+/* Profile icon is hidden by default */
+.dashboard-navbar__profile-icon {
     display: none;
-    flex-direction: column;
-    cursor: pointer;
-    padding-right: 10px;
 }
 
-.dashboard-navbar__burger-bar {
-    width: 25px;
-    height: 3px;
-    background-color: #333;
-    margin: 4px 0;
-    transition: transform 0.3s ease-in-out;
-}
-
-.dark-mode .dashboard-navbar__burger-bar {
-    background-color: #fff;
-}
-
-.dashboard-navbar__burger-bar.open:nth-child(1) {
-    transform: translateY(11px) rotate(45deg);
-}
-
-.dashboard-navbar__burger-bar.open:nth-child(2) {
-    opacity: 0;
-    transform: scale(0);
-}
-
-.dashboard-navbar__burger-bar.open:nth-child(3) {
-    transform: translateY(-11px) rotate(-45deg);
-}
-
-.dashboard-navbar__mobile-menu {
-    display: none;
-    background-color: #ffffff;
-    position: fixed;
-    top: 70px; /* Adjust based on navbar height */
-    left: 0;
-    right: 0;
-    list-style: none;
-    margin: 0;
-    border-bottom: 1px solid #ccc;
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.dark-mode .dashboard-navbar__mobile-menu {
-    background-color: #1a1a1a;
-}
-
-.dashboard-navbar__mobile-menu li {
-    padding: 0.5rem 0;
-    text-align: center;
-}
-
-.dashboard-navbar__mobile-link {
-    color: #333;
-    text-decoration: none;
-    font-size: 1.2rem;
-}
-
-.dashboard-navbar__mobile-link:hover {
-    background-color: lightgray;
-    cursor: pointer;
-}
-
-.dark-mode .dashboard-navbar__mobile-link {
-    color: #fff;
-}
-
-.dashboard-navbar__mobile-link:hover {
-    color: #007bff;
-}
-
-.dark-mode .dashboard-navbar__mobile-link:hover {
-    color: #66b2ff;
-}
-
+/* Show the profile icon only on screens smaller than 768px */
 @media (max-width: 768px) {
+    .dashboard-navbar__profile-icon {
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+        padding-right: 20px; /* Adjust as needed */
+    }
+
+    .profile-icon {
+        font-size: 1.5rem; /* Adjust the size of the icon */
+        color: #ffffff;
+        background-color: #007bff; /* Adjust as needed for a background color */
+        border-radius: 50%; /* Makes the icon circular */
+        padding: 8px; /* Controls the space around the icon inside the circle */
+        width: 40px; /* Set a fixed width for the circular icon */
+        height: 40px; /* Set a fixed height for the circular icon */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.2s ease, background-color 0.2s ease;
+        cursor: pointer;
+    }
     .dashboard-navbar__links {
         display: none;
     }
-
-    .dashboard-navbar__burger {
-        display: flex;
-        margin-left: auto;
-    }
-
-    .dashboard-navbar__mobile-menu {
-        display: block;
+    .profile-icon:hover {
+        transform: scale(1.1);
+        background-color: #0056b3; /* Change background color on hover */
     }
 }
 
-/* Hide the navbar on mobile screens */
-@media (max-width: 480px) {
-    .dashboard-navbar {
-        display: none;
-    }
-}

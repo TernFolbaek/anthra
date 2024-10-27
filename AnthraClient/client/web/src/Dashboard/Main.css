@@ -3,33 +3,47 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
+    overflow: hidden; /* Prevent the body from scrolling */
 }
 
 .content-wrapper {
     display: flex;
     flex: 1;
-    overflow: hidden;
+    overflow: hidden; /* Prevent the content-wrapper from scrolling */
 }
 
 .sidebar {
     width: 200px;
     flex-shrink: 0;
+    height: calc(100vh - 60px); /* Adjust height based on navbar height */
+    position: sticky;
+    top: 60px; /* Height of the navbar */
+    overflow-y: auto; /* Allow the sidebar to scroll if content exceeds */
 }
 
 .main-content {
     position: relative;
     flex: 1;
+    overflow-y: auto; /* Make the main-content scrollable */
+    height: calc(100vh - 60px); /* Adjust height based on navbar height */
+    margin-top: 60px;
 }
 
-/* Hide the sidebar on iPad and smaller screens */
+.dashboard-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px; /* Set a fixed height for the navbar */
+    z-index: 1000;
+}
+
+/* Adjust the main-content when the sidebar is hidden */
 @media (max-width: 768px) {
     .sidebar {
         display: none;
     }
-}
 
-/* Adjust the main content when the sidebar is hidden */
-@media (max-width: 768px) {
     .main-content {
         padding: 0 20px;
     }

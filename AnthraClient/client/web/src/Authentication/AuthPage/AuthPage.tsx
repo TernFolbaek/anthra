@@ -74,6 +74,11 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
         onBackClick();
     };
 
+    const handleResetPasswordSuccess = () => {
+        setShowResetPassword(false);
+        setIsSignUp(false); // Redirects to the login form
+    };
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -170,6 +175,8 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
         setShowResetPassword(true);
     };
 
+
+
     if (showForgotPassword) {
         return (
             <ForgotPassword
@@ -181,7 +188,9 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
 
     if (showResetPassword) {
         return (
-            <ResetPassword onBack={() => setShowResetPassword(false)} />
+            <ResetPassword onBack={() => setShowResetPassword(false)}
+                onResetSuccess={handleResetPasswordSuccess}
+            />
         );
     }
 
@@ -194,7 +203,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                 <RiveComponent className="teddy-bear-rive" />
             </div>
             <div className="auth-container">
-                <h2>{isSignUp ? 'Sign Up' : 'Log In'}</h2>
+                <h2 className="auth-container-h2">{isSignUp ? 'Sign Up' : 'Log In'}</h2>
 
                 {message && <p className="success-message">{message}</p>}
                 {error && <p className="error-message">{error}</p>}
@@ -230,7 +239,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                         {isSignUp ? 'Sign Up' : 'Log In'}
                     </button>
                     {!isSignUp && (
-                        <p>
+                        <p className="auth-container-p">
                             <button
                                 className="forgot-password-button"
                                 onClick={() => setShowForgotPassword(true)}
@@ -247,7 +256,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                     />
                 </div>
 
-                <p>
+                <p className="auth-container-p">
                     {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
                     <button className="switch-button" onClick={switchAuthMode}>
                         {isSignUp ? 'Log In' : 'Sign Up'}

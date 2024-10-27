@@ -17,7 +17,7 @@
     flex-shrink: 0;
     height: calc(100vh - 60px); /* Adjust height based on navbar height */
     position: sticky;
-    top: 60px; /* Height of the navbar */
+    top: 68px; /* Height of the navbar */
     overflow-y: auto; /* Allow the sidebar to scroll if content exceeds */
 }
 
@@ -26,7 +26,7 @@
     flex: 1;
     overflow-y: auto; /* Make the main-content scrollable */
     height: calc(100vh - 60px); /* Adjust height based on navbar height */
-    margin-top: 60px;
+    margin-top: 68px;
 }
 
 .dashboard-navbar {
@@ -34,7 +34,6 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 60px; /* Set a fixed height for the navbar */
     z-index: 1000;
 }
 

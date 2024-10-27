@@ -12,7 +12,7 @@
     font-weight: 600;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     position: sticky;
-    top: 60px; /* Height of the navbar */
+    top: 68px; /* Height of the navbar */
     height: calc(100vh - 60px); /* Adjust height based on navbar height */
     overflow-y: auto; /* Allow the sidebar to scroll if content exceeds */
 }

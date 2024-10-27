@@ -4,7 +4,8 @@
 .settings-card {
     width: 100%;
     max-width: 600px;
-    margin: 20px auto;
+    margin: auto;
+    margin-top: 100px;
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
@@ -37,7 +38,6 @@
 
 .settings-tab span {
     display: block;
-    margin-top: 4px;
     font-size: 14px;
 }
 
@@ -47,9 +47,6 @@
 
 /* Media Queries for Mobile Devices */
 @media (max-width: 768px) {
-    .settings-card {
-        margin: 10px;
-    }
 
     .settings-navbar {
         flex-direction: column;
@@ -76,9 +73,7 @@
         justify-content: flex-start;
     }
 
-    .settings-tab svg {
-        margin-right: 8px;
-    }
+
 
     .settings-tab span {
         font-size: 14px;

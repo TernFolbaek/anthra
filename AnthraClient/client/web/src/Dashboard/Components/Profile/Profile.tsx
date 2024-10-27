@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import axios from 'axios';
+import {FaRegHandPointer} from "react-icons/fa";
 
 interface Course {
     courseName: string;
@@ -27,6 +28,7 @@ const Profile: React.FC = () => {
     const [profileData, setProfileData] = useState<ProfileData | null>(null);
     const [editMode, setEditMode] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [profilePictureFile, setProfilePictureFile] = useState<File | null>(null);
 
     const token = localStorage.getItem('token');
 
@@ -49,9 +51,10 @@ const Profile: React.FC = () => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         if (profileData) {
+            const { name, value } = e.target;
             setProfileData({
                 ...profileData,
-                [e.target.name]: e.target.value,
+                [name]: value,
             });
         }
     };
@@ -124,25 +127,64 @@ const Profile: React.FC = () => {
     };
 
     const handleSave = async () => {
-        try {
-            await axios.post(
-                'http://localhost:5001/api/Profile/UpdateProfile',
-                { ...profileData },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
+        if (profileData) {
+            const formData = new FormData();
+
+            // Append scalar fields
+            formData.append('FirstName', profileData.firstName);
+            formData.append('LastName', profileData.lastName);
+            formData.append('Location', profileData.location);
+            formData.append('Institution', profileData.institution);
+            formData.append('Work', profileData.work);
+            formData.append('AboutMe', profileData.aboutMe);
+            formData.append('Age', profileData.age.toString());
+
+            // Append array fields
+            profileData.subjects.forEach((subject) => formData.append('Subjects', subject));
+            formData.append('Courses', JSON.stringify(profileData.courses));
+
+            // Append profile picture if updated
+            if (profilePictureFile) {
+                formData.append('ProfilePicture', profilePictureFile);
+            }
+
+            try {
+                await axios.post(
+                    'http://localhost:5001/api/Profile/UpdateProfile',
+                    formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+                setEditMode(false);
+                // Refresh the profile data to reflect changes
+                fetchProfile();
+            } catch (err: any) {
+                if (err.response && err.response.data) {
+                    const errorData = err.response.data;
+                    setError(
+                        errorData.Message ||
+                        Object.values(errorData.errors || {}).join(' ') ||
+                        'An error occurred'
+                    );
+                } else {
+                    setError('An error occurred. Please try again.');
                 }
-            );
-            setEditMode(false);
-        } catch (err) {
-            setError('Failed to update profile.');
+            }
         }
     };
 
     if (!profileData) {
         return <div>Loading...</div>;
     }
+    const handleProfilePictureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setProfilePictureFile(e.target.files[0]);
+        }
+    };
 
     return (
         <div className="profile-page">
@@ -154,56 +196,35 @@ const Profile: React.FC = () => {
                 </div>
                 <div className="profile-content">
                     <div className="profile-picture">
-                        <img src={`http://localhost:5001${profileData.profilePictureUrl}`} alt="Profile" />
+                        <img
+                            src={
+                                profilePictureFile
+                                    ? URL.createObjectURL(profilePictureFile)
+                                    : `http://localhost:5001${profileData.profilePictureUrl}`
+                            }
+                            alt="Profile"
+                        />
                         {editMode && (
-                            <input
-                                type="file"
-                                name="profileImage"
-                                accept="image/*"
-                                onChange={async (e) => {
-                                    if (e.target.files && e.target.files[0]) {
-                                        const formData = new FormData();
-                                        formData.append('image', e.target.files[0]);
-                                        try {
-                                            const response = await axios.post(
-                                                'http://localhost:5001/api/Profile/UploadProfileImage',
-                                                formData,
-                                                {
-                                                    headers: {
-                                                        Authorization: `Bearer ${token}`,
-                                                        'Content-Type': 'multipart/form-data',
-                                                    },
-                                                }
-                                            );
-                                            if (response.data.imageUrl) {
-                                                setProfileData({
-                                                    ...profileData,
-                                                    profilePictureUrl: response.data.imageUrl,
-                                                });
-                                            }
-                                        } catch (error) {
-                                            setError('Failed to upload profile image.');
-                                        }
-                                    }
-                                }}
-                            />
-                        )}
-                    </div>
-                    <div className="profile-info">
+                            <div className="profile-picture-overlay">
+                                <input
+                                    type="file"
+                                    name="profileImage"
+                                    accept="image/*"
+                                    onChange={handleProfilePictureChange}
+                                    className="hidden-file-input"
+                                />
+                                <div className="overlay-content">
+                                    <FaRegHandPointer className="cursor-icon"/>
+                                    <span>Change Profile Picture</span>
+                                </div>
+                            </div>)}
+                            </div>
+                            <div className="profile-info">
                         {/* Username */}
                         <div className="profile-row">
                             <div className="profile-field full-width">
                                 <label>Username:</label>
-                                {editMode ? (
-                                    <input
-                                        type="text"
-                                        name="userName"
-                                        value={profileData.userName}
-                                        onChange={handleInputChange}
-                                    />
-                                ) : (
-                                    <span>{profileData.userName}</span>
-                                )}
+                                <span>{profileData.userName}</span>
                             </div>
                         </div>
 
@@ -399,7 +420,7 @@ const Profile: React.FC = () => {
                 </div>
             </div>
         </div>
-    );
+);
 };
 
 export default Profile;

@@ -23,7 +23,7 @@ const Dashboard: React.FC = () => {
                 <DashboardNavbar />
                 <div className="content-wrapper">
                     <Sidebar />
-                    <div className="main-content">
+                    <div className="main-content bg-slate-50">
                         <Routes>
                             <Route path="/messages" element={<MessageList />} />
                             <Route path="/explore" element={<ExplorePage />} />

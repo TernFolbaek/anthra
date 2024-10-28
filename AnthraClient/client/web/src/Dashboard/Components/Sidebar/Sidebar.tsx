@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaSearch, FaUsers, FaEnvelope, FaCog, FaUsersCog, FaBuilding } from 'react-icons/fa';
+import { FaSearch, FaUsers, FaEnvelope, FaCog, FaUsersCog, FaBuilding, FaHandHoldingHeart} from 'react-icons/fa';
 import './Sidebar.css';
 
 const Sidebar: React.FC = () => {
@@ -15,14 +15,6 @@ const Sidebar: React.FC = () => {
                 Explore Page
             </NavLink>
             <NavLink
-                to="/connections"
-                className={({ isActive }) => `sidebar-link ${isActive ? 'active-link' : ''}`}
-                data-title="Connections"
-            >
-                <FaUsers className="sidebar-icon" />
-                Connections
-            </NavLink>
-            <NavLink
                 to="/messages"
                 className={({ isActive }) => `sidebar-link ${isActive ? 'active-link' : ''}`}
                 data-title="Messages"
@@ -31,13 +23,14 @@ const Sidebar: React.FC = () => {
                 Messages
             </NavLink>
             <NavLink
-                to="/settings"
+                to="/connections"
                 className={({ isActive }) => `sidebar-link ${isActive ? 'active-link' : ''}`}
-                data-title="Settings"
+                data-title="Connections"
             >
-                <FaCog className="sidebar-icon" />
-                Settings
+                <FaUsers className="sidebar-icon" />
+                Connections
             </NavLink>
+
             <NavLink
                 to="/groups"
                 className={({ isActive }) => `sidebar-link ${isActive ? 'active-link' : ''}`}
@@ -53,6 +46,22 @@ const Sidebar: React.FC = () => {
             >
                 <FaBuilding className="sidebar-icon" />
                 Facilities
+            </NavLink>
+            <NavLink
+                to="/requests"
+                className={({ isActive }) => `sidebar-link ${isActive ? 'active-link' : ''}`}
+                data-title="Requests"
+            >
+                <FaHandHoldingHeart className="sidebar-icon" />
+                Requests
+            </NavLink>
+            <NavLink
+                to="/settings"
+                className={({ isActive }) => `sidebar-link ${isActive ? 'active-link' : ''}`}
+                data-title="Settings"
+            >
+                <FaCog className="sidebar-icon" />
+                Settings
             </NavLink>
         </div>
     );

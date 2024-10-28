@@ -134,7 +134,7 @@
     font-weight: 600;
     margin-bottom: 8px;
     color: #444;
-    font-size: 1rem;
+    font-size: 18px;
 }
 
 .profile-field span,
@@ -154,7 +154,7 @@
 }
 
 .profile-field textarea {
-    resize: vertical;
+    resize: none;
     min-height: 100px;
 }
 
@@ -178,6 +178,60 @@
 .save-button:hover {
     background-color: #218838;
 }
+.profile-icon-button {
+    font-size: 1.5rem; /* Adjust the size of the icon */
+    color: #ffffff;
+    background-color: #85bff8; /* Adjust as needed for a background color */
+    border-radius: 50%; /* Makes the icon circular */
+    padding: 8px; /* Controls the space around the icon inside the circle */
+    width: 40px; /* Set a fixed width for the circular icon */
+    height: 40px; /* Set a fixed height for the circular icon */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.profile-edit-trash{
+    background-color: #fb8282;
+    font-size: 1.5rem; /* Adjust the size of the icon */
+    color: #ffffff;
+    border-radius: 50%; /* Makes the icon circular */
+    padding: 8px; /* Controls the space around the icon inside the circle */
+    width: 40px; /* Set a fixed width for the circular icon */
+    height: 40px; /* Set a fixed height for the circular icon */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.course-item{
+    width: 100%;
+    flex: 1;
+    margin-bottom: 10px;
+}
+
+.profile-icon-button:hover {
+    transform: scale(1.1);
+    background-color: #0056b3; /* Change background color on hover */
+}
+
+.profile-edit-trash:hover {
+    transform: scale(1.1);
+    background-color: #f83434;
+}
+
+
+.icon-button:hover {
+    color: #007bff;
+}
+
+
 
 .error-message {
     color: red;
@@ -257,5 +311,6 @@
         text-align: center;
     }
 }
+
 
 

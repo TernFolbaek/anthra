@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import axios from 'axios';
-import {FaRegHandPointer} from "react-icons/fa";
+import { FaRegHandPointer, FaPlus, FaTrash } from "react-icons/fa";
 
 interface Course {
     courseName: string;
@@ -187,7 +187,7 @@ const Profile: React.FC = () => {
     };
 
     return (
-        <div className="profile-page">
+        <div className="profile-page ">
             <div className="profile-card">
                 <div className="profile-header">
                     <button onClick={() => setEditMode(!editMode)}>
@@ -223,7 +223,7 @@ const Profile: React.FC = () => {
                         {/* Username */}
                         <div className="profile-row">
                             <div className="profile-field full-width">
-                                <label>Username:</label>
+                                <label className="profile-label">Username:</label>
                                 <span>{profileData.userName}</span>
                             </div>
                         </div>
@@ -231,7 +231,7 @@ const Profile: React.FC = () => {
                         {/* First Name and Last Name */}
                         <div className="profile-row">
                             <div className="profile-field half-width">
-                                <label>First Name:</label>
+                                <label className="profile-label">First Name:</label>
                                 {editMode ? (
                                     <input
                                         type="text"
@@ -244,7 +244,7 @@ const Profile: React.FC = () => {
                                 )}
                             </div>
                             <div className="profile-field half-width">
-                                <label>Last Name:</label>
+                                <label className="profile-label">Last Name:</label>
                                 {editMode ? (
                                     <input
                                         type="text"
@@ -261,7 +261,7 @@ const Profile: React.FC = () => {
                         {/* Age and Location */}
                         <div className="profile-row">
                             <div className="profile-field half-width">
-                                <label>Age:</label>
+                                <label className="profile-label">Age:</label>
                                 {editMode ? (
                                     <input
                                         type="number"
@@ -274,7 +274,7 @@ const Profile: React.FC = () => {
                                 )}
                             </div>
                             <div className="profile-field half-width">
-                                <label>Location:</label>
+                                <label className="profile-label">Location:</label>
                                 {editMode ? (
                                     <input
                                         type="text"
@@ -291,7 +291,7 @@ const Profile: React.FC = () => {
                         {/* Institution and Work */}
                         <div className="profile-row">
                             <div className="profile-field half-width">
-                                <label>Institution:</label>
+                                <label className="profile-label">Institution:</label>
                                 {editMode ? (
                                     <input
                                         type="text"
@@ -304,7 +304,7 @@ const Profile: React.FC = () => {
                                 )}
                             </div>
                             <div className="profile-field half-width">
-                                <label>Work:</label>
+                                <label className="profile-label">Work:</label>
                                 {editMode ? (
                                     <input
                                         type="text"
@@ -321,7 +321,7 @@ const Profile: React.FC = () => {
                         {/* About Me */}
                         <div className="profile-row">
                             <div className="profile-field full-width">
-                                <label>About Me:</label>
+                                <label className="profile-label">About Me:</label>
                                 {editMode ? (
                                     <textarea
                                         name="aboutMe"
@@ -338,24 +338,28 @@ const Profile: React.FC = () => {
                         {/* Subjects */}
                         <div className="profile-row">
                             <div className="profile-field full-width">
-                                <label>Subjects:</label>
+                                <label className="profile-label">Subjects:</label>
                                 {editMode ? (
                                     <div className="subjects-list">
                                         {profileData.subjects.map((subject, index) => (
-                                            <div key={index} className="subject-item">
+                                            <div key={index} className="subject-item flex">
                                                 <input
                                                     type="text"
                                                     value={subject}
                                                     onChange={(e) => handleSubjectChange(index, e.target.value)}
                                                 />
-                                                <button type="button" onClick={() => removeSubject(index)}>
-                                                    Remove
+                                                <button type="button" onClick={() => removeSubject(index)}
+                                                        className="profile-edit-trash">
+                                                    <FaTrash />
                                                 </button>
                                             </div>
                                         ))}
-                                        <button type="button" onClick={addSubject}>
-                                            Add Subject
-                                        </button>
+                                        <div className="flex items-center">
+                                            <button type="button" onClick={addSubject} className="profile-icon-button">
+                                                <FaPlus/>
+                                            </button>
+                                            <p>New Subject</p>
+                                        </div>
                                     </div>
                                 ) : (
                                     <ul className="subjects-list">
@@ -370,35 +374,42 @@ const Profile: React.FC = () => {
                         {/* Courses */}
                         <div className="profile-row">
                             <div className="profile-field full-width">
-                                <label>Courses:</label>
+                                <label className="profile-label">Courses:</label>
                                 {editMode ? (
                                     <div className="courses-list">
                                         {profileData.courses.map((course, index) => (
-                                            <div key={index} className="course-item">
-                                                <input
-                                                    type="text"
-                                                    placeholder="Course Name"
-                                                    value={course.courseName}
-                                                    onChange={(e) => handleCourseChange(index, 'courseName', e.target.value)}
-                                                />
-                                                <input
-                                                    type="text"
-                                                    placeholder="Course Link"
-                                                    value={course.courseLink}
-                                                    onChange={(e) => handleCourseChange(index, 'courseLink', e.target.value)}
-                                                />
-                                                <button type="button" onClick={() => removeCourse(index)}>
-                                                    Remove
+                                            <div key={index} className="course-item flex items-center">
+                                                <div>
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Course Name"
+                                                        value={course.courseName}
+                                                        onChange={(e) => handleCourseChange(index, 'courseName', e.target.value)}
+                                                    />
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Course Link"
+                                                        value={course.courseLink}
+                                                        onChange={(e) => handleCourseChange(index, 'courseLink', e.target.value)}
+                                                    />
+                                                </div>
+                                                <button type="button" onClick={() => removeCourse(index)}
+                                                        className="profile-edit-trash">
+                                                    <FaTrash/>
                                                 </button>
                                             </div>
                                         ))}
-                                        <button type="button" onClick={addCourse}>
-                                            Add Course
-                                        </button>
+                                        <div className="flex items-center">
+                                            <button type="button" onClick={addCourse} className="profile-icon-button">
+                                                <FaPlus/>
+                                            </button>
+                                            <p>New Course</p>
+                                        </div>
+
                                     </div>
                                 ) : (
                                     <ul className="courses-list">
-                                        {profileData.courses.map((course, index) => (
+                                    {profileData.courses.map((course, index) => (
                                             <li key={index}>
                                                 <a href={course.courseLink} target="_blank" rel="noopener noreferrer">
                                                     {course.courseName}

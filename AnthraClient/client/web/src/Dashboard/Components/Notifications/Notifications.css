@@ -1,0 +1,72 @@
+/* Notifications.css */
+.notifications {
+    position: relative;
+    display: inline-block;
+}
+
+.bell-icon {
+    font-size: 1.5rem; /* Adjust the size of the icon */
+    color: #ffffff;
+    background-color: #85bff8; /* Adjust as needed for a background color */
+    border-radius: 50%; /* Makes the icon circular */
+    padding: 8px; /* Controls the space around the icon inside the circle */
+    width: 40px; /* Set a fixed width for the circular icon */
+    height: 40px; /* Set a fixed height for the circular icon */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    cursor: pointer;
+}
+.bell-icon:hover {
+    transform: scale(1.1);
+    background-color: #0056b3; /* Change background color on hover */
+}
+
+.bell-icon .badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: red;
+    color: white;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.notifications-dropdown {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    z-index: 10;
+}
+
+.notification-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.notification-item.unread {
+    background-color: #f0f8ff;
+}
+
+.notification-item:hover {
+    background-color: #f9f9f9;
+}
+
+.notification-content {
+    font-size: 14px;
+}
+
+.notification-timestamp {
+    font-size: 12px;
+    color: #888;
+    margin-top: 5px;
+}

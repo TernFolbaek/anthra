@@ -14,6 +14,9 @@ namespace MyBackendApp.Data
         public DbSet<GroupMember> GroupMembers { get; set; }
         public DbSet<Connection> Connections { get; set; }
         public DbSet<GroupMessage> GroupMessages { get; set; }
+        // ApplicationDbContext.cs
+        public DbSet<Notification> Notifications { get; set; }
+
 
         // Constructor
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

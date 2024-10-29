@@ -1,0 +1,78 @@
+/* MessageConnectionProfile.css */
+.message-connection-profile {
+    width: 300px;
+    padding: 20px;
+    overflow-y: auto;
+    border-radius: 10px;
+    flex: 1;
+    margin: 20px;
+    background-color: white;
+    scrollbar-color: #e4e4e4 transparent; /* Firefox */
+}
+.message-connection-profile::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+.profile-picture {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-picture img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-info h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.profile-username {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+
+
+.profile-info h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.profile-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.profile-info ul li {
+    margin-bottom: 5px;
+}
+
+.profile-info ul li a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.profile-info ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Dark mode styles */
+.dark-mode .message-connection-profile {
+    border-left-color: #444;
+}
+
+.dark-mode .profile-info p,
+.dark-mode .profile-info h2,
+.dark-mode .profile-info h3,
+.dark-mode .profile-username {
+    color: #fff;
+}
+
+.dark-mode .profile-info ul li a {
+    color: #66b2ff;
+}

@@ -1,0 +1,64 @@
+/* CurrentConversations.css */
+.conversations-container {
+    width: 300px;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.conversations-container h2 {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.conversations-loading,
+.conversations-error {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 18px;
+    color: #666;
+}
+
+.conversations-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.conversation-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    cursor: pointer;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.conversation-item:hover {
+    background-color: #f5f5f5;
+}
+
+.conversation-profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.conversation-details {
+    flex: 1;
+}
+
+.conversation-details h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.conversation-details .last-message {
+    margin: 2px 0 0 0;
+    font-size: 0.9rem;
+    color: #666;
+}

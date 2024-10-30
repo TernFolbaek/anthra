@@ -144,7 +144,7 @@ const GroupMessage: React.FC = () => {
 
     return (
         <div className="group-message-container">
-            <div className="group-message-header">
+            <div className="group-message-header flex">
                 <button className="back-button" onClick={() => navigate(-1)}>
                     &lt;
                 </button>

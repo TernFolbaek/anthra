@@ -2,6 +2,16 @@
 .notifications {
     position: relative;
     display: inline-block;
+    scrollbar-color: #e4e4e4 transparent; /* Firefox */
+}
+
+/* For Webkit browsers (Chrome, Safari) */
+.notifications::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+.notifications::-webkit-scrollbar-track {
+    background: transparent; /* Make the track transparent */
 }
 
 .bell-icon {
@@ -18,6 +28,7 @@
     transition: transform 0.2s ease, background-color 0.2s ease;
     cursor: pointer;
 }
+
 .bell-icon:hover {
     transform: scale(1.1);
     background-color: #0056b3; /* Change background color on hover */

@@ -4,6 +4,7 @@ import axios from 'axios';
 import './Notifications.css';
 import { CiBellOn } from "react-icons/ci";
 import * as signalR from '@microsoft/signalr';
+import { useNavigate } from 'react-router-dom';
 
 interface Notification {
     id: number;
@@ -13,6 +14,7 @@ interface Notification {
     isRead: boolean;
     senderId?: string;
     senderName?: string;
+    groupId?: number; // Added GroupId
 }
 
 const Notifications: React.FC = () => {
@@ -76,10 +78,14 @@ const Notifications: React.FC = () => {
         };
     }, [showDropdown]);
 
-    const markAsRead = async (notificationId: number) => {
+
+// Inside the component
+    const navigate = useNavigate();
+
+    const markAsReadAndRedirect = async (notification: Notification) => {
         try {
             await axios.post(
-                `http://localhost:5001/api/Notifications/MarkAsRead/${notificationId}`,
+                `http://localhost:5001/api/Notifications/MarkAsRead/${notification.id}`,
                 {},
                 {
                     headers: {
@@ -87,13 +93,28 @@ const Notifications: React.FC = () => {
                     },
                 }
             );
+            // Remove the notification from the list
             setNotifications((prev) =>
-                prev.map((n) => (n.id === notificationId ? { ...n, isRead: true } : n))
+                prev.filter((n) => n.id !== notification.id)
             );
+            // Redirect based on notification type
+            if (notification.type === 'Message') {
+                // Redirect to direct message with SenderId
+                navigate(`/messages/${notification.senderId}`);
+            } else if (notification.type === 'GroupMessage') {
+                // Redirect to group chat
+                navigate(`/group-messages/${notification.groupId}`);
+            } else if (notification.type === 'ConnectionRequest') {
+                // Redirect to connection requests page
+                navigate(`/connection-requests`);
+            }
+            setShowDropdown(false);
+
         } catch (error) {
             console.error('Failed to mark notification as read.', error);
         }
     };
+
 
     return (
         <div className="notifications" ref={bellRef}>
@@ -110,7 +131,7 @@ const Notifications: React.FC = () => {
                             <div
                                 key={notification.id}
                                 className={`notification-item ${notification.isRead ? '' : 'unread'}`}
-                                onClick={() => markAsRead(notification.id)}
+                                onClick={() => markAsReadAndRedirect(notification)}
                             >
                                 <div className="notification-content">
                                     {notification.content}

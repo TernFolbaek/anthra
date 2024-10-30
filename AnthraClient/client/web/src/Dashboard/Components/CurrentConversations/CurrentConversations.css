@@ -1,9 +1,12 @@
 /* CurrentConversations.css */
 .conversations-container {
-    width: 300px;
+    width: 400px;
+    background-color: white;
+    border-radius: 10px;
     padding: 20px;
-    border-right: 1px solid #ccc;
+    margin: 30px;
     font-family: 'Montserrat', sans-serif;
+    height: 100%;
 }
 
 .conversations-container h2 {
@@ -29,7 +32,7 @@
 .conversation-item {
     display: flex;
     align-items: center;
-    padding: 10px 0;
+    padding: 10px;
     cursor: pointer;
     border-bottom: 1px solid #e0e0e0;
 }

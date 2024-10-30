@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import './CurrentConversations.css';
 
 interface Conversation {
-    participantId: string;
-    participantFirstName: string;
-    participantProfilePictureUrl: string;
+    userId: string;
+    userName: string;
+    userProfilePicture: string;
     lastMessageContent: string;
     lastMessageTimestamp: string;
     lastMessageSenderId: string;
@@ -38,6 +38,7 @@ const CurrentConversations: React.FC = () => {
             .then((data) => {
                 setConversations(data);
                 setLoading(false);
+                console.log(data)
             })
             .catch((error) => {
                 console.error('Error fetching conversations:', error);
@@ -63,19 +64,31 @@ const CurrentConversations: React.FC = () => {
                 <ul className="conversations-list">
                     {conversations.map((conv) => (
                         <li
-                            key={conv.participantId}
+                            key={conv.userId}
                             className="conversation-item"
-                            onClick={() => navigate(`/messages/${conv.participantId}`)}
+                            onClick={() => navigate(`/messages/${conv.userId}`)}
                         >
                             <img
-                                src={`http://localhost:5001${conv.participantProfilePictureUrl}`}
-                                alt={conv.participantFirstName}
+                                src={`http://localhost:5001${conv.userProfilePicture}`}
+                                alt={conv.userName}
                                 className="conversation-profile-picture"
                             />
                             <div className="conversation-details">
-                                <h3>{conv.participantFirstName}</h3>
+                                <h3>{conv.userName}</h3>
                                 <p className="last-message">{conv.lastMessageContent}</p>
                             </div>
+                            <div>
+                            </div>
+                            <p className="text-gray-500 text-sm">
+                                {new Date(conv.lastMessageTimestamp).toLocaleString("en-GB", {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                })}
+                            </p>
+
                         </li>
                     ))}
                 </ul>

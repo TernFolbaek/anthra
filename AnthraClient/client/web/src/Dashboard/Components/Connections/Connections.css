@@ -1,13 +1,18 @@
 /* Connections.css */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
 
+.connections-page {
+    display: flex;
+    height: 100%;
+}
+
 .connections-container {
-    padding: 20px;
+    flex: 1;
+    height: 100%;
     font-family: 'Montserrat', sans-serif;
 }
 
 .connections-container h2 {
-    text-align: center;
     margin-bottom: 20px;
     font-size: 1.8rem;
     color: #333;
@@ -33,7 +38,6 @@
 .connections-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    padding: 10px;
     gap: 20px;
 }
 
@@ -86,11 +90,6 @@
     margin-bottom: 5px;
     font-size: 1.2rem;
     font-weight: 600;
-}
-
-.connection-card p {
-    margin: 5px 0;
-    font-size: 1rem;
 }
 
 .connection-profile-picture {

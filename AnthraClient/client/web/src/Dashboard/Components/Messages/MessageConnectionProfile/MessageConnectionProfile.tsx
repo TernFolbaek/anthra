@@ -30,7 +30,7 @@ interface Props {
 const MessageConnectionProfile: React.FC<Props> = ({userId}) => {
     const [profileData, setProfileData] = useState<ProfileData | null>(null);
     const [error, setError] = useState<string | null>(null);
-
+    console.log(userId)
     const token = localStorage.getItem('token');
 
     useEffect(() => {
@@ -41,7 +41,7 @@ const MessageConnectionProfile: React.FC<Props> = ({userId}) => {
     const fetchProfile = async () => {
         try {
             const response = await axios.get(
-                `http://localhost:5001/api/Profile/GetProfile?userId=${userId}`,
+                `http://localhost:5001/api/Profile/GetProfileById?userId=${userId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

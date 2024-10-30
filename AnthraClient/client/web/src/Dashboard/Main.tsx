@@ -9,10 +9,10 @@ import Messages from './Components/Messages/Messages';
 import Settings from './Components/Settings/Settings';
 import Requests from './Components/Requests/Requests';
 import Profile from './Components/Profile/Profile';
-import MessageList from "./Components/MessageList/MessageList";
 import Groups from './Components/Groups/Groups';
 import Footer from './Components/Footer/Footer';
 import GroupMessage from "./GroupMessages/GroupMessage";
+import MessageRedirect from "./Helpers/MessageRedirect/MessageRedirect";
 
 import './Main.css';
 
@@ -23,9 +23,9 @@ const Dashboard: React.FC = () => {
                 <DashboardNavbar />
                 <div className="content-wrapper">
                     <Sidebar />
-                    <div className="main-content bg-slate-50">
+                    <div className="main-content">
                         <Routes>
-                            <Route path="/messages" element={<MessageList />} />
+                            <Route path="/messages" element={<MessageRedirect />} />
                             <Route path="/explore" element={<ExplorePage />} />
                             <Route path="/connections" element={<Connections />} />
                             <Route path="/messages/:userId" element={<Messages />} />

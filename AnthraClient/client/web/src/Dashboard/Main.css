@@ -18,6 +18,8 @@
     overflow-y: auto; /* Make the main-content scrollable */
     height: calc(100vh - 60px); /* Adjust height based on navbar height */
     margin-top: 68px;
+    background-color: rgb(245,245,245);
+
 }
 
 .dashboard-navbar {

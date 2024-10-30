@@ -3,6 +3,8 @@ import './Messages.css';
 import * as signalR from '@microsoft/signalr';
 import { useParams } from 'react-router-dom';
 import axios from "axios";
+import MessageConnectionProfile from "./MessageConnectionProfile/MessageConnectionProfile";
+import { FaPaperclip, FaArrowRight } from 'react-icons/fa';
 
 interface Message {
     id: number;
@@ -153,41 +155,90 @@ const Messages: React.FC = () => {
         return userA < userB ? `${userA}-${userB}` : `${userB}-${userA}`;
     };
 
+    const shouldShowTimestamp = (currentIndex: number): boolean => {
+        if (currentIndex === messages.length - 1) {
+            // Always show timestamp for the last message
+            return true;
+        }
+
+        const currentMessage = messages[currentIndex];
+        const nextMessage = messages[currentIndex + 1];
+
+        const currentSender = currentMessage.senderId;
+        const nextSender = nextMessage.senderId;
+
+        const currentTime = new Date(currentMessage.timestamp);
+        const nextTime = new Date(nextMessage.timestamp);
+
+        const timeDiff = Math.abs(nextTime.getTime() - currentTime.getTime()) / (1000 * 60 * 60); // Time difference in hours
+
+        if (currentSender !== nextSender) {
+            // Show timestamp if the next message is from a different sender
+            return true;
+        }
+
+        if (timeDiff >= 2) {
+            // Show timestamp if more than 2 hours have passed between messages
+            return true;
+        }
+
+        // Do not show timestamp
+        return false;
+    };
+
     return (
         <div className="messages-page">
-            <div className="messages-container">
-                {messages.map((msg) =>
-                    msg.isGroupInvitation ? (
-                        <div className="invitation-message" key={msg.id}>
-                            <h3>{msg.content}</h3>
-                            <div className="invitation-buttons">
-                                <button className="invitation-accept-button" onClick={() => handleAcceptInvitation(msg.groupId!)}>Accept</button>
-                                <button className="invitation-decline-button" onClick={() => handleDeclineInvitation(msg.groupId!)}>Decline</button>
-                            </div>
-                        </div>
-                    ) : (
-                        <div
-                            key={msg.id}
-                            className={`message-bubble ${msg.senderId === currentUserId ? 'sent' : 'received'}`}
-                        >
-                            <p>{msg.content}</p>
-                            <span>{new Date(msg.timestamp).toLocaleTimeString()}</span>
-                        </div>
-                    )
-                )}
-                {/* Scroll anchor */}
-                <div ref={messagesEndRef} />
+            <div className="message-page-subset">
+                <div className="messages-container">
+                    {messages.map((msg, index) => {
+                        const isLastMessage = index === messages.length - 1;
+                        return (
+                            <React.Fragment key={msg.id}>
+                                {msg.isGroupInvitation ? (
+                                    <div className="invitation-message">
+                                        <h3>{msg.content}</h3>
+                                        <div className="invitation-buttons">
+                                            <button className="invitation-accept-button"
+                                                    onClick={() => handleAcceptInvitation(msg.groupId!)}>Accept
+                                            </button>
+                                            <button className="invitation-decline-button"
+                                                    onClick={() => handleDeclineInvitation(msg.groupId!)}>Decline
+                                            </button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div
+                                        className={`message-bubble ${msg.senderId === currentUserId ? 'sent' : 'received'} ${isLastMessage ? 'last-message' : ''}`}
+                                    >
+                                        <p>{msg.content}</p>
+                                    </div>
+                                )}
+                                {shouldShowTimestamp(index) && (
+                                    <div className="message-timestamp">
+                                        {new Date(msg.timestamp).toLocaleTimeString([], {
+                                            hour: '2-digit',
+                                            minute: '2-digit',
+                                        })}
+                                    </div>
+                                )}
+                            </React.Fragment>
+                        );
+                    })}
+                    <div ref={messagesEndRef} />
+                </div>
+                <div className="message-input-container">
+                    <FaPaperclip className="paperclip-icon" />
+                    <input
+                        ref={inputRef}
+                        type="text"
+                        value={messageInput}
+                        onChange={(e) => setMessageInput(e.target.value)}
+                        placeholder="Aa"
+                    />
+                    <FaArrowRight onClick={sendMessage} className="send-icon" />
+                </div>
             </div>
-            <div className="message-input-container">
-                <input
-                    ref={inputRef}
-                    type="text"
-                    value={messageInput}
-                    onChange={(e) => setMessageInput(e.target.value)}
-                    placeholder="Type your message..."
-                />
-                <button onClick={sendMessage}>Send</button>
-            </div>
+            <MessageConnectionProfile userId={userId!} />
         </div>
     );
 };

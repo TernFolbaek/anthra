@@ -2,7 +2,6 @@
     width: 100%;
     background-color: rgb(242, 249, 251);
     padding: 40px;
-    border-radius: 8px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
@@ -15,7 +14,7 @@
     background-color: #ffffff;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 20px 15px rgba(0, 0, 0, 0.4);
     max-width: 800px;
     width: 100%;
 }
@@ -28,7 +27,7 @@
 }
 .demo-video-title {
     font-size: 60px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
     animation: float 3s ease-in-out infinite;
     font-family: 'Montserrat', sans-serif;
     user-select: none; /* Prevents text selection */

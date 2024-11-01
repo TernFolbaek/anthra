@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Messages.css';
 import * as signalR from '@microsoft/signalr';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import MessageConnectionProfile from "./MessageConnectionProfile/MessageConnectionProfile";
 import { FaPaperclip, FaArrowRight } from 'react-icons/fa';
+import CurrentConversations from '../CurrentConversations/CurrentConversations';
 
 interface Message {
     id: number;
@@ -18,12 +19,13 @@ interface Message {
 
 const Messages: React.FC = () => {
     const { userId } = useParams<{ userId: string }>();
+    const navigate = useNavigate();
     const currentUserId = localStorage.getItem('userId');
     const [messages, setMessages] = useState<Message[]>([]);
     const [messageInput, setMessageInput] = useState('');
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
-    const messagesEndRef = useRef<HTMLDivElement>(null); // Ref for the scroll anchor
+    const messagesEndRef = useRef<HTMLDivElement>(null);
     const token = localStorage.getItem('token');
 
     useEffect(() => {
@@ -43,7 +45,34 @@ const Messages: React.FC = () => {
     }, [messageInput]);
 
     useEffect(() => {
-        // Get messages
+        if (!userId) {
+            // If no userId, attempt to fetch the latest conversation
+            const fetchLatestConversation = async () => {
+                try {
+                    const response = await fetch(`http://localhost:5001/api/Messages/GetLatestConversation?userId=${currentUserId}`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        },
+                    });
+                    if (response.ok) {
+                        const latestConversation = await response.json();
+                        navigate(`/messages/${latestConversation.userId}`);
+                    } else if (response.status === 404) {
+                        // No conversations found
+                        setMessages([]);
+                    } else {
+                        console.error("Error fetching latest conversation.");
+                    }
+                } catch (error) {
+                    console.error("Error fetching latest conversation:", error);
+                }
+            };
+
+            fetchLatestConversation();
+            return;
+        }
+
+        // Fetch messages for the specified userId
         fetch(
             `http://localhost:5001/api/Messages/GetChatHistory?userId=${currentUserId}&contactId=${userId}`,
             {
@@ -65,17 +94,15 @@ const Messages: React.FC = () => {
             .build();
 
         setConnection(newConnection);
-    }, [currentUserId, userId, token]);
+    }, [currentUserId, userId, token, navigate]);
 
     useEffect(() => {
-        if (connection) {
+        if (connection && userId) {
             connection
                 .start()
                 .then(() => {
                     // Join group for this chat
-                    if (userId !== undefined) {
-                        connection.invoke('JoinGroup', getChatGroupId(currentUserId!, userId));
-                    }
+                    connection.invoke('JoinGroup', getChatGroupId(currentUserId!, userId));
 
                     connection.on('ReceiveMessage', (message: Message) => {
                         setMessages((prevMessages) => [...prevMessages, message]);
@@ -119,15 +146,13 @@ const Messages: React.FC = () => {
     };
 
     const sendMessage = async () => {
-        if (messageInput.trim() === '') return;
+        if (messageInput.trim() === '' || !userId) return;
 
         const message = {
             senderId: currentUserId,
             receiverId: userId,
             content: messageInput,
         };
-
-        console.log(message);
 
         try {
             const response = await fetch('http://localhost:5001/api/Messages/SendMessage', {
@@ -157,7 +182,6 @@ const Messages: React.FC = () => {
 
     const shouldShowTimestamp = (currentIndex: number): boolean => {
         if (currentIndex === messages.length - 1) {
-            // Always show timestamp for the last message
             return true;
         }
 
@@ -170,10 +194,9 @@ const Messages: React.FC = () => {
         const currentTime = new Date(currentMessage.timestamp);
         const nextTime = new Date(nextMessage.timestamp);
 
-        const timeDiff = Math.abs(nextTime.getTime() - currentTime.getTime()) / (1000 * 60 * 60); // Time difference in hours
+        const timeDiff = Math.abs(nextTime.getTime() - currentTime.getTime()) / (1000 * 60 * 60);
 
-        if (currentSender !== nextSender) {
-            // Show timestamp if the next message is from a different sender
+        if (currentSender !== nextSender || timeDiff >= 2) {
             return true;
         }
 
@@ -188,42 +211,55 @@ const Messages: React.FC = () => {
 
     return (
         <div className="messages-page">
+            <CurrentConversations />
             <div className="message-page-subset">
                 <div className="messages-container">
-                    {messages.map((msg, index) => {
-                        const isLastMessage = index === messages.length - 1;
-                        return (
-                            <React.Fragment key={msg.id}>
-                                {msg.isGroupInvitation ? (
-                                    <div className="invitation-message">
-                                        <h3>{msg.content}</h3>
-                                        <div className="invitation-buttons">
-                                            <button className="invitation-accept-button"
-                                                    onClick={() => handleAcceptInvitation(msg.groupId!)}>Accept
-                                            </button>
-                                            <button className="invitation-decline-button"
-                                                    onClick={() => handleDeclineInvitation(msg.groupId!)}>Decline
-                                            </button>
+                    {messages.length === 0 ? (
+                        <p>No messages</p>
+                    ) : (
+                        messages.map((msg, index) => {
+                            const isLastMessage = index === messages.length - 1;
+                            return (
+                                <React.Fragment key={msg.id}>
+                                    {msg.isGroupInvitation ? (
+                                        <div className="invitation-message">
+                                            <h3>{msg.content}</h3>
+                                            <div className="invitation-buttons">
+                                                <button
+                                                    className="invitation-accept-button"
+                                                    onClick={() => handleAcceptInvitation(msg.groupId!)}
+                                                >
+                                                    Accept
+                                                </button>
+                                                <button
+                                                    className="invitation-decline-button"
+                                                    onClick={() => handleDeclineInvitation(msg.groupId!)}
+                                                >
+                                                    Decline
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                ) : (
-                                    <div
-                                        className={`message-bubble ${msg.senderId === currentUserId ? 'sent' : 'received'} ${isLastMessage ? 'last-message' : ''}`}
-                                    >
-                                        <p>{msg.content}</p>
-                                    </div>
-                                )}
-                                {shouldShowTimestamp(index) && (
-                                    <div className="message-timestamp">
-                                        {new Date(msg.timestamp).toLocaleTimeString([], {
-                                            hour: '2-digit',
-                                            minute: '2-digit',
-                                        })}
-                                    </div>
-                                )}
-                            </React.Fragment>
-                        );
-                    })}
+                                    ) : (
+                                        <div
+                                            className={`message-bubble ${
+                                                msg.senderId === currentUserId ? 'sent' : 'received'
+                                            } ${isLastMessage ? 'last-message' : ''}`}
+                                        >
+                                            <p>{msg.content}</p>
+                                        </div>
+                                    )}
+                                    {shouldShowTimestamp(index) && (
+                                        <div className="message-timestamp">
+                                            {new Date(msg.timestamp).toLocaleTimeString([], {
+                                                hour: '2-digit',
+                                                minute: '2-digit',
+                                            })}
+                                        </div>
+                                    )}
+                                </React.Fragment>
+                            );
+                        })
+                    )}
                     <div ref={messagesEndRef} />
                 </div>
                 <div className="message-input-container">
@@ -234,11 +270,12 @@ const Messages: React.FC = () => {
                         value={messageInput}
                         onChange={(e) => setMessageInput(e.target.value)}
                         placeholder="Aa"
+                        disabled={!userId} // Disable input when no userId
                     />
                     <FaArrowRight onClick={sendMessage} className="send-icon" />
                 </div>
             </div>
-            <MessageConnectionProfile userId={userId!} />
+            {userId && <MessageConnectionProfile userId={userId} />}
         </div>
     );
 };

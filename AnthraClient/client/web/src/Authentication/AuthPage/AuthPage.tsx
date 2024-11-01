@@ -57,6 +57,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                     }
                 );
                 const userProfile = profileResponse.data;
+                localStorage.setItem('userProfilePicture', `http://localhost:5001${profileResponse.data.profilePictureUrl}`);
                 onAuthSuccess(userProfile.createdProfile);
             } catch (error) {
                 setError('Google login failed.');

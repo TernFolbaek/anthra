@@ -30,7 +30,6 @@ interface Props {
 const MessageConnectionProfile: React.FC<Props> = ({userId}) => {
     const [profileData, setProfileData] = useState<ProfileData | null>(null);
     const [error, setError] = useState<string | null>(null);
-    console.log(userId)
     const token = localStorage.getItem('token');
 
     useEffect(() => {

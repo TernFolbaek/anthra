@@ -1,7 +1,9 @@
+// GroupMessage.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './GroupMessage.css';
-import { useParams, useNavigate } from 'react-router-dom';
+// Removed useParams import
+import { useNavigate } from 'react-router-dom';
 import * as signalR from '@microsoft/signalr';
 
 interface Message {
@@ -14,8 +16,11 @@ interface Message {
     groupId: number;
 }
 
-const GroupMessage: React.FC = () => {
-    const { groupId } = useParams<{ groupId: string }>();
+interface GroupMessageProps {
+    groupId: number; // Changed from string to number
+}
+
+const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [newMessage, setNewMessage] = useState('');
     const [groupName, setGroupName] = useState('');
@@ -24,7 +29,7 @@ const GroupMessage: React.FC = () => {
     const connectionRef = useRef<signalR.HubConnection | null>(null);
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
     const navigate = useNavigate();
-    const previousGroupIdRef = useRef<string | undefined>(undefined);
+    const previousGroupIdRef = useRef<number | undefined>(undefined);
 
     useEffect(() => {
         fetchGroupDetails();
@@ -43,7 +48,7 @@ const GroupMessage: React.FC = () => {
         connectionRef.current = connection;
 
         connection.on('ReceiveGroupMessage', (message: Message) => {
-            if (message.groupId === parseInt(groupId!)) {
+            if (message.groupId === groupId) {
                 setMessages((prevMessages) => [...prevMessages, message]);
                 scrollToBottom();
             }
@@ -125,7 +130,7 @@ const GroupMessage: React.FC = () => {
         const message = {
             senderId: userId,
             content: newMessage,
-            groupId: parseInt(groupId),
+            groupId: groupId,
         };
 
         try {
@@ -145,7 +150,7 @@ const GroupMessage: React.FC = () => {
     return (
         <div className="group-message-container">
             <div className="group-message-header flex">
-                <button className="back-button" onClick={() => navigate(-1)}>
+                <button className="group-back-button" onClick={() => navigate(-1)}>
                     &lt;
                 </button>
                 <h2 className="group-message-title">{groupName}</h2>
@@ -172,12 +177,12 @@ const GroupMessage: React.FC = () => {
                                         alt={message.senderFirstName}
                                     />
                                     <span className="group-message-sender-name">
-                                    {message.senderFirstName}
-                                </span>
+                                        {message.senderFirstName}
+                                    </span>
                                 </div>
                             )}
                             <div
-                                className={` ${
+                                className={`${
                                     isCurrentUser ? 'group-message-content-own' : 'group-message-content-other'
                                 }`}
                             >
@@ -203,8 +208,6 @@ const GroupMessage: React.FC = () => {
             </div>
         </div>
     );
-
-
 };
 
 export default GroupMessage;

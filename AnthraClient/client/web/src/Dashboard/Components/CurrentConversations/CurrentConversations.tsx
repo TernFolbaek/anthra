@@ -57,7 +57,7 @@ const CurrentConversations: React.FC = () => {
 
     return (
         <div className="conversations-container">
-            <h2>Conversations</h2>
+            <p className="text-[22px] p-2 font-bold">Chats</p>
             {conversations.length === 0 ? (
                 <p>You have no conversations yet.</p>
             ) : (

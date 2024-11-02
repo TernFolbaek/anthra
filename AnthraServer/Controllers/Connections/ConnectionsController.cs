@@ -102,6 +102,25 @@ namespace MyBackendApp.Controllers
 
                 _context.ConnectionRequests.Add(connectionRequest);
                 await _context.SaveChangesAsync();
+                
+                // After adding the connection request
+                // Create a notification
+                var sender = await _context.Users.FindAsync(currentUserId);
+
+                var notification = new Notification
+                {
+                    UserId = model.TargetUserId,
+                    Type = "ConnectionRequest",
+                    Content = $"{sender.FirstName} sent you a connection request.",
+                    Timestamp = DateTime.UtcNow,
+                    IsRead = false,
+                    SenderId = sender.Id,
+                    SenderName = sender.FirstName
+                };
+
+                _context.Notifications.Add(notification);
+                await _context.SaveChangesAsync();
+
 
                 return Ok("Connection request sent.");
             }

@@ -75,6 +75,34 @@ namespace MyBackendApp.Controllers
             _context.GroupMessages.Add(message);
             await _context.SaveChangesAsync();
 
+            // After saving the group message
+            // Get group members excluding the sender
+            var groupMembers = await _context.GroupMembers
+                .Where(gm => gm.GroupId == model.GroupId && gm.UserId != model.SenderId)
+                .Select(gm => gm.UserId)
+                .ToListAsync();
+
+            var sender = await _context.Users.FindAsync(model.SenderId);
+            var group = await _context.Groups.FindAsync(model.GroupId);
+
+            var notifications = groupMembers.Select(userId => new Notification
+            {
+                UserId = userId,
+                Type = "GroupMessage",
+                Content = $"{sender.FirstName} sent a message in {group.Name}.",
+                Timestamp = DateTime.UtcNow,
+                IsRead = false,
+                SenderId = sender.Id,
+                SenderName = sender.FirstName,
+                GroupId = group.Id // Include GroupId
+            }).ToList();
+
+            _context.Notifications.AddRange(notifications);
+            await _context.SaveChangesAsync();
+
+            // Send notifications via SignalR (optional)
+
+
             // Send the message via SignalR
             var groupName = $"Group_{model.GroupId}";
             await _hubContext.Clients.Group(groupName).SendAsync("ReceiveGroupMessage", new

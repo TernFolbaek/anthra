@@ -124,6 +124,25 @@ public class GroupsController : ControllerBase
 
         return Ok(group.Id);
     }
+    
+    [HttpGet("GetLatestGroupConversation")]
+    public async Task<IActionResult> GetLatestGroupConversation(string userId)
+    {
+        var latestGroupMessage = await _context.GroupMessages
+            .Where(m => m.SenderId == userId)
+            .OrderByDescending(m => m.Timestamp)
+            .FirstOrDefaultAsync();
+
+        if (latestGroupMessage == null)
+        {
+            return NotFound("No group conversations found for this user.");
+        }
+
+        var latestGroupId = latestGroupMessage.GroupId;
+
+        return Ok(new { groupId = latestGroupId });
+    }
+
 
 
 // Controllers/GroupsController.cs

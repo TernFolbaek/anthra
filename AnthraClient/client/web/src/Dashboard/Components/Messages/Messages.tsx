@@ -277,7 +277,6 @@ const Messages: React.FC = () => {
 
     return (
         <div className="messages-page">
-            <CurrentConversations />
             <div className="message-page-subset">
                 {contactProfile && (
                     <div className="contact-header">

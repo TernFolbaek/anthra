@@ -10,7 +10,8 @@ import Requests from './Components/Requests/Requests';
 import Profile from './Components/Profile/Profile';
 import Groups from './Components/Groups/Groups';
 import Footer from './Components/Footer/Footer';
-import DashboardNavbar from './Components/DashboardNavbar/DashboardNavbar';
+import CurrentConversations from './Components/CurrentConversations/CurrentConversations';
+import MessagesLayout from './Components/MessagesLayout/MessagesLayout'; // New import
 
 import './Main.css';
 
@@ -22,10 +23,14 @@ const Dashboard: React.FC = () => {
                     <Sidebar />
                     <div className="main-content">
                         <Routes>
-                            <Route path="/messages" element={<Messages />} />
+                            {/* Routes that share CurrentConversations */}
+                            <Route element={<MessagesLayout />}>
+                                <Route path="/messages" element={<Messages />} />
+                                <Route path="/messages/:userId" element={<Messages />} />
+                                <Route path="/connections" element={<Connections />} />
+                            </Route>
+                            {/* Other routes */}
                             <Route path="/explore" element={<ExplorePage />} />
-                            <Route path="/connections" element={<Connections />} />
-                            <Route path="/messages/:userId" element={<Messages />} />
                             <Route path="/settings" element={<Settings />} />
                             <Route path="/requests" element={<Requests />} />
                             <Route path="/profile" element={<Profile />} />
@@ -34,7 +39,7 @@ const Dashboard: React.FC = () => {
                         </Routes>
                     </div>
                 </div>
-                <Footer /> {/* Add Footer */}
+                <Footer />
             </div>
         </Router>
     );

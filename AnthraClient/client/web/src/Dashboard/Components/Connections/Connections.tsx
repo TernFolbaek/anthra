@@ -73,7 +73,6 @@ const Connections: React.FC = () => {
 
     return (
         <div className="connections-page">
-            <CurrentConversations />
             <div className="connections-container">
                 {connections.length === 0 ? (
                     <p>You have no new connections.</p>

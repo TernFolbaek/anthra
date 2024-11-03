@@ -3,10 +3,12 @@
 .group-message-container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 95vh;
     font-family: 'Montserrat', sans-serif;
-    background-color: #fafafa;
-    border-radius: 5px;
+    flex: 2;
+    margin: 30px;
+    border-radius: 10px;
+    background-color: white;
 }
 
 .dark-mode .group-message-container {
@@ -17,35 +19,6 @@
     padding: 8px;
     border-radius: 15px;
     background-color: #e1e1e1;
-}
-
-.group-message-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #a7d1fa;
-    color: white;
-    padding: 15px;
-    position: fixed;
-    top: 68px;
-    width: 100%;
-    z-index: 2;
-
-}
-
-.group-back-button {
-    position: absolute;
-    left: 10px;
-    font-size: 24px;
-    color: white;
-    background: none;
-    border: none;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.back-button:hover {
-    color: #d1e7ff;
 }
 
 .group-message-title {
@@ -133,12 +106,10 @@
 
 .group-message-input-container {
     display: flex;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
+    align-items: center;
     padding: 10px;
-    background-color: #ffffff;
-    border-top: 1px solid #ccc;
+    bottom: 0;
+    gap: 10px;
 }
 
 .dark-mode .group-message-input-container {

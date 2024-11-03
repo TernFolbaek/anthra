@@ -149,12 +149,6 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
 
     return (
         <div className="group-message-container">
-            <div className="group-message-header flex">
-                <button className="group-back-button" onClick={() => navigate(-1)}>
-                    &lt;
-                </button>
-                <h2 className="group-message-title">{groupName}</h2>
-            </div>
             <div className="group-message-list">
                 {messages.map((message, index) => {
                     const previousMessage = messages[index - 1];

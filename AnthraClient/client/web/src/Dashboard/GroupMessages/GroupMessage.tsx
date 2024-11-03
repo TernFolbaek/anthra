@@ -1,8 +1,6 @@
-// GroupMessage.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './GroupMessage.css';
-// Removed useParams import
 import { useNavigate } from 'react-router-dom';
 import * as signalR from '@microsoft/signalr';
 
@@ -17,7 +15,7 @@ interface Message {
 }
 
 interface GroupMessageProps {
-    groupId: number; // Changed from string to number
+    groupId: number;
 }
 
 const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
@@ -36,7 +34,6 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
         fetchMessages();
     }, [groupId]);
 
-    // Set up the SignalR connection only once when the component mounts
     useEffect(() => {
         const connection = new signalR.HubConnectionBuilder()
             .withUrl('http://localhost:5001/chatHub', {
@@ -71,18 +68,15 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
                 connectionRef.current.stop();
             }
         };
-    }, []); // Empty dependency array ensures this runs only once
+    }, []);
 
-    // Handle group changes
     useEffect(() => {
         const joinGroup = async () => {
             if (connectionRef.current && connectionRef.current.state === signalR.HubConnectionState.Connected) {
-                // Leave previous group if necessary
                 if (previousGroupIdRef.current && previousGroupIdRef.current !== groupId) {
                     await connectionRef.current.invoke('LeaveGroup', `Group_${previousGroupIdRef.current}`);
                 }
 
-                // Join new group
                 if (groupId) {
                     await connectionRef.current.invoke('JoinGroup', `Group_${groupId}`);
                     previousGroupIdRef.current = groupId;
@@ -147,22 +141,40 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     };
 
+    const shouldShowTimestamp = (currentIndex: number): boolean => {
+        if (currentIndex === messages.length - 1) {
+            return true;
+        }
+
+        const currentMessage = messages[currentIndex];
+        const nextMessage = messages[currentIndex + 1];
+
+        const currentSender = currentMessage.senderId;
+        const nextSender = nextMessage.senderId;
+
+        const currentTime = new Date(currentMessage.timestamp);
+        const nextTime = new Date(nextMessage.timestamp);
+
+        const timeDiff = Math.abs(nextTime.getTime() - currentTime.getTime()) / (1000 * 60 * 60);
+
+        if (currentSender !== nextSender || timeDiff >= 2) {
+            return true;
+        }
+
+        return false;
+    };
+
     return (
         <div className="group-message-container">
             <div className="group-message-list">
                 {messages.map((message, index) => {
                     const previousMessage = messages[index - 1];
-                    const showSenderInfo =
-                        !previousMessage || previousMessage.senderId !== message.senderId;
+                    const showSenderInfo = !previousMessage || previousMessage.senderId !== message.senderId;
                     const isCurrentUser = message.senderId === userId;
+                    const isLastMessage = shouldShowTimestamp(index);
 
                     return (
-                        <div
-                            key={message.id}
-                            className={`group-message-item ${
-                                isCurrentUser ? 'group-message-own' : ''
-                            }`}
-                        >
+                        <div key={message.id} className={`group-message-item ${isCurrentUser ? 'group-message-own' : ''}`}>
                             {showSenderInfo && !isCurrentUser && (
                                 <div className={`group-message-sender-info`}>
                                     <img
@@ -170,18 +182,24 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
                                         src={`http://localhost:5001${message.senderProfilePictureUrl}`}
                                         alt={message.senderFirstName}
                                     />
-                                    <span className="group-message-sender-name">
-                                        {message.senderFirstName}
-                                    </span>
+                                    <span className="group-message-sender-name">{message.senderFirstName}</span>
                                 </div>
                             )}
                             <div
                                 className={`${
                                     isCurrentUser ? 'group-message-content-own' : 'group-message-content-other'
-                                }`}
+                                } ${isLastMessage ? 'last-message' : ''}`}
                             >
                                 <p>{message.content}</p>
                             </div>
+                            {isLastMessage && (
+                                <div className="group-message-timestamp">
+                                    {new Date(message.timestamp).toLocaleTimeString([], {
+                                        hour: '2-digit',
+                                        minute: '2-digit',
+                                    })}
+                                </div>
+                            )}
                         </div>
                     );
                 })}

@@ -15,81 +15,80 @@
     background-color: #121212;
 }
 
-.group-message-content-other{
+.group-message-content-other {
     padding: 8px;
     border-radius: 15px;
     background-color: #e1e1e1;
 }
 
-.group-message-title {
-    flex: 1;
-    text-align: center;
-    font-size: 24px;
-    font-weight: 700;
-    font-family: 'Montserrat', sans-serif;
-    color: white;
-    margin: 0;
-}
-
-
 .group-message-list {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
-}
-.group-message-timestamp {
-    text-align: center;
-    font-size: 12px;
-    color: gray;
-    margin-bottom: 10px;
+    position: relative;
 }
 
 .group-message-item {
-    min-width: 25%;
-    width: fit-content;
-    max-width: 60%;
-    padding: 12px 16px;
-    border-radius: 20px;
-    position: relative;
-    margin-bottom: 20px;
-    word-wrap: break-word;
-    font-size: 1rem;
-    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
 }
 
 .group-message-own {
     align-self: flex-end;
-    background-color: #007bff;
-    color: white;
-    margin-left: auto;
+    align-items: flex-end;
 }
 
-.dark-mode .group-message-own {
+.group-message-content-own,
+.group-message-content-other {
+    min-width: 40px;
+    width: fit-content;
+    max-width: 60%;
+    padding: 8px 12px;
+    border-radius: 16px;
+    font-size: 1rem;
+    line-height: 1.5;
+    word-wrap: break-word;
+    margin-bottom: 2px;
+}
+
+.group-message-content-own {
+    background-color: #007bff;
+    color: white;
+}
+
+.group-message-content-other {
+    background-color: #e0e0e0;
+    color: black;
+}
+
+.dark-mode .group-message-content-own {
     background-color: #0056b3;
 }
 
-.group-message-received {
-    background-color: #e0e0e0;
-    color: black;
-    align-self: flex-start;
-}
-
-.dark-mode .group-message-received {
+.dark-mode .group-message-content-other {
     background-color: #2c2c2c;
     color: white;
+}
+
+.group-message-timestamp {
+    font-size: 0.75rem;
+    color: #666;
+    text-align: center;
+    margin: 10px auto;
+    display: block;
+    width: 100%;
+}
+
+.dark-mode .group-message-timestamp {
+    color: #ccc;
 }
 
 .group-message-sender-info {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
-}
-.group-message-sender-info-own {
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    margin-bottom: 5px;
-    margin-left: auto;
 }
 
 .group-message-sender-avatar {
@@ -124,7 +123,6 @@
     border: 1px solid #ccc;
     border-radius: 20px;
     margin-right: 10px;
-
 }
 
 .dark-mode .group-message-input {

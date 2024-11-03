@@ -1,13 +1,7 @@
 /* Requests.css */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
 
-.connections-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    font-family: 'Montserrat', sans-serif;
-}
+
 
 .user-card {
     display: flex;

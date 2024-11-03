@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import './Messages.css';
 import * as signalR from '@microsoft/signalr';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from "axios";
-import MessageConnectionProfile from "./MessageConnectionProfile/MessageConnectionProfile";
-import { FaPaperclip, FaArrowRight } from 'react-icons/fa';
+import axios from 'axios';
+import MessageConnectionProfile from './MessageConnectionProfile/MessageConnectionProfile';
+import { FaPaperclip, FaArrowRight, FaEllipsisV } from 'react-icons/fa';
 import CurrentConversations from '../CurrentConversations/CurrentConversations';
 
 interface Message {
@@ -17,6 +17,12 @@ interface Message {
     groupId?: number;
 }
 
+interface UserProfile {
+    firstName: string;
+    lastName: string;
+    profilePictureUrl: string;
+}
+
 const Messages: React.FC = () => {
     const { userId } = useParams<{ userId: string }>();
     const navigate = useNavigate();
@@ -27,6 +33,10 @@ const Messages: React.FC = () => {
     const inputRef = useRef<HTMLInputElement>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const token = localStorage.getItem('token');
+    const [contactProfile, setContactProfile] = useState<UserProfile | null>(null);
+    const [showProfile, setShowProfile] = useState(true);
+    const [showMenu, setShowMenu] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         // Autofocus input when user starts typing
@@ -49,11 +59,14 @@ const Messages: React.FC = () => {
             // If no userId, attempt to fetch the latest conversation
             const fetchLatestConversation = async () => {
                 try {
-                    const response = await fetch(`http://localhost:5001/api/Messages/GetLatestConversation?userId=${currentUserId}`, {
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                        },
-                    });
+                    const response = await fetch(
+                        `http://localhost:5001/api/Messages/GetLatestConversation?userId=${currentUserId}`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    );
                     if (response.ok) {
                         const latestConversation = await response.json();
                         navigate(`/messages/${latestConversation.userId}`);
@@ -61,10 +74,10 @@ const Messages: React.FC = () => {
                         // No conversations found
                         setMessages([]);
                     } else {
-                        console.error("Error fetching latest conversation.");
+                        console.error('Error fetching latest conversation.');
                     }
                 } catch (error) {
-                    console.error("Error fetching latest conversation:", error);
+                    console.error('Error fetching latest conversation:', error);
                 }
             };
 
@@ -77,7 +90,7 @@ const Messages: React.FC = () => {
             `http://localhost:5001/api/Messages/GetChatHistory?userId=${currentUserId}&contactId=${userId}`,
             {
                 headers: {
-                    'Authorization': `Bearer ${token}`,
+                    Authorization: `Bearer ${token}`,
                 },
             }
         )
@@ -94,6 +107,25 @@ const Messages: React.FC = () => {
             .build();
 
         setConnection(newConnection);
+
+        // Fetch contact profile
+        const fetchContactProfile = async () => {
+            try {
+                const response = await axios.get(
+                    `http://localhost:5001/api/Profile/GetProfileById?userId=${userId}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+                setContactProfile(response.data);
+            } catch (error) {
+                console.error('Error fetching contact profile:', error);
+            }
+        };
+
+        fetchContactProfile();
     }, [currentUserId, userId, token, navigate]);
 
     useEffect(() => {
@@ -118,6 +150,21 @@ const Messages: React.FC = () => {
             messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     }, [messages]);
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (showMenu && dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setShowMenu(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [showMenu]);
 
     const handleAcceptInvitation = async (groupId: number) => {
         try {
@@ -158,7 +205,7 @@ const Messages: React.FC = () => {
             const response = await fetch('http://localhost:5001/api/Messages/SendMessage', {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${token}`,
+                    Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(message),
@@ -200,19 +247,63 @@ const Messages: React.FC = () => {
             return true;
         }
 
-        if (timeDiff >= 2) {
-            // Show timestamp if more than 2 hours have passed between messages
-            return true;
-        }
-
         // Do not show timestamp
         return false;
+    };
+
+    const toggleMenu = () => {
+        setShowMenu(!showMenu);
+    };
+
+    const handleToggleProfileVisibility = () => {
+        setShowProfile((prev) => !prev);
+        setShowMenu(false);
+    };
+
+    const handleRemoveConnection = async () => {
+        try {
+            await axios.post(
+                'http://localhost:5001/api/Connections/RemoveConnection',
+                { userId: currentUserId, connectionId: userId },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+            // Optionally, navigate to another page or refresh connections
+            navigate('/messages');
+        } catch (error) {
+            console.error('Error removing connection:', error);
+        }
+        setShowMenu(false);
     };
 
     return (
         <div className="messages-page">
             <CurrentConversations />
             <div className="message-page-subset">
+                {contactProfile && (
+                    <div className="contact-header">
+                        <div className="contact-info">
+                            <img
+                                src={`http://localhost:5001/${contactProfile.profilePictureUrl}`}
+                                alt={`${contactProfile.firstName} ${contactProfile.lastName}`}
+                                className="contact-avatar"
+                            />
+                            <span className="contact-name">
+                                {contactProfile.firstName} {contactProfile.lastName}
+                            </span>
+                        </div>
+                        <div className="menu-icon" onClick={toggleMenu}>
+                            {showMenu && (
+                                <div className="messages-dropdown-menu" ref={dropdownRef}>
+                                    <button onClick={handleRemoveConnection}>Remove Connection</button>
+                                    <button onClick={handleToggleProfileVisibility}>
+                                        {showProfile ? 'Hide Profile' : 'Show Profile'}
+                                    </button>
+                                </div>
+                            )}
+                            <FaEllipsisV />
+                        </div>
+                    </div>
+                )}
                 <div className="messages-container">
                     {messages.length === 0 ? (
                         <p>No messages</p>
@@ -275,7 +366,7 @@ const Messages: React.FC = () => {
                     <FaArrowRight onClick={sendMessage} className="send-icon" />
                 </div>
             </div>
-            {userId && <MessageConnectionProfile userId={userId} />}
+            {userId && showProfile && <MessageConnectionProfile userId={userId} />}
         </div>
     );
 };

@@ -187,6 +187,34 @@ namespace MyBackendApp.Controllers
 
             return Ok(result);
         }
+        
+        
+        [HttpPost("RemoveConnection")]
+        public async Task<IActionResult> RemoveConnection([FromBody] RemoveConnectionViewModel model)
+        {
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            if (currentUserId == null)
+                return Unauthorized("User is not authenticated.");
+
+            if (currentUserId != model.UserId)
+                return BadRequest("You can only remove connections from your own account.");
+
+            // Find the connection between the two users
+            var connection = await _context.Connections
+                .FirstOrDefaultAsync(c =>
+                    (c.UserId1 == model.UserId && c.UserId2 == model.ConnectionId) ||
+                    (c.UserId1 == model.ConnectionId && c.UserId2 == model.UserId)
+                );
+
+            if (connection == null)
+                return NotFound("Connection not found.");
+
+            // Remove the connection
+            _context.Connections.Remove(connection);
+            await _context.SaveChangesAsync();
+
+            return Ok("Connection removed successfully.");
+        }
     }
 }

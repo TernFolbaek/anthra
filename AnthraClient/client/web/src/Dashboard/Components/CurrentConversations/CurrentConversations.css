@@ -1,7 +1,3 @@
-/* Components/CurrentConversations/CurrentConversations.css */
-/* Remove the .conversations-container styles since CardContainer handles it */
-
-/* Adjust other styles if necessary */
 .conversations-list {
     list-style: none;
     padding: 0;

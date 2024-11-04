@@ -17,11 +17,13 @@ namespace MyBackendApp.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IHubContext<ChatHub> _hubContext;
+        private readonly IHubContext<NotificationHub> _notificationHub;
 
-        public MessagesController(ApplicationDbContext context, IHubContext<ChatHub> hubContext)
+        public MessagesController(ApplicationDbContext context, IHubContext<ChatHub> hubContext, IHubContext<NotificationHub> notificationHub)
         {
             _context = context;
             _hubContext = hubContext;
+            _notificationHub = notificationHub;
         }
         
         [HttpGet("GetConversations")]
@@ -80,10 +82,37 @@ namespace MyBackendApp.Controllers
                 Content = model.Content,
                 Timestamp = DateTime.UtcNow
             };
-
-
+            
             _context.Messages.Add(message);
             await _context.SaveChangesAsync();
+            
+            var sender = await _context.Users.FindAsync(message.SenderId);
+
+            var notification = new Notification
+            {
+                UserId = message.ReceiverId,
+                Type = "Message",
+                Content = $"{sender.FirstName} sent you a message.",
+                Timestamp = DateTime.UtcNow,
+                IsRead = false,
+                SenderId = sender.Id,
+                SenderName = sender.FirstName
+            };
+
+            _context.Notifications.Add(notification);
+            await _context.SaveChangesAsync();
+            
+            await _notificationHub.Clients.Group($"User_{notification.UserId}")
+                .SendAsync("ReceiveNotification", new
+                {
+                    notification.Id,
+                    notification.Type,
+                    notification.Content,
+                    notification.Timestamp,
+                    notification.IsRead,
+                    notification.SenderId,
+                    notification.SenderName
+                });
 
             // Send message via SignalR
             var groupId = GetChatGroupId(message.SenderId, message.ReceiverId);
@@ -96,5 +125,42 @@ namespace MyBackendApp.Controllers
         {
             return string.CompareOrdinal(userA, userB) < 0 ? $"{userA}-{userB}" : $"{userB}-{userA}";
         }
+        
+        [HttpGet("GetLatestConversation")]
+        public async Task<IActionResult> GetLatestConversation(string userId)
+        {
+            var latestMessage = await _context.Messages
+                .Where(m => m.SenderId == userId || m.ReceiverId == userId)
+                .OrderByDescending(m => m.Timestamp)
+                .FirstOrDefaultAsync();
+
+            if (latestMessage == null)
+            {
+                return NotFound("No conversations found for this user.");
+            }
+
+            // Identify the other user in the conversation
+            var contactId = latestMessage.SenderId == userId ? latestMessage.ReceiverId : latestMessage.SenderId;
+            var contactUser = await _context.Users.FindAsync(contactId);
+
+            if (contactUser == null)
+            {
+                return NotFound("The contact user was not found.");
+            }
+
+            var latestConversation = new ConversationDTO
+            {
+                UserId = contactUser.Id,
+                UserName = contactUser.UserName,
+                UserEmail = contactUser.Email,
+                UserProfilePicture = contactUser.ProfilePictureUrl,
+                LastMessageContent = latestMessage.Content,
+                LastMessageTimestamp = latestMessage.Timestamp,
+                LastMessageSenderId = latestMessage.SenderId
+            };
+
+            return Ok(latestConversation);
+        }
+
     }
 }

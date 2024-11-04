@@ -1,9 +1,11 @@
+// Components/Groups/Groups.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Groups.css';
 import GroupModal from '../GroupModal/GroupModal';
-import GroupMessage from "../../GroupMessages/GroupMessage";
+import GroupMessage from '../../GroupMessages/GroupMessage';
 import { useNavigate } from 'react-router-dom';
+import GroupsList from '../GroupsList/GroupsList';
 
 interface GroupMember {
     userId: string;
@@ -29,7 +31,6 @@ const Groups: React.FC = () => {
     const [groups, setGroups] = useState<Group[]>([]);
     const [showModal, setShowModal] = useState(false);
     const [connections, setConnections] = useState<Connection[]>([]);
-    const [openMenuGroupId, setOpenMenuGroupId] = useState<number | null>(null);
     const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null);
     const navigate = useNavigate();
 
@@ -103,77 +104,30 @@ const Groups: React.FC = () => {
         setSelectedGroupId(groupId);
     };
 
-    const handleLeaveGroup = async (groupId: number) => {
-        // Implement the logic to leave the group
-        console.log(`Leave group ${groupId}`);
-        setOpenMenuGroupId(null);
-    };
-
-    const handleGroupOversight = (groupId: number) => {
-        // Implement the logic to navigate to the group oversight page
-        console.log(`Group oversight for group ${groupId}`);
-        setOpenMenuGroupId(null);
-    };
-
     return (
-        <div className="groups-container">
+        <div className="groups-page">
             {connections.length > 0 ? (
                 <>
-                    <div className="groups-content">
-                        <div className="groups-list">
-                            <button className="create-group-button" onClick={handleCreateGroup}>
-                                Create New Group
-                            </button>
-                            {groups.map((group) => (
-                                <div
-                                    className={`group-card ${
-                                        selectedGroupId === group.id ? 'group-card-selected' : ''
-                                    }`}
-                                    key={group.id}
-                                    onClick={() => handleGroupClick(group.id)}
-                                >
-                                    <div className="group-name">{group.name}</div>
-                                    <div className="group-options">
-                                        <button
-                                            className="group-options-button"
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                setOpenMenuGroupId(
-                                                    openMenuGroupId === group.id ? null : group.id
-                                                );
-                                            }}
-                                        >
-                                            ⋯
-                                        </button>
-                                        {openMenuGroupId === group.id && (
-                                            <div
-                                                className="group-options-menu"
-                                                onClick={(e) => e.stopPropagation()}
-                                            >
-                                                <button onClick={() => handleLeaveGroup(group.id)}>
-                                                    Leave Group
-                                                </button>
-                                                <button onClick={() => handleGroupOversight(group.id)}>
-                                                    Group Oversight
-                                                </button>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                        <div className="group-message-view">
-                            {selectedGroupId ? (
-                                <GroupMessage groupId={selectedGroupId} />
-                            ) : (
-                                <div className="no-group-selected">
-                                    <p>Please select a group to view messages.</p>
-                                </div>
-                            )}
-                        </div>
+                    <GroupsList
+                        groups={groups}
+                        onGroupClick={handleGroupClick}
+                        onCreateGroup={handleCreateGroup}
+                        selectedGroupId={selectedGroupId}
+                    />
+                    <div className="group-message-view">
+                        {selectedGroupId ? (
+                            <GroupMessage groupId={selectedGroupId} />
+                        ) : (
+                            <div className="no-group-selected">
+                                <p>Please select a group to view messages.</p>
+                            </div>
+                        )}
                     </div>
                     {showModal && (
-                        <GroupModal onClose={() => setShowModal(false)} onGroupCreated={handleGroupCreated} />
+                        <GroupModal
+                            onClose={() => setShowModal(false)}
+                            onGroupCreated={handleGroupCreated}
+                        />
                     )}
                 </>
             ) : (

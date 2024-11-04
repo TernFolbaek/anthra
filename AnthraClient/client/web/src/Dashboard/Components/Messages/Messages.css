@@ -28,6 +28,12 @@
   border-bottom: 1px solid #ccc;
 }
 
+.contact-header:hover {
+  cursor: pointer;
+  background-color: #e3e2e2;
+}
+
+
 .contact-info {
   display: flex;
   align-items: center;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CurrentConversations.css';
+import CardContainer from '../CardContainer/CardContainer';
 
 interface Conversation {
     userId: string;
@@ -56,8 +57,7 @@ const CurrentConversations: React.FC = () => {
     }
 
     return (
-        <div className="conversations-container">
-            <p className="text-[22px] p-2 font-bold">Chats</p>
+        <CardContainer title="Chats">
             {conversations.length === 0 ? (
                 <p>You have no conversations yet.</p>
             ) : (
@@ -77,23 +77,20 @@ const CurrentConversations: React.FC = () => {
                                 <h3>{conv.userName}</h3>
                                 <p className="last-message">{conv.lastMessageContent}</p>
                             </div>
-                            <div>
-                            </div>
-                            <p className="text-gray-500 text-sm">
-                                {new Date(conv.lastMessageTimestamp).toLocaleString("en-GB", {
-                                    year: "numeric",
-                                    month: "long",
-                                    day: "numeric",
-                                    hour: "2-digit",
-                                    minute: "2-digit",
+                            <p className="conversation-timestamp">
+                                {new Date(conv.lastMessageTimestamp).toLocaleString('en-GB', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
                                 })}
                             </p>
-
                         </li>
                     ))}
                 </ul>
             )}
-        </div>
+        </CardContainer>
     );
 };
 

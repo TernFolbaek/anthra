@@ -1,28 +1,7 @@
-/* CurrentConversations.css */
-.conversations-container {
-    width: 400px;
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    margin: 30px;
-    font-family: 'Montserrat', sans-serif;
-    height: 95vh;
-}
+/* Components/CurrentConversations/CurrentConversations.css */
+/* Remove the .conversations-container styles since CardContainer handles it */
 
-.conversations-container h2 {
-    margin-bottom: 20px;
-    font-size: 1.8rem;
-    color: #333;
-}
-
-.conversations-loading,
-.conversations-error {
-    text-align: center;
-    margin-top: 50px;
-    font-size: 18px;
-    color: #666;
-}
-
+/* Adjust other styles if necessary */
 .conversations-list {
     list-style: none;
     padding: 0;
@@ -64,4 +43,9 @@
     margin: 2px 0 0 0;
     font-size: 0.9rem;
     color: #666;
+}
+
+.conversation-timestamp {
+    font-size: 0.8rem;
+    color: #999;
 }

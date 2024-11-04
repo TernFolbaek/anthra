@@ -1,0 +1,69 @@
+/* Components/GroupsList/GroupsList.css */
+.create-group-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.create-group-button:hover {
+    background-color: #0056b3;
+}
+
+.group-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.group-card-selected {
+    background-color: #f0f0f0;
+}
+
+.group-name {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.group-options {
+    position: relative;
+}
+
+.group-options-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.group-options-menu {
+    position: absolute;
+    right: 0;
+    top: 25px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 150px;
+    z-index: 1;
+}
+
+.group-options-menu button {
+    width: 100%;
+    padding: 10px;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+.group-options-menu button:hover {
+    background-color: #f1f1f1;
+}

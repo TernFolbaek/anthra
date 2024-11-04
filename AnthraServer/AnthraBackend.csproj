@@ -28,18 +28,22 @@
 
   <ItemGroup>
     <Compile Remove="DTO\**" />
+    <Compile Remove="Hubs\NotificationsHub\**" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Remove="DTO\**" />
+    <EmbeddedResource Remove="Hubs\NotificationsHub\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Remove="DTO\**" />
+    <Content Remove="Hubs\NotificationsHub\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="DTO\**" />
+    <None Remove="Hubs\NotificationsHub\**" />
   </ItemGroup>
 
 </Project>

@@ -150,7 +150,35 @@ namespace MyBackendApp.Controllers
                 user.Subjects,
                 user.AboutMe,
                 user.Age,
-                user.ProfilePictureUrl, // Use the correct property
+                user.ProfilePictureUrl, 
+                user.CreatedProfile
+            };
+
+            return Ok(profile);
+        }
+        
+        [HttpGet("GetProfileById")]
+        public async Task<IActionResult> GetProfileById(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+                return NotFound("User not found.");
+
+            var profile = new
+            {
+                user.UserName,
+                user.Email,
+                user.FirstName,
+                user.LastName,
+                user.Location,
+                user.Institution,
+                user.Work,
+                user.Courses,
+                user.Subjects,
+                user.AboutMe,
+                user.Age,
+                user.ProfilePictureUrl,
                 user.CreatedProfile
             };
 

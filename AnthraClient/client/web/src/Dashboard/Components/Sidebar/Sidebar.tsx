@@ -10,7 +10,7 @@ import {
     FaUserFriends,
 } from 'react-icons/fa';
 import './Sidebar.css';
-
+import Notifications from "../Notifications/Notifications";
 const Sidebar: React.FC = () => {
     const userProfilePictureSrc = localStorage.getItem('userProfilePicture') || undefined;
 
@@ -67,13 +67,17 @@ const Sidebar: React.FC = () => {
                     <FaCog className="sidebar-icon" />
                 </NavLink>
             </div>
-            <NavLink to="/profile">
-                <img
-                    src={userProfilePictureSrc}
-                    alt="profile picture"
-                    className="sidebar-profile-picture"
-                />
-            </NavLink>
+            <div className="flex flex-col items-center gap-2">
+                <Notifications />
+                <NavLink to="/profile">
+                    <img
+                        src={userProfilePictureSrc}
+                        alt="profile picture"
+                        className="sidebar-profile-picture"
+                    />
+                </NavLink>
+            </div>
+
         </div>
     );
 };

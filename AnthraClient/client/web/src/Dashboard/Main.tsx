@@ -10,7 +10,6 @@ import Requests from './Components/Requests/Requests';
 import Profile from './Components/Profile/Profile';
 import Groups from './Components/Groups/Groups';
 import Footer from './Components/Footer/Footer';
-import CurrentConversations from './Components/CurrentConversations/CurrentConversations';
 import MessagesLayout from './Components/MessagesLayout/MessagesLayout';
 import GroupsLayout from './Components/GroupsLayout/GroupsLayout'; // New import
 
@@ -26,20 +25,20 @@ const Dashboard: React.FC = () => {
                         <Routes>
                             {/* Routes that share CurrentConversations */}
                             <Route element={<MessagesLayout />}>
+                                <Route path="/" element={<ExplorePage />} />
+                                <Route path="/explore" element={<ExplorePage />} />
                                 <Route path="/messages" element={<Messages />} />
                                 <Route path="/messages/:userId" element={<Messages />} />
                                 <Route path="/connections" element={<Connections />} />
+                                <Route path="/requests" element={<Requests />} />
+                                <Route path="/profile" element={<Profile />} />
                             </Route>
                             {/* Route for Groups with GroupsList */}
                             <Route element={<GroupsLayout />}>
                                 <Route path="/groups" element={<Groups />} />
                             </Route>
                             {/* Other routes */}
-                            <Route path="/explore" element={<ExplorePage />} />
                             <Route path="/settings" element={<Settings />} />
-                            <Route path="/requests" element={<Requests />} />
-                            <Route path="/profile" element={<Profile />} />
-                            <Route path="/" element={<ExplorePage />} />
                         </Routes>
                     </div>
                 </div>

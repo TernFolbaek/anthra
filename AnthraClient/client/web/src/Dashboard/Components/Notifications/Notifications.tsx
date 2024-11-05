@@ -2,7 +2,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './Notifications.css';
-import { CiBellOn } from "react-icons/ci";
+import {
+FaBell
+} from 'react-icons/fa';
 import * as signalR from '@microsoft/signalr';
 import { useNavigate } from 'react-router-dom';
 
@@ -119,7 +121,7 @@ const Notifications: React.FC = () => {
     return (
         <div className="notifications" ref={bellRef}>
             <div className="bell-icon" onClick={handleBellClick}>
-                <CiBellOn />
+                <FaBell />
                 {notifications.some((n) => !n.isRead) && <span className="badge"></span>}
             </div>
             {showDropdown && (

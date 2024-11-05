@@ -1,37 +1,26 @@
 /* Notifications.css */
 .notifications {
     position: relative;
-    display: inline-block;
-    scrollbar-color: #e4e4e4 transparent; /* Firefox */
-}
-
-/* For Webkit browsers (Chrome, Safari) */
-.notifications::-webkit-scrollbar {
-    width: 8px; /* Width of the scrollbar */
-}
-
-.notifications::-webkit-scrollbar-track {
-    background: transparent; /* Make the track transparent */
+    overflow: visible;
 }
 
 .bell-icon {
-    font-size: 1.5rem; /* Adjust the size of the icon */
-    color: #ffffff;
-    background-color: #85bff8; /* Adjust as needed for a background color */
-    border-radius: 50%; /* Makes the icon circular */
-    padding: 8px; /* Controls the space around the icon inside the circle */
-    width: 40px; /* Set a fixed width for the circular icon */
-    height: 40px; /* Set a fixed height for the circular icon */
+    font-size: 2rem;
+    border-radius: 10%;
+    width: 40px;
+    height: 40px;
+    font-weight: bolder;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: transform 0.2s ease, background-color 0.2s ease;
     cursor: pointer;
+    padding: 10px;
 }
 
 .bell-icon:hover {
-    transform: scale(1.1);
-    background-color: #0056b3; /* Change background color on hover */
+    transform: scale(1.05);
+    background-color: #dddddd;
 }
 
 .bell-icon .badge {
@@ -46,16 +35,15 @@
 }
 
 .notifications-dropdown {
-    position: absolute;
-    top: 30px;
-    right: 0;
     width: 300px;
     max-height: 400px;
-    overflow-y: auto;
+    position: absolute;
+    overflow: visible;
     background: white;
     border: 1px solid #ccc;
     border-radius: 8px;
-    z-index: 10;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .notification-item {

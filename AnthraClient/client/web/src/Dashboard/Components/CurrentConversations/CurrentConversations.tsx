@@ -78,14 +78,17 @@ const CurrentConversations: React.FC = () => {
                                 <p className="last-message">{conv.lastMessageContent}</p>
                             </div>
                             <p className="conversation-timestamp">
-                                {new Date(conv.lastMessageTimestamp).toLocaleString('en-GB', {
-                                    year: 'numeric',
-                                    month: 'long',
+                                {new Date(conv.lastMessageTimestamp).toLocaleDateString('en-GB', {
                                     day: 'numeric',
+                                    month: 'numeric',
+                                    year: 'numeric'
+                                })}{" "}
+                                {new Date(conv.lastMessageTimestamp).toLocaleTimeString('en-GB', {
                                     hour: '2-digit',
-                                    minute: '2-digit',
+                                    minute: '2-digit'
                                 })}
                             </p>
+
                         </li>
                     ))}
                 </ul>

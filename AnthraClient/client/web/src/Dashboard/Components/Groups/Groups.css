@@ -8,8 +8,8 @@
 
 .group-message-view {
     flex: 1;
-    margin: 30px;
     border-radius: 10px;
+    margin: 30px;
     background-color: white;
     height: 95vh;
     font-family: 'Montserrat', sans-serif;

@@ -2,6 +2,7 @@
 .notifications {
     position: relative;
     overflow: visible;
+    z-index: 9999; /* Ensure the container has a high z-index */
 }
 
 .bell-icon {
@@ -16,6 +17,7 @@
     transition: transform 0.2s ease, background-color 0.2s ease;
     cursor: pointer;
     padding: 10px;
+    position: relative; /* To keep the badge positioned correctly */
 }
 
 .bell-icon:hover {
@@ -38,12 +40,16 @@
     width: 300px;
     max-height: 400px;
     position: absolute;
-    overflow: visible;
+    bottom: 100%; /* Position above the bell icon */
+    right: -300px; /* Offset to the right */
+    overflow-y: auto;
     background: white;
     border: 1px solid #ccc;
     border-radius: 8px;
-    z-index: 1000;
+    z-index: 2000; /* High z-index to ensure visibility over other components */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px; /* Space between the bell icon and dropdown */
+    padding: 10px 0; /* Padding for dropdown content */
 }
 
 .notification-item {

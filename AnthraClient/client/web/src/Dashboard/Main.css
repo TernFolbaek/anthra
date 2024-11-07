@@ -26,7 +26,6 @@
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
 }
 
 /* Adjust the main-content when the sidebar is hidden */

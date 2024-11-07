@@ -1,18 +1,15 @@
-/* GroupModal.css */
-
-/* Modal Overlay */
 .modal-overlay {
-    position: absolute; /* Change from fixed to absolute */
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.1); /* Semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px); /* Blur effect */
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000; /* Ensure it appears above other content in .main-content */
+    z-index: 100;
 }
 
 /* Modal Content */

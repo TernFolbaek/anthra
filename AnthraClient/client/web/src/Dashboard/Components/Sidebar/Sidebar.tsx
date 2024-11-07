@@ -68,7 +68,7 @@ const Sidebar: React.FC = () => {
                 </NavLink>
             </div>
             <div className="flex flex-col items-center gap-2">
-                <Notifications />
+                <Notifications/>
                 <NavLink to="/profile">
                     <img
                         src={userProfilePictureSrc}

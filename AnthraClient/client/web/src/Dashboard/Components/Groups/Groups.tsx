@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Groups.css';
-import GroupModal from '../GroupModal/GroupModal';
-import GroupMessage from '../../GroupMessages/GroupMessage';
+import GroupModal from './GroupModal/GroupModal';
+import GroupMessage from './GroupMessages/GroupMessage';
 import { useNavigate } from 'react-router-dom';
 import GroupsList from '../GroupsList/GroupsList';
 

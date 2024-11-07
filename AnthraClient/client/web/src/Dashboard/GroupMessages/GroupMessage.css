@@ -3,10 +3,9 @@
 .group-message-container {
     display: flex;
     flex-direction: column;
-    height: 95vh;
     font-family: 'Montserrat', sans-serif;
+    height: 100%;
     flex: 2;
-    margin: 30px;
     border-radius: 10px;
     background-color: white;
 }

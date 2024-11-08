@@ -1,0 +1,45 @@
+.group-info {
+    width: 300px;
+    padding: 20px;
+    overflow-y: auto;
+    border-radius: 10px;
+    background-color: white;
+    scrollbar-color: #e4e4e4 transparent;
+    height: 95vh;
+    flex: 1;
+}
+
+.group-info h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.group-members-list,
+.group-attachments-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+.group-member-item,
+.group-attachment-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.member-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.group-attachment-item a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.group-attachment-item a:hover {
+    text-decoration: underline;
+}

@@ -1,11 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
 
+.group-message-page {
+    display: flex;
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+    background-color: rgb(245, 245, 245);
+    overflow: hidden;
+    gap: 20px;
+    width: 100%;
+}
+
 .group-message-container {
     display: flex;
+    flex: 2;
     flex-direction: column;
     font-family: 'Montserrat', sans-serif;
     height: 100%;
-    flex: 2;
     border-radius: 10px;
     background-color: white;
 }
@@ -21,7 +31,7 @@
 }
 
 .group-message-list {
-    flex: 1;
+    flex: 2;
     padding: 20px;
     overflow-y: auto;
     position: relative;

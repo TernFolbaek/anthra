@@ -11,7 +11,7 @@ import Profile from './Components/Profile/Profile';
 import Groups from './Components/Groups/Groups';
 import Footer from './Components/Footer/Footer';
 import MessagesLayout from './Components/MessagesLayout/MessagesLayout';
-import GroupsLayout from './Components/GroupsLayout/GroupsLayout'; // New import
+import GroupsLayout from './Components/GroupsLayout/GroupsLayout';
 
 import './Main.css';
 
@@ -31,13 +31,13 @@ const Dashboard: React.FC = () => {
                                 <Route path="/messages/:userId" element={<Messages />} />
                                 <Route path="/connections" element={<Connections />} />
                                 <Route path="/requests" element={<Requests />} />
-                                <Route path="/profile" element={<Profile />} />
                             </Route>
                             {/* Route for Groups with GroupsList */}
                             <Route element={<GroupsLayout />}>
                                 <Route path="/groups" element={<Groups />} />
                             </Route>
                             {/* Other routes */}
+                            <Route path="/profile" element={<Profile />} />
                             <Route path="/settings" element={<Settings />} />
                         </Routes>
                     </div>

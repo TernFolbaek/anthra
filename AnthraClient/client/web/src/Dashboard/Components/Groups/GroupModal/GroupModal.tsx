@@ -22,12 +22,12 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
 
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
+    const fullName = localStorage.getItem('fullName');
+
     useEffect(() => {
         fetchConnections();
     }, []);
 
-
-    const fullName = localStorage.getItem('fullName');
     const fetchConnections = async () => {
         try {
             const response = await axios.get('http://localhost:5001/api/Connections/ConnectionsGroupList', {

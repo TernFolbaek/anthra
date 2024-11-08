@@ -77,7 +77,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
 
     const handleResetPasswordSuccess = () => {
         setShowResetPassword(false);
-        setIsSignUp(false); // Redirects to the login form
+        setIsSignUp(false);
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

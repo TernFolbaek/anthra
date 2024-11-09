@@ -143,7 +143,7 @@ namespace MyBackendApp.Controllers
                 var token = GenerateJwtToken(user);
 
                 // cookie
-                return Ok(new { Message = "Registration successful", userId = user.Id, token });
+                return Ok(new { Message = "Registration successful", userId = user.Id, token, userName = user.UserName });
             }
 
             return Unauthorized("Invalid username or password.");

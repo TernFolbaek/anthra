@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "PMoZ0rA24vJ2GTHGuUTXVdlZx50CuiTQ5wc8F1mfmAI=",
+  "Hash": "EzCp2v0LQVcBbW9foDizk3UCzmYATFPGXWGvUfImJL8=",
   "Source": "AnthraBackend",
   "BasePath": "_content/AnthraBackend",
   "Mode": "Default",
@@ -1136,6 +1136,44 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/uploads/ff9194e7-dff1-4adf-9314-52ac13aed5cc.png"
+    },
+    {
+      "Identity": "/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraServer/wwwroot/uploads/GroupMessages/42be23e0-8262-4518-867d-df7d9925f78e.png",
+      "SourceId": "AnthraBackend",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraServer/wwwroot/",
+      "BasePath": "_content/AnthraBackend",
+      "RelativePath": "uploads/GroupMessages/42be23e0-8262-4518-867d-df7d9925f78e.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/uploads/GroupMessages/42be23e0-8262-4518-867d-df7d9925f78e.png"
+    },
+    {
+      "Identity": "/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraServer/wwwroot/uploads/GroupMessages/6564e09a-9b9c-40e0-9a19-f33aa9d64d73.png",
+      "SourceId": "AnthraBackend",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraServer/wwwroot/",
+      "BasePath": "_content/AnthraBackend",
+      "RelativePath": "uploads/GroupMessages/6564e09a-9b9c-40e0-9a19-f33aa9d64d73.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/uploads/GroupMessages/6564e09a-9b9c-40e0-9a19-f33aa9d64d73.png"
     }
   ]
 }

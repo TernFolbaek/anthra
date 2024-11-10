@@ -1,11 +1,10 @@
-// Data/ApplicationDbContext.cs
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyBackendApp.Models;
 
 namespace MyBackendApp.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser> 
     {
         public DbSet<ConnectionRequest> ConnectionRequests { get; set; }
         public DbSet<Message> Messages { get; set; }
@@ -14,11 +13,8 @@ namespace MyBackendApp.Data
         public DbSet<GroupMember> GroupMembers { get; set; }
         public DbSet<Connection> Connections { get; set; }
         public DbSet<GroupMessage> GroupMessages { get; set; }
-        // ApplicationDbContext.cs
         public DbSet<Notification> Notifications { get; set; }
-
-
-        // Constructor
+        public DbSet<Attachment> Attachments { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

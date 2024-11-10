@@ -32,5 +32,6 @@ namespace MyBackendApp.Models
         // New properties for group invitations
         public int? GroupId { get; set; }
         public bool IsGroupInvitation { get; set; }
+        public Attachment? Attachment { get; set; }
     }
 }

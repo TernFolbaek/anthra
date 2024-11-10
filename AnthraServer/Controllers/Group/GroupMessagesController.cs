@@ -31,6 +31,7 @@ namespace MyBackendApp.Controllers
         {
             var messages = await _context.GroupMessages
                 .Include(m => m.Sender)
+                .Include(m => m.Attachment) 
                 .Where(m => m.GroupId == groupId)
                 .OrderBy(m => m.Timestamp)
                 .Select(m => new
@@ -40,7 +41,14 @@ namespace MyBackendApp.Controllers
                     m.Timestamp,
                     SenderId = m.SenderId,
                     SenderFirstName = m.Sender.FirstName,
-                    SenderProfilePictureUrl = m.Sender.ProfilePictureUrl
+                    SenderProfilePictureUrl = m.Sender.ProfilePictureUrl,
+                    Attachments = m.Attachment != null ? new[] {
+                    new {
+                    m.Attachment.Id,
+                    m.Attachment.FileName,
+                    m.Attachment.FileUrl
+                }
+            } : null
                 })
                 .ToListAsync();
 
@@ -48,75 +56,84 @@ namespace MyBackendApp.Controllers
         }
 
         [HttpPost("SendGroupMessage")]
-        public async Task<IActionResult> SendGroupMessage([FromBody] SendGroupMessageModel model)
+public async Task<IActionResult> SendGroupMessage([FromForm] SendGroupMessageModel model)
+{
+    if (!ModelState.IsValid)
+    {
+        return BadRequest("Invalid message data.");
+    }
+
+    // Check if the sender is a member of the group
+    var isMember = await _context.GroupMembers
+        .AnyAsync(gm => gm.GroupId == model.GroupId && gm.UserId == model.SenderId);
+
+    if (!isMember)
+    {
+        return Forbid("You are not a member of this group.");
+    }
+
+    var message = new GroupMessage
+    {
+        GroupId = model.GroupId,
+        SenderId = model.SenderId,
+        Content = model.Content,
+        Timestamp = DateTime.UtcNow
+    };
+
+    // Handle file upload
+    if (model.File != null)
+    {
+        var attachment = new Attachment
         {
-            if (!ModelState.IsValid)
+            FileName = model.File.FileName,
+            FileUrl = await SaveFileAsync(model.File)
+        };
+        message.Attachment = attachment;
+        _context.Attachments.Add(attachment);
+    }
+
+    _context.GroupMessages.Add(message);
+    await _context.SaveChangesAsync();
+
+    // Send the message via SignalR
+    var groupName = $"Group_{model.GroupId}";
+    await _hubContext.Clients.Group(groupName).SendAsync("ReceiveGroupMessage", new
+    {
+        message.Id,
+        message.Content,
+        message.Timestamp,
+        SenderId = message.SenderId,
+        SenderFirstName = (await _context.Users.FindAsync(message.SenderId))?.FirstName,
+        SenderProfilePictureUrl = (await _context.Users.FindAsync(message.SenderId))?.ProfilePictureUrl,
+        GroupId = message.GroupId,
+        Attachments = message.Attachment != null ? new[] {
+            new {
+                message.Attachment.Id,
+                message.Attachment.FileName,
+                message.Attachment.FileUrl
+            }
+        } : null
+    });
+
+    return Ok();
+}
+
+        private async Task<string> SaveFileAsync(IFormFile file)
+        {
+            var uploadsFolder = Path.Combine("wwwroot", "Uploads", "GroupMessages");
+            var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+            Directory.CreateDirectory(uploadsFolder);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
             {
-                return BadRequest("Invalid message data.");
+                await file.CopyToAsync(stream);
             }
 
-            // Check if the sender is a member of the group
-            var isMember = await _context.GroupMembers
-                .AnyAsync(gm => gm.GroupId == model.GroupId && gm.UserId == model.SenderId);
-
-            if (!isMember)
-            {
-                return Forbid("You are not a member of this group.");
-            }
-
-            var message = new GroupMessage
-            {
-                GroupId = model.GroupId,
-                SenderId = model.SenderId,
-                Content = model.Content,
-                Timestamp = DateTime.UtcNow
-            };
-
-            _context.GroupMessages.Add(message);
-            await _context.SaveChangesAsync();
-
-            // After saving the group message
-            // Get group members excluding the sender
-            var groupMembers = await _context.GroupMembers
-                .Where(gm => gm.GroupId == model.GroupId && gm.UserId != model.SenderId)
-                .Select(gm => gm.UserId)
-                .ToListAsync();
-
-            var sender = await _context.Users.FindAsync(model.SenderId);
-            var group = await _context.Groups.FindAsync(model.GroupId);
-
-            var notifications = groupMembers.Select(userId => new Notification
-            {
-                UserId = userId,
-                Type = "GroupMessage",
-                Content = $"{sender.FirstName} sent a message in {group.Name}.",
-                Timestamp = DateTime.UtcNow,
-                IsRead = false,
-                SenderId = sender.Id,
-                SenderName = sender.FirstName,
-                GroupId = group.Id // Include GroupId
-            }).ToList();
-
-            _context.Notifications.AddRange(notifications);
-            await _context.SaveChangesAsync();
-
-            // Send notifications via SignalR (optional)
-
-
-            // Send the message via SignalR
-            var groupName = $"Group_{model.GroupId}";
-            await _hubContext.Clients.Group(groupName).SendAsync("ReceiveGroupMessage", new
-            {
-                message.Id,
-                message.Content,
-                message.Timestamp,
-                SenderId = message.SenderId,
-                SenderFirstName = (await _context.Users.FindAsync(message.SenderId))?.FirstName,
-                SenderProfilePictureUrl = (await _context.Users.FindAsync(message.SenderId))?.ProfilePictureUrl,
-                GroupId = message.GroupId
-            });
-
-            return Ok();
+            // Return the relative file path
+            return Path.Combine("Uploads", "GroupMessages", uniqueFileName).Replace("\\", "/");
         }
+
     }
 }

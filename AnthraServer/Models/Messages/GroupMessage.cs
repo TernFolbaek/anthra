@@ -27,5 +27,8 @@ namespace MyBackendApp.Models
         public string Content { get; set; }
 
         public DateTime Timestamp { get; set; }
+        
+        public Attachment? Attachment { get; set; }
+
     }
 }

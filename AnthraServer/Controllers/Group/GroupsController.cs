@@ -142,6 +142,49 @@ public class GroupsController : ControllerBase
 
         return Ok(new { groupId = latestGroupId });
     }
+    
+    [HttpGet("GetGroupInfo")]
+    public async Task<IActionResult> GetGroupInfo(int groupId)
+    {
+        var group = await _context.Groups
+            .Include(g => g.Members)
+            .ThenInclude(gm => gm.User)
+            .FirstOrDefaultAsync(g => g.Id == groupId);
+
+        if (group == null)
+        {
+            return NotFound();
+        }
+
+        var members = group.Members
+            .Where(m => m.IsAccepted)
+            .Select(m => new
+            {
+                m.UserId,
+                m.User.FirstName,
+                m.User.LastName,
+                m.User.ProfilePictureUrl
+            })
+            .ToList();
+
+        var attachments = await _context.GroupMessages
+            .Include(m => m.Attachment)
+            .Where(m => m.GroupId == groupId && m.Attachment != null)
+            .Select(m => new
+            {
+                m.Attachment.Id,
+                m.Attachment.FileName,
+                m.Attachment.FileUrl
+            })
+            .ToListAsync();
+
+        return Ok(new
+        {
+            members,
+            attachments
+        });
+    }
+
 
 
 

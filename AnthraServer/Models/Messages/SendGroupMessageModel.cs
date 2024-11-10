@@ -1,16 +1,7 @@
-using System.ComponentModel.DataAnnotations;
-
-namespace MyBackendApp.ViewModels
+public class SendGroupMessageModel
 {
-    public class SendGroupMessageModel
-    {
-        [Required]
-        public int GroupId { get; set; }
-
-        [Required]
-        public string SenderId { get; set; }
-
-        [Required]
-        public string Content { get; set; }
-    }
+    public string SenderId { get; set; }
+    public int GroupId { get; set; }
+    public string Content { get; set; }
+    public IFormFile? File { get; set; }
 }

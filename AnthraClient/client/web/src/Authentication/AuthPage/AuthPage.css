@@ -47,10 +47,12 @@
 .auth-container input::placeholder {
     color: #bbb;
 }
+
 .social-login{
     margin-top: 1rem;
-    margin-left: auto;
-
+    display: flex;
+    width: 100%;
+    justify-content: center;
 }
 
 .submit-button {

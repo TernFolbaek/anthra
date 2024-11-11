@@ -55,21 +55,39 @@ namespace MyBackendApp.Controllers
         public async Task<IActionResult> GetChatHistory(string userId, string contactId)
         {
             var messages = await _context.Messages
+                .Include(m => m.Attachment)
                 .Where(m =>
                     (m.SenderId == userId && m.ReceiverId == contactId) ||
                     (m.SenderId == contactId && m.ReceiverId == userId) ||
                     (m.ReceiverId == userId && m.IsGroupInvitation))
                 .OrderBy(m => m.Timestamp)
+                .Select(m => new
+                {
+                    m.Id,
+                    m.SenderId,
+                    m.ReceiverId,
+                    m.Content,
+                    m.Timestamp,
+                    m.IsGroupInvitation,
+                    m.GroupId,
+                    Attachments = m.Attachment != null ? new[] {
+                        new {
+                            m.Attachment.Id,
+                            m.Attachment.FileName,
+                            m.Attachment.FileUrl
+                        }
+                    } : null
+                })
                 .ToListAsync();
 
             return Ok(messages);
         }
 
 
+
         [HttpPost("SendMessage")]
-        public async Task<IActionResult> SendMessage([FromBody] SendMessageModel model)
+        public async Task<IActionResult> SendMessage([FromForm] SendMessageModel model)
         {
-            
             if (!ModelState.IsValid)
             {
                 return BadRequest("Invalid message data.");
@@ -82,9 +100,23 @@ namespace MyBackendApp.Controllers
                 Content = model.Content,
                 Timestamp = DateTime.UtcNow
             };
-            
+
+            // Handle file upload
+            if (model.File != null && model.File.Length > 0)
+            {
+                var attachment = new Attachment
+                {
+                    FileName = model.File.FileName,
+                    FileUrl = await SaveFileAsync(model.File),
+                    Message = message
+                };
+                _context.Attachments.Add(attachment);
+                message.Attachment = attachment;
+            }
+
             _context.Messages.Add(message);
             await _context.SaveChangesAsync();
+
             
             var sender = await _context.Users.FindAsync(message.SenderId);
 
@@ -116,9 +148,42 @@ namespace MyBackendApp.Controllers
 
             // Send message via SignalR
             var groupId = GetChatGroupId(message.SenderId, message.ReceiverId);
-            await _hubContext.Clients.Group(groupId).SendAsync("ReceiveMessage", message);
+            await _hubContext.Clients.Group(groupId).SendAsync("ReceiveMessage", new
+            {
+                message.Id,
+                message.SenderId,
+                message.ReceiverId,
+                message.Content,
+                message.Timestamp,
+                message.IsGroupInvitation,
+                message.GroupId,
+                Attachments = message.Attachment != null ? new[] {
+                    new {
+                        message.Attachment.Id,
+                        message.Attachment.FileName,
+                        message.Attachment.FileUrl
+                    }
+                } : null
+            });
 
             return Ok();
+        }
+
+        private async Task<string> SaveFileAsync(IFormFile file)
+        {
+            var uploadsFolder = Path.Combine("wwwroot", "Uploads", "Messages");
+            var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+            Directory.CreateDirectory(uploadsFolder);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            // Return the relative file path
+            return Path.Combine("Uploads", "Messages", uniqueFileName).Replace("\\", "/");
         }
 
         private string GetChatGroupId(string userA, string userB)

@@ -32,13 +32,13 @@ const Dashboard: React.FC = () => {
                                 <Route path="/connections" element={<Connections />} />
                                 <Route path="/requests" element={<Requests />} />
                             </Route>
-                            {/* Route for Groups with GroupsList */}
-                            <Route element={<GroupsLayout />}>
-                                <Route path="/groups" element={<Groups />} />
-                            </Route>
                             {/* Other routes */}
                             <Route path="/profile" element={<Profile />} />
                             <Route path="/settings" element={<Settings />} />
+                            <Route path="/groups" element={<GroupsLayout />}>
+                                <Route index element={<Groups />} />
+                                <Route path=":groupId" element={<Groups />} />
+                            </Route>
                         </Routes>
                     </div>
                 </div>

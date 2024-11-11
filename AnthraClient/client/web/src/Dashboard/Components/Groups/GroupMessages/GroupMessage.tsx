@@ -1,10 +1,17 @@
+// Components/Groups/GroupMessages/GroupMessage.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './GroupMessage.css';
 import { useNavigate } from 'react-router-dom';
-import { FaArrowRight, FaEllipsisV, FaPaperclip, FaRegTimesCircle } from 'react-icons/fa';
+import {
+    FaArrowRight,
+    FaEllipsisV,
+    FaPaperclip,
+    FaRegTimesCircle,
+    FaArrowLeft,
+} from 'react-icons/fa';
 import * as signalR from '@microsoft/signalr';
-import GroupInfo from "../GroupInfo/GroupInfo";
+import GroupInfo from '../GroupInfo/GroupInfo';
 
 interface Attachment {
     id: number;
@@ -43,12 +50,13 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
 
     const [showMenu, setShowMenu] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
-    const [showGroupInfo, setShowGroupInfo] = useState(true);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 1200);
+    const [showGroupInfo, setShowGroupInfo] = useState(false);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 900);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth < 1200);
+            setIsMobile(window.innerWidth <= 900);
         };
 
         window.addEventListener('resize', handleResize);
@@ -98,7 +106,10 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
 
     useEffect(() => {
         const joinGroup = async () => {
-            if (connectionRef.current && connectionRef.current.state === signalR.HubConnectionState.Connected) {
+            if (
+                connectionRef.current &&
+                connectionRef.current.state === signalR.HubConnectionState.Connected
+            ) {
                 if (previousGroupIdRef.current && previousGroupIdRef.current !== groupId) {
                     await connectionRef.current.invoke('LeaveGroup', `Group_${previousGroupIdRef.current}`);
                 }
@@ -146,10 +157,13 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
 
     const fetchMessages = async () => {
         try {
-            const response = await axios.get('http://localhost:5001/api/GroupMessages/GetGroupChatHistory', {
-                params: { groupId },
-                headers: { Authorization: `Bearer ${token}` },
-            });
+            const response = await axios.get(
+                'http://localhost:5001/api/GroupMessages/GetGroupChatHistory',
+                {
+                    params: { groupId },
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            );
             setMessages(response.data);
             scrollToBottom();
         } catch (error) {
@@ -210,7 +224,8 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
         const currentTime = new Date(currentMessage.timestamp);
         const nextTime = new Date(nextMessage.timestamp);
 
-        const timeDiff = Math.abs(nextTime.getTime() - currentTime.getTime()) / (1000 * 60 * 60);
+        const timeDiff =
+            Math.abs(nextTime.getTime() - currentTime.getTime()) / (1000 * 60 * 60);
 
         if (currentSender !== nextSender || timeDiff >= 2) {
             return true;
@@ -255,6 +270,12 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
         <div className="group-message-page">
             <div className="group-message-container">
                 <div className="contact-header">
+                    {isMobile && (
+                        <FaArrowLeft
+                            className="back-arrow"
+                            onClick={() => navigate('/groups')}
+                        />
+                    )}
                     <div className="contact-info">
                         <span className="contact-name">{groupName}</span>
                     </div>
@@ -276,14 +297,17 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
                         <>
                             {messages.map((message, index) => {
                                 const previousMessage = messages[index - 1];
-                                const showSenderInfo = !previousMessage || previousMessage.senderId !== message.senderId;
+                                const showSenderInfo =
+                                    !previousMessage || previousMessage.senderId !== message.senderId;
                                 const isCurrentUser = message.senderId === userId;
                                 const isLastMessage = shouldShowTimestamp(index);
 
                                 return (
                                     <div
                                         key={message.id}
-                                        className={`group-message-item ${isCurrentUser ? 'group-message-own' : ''}`}
+                                        className={`group-message-item ${
+                                            isCurrentUser ? 'group-message-own' : ''
+                                        }`}
                                     >
                                         {showSenderInfo && !isCurrentUser && (
                                             <div className={`group-message-sender-info`}>
@@ -292,12 +316,16 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
                                                     src={`http://localhost:5001/${message.senderProfilePictureUrl}`}
                                                     alt={message.senderFirstName}
                                                 />
-                                                <span className="group-message-sender-name">{message.senderFirstName}</span>
+                                                <span className="group-message-sender-name">
+                          {message.senderFirstName}
+                        </span>
                                             </div>
                                         )}
                                         <div
                                             className={`${
-                                                isCurrentUser ? 'group-message-content-own' : 'group-message-content-other'
+                                                isCurrentUser
+                                                    ? 'group-message-content-own'
+                                                    : 'group-message-content-other'
                                             } ${isLastMessage ? 'last-message' : ''}`}
                                         >
                                             <p>{message.content}</p>
@@ -346,7 +374,11 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
                             <div className="selected-file-preview">
                                 {selectedImagePreview ? (
                                     <div className="image-preview-container">
-                                        <img src={selectedImagePreview} alt="Selected" className="image-preview" />
+                                        <img
+                                            src={selectedImagePreview}
+                                            alt="Selected"
+                                            className="image-preview"
+                                        />
                                         <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
                                     </div>
                                 ) : (

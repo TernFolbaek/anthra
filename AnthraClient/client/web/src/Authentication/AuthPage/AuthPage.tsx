@@ -44,9 +44,11 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                         }
                     }
                 );
-                const { token, userId } = backendResponse.data;
+                const { token, userId, fullName } = backendResponse.data;
                 localStorage.setItem('token', token);
                 localStorage.setItem('userId', userId);
+                localStorage.setItem('fullName', fullName);
+
 
                 const profileResponse = await axios.get(
                     'http://localhost:5001/api/Profile/GetProfile',
@@ -93,9 +95,10 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
 
         try {
             const response = await axios.post(endpoint, payload);
-            const { userId, token } = response.data;
+            const { userId, token, fullName } = response.data;
             localStorage.setItem('token', token);
             localStorage.setItem('userId', userId);
+            localStorage.setItem('fullName', fullName);
 
             const profileResponse = await axios.get(
                 'http://localhost:5001/api/Profile/GetProfile',

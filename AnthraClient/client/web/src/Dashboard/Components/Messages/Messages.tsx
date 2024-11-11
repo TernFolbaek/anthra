@@ -4,8 +4,13 @@ import * as signalR from '@microsoft/signalr';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import MessageConnectionProfile from './MessageConnectionProfile/MessageConnectionProfile';
-import { FaPaperclip, FaArrowRight, FaEllipsisV } from 'react-icons/fa';
-import CurrentConversations from '../CurrentConversations/CurrentConversations';
+import {FaPaperclip, FaArrowRight, FaEllipsisV, FaRegTimesCircle} from 'react-icons/fa';
+
+interface Attachment {
+    id: number;
+    fileName: string;
+    fileUrl: string;
+}
 
 interface Message {
     id: number;
@@ -15,6 +20,7 @@ interface Message {
     timestamp: string;
     isGroupInvitation: boolean;
     groupId?: number;
+    attachments?: Attachment[];
 }
 
 interface UserProfile {
@@ -37,6 +43,9 @@ const Messages: React.FC = () => {
     const [showProfile, setShowProfile] = useState(true);
     const [showMenu, setShowMenu] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const [selectedImagePreview, setSelectedImagePreview] = useState<string | null>(null);
 
     useEffect(() => {
         // Autofocus input when user starts typing
@@ -193,34 +202,61 @@ const Messages: React.FC = () => {
     };
 
     const sendMessage = async () => {
-        if (messageInput.trim() === '' || !userId) return;
+        if ((!messageInput.trim() && !selectedFile) || !userId) return;
 
-        const message = {
-            senderId: currentUserId,
-            receiverId: userId,
-            content: messageInput,
-        };
+        const formData = new FormData();
+        formData.append('SenderId', currentUserId!);
+        formData.append('ReceiverId', userId);
+        formData.append('Content', messageInput);
+
+        if (selectedFile) {
+            formData.append('File', selectedFile);
+        }
 
         try {
-            const response = await fetch('http://localhost:5001/api/Messages/SendMessage', {
-                method: 'POST',
+            const response = await axios.post('http://localhost:5001/api/Messages/SendMessage', formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'multipart/form-data',
                 },
-                body: JSON.stringify(message),
             });
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error('Error sending message:', errorData);
+            if (response.status !== 200) {
+                console.error('Error sending message:', response.data);
                 return;
             }
 
             setMessageInput('');
+            setSelectedFile(null);
+            if (selectedImagePreview) {
+                URL.revokeObjectURL(selectedImagePreview);
+                setSelectedImagePreview(null);
+            }
         } catch (error) {
             console.error('Error sending message:', error);
         }
+    };
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files && event.target.files.length > 0) {
+            const file = event.target.files[0];
+            setSelectedFile(file);
+
+            // Check if the file is an image
+            if (file.type.startsWith('image/')) {
+                const imageUrl = URL.createObjectURL(file);
+                setSelectedImagePreview(imageUrl);
+            } else {
+                setSelectedImagePreview(null);
+            }
+        }
+    };
+
+    const handleRemoveSelectedFile = () => {
+        if (selectedImagePreview) {
+            URL.revokeObjectURL(selectedImagePreview);
+        }
+        setSelectedFile(null);
+        setSelectedImagePreview(null);
     };
 
     const getChatGroupId = (userA: string, userB: string) => {
@@ -309,6 +345,7 @@ const Messages: React.FC = () => {
                     ) : (
                         messages.map((msg, index) => {
                             const isLastMessage = index === messages.length - 1;
+                            const isCurrentUser = msg.senderId === currentUserId;
                             return (
                                 <React.Fragment key={msg.id}>
                                     {msg.isGroupInvitation ? (
@@ -332,9 +369,29 @@ const Messages: React.FC = () => {
                                     ) : (
                                         <div
                                             className={`message-bubble ${
-                                                msg.senderId === currentUserId ? 'sent' : 'received'
+                                                isCurrentUser ? 'sent' : 'received'
                                             } ${isLastMessage ? 'last-message' : ''}`}
                                         >
+                                            {/* Display attachments if any */}
+                                            {msg.attachments && msg.attachments.map((attachment) => (
+                                                <div key={attachment.id} className="message-attachment">
+                                                    {attachment.fileName.toLowerCase().match(/\.(jpeg|jpg|gif|png|bmp|webp)$/) ? (
+                                                        <a href={`http://localhost:5001/${attachment.fileUrl}`} target="_blank" rel="noopener noreferrer">
+                                                            <img src={`http://localhost:5001/${attachment.fileUrl}`} alt={attachment.fileName} className="message-image" />
+                                                        </a>
+                                                    ) : (
+                                                        <a href={`http://localhost:5001/${attachment.fileUrl}`} target="_blank" rel="noopener noreferrer">
+                                                            <div className="attachment-preview">
+                                                                <span className="attachment-filename">
+                                                                    {attachment.fileName.length > 10
+                                                                        ? `${attachment.fileName.substring(0, 10)}...`
+                                                                        : attachment.fileName}
+                                                                </span>
+                                                            </div>
+                                                        </a>
+                                                    )}
+                                                </div>
+                                            ))}
                                             <p>{msg.content}</p>
                                         </div>
                                     )}
@@ -352,8 +409,33 @@ const Messages: React.FC = () => {
                     )}
                     <div ref={messagesEndRef} />
                 </div>
+                {/* Display selected file preview if any */}
+                {selectedFile && (
+                    <div className="selected-file-preview">
+                        {selectedImagePreview ? (
+                            <div className="image-preview-container">
+                                <img src={selectedImagePreview} alt="Selected" className="image-preview" />
+                                <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
+                            </div>
+                        ) : (
+                            <div className="file-preview-container">
+                                <span>{selectedFile.name}</span>
+                                <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
+                            </div>
+                        )}
+                    </div>
+                )}
                 <div className="message-input-container">
-                    <FaPaperclip className="paperclip-icon" />
+                    <FaPaperclip
+                        className="paperclip-icon"
+                        onClick={() => fileInputRef.current?.click()}
+                    />
+                    <input
+                        type="file"
+                        ref={fileInputRef}
+                        style={{ display: 'none' }}
+                        onChange={handleFileChange}
+                    />
                     <input
                         ref={inputRef}
                         type="text"

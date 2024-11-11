@@ -76,7 +76,7 @@ const Requests: React.FC = () => {
     return (
         <div className="connections-page">
             {requests.length === 0 ? (
-                <p>No connection requests.</p>
+                <p></p>
             ) : (
                 requests.map((request) => (
                     <div key={request.id} className="user-card">

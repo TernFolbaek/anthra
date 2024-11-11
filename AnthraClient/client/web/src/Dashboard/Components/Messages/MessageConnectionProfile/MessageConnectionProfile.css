@@ -5,11 +5,9 @@
     overflow-y: auto;
     border-radius: 10px;
     flex: 1;
-    margin: 30px;
+    margin: 15px;
     background-color: white;
     scrollbar-color: #e4e4e4 transparent; /* Firefox */
-    height: 95vh;
-
 }
 .message-connection-profile::-webkit-scrollbar {
     width: 8px; /* Width of the scrollbar */

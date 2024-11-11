@@ -4,7 +4,7 @@ import axios from 'axios';
 import './Groups.css';
 import GroupModal from './GroupModal/GroupModal';
 import GroupMessage from './GroupMessages/GroupMessage';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import GroupsList from '../GroupsList/GroupsList';
 
 interface GroupMember {
@@ -31,16 +31,25 @@ const Groups: React.FC = () => {
     const [groups, setGroups] = useState<Group[]>([]);
     const [showModal, setShowModal] = useState(false);
     const [connections, setConnections] = useState<Connection[]>([]);
-    const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null);
     const navigate = useNavigate();
+    const { groupId } = useParams<{ groupId?: string }>();
+    const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 1300);
 
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
 
     useEffect(() => {
+        const handleResize = () => {
+            setIsWideScreen(window.innerWidth > 1300);
+        };
+        window.addEventListener('resize', handleResize);
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    useEffect(() => {
         fetchGroups();
         fetchConnections();
-        fetchLatestGroupConversation();
     }, []);
 
     const fetchGroups = async () => {
@@ -54,8 +63,9 @@ const Groups: React.FC = () => {
             }));
             setGroups(groupsWithMembers);
 
-            if (groupsWithMembers.length > 0 && !selectedGroupId) {
-                setSelectedGroupId(groupsWithMembers[0].id);
+            if (groupsWithMembers.length > 0 && !groupId && isWideScreen) {
+                // Navigate to the first group
+                navigate(`/groups/${groupsWithMembers[0].id}`);
             }
         } catch (error) {
             console.error('Error fetching groups:', error);
@@ -74,19 +84,6 @@ const Groups: React.FC = () => {
         }
     };
 
-    const fetchLatestGroupConversation = async () => {
-        try {
-            const response = await axios.get('http://localhost:5001/api/GroupMessages/GetLatestGroupConversation', {
-                params: { userId },
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            const latestGroupId = response.data.groupId;
-            setSelectedGroupId(latestGroupId);
-        } catch (error) {
-            console.error('Error fetching latest group conversation:', error);
-        }
-    };
-
     const handleCreateGroup = () => {
         setShowModal(true);
     };
@@ -101,33 +98,36 @@ const Groups: React.FC = () => {
     };
 
     const handleGroupClick = (groupId: number) => {
-        setSelectedGroupId(groupId);
+        navigate(`/groups/${groupId}`);
     };
 
     return (
         <div className="groups-page">
             {connections.length > 0 ? (
                 <>
-                    <GroupsList
-                        groups={groups}
-                        onGroupClick={handleGroupClick}
-                        onCreateGroup={handleCreateGroup}
-                        selectedGroupId={selectedGroupId}
-                    />
-                    <div className="group-message-view">
-                        {selectedGroupId ? (
-                            <GroupMessage groupId={selectedGroupId} />
-                        ) : (
-                            <div className="no-group-selected">
-                                <p>Please select a group to view messages.</p>
-                            </div>
-                        )}
-                    </div>
-                    {showModal && (
-                        <GroupModal
-                            onClose={() => setShowModal(false)}
-                            onGroupCreated={handleGroupCreated}
+                    {(isWideScreen || !groupId) && (
+                        <GroupsList
+                            groups={groups}
+                            onGroupClick={handleGroupClick}
+                            onCreateGroup={handleCreateGroup}
+                            selectedGroupId={groupId ? parseInt(groupId) : null}
                         />
+                    )}
+                    {(isWideScreen || groupId) && (
+                        <div className="group-message-view">
+                            {groupId ? (
+                                <GroupMessage groupId={parseInt(groupId)} />
+                            ) : (
+                                isWideScreen && (
+                                    <div className="no-group-selected">
+                                        <p>Please select a group to view messages.</p>
+                                    </div>
+                                )
+                            )}
+                        </div>
+                    )}
+                    {showModal && (
+                        <GroupModal onClose={() => setShowModal(false)} onGroupCreated={handleGroupCreated} />
                     )}
                 </>
             ) : (

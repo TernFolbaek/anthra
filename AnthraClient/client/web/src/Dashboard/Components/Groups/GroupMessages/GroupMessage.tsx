@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './GroupMessage.css';
 import { useNavigate } from 'react-router-dom';
-import { FaEllipsisV, FaPaperclip, FaRegTimesCircle } from 'react-icons/fa';
+import {FaArrowRight, FaEllipsisV, FaPaperclip, FaRegTimesCircle} from 'react-icons/fa';
 import * as signalR from '@microsoft/signalr';
 import GroupInfo from "../GroupInfo/GroupInfo";
 
@@ -346,9 +346,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
                         placeholder="Type a message..."
                         onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
                     />
-                    <button className="group-message-send-button" onClick={sendMessage}>
-                        Send
-                    </button>
+                    <FaArrowRight onClick={sendMessage} className="group-message-send-button" />
                 </div>
             </div>
             {showGroupInfo && <GroupInfo groupId={groupId} />}

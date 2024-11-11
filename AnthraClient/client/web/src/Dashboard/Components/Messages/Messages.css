@@ -109,7 +109,7 @@
   padding: 8px 12px;
   border-radius: 16px;
   position: relative;
-  font-size: 1rem;
+  font-size: 0.8rem;
   line-height: 1.5;
   margin-bottom: 2px;
   word-wrap: break-word;
@@ -257,7 +257,7 @@
 }
 
 .paperclip-icon {
-  font-size: 1.5rem;
+  font-size: 1rem;
   cursor: pointer;
   margin-right: 10px;
   color: #555;
@@ -317,9 +317,8 @@
   gap: 10px;
 }
 
-/* Add styles for the send icon */
 .send-icon {
-  font-size: 1.5rem;
+  font-size: 1rem;
   cursor: pointer;
   color: #007bff;
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './GroupMessage.css';
 import { useNavigate } from 'react-router-dom';
-import {FaArrowRight, FaEllipsisV, FaPaperclip, FaRegTimesCircle} from 'react-icons/fa';
+import { FaArrowRight, FaEllipsisV, FaPaperclip, FaRegTimesCircle } from 'react-icons/fa';
 import * as signalR from '@microsoft/signalr';
 import GroupInfo from "../GroupInfo/GroupInfo";
 
@@ -44,6 +44,16 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
     const [showMenu, setShowMenu] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const [showGroupInfo, setShowGroupInfo] = useState(true);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 1200);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 1200);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     useEffect(() => {
         fetchGroupDetails();
@@ -260,96 +270,119 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
                     </div>
                 </div>
                 <div className="group-message-list">
-                    {messages.map((message, index) => {
-                        const previousMessage = messages[index - 1];
-                        const showSenderInfo = !previousMessage || previousMessage.senderId !== message.senderId;
-                        const isCurrentUser = message.senderId === userId;
-                        const isLastMessage = shouldShowTimestamp(index);
+                    {isMobile && showGroupInfo ? (
+                        <GroupInfo groupId={groupId} />
+                    ) : (
+                        <>
+                            {messages.map((message, index) => {
+                                const previousMessage = messages[index - 1];
+                                const showSenderInfo = !previousMessage || previousMessage.senderId !== message.senderId;
+                                const isCurrentUser = message.senderId === userId;
+                                const isLastMessage = shouldShowTimestamp(index);
 
-                        return (
-                            <div key={message.id}
-                                 className={`group-message-item ${isCurrentUser ? 'group-message-own' : ''}`}>
-                                {showSenderInfo && !isCurrentUser && (
-                                    <div className={`group-message-sender-info`}>
-                                        <img
-                                            className="group-message-sender-avatar"
-                                            src={`http://localhost:5001/${message.senderProfilePictureUrl}`}
-                                            alt={message.senderFirstName}
-                                        />
-                                        <span className="group-message-sender-name">{message.senderFirstName}</span>
-                                    </div>
-                                )}
-                                <div
-                                    className={`${
-                                        isCurrentUser ? 'group-message-content-own' : 'group-message-content-other'
-                                    } ${isLastMessage ? 'last-message' : ''}`}
-                                >
-                                    <p>{message.content}</p>
-                                    {/* Display attachments if any */}
-                                    {message.attachments && message.attachments.map((attachment) => (
-                                        <div key={attachment.id} className="message-attachment">
-                                            {attachment.fileName.toLowerCase().match(/\.(jpeg|jpg|gif|png|bmp|webp)$/) ? (
-                                                <img src={`http://localhost:5001/${attachment.fileUrl}`} alt={attachment.fileName} className="message-image" />
-                                            ) : (
-                                                <a href={`http://localhost:5001/${attachment.fileUrl}`} target="_blank" rel="noopener noreferrer">
-                                                    {attachment.fileName}
-                                                </a>
-                                            )}
+                                return (
+                                    <div
+                                        key={message.id}
+                                        className={`group-message-item ${isCurrentUser ? 'group-message-own' : ''}`}
+                                    >
+                                        {showSenderInfo && !isCurrentUser && (
+                                            <div className={`group-message-sender-info`}>
+                                                <img
+                                                    className="group-message-sender-avatar"
+                                                    src={`http://localhost:5001/${message.senderProfilePictureUrl}`}
+                                                    alt={message.senderFirstName}
+                                                />
+                                                <span className="group-message-sender-name">{message.senderFirstName}</span>
+                                            </div>
+                                        )}
+                                        <div
+                                            className={`${
+                                                isCurrentUser ? 'group-message-content-own' : 'group-message-content-other'
+                                            } ${isLastMessage ? 'last-message' : ''}`}
+                                        >
+                                            <p>{message.content}</p>
+                                            {/* Display attachments if any */}
+                                            {message.attachments &&
+                                                message.attachments.map((attachment) => (
+                                                    <div key={attachment.id} className="message-attachment">
+                                                        {attachment.fileName
+                                                            .toLowerCase()
+                                                            .match(/\.(jpeg|jpg|gif|png|bmp|webp)$/) ? (
+                                                            <img
+                                                                src={`http://localhost:5001/${attachment.fileUrl}`}
+                                                                alt={attachment.fileName}
+                                                                className="message-image"
+                                                            />
+                                                        ) : (
+                                                            <a
+                                                                href={`http://localhost:5001/${attachment.fileUrl}`}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                            >
+                                                                {attachment.fileName}
+                                                            </a>
+                                                        )}
+                                                    </div>
+                                                ))}
                                         </div>
-                                    ))}
-                                </div>
-                                {isLastMessage && (
-                                    <div className="group-message-timestamp">
-                                        {new Date(message.timestamp).toLocaleTimeString([], {
-                                            hour: '2-digit',
-                                            minute: '2-digit',
-                                        })}
+                                        {isLastMessage && (
+                                            <div className="group-message-timestamp">
+                                                {new Date(message.timestamp).toLocaleTimeString([], {
+                                                    hour: '2-digit',
+                                                    minute: '2-digit',
+                                                })}
+                                            </div>
+                                        )}
+                                    </div>
+                                );
+                            })}
+                            <div ref={messagesEndRef} />
+                        </>
+                    )}
+                </div>
+                {(!isMobile || !showGroupInfo) && (
+                    <>
+                        {selectedFile && (
+                            <div className="selected-file-preview">
+                                {selectedImagePreview ? (
+                                    <div className="image-preview-container">
+                                        <img src={selectedImagePreview} alt="Selected" className="image-preview" />
+                                        <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
+                                    </div>
+                                ) : (
+                                    <div className="file-preview-container">
+                                        <span>{selectedFile.name}</span>
+                                        <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
                                     </div>
                                 )}
-                            </div>
-                        );
-                    })}
-                    <div ref={messagesEndRef} />
-                </div>
-                {selectedFile && (
-                    <div className="selected-file-preview">
-                        {selectedImagePreview ? (
-                            <div className="image-preview-container">
-                                <img src={selectedImagePreview} alt="Selected" className="image-preview" />
-                                <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
-                            </div>
-                        ) : (
-                            <div className="file-preview-container">
-                                <span>{selectedFile.name}</span>
-                                <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
                             </div>
                         )}
-                    </div>
+                        <div className="group-message-input-container">
+                            <FaPaperclip
+                                className="paperclip-icon"
+                                onClick={() => fileInputRef.current?.click()}
+                            />
+                            <input
+                                type="file"
+                                ref={fileInputRef}
+                                style={{ display: 'none' }}
+                                onChange={handleFileChange}
+                            />
+                            <input
+                                type="text"
+                                className="group-message-input"
+                                ref={inputRef}
+                                value={newMessage}
+                                onChange={(e) => setNewMessage(e.target.value)}
+                                placeholder="Type a message..."
+                                onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+                            />
+                            <FaArrowRight onClick={sendMessage} className="group-message-send-button" />
+                        </div>
+                    </>
                 )}
-                <div className="group-message-input-container">
-                    <FaPaperclip
-                        className="paperclip-icon"
-                        onClick={() => fileInputRef.current?.click()}
-                    />
-                    <input
-                        type="file"
-                        ref={fileInputRef}
-                        style={{ display: 'none' }}
-                        onChange={handleFileChange}
-                    />
-                    <input
-                        type="text"
-                        className="group-message-input"
-                        ref={inputRef}
-                        value={newMessage}
-                        onChange={(e) => setNewMessage(e.target.value)}
-                        placeholder="Type a message..."
-                        onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-                    />
-                    <FaArrowRight onClick={sendMessage} className="group-message-send-button" />
-                </div>
             </div>
-            {showGroupInfo && <GroupInfo groupId={groupId} />}
+            {!isMobile && showGroupInfo && <GroupInfo groupId={groupId} />}
         </div>
     );
 };

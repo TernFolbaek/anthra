@@ -4,7 +4,7 @@ import * as signalR from '@microsoft/signalr';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import MessageConnectionProfile from './MessageConnectionProfile/MessageConnectionProfile';
-import {FaPaperclip, FaArrowRight, FaEllipsisV, FaRegTimesCircle} from 'react-icons/fa';
+import { FaPaperclip, FaArrowRight, FaEllipsisV, FaRegTimesCircle } from 'react-icons/fa';
 
 interface Attachment {
     id: number;
@@ -46,6 +46,17 @@ const Messages: React.FC = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [selectedImagePreview, setSelectedImagePreview] = useState<string | null>(null);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 1200);
+
+    useEffect(() => {
+        // Update isMobile state on window resize
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 1200);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     useEffect(() => {
         // Autofocus input when user starts typing
@@ -323,8 +334,8 @@ const Messages: React.FC = () => {
                                 className="contact-avatar"
                             />
                             <span className="contact-name">
-                                {contactProfile.firstName} {contactProfile.lastName}
-                            </span>
+                {contactProfile.firstName} {contactProfile.lastName}
+              </span>
                         </div>
                         <div className="menu-icon" onClick={toggleMenu}>
                             {showMenu && (
@@ -340,114 +351,139 @@ const Messages: React.FC = () => {
                     </div>
                 )}
                 <div className="messages-container">
-                    {messages.length === 0 ? (
-                        <p>No messages</p>
+                    {isMobile && showProfile ? (
+                        <MessageConnectionProfile userId={userId!} />
                     ) : (
-                        messages.map((msg, index) => {
-                            const isLastMessage = index === messages.length - 1;
-                            const isCurrentUser = msg.senderId === currentUserId;
-                            return (
-                                <React.Fragment key={msg.id}>
-                                    {msg.isGroupInvitation ? (
-                                        <div className="invitation-message">
-                                            <h3>{msg.content}</h3>
-                                            <div className="invitation-buttons">
-                                                <button
-                                                    className="invitation-accept-button"
-                                                    onClick={() => handleAcceptInvitation(msg.groupId!)}
-                                                >
-                                                    Accept
-                                                </button>
-                                                <button
-                                                    className="invitation-decline-button"
-                                                    onClick={() => handleDeclineInvitation(msg.groupId!)}
-                                                >
-                                                    Decline
-                                                </button>
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <div
-                                            className={`message-bubble ${
-                                                isCurrentUser ? 'sent' : 'received'
-                                            } ${isLastMessage ? 'last-message' : ''}`}
-                                        >
-                                            {/* Display attachments if any */}
-                                            {msg.attachments && msg.attachments.map((attachment) => (
-                                                <div key={attachment.id} className="message-attachment">
-                                                    {attachment.fileName.toLowerCase().match(/\.(jpeg|jpg|gif|png|bmp|webp)$/) ? (
-                                                        <a href={`http://localhost:5001/${attachment.fileUrl}`} target="_blank" rel="noopener noreferrer">
-                                                            <img src={`http://localhost:5001/${attachment.fileUrl}`} alt={attachment.fileName} className="message-image" />
-                                                        </a>
-                                                    ) : (
-                                                        <a href={`http://localhost:5001/${attachment.fileUrl}`} target="_blank" rel="noopener noreferrer">
-                                                            <div className="attachment-preview">
-                                                                <span className="attachment-filename">
-                                                                    {attachment.fileName.length > 10
-                                                                        ? `${attachment.fileName.substring(0, 10)}...`
-                                                                        : attachment.fileName}
-                                                                </span>
-                                                            </div>
-                                                        </a>
-                                                    )}
+                        <>
+                            {messages.length === 0 ? (
+                                <p>No messages</p>
+                            ) : (
+                                messages.map((msg, index) => {
+                                    const isLastMessage = index === messages.length - 1;
+                                    const isCurrentUser = msg.senderId === currentUserId;
+                                    return (
+                                        <React.Fragment key={msg.id}>
+                                            {msg.isGroupInvitation ? (
+                                                <div className="invitation-message">
+                                                    <h3>{msg.content}</h3>
+                                                    <div className="invitation-buttons">
+                                                        <button
+                                                            className="invitation-accept-button"
+                                                            onClick={() => handleAcceptInvitation(msg.groupId!)}
+                                                        >
+                                                            Accept
+                                                        </button>
+                                                        <button
+                                                            className="invitation-decline-button"
+                                                            onClick={() => handleDeclineInvitation(msg.groupId!)}
+                                                        >
+                                                            Decline
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            ))}
-                                            <p>{msg.content}</p>
-                                        </div>
-                                    )}
-                                    {shouldShowTimestamp(index) && (
-                                        <div className="message-timestamp">
-                                            {new Date(msg.timestamp).toLocaleTimeString([], {
-                                                hour: '2-digit',
-                                                minute: '2-digit',
-                                            })}
-                                        </div>
-                                    )}
-                                </React.Fragment>
-                            );
-                        })
+                                            ) : (
+                                                <div
+                                                    className={`message-bubble ${
+                                                        isCurrentUser ? 'sent' : 'received'
+                                                    } ${isLastMessage ? 'last-message' : ''}`}
+                                                >
+                                                    {/* Display attachments if any */}
+                                                    {msg.attachments &&
+                                                        msg.attachments.map((attachment) => (
+                                                            <div key={attachment.id} className="message-attachment">
+                                                                {attachment.fileName
+                                                                    .toLowerCase()
+                                                                    .match(/\.(jpeg|jpg|gif|png|bmp|webp)$/) ? (
+                                                                    <a
+                                                                        href={`http://localhost:5001/${attachment.fileUrl}`}
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                    >
+                                                                        <img
+                                                                            src={`http://localhost:5001/${attachment.fileUrl}`}
+                                                                            alt={attachment.fileName}
+                                                                            className="message-image"
+                                                                        />
+                                                                    </a>
+                                                                ) : (
+                                                                    <a
+                                                                        href={`http://localhost:5001/${attachment.fileUrl}`}
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                    >
+                                                                        <div className="attachment-preview">
+                                      <span className="attachment-filename">
+                                        {attachment.fileName.length > 10
+                                            ? `${attachment.fileName.substring(0, 10)}...`
+                                            : attachment.fileName}
+                                      </span>
+                                                                        </div>
+                                                                    </a>
+                                                                )}
+                                                            </div>
+                                                        ))}
+                                                    <p>{msg.content}</p>
+                                                </div>
+                                            )}
+                                            {shouldShowTimestamp(index) && (
+                                                <div className="message-timestamp">
+                                                    {new Date(msg.timestamp).toLocaleTimeString([], {
+                                                        hour: '2-digit',
+                                                        minute: '2-digit',
+                                                    })}
+                                                </div>
+                                            )}
+                                        </React.Fragment>
+                                    );
+                                })
+                            )}
+                            <div ref={messagesEndRef} />
+                        </>
                     )}
-                    <div ref={messagesEndRef} />
                 </div>
-                {/* Display selected file preview if any */}
-                {selectedFile && (
-                    <div className="selected-file-preview">
-                        {selectedImagePreview ? (
-                            <div className="image-preview-container">
-                                <img src={selectedImagePreview} alt="Selected" className="image-preview" />
-                                <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
-                            </div>
-                        ) : (
-                            <div className="file-preview-container">
-                                <span>{selectedFile.name}</span>
-                                <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
+                {(!isMobile || !showProfile) && (
+                    <>
+                        {/* Display selected file preview if any */}
+                        {selectedFile && (
+                            <div className="selected-file-preview">
+                                {selectedImagePreview ? (
+                                    <div className="image-preview-container">
+                                        <img src={selectedImagePreview} alt="Selected" className="image-preview" />
+                                        <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
+                                    </div>
+                                ) : (
+                                    <div className="file-preview-container">
+                                        <span>{selectedFile.name}</span>
+                                        <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
+                                    </div>
+                                )}
                             </div>
                         )}
-                    </div>
+                        <div className="message-input-container">
+                            <FaPaperclip
+                                className="paperclip-icon"
+                                onClick={() => fileInputRef.current?.click()}
+                            />
+                            <input
+                                type="file"
+                                ref={fileInputRef}
+                                style={{ display: 'none' }}
+                                onChange={handleFileChange}
+                            />
+                            <input
+                                ref={inputRef}
+                                type="text"
+                                value={messageInput}
+                                onChange={(e) => setMessageInput(e.target.value)}
+                                placeholder="Aa"
+                                disabled={!userId} // Disable input when no userId
+                            />
+                            <FaArrowRight onClick={sendMessage} className="send-icon" />
+                        </div>
+                    </>
                 )}
-                <div className="message-input-container">
-                    <FaPaperclip
-                        className="paperclip-icon"
-                        onClick={() => fileInputRef.current?.click()}
-                    />
-                    <input
-                        type="file"
-                        ref={fileInputRef}
-                        style={{ display: 'none' }}
-                        onChange={handleFileChange}
-                    />
-                    <input
-                        ref={inputRef}
-                        type="text"
-                        value={messageInput}
-                        onChange={(e) => setMessageInput(e.target.value)}
-                        placeholder="Aa"
-                        disabled={!userId} // Disable input when no userId
-                    />
-                    <FaArrowRight onClick={sendMessage} className="send-icon" />
-                </div>
             </div>
-            {userId && showProfile && <MessageConnectionProfile userId={userId} />}
+            {!isMobile && userId && showProfile && <MessageConnectionProfile userId={userId} />}
         </div>
     );
 };

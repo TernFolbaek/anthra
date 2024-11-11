@@ -1,10 +1,17 @@
+// Components/Messages/Messages.tsx
 import React, { useEffect, useRef, useState } from 'react';
 import './Messages.css';
 import * as signalR from '@microsoft/signalr';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import MessageConnectionProfile from './MessageConnectionProfile/MessageConnectionProfile';
-import { FaPaperclip, FaArrowRight, FaEllipsisV, FaRegTimesCircle } from 'react-icons/fa';
+import {
+    FaPaperclip,
+    FaArrowRight,
+    FaEllipsisV,
+    FaRegTimesCircle,
+    FaArrowLeft,
+} from 'react-icons/fa';
 
 interface Attachment {
     id: number;
@@ -35,26 +42,32 @@ const Messages: React.FC = () => {
     const currentUserId = localStorage.getItem('userId');
     const [messages, setMessages] = useState<Message[]>([]);
     const [messageInput, setMessageInput] = useState('');
-    const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
+    const [connection, setConnection] = useState<signalR.HubConnection | null>(
+        null
+    );
     const inputRef = useRef<HTMLInputElement>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const token = localStorage.getItem('token');
-    const [contactProfile, setContactProfile] = useState<UserProfile | null>(null);
-    const [showProfile, setShowProfile] = useState(true);
+    const [contactProfile, setContactProfile] = useState<UserProfile | null>(
+        null
+    );
+    const [showProfile, setShowProfile] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const [selectedImagePreview, setSelectedImagePreview] = useState<string | null>(null);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 1200);
+    const [selectedImagePreview, setSelectedImagePreview] = useState<
+        string | null
+    >(null);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 1300);
 
     useEffect(() => {
         // Update isMobile state on window resize
         const handleResize = () => {
-            setIsMobile(window.innerWidth < 1200);
+            setIsMobile(window.innerWidth <= 1300);
         };
-
         window.addEventListener('resize', handleResize);
+
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
@@ -76,33 +89,33 @@ const Messages: React.FC = () => {
 
     useEffect(() => {
         if (!userId) {
-            // If no userId, attempt to fetch the latest conversation
-            const fetchLatestConversation = async () => {
-                try {
-                    const response = await fetch(
-                        `http://localhost:5001/api/Messages/GetLatestConversation?userId=${currentUserId}`,
-                        {
-                            headers: {
-                                Authorization: `Bearer ${token}`,
-                            },
+                const fetchLatestConversation = async () => {
+                    try {
+                        const response = await fetch(
+                            `http://localhost:5001/api/Messages/GetLatestConversation?userId=${currentUserId}`,
+                            {
+                                headers: {
+                                    Authorization: `Bearer ${token}`,
+                                },
+                            }
+                        );
+                        if (response.ok) {
+                            console.log(response.body);
+                            const latestConversation = await response.json();
+                            navigate(`/messages/${latestConversation.userId}`);
+                        } else if (response.status === 404) {
+                            // No conversations found
+                            setMessages([]);
+                        } else {
+                            console.error('Error fetching latest conversation.');
                         }
-                    );
-                    if (response.ok) {
-                        const latestConversation = await response.json();
-                        navigate(`/messages/${latestConversation.userId}`);
-                    } else if (response.status === 404) {
-                        // No conversations found
-                        setMessages([]);
-                    } else {
-                        console.error('Error fetching latest conversation.');
+                    } catch (error) {
+                        console.error('Error fetching latest conversation:', error);
                     }
-                } catch (error) {
-                    console.error('Error fetching latest conversation:', error);
-                }
-            };
+                };
 
-            fetchLatestConversation();
-            return;
+                fetchLatestConversation();
+                return;
         }
 
         // Fetch messages for the specified userId
@@ -146,7 +159,7 @@ const Messages: React.FC = () => {
         };
 
         fetchContactProfile();
-    }, [currentUserId, userId, token, navigate]);
+    }, [currentUserId, userId, token, navigate, isMobile]);
 
     useEffect(() => {
         if (connection && userId) {
@@ -174,7 +187,11 @@ const Messages: React.FC = () => {
     // Close dropdown when clicking outside
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            if (showMenu && dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+            if (
+                showMenu &&
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target as Node)
+            ) {
                 setShowMenu(false);
             }
         };
@@ -225,12 +242,16 @@ const Messages: React.FC = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:5001/api/Messages/SendMessage', formData, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
+            const response = await axios.post(
+                'http://localhost:5001/api/Messages/SendMessage',
+                formData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }
+            );
 
             if (response.status !== 200) {
                 console.error('Error sending message:', response.data);
@@ -288,7 +309,8 @@ const Messages: React.FC = () => {
         const currentTime = new Date(currentMessage.timestamp);
         const nextTime = new Date(nextMessage.timestamp);
 
-        const timeDiff = Math.abs(nextTime.getTime() - currentTime.getTime()) / (1000 * 60 * 60);
+        const timeDiff =
+            Math.abs(nextTime.getTime() - currentTime.getTime()) / (1000 * 60 * 60);
 
         if (currentSender !== nextSender || timeDiff >= 2) {
             return true;
@@ -327,6 +349,12 @@ const Messages: React.FC = () => {
             <div className="message-page-subset">
                 {contactProfile && (
                     <div className="contact-header">
+                        {isMobile && (
+                            <FaArrowLeft
+                                className="back-arrow"
+                                onClick={() => navigate('/messages')}
+                            />
+                        )}
                         <div className="contact-info">
                             <img
                                 src={`http://localhost:5001/${contactProfile.profilePictureUrl}`}
@@ -340,7 +368,9 @@ const Messages: React.FC = () => {
                         <div className="menu-icon" onClick={toggleMenu}>
                             {showMenu && (
                                 <div className="messages-dropdown-menu" ref={dropdownRef}>
-                                    <button onClick={handleRemoveConnection}>Remove Connection</button>
+                                    <button onClick={handleRemoveConnection}>
+                                        Remove Connection
+                                    </button>
                                     <button onClick={handleToggleProfileVisibility}>
                                         {showProfile ? 'Hide Profile' : 'Show Profile'}
                                     </button>
@@ -369,13 +399,17 @@ const Messages: React.FC = () => {
                                                     <div className="invitation-buttons">
                                                         <button
                                                             className="invitation-accept-button"
-                                                            onClick={() => handleAcceptInvitation(msg.groupId!)}
+                                                            onClick={() =>
+                                                                handleAcceptInvitation(msg.groupId!)
+                                                            }
                                                         >
                                                             Accept
                                                         </button>
                                                         <button
                                                             className="invitation-decline-button"
-                                                            onClick={() => handleDeclineInvitation(msg.groupId!)}
+                                                            onClick={() =>
+                                                                handleDeclineInvitation(msg.groupId!)
+                                                            }
                                                         >
                                                             Decline
                                                         </button>
@@ -390,7 +424,10 @@ const Messages: React.FC = () => {
                                                     {/* Display attachments if any */}
                                                     {msg.attachments &&
                                                         msg.attachments.map((attachment) => (
-                                                            <div key={attachment.id} className="message-attachment">
+                                                            <div
+                                                                key={attachment.id}
+                                                                className="message-attachment"
+                                                            >
                                                                 {attachment.fileName
                                                                     .toLowerCase()
                                                                     .match(/\.(jpeg|jpg|gif|png|bmp|webp)$/) ? (
@@ -414,7 +451,10 @@ const Messages: React.FC = () => {
                                                                         <div className="attachment-preview">
                                       <span className="attachment-filename">
                                         {attachment.fileName.length > 10
-                                            ? `${attachment.fileName.substring(0, 10)}...`
+                                            ? `${attachment.fileName.substring(
+                                                0,
+                                                10
+                                            )}...`
                                             : attachment.fileName}
                                       </span>
                                                                         </div>
@@ -448,7 +488,11 @@ const Messages: React.FC = () => {
                             <div className="selected-file-preview">
                                 {selectedImagePreview ? (
                                     <div className="image-preview-container">
-                                        <img src={selectedImagePreview} alt="Selected" className="image-preview" />
+                                        <img
+                                            src={selectedImagePreview}
+                                            alt="Selected"
+                                            className="image-preview"
+                                        />
                                         <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
                                     </div>
                                 ) : (
@@ -483,7 +527,9 @@ const Messages: React.FC = () => {
                     </>
                 )}
             </div>
-            {!isMobile && userId && showProfile && <MessageConnectionProfile userId={userId} />}
+            {!isMobile && userId && showProfile && (
+                <MessageConnectionProfile userId={userId} />
+            )}
         </div>
     );
 };

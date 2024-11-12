@@ -103,12 +103,12 @@ public class GroupsController : ControllerBase
             _context.GroupMembers.Add(groupMember);
 
             // Send invitation message
-            var invitationContent = $"{currentUserName} invites you to join the group '{group.Name}'";
+
             var message = new Message
             {
                 SenderId = currentUserId,
                 ReceiverId = userId,
-                Content = invitationContent,
+                Content = "",
                 Timestamp = System.DateTime.UtcNow,
                 GroupId = group.Id,
                 IsGroupInvitation = true

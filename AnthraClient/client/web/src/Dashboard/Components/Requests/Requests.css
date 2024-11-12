@@ -54,7 +54,7 @@
     padding: 0.75rem 1.5rem;
     cursor: pointer;
     font-weight: 600;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, color 0.3s, transform 0.5s;
     border-radius: 8px;
 }
 
@@ -62,12 +62,16 @@
 .dark-mode .skip-button {
     border-color: #fff;
     color: #fff;
+    transform: scale(1.1);
+
 }
 
 .connect-button:hover,
 .skip-button:hover {
     background-color: #333;
     color: #fff;
+    transform: scale(1.05);
+
 }
 
 .dark-mode .connect-button:hover,

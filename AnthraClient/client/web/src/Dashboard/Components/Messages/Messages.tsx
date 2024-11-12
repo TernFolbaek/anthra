@@ -394,27 +394,43 @@ const Messages: React.FC = () => {
                                     return (
                                         <React.Fragment key={msg.id}>
                                             {msg.isGroupInvitation ? (
-                                                <div className="invitation-message">
-                                                    <h3>{msg.content}</h3>
-                                                    <div className="invitation-buttons">
-                                                        <button
-                                                            className="invitation-accept-button"
-                                                            onClick={() =>
-                                                                handleAcceptInvitation(msg.groupId!)
-                                                            }
-                                                        >
-                                                            Accept
-                                                        </button>
-                                                        <button
-                                                            className="invitation-decline-button"
-                                                            onClick={() =>
-                                                                handleDeclineInvitation(msg.groupId!)
-                                                            }
-                                                        >
-                                                            Decline
-                                                        </button>
+                                                msg.senderId.toString() === userId ? (
+                                                    <div className="invitation-message">
+                                                        <h3>Lol</h3>
+                                                        <div className="invitation-buttons">
+                                                            <button
+                                                                className="invitation-accept-button"
+                                                                onClick={() => handleAcceptInvitation(msg.groupId!)}
+                                                            >
+                                                                Accept
+                                                            </button>
+                                                            <button
+                                                                className="invitation-decline-button"
+                                                                onClick={() => handleDeclineInvitation(msg.groupId!)}
+                                                            >
+                                                                Decline
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                ) : (
+                                                    <div className="invitation-message">
+                                                        <h3>{msg.content}</h3> nice
+                                                        <div className="invitation-buttons">
+                                                            <button
+                                                                className="invitation-accept-button"
+                                                                onClick={() => handleAcceptInvitation(msg.groupId!)}
+                                                            >
+                                                                Accept {msg.senderId}
+                                                            </button>
+                                                            <button
+                                                                className="invitation-decline-button"
+                                                                onClick={() => handleDeclineInvitation(msg.groupId!)}
+                                                            >
+                                                                Decline
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                )
                                             ) : (
                                                 <div
                                                     className={`message-bubble ${
@@ -449,14 +465,14 @@ const Messages: React.FC = () => {
                                                                         rel="noopener noreferrer"
                                                                     >
                                                                         <div className="attachment-preview">
-                                      <span className="attachment-filename">
-                                        {attachment.fileName.length > 10
-                                            ? `${attachment.fileName.substring(
-                                                0,
-                                                10
-                                            )}...`
-                                            : attachment.fileName}
-                                      </span>
+                                                                      <span className="attachment-filename">
+                                                                        {attachment.fileName.length > 10
+                                                                            ? `${attachment.fileName.substring(
+                                                                                0,
+                                                                                10
+                                                                            )}...`
+                                                                            : attachment.fileName}
+                                                                      </span>
                                                                         </div>
                                                                     </a>
                                                                 )}

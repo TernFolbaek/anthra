@@ -63,6 +63,8 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
     const [countrySuggestions, setCountrySuggestions] = useState<string[]>([]);
     const [cities, setCities] = useState<string[]>([]);
     const [citySuggestions, setCitySuggestions] = useState<string[]>([]);
+    const countryInputRef = useRef<HTMLInputElement>(null);
+    const cityInputRef = useRef<HTMLInputElement>(null);
 
     const handleDropdownClick = () => {
         setIsOpen(!isOpen);
@@ -104,6 +106,24 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
             .catch(error => {
                 console.error('Error fetching countries:', error);
             });
+    }, []);
+
+    useEffect(() => {
+        // Add event listener to detect clicks outside
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                countryInputRef.current && !countryInputRef.current.contains(event.target as Node) &&
+                cityInputRef.current && !cityInputRef.current.contains(event.target as Node)
+            ) {
+                setCountrySuggestions([]);
+                setCitySuggestions([]);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
     }, []);
 
 
@@ -428,7 +448,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                         </div>
 
                         {/* City Input */}
-                        <div className="autocomplete-container">
+                        <div className="autocomplete-container" ref={cityInputRef}>
                             <input
                                 type="text"
                                 placeholder="City"

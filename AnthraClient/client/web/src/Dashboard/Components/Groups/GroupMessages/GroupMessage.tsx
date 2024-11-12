@@ -126,7 +126,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
         joinGroup();
     }, [groupId]);
 
-    useEffect(() => {
+    /* useEffect(() => {
         // Autofocus input when user starts typing
         const handleKeyDown = (event: KeyboardEvent) => {
             if (inputRef.current && !inputRef.current.contains(document.activeElement)) {
@@ -142,7 +142,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, []);
+    }, []); */
 
     const fetchGroupDetails = async () => {
         try {
@@ -377,7 +377,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
                                         <img
                                             src={selectedImagePreview}
                                             alt="Selected"
-                                            className="image-preview"
+                                            className="image-preview-attachment"
                                         />
                                         <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
                                     </div>

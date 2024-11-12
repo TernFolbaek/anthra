@@ -314,7 +314,7 @@
     background-color: #ffffff;
     border: 1px solid #ccc;
     overflow-y: auto;
-    width: 100%;
+    width: 50%;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -328,7 +328,7 @@
 }
 
 .suggestion-item {
-    padding: 10px;
+    padding: 5px;
     cursor: pointer;
     color: #333;
 }
@@ -384,20 +384,14 @@
     z-index: 5;
 }
 
-.suggestion-item {
-    padding: 8px;
-    cursor: pointer;
-}
 
-.suggestion-item:hover {
-    background-color: #f0f0f0;
-}
 .course-tag button:hover {
     color: #ff0000;
 }
 /* Styles for the autocomplete container */
 .autocomplete-container {
     position: relative;
+    height: 50px;
 }
 
 /* Styles for the suggestions list */
@@ -415,18 +409,6 @@
     list-style: none;
     margin: 0;
     padding: 0;
-}
-
-/* Styles for each suggestion item */
-.suggestion-item {
-    padding: 8px 12px;
-    cursor: pointer;
-    border-bottom: 0.5px solid lightgray;
-}
-
-/* Hover effect for suggestion items */
-.suggestion-item:hover {
-    background-color: #f0f0f0;
 }
 
 

@@ -336,10 +336,11 @@
   border-radius: 5px;
 }
 
-.image-preview {
-  max-width: 100px;
-  max-height: 100px;
+.image-preview-attachment {
+  max-width: 120px;
+  max-height: 120px;
   margin-right: 10px;
+  border-radius: 5px;
 }
 
 .image-preview-container svg {

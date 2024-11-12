@@ -133,7 +133,7 @@ const Groups: React.FC = () => {
             ) : (
                 <div className="no-connections-overlay">
                     <div className="no-connections-card">
-                        <h2>You need connections to create groups.</h2>
+                        <p>You need connections to create groups.</p>
                         <p>Get started by exploring and connecting with others.</p>
                         <button className="explore-button" onClick={handleExplore}>
                             Explore

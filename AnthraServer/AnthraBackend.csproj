@@ -46,4 +46,13 @@
     <None Remove="Hubs\NotificationsHub\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="out\web.config" />
+    <_ContentIncludedByDefault Remove="out\AnthraBackend.deps.json" />
+    <_ContentIncludedByDefault Remove="out\AnthraBackend.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="out\appsettings.Development.json" />
+    <_ContentIncludedByDefault Remove="out\appsettings.json" />
+    <_ContentIncludedByDefault Remove="out\package.json" />
+  </ItemGroup>
+
 </Project>

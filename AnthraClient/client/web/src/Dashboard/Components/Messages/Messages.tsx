@@ -27,6 +27,7 @@ interface Message {
     timestamp: string;
     isGroupInvitation: boolean;
     groupId?: number;
+    groupName?: string;
     attachments?: Attachment[];
 }
 
@@ -60,7 +61,6 @@ const Messages: React.FC = () => {
         string | null
     >(null);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 1300);
-
     useEffect(() => {
         // Update isMobile state on window resize
         const handleResize = () => {
@@ -131,7 +131,7 @@ const Messages: React.FC = () => {
             .then((data) => setMessages(data))
             .catch((error) => console.error('Error fetching messages:', error));
 
-        // Initialize SignalR connection
+
         const newConnection = new signalR.HubConnectionBuilder()
             .withUrl('http://localhost:5001/chatHub', {
                 accessTokenFactory: () => token || '',
@@ -257,7 +257,7 @@ const Messages: React.FC = () => {
                 console.error('Error sending message:', response.data);
                 return;
             }
-
+            console.log(messages)
             setMessageInput('');
             setSelectedFile(null);
             if (selectedImagePreview) {
@@ -394,33 +394,19 @@ const Messages: React.FC = () => {
                                     return (
                                         <React.Fragment key={msg.id}>
                                             {msg.isGroupInvitation ? (
-                                                msg.senderId.toString() === userId ? (
+                                                msg.senderId === currentUserId ? (
                                                     <div className="invitation-message">
-                                                        <h3>Lol</h3>
+                                                        <h3>You have invited {contactProfile?.firstName} to {msg.groupName}</h3>
+                                                    </div>
+                                                ) : (
+                                                    <div className="invitation-message">
+                                                        <h3>{contactProfile?.firstName} has invited you to join {msg.groupName}</h3>
                                                         <div className="invitation-buttons">
                                                             <button
                                                                 className="invitation-accept-button"
                                                                 onClick={() => handleAcceptInvitation(msg.groupId!)}
                                                             >
                                                                 Accept
-                                                            </button>
-                                                            <button
-                                                                className="invitation-decline-button"
-                                                                onClick={() => handleDeclineInvitation(msg.groupId!)}
-                                                            >
-                                                                Decline
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                ) : (
-                                                    <div className="invitation-message">
-                                                        <h3>{msg.content}</h3> nice
-                                                        <div className="invitation-buttons">
-                                                            <button
-                                                                className="invitation-accept-button"
-                                                                onClick={() => handleAcceptInvitation(msg.groupId!)}
-                                                            >
-                                                                Accept {msg.senderId}
                                                             </button>
                                                             <button
                                                                 className="invitation-decline-button"

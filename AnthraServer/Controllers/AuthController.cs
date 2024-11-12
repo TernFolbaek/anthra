@@ -78,7 +78,7 @@ namespace MyBackendApp.Controllers
                 // Generate JWT token
                 var token = GenerateJwtToken(user);
 
-                return Ok(new { token, userId = user.Id });
+                return Ok(new { token, userId = user.Id, fullName = user.FirstName + " " + user.LastName });
             }
             catch (Exception ex)
             {
@@ -113,7 +113,7 @@ namespace MyBackendApp.Controllers
 
                 var token = GenerateJwtToken(user);
 
-                return Ok(new { Message = "Registration successful", userId = user.Id, token });
+                return Ok(new { Message = "Registration successful", userId = user.Id, token, fullname = user.FirstName + " " + user.LastName });
             }
 
             foreach (var error in result.Errors)
@@ -143,7 +143,7 @@ namespace MyBackendApp.Controllers
                 var token = GenerateJwtToken(user);
 
                 // cookie
-                return Ok(new { Message = "Registration successful", userId = user.Id, token, userName = user.UserName });
+                return Ok(new { Message = "Registration successful", userId = user.Id, token, userName = user.UserName, fullname = user.FirstName + " " + user.LastName });
             }
 
             return Unauthorized("Invalid username or password.");

@@ -4,35 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Save fullname of user on login">
-      <change afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Groups/GroupDetailsModal/GroupDetailsModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Groups/GroupInfo/GroupInfo.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Groups/GroupInfo/GroupInfo.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Groups/GroupMessages/GroupMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Groups/GroupMessages/GroupMessage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/Messages.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/Messages.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Controllers/Group/GroupsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Controllers/Group/GroupsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Data/ApplicationDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Data/ApplicationDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Migrations/ApplicationDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Migrations/ApplicationDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Models/Group/Group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Models/Group/Group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Models/Messages/Message.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Models/Messages/Message.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/bin/Debug/net8.0/AnthraBackend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/bin/Debug/net8.0/AnthraBackend.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/bin/Debug/net8.0/AnthraBackend.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/bin/Debug/net8.0/AnthraBackend.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/bin/Debug/net8.0/AnthraBackend.staticwebassets.runtime.json" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/bin/Debug/net8.0/AnthraBackend.staticwebassets.runtime.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/AnthraBackend.sourcelink.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/ref/AnthraBackend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/ref/AnthraBackend.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/refint/AnthraBackend.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/refint/AnthraBackend.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/staticwebassets.build.json" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/staticwebassets.build.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/staticwebassets.development.json" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/staticwebassets.development.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/staticwebassets.pack.json" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/staticwebassets.pack.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/staticwebassets/msbuild.AnthraBackend.Microsoft.AspNetCore.StaticWebAssets.props" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/obj/Debug/net8.0/staticwebassets/msbuild.AnthraBackend.Microsoft.AspNetCore.StaticWebAssets.props" afterDir="false" />
-    </list>
+    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Save fullname of user on login" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -187,6 +159,7 @@
       <workItem from="1731330588577" duration="1819000" />
       <workItem from="1731335326831" duration="15072000" />
       <workItem from="1731403084476" duration="4052000" />
+      <workItem from="1731422349576" duration="7000" />
     </task>
     <task id="LOCAL-00150" summary="Explicit class name &amp; back button functionality">
       <option name="closed" value="true" />

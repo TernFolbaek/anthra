@@ -109,8 +109,9 @@ public class GroupsController : ControllerBase
                 SenderId = currentUserId,
                 ReceiverId = userId,
                 Content = "",
-                Timestamp = System.DateTime.UtcNow,
+                Timestamp = DateTime.UtcNow,
                 GroupId = group.Id,
+                GroupName = model.Name,
                 IsGroupInvitation = true
             };
             _context.Messages.Add(message);
@@ -185,10 +186,6 @@ public class GroupsController : ControllerBase
         });
     }
 
-
-
-
-// Controllers/GroupsController.cs
     [HttpGet("GetUserGroups")]
     public async Task<IActionResult> GetUserGroups()
     {
@@ -214,8 +211,6 @@ public class GroupsController : ControllerBase
 
         return Ok(groups);
     }
-
-
     // Accept or decline group invitation
     [HttpPost("RespondToInvitation")]
     public async Task<IActionResult> RespondToInvitation([FromBody] RespondToInvitationModel model)

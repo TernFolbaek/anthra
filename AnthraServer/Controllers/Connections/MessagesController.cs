@@ -70,6 +70,7 @@ namespace MyBackendApp.Controllers
                     m.Timestamp,
                     m.IsGroupInvitation,
                     m.GroupId,
+                    m.GroupName,
                     Attachments = m.Attachment != null ? new[] {
                         new {
                             m.Attachment.Id,

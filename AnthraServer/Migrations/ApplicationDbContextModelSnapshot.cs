@@ -450,6 +450,9 @@ namespace AnthraBackend.Migrations
                     b.Property<int?>("GroupId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("GroupName")
+                        .HasColumnType("text");
+
                     b.Property<bool>("IsGroupInvitation")
                         .HasColumnType("boolean");
 

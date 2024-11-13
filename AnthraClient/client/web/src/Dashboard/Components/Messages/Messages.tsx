@@ -348,7 +348,7 @@ const Messages: React.FC = () => {
         <div className="messages-page">
             <div className="message-page-subset">
                 {contactProfile && (
-                    <div className="contact-header">
+                    <div className="contact-header" onClick={()=>setShowProfile((prev) => !prev)}>
                         {isMobile && (
                             <FaArrowLeft
                                 className="back-arrow"
@@ -396,11 +396,11 @@ const Messages: React.FC = () => {
                                             {msg.isGroupInvitation ? (
                                                 msg.senderId === currentUserId ? (
                                                     <div className="invitation-message">
-                                                        <h3>You have invited {contactProfile?.firstName} to {msg.groupName}</h3>
+                                                        <p>You have invited <span className="font-bold">{contactProfile?.firstName}</span> to join group: <span className="font-bold">{msg.groupName}</span></p>
                                                     </div>
                                                 ) : (
                                                     <div className="invitation-message">
-                                                        <h3>{contactProfile?.firstName} has invited you to join {msg.groupName}</h3>
+                                                        <p><span className="font-bold">{contactProfile?.firstName}</span> has invited you to join group: <span className="font-bold">{msg.groupName}</span></p>
                                                         <div className="invitation-buttons">
                                                             <button
                                                                 className="invitation-accept-button"

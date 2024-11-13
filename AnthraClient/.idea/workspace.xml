@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Smaller tweaks">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Authentication/AuthPage/AuthPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Authentication/AuthPage/AuthPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Authentication/ForgotPassword/ForgotPassword.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Authentication/ForgotPassword/ForgotPassword.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/CreateProfile/CreateProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/CreateProfile/CreateProfile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/CurrentConversations/CurrentConversations.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/CurrentConversations/CurrentConversations.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/Messages.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/Messages.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/Messages.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/Messages.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Profile/Profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Profile/Profile.css" afterDir="false" />
+    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Restyle with weaker error message color">
       <change beforePath="$PROJECT_DIR$/../AnthraServer/Controllers/Connections/MessagesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Controllers/Connections/MessagesController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AnthraServer/ViewModels/ConversationDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/ViewModels/ConversationDTO.cs" afterDir="false" />
     </list>
@@ -172,47 +164,7 @@
       <workItem from="1731403084476" duration="4052000" />
       <workItem from="1731422349576" duration="7000" />
       <workItem from="1731437143369" duration="9339000" />
-      <workItem from="1731521497428" duration="1289000" />
-    </task>
-    <task id="LOCAL-00158" summary="make sidebar occupy entire height, and add styling to accommodate pfp in the bottom">
-      <option name="closed" value="true" />
-      <created>1730442609452</created>
-      <option name="number" value="00158" />
-      <option name="presentableId" value="LOCAL-00158" />
-      <option name="project" value="LOCAL" />
-      <updated>1730442609452</updated>
-    </task>
-    <task id="LOCAL-00159" summary="Add pfp to sidebar">
-      <option name="closed" value="true" />
-      <created>1730442624128</created>
-      <option name="number" value="00159" />
-      <option name="presentableId" value="LOCAL-00159" />
-      <option name="project" value="LOCAL" />
-      <updated>1730442624128</updated>
-    </task>
-    <task id="LOCAL-00160" summary="Styling">
-      <option name="closed" value="true" />
-      <created>1730614885749</created>
-      <option name="number" value="00160" />
-      <option name="presentableId" value="LOCAL-00160" />
-      <option name="project" value="LOCAL" />
-      <updated>1730614885750</updated>
-    </task>
-    <task id="LOCAL-00161" summary="styling, fit styling wiht other neighbor components">
-      <option name="closed" value="true" />
-      <created>1730614901054</created>
-      <option name="number" value="00161" />
-      <option name="presentableId" value="LOCAL-00161" />
-      <option name="project" value="LOCAL" />
-      <updated>1730614901054</updated>
-    </task>
-    <task id="LOCAL-00162" summary="Remove header from groupmessage">
-      <option name="closed" value="true" />
-      <created>1730614913842</created>
-      <option name="number" value="00162" />
-      <option name="presentableId" value="LOCAL-00162" />
-      <option name="project" value="LOCAL" />
-      <updated>1730614913842</updated>
+      <workItem from="1731521497428" duration="1674000" />
     </task>
     <task id="LOCAL-00163" summary="Advance groups styling, as now groups contains groupslist and groupmessage">
       <option name="closed" value="true" />
@@ -566,17 +518,53 @@
       <option name="project" value="LOCAL" />
       <updated>1731449055686</updated>
     </task>
-    <option name="localTasksCounter" value="207" />
+    <task id="LOCAL-00207" summary="Weaker red in error message color">
+      <option name="closed" value="true" />
+      <created>1731524617871</created>
+      <option name="number" value="00207" />
+      <option name="presentableId" value="LOCAL-00207" />
+      <option name="project" value="LOCAL" />
+      <updated>1731524617871</updated>
+    </task>
+    <task id="LOCAL-00208" summary="Weaker red in error message color">
+      <option name="closed" value="true" />
+      <created>1731524627915</created>
+      <option name="number" value="00208" />
+      <option name="presentableId" value="LOCAL-00208" />
+      <option name="project" value="LOCAL" />
+      <updated>1731524627915</updated>
+    </task>
+    <task id="LOCAL-00209" summary="Align text in invitation message">
+      <option name="closed" value="true" />
+      <created>1731524638241</created>
+      <option name="number" value="00209" />
+      <option name="presentableId" value="LOCAL-00209" />
+      <option name="project" value="LOCAL" />
+      <updated>1731524638241</updated>
+    </task>
+    <task id="LOCAL-00210" summary="Show profile when contact header container is clicked">
+      <option name="closed" value="true" />
+      <created>1731524651269</created>
+      <option name="number" value="00210" />
+      <option name="presentableId" value="LOCAL-00210" />
+      <option name="project" value="LOCAL" />
+      <updated>1731524651269</updated>
+    </task>
+    <task id="LOCAL-00211" summary="Restyle with weaker error message color">
+      <option name="closed" value="true" />
+      <created>1731524667901</created>
+      <option name="number" value="00211" />
+      <option name="presentableId" value="LOCAL-00211" />
+      <option name="project" value="LOCAL" />
+      <updated>1731524667901</updated>
+    </task>
+    <option name="localTasksCounter" value="212" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add profile route outside messageLayout container to not include currentConversations to the page" />
-    <MESSAGE value="Move components to other folder" />
-    <MESSAGE value="Add card-content class to CardContainer.tsx" />
-    <MESSAGE value="Move GroupMessage" />
     <MESSAGE value="Move GroupModal.tsx" />
     <MESSAGE value="Add max width to groups-page" />
     <MESSAGE value="center social login" />
@@ -598,6 +586,10 @@
     <MESSAGE value="Add groupname property to dynamically render group invitations" />
     <MESSAGE value="transform with scaling in requests.css as well explicitly" />
     <MESSAGE value="Smaller tweaks" />
-    <option name="LAST_COMMIT_MESSAGE" value="Smaller tweaks" />
+    <MESSAGE value="Weaker red in error message color" />
+    <MESSAGE value="Align text in invitation message" />
+    <MESSAGE value="Show profile when contact header container is clicked" />
+    <MESSAGE value="Restyle with weaker error message color" />
+    <option name="LAST_COMMIT_MESSAGE" value="Restyle with weaker error message color" />
   </component>
 </project>

@@ -234,7 +234,8 @@
 }
 
 .error-message {
-    color: red;
+    color: #ef6060;
+    font-weight: bold;
     margin-top: 10px;
 }
 

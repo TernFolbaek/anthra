@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Save fullname of user on login" />
+    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Smaller tweaks">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Authentication/AuthPage/AuthPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Authentication/AuthPage/AuthPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Authentication/ForgotPassword/ForgotPassword.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Authentication/ForgotPassword/ForgotPassword.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/CreateProfile/CreateProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/CreateProfile/CreateProfile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/CurrentConversations/CurrentConversations.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/CurrentConversations/CurrentConversations.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/Messages.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/Messages.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/Messages.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/Messages.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Profile/Profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Profile/Profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/Controllers/Connections/MessagesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Controllers/Connections/MessagesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/ViewModels/ConversationDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/ViewModels/ConversationDTO.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -160,70 +171,8 @@
       <workItem from="1731335326831" duration="15072000" />
       <workItem from="1731403084476" duration="4052000" />
       <workItem from="1731422349576" duration="7000" />
-    </task>
-    <task id="LOCAL-00150" summary="Explicit class name &amp; back button functionality">
-      <option name="closed" value="true" />
-      <created>1730442048826</created>
-      <option name="number" value="00150" />
-      <option name="presentableId" value="LOCAL-00150" />
-      <option name="project" value="LOCAL" />
-      <updated>1730442048826</updated>
-    </task>
-    <task id="LOCAL-00151" summary="New height without dashboard navbar">
-      <option name="closed" value="true" />
-      <created>1730442259362</created>
-      <option name="number" value="00151" />
-      <option name="presentableId" value="LOCAL-00151" />
-      <option name="project" value="LOCAL" />
-      <updated>1730442259362</updated>
-    </task>
-    <task id="LOCAL-00152" summary="Remove components as logic and redirection occur in other children components">
-      <option name="closed" value="true" />
-      <created>1730442303083</created>
-      <option name="number" value="00152" />
-      <option name="presentableId" value="LOCAL-00152" />
-      <option name="project" value="LOCAL" />
-      <updated>1730442303083</updated>
-    </task>
-    <task id="LOCAL-00153" summary="Remove console log">
-      <option name="closed" value="true" />
-      <created>1730442312924</created>
-      <option name="number" value="00153" />
-      <option name="presentableId" value="LOCAL-00153" />
-      <option name="project" value="LOCAL" />
-      <updated>1730442312924</updated>
-    </task>
-    <task id="LOCAL-00154" summary="Consider removing this component">
-      <option name="closed" value="true" />
-      <created>1730442408691</created>
-      <option name="number" value="00154" />
-      <option name="presentableId" value="LOCAL-00154" />
-      <option name="project" value="LOCAL" />
-      <updated>1730442408691</updated>
-    </task>
-    <task id="LOCAL-00155" summary="Remove scrolling">
-      <option name="closed" value="true" />
-      <created>1730442422804</created>
-      <option name="number" value="00155" />
-      <option name="presentableId" value="LOCAL-00155" />
-      <option name="project" value="LOCAL" />
-      <updated>1730442422804</updated>
-    </task>
-    <task id="LOCAL-00156" summary="Only display messageconnectionprofile when connection is not null,">
-      <option name="closed" value="true" />
-      <created>1730442555963</created>
-      <option name="number" value="00156" />
-      <option name="presentableId" value="LOCAL-00156" />
-      <option name="project" value="LOCAL" />
-      <updated>1730442555963</updated>
-    </task>
-    <task id="LOCAL-00157" summary="Remove flexwrap for less padding and odd margins">
-      <option name="closed" value="true" />
-      <created>1730442576176</created>
-      <option name="number" value="00157" />
-      <option name="presentableId" value="LOCAL-00157" />
-      <option name="project" value="LOCAL" />
-      <updated>1730442576176</updated>
+      <workItem from="1731437143369" duration="9339000" />
+      <workItem from="1731521497428" duration="1289000" />
     </task>
     <task id="LOCAL-00158" summary="make sidebar occupy entire height, and add styling to accommodate pfp in the bottom">
       <option name="closed" value="true" />
@@ -553,21 +502,77 @@
       <option name="project" value="LOCAL" />
       <updated>1731359808494</updated>
     </task>
-    <option name="localTasksCounter" value="199" />
+    <task id="LOCAL-00199" summary="Make the width full in connections page class">
+      <option name="closed" value="true" />
+      <created>1731448893715</created>
+      <option name="number" value="00199" />
+      <option name="presentableId" value="LOCAL-00199" />
+      <option name="project" value="LOCAL" />
+      <updated>1731448893715</updated>
+    </task>
+    <task id="LOCAL-00200" summary="Minimize margin add margin bottom">
+      <option name="closed" value="true" />
+      <created>1731448918027</created>
+      <option name="number" value="00200" />
+      <option name="presentableId" value="LOCAL-00200" />
+      <option name="project" value="LOCAL" />
+      <updated>1731448918027</updated>
+    </task>
+    <task id="LOCAL-00201" summary="Instead of translate y-axis, scale up, slower transition">
+      <option name="closed" value="true" />
+      <created>1731448936527</created>
+      <option name="number" value="00201" />
+      <option name="presentableId" value="LOCAL-00201" />
+      <option name="project" value="LOCAL" />
+      <updated>1731448936527</updated>
+    </task>
+    <task id="LOCAL-00202" summary="Full width on no connections overlay, style text">
+      <option name="closed" value="true" />
+      <created>1731448958362</created>
+      <option name="number" value="00202" />
+      <option name="presentableId" value="LOCAL-00202" />
+      <option name="project" value="LOCAL" />
+      <updated>1731448958362</updated>
+    </task>
+    <task id="LOCAL-00203" summary="h2 -&gt; p">
+      <option name="closed" value="true" />
+      <created>1731448975595</created>
+      <option name="number" value="00203" />
+      <option name="presentableId" value="LOCAL-00203" />
+      <option name="project" value="LOCAL" />
+      <updated>1731448975595</updated>
+    </task>
+    <task id="LOCAL-00204" summary="Add groupname property to dynamically render group invitations">
+      <option name="closed" value="true" />
+      <created>1731448993295</created>
+      <option name="number" value="00204" />
+      <option name="presentableId" value="LOCAL-00204" />
+      <option name="project" value="LOCAL" />
+      <updated>1731448993295</updated>
+    </task>
+    <task id="LOCAL-00205" summary="transform with scaling in requests.css as well explicitly">
+      <option name="closed" value="true" />
+      <created>1731449013382</created>
+      <option name="number" value="00205" />
+      <option name="presentableId" value="LOCAL-00205" />
+      <option name="project" value="LOCAL" />
+      <updated>1731449013383</updated>
+    </task>
+    <task id="LOCAL-00206" summary="Smaller tweaks">
+      <option name="closed" value="true" />
+      <created>1731449055686</created>
+      <option name="number" value="00206" />
+      <option name="presentableId" value="LOCAL-00206" />
+      <option name="project" value="LOCAL" />
+      <updated>1731449055686</updated>
+    </task>
+    <option name="localTasksCounter" value="207" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Restyle Notification bell" />
-    <MESSAGE value="Integrate notifications to sidebar" />
-    <MESSAGE value="Fix message input container" />
-    <MESSAGE value="remove redundant comments" />
-    <MESSAGE value="Add relative position to bell icon" />
-    <MESSAGE value="Fix notifications not being displayed" />
-    <MESSAGE value="Refactor import path" />
-    <MESSAGE value="Remove uninformative comment" />
     <MESSAGE value="Add profile route outside messageLayout container to not include currentConversations to the page" />
     <MESSAGE value="Move components to other folder" />
     <MESSAGE value="Add card-content class to CardContainer.tsx" />
@@ -585,6 +590,14 @@
     <MESSAGE value="Reformat code" />
     <MESSAGE value="If the screen is small enough then set wideScreen to false, where it will then only display Outlet or CurrentConversations" />
     <MESSAGE value="Save fullname of user on login" />
-    <option name="LAST_COMMIT_MESSAGE" value="Save fullname of user on login" />
+    <MESSAGE value="Make the width full in connections page class" />
+    <MESSAGE value="Minimize margin add margin bottom" />
+    <MESSAGE value="Instead of translate y-axis, scale up, slower transition" />
+    <MESSAGE value="Full width on no connections overlay, style text" />
+    <MESSAGE value="h2 -&gt; p" />
+    <MESSAGE value="Add groupname property to dynamically render group invitations" />
+    <MESSAGE value="transform with scaling in requests.css as well explicitly" />
+    <MESSAGE value="Smaller tweaks" />
+    <option name="LAST_COMMIT_MESSAGE" value="Smaller tweaks" />
   </component>
 </project>

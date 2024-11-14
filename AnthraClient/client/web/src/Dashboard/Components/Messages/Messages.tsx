@@ -1,8 +1,8 @@
 // Components/Messages/Messages.tsx
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import './Messages.css';
 import * as signalR from '@microsoft/signalr';
-import { useParams, useNavigate } from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import MessageConnectionProfile from './MessageConnectionProfile/MessageConnectionProfile';
 import {
@@ -36,7 +36,7 @@ interface UserProfile {
 }
 
 const Messages: React.FC = () => {
-    const { userId } = useParams<{ userId: string }>();
+    const {userId} = useParams<{ userId: string }>();
     const navigate = useNavigate();
     const currentUserId = localStorage.getItem('userId');
     const [messages, setMessages] = useState<Message[]>([]);
@@ -65,33 +65,33 @@ const Messages: React.FC = () => {
 
     useEffect(() => {
         if (!userId) {
-                const fetchLatestConversation = async () => {
-                    try {
-                        const response = await fetch(
-                            `http://localhost:5001/api/Messages/GetLatestConversation?userId=${currentUserId}`,
-                            {
-                                headers: {
-                                    Authorization: `Bearer ${token}`,
-                                },
-                            }
-                        );
-                        if (response.ok) {
-                            console.log(response.body);
-                            const latestConversation = await response.json();
-                            navigate(`/messages/${latestConversation.userId}`);
-                        } else if (response.status === 404) {
-                            // No conversations found
-                            setMessages([]);
-                        } else {
-                            console.error('Error fetching latest conversation.');
+            const fetchLatestConversation = async () => {
+                try {
+                    const response = await fetch(
+                        `http://localhost:5001/api/Messages/GetLatestConversation?userId=${currentUserId}`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
                         }
-                    } catch (error) {
-                        console.error('Error fetching latest conversation:', error);
+                    );
+                    if (response.ok) {
+                        console.log(response.body);
+                        const latestConversation = await response.json();
+                        navigate(`/messages/${latestConversation.userId}`);
+                    } else if (response.status === 404) {
+                        // No conversations found
+                        setMessages([]);
+                    } else {
+                        console.error('Error fetching latest conversation.');
                     }
-                };
+                } catch (error) {
+                    console.error('Error fetching latest conversation:', error);
+                }
+            };
 
-                fetchLatestConversation();
-                return;
+            fetchLatestConversation();
+            return;
         }
 
         // Fetch messages for the specified userId
@@ -175,8 +175,8 @@ const Messages: React.FC = () => {
         try {
             await axios.post(
                 'http://localhost:5001/api/Groups/RespondToInvitation',
-                { groupId, accept: true },
-                { headers: { Authorization: `Bearer ${token}` } }
+                {groupId, accept: true},
+                {headers: {Authorization: `Bearer ${token}`}}
             );
             // Refresh messages or group list
         } catch (error) {
@@ -188,14 +188,20 @@ const Messages: React.FC = () => {
         try {
             await axios.post(
                 'http://localhost:5001/api/Groups/RespondToInvitation',
-                { groupId, accept: false },
-                { headers: { Authorization: `Bearer ${token}` } }
+                {groupId, accept: false},
+                {headers: {Authorization: `Bearer ${token}`}}
             );
             // Refresh messages
         } catch (error) {
             console.error('Error declining invitation:', error);
         }
     };
+
+    useEffect(() => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({behavior: 'smooth'});
+        }
+    }, [messages]);
 
 
     const getChatGroupId = (userA: string, userB: string) => {
@@ -231,6 +237,7 @@ const Messages: React.FC = () => {
         setShowMenu(!showMenu);
     };
 
+
     const handleToggleProfileVisibility = () => {
         setShowProfile((prev) => !prev);
         setShowMenu(false);
@@ -240,8 +247,8 @@ const Messages: React.FC = () => {
         try {
             await axios.post(
                 'http://localhost:5001/api/Connections/RemoveConnection',
-                { userId: currentUserId, connectionId: userId },
-                { headers: { Authorization: `Bearer ${token}` } }
+                {userId: currentUserId, connectionId: userId},
+                {headers: {Authorization: `Bearer ${token}`}}
             );
             // Optionally, navigate to another page or refresh connections
             navigate('/messages');
@@ -255,7 +262,7 @@ const Messages: React.FC = () => {
         <div className="messages-page">
             <div className="message-page-subset">
                 {contactProfile && (
-                    <div className="contact-header" onClick={()=>setShowProfile((prev) => !prev)}>
+                    <div className="contact-header" onClick={handleToggleProfileVisibility}>
                         {isMobile && (
                             <FaArrowLeft
                                 className="back-arrow"
@@ -272,24 +279,30 @@ const Messages: React.FC = () => {
                 {contactProfile.firstName} {contactProfile.lastName}
               </span>
                         </div>
-                        <div className="menu-icon" onClick={toggleMenu}>
-                            {showMenu && (
-                                <div className="messages-dropdown-menu" ref={dropdownRef}>
-                                    <button onClick={handleRemoveConnection}>
-                                        Remove Connection
-                                    </button>
-                                    <button onClick={handleToggleProfileVisibility}>
-                                        {showProfile ? 'Hide Profile' : 'Show Profile'}
-                                    </button>
-                                </div>
-                            )}
-                            <FaEllipsisV />
+                        <div className="menu-container" ref={dropdownRef}>
+
+                            <div className="menu-icon" onClick={(event) => {
+                                event.stopPropagation();
+                                toggleMenu();
+                            }}>
+                                {showMenu && (
+                                    <div className="messages-dropdown-menu">
+                                        <button onClick={handleRemoveConnection}>
+                                            Remove Connection
+                                        </button>
+                                        <button onClick={handleToggleProfileVisibility}>
+                                            {showProfile ? 'Hide Profile' : 'Show Profile'}
+                                        </button>
+                                    </div>
+                                )}
+                                <FaEllipsisV/>
+                            </div>
                         </div>
                     </div>
                 )}
                 <div className="messages-container">
                     {isMobile && showProfile ? (
-                        <MessageConnectionProfile userId={userId!} />
+                        <MessageConnectionProfile userId={userId!}/>
                     ) : (
                         <>
                             {messages.length === 0 ? (
@@ -303,11 +316,17 @@ const Messages: React.FC = () => {
                                             {msg.isGroupInvitation ? (
                                                 msg.senderId === currentUserId ? (
                                                     <div className="invitation-message">
-                                                        <p>You have invited <span className="font-bold">{contactProfile?.firstName}</span> to join group: <span className="font-bold">{msg.groupName}</span></p>
+                                                        <p>You have invited <span
+                                                            className="font-bold">{contactProfile?.firstName}</span> to
+                                                            join group: <span
+                                                                className="font-bold">{msg.groupName}</span></p>
                                                     </div>
                                                 ) : (
                                                     <div className="invitation-message">
-                                                        <p><span className="font-bold">{contactProfile?.firstName}</span> has invited you to join group: <span className="font-bold">{msg.groupName}</span></p>
+                                                        <p><span
+                                                            className="font-bold">{contactProfile?.firstName}</span> has
+                                                            invited you to join group: <span
+                                                                className="font-bold">{msg.groupName}</span></p>
                                                         <div className="invitation-buttons">
                                                             <button
                                                                 className="invitation-accept-button"
@@ -386,7 +405,8 @@ const Messages: React.FC = () => {
                                     );
                                 })
                             )}
-                            <div ref={messagesEndRef} />
+                            <div ref={messagesEndRef}/>
+
                         </>
                     )}
                 </div>
@@ -397,7 +417,7 @@ const Messages: React.FC = () => {
                 )}
             </div>
             {!isMobile && userId && showProfile && (
-                <MessageConnectionProfile userId={userId} />
+                <MessageConnectionProfile userId={userId}/>
             )}
         </div>
     );

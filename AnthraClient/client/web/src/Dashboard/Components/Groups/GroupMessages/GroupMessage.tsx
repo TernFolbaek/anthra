@@ -1,8 +1,8 @@
 // Components/Groups/GroupMessages/GroupMessage.tsx
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import axios from 'axios';
 import './GroupMessage.css';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {
     FaEllipsisV,
     FaArrowLeft,
@@ -32,7 +32,7 @@ interface GroupMessageProps {
     groupId: number;
 }
 
-const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
+const GroupMessage: React.FC<GroupMessageProps> = ({groupId}) => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [groupName, setGroupName] = useState('');
     const userId = localStorage.getItem('userId');
@@ -97,6 +97,12 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
     }, []);
 
     useEffect(() => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({behavior: 'smooth'});
+        }
+    }, [messages]);
+
+    useEffect(() => {
         const joinGroup = async () => {
             if (
                 connectionRef.current &&
@@ -122,7 +128,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
     const fetchGroupDetails = async () => {
         try {
             const response = await axios.get(`http://localhost:5001/api/Groups/${groupId}`, {
-                headers: { Authorization: `Bearer ${token}` },
+                headers: {Authorization: `Bearer ${token}`},
             });
             setGroupName(response.data.name);
         } catch (error) {
@@ -135,8 +141,8 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
             const response = await axios.get(
                 'http://localhost:5001/api/GroupMessages/GetGroupChatHistory',
                 {
-                    params: { groupId },
-                    headers: { Authorization: `Bearer ${token}` },
+                    params: {groupId},
+                    headers: {Authorization: `Bearer ${token}`},
                 }
             );
             setMessages(response.data);
@@ -183,7 +189,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
     return (
         <div className="group-message-page">
             <div className="group-message-container">
-                <div className="contact-header"  onClick={handleToggleGroupInfoVisibility}>
+                <div className="contact-header" onClick={handleToggleGroupInfoVisibility}>
                     {isMobile && (
                         <FaArrowLeft
                             className="back-arrow"
@@ -193,7 +199,10 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
                     <div className="contact-info">
                         <span className="contact-name">{groupName}</span>
                     </div>
-                    <div className="menu-icon z-20" onClick={(event) => { event.stopPropagation(); toggleMenu(); }}>
+                    <div className="menu-icon" onClick={(event) => {
+                        event.stopPropagation();
+                        toggleMenu();
+                    }}>
                         {showMenu && (
                             <div className="messages-dropdown-menu" ref={dropdownRef}>
                                 <button onClick={handleToggleGroupInfoVisibility}>
@@ -201,12 +210,12 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
                                 </button>
                             </div>
                         )}
-                        <FaEllipsisV />
+                        <FaEllipsisV/>
                     </div>
                 </div>
                 <div className="group-message-list">
                     {isMobile && showGroupInfo ? (
-                        <GroupInfo groupId={groupId} />
+                        <GroupInfo groupId={groupId}/>
                     ) : (
                         <>
                             {messages.map((message, index) => {
@@ -278,17 +287,18 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId }) => {
                                     </div>
                                 );
                             })}
-                            <div ref={messagesEndRef} />
+                            <div ref={messagesEndRef}/>
+
                         </>
                     )}
                 </div>
                 {(!isMobile || !showGroupInfo) && (
                     <>
-                       <GroupMessageInput groupId={groupId} />
+                        <GroupMessageInput groupId={groupId}/>
                     </>
                 )}
             </div>
-            {!isMobile && showGroupInfo && <GroupInfo groupId={groupId} />}
+            {!isMobile && showGroupInfo && <GroupInfo groupId={groupId}/>}
         </div>
     );
 };

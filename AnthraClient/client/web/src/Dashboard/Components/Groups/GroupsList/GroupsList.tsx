@@ -1,6 +1,6 @@
 // Components/GroupsList/GroupsList.tsx
 import React, { useState, useEffect } from 'react';
-import CardContainer from '../CardContainer/CardContainer';
+import CardContainer from '../../CardContainer/CardContainer';
 import './GroupsList.css';
 
 interface GroupMember {

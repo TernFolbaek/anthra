@@ -153,10 +153,10 @@
 .message-input-container input {
   flex: 1;
   padding: 10px;
-  font-size: 1rem;
+  font-size: 0.8rem;
   border: 1px solid #ccc;
   border-radius: 20px;
-  background-color: #f1f1f1;
+  margin-right: 10px;
 }
 
 .message-input-container input:focus {

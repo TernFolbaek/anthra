@@ -6,12 +6,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import MessageConnectionProfile from './MessageConnectionProfile/MessageConnectionProfile';
 import {
-    FaPaperclip,
-    FaArrowRight,
     FaEllipsisV,
-    FaRegTimesCircle,
     FaArrowLeft,
 } from 'react-icons/fa';
+import MessageInput from "./MessageInput";
 
 interface Attachment {
     id: number;
@@ -42,11 +40,9 @@ const Messages: React.FC = () => {
     const navigate = useNavigate();
     const currentUserId = localStorage.getItem('userId');
     const [messages, setMessages] = useState<Message[]>([]);
-    const [messageInput, setMessageInput] = useState('');
     const [connection, setConnection] = useState<signalR.HubConnection | null>(
         null
     );
-    const inputRef = useRef<HTMLInputElement>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const token = localStorage.getItem('token');
     const [contactProfile, setContactProfile] = useState<UserProfile | null>(
@@ -55,37 +51,17 @@ const Messages: React.FC = () => {
     const [showProfile, setShowProfile] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const fileInputRef = useRef<HTMLInputElement>(null);
-    const [selectedImagePreview, setSelectedImagePreview] = useState<
-        string | null
-    >(null);
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 1300);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 900);
     useEffect(() => {
         // Update isMobile state on window resize
         const handleResize = () => {
-            setIsMobile(window.innerWidth <= 1300);
+            setIsMobile(window.innerWidth <= 900);
         };
         window.addEventListener('resize', handleResize);
 
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    useEffect(() => {
-        // Autofocus input when user starts typing
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (inputRef.current && !inputRef.current.contains(document.activeElement)) {
-                inputRef.current.focus();
-            }
-            if (event.key === 'Enter') {
-                sendMessage();
-            }
-        };
-        document.addEventListener('keydown', handleKeyDown);
-        return () => {
-            document.removeEventListener('keydown', handleKeyDown);
-        };
-    }, [messageInput]);
 
     useEffect(() => {
         if (!userId) {
@@ -130,7 +106,6 @@ const Messages: React.FC = () => {
             .then((response) => response.json())
             .then((data) => setMessages(data))
             .catch((error) => console.error('Error fetching messages:', error));
-
 
         const newConnection = new signalR.HubConnectionBuilder()
             .withUrl('http://localhost:5001/chatHub', {
@@ -177,14 +152,7 @@ const Messages: React.FC = () => {
         }
     }, [connection, currentUserId, userId]);
 
-    useEffect(() => {
-        // Scroll to the bottom whenever messages change
-        if (messagesEndRef.current) {
-            messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
-    }, [messages]);
 
-    // Close dropdown when clicking outside
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (
@@ -229,67 +197,6 @@ const Messages: React.FC = () => {
         }
     };
 
-    const sendMessage = async () => {
-        if ((!messageInput.trim() && !selectedFile) || !userId) return;
-
-        const formData = new FormData();
-        formData.append('SenderId', currentUserId!);
-        formData.append('ReceiverId', userId);
-        formData.append('Content', messageInput);
-
-        if (selectedFile) {
-            formData.append('File', selectedFile);
-        }
-
-        try {
-            const response = await axios.post(
-                'http://localhost:5001/api/Messages/SendMessage',
-                formData,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'multipart/form-data',
-                    },
-                }
-            );
-
-            if (response.status !== 200) {
-                console.error('Error sending message:', response.data);
-                return;
-            }
-            console.log(messages)
-            setMessageInput('');
-            setSelectedFile(null);
-            if (selectedImagePreview) {
-                URL.revokeObjectURL(selectedImagePreview);
-                setSelectedImagePreview(null);
-            }
-        } catch (error) {
-            console.error('Error sending message:', error);
-        }
-    };
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files && event.target.files.length > 0) {
-            const file = event.target.files[0];
-            setSelectedFile(file);
-
-            // Check if the file is an image
-            if (file.type.startsWith('image/')) {
-                const imageUrl = URL.createObjectURL(file);
-                setSelectedImagePreview(imageUrl);
-            } else {
-                setSelectedImagePreview(null);
-            }
-        }
-    };
-
-    const handleRemoveSelectedFile = () => {
-        if (selectedImagePreview) {
-            URL.revokeObjectURL(selectedImagePreview);
-        }
-        setSelectedFile(null);
-        setSelectedImagePreview(null);
-    };
 
     const getChatGroupId = (userA: string, userB: string) => {
         return userA < userB ? `${userA}-${userB}` : `${userB}-${userA}`;
@@ -485,47 +392,7 @@ const Messages: React.FC = () => {
                 </div>
                 {(!isMobile || !showProfile) && (
                     <>
-                        {/* Display selected file preview if any */}
-                        {selectedFile && (
-                            <div className="selected-file-preview">
-                                {selectedImagePreview ? (
-                                    <div className="image-preview-container">
-                                        <img
-                                            src={selectedImagePreview}
-                                            alt="Selected"
-                                            className="image-preview"
-                                        />
-                                        <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
-                                    </div>
-                                ) : (
-                                    <div className="file-preview-container">
-                                        <span>{selectedFile.name}</span>
-                                        <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
-                                    </div>
-                                )}
-                            </div>
-                        )}
-                        <div className="message-input-container">
-                            <FaPaperclip
-                                className="paperclip-icon"
-                                onClick={() => fileInputRef.current?.click()}
-                            />
-                            <input
-                                type="file"
-                                ref={fileInputRef}
-                                style={{ display: 'none' }}
-                                onChange={handleFileChange}
-                            />
-                            <input
-                                ref={inputRef}
-                                type="text"
-                                value={messageInput}
-                                onChange={(e) => setMessageInput(e.target.value)}
-                                placeholder="Aa"
-                                disabled={!userId} // Disable input when no userId
-                            />
-                            <FaArrowRight onClick={sendMessage} className="send-icon" />
-                        </div>
+                        <MessageInput userId={userId}/>
                     </>
                 )}
             </div>

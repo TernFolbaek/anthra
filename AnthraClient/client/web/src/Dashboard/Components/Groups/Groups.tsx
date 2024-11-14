@@ -5,7 +5,7 @@ import './Groups.css';
 import GroupModal from './GroupModal/GroupModal';
 import GroupMessage from './GroupMessages/GroupMessage';
 import { useNavigate, useParams } from 'react-router-dom';
-import GroupsList from '../GroupsList/GroupsList';
+import GroupsList from './GroupsList/GroupsList';
 
 interface GroupMember {
     userId: string;
@@ -33,14 +33,14 @@ const Groups: React.FC = () => {
     const [connections, setConnections] = useState<Connection[]>([]);
     const navigate = useNavigate();
     const { groupId } = useParams<{ groupId?: string }>();
-    const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 1300);
+    const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 1000);
 
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
 
     useEffect(() => {
         const handleResize = () => {
-            setIsWideScreen(window.innerWidth > 1300);
+            setIsWideScreen(window.innerWidth > 1000);
         };
         window.addEventListener('resize', handleResize);
 

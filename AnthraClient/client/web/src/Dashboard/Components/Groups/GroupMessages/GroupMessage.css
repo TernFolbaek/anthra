@@ -8,6 +8,7 @@
     overflow: hidden;
     gap: 20px;
     width: 100%;
+    scrollbar-color: #e4e4e4 transparent;
 }
 
 .group-message-container {

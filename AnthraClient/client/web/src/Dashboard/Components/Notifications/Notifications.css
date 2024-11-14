@@ -2,7 +2,8 @@
 .notifications {
     position: relative;
     overflow: visible;
-    z-index: 9999; /* Ensure the container has a high z-index */
+    scrollbar-color: #e4e4e4 transparent;
+
 }
 
 .bell-icon {

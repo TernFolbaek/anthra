@@ -78,7 +78,7 @@ const ProfileSettings: React.FC = () => {
             </div>
 
             {showDeleteModal && (
-                <div className="modal-overlay">
+                <div className="profile-modal-overlay">
                     <div className="modal">
                         <h3>Confirm Delete Account</h3>
                         <p>Solve this math question to confirm account deletion:</p>

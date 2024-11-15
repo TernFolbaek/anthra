@@ -1,12 +1,13 @@
 import {FaArrowRight, FaPaperclip, FaRegTimesCircle} from "react-icons/fa";
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import axios from "axios";
 
 interface GroupMessageProps {
     groupId: number;
+    showModal: boolean;
 }
 
-const GroupMessageInput: React.FC<GroupMessageProps> = ({groupId}) => {
+const GroupMessageInput: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [selectedImagePreview, setSelectedImagePreview] = useState<string | null>(null);
@@ -15,23 +16,20 @@ const GroupMessageInput: React.FC<GroupMessageProps> = ({groupId}) => {
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
 
-    /* useEffect(() => {
-      // Autofocus input when user starts typing
-      const handleKeyDown = (event: KeyboardEvent) => {
-          if (inputRef.current && !inputRef.current.contains(document.activeElement)) {
-              inputRef.current.focus();
-          }
-          if (event.key === 'Enter') {
-              sendMessage();
-          }
-          // Scroll to bottom when user starts typing
-          scrollToBottom();
-      };
-      document.addEventListener('keydown', handleKeyDown);
-      return () => {
-          document.removeEventListener('keydown', handleKeyDown);
-      };
-  }, []); */
+    useEffect(() => {
+        if (!showModal) {
+            const handleKeyDown = (event: KeyboardEvent) => {
+                if (inputRef.current && !inputRef.current.contains(document.activeElement)) {
+                    inputRef.current.focus();
+                }
+                if (event.key === 'Enter') {
+                    sendMessage();
+                }
+            };
+            document.addEventListener('keydown', handleKeyDown);
+            return () => document.removeEventListener('keydown', handleKeyDown);
+        }
+    }, [showModal]);
 
     const handleRemoveSelectedFile = () => {
         if (selectedImagePreview) {

@@ -30,11 +30,17 @@ interface Message {
 
 interface GroupMessageProps {
     groupId: number;
+    showModal: boolean;
 }
 
-const GroupMessage: React.FC<GroupMessageProps> = ({groupId}) => {
+interface GroupInfo {
+    adminName: string;
+    groupName: string;
+}
+
+const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
     const [messages, setMessages] = useState<Message[]>([]);
-    const [groupName, setGroupName] = useState('');
+    const [groupInfo, setGroupInfo] = useState<GroupInfo | null>(null);
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
     const connectionRef = useRef<signalR.HubConnection | null>(null);
@@ -44,12 +50,12 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId}) => {
     const [showMenu, setShowMenu] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const [showGroupInfo, setShowGroupInfo] = useState(false);
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 900);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 1300);
     const navigate = useNavigate();
 
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth <= 900);
+            setIsMobile(window.innerWidth <= 1300);
         };
 
         window.addEventListener('resize', handleResize);
@@ -97,6 +103,24 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId}) => {
     }, []);
 
     useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                showMenu &&
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target as Node)
+            ) {
+                setShowMenu(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [showMenu]);
+
+    useEffect(() => {
         if (messagesEndRef.current) {
             messagesEndRef.current.scrollIntoView({behavior: 'smooth'});
         }
@@ -130,7 +154,8 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId}) => {
             const response = await axios.get(`http://localhost:5001/api/Groups/${groupId}`, {
                 headers: {Authorization: `Bearer ${token}`},
             });
-            setGroupName(response.data.name);
+            setGroupInfo(response.data)
+            console.log(response.data);
         } catch (error) {
             console.error('Error fetching group details:', error);
         }
@@ -197,7 +222,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId}) => {
                         />
                     )}
                     <div className="contact-info">
-                        <span className="contact-name">{groupName}</span>
+                        <span className="contact-name">{groupInfo?.groupName}</span>
                     </div>
                     <div className="menu-icon" onClick={(event) => {
                         event.stopPropagation();
@@ -294,7 +319,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId}) => {
                 </div>
                 {(!isMobile || !showGroupInfo) && (
                     <>
-                        <GroupMessageInput groupId={groupId}/>
+                        <GroupMessageInput groupId={groupId} showModal={showModal}/>
                     </>
                 )}
             </div>

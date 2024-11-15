@@ -1,5 +1,4 @@
-// MessageConnectionProfile.tsx
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './MessageConnectionProfile.css';
 
@@ -27,14 +26,13 @@ interface Props {
     userId: string;
 }
 
-const MessageConnectionProfile: React.FC<Props> = ({userId}) => {
+const MessageConnectionProfile: React.FC<Props> = ({ userId }) => {
     const [profileData, setProfileData] = useState<ProfileData | null>(null);
     const [error, setError] = useState<string | null>(null);
     const token = localStorage.getItem('token');
 
     useEffect(() => {
         fetchProfile();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userId]);
 
     const fetchProfile = async () => {
@@ -65,35 +63,45 @@ const MessageConnectionProfile: React.FC<Props> = ({userId}) => {
         <div className="message-connection-profile">
             <div className="profile-picture">
                 <img
+                    className="profile-picture-image"
                     src={`http://localhost:5001${profileData.profilePictureUrl}`}
                     alt="Profile"
                 />
             </div>
             <div className="profile-info">
-                <h2>
+                <div className="profile-info-header">
                     {profileData.firstName} {profileData.lastName}
-                </h2>
-                <p className="profile-username">@{profileData.userName}</p>
-                <p>{profileData.location}</p>
-                <p>{profileData.work}</p>
-                <p>{profileData.institution}</p>
-                <p>Age: {profileData.age}</p>
-                <h3>About Me</h3>
-                <p>{profileData.aboutMe}</p>
-                <h3>Subjects</h3>
-                <ul>
+                </div>
+                <div className="profile-username">@{profileData.userName}</div>
+                <div className="profile-info-text">
+                    <span className="profile-location-label">Location:</span> {profileData.location}
+                </div>
+                <div className="profile-info-text">
+                    <span className="profile-work-label">Work:</span> {profileData.work}
+                </div>
+                <div className="profile-info-text">
+                    <span className="profile-institution-label">Institution:</span> {profileData.institution}
+                </div>
+                <div className="profile-info-text">
+                    <span className="profile-age-label">Age:</span> {profileData.age}
+                </div>
+                <div className="profile-section-title">About Me</div>
+                <div className="profile-info-text">{profileData.aboutMe}</div>
+                <div className="profile-section-title">Subjects</div>
+                <ul className="profile-info-list">
                     {profileData.subjects.map((subject, index) => (
-                        <li key={index}>{subject}</li>
+                        <li key={index} className="profile-info-list-item">{subject}</li>
                     ))}
                 </ul>
-                <h3>Courses</h3>
-                <ul>
+                <div className="profile-section-title">Courses</div>
+                <ul className="profile-info-list">
                     {profileData.courses.map((course, index) => (
-                        <li key={index}>
+                        <li key={index} className="profile-info-list-item">
                             <a
                                 href={course.courseLink}
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                className="profile-info-link"
                             >
                                 {course.courseName}
                             </a>

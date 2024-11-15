@@ -135,6 +135,7 @@
     border: 1px solid #ccc;
     border-radius: 20px;
     margin-right: 10px;
+    outline: none;
 }
 
 .dark-mode .group-message-input {

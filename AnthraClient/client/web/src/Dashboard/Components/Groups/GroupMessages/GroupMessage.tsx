@@ -86,7 +86,6 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
         connection
             .start()
             .then(() => {
-                console.log('SignalR connection established.');
                 if (groupId) {
                     connection.invoke('JoinGroup', `Group_${groupId}`);
                     previousGroupIdRef.current = groupId;
@@ -155,7 +154,6 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
                 headers: {Authorization: `Bearer ${token}`},
             });
             setGroupInfo(response.data)
-            console.log(response.data);
         } catch (error) {
             console.error('Error fetching group details:', error);
         }

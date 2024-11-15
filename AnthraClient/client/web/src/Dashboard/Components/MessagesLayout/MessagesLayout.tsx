@@ -17,7 +17,7 @@ const MessagesLayout: React.FC = () => {
     }, []);
 
     return (
-        <div className="messages-page">
+        <div className="messages-page-container">
             {isWideScreen ? (
                 <>
                     <CurrentConversations />

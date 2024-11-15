@@ -3,6 +3,7 @@
 
 .explore-page {
     display: flex;
+    flex: 1;
     justify-content: center;
     align-items: center;
     min-height: calc(100vh - 60px);

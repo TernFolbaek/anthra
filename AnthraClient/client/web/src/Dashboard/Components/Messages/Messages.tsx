@@ -52,10 +52,14 @@ const Messages: React.FC = () => {
     const [showMenu, setShowMenu] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 1300);
+    const [showBackArrow, setShowBackArrow] = useState(window.innerWidth <= 900);
+
     useEffect(() => {
         // Update isMobile state on window resize
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 1300);
+            setShowBackArrow(window.innerWidth <= 900);
+
         };
         window.addEventListener('resize', handleResize);
 
@@ -263,7 +267,7 @@ const Messages: React.FC = () => {
             <div className="message-page-subset">
                 {contactProfile && (
                     <div className="contact-header" onClick={handleToggleProfileVisibility}>
-                        {isMobile && (
+                        {showBackArrow && (
                             <FaArrowLeft
                                 className="back-arrow"
                                 onClick={() => navigate('/messages')}

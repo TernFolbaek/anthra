@@ -46,8 +46,8 @@ public class GroupsController : ControllerBase
 
         var groupDetails = new
         {
-            group.Id,
-            group.Name,
+            groupId = group.Id,
+            groupName = group.Name,
             CreatorId = group.CreatorId,
             CreatorName = group.adminName,
         };

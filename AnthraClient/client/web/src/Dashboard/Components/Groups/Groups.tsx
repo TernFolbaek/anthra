@@ -33,14 +33,14 @@ const Groups: React.FC = () => {
     const [connections, setConnections] = useState<Connection[]>([]);
     const navigate = useNavigate();
     const { groupId } = useParams<{ groupId?: string }>();
-    const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 1000);
+    const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 900);
 
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
 
     useEffect(() => {
         const handleResize = () => {
-            setIsWideScreen(window.innerWidth > 1000);
+            setIsWideScreen(window.innerWidth > 900);
         };
         window.addEventListener('resize', handleResize);
 
@@ -116,7 +116,7 @@ const Groups: React.FC = () => {
                     {(isWideScreen || groupId) && (
                         <div className="group-message-view">
                             {groupId ? (
-                                <GroupMessage groupId={parseInt(groupId)} />
+                                <GroupMessage groupId={parseInt(groupId)} showModal={showModal} />
                             ) : (
                                 isWideScreen && (
                                     <div className="no-group-selected">

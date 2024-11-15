@@ -7,6 +7,7 @@ using MyBackendApp.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using MyBackendApp.ViewModels;
 
 namespace MyBackendApp.Controllers
@@ -40,6 +41,7 @@ namespace MyBackendApp.Controllers
                 {
                     UserId = g.Key,
                     UserName = g.Select(m => m.SenderId == g.Key ? m.Sender.UserName : m.Receiver.UserName).FirstOrDefault(),
+                    FirstName = g.Select(m =>m.SenderId == g.Key ? m.Sender.FirstName : m.Receiver.FirstName).FirstOrDefault(),
                     UserEmail = g.Select(m => m.SenderId == g.Key ? m.Sender.Email : m.Receiver.Email).FirstOrDefault(),
                     UserProfilePicture = g.Select(m => m.SenderId == g.Key ? m.Sender.ProfilePictureUrl : m.Receiver.ProfilePictureUrl).FirstOrDefault(),
                     LastMessageContent = g.OrderByDescending(m => m.Timestamp).Select(m => m.Content).FirstOrDefault(),

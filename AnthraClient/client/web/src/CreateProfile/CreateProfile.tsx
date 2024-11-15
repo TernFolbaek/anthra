@@ -143,7 +143,6 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
 
         setCountrySuggestions(suggestions);
 
-        console.log('Country Suggestions:', suggestions);
     };
 
 
@@ -184,7 +183,6 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
         setCitySuggestions(suggestions);
 
         // Add this line
-        console.log('City Suggestions:', suggestions);
     };
 
 

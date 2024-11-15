@@ -232,7 +232,7 @@
 }
 
 .choose-pfp {
-    background-color: #007bff;
+    background-color: rgb(235, 243, 253);
     color: #fff;
     padding: 0.75rem 1.5rem;
     border: none;
@@ -244,7 +244,7 @@
 }
 
 .choose-pfp:hover {
-    background-color: #0056b3;
+    background-color: #d0e4fd;
 }
 
 .dark-mode .choose-pfp {

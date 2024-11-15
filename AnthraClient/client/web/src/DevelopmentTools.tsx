@@ -5,17 +5,14 @@ const DevelopmentTools = () => {
     const createTestUsers = async () => {
         try {
             await axios.post('http://localhost:5001/create-test-users');
-            console.log('Test users created successfully.');
         } catch (error) {
             console.error('Error creating test users:', error);
-            console.log('Failed to create test users.');
         }
     };
 
     const deleteTestUsers = async () => {
         try {
             await axios.post('http://localhost:5001/delete-test-users');
-            console.log('Test users deleted successfully.');
         } catch (error) {
             console.error('Error deleting test users:', error);
             console.log('Failed to delete test users.');

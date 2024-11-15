@@ -1,0 +1,75 @@
+/* Menu.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
+
+.explore-menu-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.menu-toggle {
+    position: relative;
+    display: flex;
+    border: 3px solid #e1e4fb;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 500px;
+}
+
+.menu-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background-color: #e1e4fb;
+    transition: transform 0.3s ease;
+    z-index: 0; /* Place behind the buttons */
+}
+
+.menu-slider.slide-right {
+    transform: translateX(100%);
+}
+
+.menu-button {
+    font-size: 20px;
+    background: none;
+    border: none;
+    color: #333;
+    padding: 12px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    z-index: 1;
+    position: relative;
+}
+
+
+.menu-button.active {
+    color: #3366cc;
+}
+
+.menu-button:not(.active) {
+    color: #333;
+}
+
+.dark-mode .menu-toggle {
+    border-color: #fff;
+}
+
+.dark-mode .menu-slider {
+    background-color: #444;
+}
+
+.dark-mode .menu-button {
+    color: #fff;
+}
+
+.dark-mode .menu-button:not(.active) {
+    color: #bbb;
+}

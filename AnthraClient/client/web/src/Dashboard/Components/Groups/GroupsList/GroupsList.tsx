@@ -1,5 +1,7 @@
 // Components/GroupsList/GroupsList.tsx
 import React, { useState, useEffect } from 'react';
+import {FaPlusCircle} from "react-icons/fa";
+
 import CardContainer from '../../CardContainer/CardContainer';
 import './GroupsList.css';
 
@@ -45,7 +47,9 @@ const GroupsList: React.FC<GroupsListProps> = ({ groups, onGroupClick, onCreateG
     return (
         <CardContainer title="Groups">
             <button className="create-group-button" onClick={onCreateGroup}>
-                Create New Group
+                <div className="flex items-center justify-center gap-2">
+                    <FaPlusCircle/> Create Group
+                </div>
             </button>
             {groups.map((group) => (
                 <div

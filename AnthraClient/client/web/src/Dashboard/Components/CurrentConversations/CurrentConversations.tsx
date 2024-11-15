@@ -6,6 +6,7 @@ import CardContainer from '../CardContainer/CardContainer';
 interface Conversation {
     userId: string;
     userName: string;
+    firstName: string;
     userProfilePicture: string;
     lastMessageContent: string;
     lastMessageTimestamp: string;
@@ -16,6 +17,7 @@ const CurrentConversations: React.FC = () => {
     const [conversations, setConversations] = useState<Conversation[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null);
     const currentUserId = localStorage.getItem('userId');
     const navigate = useNavigate();
 
@@ -39,7 +41,11 @@ const CurrentConversations: React.FC = () => {
             .then((data) => {
                 setConversations(data);
                 setLoading(false);
-                console.log(data)
+
+                // Automatically select the latest conversation after data is fetched
+                if (data.length > 0) {
+                    setSelectedConversationId(data[0].userId);
+                }
             })
             .catch((error) => {
                 console.error('Error fetching conversations:', error);
@@ -65,8 +71,13 @@ const CurrentConversations: React.FC = () => {
                     {conversations.map((conv) => (
                         <li
                             key={conv.userId}
-                            className="conversation-item"
-                            onClick={() => navigate(`/messages/${conv.userId}`)}
+                            className={`conversation-item ${
+                                selectedConversationId === conv.userId ? 'selected' : ''
+                            }`}
+                            onClick={() => {
+                                setSelectedConversationId(conv.userId);
+                                navigate(`/messages/${conv.userId}`);
+                            }}
                         >
                             <img
                                 src={`http://localhost:5001${conv.userProfilePicture}`}
@@ -74,8 +85,12 @@ const CurrentConversations: React.FC = () => {
                                 className="conversation-profile-picture"
                             />
                             <div className="conversation-details">
-                                <h3>{conv.userName}</h3>
-                                <p className="last-message">{conv.lastMessageContent}</p>
+                                <h3>{conv.firstName}</h3>
+                                <p className="last-message">
+                                    {conv.lastMessageContent.length > 15
+                                        ? `${conv.lastMessageContent.substring(0, 10)}...`
+                                        : conv.lastMessageContent}
+                                </p>
                             </div>
                             <p className="conversation-timestamp">
                                 {new Date(conv.lastMessageTimestamp).toLocaleDateString('en-GB', {
@@ -88,7 +103,6 @@ const CurrentConversations: React.FC = () => {
                                     minute: '2-digit'
                                 })}
                             </p>
-
                         </li>
                     ))}
                 </ul>

@@ -51,11 +51,11 @@ const Messages: React.FC = () => {
     const [showProfile, setShowProfile] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 900);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 1300);
     useEffect(() => {
         // Update isMobile state on window resize
         const handleResize = () => {
-            setIsMobile(window.innerWidth <= 900);
+            setIsMobile(window.innerWidth <= 1300);
         };
         window.addEventListener('resize', handleResize);
 

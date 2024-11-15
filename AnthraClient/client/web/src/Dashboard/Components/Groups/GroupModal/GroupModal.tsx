@@ -57,8 +57,6 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                 invitedUserIds: selectedUserIds,
                 adminName: fullName
             };
-            console.log(payload)
-
             await axios.post('http://localhost:5001/api/Groups/CreateGroup', payload, {
                 headers: { Authorization: `Bearer ${token}` },
             });

@@ -5,26 +5,22 @@
     display: flex;
     height: 100%;
     width: 100%;
-    justify-content: center;
-    align-items: center;
     font-family: 'Montserrat', sans-serif;
     flex: 1;
-
 }
 
 .connections-container {
-    height: 95vh;
-    flex: 1;
+    background-color: white;
+    border-radius: 10px;
+    width: 100%;
+    padding: 20px;
+    margin: 15px;
     font-family: 'Montserrat', sans-serif;
+    overflow: auto;
 }
 
-.connections-container h2 {
-    margin-bottom: 20px;
-    font-size: 1.8rem;
-    color: #333;
-}
-
-.dark-mode .connections-container h2 {
+.dark-mode .connections-container {
+    background-color: #1e1e1e;
     color: #fff;
 }
 
@@ -41,26 +37,89 @@
     color: #ccc;
 }
 
-.connections-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-}
-
-.connection-card {
-    background-color: #ffffff;
-    color: #333;
-    border-radius: 12px;
-    padding: 15px;
-    text-align: center;
+.connections-columns {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
 }
 
-.dark-mode .connection-card {
-    background-color: #1a1a1a;
+.connections-column {
+    width: 48%;
+}
+
+.connections-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.connections-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.connection-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+}
+
+.connection-item:hover {
+    cursor: pointer;
+    background-color: #f9f9f9;
+}
+
+.dark-mode .connection-item {
+    border-bottom: 1px solid #444;
+}
+
+.connection-info {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.connection-profile-picture {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.connection-name {
+    margin-left: 15px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.dark-mode .connection-name {
+    color: #fff;
+}
+
+.connection-menu {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.connection-item:hover .connection-menu {
+    opacity: 1;
+}
+
+.menu-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    outline: none;
+}
+
+.menu-icon {
+    font-size: 24px;
+}
+
+.dark-mode .menu-icon {
     color: #fff;
 }
 
@@ -68,12 +127,12 @@
     background-color: transparent;
     border: 2px solid #007bff;
     color: #007bff;
-    padding: 0.75rem 1.5rem;
+    padding: 0.5rem 1rem;
     cursor: pointer;
     font-weight: 600;
     transition: background-color 0.3s, color 0.3s;
     border-radius: 8px;
-    margin-top: 10px;
+    margin-left: 10px;
 }
 
 .dark-mode .message-button {
@@ -89,18 +148,4 @@
 .dark-mode .message-button:hover {
     background-color: #66b2ff;
     color: #fff;
-}
-
-.connection-card h3 {
-    margin-top: 10px;
-    margin-bottom: 5px;
-    font-size: 1.2rem;
-    font-weight: 600;
-}
-
-.connection-profile-picture {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
 }

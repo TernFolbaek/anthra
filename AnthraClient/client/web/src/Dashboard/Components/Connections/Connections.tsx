@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Connections.css';
 import { useNavigate } from 'react-router-dom';
-import CurrentConversations from '../CurrentConversations/CurrentConversations';
 
 interface ApplicationUser {
     id: string;
@@ -12,16 +11,18 @@ interface ApplicationUser {
 }
 
 interface Conversation {
-    participantId: string;
-    participantFirstName: string;
-    participantProfilePictureUrl: string;
-    lastMessageContent: string;
-    lastMessageTimestamp: string;
-    lastMessageSenderId: string;
+    UserId: string;
+    FirstName: string;
+    UserProfilePicture: string;
+    LastMessageContent: string;
+    LastMessageTimestamp: string;
+    LastMessageSenderId: string;
 }
 
 const Connections: React.FC = () => {
-    const [connections, setConnections] = useState<ApplicationUser[]>([]);
+    const [usersWithConversations, setUsersWithConversations] = useState<ApplicationUser[]>([]);
+    const [usersWithoutConversations, setUsersWithoutConversations] = useState<ApplicationUser[]>([]);
+
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
@@ -43,15 +44,18 @@ const Connections: React.FC = () => {
                 const connectedUsers: ApplicationUser[] = connectionsResponse.data;
                 const conversationData: Conversation[] = conversationsResponse.data;
 
-                // Get participant IDs from conversations
-                const conversationParticipantIds = conversationData.map((conv) => conv.participantId);
-
-                // Exclude users who are already in conversations
-                const filteredConnections = connectedUsers.filter(
-                    (user) => !conversationParticipantIds.includes(user.id)
+                const usersWithConversations = connectedUsers.filter(user =>
+                    conversationData.some(conversation => conversation.UserId === user.id)
                 );
 
-                setConnections(filteredConnections);
+                const usersWithoutConversations = connectedUsers.filter(user =>
+                    !conversationData.some(conversation => conversation.UserId === user.id)
+                );
+
+                setUsersWithConversations(usersWithConversations);
+                setUsersWithoutConversations(usersWithoutConversations)
+
+
                 setLoading(false);
             } catch (err) {
                 console.error('Error fetching data:', err);
@@ -74,30 +78,71 @@ const Connections: React.FC = () => {
     return (
         <div className="connections-page">
             <div className="connections-container">
-                {connections.length === 0 ? (
-                    <p>You have no new connections.</p>
+                {usersWithConversations.length === 0 && usersWithoutConversations.length === 0 ? (
+                    <p>You have no connections.</p>
                 ) : (
-                    <div className="connections-grid">
-                        {connections.map((user) => (
-                            <div key={user.id} className="connection-card">
-                                <img
-                                    src={`http://localhost:5001${user.profilePictureUrl}`}
-                                    alt={`${user.firstName}`}
-                                    className="connection-profile-picture"
-                                />
-                                <h3>{user.firstName}</h3>
-                                <div className="button-container">
-                                    <button
-                                        className="message-button"
-                                        onClick={() => {
-                                            navigate(`/messages/${user.id}`);
-                                        }}
-                                    >
-                                        Message
-                                    </button>
-                                </div>
-                            </div>
-                        ))}
+                    <div className="connections-columns">
+                        {/* Left Column: Already Messaged Users */}
+                        <div className="connections-column">
+                            <h2 className="connections-title">Already Messaged</h2>
+                            {usersWithConversations.length === 0 ? (
+                                <p>No conversations yet.</p>
+                            ) : (
+                                <ul className="connections-list">
+                                    {usersWithConversations.map((user) => (
+                                        <li key={user.id} className="connection-item" onClick={() => navigate(`/messages/${user.id}`)}>
+                                            <div className="connection-info">
+                                                <img
+                                                    src={`http://localhost:5001${user.profilePictureUrl}`}
+                                                    alt={`${user.firstName}`}
+                                                    className="connection-profile-picture"
+                                                />
+                                                <span className="connection-name">{user.firstName}</span>
+                                            </div>
+                                            <div className="connection-menu">
+                                                <button className="menu-button">
+                                                    <span className="menu-icon">⋮</span>
+                                                </button>
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+
+                        {/* Right Column: New Connections */}
+                        <div className="connections-column">
+                            <h2 className="connections-title">New Connections</h2>
+                            {usersWithoutConversations.length === 0 ? (
+                                <p>No new connections.</p>
+                            ) : (
+                                <ul className="connections-list">
+                                    {usersWithoutConversations.map((user) => (
+                                        <li key={user.id} className="connection-item">
+                                            <div className="connection-info">
+                                                <img
+                                                    src={`http://localhost:5001${user.profilePictureUrl}`}
+                                                    alt={`${user.firstName}`}
+                                                    className="connection-profile-picture"
+                                                />
+                                                <span className="connection-name">{user.firstName}</span>
+                                            </div>
+                                            <button
+                                                className="message-button"
+                                                onClick={() => navigate(`/messages/${user.id}`)}
+                                            >
+                                                Message
+                                            </button>
+                                            <div className="connection-menu">
+                                                <button className="menu-button">
+                                                    <span className="menu-icon">⋮</span>
+                                                </button>
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
                     </div>
                 )}
             </div>

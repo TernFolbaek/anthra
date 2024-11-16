@@ -74,7 +74,8 @@ const Requests: React.FC = () => {
     };
 
     return (
-        <div className="connections-page">
+        <div className="requests-page">
+            <div className="requests-container">
             {requests.length === 0 ? (
                 <p></p>
             ) : (
@@ -103,6 +104,7 @@ const Requests: React.FC = () => {
                     </div>
                 ))
             )}
+            </div>
         </div>
     );
 };

@@ -10,9 +10,9 @@ import Requests from './Components/Requests/Requests';
 import Profile from './Components/Profile/Profile';
 import Groups from './Components/Groups/Groups';
 import Footer from './Components/Footer/Footer';
-import MessagesLayout from './Components/MessagesLayout/MessagesLayout';
-import GroupsLayout from './Components/GroupsLayout/GroupsLayout';
-
+import MessagesLayout from './Layouts/MessagesLayout/MessagesLayout';
+import GroupsLayout from './Layouts/GroupsLayout/GroupsLayout';
+import MessageOptionalLayout from "./Layouts/MessageOptionalLayout/MessageOptionalLayout";
 import './Main.css';
 
 const Dashboard: React.FC = () => {
@@ -23,22 +23,23 @@ const Dashboard: React.FC = () => {
                     <Sidebar />
                     <div className="main-content">
                         <Routes>
-                            {/* Routes that share CurrentConversations */}
                             <Route element={<MessagesLayout />}>
-                                <Route path="/" element={<ExplorePage />} />
-                                <Route path="/explore" element={<ExplorePage />} />
                                 <Route path="/messages" element={<Messages />} />
                                 <Route path="/messages/:userId" element={<Messages />} />
-                                <Route path="/connections" element={<Connections />} />
-                                <Route path="/requests" element={<Requests />} />
                             </Route>
-                            {/* Other routes */}
-                            <Route path="/profile" element={<Profile />} />
-                            <Route path="/settings" element={<Settings />} />
                             <Route path="/groups" element={<GroupsLayout />}>
                                 <Route index element={<Groups />} />
                                 <Route path=":groupId" element={<Groups />} />
                             </Route>
+                            <Route element={<MessageOptionalLayout/>}>
+                                <Route path="/connections" element={<Connections />} />
+                                <Route path="/requests" element={<Requests />} />
+                                <Route path="/" element={<ExplorePage />} />
+                                <Route path="/explore" element={<ExplorePage />} />
+                            </Route>
+                            <Route path="/profile" element={<Profile />} />
+                            <Route path="/settings" element={<Settings />} />
+
                         </Routes>
                     </div>
                 </div>

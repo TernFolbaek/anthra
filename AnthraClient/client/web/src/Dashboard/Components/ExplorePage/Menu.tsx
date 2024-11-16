@@ -22,7 +22,7 @@ const Menu: React.FC = () => {
                     className={`menu-slider ${activePage === 'individuals' ? 'slide-left' : 'slide-right'}`}
                 ></div>
                 <button
-                    className={`menu-button ${activePage === 'individuals' ? 'active' : ''} `}
+                    className={`explore-menu-button ${activePage === 'individuals' ? 'active' : ''} `}
                     onClick={handleIndividualsClick}
                 >
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -36,7 +36,7 @@ const Menu: React.FC = () => {
                     <span>Individuals</span>
                 </button>
                 <button
-                    className={`flex justify-center menu-button ${activePage === 'groups' ? 'active' : ''}`}
+                    className={`flex justify-center explore-menu-button ${activePage === 'groups' ? 'active' : ''}`}
                     onClick={handleGroupsClick}
                 >
                     {/* Group icon */}

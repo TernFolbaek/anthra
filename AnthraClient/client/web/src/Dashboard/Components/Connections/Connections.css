@@ -40,6 +40,7 @@
 .connections-columns {
     display: flex;
     justify-content: space-between;
+    height: 97%;
 }
 
 .connections-column {
@@ -56,6 +57,9 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    background-color: #f9f9f9;
+    height: 100%;
+    border-radius: 10px;
 }
 
 .connection-item {
@@ -64,11 +68,13 @@
     padding: 10px;
     border-bottom: 1px solid #ccc;
     position: relative;
+    border-radius: 10px;
 }
 
 .connection-item:hover {
     cursor: pointer;
-    background-color: #f9f9f9;
+
+    background-color: rgba(202, 222, 253, 0.5);
 }
 
 .dark-mode .connection-item {
@@ -96,15 +102,6 @@
 
 .dark-mode .connection-name {
     color: #fff;
-}
-
-.connection-menu {
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.connection-item:hover .connection-menu {
-    opacity: 1;
 }
 
 .menu-button {

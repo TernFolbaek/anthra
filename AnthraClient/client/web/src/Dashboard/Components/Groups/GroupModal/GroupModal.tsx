@@ -81,7 +81,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                     className="group-name-input"
                 />
                 <h3 className="font-bold">Select Users to Invite</h3>
-                <ul className="connections-list">
+                <ul className="group-creation-connections-list">
                     {connections.map((user) => (
                         <li
                             key={user.id}

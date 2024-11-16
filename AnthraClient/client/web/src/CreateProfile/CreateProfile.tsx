@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+// CreateProfile.tsx
+
+import React, { useState } from 'react';
 import axios from 'axios';
 import './CreateProfile.css';
 import cbsCourses from './cbs/cbsCourses.json';
@@ -9,7 +11,8 @@ import sciencesCourses from './ku/sciencesCourses.json';
 import socialSciencesCourses from './ku/socialSciencesCourses.json';
 import healthAndMedicalCourses from './ku/healthAndMedicalCourses.json';
 import theologyCourses from './ku/theologyCourses.json';
-import { FaTimes, FaExternalLinkAlt } from 'react-icons/fa'; // Import icons
+import {FaTimes, FaExternalLinkAlt, FaPlusCircle} from 'react-icons/fa';
+import StepOne from './StepOne';
 
 interface CreateProfileProps {
     onProfileCreated: () => void;
@@ -27,25 +30,25 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
     // Form fields
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [age, setAge] = useState<number | ''>('');
     const [country, setCountry] = useState('');
     const [city, setCity] = useState('');
+    const [profilePictureFile, setProfilePictureFile] = useState<File | null>(null);
+
     const [work, setWork] = useState('');
     const [courses, setCourses] = useState<Course[]>([]);
     const [courseInput, setCourseInput] = useState('');
-    const [courseLinkInput, setCourseLinkInput] = useState(''); // New state for manual course link
+    const [courseLinkInput, setCourseLinkInput] = useState('');
     const [courseSuggestions, setCourseSuggestions] = useState<Course[]>([]);
     const [subjects, setSubjects] = useState<string[]>([]);
     const [aboutMe, setAboutMe] = useState('');
-    const [age, setAge] = useState<number | ''>('');
-    const [profilePictureUrl, setProfilePictureUrl] = useState('');
     const [message, setMessage] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const [institution, setInstitution] = useState<string>("");
+    const [institution, setInstitution] = useState<string>('');
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [isFacultyDropdownOpen, setIsFacultyDropdownOpen] = useState<boolean>(false);
-    const [profilePictureFile, setProfilePictureFile] = useState<File | null>(null); // New state for profile picture
-    const [faculty, setFaculty] = useState<string>("");
-    const institutions: string[] = ["CBS", "DTU", "KU"];
+    const [faculty, setFaculty] = useState<string>('');
+    const institutions: string[] = ['CBS', 'DTU', 'KU'];
     const faculties: string[] = ['Health & Medical', 'Humanities', 'Sciences', 'Theology', 'Social Sciences', 'Law'];
 
     const token = localStorage.getItem('token');
@@ -57,14 +60,6 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
     const socialSciencesCoursesArray: Course[] = socialSciencesCourses as Course[];
     const theologyCoursesArray: Course[] = theologyCourses as Course[];
     const healthAndMedicalCoursesArray: Course[] = healthAndMedicalCourses as Course[];
-
-    // New states for country and city autocomplete
-    const [countries, setCountries] = useState<string[]>([]);
-    const [countrySuggestions, setCountrySuggestions] = useState<string[]>([]);
-    const [cities, setCities] = useState<string[]>([]);
-    const [citySuggestions, setCitySuggestions] = useState<string[]>([]);
-    const countryInputRef = useRef<HTMLInputElement>(null);
-    const cityInputRef = useRef<HTMLInputElement>(null);
 
     const handleDropdownClick = () => {
         setIsOpen(!isOpen);
@@ -81,7 +76,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
 
     const handleFacultyDropdownClick = () => {
         setIsFacultyDropdownOpen(!isFacultyDropdownOpen);
-    }
+    };
 
     const handleFacultyOptionClick = (selectedFaculty: string) => {
         if (selectedFaculty !== faculty) {
@@ -89,106 +84,6 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
         }
         setFaculty(selectedFaculty);
         setIsFacultyDropdownOpen(false);
-    };
-
-    // File input ref for profile picture upload
-    const fileInputRef = useRef<HTMLInputElement>(null);
-
-    // Fetch countries on component mount
-    useEffect(() => {
-        axios.get('https://countriesnow.space/api/v0.1/countries/iso', {
-            withCredentials: false, // Ensure credentials are not sent
-        })
-            .then(response => {
-                const countryList = response.data.data.map((country: any) => country.name);
-                setCountries(countryList);
-            })
-            .catch(error => {
-                console.error('Error fetching countries:', error);
-            });
-    }, []);
-
-    useEffect(() => {
-        // Add event listener to detect clicks outside
-        const handleClickOutside = (event: MouseEvent) => {
-            if (
-                countryInputRef.current && !countryInputRef.current.contains(event.target as Node) &&
-                cityInputRef.current && !cityInputRef.current.contains(event.target as Node)
-            ) {
-                setCountrySuggestions([]);
-                setCitySuggestions([]);
-            }
-        };
-
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
-
-
-    // Handle country input change
-    const handleCountryInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setCountry(value);
-
-        if (value.trim() === '') {
-            setCountrySuggestions([]);
-            return;
-        }
-
-        const suggestions = countries.filter(countryName =>
-            countryName.toLowerCase().startsWith(value.toLowerCase())
-        ).slice(0, 5); // Limit to 5 suggestions
-
-        setCountrySuggestions(suggestions);
-
-    };
-
-
-    const handleCountrySelect = (countryName: string) => {
-        setCountry(countryName);
-        setCountrySuggestions([]);
-
-        // Fetch cities for the selected country
-        axios.post('https://countriesnow.space/api/v0.1/countries/cities', {
-            country: countryName
-        }, {
-            withCredentials: false, // Ensure credentials are not sent
-        })
-            .then(response => {
-                const cityList = response.data.data;
-                setCities(cityList);
-            })
-            .catch(error => {
-                console.error('Error fetching cities:', error);
-            });
-
-    };
-
-    // Handle city input change
-    const handleCityInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setCity(value);
-
-        if (value.trim() === '') {
-            setCitySuggestions([]);
-            return;
-        }
-
-        const suggestions = cities.filter(cityName =>
-            cityName.toLowerCase().startsWith(value.toLowerCase())
-        ).slice(0, 5); // Limit to 5 suggestions
-
-        setCitySuggestions(suggestions);
-
-        // Add this line
-    };
-
-
-    const handleCitySelect = (cityName: string) => {
-        setCity(cityName);
-        setCitySuggestions([]);
     };
 
     // Handle form submission
@@ -216,7 +111,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                 withCredentials: true,
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${token}`,
+                    Authorization: `Bearer ${token}`,
                 },
             });
             localStorage.setItem('fullName', `${firstName} ${lastName}`);
@@ -240,14 +135,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
     const handleNext = () => {
         if (step === 1) {
             // Basic validation for step 1 fields
-            if (
-                !firstName ||
-                !lastName ||
-                !age ||
-                !country ||
-                !city ||
-                !fileInputRef.current?.files?.[0]
-            ) {
+            if (!firstName || !lastName || !age || !country || !city || !profilePictureFile) {
                 setError('Please fill in all required fields.');
                 return;
             }
@@ -281,64 +169,48 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
 
         if (institution === 'CBS') {
             suggestions = cbsCoursesArray
-                .filter((course) =>
-                    course.courseName.toLowerCase().includes(value.toLowerCase())
-                )
+                .filter((course) => course.courseName.toLowerCase().includes(value.toLowerCase()))
                 .slice(0, 5); // Get top 5 suggestions
             setCourseSuggestions(suggestions);
         } else if (institution === 'DTU') {
             suggestions = dtuCoursesArray
-                .filter((course) =>
-                    course.courseName.toLowerCase().includes(value.toLowerCase())
-                )
+                .filter((course) => course.courseName.toLowerCase().includes(value.toLowerCase()))
                 .slice(0, 5); // Get top 5 suggestions
             setCourseSuggestions(suggestions);
         } else if (institution === 'KU') {
             if (faculty === 'Health & Medical') {
                 suggestions = healthAndMedicalCoursesArray
-                    .filter((course) =>
-                        course.courseName.toLowerCase().includes(value.toLowerCase())
-                    )
+                    .filter((course) => course.courseName.toLowerCase().includes(value.toLowerCase()))
                     .slice(0, 5); // Get top 5 suggestions
                 setCourseSuggestions(suggestions);
-            } else if (faculty === "Law") {
+            } else if (faculty === 'Law') {
                 suggestions = lawCoursesArray
-                    .filter((course) =>
-                        course.courseName.toLowerCase().includes(value.toLowerCase())
-                    )
+                    .filter((course) => course.courseName.toLowerCase().includes(value.toLowerCase()))
                     .slice(0, 5); // Get top 5 suggestions
                 setCourseSuggestions(suggestions);
-            } else if (faculty === "Sciences") {
+            } else if (faculty === 'Sciences') {
                 suggestions = sciencesCoursesArray
-                    .filter((course) =>
-                        course.courseName.toLowerCase().includes(value.toLowerCase())
-                    )
+                    .filter((course) => course.courseName.toLowerCase().includes(value.toLowerCase()))
                     .slice(0, 5); // Get top 5 suggestions
                 setCourseSuggestions(suggestions);
-            } else if (faculty === "Theology") {
+            } else if (faculty === 'Theology') {
                 suggestions = theologyCoursesArray
-                    .filter((course) =>
-                        course.courseName.toLowerCase().includes(value.toLowerCase())
-                    )
+                    .filter((course) => course.courseName.toLowerCase().includes(value.toLowerCase()))
                     .slice(0, 5); // Get top 5 suggestions
                 setCourseSuggestions(suggestions);
-            } else if (faculty === "Social Sciences") {
+            } else if (faculty === 'Social Sciences') {
                 suggestions = socialSciencesCoursesArray
-                    .filter((course) =>
-                        course.courseName.toLowerCase().includes(value.toLowerCase())
-                    )
+                    .filter((course) => course.courseName.toLowerCase().includes(value.toLowerCase()))
                     .slice(0, 5); // Get top 5 suggestions
                 setCourseSuggestions(suggestions);
-            } else if (faculty === "Humanities") {
+            } else if (faculty === 'Humanities') {
                 suggestions = humanitiesCoursesArray
-                    .filter((course) =>
-                        course.courseName.toLowerCase().includes(value.toLowerCase())
-                    )
+                    .filter((course) => course.courseName.toLowerCase().includes(value.toLowerCase()))
                     .slice(0, 5); // Get top 5 suggestions
                 setCourseSuggestions(suggestions);
             }
         } else {
-            suggestions = []
+            suggestions = [];
         }
         setCourseSuggestions(suggestions);
     };
@@ -369,18 +241,6 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
         setCourses(courses.filter((c) => c.courseName !== courseName));
     };
 
-    // Handle profile picture preview (optional)
-    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
-            const file = e.target.files[0];
-            setProfilePictureFile(file); // Save the selected file in state
-            setPreviewUrl(URL.createObjectURL(file)); // Optionally update preview URL
-        }
-    };
-
-
     return (
         <div className="create-profile-page">
             <div className="progress-bar">
@@ -396,105 +256,46 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                 {error && <p className="error-message">{error}</p>}
 
                 {step === 1 && (
-                    <div className="form-step">
-                        <input
-                            type="text"
-                            placeholder="First Name"
-                            required
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                        />
-                        <input
-                            type="text"
-                            placeholder="Last Name"
-                            required
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
-                        />
-                        <input
-                            type="number"
-                            placeholder="Age"
-                            required
-                            value={age === '' ? '' : age}
-                            onChange={(e) =>
-                                setAge(e.target.value === '' ? '' : parseInt(e.target.value))
-                            }
-                        />
-
-                        {/* Country Input */}
-                        <div className="autocomplete-container">
-                            <input
-                                type="text"
-                                placeholder="Country"
-                                required
-                                value={country}
-                                onChange={handleCountryInputChange}
-                            />
-                            {countrySuggestions.length > 0 && (
-                                <ul className="suggestions-list">
-                                    {countrySuggestions.map((countryName, index) => (
-                                        <li
-                                            className="suggestion-item"
-                                            key={index}
-                                            onClick={() => handleCountrySelect(countryName)}
-                                        >
-                                            {countryName}
-                                        </li>
-                                    ))}
-                                </ul>
-                            )}
-                        </div>
-
-                        {/* City Input */}
-                        <div className="autocomplete-container" ref={cityInputRef}>
-                            <input
-                                type="text"
-                                placeholder="City"
-                                required
-                                value={city}
-                                onChange={handleCityInputChange}
-                            />
-                            {citySuggestions.length > 0 && (
-                                <ul className="suggestions-list">
-                                    {citySuggestions.map((cityName, index) => (
-                                        <li
-                                            className="suggestion-item"
-                                            key={index}
-                                            onClick={() => handleCitySelect(cityName)}
-                                        >
-                                            {cityName}
-                                        </li>
-                                    ))}
-                                </ul>
-                            )}
-                        </div>
-
-                        <input
-                            type="file"
-                            accept="image/*"
-                            required
-                            ref={fileInputRef}
-                            onChange={handleFileChange}
-                            className="choose-pfp"
-                        />
-                        {previewUrl && (
-                            <img src={previewUrl} alt="Preview" className="image-preview" />
-                        )}
-                    </div>
+                    <StepOne
+                        firstName={firstName}
+                        setFirstName={setFirstName}
+                        lastName={lastName}
+                        setLastName={setLastName}
+                        age={age}
+                        setAge={setAge}
+                        country={country}
+                        setCountry={setCountry}
+                        city={city}
+                        setCity={setCity}
+                        profilePictureFile={profilePictureFile}
+                        setProfilePictureFile={setProfilePictureFile}
+                    />
                 )}
 
                 {step === 2 && (
                     <div className="form-step">
-                        <textarea
-                            placeholder="About Me"
-                            value={aboutMe}
-                            onChange={(e) => setAboutMe(e.target.value)}
-                        />
+                        <label htmlFor="aboutMe" className="input-label">
+                            About Me
+                        </label>
+                        <div className="textarea-with-counter">
+                            <div className="char-counter">{aboutMe.length}/250</div>
+                            <textarea
+                                id="aboutMe"
+                                placeholder="About Me"
+                                maxLength={250}
+                                value={aboutMe}
+                                onChange={(e) => setAboutMe(e.target.value)}
+                            />
+                        </div>
 
                         <div className="flex">
-                            <div className="custom-dropdown flex items-center">
-                                <div className="create-profile-dropdown-header mr-5" onClick={handleDropdownClick}>
-                                    {institution ? institution : "Select Institution"}
+                            <div className="custom-dropdown flex items-center gap-x-2">
+                                <label className="input-label">Institution</label>
+                                <div
+                                    className="create-profile-dropdown-header mr-5"
+                                    onClick={handleDropdownClick}
+                                >
+                                    {institution ? institution : 'Select Institution'}
                                     <span className="dropdown-arrow">▼</span>
                                 </div>
                                 {isOpen && (
@@ -513,9 +314,12 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                             </div>
                             {institution === 'KU' && (
                                 <div className="custom-dropdown flex items-center gap-x-2">
-                                    <div className="create-profile-dropdown-header"
-                                         onClick={handleFacultyDropdownClick}>
-                                        {faculty ? faculty : "Select Faculty"}
+                                    <label className="input-label">Faculty</label>
+                                    <div
+                                        className="create-profile-dropdown-header"
+                                        onClick={handleFacultyDropdownClick}
+                                    >
+                                        {faculty ? faculty : 'Select Faculty'}
                                         <span className="dropdown-arrow">▼</span>
                                     </div>
                                     {isFacultyDropdownOpen && (
@@ -536,25 +340,36 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                         </div>
 
                         {/* Course input */}
+                        <label htmlFor="courseInput" className="input-label">
+                            Courses
+                        </label>
                         <div className="course-input-container">
-                            <input
-                                type="text"
-                                placeholder="Add Course"
-                                value={courseInput}
-                                onChange={handleCourseInputChange}
-                                className="course-input"
-                            />
-                            <button type="button" onClick={handleAddCourse} className="course-add-button">
-                                Add
-                            </button>
-                            {courseSuggestions.length > 0 && (
-                                <ul className="suggestions-list">
-                                    {courseSuggestions.map((course, index) => (
-                                        <li
-                                            className="suggestion-item"
-                                            key={index}
-                                            onClick={() => handleCourseSelect(course)}
-                                        >
+                            <div className="flex items-center gap-1">
+                                <input
+                                    id="courseInput"
+                                    type="text"
+                                    placeholder="Add Course"
+                                    value={courseInput}
+                                    onChange={handleCourseInputChange}
+                                    className="course-input"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={handleAddCourse}
+                                    className="course-add-button"
+                                >
+                                    <FaPlusCircle/>
+                                </button>
+                            </div>
+
+                        {courseSuggestions.length > 0 && (
+                            <ul className="suggestions-list">
+                                {courseSuggestions.map((course, index) => (
+                                    <li
+                                        className="suggestion-item"
+                                        key={index}
+                                        onClick={() => handleCourseSelect(course)}
+                                    >
                                             {course.courseName}
                                         </li>
                                     ))}
@@ -577,19 +392,23 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                             <div className="selected-courses">
                                 {courses.map((course, index) => (
                                     <span key={index} className="course-tag">
-                                        <a
-                                            href={
-                                                course.courseLink.startsWith('http')
-                                                    ? course.courseLink
-                                                    : `${course.courseLink}`
-                                            }
-                                            className="course-link"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            {course.courseName}
-                                            <FaExternalLinkAlt className="external-link-icon" />
-                                        </a>
+                                        {course.courseLink ? (
+                                            <a
+                                                href={
+                                                    course.courseLink.startsWith('http')
+                                                        ? course.courseLink
+                                                        : `https://${course.courseLink}`
+                                                }
+                                                className="course-link"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                {course.courseName}
+                                                <FaExternalLinkAlt className="external-link-icon"/>
+                                            </a>
+                                        ) : (
+                                            <span>{course.courseName}</span>
+                                        )}
                                         <button
                                             type="button"
                                             onClick={() => handleRemoveCourse(course.courseName)}
@@ -603,7 +422,11 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                         )}
 
                         {/* Subjects input */}
+                        <label htmlFor="subjects" className="input-label">
+                            Subjects
+                        </label>
                         <input
+                            id="subjects"
                             type="text"
                             placeholder="Subjects (comma-separated)"
                             value={subjects.join(', ')}
@@ -611,7 +434,12 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                                 setSubjects(e.target.value.split(',').map((s) => s.trim()))
                             }
                         />
+
+                        <label htmlFor="work" className="input-label">
+                            Work
+                        </label>
                         <input
+                            id="work"
                             type="text"
                             placeholder="Work"
                             value={work}
@@ -622,11 +450,11 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
 
                 <div className="button-container">
                     {step > 1 && (
-                        <button type="button" className="back-button" onClick={handleBack}>
+                        <button type="button" className="create-profile-back-button" onClick={handleBack}>
                             Back
                         </button>
                     )}
-                    <button type="button" className="next-button" onClick={handleNext}>
+                    <button type="button" className="create-profile-next-button" onClick={handleNext}>
                         {step === 2 ? 'Submit' : 'Next'}
                     </button>
                 </div>

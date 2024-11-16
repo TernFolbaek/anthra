@@ -1,6 +1,23 @@
 /* Requests.css */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
 
+.requests-page {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    flex: 1;
+}
+
+.requests-container {
+    background-color: white;
+    border-radius: 10px;
+    width: 100%;
+    padding: 20px;
+    margin: 15px;
+    font-family: 'Montserrat', sans-serif;
+    overflow: auto;
+}
 
 
 .user-card {

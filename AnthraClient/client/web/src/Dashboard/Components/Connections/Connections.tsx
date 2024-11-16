@@ -11,7 +11,7 @@ interface ApplicationUser {
 }
 
 interface Conversation {
-    UserId: string;
+    userId: string;
     FirstName: string;
     UserProfilePicture: string;
     LastMessageContent: string;
@@ -44,17 +44,23 @@ const Connections: React.FC = () => {
                 const connectedUsers: ApplicationUser[] = connectionsResponse.data;
                 const conversationData: Conversation[] = conversationsResponse.data;
 
+                console.log('Connected Users:', connectedUsers);
+                console.log('Conversation Data:', conversationData);
+
+                // Compare IDs correctly (case-sensitive and exact match)
                 const usersWithConversations = connectedUsers.filter(user =>
-                    conversationData.some(conversation => conversation.UserId === user.id)
+                    conversationData.some(conversation => conversation.userId === user.id)
                 );
 
                 const usersWithoutConversations = connectedUsers.filter(user =>
-                    !conversationData.some(conversation => conversation.UserId === user.id)
+                    !conversationData.some(conversation => conversation.userId === user.id)
                 );
 
-                setUsersWithConversations(usersWithConversations);
-                setUsersWithoutConversations(usersWithoutConversations)
+                console.log('Users With Conversations:', usersWithConversations);
+                console.log('Users Without Conversations:', usersWithoutConversations);
 
+                setUsersWithConversations(usersWithConversations);
+                setUsersWithoutConversations(usersWithoutConversations);
 
                 setLoading(false);
             } catch (err) {
@@ -66,6 +72,7 @@ const Connections: React.FC = () => {
 
         fetchData();
     }, [userId]);
+
 
     if (loading) {
         return <div className="connections-loading">Loading connections...</div>;
@@ -79,14 +86,15 @@ const Connections: React.FC = () => {
         <div className="connections-page">
             <div className="connections-container">
                 {usersWithConversations.length === 0 && usersWithoutConversations.length === 0 ? (
-                    <p>You have no connections.</p>
+                        <p>You have no connections.</p>
                 ) : (
                     <div className="connections-columns">
-                        {/* Left Column: Already Messaged Users */}
                         <div className="connections-column">
-                            <h2 className="connections-title">Already Messaged</h2>
+                            <h2 className="connections-title">Ongoing Conversations</h2>
                             {usersWithConversations.length === 0 ? (
-                                <p>No conversations yet.</p>
+                                <div className="connections-list">
+                                    <p className="p-2 text-center">No conversations yet.</p>
+                                </div>
                             ) : (
                                 <ul className="connections-list">
                                     {usersWithConversations.map((user) => (
@@ -114,10 +122,11 @@ const Connections: React.FC = () => {
                         <div className="connections-column">
                             <h2 className="connections-title">New Connections</h2>
                             {usersWithoutConversations.length === 0 ? (
-                                <p>No new connections.</p>
-                            ) : (
+                                <div className="connections-list">
+                                    <p className="p-2 text-center">No new connections</p>
+                                </div>) : (
                                 <ul className="connections-list">
-                                    {usersWithoutConversations.map((user) => (
+                                {usersWithoutConversations.map((user) => (
                                         <li key={user.id} className="connection-item">
                                             <div className="connection-info">
                                                 <img

@@ -80,7 +80,6 @@ const Messages: React.FC = () => {
                         }
                     );
                     if (response.ok) {
-                        console.log(response.body);
                         const latestConversation = await response.json();
                         navigate(`/messages/${latestConversation.userId}`);
                     } else if (response.status === 404) {
@@ -285,7 +284,7 @@ const Messages: React.FC = () => {
                         </div>
                         <div className="menu-container" ref={dropdownRef}>
 
-                            <div className="menu-icon" onClick={(event) => {
+                            <div className="messages-menu-icon" onClick={(event) => {
                                 event.stopPropagation();
                                 toggleMenu();
                             }}>
@@ -310,7 +309,7 @@ const Messages: React.FC = () => {
                     ) : (
                         <>
                             {messages.length === 0 ? (
-                                <p>No messages</p>
+                                <></>
                             ) : (
                                 messages.map((msg, index) => {
                                     const isLastMessage = index === messages.length - 1;

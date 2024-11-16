@@ -42,7 +42,7 @@
 
 .contact-header:hover {
   cursor: pointer;
-  background-color: #e3e2e2;
+  background-color: #ebf3fd;
 }
 
 
@@ -63,8 +63,26 @@
   font-weight: bold;
 }
 
-.menu-icon {
+.messages-menu-icon {
   position: relative;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.messages-menu-icon:hover {
+  background-color: #85bff8;
+  cursor: pointer;
+}
+.back-arrow {
+  cursor: pointer;
+  padding: 5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+.back-arrow:hover{
+  background-color: #85bff8;
   cursor: pointer;
 }
 

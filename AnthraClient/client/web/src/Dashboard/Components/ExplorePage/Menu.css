@@ -14,7 +14,7 @@
     border: 3px solid #e1e4fb;
     border-radius: 12px;
     overflow: hidden;
-    width: 500px;
+    width: 350px;
 }
 
 .menu-slider {
@@ -32,8 +32,7 @@
     transform: translateX(100%);
 }
 
-.menu-button {
-    font-size: 20px;
+.explore-menu-button {
     background: none;
     border: none;
     color: #333;
@@ -50,11 +49,11 @@
 }
 
 
-.menu-button.active {
+.explore-menu-button.active {
     color: #3366cc;
 }
 
-.menu-button:not(.active) {
+.explore-menu-button:not(.active) {
     color: #333;
 }
 

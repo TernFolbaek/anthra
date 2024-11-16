@@ -11,7 +11,6 @@ export default function Simple() {
         // We can pass the call back to the `useRive` hook
         onStateChange: (event) => {
             // @ts-ignore
-            console.log(event.data[0]);
         }
     });
 

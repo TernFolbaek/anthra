@@ -19,52 +19,66 @@ const Sidebar: React.FC = () => {
             <div>
                 <NavLink
                     to="/explore"
-                    className={({ isActive }) => `sidebar-link ${isActive ? 'active-link' : ''}`}
-                    data-title="Explore"
+                    className={({isActive}) => `sidebar-link ${isActive ? 'active-link' : ''}`}
                 >
-                    <FaSearch className="sidebar-icon" />
+                    <div className="tooltip-container">
+                        <FaSearch className="sidebar-icon"/>
+                        <span className="tooltip">Explore</span>
+                    </div>
                 </NavLink>
                 <NavLink
                     to="/messages"
-                    className={({ isActive }) => `sidebar-link ${isActive ? 'active-link' : ''}`}
-                    data-title="Messages"
+                    className={({isActive}) => `sidebar-link ${isActive ? 'active-link' : ''}`}
                 >
-                    <FaFacebookMessenger className="sidebar-icon" />
+                    <div className="tooltip-container">
+                        <FaFacebookMessenger className="sidebar-icon"/>
+                        <span className="tooltip">Messages</span>
+                    </div>
                 </NavLink>
                 <NavLink
                     to="/connections"
-                    className={({ isActive }) => `sidebar-link ${isActive ? 'active-link' : ''}`}
-                    data-title="Connections"
+                    className={({isActive}) => `sidebar-link ${isActive ? 'active-link' : ''}`}
                 >
-                    <FaUserFriends className="sidebar-icon" />
+                    <div className="tooltip-container">
+                        <FaUserFriends className="sidebar-icon"/>
+                        <span className="tooltip">Connections</span>
+                    </div>
                 </NavLink>
                 <NavLink
                     to="/groups"
-                    className={({ isActive }) => `sidebar-link ${isActive ? 'active-link' : ''}`}
-                    data-title="Groups"
+                    className={({isActive}) => `sidebar-link ${isActive ? 'active-link' : ''}`}
                 >
-                    <FaUsers className="sidebar-icon" />
+                    <div className="tooltip-container">
+                        <FaUsers className="sidebar-icon"/>
+                        <span className="tooltip">Groups</span>
+                    </div>
                 </NavLink>
                 <NavLink
                     to="/facilities"
-                    className={({ isActive }) => `sidebar-link ${isActive ? 'active-link' : ''}`}
-                    data-title="Facilities"
+                    className={({isActive}) => `sidebar-link ${isActive ? 'active-link' : ''}`}
                 >
-                    <FaBuilding className="sidebar-icon" />
+                    <div className="tooltip-container">
+                        <FaBuilding className="sidebar-icon"/>
+                        <span className="tooltip">Facilities</span>
+                    </div>
                 </NavLink>
                 <NavLink
                     to="/requests"
-                    className={({ isActive }) => `sidebar-link ${isActive ? 'active-link' : ''}`}
-                    data-title="Requests"
+                    className={({isActive}) => `sidebar-link ${isActive ? 'active-link' : ''}`}
                 >
-                    <FaHandHoldingHeart className="sidebar-icon" />
+                    <div className="tooltip-container">
+                        <FaHandHoldingHeart className="sidebar-icon"/>
+                        <span className="tooltip">Requests</span>
+                    </div>
                 </NavLink>
                 <NavLink
                     to="/settings"
-                    className={({ isActive }) => `sidebar-link ${isActive ? 'active-link' : ''}`}
-                    data-title="Settings"
+                    className={({isActive}) => `sidebar-link ${isActive ? 'active-link' : ''}`}
                 >
-                    <FaCog className="sidebar-icon" />
+                    <div className="tooltip-container">
+                        <FaCog className="sidebar-icon"/>
+                        <span className="tooltip">Settings</span>
+                    </div>
                 </NavLink>
             </div>
             <div className="flex flex-col items-center gap-2">

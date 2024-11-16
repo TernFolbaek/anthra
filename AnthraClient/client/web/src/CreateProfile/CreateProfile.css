@@ -72,23 +72,30 @@
 .form-step {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
 }
 
 .form-step label {
     text-align: left;
     margin-bottom: 0.5rem;
-    font-weight: 500;
+    font-weight: bold;
+    color: #535252;
+    font-size: 0.9rem;
+}
+
+.dark-mode .form-step label {
+    color: lightgrey;
 }
 
 .form-step input,
 .form-step textarea {
-    margin-bottom: 1rem;
     padding: 0.75rem;
     background-color: #f0f0f0;
     border: 1px solid #ccc;
     color: #333;
     border-radius: 8px;
     font-size: 1rem;
+    width: 100%;
 }
 
 .dark-mode .form-step input,
@@ -119,8 +126,8 @@
     margin-top: 1rem;
 }
 
-.back-button-profile,
-.next-button {
+.create-profile-back-button,
+.create-profile-next-button {
     background-color: transparent;
     border: 2px solid #007bff;
     color: #007bff;
@@ -132,20 +139,20 @@
     border-radius: 8px;
 }
 
-.dark-mode .back-button-profile,
-.dark-mode .next-button {
+.dark-mode .create-profile-back-button,
+.dark-mode .create-profile-next-button {
     border-color: #66b2ff;
     color: #66b2ff;
 }
 
-.back-button-profile:hover,
-.next-button:hover {
+.create-profile-back-button:hover,
+.create-profile-next-button:hover {
     background-color: #007bff;
     color: #fff;
 }
 
-.dark-mode .back-button-profile:hover,
-.dark-mode .next-button:hover {
+.dark-mode .create-profile-back-button:hover,
+.dark-mode .create-profile-next-button:hover {
     background-color: #66b2ff;
     color: #fff;
 }
@@ -159,6 +166,37 @@
     margin-bottom: 1rem;
 }
 
+/* Autocomplete Input with Label */
+.autocomplete-input-with-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.autocomplete-input-with-label .input-label {
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+    width: 80px;
+}
+
+.autocomplete-input-with-label input {
+    flex-grow: 1;
+}
+
+/* Character Counter */
+.textarea-with-counter {
+    position: relative;
+}
+
+.char-counter {
+    position: absolute;
+    top: -20px;
+    right: 0;
+    font-size: 0.9rem;
+    color: grey;
+}
+
+/* Custom Dropdown */
 .custom-dropdown {
     display: flex;
     justify-content: center;
@@ -223,19 +261,19 @@
     background-color: #f0f0f0;
 }
 
-.dark-mode .dropdown-item:hover {
+.dark-mode .uni-dropdown-item:hover {
     background-color: #2c2c2c;
 }
 
-.dropdown-item:last-child {
+.uni-dropdown-item:last-child {
     border-bottom: none;
 }
 
 .choose-pfp {
     background-color: rgb(235, 243, 253);
-    color: #fff;
+    color: #333;
     padding: 0.75rem 1.5rem;
-    border: none;
+    border: 1px solid #ccc;
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
@@ -249,33 +287,13 @@
 
 .dark-mode .choose-pfp {
     background-color: #66b2ff;
+    color: #fff;
 }
 
 .dark-mode .choose-pfp:hover {
     background-color: #3399ff;
 }
 
-/* Course Input Container */
-.institution-select {
-    color: #333;
-    height: 40px;
-    font-size: 1rem;
-    padding: 0.5rem;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-}
-
-.dark-mode .institution-select {
-    background-color: #333;
-    border-color: #555;
-    color: #fff;
-}
-
-.course-input-container {
-    margin-top: 1rem;
-    position: relative;
-}
 
 .course-input {
     width: calc(100% - 60px);
@@ -283,18 +301,18 @@
 }
 
 .course-add-button {
-    width: 50px;
-    margin-left: 10px;
-    padding: 0.75rem 0.75rem 0.75rem 0.55rem;
     background-color: #007bff;
     color: #fff;
+    border-radius: 5px;
     border: none;
-    border-radius: 8px;
     cursor: pointer;
+    padding: 0.5rem;
+    transition: transform 0.8s;
 }
 
 .course-add-button:hover {
     background-color: #0056b3;
+    transform: scale(1.15);
 }
 
 .dark-mode .course-add-button {
@@ -314,7 +332,7 @@
     background-color: #ffffff;
     border: 1px solid #ccc;
     overflow-y: auto;
-    width: 50%;
+    width: 100%;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -328,7 +346,7 @@
 }
 
 .suggestion-item {
-    padding: 5px;
+    padding: 10px;
     cursor: pointer;
     color: #333;
 }
@@ -374,43 +392,19 @@
     cursor: pointer;
     font-weight: bold;
 }
-.suggestions-list {
-    position: absolute;
-    background: white;
-    border: 1px solid #ccc;
-    max-height: 150px;
-    overflow-y: auto;
-    width: 100%;
-    z-index: 5;
-}
-
 
 .course-tag button:hover {
     color: #ff0000;
 }
-/* Styles for the autocomplete container */
+
+/* Autocomplete Container */
 .autocomplete-container {
     position: relative;
-    height: 50px;
 }
 
-/* Styles for the suggestions list */
-.suggestions-list {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    max-height: 150px;
-    overflow-y: auto;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    z-index: 5;
-    border-radius: 0;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+.autocomplete-container input {
+    width: 100%;
 }
-
 
 .course-link {
     display: flex;

@@ -1,7 +1,6 @@
-// Components/MessagesLayout/MessagesLayout.tsx
 import React, { useState, useEffect } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
-import CurrentConversations from '../CurrentConversations/CurrentConversations';
+import CurrentConversations from '../../Components/CurrentConversations/CurrentConversations';
 
 const MessagesLayout: React.FC = () => {
     const { userId } = useParams<{ userId?: string }>();

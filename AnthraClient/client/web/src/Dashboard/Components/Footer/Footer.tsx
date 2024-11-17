@@ -65,9 +65,6 @@ const Footer: React.FC = () => {
                         <NavLink to="/groups" onClick={closeMenu}>
                             Groups
                         </NavLink>
-                        <NavLink to="/facilities" onClick={closeMenu}>
-                            Facilities
-                        </NavLink>
                     </div>
                 </div>
             )}

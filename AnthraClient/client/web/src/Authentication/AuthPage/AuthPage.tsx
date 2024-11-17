@@ -109,6 +109,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                 }
             );
             const userProfile = profileResponse.data;
+            localStorage.setItem('userProfilePicture', `http://localhost:5001${profileResponse.data.profilePictureUrl}`);
             triggerSuccess();
             onAuthSuccess(userProfile.createdProfile);
         } catch (err: any) {

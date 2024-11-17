@@ -30,7 +30,7 @@ const ProfileSettings: React.FC = () => {
     };
 
     const handleLogout = () => {
-        localStorage.removeItem('token');
+        localStorage.clear()
         window.location.reload();
     };
 

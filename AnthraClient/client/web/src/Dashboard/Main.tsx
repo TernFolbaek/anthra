@@ -36,10 +36,9 @@ const Dashboard: React.FC = () => {
                                 <Route path="/requests" element={<Requests />} />
                                 <Route path="/" element={<ExplorePage />} />
                                 <Route path="/explore" element={<ExplorePage />} />
+                                <Route path="/settings" element={<Settings />} />
                             </Route>
                             <Route path="/profile" element={<Profile />} />
-                            <Route path="/settings" element={<Settings />} />
-
                         </Routes>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 // Components/GroupsList/GroupsList.tsx
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {FaPlusCircle} from "react-icons/fa";
-
+import NoGroups from '../../../Helpers/Animations/NoGroups'
 import CardContainer from '../../CardContainer/CardContainer';
 import './GroupsList.css';
 
@@ -25,7 +25,7 @@ interface GroupsListProps {
     selectedGroupId: number | null;
 }
 
-const GroupsList: React.FC<GroupsListProps> = ({ groups, onGroupClick, onCreateGroup, selectedGroupId }) => {
+const GroupsList: React.FC<GroupsListProps> = ({groups, onGroupClick, onCreateGroup, selectedGroupId}) => {
     const [openMenuGroupId, setOpenMenuGroupId] = useState<number | null>(null);
 
     const handleGroupClick = (groupId: number) => {
@@ -51,39 +51,42 @@ const GroupsList: React.FC<GroupsListProps> = ({ groups, onGroupClick, onCreateG
                     <FaPlusCircle/> Create Group
                 </div>
             </button>
-            {groups.map((group) => (
-                <div
-                    className={`group-card ${selectedGroupId === group.id ? 'group-card-selected' : ''}`}
-                    key={group.id}
-                    onClick={() => handleGroupClick(group.id)}
-                >
-                    <div className="group-name">{group.name}</div>
-                    <div className="group-options">
-                        <button
-                            className="group-options-button"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                setOpenMenuGroupId(openMenuGroupId === group.id ? null : group.id);
-                            }}
-                        >
-                            ⋯
-                        </button>
-                        {openMenuGroupId === group.id && (
-                            <div
-                                className="group-options-menu"
-                                onClick={(e) => e.stopPropagation()}
+            {groups.length === 0 ? (
+                <NoGroups/>
+            ) : (
+                groups.map((group) => (
+                    <div
+                        className={`group-card ${selectedGroupId === group.id ? 'group-card-selected' : ''}`}
+                        key={group.id}
+                        onClick={() => handleGroupClick(group.id)}
+                    >
+                        <div className="group-name">{group.name}</div>
+                        <div className="group-options">
+                            <button
+                                className="group-options-button"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setOpenMenuGroupId(openMenuGroupId === group.id ? null : group.id);
+                                }}
                             >
-                                <button onClick={() => handleLeaveGroup(group.id)}>
-                                    Leave Group
-                                </button>
-                                <button onClick={() => handleGroupOversight(group.id)}>
-                                    Group Oversight
-                                </button>
-                            </div>
-                        )}
+                                ⋯
+                            </button>
+                            {openMenuGroupId === group.id && (
+                                <div
+                                    className="group-options-menu"
+                                    onClick={(e) => e.stopPropagation()}
+                                >
+                                    <button onClick={() => handleLeaveGroup(group.id)}>
+                                        Leave Group
+                                    </button>
+                                    <button onClick={() => handleGroupOversight(group.id)}>
+                                        Group Oversight
+                                    </button>
+                                </div>
+                            )}
+                        </div>
                     </div>
-                </div>
-            ))}
+                )))}
         </CardContainer>
     );
 };

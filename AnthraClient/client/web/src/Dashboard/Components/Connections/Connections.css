@@ -16,7 +16,6 @@
     padding: 20px;
     margin: 15px;
     font-family: 'Montserrat', sans-serif;
-    overflow: auto;
 }
 
 .dark-mode .connections-container {
@@ -71,6 +70,30 @@
     border-radius: 10px;
 }
 
+.no-connections-container{
+    flex-direction: column;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.no-conversations-rive{
+    width: 250px;
+    height: 250px;
+    position: relative;
+    z-index: 1;
+    border-radius: 10px;
+}
+
+.no-connections-rive{
+    width: 400px;
+    height: 400px;
+    position: relative;
+    z-index: 1;
+    border-radius: 10px;
+}
+
 .connection-item:hover {
     cursor: pointer;
 
@@ -96,7 +119,7 @@
 
 .connection-name {
     margin-left: 15px;
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 600;
 }
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Connections.css';
 import { useNavigate } from 'react-router-dom';
+import NoConnectionsRive from "../../Helpers/Animations/NoConnections";
 
 interface ApplicationUser {
     id: string;
@@ -18,7 +19,6 @@ interface Conversation {
     LastMessageTimestamp: string;
     LastMessageSenderId: string;
 }
-
 const Connections: React.FC = () => {
     const [usersWithConversations, setUsersWithConversations] = useState<ApplicationUser[]>([]);
     const [usersWithoutConversations, setUsersWithoutConversations] = useState<ApplicationUser[]>([]);
@@ -27,6 +27,7 @@ const Connections: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
     const userId = localStorage.getItem('userId');
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -86,7 +87,7 @@ const Connections: React.FC = () => {
         <div className="connections-page">
             <div className="connections-container">
                 {usersWithConversations.length === 0 && usersWithoutConversations.length === 0 ? (
-                        <p>You have no connections.</p>
+                    <NoConnectionsRive />
                 ) : (
                     <div className="connections-columns">
                         <div className="connections-column">
@@ -123,7 +124,7 @@ const Connections: React.FC = () => {
                             <h2 className="connections-title">New Connections</h2>
                             {usersWithoutConversations.length === 0 ? (
                                 <div className="connections-list">
-                                    <p className="p-2 text-center">No new connections</p>
+                                    <NoConnectionsRive/>
                                 </div>) : (
                                 <ul className="connections-list">
                                 {usersWithoutConversations.map((user) => (

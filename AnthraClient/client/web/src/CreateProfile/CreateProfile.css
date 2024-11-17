@@ -77,7 +77,6 @@
 
 .form-step label {
     text-align: left;
-    margin-bottom: 0.5rem;
     font-weight: bold;
     color: #535252;
     font-size: 0.9rem;
@@ -278,6 +277,7 @@
     cursor: pointer;
     font-weight: 600;
     transition: background-color 0.3s;
+    margin-top: 1rem;
 }
 
 .choose-pfp:hover {
@@ -293,6 +293,10 @@
     background-color: #3399ff;
 }
 
+/* Course Input Container */
+.course-input-container {
+    position: relative;
+}
 
 .course-input {
     width: calc(100% - 60px);
@@ -300,18 +304,20 @@
 }
 
 .course-add-button {
-    background-color: #007bff;
+    background-color: #85bff8;
+    flex: 1;
     color: #fff;
-    border-radius: 5px;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
-    padding: 0.5rem;
+    padding: 0.4rem;
     transition: transform 0.8s;
+
 }
 
 .course-add-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.15);
+    background-color: #439ef6;
+    transform: scale(1.1);
 }
 
 .dark-mode .course-add-button {
@@ -337,6 +343,7 @@
     list-style: none;
     max-height: 200px;
     border-radius: 8px;
+    scrollbar-color: #e4e4e4 transparent;
 }
 
 .dark-mode .suggestions-list {
@@ -437,3 +444,5 @@
 .remove-course-button:hover {
     color: #ff0000;
 }
+
+

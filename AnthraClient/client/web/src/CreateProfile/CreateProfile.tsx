@@ -1,6 +1,6 @@
 // CreateProfile.tsx
 
-import React, { useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import axios from 'axios';
 import './CreateProfile.css';
 import cbsCourses from './cbs/cbsCourses.json';
@@ -23,7 +23,7 @@ interface Course {
     courseLink: string;
 }
 
-const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
+const CreateProfile: React.FC<CreateProfileProps> = ({onProfileCreated}) => {
     // Step management
     const [step, setStep] = useState(1);
 
@@ -41,6 +41,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
     const [courseLinkInput, setCourseLinkInput] = useState('');
     const [courseSuggestions, setCourseSuggestions] = useState<Course[]>([]);
     const [subjects, setSubjects] = useState<string[]>([]);
+    const [subjectInput, setSubjectInput] = useState(''); // New state for subject input
     const [aboutMe, setAboutMe] = useState('');
     const [message, setMessage] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -50,7 +51,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
     const [faculty, setFaculty] = useState<string>('');
     const institutions: string[] = ['CBS', 'DTU', 'KU'];
     const faculties: string[] = ['Health & Medical', 'Humanities', 'Sciences', 'Theology', 'Social Sciences', 'Law'];
-
+    const courseSuggestionRef = useRef<HTMLDivElement>(null);
     const token = localStorage.getItem('token');
     const cbsCoursesArray: Course[] = cbsCourses as Course[];
     const dtuCoursesArray: Course[] = dtuCourses as Course[];
@@ -88,6 +89,15 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
 
     // Handle form submission
     const handleSubmit = async () => {
+        if (courses.length < 2) {
+            setError('Please add at least 2 courses.');
+            return;
+        }
+        if (subjects.length === 0) {
+            setError('Please add at least one subject.');
+            return;
+        }
+
         const formData = new FormData();
         formData.append('FirstName', firstName);
         formData.append('LastName', lastName);
@@ -100,14 +110,14 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
         subjects.forEach((subject) => formData.append('Subjects', subject));
 
         if (profilePictureFile) {
-            formData.append('ProfilePicture', profilePictureFile); // Append the profile picture from state
+            formData.append('ProfilePicture', profilePictureFile);
         } else {
             setError('Profile picture is required.');
             return;
         }
 
         try {
-            await axios.post('http://localhost:5001/api/Profile/UpdateProfile', formData, {
+            const response = await axios.post('http://localhost:5001/api/Profile/UpdateProfile', formData, {
                 withCredentials: true,
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -115,6 +125,8 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                 },
             });
             localStorage.setItem('fullName', `${firstName} ${lastName}`);
+            localStorage.setItem('userProfilePicture', response.data.profilePictureUrl)
+            console.log(response)
             onProfileCreated();
         } catch (err: any) {
             if (err.response && err.response.data) {
@@ -150,6 +162,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
     const handleBack = () => {
         if (step > 1) {
             setStep(step - 1);
+            setError(null); // Clear error when going back
         }
     };
 
@@ -216,29 +229,87 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
     };
 
     const handleCourseSelect = (course: Course) => {
+        if (courses.length >= 4) {
+            setError('You can only add up to 4 courses.');
+            return;
+        }
         if (!courses.some((c) => c.courseName === course.courseName)) {
             setCourses([...courses, course]);
+            setError(null); // Clear error
         }
         setCourseInput('');
         setCourseSuggestions([]);
     };
 
     const handleAddCourse = () => {
+        if (courses.length >= 4) {
+            setError('You can only add up to 4 courses.');
+            return;
+        }
         if (courseInput && !courses.some((c) => c.courseName === courseInput)) {
             const newCourse: Course = {
                 courseName: courseInput,
                 courseLink: courseLinkInput || '',
             };
             setCourses([...courses, newCourse]);
+            setError(null); // Clear error
             setCourseInput('');
             setCourseLinkInput('');
             setCourseSuggestions([]);
         }
     };
 
+    useEffect(() => {
+        // Add event listener to detect clicks outside
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                courseSuggestionRef.current &&
+                !courseSuggestionRef.current.contains(event.target as Node)
+            ) {
+                setCourseSuggestions([]);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     // Handle removing a course
     const handleRemoveCourse = (courseName: string) => {
         setCourses(courses.filter((c) => c.courseName !== courseName));
+        setError(null); // Clear error
+    };
+
+    // Handle adding a subject
+    const handleAddSubject = () => {
+        const trimmedInput = subjectInput.trim();
+        if (trimmedInput === '') {
+            setError('Subject cannot be empty.');
+            return;
+        }
+        if (trimmedInput.length > 15) {
+            setError('Subject cannot be longer than 15 characters.');
+            return;
+        }
+        if (subjects.length >= 5) {
+            setError('You can only add up to 5 subjects.');
+            return;
+        }
+        if (subjects.includes(trimmedInput)) {
+            setError('This subject has already been added.');
+            return;
+        }
+        setSubjects([...subjects, trimmedInput]);
+        setSubjectInput('');
+        setError(null); // Clear any subject-related errors
+    };
+
+    // Handle removing a subject
+    const handleRemoveSubject = (subjectToRemove: string) => {
+        setSubjects(subjects.filter((subject) => subject !== subjectToRemove));
+        setError(null); // Clear any subject-related errors
     };
 
     return (
@@ -246,7 +317,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
             <div className="progress-bar">
                 <div
                     className="progress-bar-fill"
-                    style={{ width: `${progressPercentage}%` }}
+                    style={{width: `${progressPercentage}%`}}
                 ></div>
             </div>
             <div className="create-profile-container">
@@ -341,10 +412,10 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
 
                         {/* Course input */}
                         <label htmlFor="courseInput" className="input-label">
-                            Courses
+                            Courses <span className="counter">({courses.length}/4)</span>
                         </label>
                         <div className="course-input-container">
-                            <div className="flex items-center gap-1">
+                            <div className="flex items-center gap-1 mb-2">
                                 <input
                                     id="courseInput"
                                     type="text"
@@ -352,28 +423,30 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                                     value={courseInput}
                                     onChange={handleCourseInputChange}
                                     className="course-input"
+                                    disabled={courses.length >= 4}
                                 />
                                 <button
                                     type="button"
                                     onClick={handleAddCourse}
                                     className="course-add-button"
+                                    disabled={courses.length >= 4}
                                 >
                                     <FaPlusCircle/>
                                 </button>
                             </div>
 
-                        {courseSuggestions.length > 0 && (
-                            <ul className="suggestions-list">
-                                {courseSuggestions.map((course, index) => (
-                                    <li
-                                        className="suggestion-item"
-                                        key={index}
-                                        onClick={() => handleCourseSelect(course)}
-                                    >
+                            {courseSuggestions.length > 0 && (
+                                <div className="suggestions-list" ref={courseSuggestionRef}>
+                                    {courseSuggestions.map((course, index) => (
+                                        <li
+                                            className="suggestion-item"
+                                            key={index}
+                                            onClick={() => handleCourseSelect(course)}
+                                        >
                                             {course.courseName}
                                         </li>
                                     ))}
-                                </ul>
+                                </div>
                             )}
                             {courseInput && courseSuggestions.length === 0 && institution && (
                                 <div>
@@ -414,7 +487,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                                             onClick={() => handleRemoveCourse(course.courseName)}
                                             className="remove-course-button"
                                         >
-                                            <FaTimes />
+                                            <FaTimes/>
                                         </button>
                                     </span>
                                 ))}
@@ -422,18 +495,50 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
                         )}
 
                         {/* Subjects input */}
-                        <label htmlFor="subjects" className="input-label">
-                            Subjects
+                        <label htmlFor="subjectInput" className="input-label">
+                            Subjects <span className="counter">({subjects.length}/5)</span>
                         </label>
-                        <input
-                            id="subjects"
-                            type="text"
-                            placeholder="Subjects (comma-separated)"
-                            value={subjects.join(', ')}
-                            onChange={(e) =>
-                                setSubjects(e.target.value.split(',').map((s) => s.trim()))
-                            }
-                        />
+                        <div className="subject-input-container">
+                            <div className="flex items-center gap-1 mb-2">
+                                <input
+                                    id="subjectInput"
+                                    type="text"
+                                    placeholder="Add Subject"
+                                    value={subjectInput}
+                                    onChange={(e) => setSubjectInput(e.target.value)}
+                                    className="subject-input"
+                                    maxLength={15}
+                                    disabled={subjects.length >= 5}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={handleAddSubject}
+                                    className="course-add-button"
+                                    disabled={subjects.length >= 5}
+                                >
+                                    <FaPlusCircle/>
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Display selected subjects */}
+                        {subjects.length > 0 && (
+                            <div className="selected-subjects flex justify-center gap-2">
+                                {subjects.map((subject, index) => (
+                                    <span key={index} className="subject-tag flex items-center justify-center">
+                                        <p className="mr-1">{subject}
+                                            </p>
+                                        <button
+                                            type="button"
+                                            onClick={() => handleRemoveSubject(subject)}
+                                            className="remove-subject-button"
+                                        >
+                                            <FaTimes/>
+                                        </button>
+                                    </span>
+                                ))}
+                            </div>
+                        )}
 
                         <label htmlFor="work" className="input-label">
                             Work

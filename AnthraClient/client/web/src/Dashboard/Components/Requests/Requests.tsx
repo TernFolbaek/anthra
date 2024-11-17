@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Requests.css';
+import NoConnectionsRive from "../../Helpers/Animations/NoConnections";
 
 interface ConnectionRequestDTO {
     id: number;
@@ -77,7 +78,7 @@ const Requests: React.FC = () => {
         <div className="requests-page">
             <div className="requests-container">
             {requests.length === 0 ? (
-                <p></p>
+                <NoConnectionsRive/>
             ) : (
                 requests.map((request) => (
                     <div key={request.id} className="user-card">

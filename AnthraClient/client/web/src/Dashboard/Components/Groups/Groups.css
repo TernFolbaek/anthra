@@ -2,9 +2,10 @@
 .groups-page {
     display: flex;
     flex-direction: row;
-    height: 100vh;
     overflow: hidden;
     width: 100%;
+    height: 100%;
+    flex: 1;
 }
 
 .group-message-view {
@@ -26,29 +27,23 @@
     color: #666;
 }
 
-.no-connections-overlay {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100%;
-}
-
-.no-connections-card {
+.no-groups-container {
     background-color: white;
-    padding: 40px;
-    line-height: 40px;
-    font-size: 20px;
     border-radius: 10px;
-    text-align: center;
+    width: 100%;
+    padding: 20px;
+    margin: 15px;
     font-family: 'Montserrat', sans-serif;
 }
 
 .explore-button {
-    padding: 10px 20px;
-    background-color: #007bff;
     color: white;
-    border: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 10px;
+    background-color: #439ef6;
+    font-weight: bold;
     border-radius: 5px;
     cursor: pointer;
 }

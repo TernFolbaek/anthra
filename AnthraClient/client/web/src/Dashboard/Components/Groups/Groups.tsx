@@ -1,4 +1,3 @@
-// Components/Groups/Groups.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Groups.css';
@@ -6,6 +5,8 @@ import GroupModal from './GroupModal/GroupModal';
 import GroupMessage from './GroupMessages/GroupMessage';
 import { useNavigate, useParams } from 'react-router-dom';
 import GroupsList from './GroupsList/GroupsList';
+import { useRive } from '@rive-app/react-canvas';
+import NoConnectionsRive from "../../Helpers/Animations/NoConnections";
 
 interface GroupMember {
     userId: string;
@@ -93,9 +94,6 @@ const Groups: React.FC = () => {
         fetchGroups();
     };
 
-    const handleExplore = () => {
-        navigate('/explore');
-    };
 
     const handleGroupClick = (groupId: number) => {
         navigate(`/groups/${groupId}`);
@@ -120,7 +118,7 @@ const Groups: React.FC = () => {
                             ) : (
                                 isWideScreen && (
                                     <div className="no-group-selected">
-                                        <p>Please select a group to view messages.</p>
+                                        <p className="text-center">Please select a group to view messages</p>
                                     </div>
                                 )
                             )}
@@ -131,14 +129,7 @@ const Groups: React.FC = () => {
                     )}
                 </>
             ) : (
-                <div className="no-connections-overlay">
-                    <div className="no-connections-card">
-                        <p>You need connections to create groups.</p>
-                        <p>Get started by exploring and connecting with others.</p>
-                        <button className="explore-button" onClick={handleExplore}>
-                            Explore
-                        </button>
-                    </div>
+                <div className="no-groups-container">                    <NoConnectionsRive/>
                 </div>
             )}
         </div>

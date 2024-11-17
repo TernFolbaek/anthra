@@ -90,7 +90,7 @@ namespace MyBackendApp.Controllers
 
             if (result.Succeeded)
             {
-                return Ok("Profile updated successfully.");
+                return Ok(new {Message="Profile updated successfully.", profilePictureUrl=user.ProfilePictureUrl});
             }
 
             var updateErrors = result.Errors.Select(e => e.Description);

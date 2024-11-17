@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CurrentConversations.css';
 import CardContainer from '../CardContainer/CardContainer';
+import NoConversationsRive from "../../Helpers/Animations/NoConversations";
 
 interface Conversation {
     userId: string;
@@ -65,7 +66,7 @@ const CurrentConversations: React.FC = () => {
     return (
         <CardContainer title="Chats">
             {conversations.length === 0 ? (
-                <p>You have no conversations yet.</p>
+               <NoConversationsRive />
             ) : (
                 <ul className="conversations-list">
                     {conversations.map((conv) => (

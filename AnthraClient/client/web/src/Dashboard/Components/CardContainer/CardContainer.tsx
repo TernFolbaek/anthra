@@ -11,7 +11,7 @@ const CardContainer: React.FC<CardContainerProps> = ({ title, children }) => {
     return (
         <div className="card-container">
             <p className="card-title">{title}</p>
-            <div className="card-content">{children}</div>
+            <div>{children}</div>
         </div>
     );
 };

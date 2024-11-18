@@ -46,7 +46,9 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
     const connectionRef = useRef<signalR.HubConnection | null>(null);
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
     const previousGroupIdRef = useRef<number | undefined>(undefined);
-
+    const [connection, setConnection] = useState<signalR.HubConnection | null>(
+        null
+    );
     const [showMenu, setShowMenu] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const [showGroupInfo, setShowGroupInfo] = useState(false);
@@ -75,7 +77,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
             .withAutomaticReconnect()
             .build();
 
-        connectionRef.current = connection;
+        setConnection(connection);
 
         connection.on('ReceiveGroupMessage', (message: Message) => {
             if (message.groupId === groupId) {
@@ -92,6 +94,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
                 }
             })
             .catch((error) => console.error('Connection failed: ', error));
+
 
         return () => {
             if (connectionRef.current) {

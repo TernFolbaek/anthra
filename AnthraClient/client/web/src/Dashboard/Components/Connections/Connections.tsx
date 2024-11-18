@@ -45,9 +45,6 @@ const Connections: React.FC = () => {
                 const connectedUsers: ApplicationUser[] = connectionsResponse.data;
                 const conversationData: Conversation[] = conversationsResponse.data;
 
-                console.log('Connected Users:', connectedUsers);
-                console.log('Conversation Data:', conversationData);
-
                 // Compare IDs correctly (case-sensitive and exact match)
                 const usersWithConversations = connectedUsers.filter(user =>
                     conversationData.some(conversation => conversation.userId === user.id)
@@ -56,9 +53,6 @@ const Connections: React.FC = () => {
                 const usersWithoutConversations = connectedUsers.filter(user =>
                     !conversationData.some(conversation => conversation.userId === user.id)
                 );
-
-                console.log('Users With Conversations:', usersWithConversations);
-                console.log('Users Without Conversations:', usersWithoutConversations);
 
                 setUsersWithConversations(usersWithConversations);
                 setUsersWithoutConversations(usersWithoutConversations);

@@ -93,7 +93,7 @@ const ProfileSettings: React.FC = () => {
                             <button className="confirm-delete-button" onClick={handleDeleteAccount}>
                                 Delete
                             </button>
-                            <button className="cancel-button" onClick={closeDeleteModal}>
+                            <button className="delete-account-cancel-button" onClick={closeDeleteModal}>
                                 Cancel
                             </button>
                         </div>

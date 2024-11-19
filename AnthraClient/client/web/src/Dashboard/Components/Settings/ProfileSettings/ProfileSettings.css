@@ -110,11 +110,11 @@
 
 .modal-actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .confirm-delete-button {
-    background-color: #dc3545;
+    background-color: #6c757d;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -122,8 +122,8 @@
     cursor: pointer;
 }
 
-.cancel-button {
-    background-color: #6c757d;
+.delete-account-cancel-button {
+    background-color: #85bff8;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -132,11 +132,11 @@
 }
 
 .confirm-delete-button:hover {
-    background-color: #6c757d;
+    background-color: #b1b2b5;
 }
 
-.cancel-button:hover {
-    background-color: #5a6268;
+.delete-account-cancel-button:hover {
+    background-color: #439ef6;
 }
 
 /* Responsive adjustments */

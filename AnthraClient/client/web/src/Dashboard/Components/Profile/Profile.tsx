@@ -202,6 +202,7 @@ const Profile: React.FC = () => {
                                     ? URL.createObjectURL(profilePictureFile)
                                     : `http://localhost:5001${profileData.profilePictureUrl}`
                             }
+                            className="profile-picture-img"
                             alt="Profile"
                         />
                         {editMode && (

@@ -113,6 +113,7 @@
     height: 30px;
     border-radius: 50%;
     object-fit: cover;
+    border: 2px solid #85bff8;
 }
 
 .connection-name {

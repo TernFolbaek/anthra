@@ -19,7 +19,7 @@
 
 .profile-picture {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .profile-picture-image {
@@ -33,7 +33,6 @@
 .profile-info-header {
     font-size: 1.8rem;
     font-weight: 700;
-    margin: 10px 0;
 }
 
 .profile-username {
@@ -54,7 +53,6 @@
 
 /* General text and property styling */
 .profile-info-text {
-    margin: 0 0 10px;
     font-size: 0.95rem;
     color: #666;
 }
@@ -62,8 +60,6 @@
 .profile-section-title {
     font-weight: 600;
     color: #555;
-    margin-top: 20px;
-    margin-bottom: 10px;
 }
 
 /* List styling */

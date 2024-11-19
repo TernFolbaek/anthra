@@ -1,5 +1,5 @@
 // Components/GroupMessage/GroupInfo/GroupInfo.tsx
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import './GroupInfo.css';
 
@@ -20,8 +20,11 @@ interface GroupInfoProps {
     groupId: number;
 }
 
-const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
+const GroupInfo: React.FC<GroupInfoProps> = ({groupId}) => {
     const [members, setMembers] = useState<GroupMember[]>([]);
+    const [groupDescription, setGroupDescription] = useState('');
+    const [groupDesiredMembers, setGroupDesiredMembers] = useState('');
+    const [isPublic, setIsPublic] = useState(false);
     const [attachments, setAttachments] = useState<Attachment[]>([]);
     const token = localStorage.getItem('token');
 
@@ -36,6 +39,10 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
                         },
                     }
                 );
+                console.log(response.data);
+                setGroupDescription(response.data.groupDescription);
+                setIsPublic(response.data.isPublic);
+                setGroupDesiredMembers(response.data.groupDesiredMembers);
                 setMembers(response.data.members);
                 setAttachments(response.data.attachments);
             } catch (error) {
@@ -48,22 +55,36 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
 
     return (
         <div className="group-info">
-            <h2>Group Members</h2>
+            <div className="group-info-header">Group Information</div>
+
+            <div className="group-section-title">Group Description</div>
+            <p className="group-description">{groupDescription}</p>
+
+            <div className="group-section-title">Who Are We Looking For</div>
+            <p className="group-desired-members">{groupDesiredMembers}</p>
+            <div className="group-section-title">Group Visibility</div>
+            <p className="group-desired-members">{isPublic ?
+                "Group is on the explore page!" :
+                "Group is not on the explore page"}
+            </p>
+
+            <div className="group-section-title">Members</div>
             <ul className="group-members-list">
                 {members.map((member) => (
                     <li key={member.userId} className="group-member-item">
                         <img
                             src={`http://localhost:5001/${member.profilePictureUrl}`}
                             alt={`${member.firstName} ${member.lastName}`}
-                            className="member-avatar"
+                            className="connection-profile-picture"
                         />
-                        <span>
-                            {member.firstName} {member.lastName}
-                        </span>
+                        <span className="group-member-name">
+                        {member.firstName} {member.lastName}
+                    </span>
                     </li>
                 ))}
             </ul>
-            <h2>Attachments</h2>
+
+            <div className="group-section-title">Attachments</div>
             <ul className="group-attachments-list">
                 {attachments.map((attachment) => (
                     <li key={attachment.id} className="group-attachment-item">
@@ -71,6 +92,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
                             href={`http://localhost:5001/${attachment.fileUrl}`}
                             target="_blank"
                             rel="noopener noreferrer"
+                            className="group-attachment-link"
                         >
                             {attachment.fileName}
                         </a>
@@ -79,6 +101,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
             </ul>
         </div>
     );
+
 };
 
 export default GroupInfo;

@@ -1,15 +1,35 @@
 .group-info {
-    width: 300px;
+    width: 400px;
     padding: 20px;
     overflow-y: auto;
     border-radius: 10px;
     background-color: white;
+    font-family: 'Montserrat', sans-serif;
     scrollbar-color: #e4e4e4 transparent;
-    flex: 1;
 }
 
-.group-info h2 {
-    font-size: 20px;
+.group-info::-webkit-scrollbar {
+    width: 8px;
+}
+
+.group-info-header {
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.group-section-title {
+    font-weight: 600;
+    color: #555;
+    margin: 20px 0 10px;
+    font-size: 0.9rem;
+}
+
+.group-description,
+.group-desired-members {
+    font-size: 0.85rem;
+    color: #666;
     margin-bottom: 10px;
 }
 
@@ -17,28 +37,39 @@
 .group-attachments-list {
     list-style: none;
     padding: 0;
-    margin: 0 0 20px 0;
+    margin: 0;
 }
 
 .group-member-item,
 .group-attachment-item {
     display: flex;
     align-items: center;
+    padding: 10px 10px 10px 5px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
     margin-bottom: 10px;
+    gap: 5px;
 }
 
-.member-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
+.group-member-item:hover,
+.group-attachment-item:hover {
+    background-color: #f0f8ff;
+    cursor: pointer;
 }
 
-.group-attachment-item a {
+.group-member-name {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #444;
+}
+
+.group-attachment-link {
     color: #007bff;
     text-decoration: none;
+    font-weight: 500;
+    font-size: 0.85rem;
 }
 
-.group-attachment-item a:hover {
+.group-attachment-link:hover {
     text-decoration: underline;
 }

@@ -77,7 +77,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
             .withAutomaticReconnect()
             .build();
 
-        setConnection(connection);
+        connectionRef.current = connection; // Set the ref here
 
         connection.on('ReceiveGroupMessage', (message: Message) => {
             if (message.groupId === groupId) {
@@ -95,7 +95,6 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
             })
             .catch((error) => console.error('Connection failed: ', error));
 
-
         return () => {
             if (connectionRef.current) {
                 connectionRef.current.off('ReceiveGroupMessage');
@@ -103,6 +102,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
             }
         };
     }, []);
+
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -127,7 +127,6 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
             messagesEndRef.current.scrollIntoView({behavior: 'smooth'});
         }
     }, [messages]);
-
     useEffect(() => {
         const joinGroup = async () => {
             if (
@@ -149,6 +148,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
 
         joinGroup();
     }, [groupId]);
+
 
 
     const fetchGroupDetails = async () => {

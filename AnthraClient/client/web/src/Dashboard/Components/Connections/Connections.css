@@ -47,7 +47,7 @@
 }
 
 .connections-title {
-    font-size: 18px;
+    font-size: 0.9rem;
     font-weight: bold;
     margin-bottom: 10px;
 }
@@ -118,7 +118,7 @@
 
 .connection-name {
     margin-left: 15px;
-    font-size: 1rem;
+    font-size: 0.85rem;
     font-weight: 600;
 }
 

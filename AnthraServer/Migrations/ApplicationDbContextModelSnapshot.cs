@@ -362,6 +362,14 @@ namespace AnthraBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("GroupDescription")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("GroupMemberDesire")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");

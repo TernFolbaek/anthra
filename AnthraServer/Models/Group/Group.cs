@@ -13,8 +13,10 @@ namespace MyBackendApp.Models
         public string Name { get; set; }
         
         public string adminName { get; set; }
+        public string GroupDescription { get; set; }
+        public string GroupMemberDesire { get; set; }
 
-        
+        public bool isPublic { get; set; }
         public string CreatorId { get; set; }
         public ApplicationUser Creator { get; set; }
 

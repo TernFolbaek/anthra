@@ -48,8 +48,10 @@ public class GroupsController : ControllerBase
         {
             groupId = group.Id,
             groupName = group.Name,
-            CreatorId = group.CreatorId,
+            group.CreatorId,
             CreatorName = group.adminName,
+            groupDescription = group.GroupDescription,
+            groupMembersDesired = group.GroupMemberDesire,
         };
 
         return Ok(groupDetails);
@@ -76,7 +78,10 @@ public class GroupsController : ControllerBase
         {
             Name = model.Name,
             CreatorId = currentUserId,
-            adminName = model.AdminName
+            adminName = model.AdminName,
+            GroupDescription = model.GroupDescription,
+            GroupMemberDesire = model.GroupMemberDesire
+
         };
 
         _context.Groups.Add(group);
@@ -179,10 +184,16 @@ public class GroupsController : ControllerBase
             })
             .ToListAsync();
 
+        var groupDescription = group.GroupDescription;
+        var groupDesiredMembers = group.GroupMemberDesire;
+        var isPublic = group.isPublic;
         return Ok(new
         {
             members,
-            attachments
+            attachments,
+            groupDescription,
+            groupDesiredMembers,
+            isPublic
         });
     }
 

@@ -10,6 +10,9 @@ namespace MyBackendApp.ViewModels
         public string Name { get; set; }
         
         public string AdminName { get; set; }
+        public string GroupDescription { get; set; }
+        public string GroupMemberDesire { get; set; }
+
 
         [Required]
         public List<string> InvitedUserIds { get; set; } = new List<string>();

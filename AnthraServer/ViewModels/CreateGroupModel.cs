@@ -12,8 +12,8 @@ namespace MyBackendApp.ViewModels
         public string AdminName { get; set; }
         public string GroupDescription { get; set; }
         public string GroupMemberDesire { get; set; }
-
-
+        
+        public bool isPublic { get; set; }
         [Required]
         public List<string> InvitedUserIds { get; set; } = new List<string>();
     }

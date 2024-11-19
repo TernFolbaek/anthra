@@ -80,8 +80,8 @@ public class GroupsController : ControllerBase
             CreatorId = currentUserId,
             adminName = model.AdminName,
             GroupDescription = model.GroupDescription,
-            GroupMemberDesire = model.GroupMemberDesire
-
+            GroupMemberDesire = model.GroupMemberDesire,
+            isPublic = model.isPublic,
         };
 
         _context.Groups.Add(group);

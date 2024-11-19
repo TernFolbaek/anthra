@@ -67,7 +67,6 @@
     padding: 10px;
     border-bottom: 1px solid #ccc;
     position: relative;
-    border-radius: 10px;
 }
 
 .no-connections-container{
@@ -96,7 +95,6 @@
 
 .connection-item:hover {
     cursor: pointer;
-
     background-color: rgba(202, 222, 253, 0.5);
 }
 

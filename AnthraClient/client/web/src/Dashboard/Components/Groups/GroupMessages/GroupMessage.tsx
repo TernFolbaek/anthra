@@ -232,7 +232,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
                         {showMenu && (
                             <div className="messages-dropdown-menu">
                                 <button onClick={handleToggleGroupInfoVisibility}>
-                                    {showMenu ? 'Hide Info' : 'Show Info'}
+                                    {showGroupInfo ? 'Hide Info' : 'Show Info'}
                                 </button>
                             </div>
                         )}

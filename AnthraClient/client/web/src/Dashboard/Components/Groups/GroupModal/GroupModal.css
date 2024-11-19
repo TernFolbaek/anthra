@@ -9,7 +9,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 100;
+    z-index: 2;
     border-radius: 10px;
 }
 
@@ -33,11 +33,21 @@
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    font-size: 16px;
+    font-size: 13px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
+.group-description-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 100px;
+    resize: none;
+}
 .group-creation-connections-list {
     list-style-type: none;
     padding: 0;
@@ -48,12 +58,16 @@
     border-radius: 5px;
 }
 
-.connection-item {
+.create-group-connection-item {
     padding: 8px;
     border-bottom: 1px solid #eee;
 }
 
-.connection-item:last-child {
+.create-group-connection-item:hover {
+    background-color: #ebf3fd;
+}
+
+.create-group-connection-item:last-child {
     border-bottom: none;
 }
 
@@ -92,10 +106,10 @@
 }
 
 /* Close Button */
-.close-button {
+.create-group-close-button {
     position: absolute;
-    top: 15px;
-    right: 20px;
+    top: 10px;
+    right: 10px;
     background: none;
     border: none;
     font-size: 28px;
@@ -104,6 +118,33 @@
     color: #aaa;
 }
 
-.close-button:hover {
+.create-group-close-button:hover {
     color: #000;
+}
+
+.create-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.create-button:disabled:hover {
+    background-color: #ccc;
+}
+.label-and-counter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.create-group-char-counter {
+    font-size: 0.8rem;
+    color: grey;
+}
+
+
+
+.required-asterisk {
+    color: red;
+    margin-left: 2px;
 }

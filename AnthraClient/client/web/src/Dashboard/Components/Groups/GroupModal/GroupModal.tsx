@@ -1,7 +1,8 @@
 // src/components/GroupModal.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './GroupModal.css'
+import './GroupModal.css';
+import Switch from '../../../Helpers/Switch';
 
 interface Props {
     onClose: () => void;
@@ -17,8 +18,12 @@ interface Connection {
 
 const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
     const [groupName, setGroupName] = useState('');
+    const [groupDescription, setGroupDescription] = useState('');
+    const [groupMemberDesire, setGroupMemberDesire] = useState('');
     const [connections, setConnections] = useState<Connection[]>([]);
     const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
+    const [isPublic, setIsPublic] = useState(true);
+    const [errors, setErrors] = useState<string[]>([]);
 
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
@@ -49,14 +54,28 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
         }
     };
 
+    const isFormValid =
+        groupName.trim() !== '' &&
+        groupDescription.trim() !== '' &&
+        groupMemberDesire.trim() !== '' &&
+        selectedUserIds.length > 0;
+
     const handleCreateGroup = async () => {
+        if (!isFormValid) {
+            // Optionally display an error message
+            return;
+        }
 
         try {
             const payload = {
                 name: groupName,
+                groupDescription: groupDescription,
+                groupMemberDesire: groupMemberDesire,
                 invitedUserIds: selectedUserIds,
-                adminName: fullName
+                isPublic: isPublic,
+                adminName: fullName,
             };
+            console.log(payload)
             await axios.post('http://localhost:5001/api/Groups/CreateGroup', payload, {
                 headers: { Authorization: `Bearer ${token}` },
             });
@@ -69,40 +88,98 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
     return (
         <div className="modal-overlay">
             <div className="modal-content">
-                <button className="close-button" onClick={onClose}>
+                <button className="create-group-close-button" onClick={onClose}>
                     &times;
                 </button>
-                <h2 className="font-bold">Create New Group</h2>
-                <input
-                    type="text"
-                    placeholder="Group Name"
-                    value={groupName}
-                    onChange={(e) => setGroupName(e.target.value)}
-                    className="group-name-input"
-                />
-                <h3 className="font-bold">Select Users to Invite</h3>
+
+                <div className="input-group">
+                    <div className="label-and-counter">
+                        <p className="font-bold text-sm">
+                            Group Name<span className="required-asterisk">*</span>
+                        </p>
+                        <div className="create-group-char-counter">{groupName.length}/15</div>
+                    </div>
+                    <input
+                        type="text"
+                        placeholder="Group name"
+                        value={groupName}
+                        onChange={(e) => setGroupName(e.target.value)}
+                        className="group-name-input"
+                        maxLength={15}
+                        required
+                    />
+                </div>
+
+                <div className="input-group">
+                    <div className="label-and-counter">
+                        <p className="font-bold text-sm">
+                            Description<span className="required-asterisk">*</span>
+                        </p>
+                        <div className="create-group-char-counter">{groupDescription.length}/150</div>
+                    </div>
+                    <textarea
+                        className="group-description-input"
+                        placeholder="Group description"
+                        value={groupDescription}
+                        onChange={(e) => setGroupDescription(e.target.value)}
+                        maxLength={100}
+                        required
+                    />
+                </div>
+
+                <div className="input-group">
+                    <div className="label-and-counter">
+                        <p className="font-bold text-sm">
+                            Who are you looking for<span className="required-asterisk">*</span>
+                        </p>
+                        <div className="create-group-char-counter">{groupMemberDesire.length}/100</div>
+                    </div>
+                    <textarea
+                        className="group-description-input"
+                        placeholder="Which type of members is this group looking for?"
+                        value={groupMemberDesire}
+                        onChange={(e) => setGroupMemberDesire(e.target.value)}
+                        maxLength={100}
+                        required
+                    />
+                </div>
+
+                <div>
+                    <Switch label="Make Public" checked={isPublic} onChange={setIsPublic} />
+                </div>
+
+                <h3 className="font-bold text-sm mt-3">
+                    Select Users to Invite<span className="required-asterisk">*</span>
+                </h3>
                 <ul className="group-creation-connections-list">
                     {connections.map((user) => (
-                        <li
-                            key={user.id}
-                            className="connection-item cursor-pointer w-full"
-                        >
+                        <li key={user.id} className="create-group-connection-item cursor-pointer w-full">
                             <label
-                                className="cursor-pointer gap-4 flex items-center w-full"
-                                onClick={() => handleUserSelect(user.id)} // Move onClick to label
+                                className="cursor-pointer gap-4 flex items-center justify-between w-full"
+                                onClick={() => handleUserSelect(user.id)}
                             >
-                                <input
-                                    type="checkbox"
-                                    onChange={() => handleUserSelect(user.id)}
+                                <div className="flex gap-2">
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedUserIds.includes(user.id)}
+                                        onChange={() => handleUserSelect(user.id)}
+                                    />
+                                    <p className="text-sm">
+                                        {user.firstName} {user.lastName}
+                                    </p>
+                                </div>
+                                <img
+                                    src={`http://localhost:5001${user.profilePictureUrl}`}
+                                    alt={`${user.firstName}`}
+                                    className="connection-profile-picture"
                                 />
-                                {user.firstName} {user.lastName}
                             </label>
                         </li>
                     ))}
                 </ul>
 
                 <div className="modal-buttons">
-                    <button className="create-button" onClick={handleCreateGroup}>
+                    <button className="create-button" onClick={handleCreateGroup} disabled={!isFormValid}>
                         Create Group
                     </button>
                     <button className="cancel-button" onClick={onClose}>

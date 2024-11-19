@@ -1,12 +1,9 @@
 import React from "react";
 import {useRive} from "@rive-app/react-canvas";
-import { useNavigate } from 'react-router-dom';
-import {FaMagnifyingGlass} from "react-icons/fa6";
 
 const NoGroups: React.FC = () => {
-    const navigate = useNavigate();
     const { rive, RiveComponent } = useRive({
-        src: 'new_file.riv',
+        src: '/rive/no_connections.riv',
         autoplay: true,
     });
 

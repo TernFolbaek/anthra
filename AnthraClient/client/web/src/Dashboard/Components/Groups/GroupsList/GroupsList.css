@@ -45,6 +45,14 @@
     border: none;
     font-size: 1rem;
     cursor: pointer;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+}
+
+.group-options-button:hover{
+    cursor: pointer;
+    background-color: #85bff8;
 }
 
 .group-options-menu {

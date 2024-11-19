@@ -104,10 +104,12 @@
   border: none;
   text-align: left;
   cursor: pointer;
+  font-size: 0.8rem;
 }
 
 .messages-dropdown-menu button:hover {
   background-color: #f1f1f1;
+  cursor: pointer;
 }
 
 .dark-mode .messages-page {

@@ -225,14 +225,14 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
                     <div className="contact-info">
                         <span className="contact-name">{groupInfo?.groupName}</span>
                     </div>
-                    <div className="menu-icon" onClick={(event) => {
+                    <div className="messages-menu-icon" onClick={(event) => {
                         event.stopPropagation();
                         toggleMenu();
                     }}>
                         {showMenu && (
-                            <div className="messages-dropdown-menu" ref={dropdownRef}>
+                            <div className="messages-dropdown-menu">
                                 <button onClick={handleToggleGroupInfoVisibility}>
-                                    {showGroupInfo ? 'Hide Info' : 'Show Info'}
+                                    {showMenu ? 'Hide Profile' : 'Show Profile'}
                                 </button>
                             </div>
                         )}

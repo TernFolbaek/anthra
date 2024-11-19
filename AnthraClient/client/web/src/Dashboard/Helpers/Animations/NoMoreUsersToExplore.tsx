@@ -3,7 +3,7 @@ import {useRive} from "@rive-app/react-canvas";
 
 const NoMoreUsersToExplore: React.FC = () => {
     const { rive, RiveComponent } = useRive({
-        src: 'stasher_character.riv',
+        src: '/rive/stasher_character.riv',
         autoplay: true,
     });
 

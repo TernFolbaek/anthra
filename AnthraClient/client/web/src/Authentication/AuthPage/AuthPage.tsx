@@ -130,7 +130,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
 
     const STATE_MACHINE_NAME = 'State Machine 1';
     const { rive, RiveComponent } = useRive({
-        src: '520-990-teddy-login-screen.riv',
+        src: '/rive/520-990-teddy-login-screen.riv',
         autoplay: true,
         stateMachines: STATE_MACHINE_NAME,
     });

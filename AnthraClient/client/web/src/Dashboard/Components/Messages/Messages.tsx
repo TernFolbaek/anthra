@@ -1,14 +1,10 @@
-// Components/Messages/Messages.tsx
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Messages.css';
 import * as signalR from '@microsoft/signalr';
-import {useParams, useNavigate} from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import MessageConnectionProfile from './MessageConnectionProfile/MessageConnectionProfile';
-import {
-    FaEllipsisV,
-    FaArrowLeft,
-} from 'react-icons/fa';
+import { FaEllipsisV, FaArrowLeft } from 'react-icons/fa';
 import MessageInput from "./MessageInput";
 
 interface Attachment {
@@ -36,7 +32,7 @@ interface UserProfile {
 }
 
 const Messages: React.FC = () => {
-    const {userId} = useParams<{ userId: string }>();
+    const { userId } = useParams<{ userId: string }>();
     const navigate = useNavigate();
     const currentUserId = localStorage.getItem('userId');
     const [messages, setMessages] = useState<Message[]>([]);
@@ -59,13 +55,11 @@ const Messages: React.FC = () => {
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 1300);
             setShowBackArrow(window.innerWidth <= 900);
-
         };
         window.addEventListener('resize', handleResize);
 
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-
 
     useEffect(() => {
         if (!userId) {
@@ -110,15 +104,6 @@ const Messages: React.FC = () => {
             .then((data) => setMessages(data))
             .catch((error) => console.error('Error fetching messages:', error));
 
-        const newConnection = new signalR.HubConnectionBuilder()
-            .withUrl('http://localhost:5001/chatHub', {
-                accessTokenFactory: () => token || '',
-            })
-            .withAutomaticReconnect()
-            .build();
-
-        setConnection(newConnection);
-
         // Fetch contact profile
         const fetchContactProfile = async () => {
             try {
@@ -140,21 +125,57 @@ const Messages: React.FC = () => {
     }, [currentUserId, userId, token, navigate, isMobile]);
 
     useEffect(() => {
-        if (connection && userId) {
-            connection
+        let isMounted = true;
+
+        if (userId && token) {
+            // Stop the previous connection if it exists
+            if (connection) {
+                connection.stop();
+            }
+
+            // Create a new connection
+            const newConnection = new signalR.HubConnectionBuilder()
+                .withUrl('http://localhost:5001/chatHub', {
+                    accessTokenFactory: () => token || '',
+                })
+                .withAutomaticReconnect()
+                .build();
+
+            // Start the new connection
+            newConnection
                 .start()
                 .then(() => {
                     // Join group for this chat
-                    connection.invoke('JoinGroup', getChatGroupId(currentUserId!, userId));
+                    newConnection.invoke('JoinGroup', getChatGroupId(currentUserId!, userId));
 
-                    connection.on('ReceiveMessage', (message: Message) => {
-                        setMessages((prevMessages) => [...prevMessages, message]);
-                    });
+                    const handleReceiveMessage = (message: Message) => {
+                        if (isMounted) {
+                            setMessages((prevMessages) => [...prevMessages, message]);
+                        }
+                    };
+
+                    newConnection.on('ReceiveMessage', handleReceiveMessage);
                 })
                 .catch((error) => console.error('Connection failed: ', error));
-        }
-    }, [connection, currentUserId, userId]);
 
+            setConnection(newConnection);
+
+            // Cleanup function
+            return () => {
+                isMounted = false;
+                newConnection.off('ReceiveMessage');
+                newConnection.stop();
+            };
+        }
+
+        // Cleanup function if userId or token is not available
+        return () => {
+            if (connection) {
+                connection.off('ReceiveMessage');
+                connection.stop();
+            }
+        };
+    }, [userId, token, currentUserId]);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -178,8 +199,8 @@ const Messages: React.FC = () => {
         try {
             await axios.post(
                 'http://localhost:5001/api/Groups/RespondToInvitation',
-                {groupId, accept: true},
-                {headers: {Authorization: `Bearer ${token}`}}
+                { groupId, accept: true },
+                { headers: { Authorization: `Bearer ${token}` } }
             );
             // Refresh messages or group list
         } catch (error) {
@@ -191,8 +212,8 @@ const Messages: React.FC = () => {
         try {
             await axios.post(
                 'http://localhost:5001/api/Groups/RespondToInvitation',
-                {groupId, accept: false},
-                {headers: {Authorization: `Bearer ${token}`}}
+                { groupId, accept: false },
+                { headers: { Authorization: `Bearer ${token}` } }
             );
             // Refresh messages
         } catch (error) {
@@ -202,10 +223,9 @@ const Messages: React.FC = () => {
 
     useEffect(() => {
         if (messagesEndRef.current) {
-            messagesEndRef.current.scrollIntoView({behavior: 'smooth'});
+            messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     }, [messages]);
-
 
     const getChatGroupId = (userA: string, userB: string) => {
         return userA < userB ? `${userA}-${userB}` : `${userB}-${userA}`;
@@ -240,7 +260,6 @@ const Messages: React.FC = () => {
         setShowMenu(!showMenu);
     };
 
-
     const handleToggleProfileVisibility = () => {
         setShowProfile((prev) => !prev);
         setShowMenu(false);
@@ -250,8 +269,8 @@ const Messages: React.FC = () => {
         try {
             await axios.post(
                 'http://localhost:5001/api/Connections/RemoveConnection',
-                {userId: currentUserId, connectionId: userId},
-                {headers: {Authorization: `Bearer ${token}`}}
+                { userId: currentUserId, connectionId: userId },
+                { headers: { Authorization: `Bearer ${token}` } }
             );
             // Optionally, navigate to another page or refresh connections
             navigate('/messages');
@@ -283,11 +302,13 @@ const Messages: React.FC = () => {
               </span>
                         </div>
                         <div className="menu-container" ref={dropdownRef}>
-
-                            <div className="messages-menu-icon" onClick={(event) => {
-                                event.stopPropagation();
-                                toggleMenu();
-                            }}>
+                            <div
+                                className="messages-menu-icon"
+                                onClick={(event) => {
+                                    event.stopPropagation();
+                                    toggleMenu();
+                                }}
+                            >
                                 {showMenu && (
                                     <div className="messages-dropdown-menu">
                                         <button onClick={handleRemoveConnection}>
@@ -298,14 +319,14 @@ const Messages: React.FC = () => {
                                         </button>
                                     </div>
                                 )}
-                                <FaEllipsisV/>
+                                <FaEllipsisV />
                             </div>
                         </div>
                     </div>
                 )}
                 <div className="messages-container">
                     {isMobile && showProfile ? (
-                        <MessageConnectionProfile userId={userId!}/>
+                        <MessageConnectionProfile userId={userId!} />
                     ) : (
                         <>
                             {messages.length === 0 ? (
@@ -319,17 +340,24 @@ const Messages: React.FC = () => {
                                             {msg.isGroupInvitation ? (
                                                 msg.senderId === currentUserId ? (
                                                     <div className="invitation-message">
-                                                        <p>You have invited <span
-                                                            className="font-bold">{contactProfile?.firstName}</span> to
-                                                            join group: <span
-                                                                className="font-bold">{msg.groupName}</span></p>
+                                                        <p>
+                                                            You have invited{' '}
+                                                            <span className="font-bold">
+                                {contactProfile?.firstName}
+                              </span>{' '}
+                                                            to join group:{' '}
+                                                            <span className="font-bold">{msg.groupName}</span>
+                                                        </p>
                                                     </div>
                                                 ) : (
                                                     <div className="invitation-message">
-                                                        <p><span
-                                                            className="font-bold">{contactProfile?.firstName}</span> has
-                                                            invited you to join group: <span
-                                                                className="font-bold">{msg.groupName}</span></p>
+                                                        <p>
+                              <span className="font-bold">
+                                {contactProfile?.firstName}
+                              </span>{' '}
+                                                            has invited you to join group:{' '}
+                                                            <span className="font-bold">{msg.groupName}</span>
+                                                        </p>
                                                         <div className="invitation-buttons">
                                                             <button
                                                                 className="invitation-accept-button"
@@ -380,14 +408,14 @@ const Messages: React.FC = () => {
                                                                         rel="noopener noreferrer"
                                                                     >
                                                                         <div className="attachment-preview">
-                                                                      <span className="attachment-filename">
-                                                                        {attachment.fileName.length > 10
-                                                                            ? `${attachment.fileName.substring(
-                                                                                0,
-                                                                                10
-                                                                            )}...`
-                                                                            : attachment.fileName}
-                                                                      </span>
+                                      <span className="attachment-filename">
+                                        {attachment.fileName.length > 10
+                                            ? `${attachment.fileName.substring(
+                                                0,
+                                                10
+                                            )}...`
+                                            : attachment.fileName}
+                                      </span>
                                                                         </div>
                                                                     </a>
                                                                 )}
@@ -408,19 +436,18 @@ const Messages: React.FC = () => {
                                     );
                                 })
                             )}
-                            <div ref={messagesEndRef}/>
-
+                            <div ref={messagesEndRef} />
                         </>
                     )}
                 </div>
                 {(!isMobile || !showProfile) && (
                     <>
-                        <MessageInput userId={userId}/>
+                        <MessageInput userId={userId} />
                     </>
                 )}
             </div>
             {!isMobile && userId && showProfile && (
-                <MessageConnectionProfile userId={userId}/>
+                <MessageConnectionProfile userId={userId} />
             )}
         </div>
     );

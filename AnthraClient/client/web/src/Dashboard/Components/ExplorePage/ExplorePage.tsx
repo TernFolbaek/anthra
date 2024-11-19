@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import './ExplorePage.css';
 import Menu from './Menu';
+import NoMoreUsersToExplore from "../../Helpers/Animations/NoMoreUsersToExplore";
 interface Course {
     courseName: string;
     courseLink: string;
@@ -151,7 +152,9 @@ const ExplorePage: React.FC = () => {
                     </div>
                 </div>
             ) : (
-                <p>No more users to display.</p>
+                <div className="no-groups-container">
+                <NoMoreUsersToExplore/>
+                </div>
             )}
 
         </div>

@@ -25,7 +25,9 @@ const MessagesLayout: React.FC = () => {
             ) : userId ? (
                 <Outlet />
             ) : (
-                <CurrentConversations />
+                <div className="w-full flex justify-center">
+                    <CurrentConversations />
+                </div>
             )}
         </div>
     );

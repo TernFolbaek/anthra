@@ -1,12 +1,8 @@
-// Components/Groups/GroupMessages/GroupMessage.tsx
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './GroupMessage.css';
-import {useNavigate} from 'react-router-dom';
-import {
-    FaEllipsisV,
-    FaArrowLeft,
-} from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { FaEllipsisV, FaArrowLeft } from 'react-icons/fa';
 import * as signalR from '@microsoft/signalr';
 import GroupInfo from '../GroupInfo/GroupInfo';
 import GroupMessageInput from "./GroupMessageInput";
@@ -38,7 +34,7 @@ interface GroupInfo {
     groupName: string;
 }
 
-const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
+const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [groupInfo, setGroupInfo] = useState<GroupInfo | null>(null);
     const userId = localStorage.getItem('userId');
@@ -46,14 +42,12 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
     const connectionRef = useRef<signalR.HubConnection | null>(null);
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
     const previousGroupIdRef = useRef<number | undefined>(undefined);
-    const [connection, setConnection] = useState<signalR.HubConnection | null>(
-        null
-    );
     const [showMenu, setShowMenu] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const [showGroupInfo, setShowGroupInfo] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 1300);
     const navigate = useNavigate();
+    const [isConnectionStarted, setIsConnectionStarted] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
@@ -77,32 +71,55 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
             .withAutomaticReconnect()
             .build();
 
-        connectionRef.current = connection; // Set the ref here
-
-        connection.on('ReceiveGroupMessage', (message: Message) => {
-            if (message.groupId === groupId) {
-                setMessages((prevMessages) => [...prevMessages, message]);
-            }
-        });
+        connectionRef.current = connection;
 
         connection
             .start()
             .then(() => {
-                if (groupId) {
-                    connection.invoke('JoinGroup', `Group_${groupId}`);
-                    previousGroupIdRef.current = groupId;
-                }
+                setIsConnectionStarted(true);
             })
             .catch((error) => console.error('Connection failed: ', error));
 
         return () => {
             if (connectionRef.current) {
-                connectionRef.current.off('ReceiveGroupMessage');
                 connectionRef.current.stop();
             }
         };
     }, []);
 
+    useEffect(() => {
+        if (isConnectionStarted && connectionRef.current) {
+            const connection = connectionRef.current;
+
+            // Leave the previous group if necessary
+            if (previousGroupIdRef.current && previousGroupIdRef.current !== groupId) {
+                connection.invoke('LeaveGroup', `Group_${previousGroupIdRef.current}`);
+            }
+
+            // Join the new group
+            if (groupId) {
+                connection.invoke('JoinGroup', `Group_${groupId}`);
+                previousGroupIdRef.current = groupId;
+            } else {
+                console.error('Group ID is undefined');
+            }
+
+            // Remove previous event handler to prevent stacking
+            connection.off('ReceiveGroupMessage');
+
+            // Set up a new event handler for the new group
+            connection.on('ReceiveGroupMessage', (message: Message) => {
+                if (message.groupId === groupId) {
+                    setMessages((prevMessages) => [...prevMessages, message]);
+                }
+            });
+
+            // Clean up when the component unmounts or when groupId changes
+            return () => {
+                connection.off('ReceiveGroupMessage');
+            };
+        }
+    }, [groupId, isConnectionStarted]);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -124,39 +141,16 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
 
     useEffect(() => {
         if (messagesEndRef.current) {
-            messagesEndRef.current.scrollIntoView({behavior: 'smooth'});
+            messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     }, [messages]);
-    useEffect(() => {
-        const joinGroup = async () => {
-            if (
-                connectionRef.current &&
-                connectionRef.current.state === signalR.HubConnectionState.Connected
-            ) {
-                if (previousGroupIdRef.current && previousGroupIdRef.current !== groupId) {
-                    await connectionRef.current.invoke('LeaveGroup', `Group_${previousGroupIdRef.current}`);
-                }
-
-                if (groupId) {
-                    await connectionRef.current.invoke('JoinGroup', `Group_${groupId}`);
-                    previousGroupIdRef.current = groupId;
-                } else {
-                    console.error('Group ID is undefined');
-                }
-            }
-        };
-
-        joinGroup();
-    }, [groupId]);
-
-
 
     const fetchGroupDetails = async () => {
         try {
             const response = await axios.get(`http://localhost:5001/api/Groups/${groupId}`, {
-                headers: {Authorization: `Bearer ${token}`},
+                headers: { Authorization: `Bearer ${token}` },
             });
-            setGroupInfo(response.data)
+            setGroupInfo(response.data);
         } catch (error) {
             console.error('Error fetching group details:', error);
         }
@@ -167,8 +161,8 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
             const response = await axios.get(
                 'http://localhost:5001/api/GroupMessages/GetGroupChatHistory',
                 {
-                    params: {groupId},
-                    headers: {Authorization: `Bearer ${token}`},
+                    params: { groupId },
+                    headers: { Authorization: `Bearer ${token}` },
                 }
             );
             setMessages(response.data);
@@ -176,7 +170,6 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
             console.error('Error fetching messages:', error);
         }
     };
-
 
     const shouldShowTimestamp = (currentIndex: number): boolean => {
         if (currentIndex === messages.length - 1) {
@@ -211,7 +204,6 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
         setShowMenu(false);
     };
 
-
     return (
         <div className="group-message-page">
             <div className="group-message-container">
@@ -225,10 +217,13 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
                     <div className="contact-info">
                         <span className="contact-name">{groupInfo?.groupName}</span>
                     </div>
-                    <div className="messages-menu-icon" onClick={(event) => {
-                        event.stopPropagation();
-                        toggleMenu();
-                    }}>
+                    <div
+                        className="messages-menu-icon"
+                        onClick={(event) => {
+                            event.stopPropagation();
+                            toggleMenu();
+                        }}
+                    >
                         {showMenu && (
                             <div className="messages-dropdown-menu">
                                 <button onClick={handleToggleGroupInfoVisibility}>
@@ -236,12 +231,12 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
                                 </button>
                             </div>
                         )}
-                        <FaEllipsisV/>
+                        <FaEllipsisV />
                     </div>
                 </div>
                 <div className="group-message-list">
                     {isMobile && showGroupInfo ? (
-                        <GroupInfo groupId={groupId}/>
+                        <GroupInfo groupId={groupId} />
                     ) : (
                         <>
                             {messages.map((message, index) => {
@@ -313,18 +308,17 @@ const GroupMessage: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
                                     </div>
                                 );
                             })}
-                            <div ref={messagesEndRef}/>
-
+                            <div ref={messagesEndRef} />
                         </>
                     )}
                 </div>
                 {(!isMobile || !showGroupInfo) && (
                     <>
-                        <GroupMessageInput groupId={groupId} showModal={showModal}/>
+                        <GroupMessageInput groupId={groupId} showModal={showModal} />
                     </>
                 )}
             </div>
-            {!isMobile && showGroupInfo && <GroupInfo groupId={groupId}/>}
+            {!isMobile && showGroupInfo && <GroupInfo groupId={groupId} />}
         </div>
     );
 };

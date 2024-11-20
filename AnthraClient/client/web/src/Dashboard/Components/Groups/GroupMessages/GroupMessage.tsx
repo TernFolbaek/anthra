@@ -6,6 +6,7 @@ import { FaEllipsisV, FaArrowLeft } from 'react-icons/fa';
 import * as signalR from '@microsoft/signalr';
 import GroupInfo from '../GroupInfo/GroupInfo';
 import GroupMessageInput from "./GroupMessageInput";
+import EditGroupModal from "../EditGroupModal/EditGroupModal";
 
 interface Attachment {
     id: number;
@@ -32,6 +33,11 @@ interface GroupMessageProps {
 interface GroupInfo {
     adminName: string;
     groupName: string;
+    creatorId: string;
+    groupId: number;
+    groupDescription: string;
+    groupMembersDesired: string;
+    isPublic: boolean;
 }
 
 const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
@@ -48,6 +54,8 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 1300);
     const navigate = useNavigate();
     const [isConnectionStarted, setIsConnectionStarted] = useState(false);
+    const [showEditGroupModal, setShowEditGroupModal] = useState(false);
+    const isGroupCreator = groupInfo?.creatorId === userId;
 
     useEffect(() => {
         const handleResize = () => {
@@ -204,6 +212,13 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
         setShowMenu(false);
     };
 
+    const handleEditGroup = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation();
+        setShowEditGroupModal(true);
+        setShowMenu(false);
+    };
+
+
     return (
         <div className="group-message-page">
             <div className="group-message-container">
@@ -226,6 +241,11 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                     >
                         {showMenu && (
                             <div className="messages-dropdown-menu">
+                                {isGroupCreator && (
+                                    <button onClick={handleEditGroup}>
+                                        Edit Group
+                                    </button>
+                                )}
                                 <button onClick={handleToggleGroupInfoVisibility}>
                                     {showGroupInfo ? 'Hide Info' : 'Show Info'}
                                 </button>
@@ -316,6 +336,13 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                     <>
                         <GroupMessageInput groupId={groupId} showModal={showModal} />
                     </>
+                )}
+                {showEditGroupModal && groupInfo && (
+                    <EditGroupModal
+                        groupInfo={groupInfo}
+                        onClose={() => setShowEditGroupModal(false)}
+                        onGroupUpdated={fetchGroupDetails}
+                    />
                 )}
             </div>
             {!isMobile && showGroupInfo && <GroupInfo groupId={groupId} />}

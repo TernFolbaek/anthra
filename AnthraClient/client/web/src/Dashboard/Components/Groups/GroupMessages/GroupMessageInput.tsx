@@ -19,7 +19,19 @@ const GroupMessageInput: React.FC<GroupMessageProps> = ({groupId, showModal}) =>
     useEffect(() => {
         if (!showModal) {
             const handleKeyDown = (event: KeyboardEvent) => {
-                if (inputRef.current && !inputRef.current.contains(document.activeElement)) {
+                const activeElement = document.activeElement as HTMLElement;
+
+                if (
+                    activeElement &&
+                    (activeElement.tagName === 'INPUT' ||
+                        activeElement.tagName === 'TEXTAREA' ||
+                        activeElement.isContentEditable)
+                ) {
+                    // Do not shift focus if the active element is an input, textarea, or contentEditable
+                    return;
+                }
+
+                if (inputRef.current && !inputRef.current.contains(activeElement)) {
                     inputRef.current.focus();
                 }
                 if (event.key === 'Enter') {
@@ -30,7 +42,6 @@ const GroupMessageInput: React.FC<GroupMessageProps> = ({groupId, showModal}) =>
             return () => document.removeEventListener('keydown', handleKeyDown);
         }
     }, [showModal]);
-
     const handleRemoveSelectedFile = () => {
         if (selectedImagePreview) {
             URL.revokeObjectURL(selectedImagePreview);

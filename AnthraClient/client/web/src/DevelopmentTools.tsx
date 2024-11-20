@@ -15,7 +15,6 @@ const DevelopmentTools = () => {
             await axios.post('http://localhost:5001/delete-test-users');
         } catch (error) {
             console.error('Error deleting test users:', error);
-            console.log('Failed to delete test users.');
         }
     };
 

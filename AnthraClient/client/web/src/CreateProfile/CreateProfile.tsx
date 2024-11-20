@@ -126,7 +126,6 @@ const CreateProfile: React.FC<CreateProfileProps> = ({onProfileCreated}) => {
             });
             localStorage.setItem('fullName', `${firstName} ${lastName}`);
             localStorage.setItem('userProfilePicture', response.data.profilePictureUrl)
-            console.log(response)
             onProfileCreated();
         } catch (err: any) {
             if (err.response && err.response.data) {

@@ -39,7 +39,6 @@ const GroupInfo: React.FC<GroupInfoProps> = ({groupId}) => {
                         },
                     }
                 );
-                console.log(response.data);
                 setGroupDescription(response.data.groupDescription);
                 setIsPublic(response.data.isPublic);
                 setGroupDesiredMembers(response.data.groupDesiredMembers);

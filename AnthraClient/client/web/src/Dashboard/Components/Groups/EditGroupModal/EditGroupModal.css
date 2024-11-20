@@ -1,3 +1,5 @@
+/* EditGroupModal.css */
+
 .edit-group-modal-overlay {
     position: fixed;
     top: 0;
@@ -16,6 +18,7 @@
     border-radius: 8px;
     position: relative;
     width: 500px;
+    height: 600px;
 }
 
 .edit-group-close-button {
@@ -30,6 +33,28 @@
 
 .edit-group-close-button:hover {
     color: black;
+}
+
+.edit-group-tabs {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 15px;
+}
+
+.edit-group-tab {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    border: none;
+    outline: none;
+}
+
+.edit-group-tab.active {
+    background-color: #fff;
+    border-bottom: 2px solid #007bff;
+    font-weight: bold;
 }
 
 .edit-group-section {
@@ -67,4 +92,101 @@
 .edit-group-buttons button {
     padding: 8px 12px;
     cursor: pointer;
+}
+
+/* Members List */
+.edit-group-members-section {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.group-members-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.group-member-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.member-info {
+    display: flex;
+    align-items: center;
+}
+
+.member-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.edit-member-action-button-profile{
+    font-size: 14px;
+    background-color: rgba(180, 209, 255, 0.5);
+    padding: 5px;
+    border-radius: 5px;
+    margin-left: 5px;
+}
+
+.edit-member-action-button-kick{
+    font-size: 14px;
+    background-color: rgba(255, 180, 180, 0.5);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* Kick Confirmation Modal */
+.kick-confirmation-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.kick-confirmation-modal {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.kick-confirmation-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+}
+
+.kick-confirmation-buttons-continue {
+    font-size: 14px;
+    background-color: rgba(255, 180, 180, 0.5);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.kick-confirmation-buttons-cancel {
+    font-size: 14px;
+    background-color: rgba(180, 209, 255, 0.5);
+    padding: 5px;
+    border-radius: 5px;
+    margin-left: 5px;
+}
+
+.kick-confirmation-buttons-cancel:hover,
+.edit-member-action-button-profile:hover{
+    background-color: #85bff8;
+}
+
+.kick-confirmation-buttons-continue:hover,
+.edit-member-action-button-kick:hover{
+    background-color: #f18a8a;
 }

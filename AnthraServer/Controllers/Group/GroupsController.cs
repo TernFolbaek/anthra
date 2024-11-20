@@ -52,6 +52,7 @@ public class GroupsController : ControllerBase
             CreatorName = group.adminName,
             groupDescription = group.GroupDescription,
             groupMembersDesired = group.GroupMemberDesire,
+            group.isPublic
         };
 
         return Ok(groupDetails);
@@ -257,4 +258,32 @@ public class GroupsController : ControllerBase
 
         return Ok();
     }
+    
+    [HttpPost("UpdateGroup")]
+    [Authorize]
+    public async Task<IActionResult> UpdateGroup([FromBody] UpdateGroupModel model)
+    {
+        var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        var group = await _context.Groups.FirstOrDefaultAsync(g => g.Id == model.GroupId);
+
+        if (group == null)
+        {
+            return NotFound("Group not found.");
+        }
+
+        if (group.CreatorId != currentUserId)
+        {
+            return Forbid("Only the group creator can update the group.");
+        }
+
+        group.Name = model.Name;
+        group.GroupDescription = model.Description;
+        group.GroupMemberDesire = model.GroupMemberDesire;
+        group.isPublic = model.isPublic;
+        await _context.SaveChangesAsync();
+
+        return Ok();
+    }
+
 }

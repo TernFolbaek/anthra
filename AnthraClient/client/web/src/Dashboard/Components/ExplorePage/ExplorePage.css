@@ -24,8 +24,8 @@
     padding: 25px;
     border-radius: 16px;
     width: 100%;
-    max-width: 900px; /* Increased max-width for larger screens */
-    text-align: left; /* Changed text alignment to left */
+    max-width: 900px;
+    text-align: left;
     display: flex;
     flex-direction: column;
     gap: 15px;

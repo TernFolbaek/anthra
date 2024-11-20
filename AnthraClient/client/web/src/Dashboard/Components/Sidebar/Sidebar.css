@@ -15,9 +15,7 @@
     justify-content: space-between;
 }
 
-.tooltip-container{
-    position: relative;
-}
+
 .sidebar-profile-picture{
     width: 70px;
     height: 70px;
@@ -91,19 +89,9 @@
     color: #007bff;
 }
 
-.dark-mode .sidebar-link.active-link {
-    background-color: #333;
-    color: #66b2ff;
-}
-
-@media (max-width: 768px) {
-    .sidebar {
-        display: none;
-    }
-}
-
 .tooltip-container {
     display: inline-block;
+    position: relative;
 }
 
 .tooltip {
@@ -115,8 +103,8 @@
     padding: 5px 8px;
     position: absolute;
     z-index: 3;
-    bottom: -15%;
-    left: 300%;
+    bottom: -43px;
+    left: 50%;
     transform: translateX(-50%);
     white-space: nowrap;
     opacity: 0;
@@ -129,5 +117,18 @@
     visibility: visible;
     opacity: 0.8;
 }
+
+.dark-mode .sidebar-link.active-link {
+    background-color: #333;
+    color: #66b2ff;
+}
+
+
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+}
+
 
 

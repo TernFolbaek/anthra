@@ -5,7 +5,6 @@ import {
     FaUsers,
     FaFacebookMessenger,
     FaCog,
-    FaBuilding,
     FaHandHoldingHeart,
     FaUserFriends,
 } from 'react-icons/fa';

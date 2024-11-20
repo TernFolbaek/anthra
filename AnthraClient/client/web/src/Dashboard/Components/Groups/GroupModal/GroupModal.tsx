@@ -1,4 +1,3 @@
-// src/components/GroupModal.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './GroupModal.css';
@@ -23,7 +22,6 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
     const [connections, setConnections] = useState<Connection[]>([]);
     const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
     const [isPublic, setIsPublic] = useState(true);
-    const [errors, setErrors] = useState<string[]>([]);
 
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
@@ -75,7 +73,6 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                 isPublic: isPublic,
                 adminName: fullName,
             };
-            console.log(payload)
             await axios.post('http://localhost:5001/api/Groups/CreateGroup', payload, {
                 headers: { Authorization: `Bearer ${token}` },
             });

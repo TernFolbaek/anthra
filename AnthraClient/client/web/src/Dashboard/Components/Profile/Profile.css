@@ -167,7 +167,7 @@
 
 .save-button {
     margin-top: 30px;
-    background-color: #28a745;
+    background-color: rgb(67, 158, 246);
     color: #fff;
     border: none;
     padding: 12px 20px;
@@ -179,17 +179,17 @@
 }
 
 .save-button:hover {
-    background-color: #218838;
+    background-color: #4883f3;
 }
 
 .profile-icon-button {
-    font-size: 1.5rem; /* Adjust the size of the icon */
+    font-size: 1.5rem;
     color: #ffffff;
-    background-color: #85bff8; /* Adjust as needed for a background color */
-    border-radius: 50%; /* Makes the icon circular */
-    padding: 8px; /* Controls the space around the icon inside the circle */
-    width: 40px; /* Set a fixed width for the circular icon */
-    height: 40px; /* Set a fixed height for the circular icon */
+    background-color: #85bff8;
+    border-radius: 50%;
+    padding: 8px;
+    width: 40px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;

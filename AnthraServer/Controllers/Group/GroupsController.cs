@@ -285,5 +285,37 @@ public class GroupsController : ControllerBase
 
         return Ok();
     }
+    
+    [HttpPost("KickMember")]
+    [Authorize]
+    public async Task<IActionResult> KickMember([FromBody] KickMemberModel model)
+    {
+        var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        var group = await _context.Groups.FirstOrDefaultAsync(g => g.Id == model.GroupId);
+
+        if (group == null)
+        {
+            return NotFound("Group not found.");
+        }
+
+        if (group.CreatorId != currentUserId)
+        {
+            return Forbid("Only the group creator can kick members.");
+        }
+
+        var member = await _context.GroupMembers.FirstOrDefaultAsync(gm => gm.GroupId == model.GroupId && gm.UserId == model.MemberId);
+
+        if (member == null)
+        {
+            return NotFound("Member not found in group.");
+        }
+
+        _context.GroupMembers.Remove(member);
+        await _context.SaveChangesAsync();
+
+        return Ok();
+    }
+
 
 }

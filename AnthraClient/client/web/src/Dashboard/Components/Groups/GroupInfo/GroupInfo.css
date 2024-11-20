@@ -51,12 +51,6 @@
     gap: 5px;
 }
 
-.group-member-item:hover,
-.group-attachment-item:hover {
-    background-color: #f0f8ff;
-    cursor: pointer;
-}
-
 .group-member-name {
     font-size: 0.8rem;
     font-weight: 500;

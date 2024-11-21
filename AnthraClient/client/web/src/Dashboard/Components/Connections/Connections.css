@@ -78,16 +78,14 @@
 }
 
 .no-conversations-rive{
-    width: 250px;
-    height: 250px;
+    width: 350px;
+    height: 350px;
     position: relative;
     z-index: 1;
     border-radius: 10px;
 }
 
 .no-connections-rive{
-    width: 400px;
-    height: 400px;
     position: relative;
     z-index: 1;
     border-radius: 10px;

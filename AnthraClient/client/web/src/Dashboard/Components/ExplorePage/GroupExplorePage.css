@@ -1,0 +1,127 @@
+/* GroupExplorePage.css */
+.group-explore-page {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.group-explore-container {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+}
+
+
+.group-explore-card {
+    background: #ffffff;
+    color: #333;
+    padding: 25px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 700px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    position: relative;
+}
+
+.group-explore-card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.group-explore-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.group-explore-description {
+    font-size: 1rem;
+    color: #666;
+    text-align: center;
+}
+
+.group-explore-tab-container {
+    display: flex;
+    margin-top: 20px;
+}
+
+.group-explore-tab-button {
+    flex: 1;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: none;
+    outline: none;
+    font-weight: bold;
+    color: #666;
+}
+
+.group-explore-tab-button.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.group-explore-members-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.group-explore-member-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.group-explore-member-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.group-explore-button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.group-explore-apply-button,
+.group-explore-skip-button {
+    border: none;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 12px;
+    width: 48%;
+}
+
+.group-explore-apply-button {
+    background-color: #28a745;
+}
+
+.group-explore-skip-button {
+    background-color: #dc3545;
+}
+
+.group-explore-apply-button:hover,
+.group-explore-skip-button:hover {
+    opacity: 0.9;
+}
+
+.group-explore-no-more {
+    text-align: center;
+    color: #666;
+    font-size: 1.2rem;
+}

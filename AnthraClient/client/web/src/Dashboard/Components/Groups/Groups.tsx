@@ -131,14 +131,12 @@ const Groups: React.FC = () => {
             ) : (
                 <>
                     {(isWideScreen || !groupId) && (
-                        <div className="w-full flex justify-center">
                         <GroupsList
                             groups={groups}
                             onGroupClick={handleGroupClick}
                             onCreateGroup={handleCreateGroup}
                             selectedGroupId={groupId ? parseInt(groupId) : null}
                         />
-                        </div>
                     )}
                 <div className="no-groups-container">
                     <NoConnectionsRive/>

@@ -44,7 +44,7 @@ const StepOne: React.FC<StepOneProps> = ({
     useEffect(() => {
         axios
             .get('https://countriesnow.space/api/v0.1/countries/iso', {
-                withCredentials: false, // Ensure credentials are not sent
+                withCredentials: false,
             })
             .then((response) => {
                 const countryList = response.data.data.map((country: any) => country.name);
@@ -56,7 +56,6 @@ const StepOne: React.FC<StepOneProps> = ({
     }, []);
 
     useEffect(() => {
-        // Add event listener to detect clicks outside
         const handleClickOutside = (event: MouseEvent) => {
             if (
                 countryInputRef.current &&
@@ -87,7 +86,7 @@ const StepOne: React.FC<StepOneProps> = ({
 
         const suggestions = cities
             .filter((cityName) => cityName.toLowerCase().startsWith(value.toLowerCase()))
-            .slice(0, 5); // Limit to 5 suggestions
+            .slice(0, 5);
 
         setCitySuggestions(suggestions);
     };
@@ -95,8 +94,8 @@ const StepOne: React.FC<StepOneProps> = ({
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
-            setProfilePictureFile(file); // Save the selected file in parent state
-            setPreviewUrl(URL.createObjectURL(file)); // Optionally update preview URL
+            setProfilePictureFile(file);
+            setPreviewUrl(URL.createObjectURL(file));
         }
     };
 
@@ -133,7 +132,7 @@ const StepOne: React.FC<StepOneProps> = ({
                     country: countryName,
                 },
                 {
-                    withCredentials: false, // Ensure credentials are not sent
+                    withCredentials: false,
                 }
             )
             .then((response) => {
@@ -148,7 +147,7 @@ const StepOne: React.FC<StepOneProps> = ({
     return (
         <div className="form-step">
             <label htmlFor="firstName" className="input-label">
-                First Name
+                First Name<span className="required-asterisk">*</span>
             </label>
             <input
                 id="firstName"
@@ -160,7 +159,7 @@ const StepOne: React.FC<StepOneProps> = ({
             />
 
             <label htmlFor="lastName" className="input-label">
-                Last Name
+                Last Name<span className="required-asterisk">*</span>
             </label>
             <input
                 id="lastName"
@@ -172,7 +171,7 @@ const StepOne: React.FC<StepOneProps> = ({
             />
 
             <label htmlFor="age" className="input-label">
-                Age
+                Age<span className="required-asterisk">*</span>
             </label>
             <input
                 id="age"
@@ -187,7 +186,7 @@ const StepOne: React.FC<StepOneProps> = ({
             <div className="autocomplete-container mt-2" ref={countryInputRef}>
                 <div className="autocomplete-input-with-label">
                     <label htmlFor="country" className="input-label">
-                        Country
+                        Country<span className="required-asterisk">*</span>
                     </label>
                     <input
                         id="country"
@@ -196,6 +195,14 @@ const StepOne: React.FC<StepOneProps> = ({
                         required
                         value={country}
                         onChange={handleCountryInputChange}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                                if (countrySuggestions.length > 0) {
+                                    handleCountrySelect(countrySuggestions[0]);
+                                }
+                            }
+                        }}
                     />
                 </div>
                 {countrySuggestions.length > 0 && (
@@ -217,7 +224,7 @@ const StepOne: React.FC<StepOneProps> = ({
             <div className="autocomplete-container" ref={cityInputRef}>
                 <div className="autocomplete-input-with-label">
                     <label htmlFor="city" className="input-label">
-                        City
+                        City<span className="required-asterisk">*</span>
                     </label>
                     <input
                         id="city"
@@ -226,6 +233,14 @@ const StepOne: React.FC<StepOneProps> = ({
                         required
                         value={city}
                         onChange={handleCityInputChange}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                                if (citySuggestions.length > 0) {
+                                    handleCitySelect(citySuggestions[0]);
+                                }
+                            }
+                        }}
                     />
                 </div>
                 {citySuggestions.length > 0 && (
@@ -244,7 +259,7 @@ const StepOne: React.FC<StepOneProps> = ({
             </div>
 
             <label htmlFor="profilePicture" className="input-label">
-                Profile Picture
+                Profile Picture<span className="required-asterisk">*</span>
             </label>
             <input
                 id="profilePicture"
@@ -257,7 +272,6 @@ const StepOne: React.FC<StepOneProps> = ({
             <div className="w-full flex justify-center">
                 {previewUrl && <img src={previewUrl} alt="Preview" className="image-preview" />}
             </div>
-
         </div>
     );
 };

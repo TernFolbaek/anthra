@@ -1,9 +1,5 @@
 /* GroupExplorePage.css */
-.group-explore-page {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
 
 .group-explore-container {
     display: flex;
@@ -14,23 +10,25 @@
     width: 100%;
 }
 
-
-.group-explore-card {
-    background: #ffffff;
+.explore-group-card {
+    background: white;
     color: #333;
     padding: 25px;
     border-radius: 16px;
     width: 100%;
-    max-width: 700px;
+    max-width: 1000px;
+    height: 100%;
+    min-height: 700px;
     text-align: left;
     display: flex;
     flex-direction: column;
     gap: 15px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease-in-out;
     position: relative;
 }
 
-.group-explore-card-content {
+.explore-group-card-content {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -40,41 +38,30 @@
 .group-explore-name {
     font-size: 1.8rem;
     font-weight: 700;
-    margin-top: 10px;
+    margin: 10px 0;
     text-align: center;
 }
 
 .group-explore-description {
     font-size: 1rem;
     color: #666;
-    text-align: center;
 }
 
-.group-explore-tab-container {
-    display: flex;
-    margin-top: 20px;
+.group-explore-info h3 {
+    margin: 10px 0 5px;
+    font-weight: 600;
+    color: #444;
 }
 
-.group-explore-tab-button {
-    flex: 1;
-    padding: 10px;
-    cursor: pointer;
-    background-color: #f0f0f0;
-    border: none;
-    outline: none;
-    font-weight: bold;
-    color: #666;
-}
-
-.group-explore-tab-button.active {
-    background-color: #007bff;
-    color: #fff;
+.group-explore-info p {
+    margin: 0 0 10px;
+    font-size: 0.95rem;
+    color: #555;
 }
 
 .group-explore-members-list {
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
+    padding: 0;
+    list-style: none;
 }
 
 .group-explore-member-item {
@@ -92,7 +79,8 @@
 
 .group-explore-button-container {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
     margin-top: 20px;
 }
 
@@ -103,12 +91,14 @@
     padding: 0.75rem 1.5rem;
     cursor: pointer;
     font-weight: 600;
+    transition: background-color 0.3s, transform 2s;
     border-radius: 12px;
-    width: 48%;
+    flex: 1;
+    max-width: 200px;
 }
 
 .group-explore-apply-button {
-    background-color: #28a745;
+    background-color: #007bff;
 }
 
 .group-explore-skip-button {
@@ -117,11 +107,85 @@
 
 .group-explore-apply-button:hover,
 .group-explore-skip-button:hover {
-    opacity: 0.9;
+    transform: scale(1.05);
 }
 
 .group-explore-no-more {
-    text-align: center;
-    color: #666;
-    font-size: 1.2rem;
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    width: 100%;
+    height: 100%;
+    max-width: 1000px;
+    min-height: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease-in-out;
+    position: relative;
+}
+
+.dark-mode .explore-group-card {
+    background-color: #1a1a1a;
+    color: #fff;
+}
+
+.dark-mode .group-explore-description {
+    color: #fff;
+}
+
+.dark-mode .group-explore-info h3,
+.dark-mode .group-explore-info p {
+    color: #fff;
+}
+
+/* For larger screens */
+@media (min-width: 768px) {
+    .explore-group-card {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .explore-group-card-content {
+        margin-left: 25px;
+    }
+}
+
+/* For medium screens (tablets) */
+@media (max-width: 767px) {
+    .explore-group-card {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .explore-group-card-content {
+        margin-left: 0;
+    }
+
+    .group-explore-button-container {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .group-explore-apply-button,
+    .group-explore-skip-button {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+/* Adjust font sizes for mobile devices */
+@media (max-width: 480px) {
+    .group-explore-name {
+        font-size: 1.5rem;
+    }
+
+    .group-explore-info h3 {
+        font-size: 1rem;
+    }
+
+    .group-explore-info p {
+        font-size: 0.9rem;
+    }
 }

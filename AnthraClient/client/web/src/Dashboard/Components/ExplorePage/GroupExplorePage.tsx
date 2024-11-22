@@ -94,17 +94,17 @@ const GroupExplorePage: React.FC = () => {
             {currentGroup ? (
                 <div className="explore-group-card">
                     <div className="explore-group-card-content">
-                        <h2 className="group-name">{currentGroup.name}</h2>
-                        <p className="group-description">{currentGroup.groupDescription}</p>
+                        <h2 className="group-explore-name">{currentGroup.name}</h2>
+                        <p className="group-explore-description">{currentGroup.groupDescription}</p>
                         <h3>What the group is looking for:</h3>
                         <p>{currentGroup.groupMemberDesire}</p>
-                        <div className="group-info">
+                        <div className="group-explore-info">
                             <h3>Members</h3>
-                            <ul className="group-members-list">
+                            <ul className="group-explore-members-list">
                                 {currentGroup.members.map((member) => (
-                                    <li key={member.userId} className="group-member-item">
+                                    <li key={member.userId} className="group-explore-member-item">
                                         <img
-                                            className="group-member-avatar"
+                                            className="group-explore-member-avatar"
                                             src={`http://localhost:5001${member.profilePictureUrl}`}
                                             alt={`${member.firstName} ${member.lastName}`}
                                         />
@@ -115,18 +115,18 @@ const GroupExplorePage: React.FC = () => {
                                 ))}
                             </ul>
                         </div>
-                        <div className="button-container">
-                            <button className="apply-button" onClick={handleApply}>
+                        <div className="group-explore-button-container">
+                            <button className="group-explore-apply-button" onClick={handleApply}>
                                 Apply
                             </button>
-                            <button className="skip-button" onClick={handleSkip}>
+                            <button className="group-explore-skip-button" onClick={handleSkip}>
                                 Skip
                             </button>
                         </div>
                     </div>
                 </div>
             ) : (
-                        <NoMoreUsersToExplore />
+                    <NoMoreUsersToExplore />
             )}
         </div>
     );

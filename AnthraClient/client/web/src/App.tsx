@@ -44,6 +44,17 @@ const App = () => {
         }
     }, []);
 
+    const handleCreateProfileBackClick = () => {
+        setIsAuthenticated(false);
+        setShowAuthPage(false);
+        setProfileCreated(false);
+        // Optionally, clear user data from localStorage if needed
+        localStorage.removeItem('token');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('fullName');
+        localStorage.removeItem('userProfilePicture');
+    };
+
     const handleGetStartedClick = () => {
         setShowAuthPage(true);
     };
@@ -70,7 +81,7 @@ const App = () => {
                         <Main />
                     ) : (
                         // User is authenticated but profile is not created
-                        <CreateProfile onProfileCreated={handleProfileCreated} />
+                        <CreateProfile   onBackClick={handleCreateProfileBackClick}  onProfileCreated={handleProfileCreated} />
                     )
                 ) : (
                     showAuthPage ? (

@@ -135,18 +135,18 @@ const UserExplorePage: React.FC = () => {
                                 </div>
                             )}
                         </div>
-                        <div className="button-container">
-                            <button className="connect-button" onClick={handleConnect}>
-                                Connect
-                            </button>
-                            <button className="skip-button" onClick={handleSkip}>
-                                Skip
-                            </button>
-                        </div>
+                    </div>
+                    <div className="user-explore-page-button-container">
+                        <button className="connect-button" onClick={handleConnect}>
+                            Connect
+                        </button>
+                        <button className="skip-button" onClick={handleSkip}>
+                            Skip
+                        </button>
                     </div>
                 </div>
             ) : (
-                    <NoMoreUsersToExplore />
+                <NoMoreUsersToExplore/>
             )}
         </div>
     );

@@ -78,7 +78,8 @@ namespace MyBackendApp.Controllers
             user.AboutMe = model.AboutMe;
             user.Age = model.Age;
             user.CreatedProfile = true;
-            
+            user.ProfileCompleted = true;
+
 
             var result = await _userManager.UpdateAsync(user);
             if (model.ProfilePicture != null && model.ProfilePicture.Length > 0)

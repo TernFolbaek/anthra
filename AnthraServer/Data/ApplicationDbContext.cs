@@ -11,6 +11,7 @@ namespace MyBackendApp.Data
         public DbSet<SkippedUserModel> SkippedUsers { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupMember> GroupMembers { get; set; }
+        public DbSet<SkippedGroup> SkippedGroups { get; set; }
         public DbSet<Connection> Connections { get; set; }
         public DbSet<GroupMessage> GroupMessages { get; set; }
         public DbSet<Notification> Notifications { get; set; }

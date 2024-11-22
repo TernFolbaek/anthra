@@ -1,5 +1,5 @@
 // GroupExplorePage.tsx
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import './GroupExplorePage.css';
 import NoMoreUsersToExplore from '../../Helpers/Animations/NoMoreUsersToExplore';
@@ -56,7 +56,7 @@ const GroupExplorePage: React.FC = () => {
             try {
                 await axios.post(
                     'http://localhost:5001/api/GroupsExplore/ApplyToGroup',
-                    { groupId: currentGroup.id },
+                    {groupId: currentGroup.id},
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -75,7 +75,7 @@ const GroupExplorePage: React.FC = () => {
             try {
                 await axios.post(
                     'http://localhost:5001/api/GroupsExplore/SkipGroup',
-                    { groupIdToSkip: currentGroup.id },
+                    {groupIdToSkip: currentGroup.id},
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -126,7 +126,7 @@ const GroupExplorePage: React.FC = () => {
                     </div>
                 </div>
             ) : (
-                    <NoMoreUsersToExplore />
+                <NoMoreUsersToExplore/>
             )}
         </div>
     );

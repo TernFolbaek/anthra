@@ -1,6 +1,6 @@
 // CreateProfile.tsx
 
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import './CreateProfile.css';
 import cbsCourses from './cbs/cbsCourses.json';
@@ -11,11 +11,12 @@ import sciencesCourses from './ku/sciencesCourses.json';
 import socialSciencesCourses from './ku/socialSciencesCourses.json';
 import healthAndMedicalCourses from './ku/healthAndMedicalCourses.json';
 import theologyCourses from './ku/theologyCourses.json';
-import {FaTimes, FaExternalLinkAlt, FaPlusCircle} from 'react-icons/fa';
+import { FaTimes, FaExternalLinkAlt, FaPlusCircle } from 'react-icons/fa';
 import StepOne from './StepOne';
 
 interface CreateProfileProps {
     onProfileCreated: () => void;
+    onBackClick: () => void;
 }
 
 interface Course {
@@ -23,7 +24,7 @@ interface Course {
     courseLink: string;
 }
 
-const CreateProfile: React.FC<CreateProfileProps> = ({onProfileCreated}) => {
+const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackClick }) => {
     // Step management
     const [step, setStep] = useState(1);
 
@@ -41,17 +42,21 @@ const CreateProfile: React.FC<CreateProfileProps> = ({onProfileCreated}) => {
     const [courseLinkInput, setCourseLinkInput] = useState('');
     const [courseSuggestions, setCourseSuggestions] = useState<Course[]>([]);
     const [subjects, setSubjects] = useState<string[]>([]);
-    const [subjectInput, setSubjectInput] = useState(''); // New state for subject input
+    const [subjectInput, setSubjectInput] = useState('');
     const [aboutMe, setAboutMe] = useState('');
     const [message, setMessage] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [institution, setInstitution] = useState<string>('');
+    const [otherInstitution, setOtherInstitution] = useState<string>('');
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [isFacultyDropdownOpen, setIsFacultyDropdownOpen] = useState<boolean>(false);
     const [faculty, setFaculty] = useState<string>('');
-    const institutions: string[] = ['CBS', 'DTU', 'KU'];
+    const institutions: string[] = ['CBS', 'DTU', 'KU', 'Other'];
     const faculties: string[] = ['Health & Medical', 'Humanities', 'Sciences', 'Theology', 'Social Sciences', 'Law'];
     const courseSuggestionRef = useRef<HTMLDivElement>(null);
+    const institutionDropdownRef = useRef<HTMLDivElement>(null);
+    const facultyDropdownRef = useRef<HTMLDivElement>(null);
+    const courseLinkInputRef = useRef<HTMLInputElement>(null); // New ref for course link input
     const token = localStorage.getItem('token');
     const cbsCoursesArray: Course[] = cbsCourses as Course[];
     const dtuCoursesArray: Course[] = dtuCourses as Course[];
@@ -68,8 +73,9 @@ const CreateProfile: React.FC<CreateProfileProps> = ({onProfileCreated}) => {
 
     const handleOptionClick = (selectedInstitution: string) => {
         if (selectedInstitution !== institution) {
-            setCourses([]); // Clear courses
-            setFaculty(''); // Reset faculty
+            setCourses([]);
+            setFaculty('');
+            setOtherInstitution('');
         }
         setInstitution(selectedInstitution);
         setIsOpen(false);
@@ -81,7 +87,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({onProfileCreated}) => {
 
     const handleFacultyOptionClick = (selectedFaculty: string) => {
         if (selectedFaculty !== faculty) {
-            setCourses([]); // Clear courses
+            setCourses([]);
         }
         setFaculty(selectedFaculty);
         setIsFacultyDropdownOpen(false);
@@ -102,7 +108,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({onProfileCreated}) => {
         formData.append('FirstName', firstName);
         formData.append('LastName', lastName);
         formData.append('Location', `${city}, ${country}`);
-        formData.append('Institution', institution);
+        formData.append('Institution', institution === 'Other' ? otherInstitution : institution);
         formData.append('Work', work);
         formData.append('AboutMe', aboutMe);
         formData.append('Age', age === '' ? '' : age.toString());
@@ -125,7 +131,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({onProfileCreated}) => {
                 },
             });
             localStorage.setItem('fullName', `${firstName} ${lastName}`);
-            localStorage.setItem('userProfilePicture', response.data.profilePictureUrl)
+            localStorage.setItem('userProfilePicture', response.data.profilePictureUrl);
             onProfileCreated();
         } catch (err: any) {
             if (err.response && err.response.data) {
@@ -145,7 +151,6 @@ const CreateProfile: React.FC<CreateProfileProps> = ({onProfileCreated}) => {
     // Handle next button click
     const handleNext = () => {
         if (step === 1) {
-            // Basic validation for step 1 fields
             if (!firstName || !lastName || !age || !country || !city || !profilePictureFile) {
                 setError('Please fill in all required fields.');
                 return;
@@ -153,6 +158,14 @@ const CreateProfile: React.FC<CreateProfileProps> = ({onProfileCreated}) => {
             setError(null);
             setStep(2);
         } else {
+            if (!institution) {
+                setError('Please select an institution.');
+                return;
+            }
+            if (institution === 'Other' && !otherInstitution.trim()) {
+                setError('Please enter your institution.');
+                return;
+            }
             handleSubmit();
         }
     };
@@ -161,7 +174,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({onProfileCreated}) => {
     const handleBack = () => {
         if (step > 1) {
             setStep(step - 1);
-            setError(null); // Clear error when going back
+            setError(null);
         }
     };
 
@@ -182,43 +195,43 @@ const CreateProfile: React.FC<CreateProfileProps> = ({onProfileCreated}) => {
         if (institution === 'CBS') {
             suggestions = cbsCoursesArray
                 .filter((course) => course.courseName.toLowerCase().includes(value.toLowerCase()))
-                .slice(0, 5); // Get top 5 suggestions
+                .slice(0, 5);
             setCourseSuggestions(suggestions);
         } else if (institution === 'DTU') {
             suggestions = dtuCoursesArray
                 .filter((course) => course.courseName.toLowerCase().includes(value.toLowerCase()))
-                .slice(0, 5); // Get top 5 suggestions
+                .slice(0, 5);
             setCourseSuggestions(suggestions);
         } else if (institution === 'KU') {
             if (faculty === 'Health & Medical') {
                 suggestions = healthAndMedicalCoursesArray
                     .filter((course) => course.courseName.toLowerCase().includes(value.toLowerCase()))
-                    .slice(0, 5); // Get top 5 suggestions
+                    .slice(0, 5);
                 setCourseSuggestions(suggestions);
             } else if (faculty === 'Law') {
                 suggestions = lawCoursesArray
                     .filter((course) => course.courseName.toLowerCase().includes(value.toLowerCase()))
-                    .slice(0, 5); // Get top 5 suggestions
+                    .slice(0, 5);
                 setCourseSuggestions(suggestions);
             } else if (faculty === 'Sciences') {
                 suggestions = sciencesCoursesArray
                     .filter((course) => course.courseName.toLowerCase().includes(value.toLowerCase()))
-                    .slice(0, 5); // Get top 5 suggestions
+                    .slice(0, 5);
                 setCourseSuggestions(suggestions);
             } else if (faculty === 'Theology') {
                 suggestions = theologyCoursesArray
                     .filter((course) => course.courseName.toLowerCase().includes(value.toLowerCase()))
-                    .slice(0, 5); // Get top 5 suggestions
+                    .slice(0, 5);
                 setCourseSuggestions(suggestions);
             } else if (faculty === 'Social Sciences') {
                 suggestions = socialSciencesCoursesArray
                     .filter((course) => course.courseName.toLowerCase().includes(value.toLowerCase()))
-                    .slice(0, 5); // Get top 5 suggestions
+                    .slice(0, 5);
                 setCourseSuggestions(suggestions);
             } else if (faculty === 'Humanities') {
                 suggestions = humanitiesCoursesArray
                     .filter((course) => course.courseName.toLowerCase().includes(value.toLowerCase()))
-                    .slice(0, 5); // Get top 5 suggestions
+                    .slice(0, 5);
                 setCourseSuggestions(suggestions);
             }
         } else {
@@ -234,7 +247,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({onProfileCreated}) => {
         }
         if (!courses.some((c) => c.courseName === course.courseName)) {
             setCourses([...courses, course]);
-            setError(null); // Clear error
+            setError(null);
         }
         setCourseInput('');
         setCourseSuggestions([]);
@@ -251,7 +264,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({onProfileCreated}) => {
                 courseLink: courseLinkInput || '',
             };
             setCourses([...courses, newCourse]);
-            setError(null); // Clear error
+            setError(null);
             setCourseInput('');
             setCourseLinkInput('');
             setCourseSuggestions([]);
@@ -259,7 +272,6 @@ const CreateProfile: React.FC<CreateProfileProps> = ({onProfileCreated}) => {
     };
 
     useEffect(() => {
-        // Add event listener to detect clicks outside
         const handleClickOutside = (event: MouseEvent) => {
             if (
                 courseSuggestionRef.current &&
@@ -275,10 +287,36 @@ const CreateProfile: React.FC<CreateProfileProps> = ({onProfileCreated}) => {
         };
     }, []);
 
+    // Close dropdowns when clicking outside
+    useEffect(() => {
+        const handleClickOutsideDropdowns = (event: MouseEvent) => {
+            if (
+                isOpen &&
+                institutionDropdownRef.current &&
+                !institutionDropdownRef.current.contains(event.target as Node)
+            ) {
+                setIsOpen(false);
+            }
+            if (
+                isFacultyDropdownOpen &&
+                facultyDropdownRef.current &&
+                !facultyDropdownRef.current.contains(event.target as Node)
+            ) {
+                setIsFacultyDropdownOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutsideDropdowns);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutsideDropdowns);
+        };
+    }, [isOpen, isFacultyDropdownOpen]);
+
     // Handle removing a course
     const handleRemoveCourse = (courseName: string) => {
         setCourses(courses.filter((c) => c.courseName !== courseName));
-        setError(null); // Clear error
+        setError(null);
     };
 
     // Handle adding a subject
@@ -302,21 +340,24 @@ const CreateProfile: React.FC<CreateProfileProps> = ({onProfileCreated}) => {
         }
         setSubjects([...subjects, trimmedInput]);
         setSubjectInput('');
-        setError(null); // Clear any subject-related errors
+        setError(null);
     };
 
     // Handle removing a subject
     const handleRemoveSubject = (subjectToRemove: string) => {
         setSubjects(subjects.filter((subject) => subject !== subjectToRemove));
-        setError(null); // Clear any subject-related errors
+        setError(null);
     };
 
     return (
         <div className="create-profile-page">
+            <button className="back-button" onClick={onBackClick}>
+                Back
+            </button>
             <div className="progress-bar">
                 <div
                     className="progress-bar-fill"
-                    style={{width: `${progressPercentage}%`}}
+                    style={{ width: `${progressPercentage}%` }}
                 ></div>
             </div>
             <div className="create-profile-container">
@@ -326,242 +367,320 @@ const CreateProfile: React.FC<CreateProfileProps> = ({onProfileCreated}) => {
                 {error && <p className="error-message">{error}</p>}
 
                 {step === 1 && (
-                    <StepOne
-                        firstName={firstName}
-                        setFirstName={setFirstName}
-                        lastName={lastName}
-                        setLastName={setLastName}
-                        age={age}
-                        setAge={setAge}
-                        country={country}
-                        setCountry={setCountry}
-                        city={city}
-                        setCity={setCity}
-                        profilePictureFile={profilePictureFile}
-                        setProfilePictureFile={setProfilePictureFile}
-                    />
+                    <form onSubmit={(e) => { e.preventDefault(); handleNext(); }}>
+                        <StepOne
+                            firstName={firstName}
+                            setFirstName={setFirstName}
+                            lastName={lastName}
+                            setLastName={setLastName}
+                            age={age}
+                            setAge={setAge}
+                            country={country}
+                            setCountry={setCountry}
+                            city={city}
+                            setCity={setCity}
+                            profilePictureFile={profilePictureFile}
+                            setProfilePictureFile={setProfilePictureFile}
+                        />
+                        <div className="button-container">
+                            <button
+                                type="submit"
+                                className="create-profile-next-button"
+                            >
+                                Next
+                            </button>
+                        </div>
+                    </form>
                 )}
 
                 {step === 2 && (
-                    <div className="form-step">
-                        <label htmlFor="aboutMe" className="input-label">
-                            About Me
-                        </label>
-                        <div className="textarea-with-counter">
-                            <div className="char-counter">{aboutMe.length}/250</div>
-                            <textarea
-                                id="aboutMe"
-                                placeholder="About Me"
-                                maxLength={250}
-                                value={aboutMe}
-                                onChange={(e) => setAboutMe(e.target.value)}
-                            />
-                        </div>
-
-                        <div className="flex">
-                            <div className="custom-dropdown flex items-center gap-x-2">
-                                <label className="input-label">Institution</label>
-                                <div
-                                    className="create-profile-dropdown-header mr-5"
-                                    onClick={handleDropdownClick}
-                                >
-                                    {institution ? institution : 'Select Institution'}
-                                    <span className="dropdown-arrow">▼</span>
-                                </div>
-                                {isOpen && (
-                                    <div className="uni-dropdown-menu">
-                                        {institutions.map((inst) => (
-                                            <div
-                                                key={inst}
-                                                className="uni-dropdown-item"
-                                                onClick={() => handleOptionClick(inst)}
-                                            >
-                                                {inst}
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
+                    <form onSubmit={(e) => { e.preventDefault(); handleNext(); }}>
+                        <div className="form-step">
+                            <label htmlFor="aboutMe" className="input-label">
+                                About Me<span className="required-asterisk">*</span>
+                            </label>
+                            <div className="textarea-with-counter">
+                                <div className="char-counter">{aboutMe.length}/250</div>
+                                <textarea
+                                    id="aboutMe"
+                                    placeholder="About Me"
+                                    maxLength={250}
+                                    value={aboutMe}
+                                    onChange={(e) => setAboutMe(e.target.value)}
+                                />
                             </div>
-                            {institution === 'KU' && (
-                                <div className="custom-dropdown flex items-center gap-x-2">
-                                    <label className="input-label">Faculty</label>
+
+                            <div className="flex">
+                                <div
+                                    className="custom-dropdown flex items-center gap-x-2 mb-2"
+                                    ref={institutionDropdownRef}
+                                >
+                                    <label className="input-label">Institution:<span className="required-asterisk">*</span></label>
                                     <div
-                                        className="create-profile-dropdown-header"
-                                        onClick={handleFacultyDropdownClick}
+                                        className="create-profile-dropdown-header mr-5"
+                                        onClick={handleDropdownClick}
                                     >
-                                        {faculty ? faculty : 'Select Faculty'}
+                                        {institution ? institution : 'Select Institution'}
                                         <span className="dropdown-arrow">▼</span>
                                     </div>
-                                    {isFacultyDropdownOpen && (
+                                    {isOpen && (
                                         <div className="uni-dropdown-menu">
-                                            {faculties.map((faculty) => (
+                                            {institutions.map((inst) => (
                                                 <div
-                                                    key={faculty}
+                                                    key={inst}
                                                     className="uni-dropdown-item"
-                                                    onClick={() => handleFacultyOptionClick(faculty)}
+                                                    onClick={() => handleOptionClick(inst)}
                                                 >
-                                                    {faculty}
+                                                    {inst}
                                                 </div>
                                             ))}
                                         </div>
                                     )}
                                 </div>
-                            )}
-                        </div>
-
-                        {/* Course input */}
-                        <label htmlFor="courseInput" className="input-label">
-                            Courses <span className="counter">({courses.length}/4)</span>
-                        </label>
-                        <div className="course-input-container">
-                            <div className="flex items-center gap-1 mb-2">
-                                <input
-                                    id="courseInput"
-                                    type="text"
-                                    placeholder="Add Course"
-                                    value={courseInput}
-                                    onChange={handleCourseInputChange}
-                                    className="course-input"
-                                    disabled={courses.length >= 4}
-                                />
-                                <button
-                                    type="button"
-                                    onClick={handleAddCourse}
-                                    className="course-add-button"
-                                    disabled={courses.length >= 4}
-                                >
-                                    <FaPlusCircle/>
-                                </button>
+                                {institution === 'KU' && (
+                                    <div
+                                        className="custom-dropdown flex items-center gap-x-2"
+                                        ref={facultyDropdownRef}
+                                    >
+                                        <label className="input-label">Faculty</label>
+                                        <div
+                                            className="create-profile-dropdown-header"
+                                            onClick={handleFacultyDropdownClick}
+                                        >
+                                            {faculty ? faculty : 'Select Faculty'}
+                                            <span className="dropdown-arrow">▼</span>
+                                        </div>
+                                        {isFacultyDropdownOpen && (
+                                            <div className="uni-dropdown-menu">
+                                                {faculties.map((faculty) => (
+                                                    <div
+                                                        key={faculty}
+                                                        className="uni-dropdown-item"
+                                                        onClick={() => handleFacultyOptionClick(faculty)}
+                                                    >
+                                                        {faculty}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
 
-                            {courseSuggestions.length > 0 && (
-                                <div className="suggestions-list" ref={courseSuggestionRef}>
-                                    {courseSuggestions.map((course, index) => (
-                                        <li
-                                            className="suggestion-item"
-                                            key={index}
-                                            onClick={() => handleCourseSelect(course)}
-                                        >
-                                            {course.courseName}
-                                        </li>
-                                    ))}
-                                </div>
-                            )}
-                            {courseInput && courseSuggestions.length === 0 && institution && (
-                                <div>
+                            {institution === 'Other' && (
+                                <div className="flex items-center gap-x-2 mb-2">
+                                    <label className="input-label">Your Inst.</label>
                                     <input
                                         type="text"
-                                        placeholder="Course Link (optional)"
-                                        value={courseLinkInput}
-                                        onChange={(e) => setCourseLinkInput(e.target.value)}
+                                        placeholder="Enter your institution"
+                                        value={otherInstitution}
+                                        onChange={(e) => setOtherInstitution(e.target.value)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                e.preventDefault();
+                                                handleNext();
+                                            }
+                                        }}
                                     />
                                 </div>
                             )}
-                        </div>
 
-                        {/* Display selected courses */}
-                        {courses.length > 0 && (
-                            <div className="selected-courses">
-                                {courses.map((course, index) => (
-                                    <span key={index} className="course-tag">
-                                        {course.courseLink ? (
-                                            <a
-                                                href={
-                                                    course.courseLink.startsWith('http')
-                                                        ? course.courseLink
-                                                        : `https://${course.courseLink}`
+                            {/* Course input */}
+                            <label htmlFor="courseInput" className="input-label">
+                                Courses<span className="required-asterisk">*</span>{' '}
+                                <span className="counter">({courses.length}/4)</span>
+                            </label>
+                            <div className="course-input-container">
+                                <div className="flex items-center gap-1 mb-2">
+                                    <input
+                                        id="courseInput"
+                                        type="text"
+                                        placeholder="Add Course"
+                                        value={courseInput}
+                                        onChange={handleCourseInputChange}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                e.preventDefault();
+                                                if (courseLinkInputRef.current) {
+                                                    courseLinkInputRef.current.focus();
                                                 }
-                                                className="course-link"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
+                                            }
+                                        }}
+                                        className="course-input"
+                                        disabled={courses.length >= 4}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            if (courseLinkInputRef.current) {
+                                                courseLinkInputRef.current.focus();
+                                            }
+                                        }}
+                                        className="course-add-button"
+                                        disabled={courses.length >= 4}
+                                    >
+                                        <FaPlusCircle />
+                                    </button>
+                                </div>
+
+                                {courseSuggestions.length > 0 && (
+                                    <div className="suggestions-list" ref={courseSuggestionRef}>
+                                        {courseSuggestions.map((course, index) => (
+                                            <li
+                                                className="suggestion-item"
+                                                key={index}
+                                                onClick={() => handleCourseSelect(course)}
                                             >
                                                 {course.courseName}
-                                                <FaExternalLinkAlt className="external-link-icon"/>
-                                            </a>
-                                        ) : (
-                                            <span>{course.courseName}</span>
-                                        )}
-                                        <button
-                                            type="button"
-                                            onClick={() => handleRemoveCourse(course.courseName)}
-                                            className="remove-course-button"
-                                        >
-                                            <FaTimes/>
-                                        </button>
-                                    </span>
-                                ))}
+                                            </li>
+                                        ))}
+                                    </div>
+                                )}
+                                {courseInput && courseSuggestions.length === 0 && institution && (
+                                    <div>
+                                        <input
+                                            type="text"
+                                            placeholder="Course Link (optional)"
+                                            value={courseLinkInput}
+                                            onChange={(e) => setCourseLinkInput(e.target.value)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === 'Enter') {
+                                                    e.preventDefault();
+                                                    handleAddCourse();
+                                                }
+                                            }}
+                                            ref={courseLinkInputRef} // Attach the ref here
+                                        />
+                                    </div>
+                                )}
                             </div>
-                        )}
 
-                        {/* Subjects input */}
-                        <label htmlFor="subjectInput" className="input-label">
-                            Subjects <span className="counter">({subjects.length}/5)</span>
-                        </label>
-                        <div className="subject-input-container">
-                            <div className="flex items-center gap-1 mb-2">
-                                <input
-                                    id="subjectInput"
-                                    type="text"
-                                    placeholder="Add Subject"
-                                    value={subjectInput}
-                                    onChange={(e) => setSubjectInput(e.target.value)}
-                                    className="subject-input"
-                                    maxLength={15}
-                                    disabled={subjects.length >= 5}
-                                />
-                                <button
-                                    type="button"
-                                    onClick={handleAddSubject}
-                                    className="course-add-button"
-                                    disabled={subjects.length >= 5}
-                                >
-                                    <FaPlusCircle/>
-                                </button>
+                            {/* Display selected courses */}
+                            {courses.length > 0 && (
+                                <div className="selected-courses">
+                                    {courses.map((course, index) => (
+                                        <span key={index} className="course-tag">
+                                            {course.courseLink ? (
+                                                <a
+                                                    href={
+                                                        course.courseLink.startsWith('http')
+                                                            ? course.courseLink
+                                                            : `https://${course.courseLink}`
+                                                    }
+                                                    className="course-link"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    {course.courseName}
+                                                    <FaExternalLinkAlt className="external-link-icon" />
+                                                </a>
+                                            ) : (
+                                                <span>{course.courseName}</span>
+                                            )}
+                                            <button
+                                                type="button"
+                                                onClick={() => handleRemoveCourse(course.courseName)}
+                                                className="remove-course-button"
+                                            >
+                                                <FaTimes />
+                                            </button>
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+
+                            {/* Subjects input */}
+                            <label htmlFor="subjectInput" className="input-label">
+                                Subjects<span className="required-asterisk">*</span>{' '}
+                                <span className="counter">({subjects.length}/5)</span>
+                            </label>
+                            <div className="subject-input-container">
+                                <div className="flex items-center gap-1 mb-2">
+                                    <input
+                                        id="subjectInput"
+                                        type="text"
+                                        placeholder="Add Subject"
+                                        value={subjectInput}
+                                        onChange={(e) => setSubjectInput(e.target.value)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                e.preventDefault();
+                                                handleAddSubject();
+                                            }
+                                        }}
+                                        className="subject-input"
+                                        maxLength={15}
+                                        disabled={subjects.length >= 5}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={handleAddSubject}
+                                        className="course-add-button"
+                                        disabled={subjects.length >= 5}
+                                    >
+                                        <FaPlusCircle />
+                                    </button>
+                                </div>
                             </div>
+
+                            {/* Display selected subjects */}
+                            {subjects.length > 0 && (
+                                <div className="selected-subjects flex justify-center gap-2">
+                                    {subjects.map((subject, index) => (
+                                        <span
+                                            key={index}
+                                            className="course-tag flex items-center justify-center"
+                                        >
+                                            <p className="mr-1">{subject}</p>
+                                            <button
+                                                type="button"
+                                                onClick={() => handleRemoveSubject(subject)}
+                                                className="remove-subject-button"
+                                            >
+                                                <FaTimes />
+                                            </button>
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+
+                            <label htmlFor="work" className="input-label">
+                                Work<span className="required-asterisk">*</span>
+                            </label>
+                            <input
+                                id="work"
+                                type="text"
+                                placeholder="Work"
+                                value={work}
+                                onChange={(e) => setWork(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        handleNext();
+                                    }
+                                }}
+                            />
                         </div>
 
-                        {/* Display selected subjects */}
-                        {subjects.length > 0 && (
-                            <div className="selected-subjects flex justify-center gap-2">
-                                {subjects.map((subject, index) => (
-                                    <span key={index} className="subject-tag flex items-center justify-center">
-                                        <p className="mr-1">{subject}
-                                            </p>
-                                        <button
-                                            type="button"
-                                            onClick={() => handleRemoveSubject(subject)}
-                                            className="remove-subject-button"
-                                        >
-                                            <FaTimes/>
-                                        </button>
-                                    </span>
-                                ))}
-                            </div>
-                        )}
-
-                        <label htmlFor="work" className="input-label">
-                            Work
-                        </label>
-                        <input
-                            id="work"
-                            type="text"
-                            placeholder="Work"
-                            value={work}
-                            onChange={(e) => setWork(e.target.value)}
-                        />
-                    </div>
+                        <div className="button-container">
+                            {step > 1 && (
+                                <button
+                                    type="button"
+                                    className="create-profile-back-button"
+                                    onClick={handleBack}
+                                >
+                                    Back
+                                </button>
+                            )}
+                            <button
+                                type="submit"
+                                className="create-profile-next-button"
+                            >
+                                Submit
+                            </button>
+                        </div>
+                    </form>
                 )}
-
-                <div className="button-container">
-                    {step > 1 && (
-                        <button type="button" className="create-profile-back-button" onClick={handleBack}>
-                            Back
-                        </button>
-                    )}
-                    <button type="button" className="create-profile-next-button" onClick={handleNext}>
-                        {step === 2 ? 'Submit' : 'Next'}
-                    </button>
-                </div>
             </div>
         </div>
     );

@@ -5,7 +5,7 @@ import {FaMagnifyingGlass} from "react-icons/fa6";
 
 const NoConnectionsRive: React.FC = () => {
     const navigate = useNavigate();
-    const { rive, RiveComponent } = useRive({
+    const { RiveComponent } = useRive({
         src: '/rive/no_conversations.riv',
         autoplay: true,
     });

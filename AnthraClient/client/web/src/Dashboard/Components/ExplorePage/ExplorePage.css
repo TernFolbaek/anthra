@@ -97,23 +97,6 @@
 }
 
 
-.connect-button,
-.skip-button {
-    border: none;
-    color: #fff;
-    padding: 0.75rem 1.5rem;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.3s, transform 2s;
-    border-radius: 12px;
-    flex: 1;
-    max-width: 200px;
-}
-
-.connect-button:hover,
-.skip-button:hover {
-    transform: scale(1.05);
-}
 
 .dark-mode .connect-button,
 .dark-mode .skip-button {

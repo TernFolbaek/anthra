@@ -51,20 +51,26 @@ const GroupExplorePage: React.FC = () => {
         }
     }, [groups, currentIndex]);
 
+
     const handleApply = async () => {
         if (currentGroup) {
             try {
                 await axios.post(
                     'http://localhost:5001/api/GroupsExplore/ApplyToGroup',
-                    {groupId: currentGroup.id},
+                    { groupId: currentGroup.id },
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
                     }
                 );
-            } catch (error) {
-                console.error('Error applying to group:', error);
+                // Optionally display a success message or state
+            } catch (error: any) {
+                if (error.response && error.response.data) {
+                    alert(error.response.data); // Display error message to the user
+                } else {
+                    console.error('Error applying to group:', error);
+                }
             }
         }
         setCurrentIndex(currentIndex + 1);

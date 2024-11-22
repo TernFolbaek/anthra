@@ -110,10 +110,13 @@
     text-decoration: underline;
 }
 
-.user-explore-button-container {
+.user-explore-page-button-container {
+    position: absolute;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-top: 20px;
+    width: calc(100% - 50px);
+    bottom: 15px;
 }
 
 .connect-button,

@@ -86,6 +86,8 @@
 }
 
 .no-connections-rive{
+    width: 350px;
+    height: 350px;
     position: relative;
     z-index: 1;
     border-radius: 10px;

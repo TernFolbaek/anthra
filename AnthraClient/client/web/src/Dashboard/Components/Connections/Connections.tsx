@@ -79,12 +79,14 @@ const Connections: React.FC = () => {
 
     return (
         <div className="connections-page">
-            <div className="connections-container">
-                {usersWithConversations.length === 0 && usersWithoutConversations.length === 0 ? (
-                    <NoConnectionsRive />
-                ) : (
-                    <div className="connections-columns">
-                        <div className="connections-column">
+            {usersWithConversations.length === 0 && usersWithoutConversations.length === 0 ? (
+                <div className="connections-container">
+                    <NoConnectionsRive/>
+                </div>
+                    ) : (
+                    <>
+                        {/* Ongoing Conversations Section */}
+                        <div className="connections-card-container">
                             <h2 className="connections-title">Ongoing Conversations</h2>
                             {usersWithConversations.length === 0 ? (
                                 <div className="connections-list">
@@ -93,11 +95,15 @@ const Connections: React.FC = () => {
                             ) : (
                                 <ul className="connections-list">
                                     {usersWithConversations.map((user) => (
-                                        <li key={user.id} className="connection-item" onClick={() => navigate(`/messages/${user.id}`)}>
+                                        <li
+                                            key={user.id}
+                                            className="connection-item"
+                                            onClick={() => navigate(`/messages/${user.id}`)}
+                                        >
                                             <div className="connection-info">
                                                 <img
                                                     src={`http://localhost:5001${user.profilePictureUrl}`}
-                                                    alt={`${user.firstName}`}
+                                                    alt={user.firstName}
                                                     className="connection-profile-picture"
                                                 />
                                                 <span className="connection-name">{user.firstName}</span>
@@ -113,20 +119,21 @@ const Connections: React.FC = () => {
                             )}
                         </div>
 
-                        {/* Right Column: New Connections */}
-                        <div className="connections-column">
+                        {/* New Connections Section */}
+                        <div className="connections-card-container">
                             <h2 className="connections-title">New Connections</h2>
                             {usersWithoutConversations.length === 0 ? (
                                 <div className="connections-list">
                                     <NoConnectionsRive/>
-                                </div>) : (
+                                </div>
+                            ) : (
                                 <ul className="connections-list">
-                                {usersWithoutConversations.map((user) => (
+                                    {usersWithoutConversations.map((user) => (
                                         <li key={user.id} className="connection-item">
                                             <div className="connection-info">
                                                 <img
                                                     src={`http://localhost:5001${user.profilePictureUrl}`}
-                                                    alt={`${user.firstName}`}
+                                                    alt={user.firstName}
                                                     className="connection-profile-picture"
                                                 />
                                                 <span className="connection-name">{user.firstName}</span>
@@ -147,11 +154,11 @@ const Connections: React.FC = () => {
                                 </ul>
                             )}
                         </div>
-                    </div>
-                )}
-            </div>
-        </div>
-    );
-};
+                    </>
+                    )}
+                </div>
+            );
 
-export default Connections;
+            };
+
+            export default Connections;

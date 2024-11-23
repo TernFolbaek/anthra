@@ -97,33 +97,52 @@ namespace MyBackendApp.Controllers
         }
 
         [HttpPost("ApplyToGroup")]
+        [Authorize]
         public async Task<IActionResult> ApplyToGroup([FromBody] ApplyToGroupModel model)
         {
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            // Check if the user is already a member or has applied before
-            var existingMembership = await _context.GroupMembers
-                .FirstOrDefaultAsync(gm => gm.GroupId == model.GroupId && gm.UserId == currentUserId);
+            var group = await _context.Groups.FindAsync(model.GroupId);
 
-            if (existingMembership != null)
+            if (group == null)
             {
-                return BadRequest("You have already applied or are a member of this group.");
+                return NotFound("Group not found.");
             }
 
-            // Add a new GroupMember record with IsAccepted = false
-            var groupMember = new GroupMember
+            // Check if user is already a member or has already applied
+            var existingMember = await _context.GroupMembers
+                .FirstOrDefaultAsync(gm => gm.GroupId == model.GroupId && gm.UserId == currentUserId);
+
+            if (existingMember != null)
+            {
+                return BadRequest("You are already a member of this group.");
+            }
+
+            var existingApplication = await _context.GroupApplicationRequests
+                .FirstOrDefaultAsync(gar => gar.GroupId == model.GroupId && gar.ApplicantId == currentUserId && !gar.IsDeclined);
+
+            if (existingApplication != null)
+            {
+                return BadRequest("You have already applied to this group.");
+            }
+
+            // Get admin of the group
+            var adminId = group.CreatorId;
+
+            var applicationRequest = new GroupApplicationRequest
             {
                 GroupId = model.GroupId,
-                UserId = currentUserId,
-                IsAccepted = false
+                ApplicantId = currentUserId,
+                AdminId = adminId,
+                RequestedAt = DateTime.UtcNow,
+                IsAccepted = false,
+                IsDeclined = false
             };
-            _context.GroupMembers.Add(groupMember);
 
-            // Optionally, send a notification to the group admin
-
+            _context.GroupApplicationRequests.Add(applicationRequest);
             await _context.SaveChangesAsync();
 
-            return Ok();
+            return Ok("Application submitted.");
         }
     }
 

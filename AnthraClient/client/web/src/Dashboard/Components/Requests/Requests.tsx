@@ -1,3 +1,4 @@
+// Requests.tsx
 import React, { useState, useEffect } from 'react';
 import './Requests.css';
 import NoConnectionsRive from "../../Helpers/Animations/NoConnections";
@@ -14,14 +15,29 @@ interface ConnectionRequestDTO {
     respondedAt?: string;
 }
 
+interface GroupApplicationRequestDTO {
+    groupId: number;
+    groupName: string;
+    applications: {
+        requestId: number;
+        applicantId: string;
+        applicantName: string;
+        applicantProfilePictureUrl: string;
+        requestedAt: string;
+    }[];
+}
+
 const Requests: React.FC = () => {
-    const [requests, setRequests] = useState<ConnectionRequestDTO[]>([]);
+    const [connectionRequests, setConnectionRequests] = useState<ConnectionRequestDTO[]>([]);
+    const [groupApplicationRequests, setGroupApplicationRequests] = useState<GroupApplicationRequestDTO[]>([]);
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
+
     useEffect(() => {
         if (!userId) {
             return;
         }
+        // Fetch personal connection requests
         fetch(`http://localhost:5001/api/Request/Pending?userId=${userId}`)
             .then((response) => {
                 if (!response.ok) {
@@ -31,10 +47,29 @@ const Requests: React.FC = () => {
                 }
                 return response.json();
             })
-            .then((data) => setRequests(data))
+            .then((data) => setConnectionRequests(data))
             .catch((error) => console.error('Error fetching requests:', error));
-    }, [userId]);
 
+        // Fetch group application requests
+        fetch(`http://localhost:5001/api/Requests/GetGroupApplicationRequests`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    });
+                }
+                return response.json();
+            })
+            .then((data) => setGroupApplicationRequests(data))
+            .catch((error) => console.error('Error fetching group application requests:', error));
+
+    }, [userId, token]);
+
+    // Handle accepting or declining personal connection requests
     const handleAccept = (requestId: number) => {
         fetch(`http://localhost:5001/api/Request/AcceptRequest?requestId=${requestId}`, {
             headers: {
@@ -44,7 +79,7 @@ const Requests: React.FC = () => {
         })
             .then((response) => {
                 if (response.ok) {
-                    setRequests((prevRequests) =>
+                    setConnectionRequests((prevRequests) =>
                         prevRequests.filter((req) => req.id !== requestId)
                     );
                 } else {
@@ -62,7 +97,7 @@ const Requests: React.FC = () => {
         })
             .then((response) => {
                 if (response.ok) {
-                    setRequests((prevRequests) =>
+                    setConnectionRequests((prevRequests) =>
                         prevRequests.filter((req) => req.id !== requestId)
                     );
                 } else {
@@ -74,37 +109,133 @@ const Requests: React.FC = () => {
             .catch((error) => console.error('Error declining request:', error));
     };
 
+    // Handle accepting or declining group applications
+    const handleGroupApplicationAccept = (requestId: number) => {
+        fetch(`http://localhost:5001/api/Requests/RespondToGroupApplication`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            body: JSON.stringify({ requestId, accept: true }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    setGroupApplicationRequests(prevState => {
+                        return prevState.map(group => ({
+                            ...group,
+                            applications: group.applications.filter(app => app.requestId !== requestId)
+                        })).filter(group => group.applications.length > 0);
+                    });
+                } else {
+                    return response.text().then((text) => {
+                        throw new Error(text);
+                    });
+                }
+            })
+            .catch((error) => console.error('Error accepting group application:', error));
+    };
+
+    const handleGroupApplicationDecline = (requestId: number) => {
+        fetch(`http://localhost:5001/api/Requests/RespondToGroupApplication`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            body: JSON.stringify({ requestId, accept: false }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    setGroupApplicationRequests(prevState => {
+                        return prevState.map(group => ({
+                            ...group,
+                            applications: group.applications.filter(app => app.requestId !== requestId)
+                        })).filter(group => group.applications.length > 0);
+                    });
+                } else {
+                    return response.text().then((text) => {
+                        throw new Error(text);
+                    });
+                }
+            })
+            .catch((error) => console.error('Error declining group application:', error));
+    };
+
     return (
         <div className="requests-page">
             <div className="requests-container">
-            {requests.length === 0 ? (
-                <NoConnectionsRive/>
-            ) : (
-                requests.map((request) => (
-                    <div key={request.id} className="user-card">
-                        <img className="user-card-img"
-                            src={`http://localhost:5001/${request.senderProfilePicture}` || '/default-profile.png'}
-                            alt="Profile"
-                        />
-                        <h2>{request.senderName}</h2>
-                        <p>{request.senderEmail}</p>
-                        <div className="button-container">
-                            <button
-                                className="connect-button"
-                                onClick={() => handleAccept(request.id)}
-                            >
-                                Accept
-                            </button>
-                            <button
-                                className="skip-button"
-                                onClick={() => handleDecline(request.id)}
-                            >
-                                Decline
-                            </button>
-                        </div>
+                <div className="requests-columns">
+                    {/* Personal Connection Requests */}
+                    <div className="requests-column">
+                        <h2 className="requests-title">Personal Connection Requests</h2>
+                        {connectionRequests.length === 0 ? (
+                            <p>No personal connection requests.</p>
+                        ) : (
+                            connectionRequests.map((request) => (
+                                <div key={request.id} className="requests-user-card">
+                                    <img className="requests-user-card-img"
+                                         src={`http://localhost:5001/${request.senderProfilePicture}` || '/default-profile.png'}
+                                         alt="Profile"
+                                    />
+                                    <h2>{request.senderName}</h2>
+                                    <p>{request.senderEmail}</p>
+                                    <div className="requests-button-container">
+                                        <button
+                                            className="requests-connect-button"
+                                            onClick={() => handleAccept(request.id)}
+                                        >
+                                            Accept
+                                        </button>
+                                        <button
+                                            className="requests-skip-button"
+                                            onClick={() => handleDecline(request.id)}
+                                        >
+                                            Decline
+                                        </button>
+                                    </div>
+                                </div>
+                            ))
+                        )}
                     </div>
-                ))
-            )}
+
+                    {/* Group Application Requests */}
+                    <div className="requests-column">
+                        <h2 className="requests-title">Group Application Requests</h2>
+                        {groupApplicationRequests.length === 0 ? (
+                            <p>No group application requests.</p>
+                        ) : (
+                            groupApplicationRequests.map(group => (
+                                <div key={group.groupId} className="requests-group-section">
+                                    <h3 className="requests-group-name">{group.groupName}</h3>
+                                    {group.applications.map(application => (
+                                        <div key={application.requestId} className="requests-user-card">
+                                            <img className="requests-user-card-img"
+                                                 src={`http://localhost:5001${application.applicantProfilePictureUrl}` || '/default-profile.png'}
+                                                 alt="Profile"
+                                            />
+                                            <h2>{application.applicantName}</h2>
+                                            <div className="requests-button-container">
+                                                <button
+                                                    className="connect-button"
+                                                    onClick={() => handleGroupApplicationAccept(application.requestId)}
+                                                >
+                                                    Accept
+                                                </button>
+                                                <button
+                                                    className="skip-button"
+                                                    onClick={() => handleGroupApplicationDecline(application.requestId)}
+                                                >
+                                                    Decline
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            ))
+                        )}
+                    </div>
+                </div>
             </div>
         </div>
     );

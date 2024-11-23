@@ -12,86 +12,64 @@
 .requests-container {
     background-color: white;
     border-radius: 10px;
-    width: 100%;
+    width: 90%;
     padding: 20px;
     margin: 15px;
-    font-family: 'Montserrat', sans-serif;
 }
 
-
-.user-card {
+.requests-columns {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #ffffff;
-    color: #333;
-    padding: 20px;
-    border-radius: 12px;
-    width: 300px;
-    text-align: center;
-    margin: 10px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
 }
 
-.dark-mode .user-card {
-    background-color: #1a1a1a;
-    color: #fff;
+.requests-column {
+    width: 48%;
 }
 
-.user-card-img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 50%;
-    text-align: center;
-}
-
-.user-card h2 {
-    margin-top: 10px;
-    font-size: 1.5rem;
-}
-
-.user-card p {
-    margin: 5px 0;
+.requests-title {
     font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
-.button-container {
+.requests-user-card {
     display: flex;
-    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.requests-user-card-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    object-fit: cover;
+}
+
+.requests-button-container {
+    margin-left: auto;
+}
+
+
+.requests-connect-button {
+    background-color: #28a745;
+}
+
+.requests-skip-button {
+    background-color: #dc3545;
+}
+
+.requests-connect-button:hover,
+.requests-skip-button:hover {
+    opacity: 0.9;
+}
+
+.requests-group-section {
     margin-top: 20px;
 }
 
-.connect-button,
-.skip-button {
-    background-color: transparent;
-    border: 2px solid #333;
-    color: #333;
-    padding: 0.75rem 1.5rem;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.3s, color 0.3s, transform 0.5s;
-    border-radius: 8px;
-}
-
-.dark-mode .connect-button,
-.dark-mode .skip-button {
-    border-color: #fff;
-    color: #fff;
-    transform: scale(1.1);
-
-}
-
-.connect-button:hover,
-.skip-button:hover {
-    background-color: #333;
-    color: #fff;
-    transform: scale(1.05);
-
-}
-
-.dark-mode .connect-button:hover,
-.dark-mode .skip-button:hover {
-    background-color: #fff;
-    color: #333;
+.requests-group-name {
+    margin-bottom: 10px;
 }

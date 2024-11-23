@@ -47,7 +47,7 @@
 }
 
 .connections-title {
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: bold;
     margin-bottom: 10px;
 }
@@ -56,9 +56,8 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    background-color: #f9f9f9;
     height: 100%;
-    border-radius: 10px;
+
 }
 
 .connection-item {
@@ -118,7 +117,7 @@
 
 .connection-name {
     margin-left: 15px;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     font-weight: 600;
 }
 
@@ -137,21 +136,27 @@
 .menu-icon {
     font-size: 24px;
 }
+.connections-menu-icon{
+    font-size: 24px;
+    padding: 7.5px 15px;
+    border-radius: 50%;
+}
 
 .dark-mode .menu-icon {
     color: #fff;
 }
 
 .message-button {
+    font-size: 0.85rem;
     background-color: transparent;
     border: 2px solid #007bff;
     color: #007bff;
-    padding: 0.5rem 1rem;
+    padding: 0.3rem 0.7rem;
     cursor: pointer;
     font-weight: 600;
     transition: background-color 0.3s, color 0.3s;
     border-radius: 8px;
-    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .dark-mode .message-button {

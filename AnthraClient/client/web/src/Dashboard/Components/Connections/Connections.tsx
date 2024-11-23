@@ -104,7 +104,7 @@ const Connections: React.FC = () => {
                                             </div>
                                             <div className="connection-menu">
                                                 <button className="menu-button">
-                                                    <span className="menu-icon">⋮</span>
+                                                    <span className="connections-menu-icon">⋮</span>
                                                 </button>
                                             </div>
                                         </li>
@@ -139,7 +139,7 @@ const Connections: React.FC = () => {
                                             </button>
                                             <div className="connection-menu">
                                                 <button className="menu-button">
-                                                    <span className="menu-icon">⋮</span>
+                                                    <span className="connections-menu-icon">⋮</span>
                                                 </button>
                                             </div>
                                         </li>

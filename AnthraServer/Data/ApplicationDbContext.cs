@@ -16,6 +16,9 @@ namespace MyBackendApp.Data
         public DbSet<GroupMessage> GroupMessages { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Attachment> Attachments { get; set; }
+
+        public DbSet<GroupApplicationRequest> GroupApplicationRequests { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

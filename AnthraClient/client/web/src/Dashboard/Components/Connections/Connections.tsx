@@ -88,7 +88,7 @@ const Connections: React.FC = () => {
                             <h2 className="connections-title">Ongoing Conversations</h2>
                             {usersWithConversations.length === 0 ? (
                                 <div className="connections-list">
-                                    <p className="p-2 text-center">No conversations yet.</p>
+                                    <p className="p-2 text-center font-bold text-gray-500">No conversations yet</p>
                                 </div>
                             ) : (
                                 <ul className="connections-list">

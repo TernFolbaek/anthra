@@ -90,7 +90,7 @@ const MessageList: React.FC = () => {
                 {isYourTurnOpen && (
                     <div className="conversation-list">
                         {yourTurnConversations.length === 0 ? (
-                            <p className="flex justify-center border-none p-5">No conversations found.</p>
+                            <p className="flex justify-center border-none p-5 font-bold text-gray-500">No conversations found</p>
                         ) : (
                             yourTurnConversations.map(renderConversation)
                         )}
@@ -105,7 +105,7 @@ const MessageList: React.FC = () => {
                 {isTheirTurnOpen && (
                     <div className="conversation-list">
                         {theirTurnConversations.length === 0 ? (
-                            <p className="flex justify-center border-none p-5">No conversations found.</p>
+                            <p className="flex justify-center border-none p-5 font-bold text-gray-500">No conversations found</p>
                         ) : (
                             theirTurnConversations.map(renderConversation)
                         )}

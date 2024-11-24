@@ -35,9 +35,10 @@ namespace MyBackendApp.Controllers
                     {
                         Id = cr.Id,
                         SenderId = cr.SenderId,
-                        SenderName = cr.Sender.UserName, // Adjust as necessary
+                        SenderFirstName = cr.Sender.FirstName,
+                        SenderLastName = cr.Sender.LastName,
                         SenderEmail = cr.Sender.Email,
-                        SenderProfilePicture = cr.Sender.ProfilePictureUrl, // Adjust field name
+                        SenderProfilePicture = cr.Sender.ProfilePictureUrl, 
                         ReceiverId = cr.ReceiverId,
                         Status = cr.Status,
                         RequestedAt = cr.RequestedAt,

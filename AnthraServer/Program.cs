@@ -180,6 +180,7 @@ if (app.Environment.IsDevelopment())
                 Subjects = new List<string> { "Physics", "Mathematics", "Computer Science" },
                 AboutMe = "I am a passionate researcher exploring the intersections of quantum mechanics and computational algorithms. Always eager to connect with like-minded peers and delve into new projects.",
                 CreatedProfile = true,
+                ProfileCompleted = true,
                 ProfilePictureUrl = "/uploads/5121a904-a6b7-4063-9ec9-8d9eadeecb8e.png"
             },
             new ApplicationUser 
@@ -200,6 +201,7 @@ if (app.Environment.IsDevelopment())
                 Subjects = new List<string> { "Computer Science", "Data Science" },
                 AboutMe = "Teaching and mentoring students while pursuing my passion for data science. I enjoy analyzing data and applying machine learning techniques to solve real-world problems.",
                 CreatedProfile = true,
+                ProfileCompleted = true,
                 ProfilePictureUrl = "/uploads/5121a904-a6b7-4063-9ec9-8d9eadeecb8e.png"
             },
             new ApplicationUser 
@@ -220,6 +222,7 @@ if (app.Environment.IsDevelopment())
                 Subjects = new List<string> { "Software Engineering", "Cloud Computing" },
                 AboutMe = "Tech enthusiast with a knack for building web applications and exploring cloud solutions. Currently interning to gain hands-on experience in the tech industry.",
                 CreatedProfile = true,
+                ProfileCompleted = true,
                 ProfilePictureUrl = "/uploads/5121a904-a6b7-4063-9ec9-8d9eadeecb8e.png"
             },
             new ApplicationUser 
@@ -240,6 +243,7 @@ if (app.Environment.IsDevelopment())
                 Subjects = new List<string> { "AI", "Neuroscience", "Computer Science" },
                 AboutMe = "Fascinated by the capabilities of artificial intelligence and its applications in understanding human cognition. I am currently involved in research projects focused on neural network models.",
                 CreatedProfile = true,
+                ProfileCompleted = true,
                 ProfilePictureUrl = "/uploads/5121a904-a6b7-4063-9ec9-8d9eadeecb8e.png"
             },
             new ApplicationUser 
@@ -260,6 +264,7 @@ if (app.Environment.IsDevelopment())
                 Subjects = new List<string> { "Mobile Development", "Cybersecurity" },
                 AboutMe = "Building secure and scalable mobile applications is my passion. As a freelance developer, I work on various projects and love staying updated with the latest trends in mobile tech.",
                 CreatedProfile = true,
+                ProfileCompleted = true,
                 ProfilePictureUrl = "/uploads/5121a904-a6b7-4063-9ec9-8d9eadeecb8e.png" 
             }
         };

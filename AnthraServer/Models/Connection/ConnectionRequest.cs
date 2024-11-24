@@ -14,6 +14,9 @@ namespace MyBackendApp.Models
         public int Id { get; set; }
         public string SenderId { get; set; }
         public string SenderName { get; set; }
+
+        public string SenderFirstName { get; set; }
+        public string SenderLastName { get; set; }
         public string SenderEmail { get; set; }
         public string SenderProfilePicture { get; set; }
         public string ReceiverId { get; set; }

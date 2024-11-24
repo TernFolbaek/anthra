@@ -1,12 +1,12 @@
 // Notifications.tsx
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import axios from 'axios';
 import './Notifications.css';
 import {
-FaBell
+    FaBell
 } from 'react-icons/fa';
 import * as signalR from '@microsoft/signalr';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 interface Notification {
     id: number;
@@ -131,7 +131,7 @@ const Notifications: React.FC = () => {
     return (
         <div className="notifications" ref={bellRef}>
             <div className="bell-icon" onClick={handleBellClick}>
-                <FaBell />
+                <FaBell/>
                 {notifications.some((n) => !n.isRead) && <span className="badge"></span>}
             </div>
             {showDropdown && (
@@ -147,7 +147,12 @@ const Notifications: React.FC = () => {
                             >
                                 {notification.type === "Message" &&
                                     <div className="notification-content">
-                                        <p>{notification.content}</p> <p className="notification-message-count">{notification.messageCount}</p>
+                                        <p>{notification.content}</p>
+                                        {notification.messageCount < 10 ?
+                                            <p className="notification-message-count">{notification.messageCount}</p>
+                                            :
+                                            <p className="notification-message-count">9+</p>
+                                        }
                                     </div>
                                 }
                                 {notification.type !== "Message" &&

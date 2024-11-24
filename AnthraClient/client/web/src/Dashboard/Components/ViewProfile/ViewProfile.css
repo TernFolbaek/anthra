@@ -1,0 +1,96 @@
+/* ViewProfile.css */
+
+#viewprofile.viewprofile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears above other content */
+}
+
+#viewprofile .viewprofile-modal {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+#viewprofile .viewprofile-close-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+#viewprofile .viewprofile-close-button:hover {
+    color: #000;
+}
+
+#viewprofile .viewprofile-content {
+    text-align: center;
+}
+
+#viewprofile .viewprofile-profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #85bff8;
+}
+
+#viewprofile .viewprofile-name {
+    margin-top: 15px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#viewprofile .viewprofile-location,
+#viewprofile .viewprofile-institution,
+#viewprofile .viewprofile-work {
+    font-size: 18px;
+    margin: 5px 0;
+    color: #555;
+}
+
+#viewprofile .viewprofile-section-title {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+}
+
+#viewprofile .viewprofile-aboutme {
+    text-align: left;
+    margin-top: 10px;
+    color: #333;
+}
+
+#viewprofile .viewprofile-list {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    margin-top: 10px;
+}
+
+#viewprofile .viewprofile-list li {
+    margin-bottom: 5px;
+    background-color: #f1f1f1;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+#viewprofile .viewprofile-list li:not(:last-child) {
+    margin-bottom: 8px;
+}

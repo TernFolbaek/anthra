@@ -24,10 +24,9 @@ interface UserProfile {
     institution: string;
     work: string;
     courses: Course[];
-    subjects: Subject[];
+    subjects: string[];
     aboutMe: string;
     profilePictureUrl: string;
-    // Include other necessary fields
 }
 
 const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
@@ -46,6 +45,7 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
+                console.log(response.data)
                 setUserProfile(response.data);
             } catch (error) {
                 console.error('Failed to fetch user profile:', error);
@@ -116,7 +116,7 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
                     <h3 className="viewprofile-section-title">Subjects</h3>
                     <ul className="viewprofile-list">
                         {userProfile.subjects.map((subject, index) => (
-                            <li key={index}>{subject.subjectName}</li>
+                            <li key={index}>{subject}</li>
                         ))}
                     </ul>
                 </div>

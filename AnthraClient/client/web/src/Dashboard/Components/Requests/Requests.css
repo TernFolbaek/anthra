@@ -32,14 +32,21 @@
     margin-bottom: 10px;
 }
 
+.requests-user-info{
+    display: flex;
+    align-items: center;
+}
 .requests-user-card {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
     padding: 10px;
-    border-bottom: 1px solid #ccc;
+    border-radius: 5px;
 }
 
+.requests-user-card:hover{
+    background-color: #ebf3fd;
+    cursor: pointer;
+}
 .requests-user-card-img {
     border: 2px solid #85bff8;
     width: 40px;

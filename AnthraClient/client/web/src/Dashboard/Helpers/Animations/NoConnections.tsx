@@ -12,7 +12,7 @@ const NoConnectionsRive: React.FC = () => {
 
     return (
         <div className="no-connections-container">
-            <p className="text-xl text-center font-bold text-gray-700 mb-2">Send connections to create connections</p>
+            <p className="text-xl text-center font-bold text-gray-500 mb-2">Send connections to create connections</p>
             <button className="explore-button" onClick={() => navigate('/explore')}> <FaMagnifyingGlass/>Explore</button>
             <RiveComponent className="no-connections-rive"/>
         </div>

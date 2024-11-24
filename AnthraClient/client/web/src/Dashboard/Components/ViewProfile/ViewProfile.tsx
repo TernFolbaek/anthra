@@ -7,6 +7,15 @@ interface ViewProfileProps {
     onClose: () => void;
 }
 
+interface Course {
+    courseName: string;
+    courseLink: string;
+}
+
+interface Subject {
+    subjectName: string;
+}
+
 interface UserProfile {
     firstName: string;
     lastName: string;
@@ -14,8 +23,8 @@ interface UserProfile {
     location: string;
     institution: string;
     work: string;
-    courses: string[];
-    subjects: string[];
+    courses: Course[];
+    subjects: Subject[];
     aboutMe: string;
     profilePictureUrl: string;
     // Include other necessary fields
@@ -29,9 +38,10 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
     const token = localStorage.getItem('token');
 
     useEffect(() => {
+        console.log(userId);
         const fetchUserProfile = async () => {
             try {
-                const response = await axios.get(`http://localhost:5001/api/Profile/GetUserProfile?userId=${userId}`, {
+                const response = await axios.get(`http://localhost:5001/api/Profile/GetProfileById?userId=${userId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -96,13 +106,17 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
                     <h3 className="viewprofile-section-title">Courses</h3>
                     <ul className="viewprofile-list">
                         {userProfile.courses.map((course, index) => (
-                            <li key={index}>{course}</li>
+                            <li key={index}>
+                                <a href={course.courseLink} target="_blank" rel="noopener noreferrer">
+                                    {course.courseName}
+                                </a>
+                            </li>
                         ))}
                     </ul>
                     <h3 className="viewprofile-section-title">Subjects</h3>
                     <ul className="viewprofile-list">
                         {userProfile.subjects.map((subject, index) => (
-                            <li key={index}>{subject}</li>
+                            <li key={index}>{subject.subjectName}</li>
                         ))}
                     </ul>
                 </div>

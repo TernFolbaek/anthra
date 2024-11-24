@@ -60,14 +60,21 @@
     background-color: #85bff8;
     border: 2px solid #2c91f4;
     border-radius: 5px;
-    padding: 2px 4px;
+    padding: 2px 5px;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
 }
 
 .requests-skip-button {
-    background-color: #b8b6b6;
-    border: 2px solid #757474;
+    background-color: #858383;
+    border: 2px solid #232323;
     border-radius: 5px;
-    padding: 2px 4px;
+    padding: 2px 5px;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+
 }
 
 .requests-connect-button:hover,

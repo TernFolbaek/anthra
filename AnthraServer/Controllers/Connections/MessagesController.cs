@@ -132,16 +132,16 @@ public async Task<IActionResult> SendMessage([FromForm] SendMessageModel model)
 
     if (existingNotification == null)
     {
-        // **Create a new notification if none exists**
         var notification = new Notification
         {
             UserId = message.ReceiverId,
             Type = "Message",
-            Content = $"{sender.FirstName} sent you a message.",
+            Content = $"{sender.FirstName} sent you a message",
             Timestamp = DateTime.UtcNow,
             IsRead = false,
             SenderId = sender.Id,
-            SenderName = sender.FirstName
+            SenderName = sender.FirstName,
+            MessageCount = 1
         };
 
         _context.Notifications.Add(notification);
@@ -156,10 +156,16 @@ public async Task<IActionResult> SendMessage([FromForm] SendMessageModel model)
                 notification.Timestamp,
                 notification.IsRead,
                 notification.SenderId,
-                notification.SenderName
+                notification.SenderName,
+                notification.MessageCount
             });
-        
-        // After updating existing notification
+    }
+    else
+    {
+        existingNotification.Timestamp = DateTime.UtcNow;
+        existingNotification.MessageCount += 1;
+        await _context.SaveChangesAsync();
+
         await _notificationHub.Clients.Group($"User_{existingNotification.UserId}")
             .SendAsync("UpdateNotification", new
             {
@@ -169,15 +175,9 @@ public async Task<IActionResult> SendMessage([FromForm] SendMessageModel model)
                 existingNotification.Timestamp,
                 existingNotification.IsRead,
                 existingNotification.SenderId,
-                existingNotification.SenderName
+                existingNotification.SenderName,
+                existingNotification.MessageCount
             });
-
-    }
-    else
-    {
-        // **Optional: Update existing notification's timestamp or content if desired**
-        existingNotification.Timestamp = DateTime.UtcNow;
-        await _context.SaveChangesAsync();
     }
 
     // Send message via SignalR

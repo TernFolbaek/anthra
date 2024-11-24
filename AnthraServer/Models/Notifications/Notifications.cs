@@ -14,5 +14,7 @@ namespace MyBackendApp.Models
         public string SenderId { get; set; } // The user who triggered the notification
         public string SenderName { get; set; }
         public int? GroupId { get; set; } // Added GroupId
+        public int MessageCount { get; set; } = 1;
+
     }
 }

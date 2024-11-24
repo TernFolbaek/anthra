@@ -39,7 +39,8 @@ namespace MyBackendApp.Controllers
                     n.IsRead,
                     n.SenderId,
                     n.SenderName,
-                    n.GroupId // Include GroupId
+                    n.GroupId,
+                    n.MessageCount
                 })
                 .ToList();
 

@@ -58,6 +58,13 @@
     cursor: pointer;
 }
 
+.notification-message-count{
+    background: #f14646;
+    color: white;
+    font-weight: bold;
+    border-radius: 50%;
+    padding:5px 10px;
+}
 .notification-item.unread {
     background-color: #f0f8ff;
 }
@@ -68,6 +75,8 @@
 
 .notification-content {
     font-size: 14px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .notification-timestamp {

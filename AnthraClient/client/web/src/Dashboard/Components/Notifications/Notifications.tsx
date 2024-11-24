@@ -16,7 +16,8 @@ interface Notification {
     isRead: boolean;
     senderId?: string;
     senderName?: string;
-    groupId?: number; // Added GroupId
+    groupId?: number;
+    messageCount: number;
 }
 
 const Notifications: React.FC = () => {
@@ -41,6 +42,14 @@ const Notifications: React.FC = () => {
             setNotifications((prev) => [notification, ...prev]);
         });
 
+        connection.on('UpdateNotification', (notification: Notification) => {
+            setNotifications((prevNotifications) => {
+                return prevNotifications.map((n) =>
+                    n.id === notification.id ? notification : n
+                );
+            });
+        });
+
         return () => {
             connection.stop();
         };
@@ -53,6 +62,7 @@ const Notifications: React.FC = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
+            console.log(response);
             setNotifications(response.data);
         } catch (error) {
             console.error('Failed to fetch notifications.', error);
@@ -135,9 +145,16 @@ const Notifications: React.FC = () => {
                                 className={`notification-item ${notification.isRead ? '' : 'unread'}`}
                                 onClick={() => markAsReadAndRedirect(notification)}
                             >
-                                <div className="notification-content">
-                                    {notification.content}
-                                </div>
+                                {notification.type === "Message" &&
+                                    <div className="notification-content">
+                                        <p>{notification.content}</p> <p className="notification-message-count">{notification.messageCount}</p>
+                                    </div>
+                                }
+                                {notification.type !== "Message" &&
+                                    <div className="notification-content">
+                                        {notification.content}
+                                    </div>
+                                }
                                 <div className="notification-timestamp">
                                     {new Date(notification.timestamp).toLocaleString()}
                                 </div>

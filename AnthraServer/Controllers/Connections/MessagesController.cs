@@ -88,89 +88,121 @@ namespace MyBackendApp.Controllers
 
 
 
-        [HttpPost("SendMessage")]
-        public async Task<IActionResult> SendMessage([FromForm] SendMessageModel model)
+       [HttpPost("SendMessage")]
+public async Task<IActionResult> SendMessage([FromForm] SendMessageModel model)
+{
+    if (!ModelState.IsValid)
+    {
+        return BadRequest("Invalid message data.");
+    }
+
+    var message = new Message
+    {
+        SenderId = model.SenderId,
+        ReceiverId = model.ReceiverId,
+        Content = model.Content,
+        Timestamp = DateTime.UtcNow
+    };
+
+    // Handle file upload
+    if (model.File != null && model.File.Length > 0)
+    {
+        var attachment = new Attachment
         {
-            if (!ModelState.IsValid)
+            FileName = model.File.FileName,
+            FileUrl = await SaveFileAsync(model.File),
+            Message = message
+        };
+        _context.Attachments.Add(attachment);
+        message.Attachment = attachment;
+    }
+
+    _context.Messages.Add(message);
+    await _context.SaveChangesAsync();
+
+    var sender = await _context.Users.FindAsync(message.SenderId);
+
+    // **Check for existing unread notification**
+    var existingNotification = await _context.Notifications
+        .FirstOrDefaultAsync(n =>
+            n.UserId == message.ReceiverId &&
+            n.SenderId == message.SenderId &&
+            n.Type == "Message" &&
+            !n.IsRead);
+
+    if (existingNotification == null)
+    {
+        // **Create a new notification if none exists**
+        var notification = new Notification
+        {
+            UserId = message.ReceiverId,
+            Type = "Message",
+            Content = $"{sender.FirstName} sent you a message.",
+            Timestamp = DateTime.UtcNow,
+            IsRead = false,
+            SenderId = sender.Id,
+            SenderName = sender.FirstName
+        };
+
+        _context.Notifications.Add(notification);
+        await _context.SaveChangesAsync();
+
+        await _notificationHub.Clients.Group($"User_{notification.UserId}")
+            .SendAsync("ReceiveNotification", new
             {
-                return BadRequest("Invalid message data.");
-            }
-
-            var message = new Message
+                notification.Id,
+                notification.Type,
+                notification.Content,
+                notification.Timestamp,
+                notification.IsRead,
+                notification.SenderId,
+                notification.SenderName
+            });
+        
+        // After updating existing notification
+        await _notificationHub.Clients.Group($"User_{existingNotification.UserId}")
+            .SendAsync("UpdateNotification", new
             {
-                SenderId = model.SenderId,
-                ReceiverId = model.ReceiverId,
-                Content = model.Content,
-                Timestamp = DateTime.UtcNow
-            };
-
-            // Handle file upload
-            if (model.File != null && model.File.Length > 0)
-            {
-                var attachment = new Attachment
-                {
-                    FileName = model.File.FileName,
-                    FileUrl = await SaveFileAsync(model.File),
-                    Message = message
-                };
-                _context.Attachments.Add(attachment);
-                message.Attachment = attachment;
-            }
-
-            _context.Messages.Add(message);
-            await _context.SaveChangesAsync();
-
-            
-            var sender = await _context.Users.FindAsync(message.SenderId);
-
-            var notification = new Notification
-            {
-                UserId = message.ReceiverId,
-                Type = "Message",
-                Content = $"{sender.FirstName} sent you a message.",
-                Timestamp = DateTime.UtcNow,
-                IsRead = false,
-                SenderId = sender.Id,
-                SenderName = sender.FirstName
-            };
-
-            _context.Notifications.Add(notification);
-            await _context.SaveChangesAsync();
-            
-            await _notificationHub.Clients.Group($"User_{notification.UserId}")
-                .SendAsync("ReceiveNotification", new
-                {
-                    notification.Id,
-                    notification.Type,
-                    notification.Content,
-                    notification.Timestamp,
-                    notification.IsRead,
-                    notification.SenderId,
-                    notification.SenderName
-                });
-
-            // Send message via SignalR
-            var groupId = GetChatGroupId(message.SenderId, message.ReceiverId);
-            await _hubContext.Clients.Group(groupId).SendAsync("ReceiveMessage", new
-            {
-                message.Id,
-                message.SenderId,
-                message.ReceiverId,
-                message.Content,
-                message.Timestamp,
-                message.IsGroupInvitation,
-                message.GroupId,
-                Attachments = message.Attachment != null ? new[] {
-                    new {
-                        message.Attachment.Id,
-                        message.Attachment.FileName,
-                        message.Attachment.FileUrl
-                    }
-                } : null
+                existingNotification.Id,
+                existingNotification.Type,
+                existingNotification.Content,
+                existingNotification.Timestamp,
+                existingNotification.IsRead,
+                existingNotification.SenderId,
+                existingNotification.SenderName
             });
 
-            return Ok();
-        }
+    }
+    else
+    {
+        // **Optional: Update existing notification's timestamp or content if desired**
+        existingNotification.Timestamp = DateTime.UtcNow;
+        await _context.SaveChangesAsync();
+    }
+
+    // Send message via SignalR
+    var groupId = GetChatGroupId(message.SenderId, message.ReceiverId);
+    await _hubContext.Clients.Group(groupId).SendAsync("ReceiveMessage", new
+    {
+        message.Id,
+        message.SenderId,
+        message.ReceiverId,
+        message.Content,
+        message.Timestamp,
+        message.IsGroupInvitation,
+        message.GroupId,
+        Attachments = message.Attachment != null ? new[] {
+            new {
+                message.Attachment.Id,
+                message.Attachment.FileName,
+                message.Attachment.FileUrl
+            }
+        } : null
+    });
+
+    return Ok();
+}
+
 
         private async Task<string> SaveFileAsync(IFormFile file)
         {

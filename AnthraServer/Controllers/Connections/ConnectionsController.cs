@@ -212,17 +212,20 @@ namespace MyBackendApp.Controllers
 
             // Remove the connection
             _context.Connections.Remove(connection);
-            await _context.SaveChangesAsync();
-            
+
+            // Remove the conversation messages
             var conversation = await _context.Messages
                 .Where(m => (m.SenderId == model.UserId && m.ReceiverId == model.ConnectionId) ||
                             (m.SenderId == model.ConnectionId && m.ReceiverId == model.UserId))
                 .ToListAsync();
 
-
             _context.Messages.RemoveRange(conversation);
+
+            // Save changes to the database
+            await _context.SaveChangesAsync();
 
             return Ok("Connection removed successfully.");
         }
+
     }
 }

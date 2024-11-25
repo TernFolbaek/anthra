@@ -30,9 +30,15 @@ namespace MyBackendApp.Controllers
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             // Get IDs of connected users
-            var connectedUserIds = await _context.ConnectionRequests
-                .Where(cr => cr.SenderId == currentUserId || cr.ReceiverId == currentUserId)
-                .Select(cr => cr.SenderId == currentUserId ? cr.ReceiverId : cr.SenderId)
+            var connectedUserIds = await _context.Connections
+                .Where(c => c.UserId1 == currentUserId || c.UserId2 == currentUserId)
+                .Select(c => c.UserId1 == currentUserId ? c.UserId2 : c.UserId1)
+                .ToListAsync();
+
+            // Get IDs of users to whom the current user has sent a connection request
+            var sentRequestUserIds = await _context.ConnectionRequests
+                .Where(cr => cr.SenderId == currentUserId && cr.Status == ConnectionStatus.Pending)
+                .Select(cr => cr.ReceiverId)
                 .ToListAsync();
 
             // Get IDs of skipped users
@@ -43,6 +49,7 @@ namespace MyBackendApp.Controllers
 
             // Combine IDs to exclude
             var excludedUserIds = connectedUserIds
+                .Concat(sentRequestUserIds)
                 .Concat(skippedUserIds)
                 .Append(currentUserId)
                 .ToList();
@@ -69,6 +76,7 @@ namespace MyBackendApp.Controllers
 
             return Ok(users);
         }
+
 
         [HttpPost("SkipUser")]
         public async Task<IActionResult> SkipUser([FromBody] SkipUserModel model)

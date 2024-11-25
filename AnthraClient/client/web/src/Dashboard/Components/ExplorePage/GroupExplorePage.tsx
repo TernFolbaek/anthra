@@ -1,8 +1,8 @@
-// GroupExplorePage.tsx
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import './GroupExplorePage.css';
 import NoMoreUsersToExplore from '../../Helpers/Animations/NoMoreUsersToExplore';
+import ViewProfile from "../ViewProfile/ViewProfile";
 
 interface GroupMember {
     userId: string;
@@ -24,6 +24,7 @@ const GroupExplorePage: React.FC = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentGroup, setCurrentGroup] = useState<Group | null>(null);
     const token = localStorage.getItem('token');
+    const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchGroups = async () => {
@@ -95,12 +96,21 @@ const GroupExplorePage: React.FC = () => {
         setCurrentIndex(currentIndex + 1);
     };
 
+    const handleUserClick = (userId: string) => {
+        setSelectedUserId(userId);
+    };
+
+    const handleCloseProfile = () => {
+        setSelectedUserId(null);
+    };
+
     return (
         <div className="group-explore-container">
             {currentGroup ? (
                 <div className="explore-group-card">
                     <div className="explore-group-card-content">
                         <h2 className="group-explore-name">{currentGroup.name}</h2>
+                        <h3>About the group:</h3>
                         <p className="group-explore-description">{currentGroup.groupDescription}</p>
                         <h3>What the group is looking for:</h3>
                         <p>{currentGroup.groupMemberDesire}</p>
@@ -108,15 +118,15 @@ const GroupExplorePage: React.FC = () => {
                             <h3>Members</h3>
                             <ul className="group-explore-members-list">
                                 {currentGroup.members.map((member) => (
-                                    <li key={member.userId} className="group-explore-member-item">
+                                    <li onClick={()=>handleUserClick(member.userId)} key={member.userId} className="group-explore-member-item">
                                         <img
                                             className="group-explore-member-avatar"
                                             src={`http://localhost:5001${member.profilePictureUrl}`}
                                             alt={`${member.firstName} ${member.lastName}`}
                                         />
                                         <span>
-                      {member.firstName} {member.lastName}
-                    </span>
+                                        {member.firstName} {member.lastName}
+                                        </span>
                                     </li>
                                 ))}
                             </ul>
@@ -133,6 +143,9 @@ const GroupExplorePage: React.FC = () => {
                 </div>
             ) : (
                 <NoMoreUsersToExplore/>
+            )}
+            {selectedUserId && (
+                <ViewProfile userId={selectedUserId} onClose={handleCloseProfile}/>
             )}
         </div>
     );

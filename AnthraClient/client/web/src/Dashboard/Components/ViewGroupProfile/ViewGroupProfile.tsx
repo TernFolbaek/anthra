@@ -1,0 +1,120 @@
+import React, { useEffect, useState, useRef } from 'react';
+import axios from 'axios';
+import './ViewGroupProfile.css';
+
+interface ViewGroupProfileProps {
+    groupId: string;
+    onClose: () => void;
+}
+
+interface GroupMember {
+    userId: string;
+    firstName: string;
+    lastName: string;
+    profilePictureUrl: string;
+    institution: string;
+    work: string;
+    age: number;
+    subjects: string[];
+    location: string;
+}
+
+interface Group {
+    id: number;
+    name: string;
+    groupDescription: string;
+    groupDesiredMembers: number;
+    members: GroupMember[];
+    isPublic: boolean;
+}
+
+const ViewGroupProfile: React.FC<ViewGroupProfileProps> = ({ groupId, onClose }) => {
+    const [groupProfile, setGroupProfile] = useState<Group | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+    const modalRef = useRef<HTMLDivElement>(null);
+    const token = localStorage.getItem('token');
+
+    useEffect(() => {
+        const fetchGroupProfile = async () => {
+            try {
+                const response = await axios.get(
+                    `http://localhost:5001/api/Groups/GetGroupInfo`,
+                    {
+                        params: { groupId: groupId },
+                        headers: { Authorization: `Bearer ${token}` },
+                    }
+                );
+                setGroupProfile(response.data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching group profile:', error);
+                setError('Failed to fetch group profile. Please try again later.');
+                setLoading(false);
+            }
+        };
+
+        fetchGroupProfile();
+    }, [groupId, token]);
+
+    const handleClickOutside = (event: MouseEvent) => {
+        if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+            onClose();
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
+    if (loading) {
+        return null; // You can return a loading spinner if desired
+    }
+
+    if (error) {
+        return null; // You can display an error message if desired
+    }
+
+    if (!groupProfile) {
+        return null;
+    }
+
+    return (
+        <div id="viewgroupprofile" className="viewgroupprofile-overlay">
+            <div className="viewgroupprofile-modal" ref={modalRef}>
+                <button className="viewgroupprofile-close-button" onClick={onClose}>
+                    &times;
+                </button>
+                <div className="viewgroupprofile-content">
+                    <h2 className="viewgroupprofile-name">{groupProfile.name}</h2>
+                    <p className="viewgroupprofile-description">{groupProfile.groupDescription}</p>
+                    <p className="viewgroupprofile-members">
+                        Members: {groupProfile.members.length}/{groupProfile.groupDesiredMembers}
+                    </p>
+                    <h3 className="viewgroupprofile-section-title">Group Members</h3>
+                    <ul className="viewgroupprofile-members-list">
+                        {groupProfile.members.map((member) => (
+                            <li key={member.userId} className="viewgroupprofile-member-item">
+                                <img
+                                    src={`http://localhost:5001${member.profilePictureUrl}`}
+                                    alt={`${member.firstName} ${member.lastName}`}
+                                    className="viewgroupprofile-member-picture"
+                                />
+                                <div className="viewgroupprofile-member-info">
+                                    <h4>{member.firstName} {member.lastName}</h4>
+                                    <p>{member.institution}</p>
+                                    <p>{member.location}</p>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default ViewGroupProfile;

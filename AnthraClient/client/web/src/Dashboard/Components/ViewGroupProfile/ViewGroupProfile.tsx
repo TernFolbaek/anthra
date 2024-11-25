@@ -1,9 +1,11 @@
+// ViewGroupProfile.tsx
+
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import './ViewGroupProfile.css';
 
 interface ViewGroupProfileProps {
-    groupId: string;
+    groupId: number;
     onClose: () => void;
 }
 
@@ -90,11 +92,24 @@ const ViewGroupProfile: React.FC<ViewGroupProfileProps> = ({ groupId, onClose })
                 </button>
                 <div className="viewgroupprofile-content">
                     <h2 className="viewgroupprofile-name">{groupProfile.name}</h2>
+
+                    {/* Group Description */}
+                    <h3 className="viewgroupprofile-section-subtitle">Description</h3>
                     <p className="viewgroupprofile-description">{groupProfile.groupDescription}</p>
-                    <p className="viewgroupprofile-members">
-                        Members: {groupProfile.members.length}/{groupProfile.groupDesiredMembers}
+
+                    {/* Desired Members */}
+                    <h3 className="viewgroupprofile-section-subtitle">Desired Members</h3>
+                    <p className="viewgroupprofile-desired-members">
+                        {groupProfile.groupDesiredMembers}
                     </p>
-                    <h3 className="viewgroupprofile-section-title">Group Members</h3>
+
+                    {/* Group Members */}
+                    <div className="viewgroupprofile-members-header">
+                        <h4 className="viewgroupprofile-section-title">Group Members</h4>
+                        <span className="viewgroupprofile-members-count">
+                            ({groupProfile.members.length})
+                        </span>
+                    </div>
                     <ul className="viewgroupprofile-members-list">
                         {groupProfile.members.map((member) => (
                             <li key={member.userId} className="viewgroupprofile-member-item">
@@ -104,7 +119,7 @@ const ViewGroupProfile: React.FC<ViewGroupProfileProps> = ({ groupId, onClose })
                                     className="viewgroupprofile-member-picture"
                                 />
                                 <div className="viewgroupprofile-member-info">
-                                    <h4>{member.firstName} {member.lastName}</h4>
+                                    <h5>{member.firstName} {member.lastName}</h5>
                                     <p>{member.institution}</p>
                                     <p>{member.location}</p>
                                 </div>

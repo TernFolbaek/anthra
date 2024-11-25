@@ -6,30 +6,30 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Ensure it appears above other content */
+    z-index: 1000;
 }
 
 #viewgroupprofile .viewgroupprofile-modal {
     background-color: #fff;
     border-radius: 10px;
-    padding: 30px;
+    padding: 1.40625rem;
     width: 90%;
-    max-width: 700px;
+    max-width: 43.75rem;
     position: relative;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 0.3125rem 0.9375rem rgba(0,0,0,0.3);
 }
 
 #viewgroupprofile .viewgroupprofile-close-button {
     position: absolute;
-    top: 15px;
-    right: 20px;
+    top: 0.9375rem;
+    right: 1.25rem;
     background: none;
     border: none;
-    font-size: 28px;
+    font-size: 1.3125rem;
     cursor: pointer;
     color: #aaa;
 }
@@ -43,58 +43,76 @@
 }
 
 #viewgroupprofile .viewgroupprofile-name {
-    margin-top: 15px;
-    font-size: 28px;
+    margin-top: 0.9375rem;
+    font-size: 1.3125rem;
     font-weight: bold;
 }
 
-#viewgroupprofile .viewgroupprofile-description {
-    font-size: 18px;
-    margin-top: 10px;
+/* Section Subtitles */
+#viewgroupprofile .viewgroupprofile-section-subtitle {
+    font-size: 0.84375rem;
+    font-weight: bold;
+    text-align: left;
+    margin-top: 0.625rem;
+}
+
+/* Group Description and Desired Members */
+#viewgroupprofile .viewgroupprofile-description,
+#viewgroupprofile .viewgroupprofile-desired-members {
+    font-size: 0.84375rem;
+    margin-top: 0.3125rem;
     color: #555;
-}
-
-#viewgroupprofile .viewgroupprofile-members {
-    font-size: 16px;
-    margin-top: 5px;
-    color: #777;
-}
-
-#viewgroupprofile .viewgroupprofile-section-title {
-    margin-top: 20px;
-    font-size: 22px;
-    font-weight: bold;
     text-align: left;
 }
 
+/* Group Members Header */
+#viewgroupprofile .viewgroupprofile-members-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.9375rem;
+}
+
+#viewgroupprofile .viewgroupprofile-section-title {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+#viewgroupprofile .viewgroupprofile-members-count {
+    font-size: 0.7rem;
+    color: #777;
+}
+
+/* Members List */
 #viewgroupprofile .viewgroupprofile-members-list {
     list-style: none;
     padding: 0;
     text-align: left;
-    margin-top: 10px;
+    margin-top: 0.625rem;
 }
 
 #viewgroupprofile .viewgroupprofile-member-item {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 0.9375rem;
 }
 
 #viewgroupprofile .viewgroupprofile-member-picture {
-    width: 60px;
-    height: 60px;
+    width: 2.8125rem;
+    height: 2.8125rem;
     border-radius: 50%;
     object-fit: cover;
-    margin-right: 15px;
+    margin-right: 0.9375rem;
 }
 
-#viewgroupprofile .viewgroupprofile-member-info h4 {
+#viewgroupprofile .viewgroupprofile-member-info h5 {
     margin: 0;
-    font-size: 18px;
+    font-size: 0.84375rem;
 }
 
 #viewgroupprofile .viewgroupprofile-member-info p {
-    margin: 2px 0;
-    font-size: 14px;
+    margin: 0.09375rem 0;
+    font-size: 0.65625rem;
     color: #555;
 }

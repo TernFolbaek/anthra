@@ -6,6 +6,7 @@ import axios from 'axios';
 import MessageConnectionProfile from './MessageConnectionProfile/MessageConnectionProfile';
 import { FaEllipsisV, FaArrowLeft } from 'react-icons/fa';
 import MessageInput from "./MessageInput";
+import ViewGroupProfile from "../ViewGroupProfile/ViewGroupProfile";
 
 interface Attachment {
     id: number;
@@ -20,7 +21,7 @@ interface Message {
     content: string;
     timestamp: string;
     isGroupInvitation: boolean;
-    groupId?: number;
+    groupId: number | null;
     groupName?: string;
     attachments?: Attachment[];
 }
@@ -49,6 +50,8 @@ const Messages: React.FC = () => {
     const dropdownRef = useRef<HTMLDivElement>(null);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 1300);
     const [showBackArrow, setShowBackArrow] = useState(window.innerWidth <= 900);
+    const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null);
+
 
     useEffect(() => {
         // Update isMobile state on window resize
@@ -280,6 +283,16 @@ const Messages: React.FC = () => {
         setShowMenu(false);
     };
 
+    const handleUserClick = (groupId: number | null) => {
+        console.log(groupId)
+        setSelectedGroupId(groupId);
+    };
+
+    const handleCloseGroupProfile = () => {
+        setSelectedGroupId(null);
+    };
+
+
     return (
         <div className="messages-page">
             <div className="message-page-subset">
@@ -303,7 +316,7 @@ const Messages: React.FC = () => {
                         </div>
                         <div className="menu-container" ref={dropdownRef}>
                             <div
-                                className="messages-menu-icon"
+                                className="messages-menu-icon cursor-pointer"
                                 onClick={(event) => {
                                     event.stopPropagation();
                                     toggleMenu();
@@ -346,7 +359,7 @@ const Messages: React.FC = () => {
                                 {contactProfile?.firstName}
                               </span>{' '}
                                                             to join group:{' '}
-                                                            <span className="font-bold">{msg.groupName}</span>
+                                                            <span onClick={()=>handleUserClick(msg.groupId)} className="font-bold">{msg.groupName}</span>
                                                         </p>
                                                     </div>
                                                 ) : (
@@ -356,7 +369,7 @@ const Messages: React.FC = () => {
                                 {contactProfile?.firstName}
                               </span>{' '}
                                                             has invited you to join group:{' '}
-                                                            <span className="font-bold">{msg.groupName}</span>
+                                                            <span onClick={()=>handleUserClick(msg.groupId)}  className="font-bold cursor-pointer">{msg.groupName}</span>
                                                         </p>
                                                         <div className="invitation-buttons">
                                                             <button
@@ -444,6 +457,9 @@ const Messages: React.FC = () => {
                     <>
                         <MessageInput userId={userId} />
                     </>
+                )}
+                {selectedGroupId && (
+                    <ViewGroupProfile groupId={selectedGroupId} onClose={handleCloseGroupProfile}/>
                 )}
             </div>
             {!isMobile && userId && showProfile && (

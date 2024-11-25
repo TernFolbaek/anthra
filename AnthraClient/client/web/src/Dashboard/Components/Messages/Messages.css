@@ -69,22 +69,23 @@
   position: relative;
   cursor: pointer;
   padding: 8px;
-  border-radius: 50%;
+  border-radius: 30%;
 }
 
 .messages-menu-icon:hover {
-  background-color: #85bff8;
-  cursor: pointer;
+  background-color: #e3e2e2;
 }
+
 .back-arrow {
   cursor: pointer;
   padding: 5px;
   width: 25px;
   height: 25px;
-  border-radius: 50%;
+  border-radius: 30%;
 }
+
 .back-arrow:hover{
-  background-color: #85bff8;
+  background-color: #e3e2e2;
   cursor: pointer;
 }
 

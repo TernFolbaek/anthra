@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './Requests.css';
 import NoConnectionsRive from "../../Helpers/Animations/NoConnections";
-import ViewProfile from '../ViewProfile/ViewProfile'; // Adjust the path accordingly
+import ViewProfile from '../ViewProfile/ViewProfile';
 
 interface ConnectionRequestDTO {
     id: number;
@@ -36,7 +36,6 @@ const Requests: React.FC = () => {
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
 
-    // **Add state for selected user ID**
     const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
     useEffect(() => {
@@ -171,7 +170,6 @@ const Requests: React.FC = () => {
             .catch((error) => console.error('Error declining group application:', error));
     };
 
-    // **Handle showing and closing the ViewProfile modal**
     const handleUserClick = (userId: string) => {
         setSelectedUserId(userId);
     };

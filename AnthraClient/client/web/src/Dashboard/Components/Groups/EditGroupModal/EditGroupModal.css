@@ -108,12 +108,12 @@
     margin: 0;
 }
 
-.group-member-item {
+.group-member-item-edit {
     display: flex;
     align-items: center;
+    width: 100%;
     justify-content: space-between;
     padding: 10px;
-    border-bottom: 1px solid #eee;
 }
 
 .member-info {

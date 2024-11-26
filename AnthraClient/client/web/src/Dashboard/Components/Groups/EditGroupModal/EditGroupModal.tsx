@@ -1,4 +1,3 @@
-// EditGroupModal.tsx
 import React, { useState } from 'react';
 import './EditGroupModal.css';
 import GroupInfoTab from './GroupInfoTab';

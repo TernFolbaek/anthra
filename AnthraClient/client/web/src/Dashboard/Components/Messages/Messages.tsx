@@ -7,7 +7,7 @@ import MessageConnectionProfile from './MessageConnectionProfile/MessageConnecti
 import { FaEllipsisV, FaArrowLeft } from 'react-icons/fa';
 import MessageInput from "./MessageInput";
 import ViewGroupProfile from "../ViewGroupProfile/ViewGroupProfile";
-
+import GroupInvitationMessage from "./GroupInvitationMessage";
 interface Attachment {
     id: number;
     fileName: string;
@@ -51,6 +51,7 @@ const Messages: React.FC = () => {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 1300);
     const [showBackArrow, setShowBackArrow] = useState(window.innerWidth <= 900);
     const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null);
+    const [groupInfoCache, setGroupInfoCache] = useState<{ [key: number]: any }>({});
 
 
     useEffect(() => {
@@ -345,49 +346,23 @@ const Messages: React.FC = () => {
                             {messages.length === 0 ? (
                                 <></>
                             ) : (
-                                messages.map((msg, index) => {
-                                    const isLastMessage = index === messages.length - 1;
-                                    const isCurrentUser = msg.senderId === currentUserId;
-                                    return (
-                                        <React.Fragment key={msg.id}>
-                                            {msg.isGroupInvitation ? (
-                                                msg.senderId === currentUserId ? (
-                                                    <div className="invitation-message">
-                                                        <p>
-                                                            You have invited{' '}
-                                                            <span className="font-bold">
-                                {contactProfile?.firstName}
-                              </span>{' '}
-                                                            to join group:{' '}
-                                                            <span onClick={()=>handleUserClick(msg.groupId)} className="font-bold">{msg.groupName}</span>
-                                                        </p>
-                                                    </div>
+                                    messages.map((msg, index) => {
+                                        const isLastMessage = index === messages.length - 1;
+                                        const isCurrentUser = msg.senderId === currentUserId;
+                                        return (
+                                            <React.Fragment key={msg.id}>
+                                                {msg.isGroupInvitation ? (
+                                                    <GroupInvitationMessage
+                                                        msg={msg}
+                                                        isCurrentUser={isCurrentUser}
+                                                        contactProfile={contactProfile}
+                                                        handleAcceptInvitation={handleAcceptInvitation}
+                                                        handleDeclineInvitation={handleDeclineInvitation}
+                                                        handleUserClick={handleUserClick}
+                                                        groupInfoCache={groupInfoCache}
+                                                        setGroupInfoCache={setGroupInfoCache}
+                                                    />
                                                 ) : (
-                                                    <div className="invitation-message">
-                                                        <p>
-                              <span className="font-bold">
-                                {contactProfile?.firstName}
-                              </span>{' '}
-                                                            has invited you to join group:{' '}
-                                                            <span onClick={()=>handleUserClick(msg.groupId)}  className="font-bold cursor-pointer">{msg.groupName}</span>
-                                                        </p>
-                                                        <div className="invitation-buttons">
-                                                            <button
-                                                                className="invitation-accept-button"
-                                                                onClick={() => handleAcceptInvitation(msg.groupId!)}
-                                                            >
-                                                                Accept
-                                                            </button>
-                                                            <button
-                                                                className="invitation-decline-button"
-                                                                onClick={() => handleDeclineInvitation(msg.groupId!)}
-                                                            >
-                                                                Decline
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                )
-                                            ) : (
                                                 <div
                                                     className={`message-bubble ${
                                                         isCurrentUser ? 'sent' : 'received'

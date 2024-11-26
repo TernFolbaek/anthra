@@ -60,8 +60,7 @@ namespace MyBackendApp.Controllers
                 .Include(m => m.Attachment)
                 .Where(m =>
                     (m.SenderId == userId && m.ReceiverId == contactId) ||
-                    (m.SenderId == contactId && m.ReceiverId == userId) ||
-                    (m.ReceiverId == userId && m.IsGroupInvitation))
+                    (m.SenderId == contactId && m.ReceiverId == userId) )
                 .OrderBy(m => m.Timestamp)
                 .Select(m => new
                 {

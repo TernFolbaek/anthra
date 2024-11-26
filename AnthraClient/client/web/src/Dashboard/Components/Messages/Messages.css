@@ -216,6 +216,58 @@
   border: 1px solid #ddd;
   max-width: 50%;
   margin: 10px auto;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.invitation-message p {
+  margin: 0;
+}
+
+.group-invitation-details {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.invitation-description {
+  font-size: 14px;
+  color: #555;
+  margin: 5px 0;
+}
+
+.invitation-member-count {
+  font-size: 12px;
+  color: #777;
+  margin: 5px 0;
+}
+
+.group-member-avatars {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.group-member-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  margin-left: -10px; /* Overlapping effect */
+}
+
+.group-member-avatar:first-child {
+  margin-left: 0;
+}
+
+.group-name-clickable {
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.group-name-clickable:hover {
+  text-decoration: none;
 }
 
 .invitation-buttons {
@@ -248,6 +300,15 @@
 
 .invitation-decline-button:hover {
   background-color: #b8b6b6;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .message-input-container button:hover {

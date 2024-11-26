@@ -118,7 +118,7 @@ public class GroupsController : ControllerBase
                 Timestamp = DateTime.UtcNow,
                 GroupId = group.Id,
                 GroupName = model.Name,
-                IsGroupInvitation = true
+                IsGroupInvitation = true,
             };
             _context.Messages.Add(message);
 
@@ -188,8 +188,12 @@ public class GroupsController : ControllerBase
         var groupDescription = group.GroupDescription;
         var groupDesiredMembers = group.GroupMemberDesire;
         var isPublic = group.isPublic;
+        var id = group.Id;
+        var name = group.Name;
         return Ok(new
         {
+            id,
+            name,
             members,
             attachments,
             groupDescription,
@@ -247,12 +251,12 @@ public class GroupsController : ControllerBase
             _context.GroupMembers.Remove(groupMember);
         }
 
-        // Remove the invitation message
+        /*// Remove the invitation message
         var invitationMessages = await _context.Messages
             .Where(m => m.ReceiverId == currentUserId && m.IsGroupInvitation && m.GroupId == model.GroupId)
             .ToListAsync();
 
-        _context.Messages.RemoveRange(invitationMessages);
+        _context.Messages.RemoveRange(invitationMessages);*/
 
         await _context.SaveChangesAsync();
 

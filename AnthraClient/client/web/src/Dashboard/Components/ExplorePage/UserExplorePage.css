@@ -97,25 +97,29 @@ body.dark-mode .user-explore-location {
     color: #ccc;
 }
 
-.user-explore-info h3 {
+.user-info h3 {
     margin: 10px 0 5px;
     font-weight: 600;
     color: #444;
 }
 
 /* Dark mode styles */
-body.dark-mode .user-explore-info h3 {
+body.dark-mode .user-info h3 {
     color: #ddd;
 }
 
-.user-explore-info p {
+body.dark-mode .user-location{
+    color: #ddd;
+}
+
+.user-info p {
     margin: 0 0 10px;
     font-size: 0.95rem;
     color: #555;
 }
 
 /* Dark mode styles */
-body.dark-mode .user-explore-info p {
+body.dark-mode .user-info p {
     color: #ccc;
 }
 

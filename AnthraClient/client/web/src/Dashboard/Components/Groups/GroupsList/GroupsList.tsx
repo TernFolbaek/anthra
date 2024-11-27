@@ -80,7 +80,7 @@ const GroupsList: React.FC<GroupsListProps> = ({groups, onGroupClick, onCreateGr
                                         Leave Group
                                     </button>
                                     <button onClick={() => handleGroupOversight(group.id)}>
-                                        Group Oversight
+                                        Group Info
                                     </button>
                                 </div>
                             )}

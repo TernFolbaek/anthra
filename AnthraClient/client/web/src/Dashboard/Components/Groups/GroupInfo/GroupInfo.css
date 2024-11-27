@@ -66,9 +66,11 @@ body.dark-mode .group-desired-members {
 .group-member-item,
 .group-attachment-item {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 10px 10px 10px 5px;
     transition: background-color 0.2s;
+    border-radius: 10px;
     margin-bottom: 10px;
     gap: 5px;
 }

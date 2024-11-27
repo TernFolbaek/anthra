@@ -156,11 +156,6 @@
     font-size: 1.2rem;
 }
 
-.dark-mode .explore-user-card {
-    background-color: #1a1a1a;
-    color: #fff;
-}
-
 /* For larger screens */
 @media (min-width: 768px) {
     .explore-user-card {

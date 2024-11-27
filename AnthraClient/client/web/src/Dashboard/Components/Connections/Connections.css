@@ -27,22 +27,12 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-.dark-mode .connections-container {
-    background-color: #1e1e1e;
-    color: #fff;
-}
-
 .connections-loading,
 .connections-error {
     text-align: center;
     margin-top: 50px;
     font-size: 18px;
     color: #666;
-}
-
-.dark-mode .connections-loading,
-.dark-mode .connections-error {
-    color: #ccc;
 }
 
 .connections-columns {
@@ -106,10 +96,6 @@
     background-color: rgba(202, 222, 253, 0.5);
 }
 
-.dark-mode .connection-item {
-    border-bottom: 1px solid #444;
-}
-
 .connection-info {
     display: flex;
     align-items: center;
@@ -130,10 +116,6 @@
     font-weight: 600;
 }
 
-.dark-mode .connection-name {
-    color: #fff;
-}
-
 .menu-button {
     background: none;
     border: none;
@@ -151,10 +133,6 @@
     border-radius: 50%;
 }
 
-.dark-mode .menu-icon {
-    color: #fff;
-}
-
 .message-button {
     font-size: 0.85rem;
     background-color: transparent;
@@ -168,17 +146,7 @@
     margin-right: 10px;
 }
 
-.dark-mode .message-button {
-    border-color: #66b2ff;
-    color: #66b2ff;
-}
-
 .message-button:hover {
     background-color: #007bff;
-    color: #fff;
-}
-
-.dark-mode .message-button:hover {
-    background-color: #66b2ff;
     color: #fff;
 }

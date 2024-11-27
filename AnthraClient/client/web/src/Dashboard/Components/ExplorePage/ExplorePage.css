@@ -13,17 +13,9 @@
     height: 100%;
 }
 
-.dark-mode .explore-page {
-    background-color: #121212;
-}
-
 .user-location {
     font-size: 1rem;
     color: #666;
-}
-
-.dark-mode .user-location {
-    color: white;
 }
 
 .user-info h3 {
@@ -36,12 +28,6 @@
     margin: 0 0 10px;
     font-size: 0.95rem;
     color: #555;
-}
-
-.dark-mode .user-info,
-.dark-mode .user-info h3,
-.dark-mode .user-info p {
-    color: #fff;
 }
 
 .courses-list {
@@ -96,17 +82,5 @@
     transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
 }
 
-
-
-.dark-mode .connect-button,
-.dark-mode .skip-button {
-    background: #333;
-    color: #fff;
-}
-
-.dark-mode .connect-button:hover,
-.dark-mode .skip-button:hover {
-    background: #444;
-}
 
 

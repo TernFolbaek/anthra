@@ -151,20 +151,6 @@
     position: relative;
 }
 
-.dark-mode .explore-group-card {
-    background-color: #1a1a1a;
-    color: #fff;
-}
-
-.dark-mode .group-explore-description {
-    color: #fff;
-}
-
-.dark-mode .group-explore-info h3,
-.dark-mode .group-explore-info p {
-    color: #fff;
-}
-
 /* For larger screens */
 @media (min-width: 768px) {
     .explore-group-card {

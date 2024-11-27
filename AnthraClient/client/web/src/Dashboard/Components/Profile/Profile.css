@@ -240,50 +240,6 @@
     margin-top: 10px;
 }
 
-/* Dark mode styles */
-.dark-mode .profile-card {
-    background-color: #1e1e1e;
-    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.1);
-}
-
-.dark-mode .profile-header button {
-    background-color: #444;
-    color: #ffffff;
-}
-
-.dark-mode .profile-header button:hover {
-    background-color: #333;
-}
-
-.dark-mode .profile-field label {
-    color: #ffffff;
-}
-
-.dark-mode .profile-field span,
-.dark-mode .profile-field p {
-    color: #ffffff;
-}
-
-.dark-mode .profile-field input,
-.dark-mode .profile-field textarea {
-    background-color: #333;
-    color: #ffffff;
-    border: 1px solid #555;
-}
-
-.dark-mode .save-button {
-    background-color: #444;
-    color: #ffffff;
-}
-
-.dark-mode .save-button:hover {
-    background-color: #333;
-}
-
-.dark-mode .error-message {
-    color: #ff6666;
-}
-
 /* Responsive Layout Adjustments */
 @media (max-width: 768px) {
     .profile-content {

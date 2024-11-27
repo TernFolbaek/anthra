@@ -57,18 +57,3 @@
     color: #333;
 }
 
-.dark-mode .menu-toggle {
-    border-color: #fff;
-}
-
-.dark-mode .menu-slider {
-    background-color: #444;
-}
-
-.dark-mode .menu-button {
-    color: #fff;
-}
-
-.dark-mode .menu-button:not(.active) {
-    color: #bbb;
-}

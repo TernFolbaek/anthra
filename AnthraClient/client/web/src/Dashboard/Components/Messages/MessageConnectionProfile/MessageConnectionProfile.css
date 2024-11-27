@@ -82,26 +82,3 @@
 .profile-info-link:hover {
     text-decoration: underline;
 }
-
-.dark-mode .message-connection-profile {
-    background-color: #1a1a1a;
-    color: #fff;
-}
-
-.dark-mode .profile-info-text,
-.dark-mode .profile-info-header,
-.dark-mode .profile-section-title,
-.dark-mode .profile-username {
-    color: #ccc;
-}
-
-.dark-mode .profile-location-label,
-.dark-mode .profile-work-label,
-.dark-mode .profile-institution-label,
-.dark-mode .profile-age-label {
-    color: #999;
-}
-
-.dark-mode .profile-info-link {
-    color: #66b2ff;
-}

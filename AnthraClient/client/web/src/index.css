@@ -16,34 +16,3 @@ html, body {
   overflow-y: scroll;
 }
 
-body.dark-mode {
-  background-color: #121212;
-  color: #ffffff;
-}
-
-body.dark-mode .settings-card {
-  background-color: #1e1e1e;
-  color: #ffffff;
-}
-
-body.dark-mode .settings-tab {
-  color: rgba(113, 112, 112, 0.97);
-}
-
-body.dark-mode .settings-tab.active {
-  background-color: #2c2c2c;
-  color: #fff;
-}
-
-body.dark-mode input,
-body.dark-mode select {
-  background-color: #333;
-  color: #fff;
-  border: 1px solid #555;
-}
-
-body.dark-mode .profile-settings button,
-body.dark-mode .advanced-settings button,
-body.dark-mode .configuration-settings button {
-  background-color: #444;
-}

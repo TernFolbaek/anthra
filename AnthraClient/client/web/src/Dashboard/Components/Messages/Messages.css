@@ -541,8 +541,9 @@ body.dark-mode .image-preview-container {
 }
 
 .image-preview-attachment {
-  max-width: 120px;
-  max-height: 120px;
+  object-fit: cover;
+  max-width: 250px;
+  max-height: 250px;
   margin-right: 10px;
   border-radius: 5px;
 }

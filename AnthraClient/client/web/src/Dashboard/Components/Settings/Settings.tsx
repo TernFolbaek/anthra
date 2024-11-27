@@ -29,7 +29,7 @@ const Settings: React.FC = () => {
                     onClick={() => setActiveTab('profile')}
                 >
                     <FaUser size={24} />
-                    <span>Profile</span>
+                    <span>Help</span>
                 </div>
                 <div
                     className={`settings-tab ${activeTab === 'advanced' ? 'active' : ''}`}

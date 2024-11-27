@@ -67,31 +67,19 @@ const Messages: React.FC = () => {
 
     useEffect(() => {
         if (!userId) {
-            const fetchLatestConversation = async () => {
-                try {
-                    const response = await fetch(
-                        `http://localhost:5001/api/Messages/GetLatestConversation?userId=${currentUserId}`,
-                        {
-                            headers: {
-                                Authorization: `Bearer ${token}`,
-                            },
-                        }
-                    );
-                    if (response.ok) {
-                        const latestConversation = await response.json();
-                        navigate(`/messages/${latestConversation.userId}`);
-                    } else if (response.status === 404) {
-                        // No conversations found
-                        setMessages([]);
-                    } else {
-                        console.error('Error fetching latest conversation.');
+            fetch(`http://localhost:5001/api/Messages/GetConversations?userId=${currentUserId}`)
+                .then((response) => {
+                    if (!response.ok) {
+                        return response.text().then((text) => {
+                            console.error('Error fetching conversations:', text);
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        });
                     }
-                } catch (error) {
-                    console.error('Error fetching latest conversation:', error);
-                }
-            };
-
-            fetchLatestConversation();
+                    return response.json();
+                })
+                .then((data) => {
+                    navigate(`/messages/${data[0].userId}`);
+                })
             return;
         }
 
@@ -285,7 +273,6 @@ const Messages: React.FC = () => {
     };
 
     const handleUserClick = (groupId: number | null) => {
-        console.log(groupId)
         setSelectedGroupId(groupId);
     };
 
@@ -346,23 +333,23 @@ const Messages: React.FC = () => {
                             {messages.length === 0 ? (
                                 <></>
                             ) : (
-                                    messages.map((msg, index) => {
-                                        const isLastMessage = index === messages.length - 1;
-                                        const isCurrentUser = msg.senderId === currentUserId;
-                                        return (
-                                            <React.Fragment key={msg.id}>
-                                                {msg.isGroupInvitation ? (
-                                                    <GroupInvitationMessage
-                                                        msg={msg}
-                                                        isCurrentUser={isCurrentUser}
-                                                        contactProfile={contactProfile}
-                                                        handleAcceptInvitation={handleAcceptInvitation}
-                                                        handleDeclineInvitation={handleDeclineInvitation}
-                                                        handleUserClick={handleUserClick}
-                                                        groupInfoCache={groupInfoCache}
-                                                        setGroupInfoCache={setGroupInfoCache}
-                                                    />
-                                                ) : (
+                                messages.map((msg, index) => {
+                                    const isLastMessage = index === messages.length - 1;
+                                    const isCurrentUser = msg.senderId === currentUserId;
+                                    return (
+                                        <React.Fragment key={msg.id}>
+                                            {msg.isGroupInvitation ? (
+                                                <GroupInvitationMessage
+                                                    msg={msg}
+                                                    isCurrentUser={isCurrentUser}
+                                                    contactProfile={contactProfile}
+                                                    handleAcceptInvitation={handleAcceptInvitation}
+                                                    handleDeclineInvitation={handleDeclineInvitation}
+                                                    handleUserClick={handleUserClick}
+                                                    groupInfoCache={groupInfoCache}
+                                                    setGroupInfoCache={setGroupInfoCache}
+                                                />
+                                            ) : (
                                                 <div
                                                     className={`message-bubble ${
                                                         isCurrentUser ? 'sent' : 'received'

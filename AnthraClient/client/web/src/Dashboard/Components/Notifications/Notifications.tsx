@@ -137,7 +137,7 @@ const Notifications: React.FC = () => {
             {showDropdown && (
                 <div className="notifications-dropdown">
                     {notifications.length === 0 ? (
-                        <div className="notification-item">No notifications</div>
+                        <div className="notification-item text-sm">No notifications</div>
                     ) : (
                         notifications.map((notification) => (
                             <div

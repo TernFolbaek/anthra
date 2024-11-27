@@ -104,9 +104,6 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
 
-
-
-
 var app = builder.Build();
 
 
@@ -149,12 +146,9 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-    endpoints.MapHub<ChatHub>("/chatHub");
-    endpoints.MapHub<NotificationHub>("/notificationHub");
-});
+app.MapControllers();
+app.MapHub<ChatHub>("/chatHub");
+app.MapHub<NotificationHub>("/notificationHub");
 
 if (app.Environment.IsDevelopment())
 {
@@ -279,7 +273,7 @@ if (app.Environment.IsDevelopment())
 
     app.MapPost("/delete-test-users", async (ApplicationDbContext db) =>
     {
-        var testUsers = db.Users.Where(u => u.UserName == "tern" || u.UserName == "gab" || u.UserName == "justin" || u.UserName == "birk" || u.UserName == "andreas");
+        var testUsers = await db.Users.Where(u => u.UserName == "tern" || u.UserName == "gab" || u.UserName == "justin" || u.UserName == "birk" || u.UserName == "andreas").ToListAsync();
         db.Users.RemoveRange(testUsers);
         await db.SaveChangesAsync();
 

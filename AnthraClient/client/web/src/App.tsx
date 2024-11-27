@@ -21,7 +21,7 @@ const App = () => {
     useEffect(() => {
         const flag = localStorage.getItem('isDark')
         // Ensure the body class reflects the current dark mode setting on load
-        if (flag) {
+        if (flag === "true") {
             document.body.classList.add('dark-mode');
         } else {
             document.body.classList.remove('dark-mode');

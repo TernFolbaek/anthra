@@ -1,9 +1,7 @@
-// ViewGroupProfile.tsx
-
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import './ViewGroupProfile.css';
-
+import ViewProfile from "../ViewProfile/ViewProfile";
 interface ViewGroupProfileProps {
     groupId: number;
     onClose: () => void;
@@ -34,9 +32,17 @@ const ViewGroupProfile: React.FC<ViewGroupProfileProps> = ({ groupId, onClose })
     const [groupProfile, setGroupProfile] = useState<Group | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [selectedUserId, setSelectedUserId] = useState<string | null>('');
     const modalRef = useRef<HTMLDivElement>(null);
     const token = localStorage.getItem('token');
 
+    const handleUserClick = (userId: string) => {
+        setSelectedUserId(userId);
+    };
+
+    const handleCloseProfile = () => {
+        setSelectedUserId(null);
+    };
     useEffect(() => {
         const fetchGroupProfile = async () => {
             try {
@@ -112,7 +118,7 @@ const ViewGroupProfile: React.FC<ViewGroupProfileProps> = ({ groupId, onClose })
                     </div>
                     <ul className="viewgroupprofile-members-list">
                         {groupProfile.members.map((member) => (
-                            <li key={member.userId} className="viewgroupprofile-member-item">
+                            <li key={member.userId} onClick={()=>handleUserClick(member.userId)} className="viewgroupprofile-member-item">
                                 <img
                                     src={`http://localhost:5001${member.profilePictureUrl}`}
                                     alt={`${member.firstName} ${member.lastName}`}
@@ -125,9 +131,12 @@ const ViewGroupProfile: React.FC<ViewGroupProfileProps> = ({ groupId, onClose })
                                 </div>
                             </li>
                         ))}
-                    </ul>
+                    </ul>m
                 </div>
             </div>
+            {selectedUserId && (
+                <ViewProfile userId={selectedUserId} onClose={handleCloseProfile}/>
+            )}
         </div>
     );
 };

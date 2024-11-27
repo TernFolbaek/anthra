@@ -100,7 +100,7 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
                         <img
                             src={selectedImagePreview}
                             alt="Selected"
-                            className="image-preview"
+                            className="image-preview-attachment"
                         />
                         <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
                     </div>

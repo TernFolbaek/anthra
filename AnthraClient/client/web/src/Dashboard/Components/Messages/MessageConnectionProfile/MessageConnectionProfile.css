@@ -33,12 +33,28 @@
 .profile-info-header {
     font-size: 1.8rem;
     font-weight: 700;
+    color: #000;
+}
+
+/* Dark mode styles */
+body.dark-mode .message-connection-profile {
+    background-color: #2e2e2e;
+    color: #fff;
+}
+
+body.dark-mode .profile-info-header {
+    color: #fff;
 }
 
 .profile-username {
     font-size: 1rem;
     color: #888;
     margin-bottom: 15px;
+}
+
+/* Dark mode styles */
+body.dark-mode .profile-username {
+    color: #ccc;
 }
 
 /* Specific property name styling */
@@ -51,15 +67,33 @@
     margin-right: 5px;
 }
 
+/* Dark mode styles */
+body.dark-mode .profile-location-label,
+body.dark-mode .profile-work-label,
+body.dark-mode .profile-institution-label,
+body.dark-mode .profile-age-label {
+    color: #ccc;
+}
+
 /* General text and property styling */
 .profile-info-text {
     font-size: 0.95rem;
     color: #666;
 }
 
+/* Dark mode styles */
+body.dark-mode .profile-info-text {
+    color: #ddd;
+}
+
 .profile-section-title {
     font-weight: 600;
     color: #555;
+}
+
+/* Dark mode styles */
+body.dark-mode .profile-section-title {
+    color: #ccc;
 }
 
 /* List styling */
@@ -81,4 +115,9 @@
 
 .profile-info-link:hover {
     text-decoration: underline;
+}
+
+/* Dark mode styles */
+body.dark-mode .profile-info-link {
+    color: #85bff8;
 }

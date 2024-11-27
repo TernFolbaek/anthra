@@ -13,6 +13,11 @@
     margin: 10px 0;
 }
 
+/* Dark mode styles */
+body.dark-mode .user-name {
+    color: #fff;
+}
+
 .explore-user-card {
     background: white;
     color: #333;
@@ -31,7 +36,14 @@
     position: relative;
 }
 
-.no-more-users-or-groups{
+/* Dark mode styles */
+body.dark-mode .explore-user-card {
+    background: #2e2e2e;
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.no-more-users-or-groups {
     background: white;
     padding: 25px;
     border-radius: 16px;
@@ -47,6 +59,12 @@
     position: relative;
 }
 
+/* Dark mode styles */
+body.dark-mode .no-more-users-or-groups {
+    background: #2e2e2e;
+    color: #fff;
+}
+
 .explore-user-card-img {
     width: 160px;
     height: 160px;
@@ -56,18 +74,16 @@
     flex-shrink: 0;
 }
 
-.explore-user-card-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
 .user-explore-name {
     font-size: 1.8rem;
     font-weight: 700;
     margin-top: 10px;
     text-align: center;
+}
+
+/* Dark mode styles */
+body.dark-mode .user-explore-name {
+    color: #fff;
 }
 
 .user-explore-location {
@@ -76,16 +92,31 @@
     text-align: center;
 }
 
+/* Dark mode styles */
+body.dark-mode .user-explore-location {
+    color: #ccc;
+}
+
 .user-explore-info h3 {
     margin: 10px 0 5px;
     font-weight: 600;
     color: #444;
 }
 
+/* Dark mode styles */
+body.dark-mode .user-explore-info h3 {
+    color: #ddd;
+}
+
 .user-explore-info p {
     margin: 0 0 10px;
     font-size: 0.95rem;
     color: #555;
+}
+
+/* Dark mode styles */
+body.dark-mode .user-explore-info p {
+    color: #ccc;
 }
 
 .user-explore-courses-list {
@@ -101,6 +132,11 @@
     color: #3366cc;
     text-decoration: none;
     font-weight: 500;
+}
+
+/* Dark mode styles */
+body.dark-mode .user-explore-courses-list a {
+    color: #85bff8;
 }
 
 .user-explore-courses-list a:hover {
@@ -122,33 +158,48 @@
     padding: 0.5rem;
     cursor: pointer;
     font-weight: 600;
-    transition: background-color 0.3s, transform 2s;
+    transition: background-color 0.3s, transform 0.2s;
     border-radius: 12px;
     flex: 1;
     max-width: 200px;
 }
 
-.connect-button{
+.connect-button {
     background-color: #66b2ff;
     border: 2px solid #2c91f4;
 }
 
-.skip-button{
+.skip-button {
     background-color: #e1e4fb;
     color: #3366cc;
     border: 2px solid #3366cc;
 }
 
-.connect-button:hover{
+/* Dark mode styles */
+body.dark-mode .skip-button {
+    background-color: #3a3a3a;
+    color: #85bff8;
+    border: 2px solid #85bff8;
+}
+
+.connect-button:hover {
     background-color: #abddfb;
     transform: scale(1.05);
-
 }
+
 .skip-button:hover {
     background-color: #bac0f3;
     transform: scale(1.05);
 }
 
+/* Dark mode styles */
+body.dark-mode .connect-button:hover {
+    background-color: #0056b3;
+}
+
+body.dark-mode .skip-button:hover {
+    background-color: #444;
+}
 
 .user-explore-no-more {
     text-align: center;
@@ -156,10 +207,15 @@
     font-size: 1.2rem;
 }
 
+/* Dark mode styles */
+body.dark-mode .user-explore-no-more {
+    color: #ccc;
+}
+
 /* For larger screens */
 @media (min-width: 768px) {
     .explore-user-card {
-        flex-direction: row; /* Arrange items horizontally */
+        flex-direction: row;
         align-items: flex-start;
     }
 
@@ -167,8 +223,6 @@
         margin-left: 25px;
     }
 }
-
-
 
 /* For medium screens (tablets) */
 @media (max-width: 767px) {

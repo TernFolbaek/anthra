@@ -18,14 +18,19 @@
     overflow-y: auto; /* Make the main-content scrollable */
     height: 100vh;
     background-color: rgb(245,245,245);
-
 }
+
+
 
 .dashboard-navbar {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
+}
+
+body.dark-mode .main-content {
+    background-color: #1e1e1e;
 }
 
 /* Adjust the main-content when the sidebar is hidden */

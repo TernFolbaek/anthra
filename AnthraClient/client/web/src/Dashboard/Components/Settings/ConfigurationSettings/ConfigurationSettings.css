@@ -2,6 +2,12 @@
 .configuration-settings h2 {
     margin-bottom: 16px;
     font-size: 1.5rem;
+    color: #000;
+}
+
+/* Dark mode styles */
+body.dark-mode .configuration-settings h2 {
+    color: #fff;
 }
 
 .toggle-group {
@@ -12,6 +18,12 @@
 
 .toggle-group label {
     font-weight: 600;
+    color: #000;
+}
+
+/* Dark mode styles */
+body.dark-mode .toggle-group label {
+    color: #ccc;
 }
 
 .toggle-switch {
@@ -54,6 +66,19 @@
 
 .toggle-switch input:checked + label::after {
     transform: translateX(26px);
+}
+
+/* Dark mode styles */
+body.dark-mode .toggle-switch label {
+    background-color: #555;
+}
+
+body.dark-mode .toggle-switch input:checked + label {
+    background-color: #85bff8;
+}
+
+body.dark-mode .toggle-switch label::after {
+    background-color: #fff;
 }
 
 /* Responsive adjustments */

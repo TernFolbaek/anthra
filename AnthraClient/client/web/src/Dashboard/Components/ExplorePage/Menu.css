@@ -17,6 +17,11 @@
     width: 350px;
 }
 
+/* Dark mode styles */
+body.dark-mode .menu-toggle {
+    border: 3px solid #444;
+}
+
 .menu-slider {
     position: absolute;
     top: 0;
@@ -26,6 +31,11 @@
     background-color: #e1e4fb;
     transition: transform 0.3s ease;
     z-index: 0; /* Place behind the buttons */
+}
+
+/* Dark mode styles */
+body.dark-mode .menu-slider {
+    background-color: #444;
 }
 
 .menu-slider.slide-right {
@@ -48,12 +58,25 @@
     position: relative;
 }
 
+/* Dark mode styles */
+body.dark-mode .explore-menu-button {
+    color: #ccc;
+}
 
 .explore-menu-button.active {
     color: #3366cc;
+}
+
+/* Dark mode styles */
+body.dark-mode .explore-menu-button.active {
+    color: #85bff8;
 }
 
 .explore-menu-button:not(.active) {
     color: #333;
 }
 
+/* Dark mode styles */
+body.dark-mode .explore-menu-button:not(.active) {
+    color: #ccc;
+}

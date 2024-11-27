@@ -1,6 +1,12 @@
 .profile-settings h2 {
     margin-bottom: 16px;
     font-size: 1.5rem;
+    color: #000;
+}
+
+/* Dark mode styles */
+body.dark-mode .profile-settings h2 {
+    color: #fff;
 }
 
 .form-group {
@@ -11,6 +17,12 @@
     display: block;
     font-weight: 600;
     margin-bottom: 8px;
+    color: #000;
+}
+
+/* Dark mode styles */
+body.dark-mode .form-group label {
+    color: #ccc;
 }
 
 .form-group input {
@@ -18,6 +30,13 @@
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+/* Dark mode styles */
+body.dark-mode .form-group input {
+    background-color: #3a3a3a;
+    color: #fff;
+    border: 1px solid #555;
 }
 
 .profile-settings-save-button {
@@ -28,10 +47,22 @@
     font-weight: 400;
     cursor: pointer;
 }
+
+/* Dark mode styles */
+body.dark-mode .profile-settings-save-button {
+    background-color: #2e2e2e;
+    color: #28a745;
+    border-color: #28a745;
+}
+
 .profile-settings-save-button:hover {
     background-color: #c7f8d2;
 }
 
+/* Dark mode styles */
+body.dark-mode .profile-settings-save-button:hover {
+    background-color: #3a3a3a;
+}
 
 .profile-settings-actions {
     margin-top: 20px;
@@ -40,7 +71,8 @@
     gap: 10px;
 }
 
-.logout-button, .delete-button {
+.logout-button,
+.delete-button {
     padding: 10px 20px;
     border-radius: 4px;
     font-weight: 400;
@@ -68,6 +100,23 @@
     background-color: #616161;
 }
 
+/* Dark mode styles */
+body.dark-mode .logout-button {
+    background-color: #0056b3;
+}
+
+body.dark-mode .logout-button:hover {
+    background-color: #003f7f;
+}
+
+body.dark-mode .delete-button {
+    background-color: #555;
+}
+
+body.dark-mode .delete-button:hover {
+    background-color: #444;
+}
+
 /* Modal Styles */
 .profile-modal-overlay {
     position: fixed;
@@ -91,13 +140,31 @@
     text-align: center;
 }
 
+/* Dark mode styles */
+body.dark-mode .modal {
+    background: #2e2e2e;
+    color: #fff;
+}
+
 .modal h3 {
     margin-bottom: 10px;
     font-size: 1.25rem;
+    color: #000;
+}
+
+/* Dark mode styles */
+body.dark-mode .modal h3 {
+    color: #fff;
 }
 
 .modal p {
     margin-bottom: 15px;
+    color: #333;
+}
+
+/* Dark mode styles */
+body.dark-mode .modal p {
+    color: #ddd;
 }
 
 .modal input {
@@ -106,6 +173,13 @@
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+/* Dark mode styles */
+body.dark-mode .modal input {
+    background-color: #3a3a3a;
+    color: #fff;
+    border: 1px solid #555;
 }
 
 .modal-actions {
@@ -137,6 +211,23 @@
 
 .delete-account-cancel-button:hover {
     background-color: #439ef6;
+}
+
+/* Dark mode styles */
+body.dark-mode .confirm-delete-button {
+    background-color: #555;
+}
+
+body.dark-mode .confirm-delete-button:hover {
+    background-color: #444;
+}
+
+body.dark-mode .delete-account-cancel-button {
+    background-color: #0056b3;
+}
+
+body.dark-mode .delete-account-cancel-button:hover {
+    background-color: #003f7f;
 }
 
 /* Responsive adjustments */

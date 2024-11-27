@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
 
 .sidebar {
-    background-color: rgb(245,245,245);
+    background-color: rgb(245, 245, 245);
     padding: 12px;
     color: #333;
     display: flex;
@@ -15,8 +15,14 @@
     justify-content: space-between;
 }
 
+/* Dark mode styles */
+body.dark-mode .sidebar {
+    background-color: #1e1e1e;
+    color: #fff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+}
 
-.sidebar-profile-picture{
+.sidebar-profile-picture {
     width: 70px;
     height: 70px;
     border-radius: 50%;
@@ -38,6 +44,12 @@
     gap: 10px;
     border-radius: 4px;
 }
+
+/* Dark mode styles */
+body.dark-mode .sidebar-link {
+    color: #ccc;
+}
+
 .sidebar-link .sidebar-icon {
     font-size: 22px;
     transition: transform 0.3s ease;
@@ -59,6 +71,11 @@
     transition: transform 0.3s ease-in-out;
 }
 
+/* Dark mode styles */
+body.dark-mode .sidebar-link::before {
+    background-color: #85bff8;
+}
+
 .sidebar-link:hover::before,
 .sidebar-link.active-link::before {
     transform: scaleY(1);
@@ -69,9 +86,21 @@
     color: #007bff;
 }
 
+/* Dark mode styles */
+body.dark-mode .sidebar-link:hover {
+    background-color: #2e2e2e;
+    color: #85bff8;
+}
+
 .sidebar-link.active-link {
     background-color: #e0e0e0;
     color: #007bff;
+}
+
+/* Dark mode styles */
+body.dark-mode .sidebar-link.active-link {
+    background-color: #2e2e2e;
+    color: #85bff8;
 }
 
 .tooltip-container {
@@ -103,11 +132,13 @@
     opacity: 0.8;
 }
 
+/* Dark mode styles */
+body.dark-mode .tooltip {
+    background-color: #444;
+}
+
 @media (max-width: 768px) {
     .sidebar {
         display: none;
     }
 }
-
-
-

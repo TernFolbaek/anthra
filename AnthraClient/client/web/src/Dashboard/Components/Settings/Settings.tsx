@@ -25,7 +25,7 @@ const Settings: React.FC = () => {
         <div className="settings-card">
             <div className="settings-navbar">
                 <div
-                    className={`settings-tab ${activeTab === 'profile' ? 'active' : ''}`}
+                    className={`settings-tab-left settings-tab ${activeTab === 'profile' ? 'active' : ''}`}
                     onClick={() => setActiveTab('profile')}
                 >
                     <FaUser size={24} />
@@ -39,7 +39,7 @@ const Settings: React.FC = () => {
                     <span>Advanced</span>
                 </div>
                 <div
-                    className={`settings-tab ${activeTab === 'configuration' ? 'active' : ''}`}
+                    className={`settings-tab-right settings-tab ${activeTab === 'configuration' ? 'active' : ''}`}
                     onClick={() => setActiveTab('configuration')}
                 >
                     <FaCog size={24} />

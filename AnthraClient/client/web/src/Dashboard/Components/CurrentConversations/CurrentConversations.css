@@ -27,7 +27,6 @@
     object-fit: cover;
     margin-right: 10px;
     border: 2px solid #85bff8;
-
 }
 
 .conversation-details {
@@ -50,4 +49,25 @@
 .conversation-timestamp {
     font-size: 0.8rem;
     color: #999;
+}
+
+/* Dark mode styles */
+body.dark-mode .conversation-item:hover {
+    background-color: #3a3a3a;
+}
+
+body.dark-mode .conversation-item.selected {
+    background-color: #3a3a3a;
+}
+
+body.dark-mode .conversation-details h3 {
+    color: #fff;
+}
+
+body.dark-mode .conversation-details .last-message {
+    color: #ccc;
+}
+
+body.dark-mode .conversation-timestamp {
+    color: #aaa;
 }

@@ -5,6 +5,10 @@
     padding: 20px;
 }
 
+body.dark-mode .profile-page {
+    background-color: #1e1e1e;
+}
+
 .profile-card {
     width: 95%;
     max-width: 1200px;
@@ -14,6 +18,12 @@
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     font-family: 'Montserrat', sans-serif;
     padding: 40px;
+}
+
+/* Dark mode styles */
+body.dark-mode .profile-card {
+    background-color: #2e2e2e;
+    box-shadow: none;
 }
 
 .profile-header {
@@ -58,7 +68,6 @@
     object-fit: cover;
     border-radius: 50%;
     border: 3px solid #85bff8;
-
 }
 
 .profile-picture-overlay {
@@ -100,17 +109,17 @@
     margin-right: auto;
 }
 
-
-.profile-picture input[type="file"] {
-    margin-top: 15px;
-    width: 200px;
-}
-
 .profile-info {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    color: #000;
+}
+
+/* Dark mode styles */
+body.dark-mode .profile-info {
+    color: #fff;
 }
 
 .profile-row {
@@ -140,11 +149,22 @@
     font-size: 18px;
 }
 
+/* Dark mode styles */
+body.dark-mode .profile-field label {
+    color: #ccc;
+}
+
 .profile-field span,
 .profile-field p {
     font-size: 1rem;
     color: #555;
     margin: 0;
+}
+
+/* Dark mode styles */
+body.dark-mode .profile-field span,
+body.dark-mode .profile-field p {
+    color: #ddd;
 }
 
 .profile-field input,
@@ -154,6 +174,14 @@
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 8px;
+}
+
+/* Dark mode styles */
+body.dark-mode .profile-field input,
+body.dark-mode .profile-field textarea {
+    background-color: #3a3a3a;
+    color: #fff;
+    border: 1px solid #555;
 }
 
 .profile-field textarea {
@@ -182,6 +210,15 @@
     background-color: #4883f3;
 }
 
+/* Dark mode styles */
+body.dark-mode .save-button {
+    background-color: #007bff;
+}
+
+body.dark-mode .save-button:hover {
+    background-color: #0056b3;
+}
+
 .profile-icon-button {
     font-size: 1.5rem;
     color: #ffffff;
@@ -200,12 +237,12 @@
 
 .profile-edit-trash {
     background-color: #fb8282;
-    font-size: 1.5rem; /* Adjust the size of the icon */
+    font-size: 1.5rem;
     color: #ffffff;
-    border-radius: 50%; /* Makes the icon circular */
-    padding: 8px; /* Controls the space around the icon inside the circle */
-    width: 40px; /* Set a fixed width for the circular icon */
-    height: 40px; /* Set a fixed height for the circular icon */
+    border-radius: 50%;
+    padding: 8px;
+    width: 40px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -222,7 +259,7 @@
 
 .profile-icon-button:hover {
     transform: scale(1.1);
-    background-color: #0056b3; /* Change background color on hover */
+    background-color: #0056b3;
 }
 
 .profile-edit-trash:hover {
@@ -238,6 +275,11 @@
     color: #ef6060;
     font-weight: bold;
     margin-top: 10px;
+}
+
+/* Dark mode styles */
+body.dark-mode .error-message {
+    color: #ff6b6b;
 }
 
 /* Responsive Layout Adjustments */
@@ -270,6 +312,3 @@
         text-align: center;
     }
 }
-
-
-

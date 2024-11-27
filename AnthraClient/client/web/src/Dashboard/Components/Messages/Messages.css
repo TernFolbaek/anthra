@@ -5,9 +5,13 @@
   display: flex;
   height: 100vh;
   font-family: 'Montserrat', sans-serif;
-  border-radius: 5px;
   background-color: rgb(245, 245, 245);
   overflow: hidden;
+}
+
+/* Dark mode styles */
+body.dark-mode .messages-page-container {
+  background-color: #1e1e1e;
 }
 
 .messages-page {
@@ -16,9 +20,13 @@
   display: flex;
   height: 100vh;
   font-family: 'Montserrat', sans-serif;
-  border-radius: 5px;
   background-color: rgb(245, 245, 245);
   overflow: hidden;
+}
+
+/* Dark mode styles */
+body.dark-mode .messages-page {
+  background-color: #1e1e1e;
 }
 
 .message-page-subset {
@@ -28,6 +36,11 @@
   margin: 15px;
   border-radius: 10px;
   background-color: white;
+}
+
+/* Dark mode styles */
+body.dark-mode .message-page-subset {
+  background-color: #2e2e2e;
 }
 
 .contact-header {
@@ -45,6 +58,15 @@
   background-color: #ebf3fd;
 }
 
+/* Dark mode styles */
+body.dark-mode .contact-header {
+  border-bottom: 1px solid #444;
+  background-color: #2e2e2e;
+}
+
+body.dark-mode .contact-header:hover {
+  background-color: #3a3a3a;
+}
 
 .contact-info {
   display: flex;
@@ -57,12 +79,16 @@
   border-radius: 50%;
   margin-right: 10px;
   border: 2px solid #85bff8;
-
 }
 
 .contact-name {
   font-size: 0.9rem;
   font-weight: bold;
+}
+
+/* Dark mode styles */
+body.dark-mode .contact-name {
+  color: #fff;
 }
 
 .messages-menu-icon {
@@ -76,6 +102,11 @@
   background-color: #e3e2e2;
 }
 
+/* Dark mode styles */
+body.dark-mode .messages-menu-icon:hover {
+  background-color: #3a3a3a;
+}
+
 .back-arrow {
   cursor: pointer;
   padding: 5px;
@@ -84,9 +115,14 @@
   border-radius: 30%;
 }
 
-.back-arrow:hover{
+.back-arrow:hover {
   background-color: #e3e2e2;
   cursor: pointer;
+}
+
+/* Dark mode styles */
+body.dark-mode .back-arrow:hover {
+  background-color: #3a3a3a;
 }
 
 .messages-dropdown-menu {
@@ -100,6 +136,12 @@
   z-index: 1;
 }
 
+/* Dark mode styles */
+body.dark-mode .messages-dropdown-menu {
+  background-color: #2e2e2e;
+  border: 1px solid #444;
+}
+
 .messages-dropdown-menu button {
   width: 100%;
   padding: 10px;
@@ -110,9 +152,19 @@
   font-size: 0.8rem;
 }
 
+/* Dark mode styles */
+body.dark-mode .messages-dropdown-menu button {
+  color: #fff;
+}
+
 .messages-dropdown-menu button:hover {
   background-color: #f1f1f1;
   cursor: pointer;
+}
+
+/* Dark mode styles */
+body.dark-mode .messages-dropdown-menu button:hover {
+  background-color: #444;
 }
 
 .messages-container {
@@ -122,6 +174,11 @@
   padding: 20px;
   scrollbar-color: #e4e4e4 transparent;
   position: relative;
+}
+
+/* Dark mode styles */
+body.dark-mode .messages-container {
+  scrollbar-color: #555 transparent;
 }
 
 .messages-container::-webkit-scrollbar {
@@ -158,6 +215,15 @@
   align-self: flex-start;
 }
 
+/* Dark mode styles */
+body.dark-mode .message-bubble.received {
+  background-color: #3a3a3a;
+  color: #fff;
+}
+
+body.dark-mode .message-bubble.sent {
+  background-color: #0056b3;
+}
 
 .message-timestamp {
   text-align: center;
@@ -166,6 +232,11 @@
   width: 100%;
   font-size: 0.75rem;
   color: #666;
+}
+
+/* Dark mode styles */
+body.dark-mode .message-timestamp {
+  color: #aaa;
 }
 
 .message-input-container {
@@ -185,6 +256,13 @@
   margin-right: 10px;
 }
 
+/* Dark mode styles */
+body.dark-mode .message-input-container input {
+  background-color: #2e2e2e;
+  color: #fff;
+  border: 1px solid #555;
+}
+
 .message-input-container input:focus {
   outline: none;
 }
@@ -198,6 +276,10 @@
   border-radius: 20px;
   cursor: pointer;
   transition: background-color 0.3s;
+}
+
+.message-input-container button:hover {
+  background-color: #0056b3;
 }
 
 .invitation-message {
@@ -215,6 +297,16 @@
   margin: 0;
 }
 
+/* Dark mode styles */
+body.dark-mode .invitation-message {
+  background-color: #2e2e2e;
+  border: 1px solid #444;
+}
+
+body.dark-mode .invitation-message p {
+  color: #fff;
+}
+
 .group-invitation-details {
   margin-top: 10px;
   text-align: center;
@@ -226,10 +318,20 @@
   margin: 5px 0;
 }
 
+/* Dark mode styles */
+body.dark-mode .invitation-description {
+  color: #ccc;
+}
+
 .invitation-member-count {
   font-size: 12px;
   color: #777;
   margin: 5px 0;
+}
+
+/* Dark mode styles */
+body.dark-mode .invitation-member-count {
+  color: #aaa;
 }
 
 .group-member-avatars {
@@ -256,6 +358,11 @@
   color: #007bff;
   cursor: pointer;
   text-decoration: underline;
+}
+
+/* Dark mode styles */
+body.dark-mode .group-name-clickable {
+  color: #85bff8;
 }
 
 .group-name-clickable:hover {
@@ -294,6 +401,23 @@
   background-color: #b8b6b6;
 }
 
+/* Dark mode styles */
+body.dark-mode .invitation-accept-button {
+  background-color: #007bff;
+}
+
+body.dark-mode .invitation-accept-button:hover {
+  background-color: #0056b3;
+}
+
+body.dark-mode .invitation-decline-button {
+  background-color: #555;
+}
+
+body.dark-mode .invitation-decline-button:hover {
+  background-color: #444;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -302,11 +426,6 @@
     opacity: 1;
   }
 }
-
-.message-input-container button:hover {
-  background-color: #0056b3;
-}
-
 
 .paperclip-icon {
   font-size: 1rem;
@@ -319,6 +438,15 @@
   color: #007bff;
 }
 
+/* Dark mode styles */
+body.dark-mode .paperclip-icon {
+  color: #ccc;
+}
+
+body.dark-mode .paperclip-icon:hover {
+  color: #85bff8;
+}
+
 /* Style for the selected file preview */
 .selected-file-preview {
   display: flex;
@@ -327,6 +455,12 @@
   background-color: #f1f1f1;
   margin: 10px 20px 0 20px;
   border-radius: 5px;
+}
+
+/* Dark mode styles */
+body.dark-mode .selected-file-preview {
+  background-color: #3a3a3a;
+  color: #fff;
 }
 
 .selected-file-preview span {
@@ -356,17 +490,13 @@
   text-decoration: none;
 }
 
-.message-attachment a:hover .attachment-filename {
-  text-decoration: underline;
+/* Dark mode styles */
+body.dark-mode .attachment-filename {
+  color: #fff;
 }
 
-/* Adjust input container to accommodate paperclip icon */
-.message-input-container {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  bottom: 0;
-  gap: 10px;
+.message-attachment a:hover .attachment-filename {
+  text-decoration: underline;
 }
 
 .send-icon {
@@ -379,6 +509,15 @@
   color: #0056b3;
 }
 
+/* Dark mode styles */
+body.dark-mode .send-icon {
+  color: #85bff8;
+}
+
+body.dark-mode .send-icon:hover {
+  color: #439ef6;
+}
+
 .image-preview-container {
   display: flex;
   align-items: center;
@@ -388,15 +527,16 @@
   border-radius: 5px;
 }
 
+/* Dark mode styles */
+body.dark-mode .image-preview-container {
+  background-color: #3a3a3a;
+}
+
 .image-preview-attachment {
   max-width: 120px;
   max-height: 120px;
   margin-right: 10px;
   border-radius: 5px;
-}
-
-.image-preview-container svg {
-  cursor: pointer;
 }
 
 /* Style for message images */

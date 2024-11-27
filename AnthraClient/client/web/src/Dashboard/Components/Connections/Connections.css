@@ -9,13 +9,18 @@
     flex: 1;
 }
 
-.connections-card-container{
+.connections-card-container {
     width: 48%;
     background-color: white;
     border-radius: 10px;
     padding: 20px;
     margin: 15px 15px 15px 0;
     font-family: 'Montserrat', sans-serif;
+}
+
+/* Dark mode styles */
+body.dark-mode .connections-card-container {
+    background-color: #2e2e2e;
 }
 
 .connections-container {
@@ -27,12 +32,23 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+/* Dark mode styles */
+body.dark-mode .connections-container {
+    background-color: #2e2e2e;
+}
+
 .connections-loading,
 .connections-error {
     text-align: center;
     margin-top: 50px;
     font-size: 18px;
     color: #666;
+}
+
+/* Dark mode styles */
+body.dark-mode .connections-loading,
+body.dark-mode .connections-error {
+    color: #ccc;
 }
 
 .connections-columns {
@@ -49,6 +65,12 @@
     font-size: 1rem;
     font-weight: bold;
     margin-bottom: 10px;
+    color: #333;
+}
+
+/* Dark mode styles */
+body.dark-mode .connections-title {
+    color: #fff;
 }
 
 .connections-list {
@@ -56,7 +78,6 @@
     padding: 0;
     margin: 0;
     height: 100%;
-
 }
 
 .connection-item {
@@ -67,7 +88,12 @@
     border-radius: 10px;
 }
 
-.no-connections-container{
+/* Dark mode styles */
+body.dark-mode .connection-item:hover {
+    background-color: #3a3a3a;
+}
+
+.no-connections-container {
     flex-direction: column;
     height: 100%;
     display: flex;
@@ -75,7 +101,7 @@
     align-items: center;
 }
 
-.no-conversations-rive{
+.no-conversations-rive {
     width: 350px;
     height: 350px;
     position: relative;
@@ -83,7 +109,7 @@
     border-radius: 10px;
 }
 
-.no-connections-rive{
+.no-connections-rive {
     width: 350px;
     height: 350px;
     position: relative;
@@ -94,6 +120,11 @@
 .connection-item:hover {
     cursor: pointer;
     background-color: rgba(202, 222, 253, 0.5);
+}
+
+/* Dark mode styles */
+body.dark-mode .connection-item:hover {
+    background-color: #3a3a3a;
 }
 
 .connection-info {
@@ -114,6 +145,12 @@
     margin-left: 15px;
     font-size: 0.95rem;
     font-weight: 600;
+    color: #333;
+}
+
+/* Dark mode styles */
+body.dark-mode .connection-name {
+    color: #fff;
 }
 
 .menu-button {
@@ -127,11 +164,21 @@
 .menu-icon {
     font-size: 24px;
 }
-.connections-menu-icon{
+
+.connections-menu-icon {
     font-size: 24px;
-    padding: 7.5px 15px;
-    border-radius: 50%;
+    padding: 2px 8px;
+    border-radius: 15%;
 }
+
+body.dark-mode .connections-menu-icon {
+    color: #e3e2e2;
+}
+
+body.dark-mode .connections-menu-icon:hover {
+    transform: scale(1.2);
+}
+
 
 .message-button {
     font-size: 0.85rem;
@@ -148,5 +195,16 @@
 
 .message-button:hover {
     background-color: #007bff;
+    color: #fff;
+}
+
+/* Dark mode styles */
+body.dark-mode .message-button {
+    border: 2px solid #85bff8;
+    color: #85bff8;
+}
+
+body.dark-mode .message-button:hover {
+    background-color: #85bff8;
     color: #fff;
 }

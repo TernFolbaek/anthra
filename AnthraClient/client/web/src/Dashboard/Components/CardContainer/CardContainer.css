@@ -7,9 +7,20 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+/* Dark mode styles */
+body.dark-mode .card-container {
+    background-color: #2e2e2e;
+}
+
 .card-title {
     font-size: 22px;
     padding: 0 0 10px 0;
     font-weight: bold;
     margin: 0;
+    color: #000;
+}
+
+/* Dark mode styles */
+body.dark-mode .card-title {
+    color: #fff;
 }

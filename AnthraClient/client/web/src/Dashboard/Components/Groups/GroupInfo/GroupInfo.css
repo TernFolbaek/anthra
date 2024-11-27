@@ -12,11 +12,23 @@
     width: 8px;
 }
 
+/* Dark mode styles */
+body.dark-mode .group-info {
+    background-color: #2e2e2e;
+    color: #fff;
+}
+
 .group-info-header {
     font-size: 1rem;
     font-weight: 700;
     text-align: center;
     margin-bottom: 20px;
+    color: #000;
+}
+
+/* Dark mode styles */
+body.dark-mode .group-info-header {
+    color: #fff;
 }
 
 .group-section-title {
@@ -26,11 +38,22 @@
     font-size: 0.9rem;
 }
 
+/* Dark mode styles */
+body.dark-mode .group-section-title {
+    color: #ccc;
+}
+
 .group-description,
 .group-desired-members {
     font-size: 0.85rem;
     color: #666;
     margin-bottom: 10px;
+}
+
+/* Dark mode styles */
+body.dark-mode .group-description,
+body.dark-mode .group-desired-members {
+    color: #ddd;
 }
 
 .group-members-list,
@@ -50,10 +73,21 @@
     gap: 5px;
 }
 
+/* Dark mode styles */
+body.dark-mode .group-member-item:hover,
+body.dark-mode .group-attachment-item:hover {
+    background-color: #3a3a3a;
+}
+
 .group-member-name {
     font-size: 0.8rem;
     font-weight: 500;
     color: #444;
+}
+
+/* Dark mode styles */
+body.dark-mode .group-member-name {
+    color: #fff;
 }
 
 .group-attachment-link {
@@ -61,6 +95,11 @@
     text-decoration: none;
     font-weight: 500;
     font-size: 0.85rem;
+}
+
+/* Dark mode styles */
+body.dark-mode .group-attachment-link {
+    color: #85bff8;
 }
 
 .group-attachment-link:hover {

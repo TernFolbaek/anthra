@@ -4,18 +4,31 @@
 .settings-card {
     width: 100%;
     max-width: 600px;
-    margin: auto;
-    margin-top: 100px;
+    margin: 100px auto auto auto;
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     font-family: 'Montserrat', sans-serif;
 }
 
+
+/* Dark mode styles */
+body.dark-mode .settings-card {
+    background-color: #2e2e2e;
+    box-shadow: none;
+}
+
 .settings-navbar {
     display: flex;
     flex-wrap: wrap;
     border-bottom: 1px solid #e0e0e0;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+/* Dark mode styles */
+body.dark-mode .settings-navbar {
+    border-bottom: 1px solid #444;
 }
 
 .settings-tab {
@@ -27,13 +40,37 @@
     transition: background-color 0.3s, color 0.3s;
 }
 
+.settings-tab-left{
+    border-top-left-radius: 12px;
+}
+
+.settings-tab-right{
+    border-top-right-radius: 12px;
+}
+
+/* Dark mode styles */
+body.dark-mode .settings-tab {
+    color: #ccc;
+}
+
 .settings-tab.active {
     background-color: #e3e2e2;
     color: #000;
 }
 
+/* Dark mode styles */
+body.dark-mode .settings-tab.active {
+    background-color: #3a3a3a;
+    color: #fff;
+}
+
 .settings-tab:hover {
     background-color: #e3e2e2;
+}
+
+/* Dark mode styles */
+body.dark-mode .settings-tab:hover {
+    background-color: #3a3a3a;
 }
 
 .settings-tab span {
@@ -41,13 +78,23 @@
     font-size: 14px;
 }
 
+/* Dark mode styles */
+body.dark-mode .settings-tab span {
+    color: inherit;
+}
+
 .settings-content {
     padding: 16px;
+    color: #000;
+}
+
+/* Dark mode styles */
+body.dark-mode .settings-content {
+    color: #fff;
 }
 
 /* Media Queries for Mobile Devices */
 @media (max-width: 768px) {
-
     .settings-navbar {
         flex-direction: column;
     }
@@ -56,6 +103,11 @@
         padding: 10px;
         font-size: 16px;
         border-bottom: 1px solid #e0e0e0;
+    }
+
+    /* Dark mode styles */
+    body.dark-mode .settings-tab {
+        border-bottom: 1px solid #444;
     }
 
     .settings-tab span {
@@ -72,8 +124,6 @@
         flex-direction: row;
         justify-content: flex-start;
     }
-
-
 
     .settings-tab span {
         font-size: 14px;

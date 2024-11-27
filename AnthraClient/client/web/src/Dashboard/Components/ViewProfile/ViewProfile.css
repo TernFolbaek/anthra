@@ -23,6 +23,12 @@
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
+/* Dark mode styles */
+body.dark-mode #viewprofile .viewprofile-modal {
+    background-color: #2e2e2e;
+    color: #fff;
+}
+
 #viewprofile .viewprofile-close-button {
     position: absolute;
     top: 15px;
@@ -34,8 +40,18 @@
     color: #aaa;
 }
 
+/* Dark mode styles */
+body.dark-mode #viewprofile .viewprofile-close-button {
+    color: #ccc;
+}
+
 #viewprofile .viewprofile-close-button:hover {
     color: #000;
+}
+
+/* Dark mode styles */
+body.dark-mode #viewprofile .viewprofile-close-button:hover {
+    color: #fff;
 }
 
 #viewprofile .viewprofile-content {
@@ -54,6 +70,12 @@
     margin-top: 15px;
     font-size: 24px;
     font-weight: bold;
+    color: #000;
+}
+
+/* Dark mode styles */
+body.dark-mode #viewprofile .viewprofile-name {
+    color: #fff;
 }
 
 #viewprofile .viewprofile-location,
@@ -64,17 +86,35 @@
     color: #555;
 }
 
+/* Dark mode styles */
+body.dark-mode #viewprofile .viewprofile-location,
+body.dark-mode #viewprofile .viewprofile-institution,
+body.dark-mode #viewprofile .viewprofile-work {
+    color: #ccc;
+}
+
 #viewprofile .viewprofile-section-title {
     margin-top: 20px;
     font-size: 20px;
     font-weight: bold;
     text-align: left;
+    color: #000;
+}
+
+/* Dark mode styles */
+body.dark-mode #viewprofile .viewprofile-section-title {
+    color: #fff;
 }
 
 #viewprofile .viewprofile-aboutme {
     text-align: left;
     margin-top: 10px;
     color: #333;
+}
+
+/* Dark mode styles */
+body.dark-mode #viewprofile .viewprofile-aboutme {
+    color: #ddd;
 }
 
 #viewprofile .viewprofile-list {
@@ -89,6 +129,12 @@
     background-color: #f1f1f1;
     padding: 8px;
     border-radius: 5px;
+}
+
+/* Dark mode styles */
+body.dark-mode #viewprofile .viewprofile-list li {
+    background-color: #3a3a3a;
+    color: #fff;
 }
 
 #viewprofile .viewprofile-list li:not(:last-child) {

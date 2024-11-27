@@ -19,6 +19,16 @@ const App = () => {
     const [profileCreated, setProfileCreated] = useState(false);
 
     useEffect(() => {
+        const flag = localStorage.getItem('isDark')
+        // Ensure the body class reflects the current dark mode setting on load
+        if (flag) {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
+    }, []);
+
+    useEffect(() => {
         const token = localStorage.getItem('token');
         const userId = localStorage.getItem('userId');
 

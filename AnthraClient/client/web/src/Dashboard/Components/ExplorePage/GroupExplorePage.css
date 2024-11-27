@@ -28,6 +28,13 @@
     position: relative;
 }
 
+/* Dark mode styles */
+body.dark-mode .explore-group-card {
+    background: #2e2e2e;
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
 .explore-group-card-content {
     flex: 1;
     display: flex;
@@ -42,9 +49,19 @@
     text-align: center;
 }
 
+/* Dark mode styles */
+body.dark-mode .group-explore-name {
+    color: #fff;
+}
+
 .group-explore-description {
     font-size: 1rem;
     color: #666;
+}
+
+/* Dark mode styles */
+body.dark-mode .group-explore-description {
+    color: #ccc;
 }
 
 .group-explore-info h3 {
@@ -53,10 +70,20 @@
     color: #444;
 }
 
+/* Dark mode styles */
+body.dark-mode .group-explore-info h3 {
+    color: #ddd;
+}
+
 .group-explore-info p {
     margin: 0 0 10px;
     font-size: 0.95rem;
     color: #555;
+}
+
+/* Dark mode styles */
+body.dark-mode .group-explore-info p {
+    color: #ccc;
 }
 
 .group-explore-members-list {
@@ -78,6 +105,10 @@
     background: #ebf3fd;
 }
 
+/* Dark mode styles */
+body.dark-mode .group-explore-member-item:hover {
+    background: #3a3a3a;
+}
 
 .group-explore-member-avatar {
     width: 40px;
@@ -101,38 +132,58 @@
     padding: 0.5rem;
     cursor: pointer;
     font-weight: 600;
-    transition: background-color 0.3s, transform 2s;
+    transition: background-color 0.3s, transform 0.2s;
     border-radius: 12px;
     flex: 1;
     max-width: 200px;
 }
 
-
-.group-explore-apply-button{
+.group-explore-apply-button {
     background-color: #66b2ff;
     border: 2px solid #2c91f4;
 }
 
-.group-explore-skip-button{
+.group-explore-skip-button {
     background-color: #e1e4fb;
     color: #3366cc;
     border: 2px solid #3366cc;
 }
 
-.group-explore-apply-button:hover{
+/* Dark mode styles */
+body.dark-mode .group-explore-skip-button {
+    background-color: #3a3a3a;
+    color: #85bff8;
+    border: 2px solid #85bff8;
+}
+
+.group-explore-apply-button:hover {
     background-color: #abddfb;
     transform: scale(1.05);
-
 }
-.group-explore-skip-button:hover{
+
+.group-explore-skip-button:hover {
     background-color: #bac0f3;
     transform: scale(1.05);
 }
 
-.explore-group-card-content h3{
+/* Dark mode styles */
+body.dark-mode .group-explore-apply-button:hover {
+    background-color: #0056b3;
+}
+
+body.dark-mode .group-explore-skip-button:hover {
+    background-color: #444;
+}
+
+.explore-group-card-content h3 {
     margin: 10px 0 5px;
     font-weight: 600;
     color: #444;
+}
+
+/* Dark mode styles */
+body.dark-mode .explore-group-card-content h3 {
+    color: #ddd;
 }
 
 .group-explore-no-more {
@@ -149,6 +200,12 @@
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     transition: transform 0.2s ease-in-out;
     position: relative;
+}
+
+/* Dark mode styles */
+body.dark-mode .group-explore-no-more {
+    background: #2e2e2e;
+    color: #fff;
 }
 
 /* For larger screens */
@@ -173,10 +230,10 @@
     .explore-group-card-content {
         margin-left: 0;
     }
+
     .group-explore-member-item {
         width: 80%;
     }
-
 
     .group-explore-button-container {
         flex-direction: column;

@@ -17,6 +17,11 @@
     margin: 15px;
 }
 
+/* Dark mode styles */
+body.dark-mode .requests-container {
+    background-color: #2e2e2e;
+}
+
 .requests-columns {
     display: flex;
     justify-content: space-between;
@@ -30,12 +35,28 @@
     font-size: 1rem;
     font-weight: bold;
     margin-bottom: 10px;
+    color: #333;
 }
 
-.requests-user-info{
+
+/* Dark mode styles */
+body.dark-mode .requests-title {
+    color: #fff;
+}
+
+.no-group-text{
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+body.dark-mode .no-group-text {
+    color: #fff;
+}
+
+.requests-user-info {
     display: flex;
     align-items: center;
 }
+
 .requests-user-card {
     display: flex;
     align-items: center;
@@ -43,10 +64,21 @@
     border-radius: 5px;
 }
 
-.requests-user-card:hover{
+/* Dark mode styles */
+body.dark-mode .requests-user-card:hover {
+    background-color: #3a3a3a;
+}
+
+.requests-user-card:hover {
     background-color: #ebf3fd;
     cursor: pointer;
 }
+
+/* Dark mode styles */
+body.dark-mode .requests-user-card:hover {
+    background-color: #3a3a3a;
+}
+
 .requests-user-card-img {
     border: 2px solid #85bff8;
     width: 40px;
@@ -61,7 +93,6 @@
     display: flex;
     gap: 5px;
 }
-
 
 .requests-connect-button {
     background-color: #85bff8;
@@ -81,12 +112,22 @@
     color: white;
     font-weight: bold;
     font-size: 14px;
-
 }
 
 .requests-connect-button:hover,
 .requests-skip-button:hover {
     opacity: 0.8;
+}
+
+/* Dark mode styles */
+body.dark-mode .requests-connect-button {
+    background-color: #007bff;
+    border: 2px solid #0056b3;
+}
+
+body.dark-mode .requests-skip-button {
+    background-color: #555;
+    border: 2px solid #333;
 }
 
 .requests-group-section {
@@ -95,4 +136,10 @@
 
 .requests-group-name {
     margin-bottom: 10px;
+    color: #333;
+}
+
+/* Dark mode styles */
+body.dark-mode .requests-group-name, no-group-text {
+    color: #fff;
 }

@@ -1,4 +1,4 @@
-/* Components/GroupsList/GroupsList.css */
+/* GroupsList.css */
 .create-group-button {
     width: 100%;
     padding: 10px;
@@ -14,26 +14,51 @@
     background-color: #0056b3;
 }
 
+/* Dark mode styles */
+body.dark-mode .create-group-button {
+    background-color: #007bff;
+}
+
+body.dark-mode .create-group-button:hover {
+    background-color: #0056b3;
+}
+
 .group-card {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 10px;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 .group-card:hover {
     background-color: #f0f0f0;
 }
 
+/* Dark mode styles */
+body.dark-mode .group-card:hover {
+    background-color: #3a3a3a;
+}
+
 .group-card-selected {
     background-color: #ebf3fd;
+}
+
+/* Dark mode styles */
+body.dark-mode .group-card-selected {
+    background-color: #3a3a3a;
 }
 
 .group-name {
     font-size: 0.85rem;
     font-weight: bold;
     color: #333;
+}
+
+/* Dark mode styles */
+body.dark-mode .group-name {
+    color: #fff;
 }
 
 .group-options {
@@ -50,9 +75,14 @@
     height: 25px;
 }
 
-.group-options-button:hover{
+.group-options-button:hover {
     cursor: pointer;
     background-color: #85bff8;
+}
+
+/* Dark mode styles */
+body.dark-mode .group-options-button:hover {
+    background-color: #555;
 }
 
 .group-options-menu {
@@ -66,6 +96,12 @@
     z-index: 1;
 }
 
+/* Dark mode styles */
+body.dark-mode .group-options-menu {
+    background-color: #2e2e2e;
+    border: 1px solid #444;
+}
+
 .group-options-menu button {
     width: 100%;
     padding: 10px;
@@ -75,6 +111,16 @@
     cursor: pointer;
 }
 
+/* Dark mode styles */
+body.dark-mode .group-options-menu button {
+    color: #fff;
+}
+
 .group-options-menu button:hover {
     background-color: #f1f1f1;
+}
+
+/* Dark mode styles */
+body.dark-mode .group-options-menu button:hover {
+    background-color: #444;
 }

@@ -131,7 +131,7 @@ const ViewGroupProfile: React.FC<ViewGroupProfileProps> = ({ groupId, onClose })
                                 </div>
                             </li>
                         ))}
-                    </ul>m
+                    </ul>
                 </div>
             </div>
             {selectedUserId && (

@@ -103,8 +103,11 @@ body.dark-mode .contact-name {
 }
 
 /* Dark mode styles */
+body.dark-mode .messages-menu-icon{
+  color: white;
+}
 body.dark-mode .messages-menu-icon:hover {
-  background-color: #3a3a3a;
+  background-color: #555;
 }
 
 .back-arrow {
@@ -121,8 +124,13 @@ body.dark-mode .messages-menu-icon:hover {
 }
 
 /* Dark mode styles */
+body.dark-mode .back-arrow{
+  color: #fff;
+}
+
 body.dark-mode .back-arrow:hover {
-  background-color: #3a3a3a;
+  background-color: #555;
+
 }
 
 .messages-dropdown-menu {

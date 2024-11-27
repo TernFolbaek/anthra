@@ -13,49 +13,6 @@
     height: 100%;
 }
 
-.user-location {
-    font-size: 1rem;
-    color: #666;
-}
-
-.user-info h3 {
-    margin: 10px 0 5px;
-    font-weight: 600;
-    color: #444;
-}
-
-.user-info p {
-    margin: 0 0 10px;
-    font-size: 0.95rem;
-    color: #555;
-}
-
-.courses-list {
-    padding: 0;
-    list-style: none;
-}
-
-.courses-list li {
-    margin: 5px 0;
-}
-
-.courses-list a {
-    color: #3366cc;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.courses-list a:hover {
-    text-decoration: underline;
-}
-
-.button-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 20px;
-}
-
 /* Initial state of entering component */
 .explore-card-enter {
     transform: translateY(100%);

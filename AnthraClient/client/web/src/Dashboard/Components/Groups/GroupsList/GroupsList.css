@@ -68,11 +68,11 @@ body.dark-mode .group-name {
 .group-options-button {
     background: none;
     border: none;
-    font-size: 1rem;
+    font-size: 1.2rem;
     cursor: pointer;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
+    border-radius: 15%;
+    width: 30px;
+    height: 30px;
 }
 
 .group-options-button:hover {
@@ -81,6 +81,9 @@ body.dark-mode .group-name {
 }
 
 /* Dark mode styles */
+body.dark-mode .group-options-button{
+    color: white;
+}
 body.dark-mode .group-options-button:hover {
     background-color: #555;
 }

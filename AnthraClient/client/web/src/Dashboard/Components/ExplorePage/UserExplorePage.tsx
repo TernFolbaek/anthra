@@ -123,7 +123,7 @@ const UserExplorePage: React.FC = () => {
                             {currentUser.courses && currentUser.courses.length > 0 && (
                                 <div>
                                     <h3>Courses</h3>
-                                    <ul className="courses-list">
+                                    <ul className="user-explore-courses-list">
                                         {currentUser.courses.map((course, index) => (
                                             <li key={index}>
                                                 <a href={course.courseLink} target="_blank" rel="noopener noreferrer">

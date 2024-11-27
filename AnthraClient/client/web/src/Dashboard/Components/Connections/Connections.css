@@ -167,16 +167,16 @@ body.dark-mode .connection-name {
 
 .connections-menu-icon {
     font-size: 24px;
-    padding: 2px 8px;
+    padding:  0px 8px;
     border-radius: 15%;
 }
 
 body.dark-mode .connections-menu-icon {
-    color: #e3e2e2;
+    color: white;
 }
 
 body.dark-mode .connections-menu-icon:hover {
-    transform: scale(1.2);
+    background-color: #555;
 }
 
 

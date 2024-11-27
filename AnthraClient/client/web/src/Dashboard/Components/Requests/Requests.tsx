@@ -220,7 +220,7 @@ const Requests: React.FC = () => {
             <div className="connections-card-container">
                 <h2 className="requests-title">Group Application Requests</h2>
                 {groupApplicationRequests.length === 0 ? (
-                    <p className="no-group-text">No group application requests</p>
+                    <p className="no-group-text text-gray-700">No group application requests</p>
                 ) : (
                     groupApplicationRequests.map((group) => (
                         <div key={group.groupId} className="requests-group-section">

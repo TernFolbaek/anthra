@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import './CurrentConversations.css';
 import CardContainer from '../CardContainer/CardContainer';
 import NoConversationsRive from "../../Helpers/Animations/NoConversations";
@@ -18,11 +18,15 @@ const CurrentConversations: React.FC = () => {
     const [conversations, setConversations] = useState<Conversation[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null);
     const currentUserId = localStorage.getItem('userId');
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const pathMatch = location.pathname.match(/\/messages\/(.+)/);
+    const selectedConversationId = pathMatch ? pathMatch[1] : null;
 
     useEffect(() => {
+        console.log(selectedConversationId);
         if (!currentUserId) {
             console.error('User ID not found in localStorage.');
             setError('User ID not found.');
@@ -43,10 +47,6 @@ const CurrentConversations: React.FC = () => {
                 setConversations(data);
                 setLoading(false);
 
-                // Automatically select the latest conversation after data is fetched
-                if (data.length > 0) {
-                    setSelectedConversationId(data[0].userId);
-                }
             })
             .catch((error) => {
                 console.error('Error fetching conversations:', error);
@@ -76,7 +76,7 @@ const CurrentConversations: React.FC = () => {
                                 selectedConversationId === conv.userId ? 'selected' : ''
                             }`}
                             onClick={() => {
-                                setSelectedConversationId(conv.userId);
+                                console.log('click', conv.userId);
                                 navigate(`/messages/${conv.userId}`);
                             }}
                         >

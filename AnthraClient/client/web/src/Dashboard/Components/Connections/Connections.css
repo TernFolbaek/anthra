@@ -171,6 +171,11 @@ body.dark-mode .connection-name {
     border-radius: 15%;
 }
 
+.connections-menu-icon:hover {
+    background-color: #e3e2e2;
+}
+
+
 body.dark-mode .connections-menu-icon {
     color: white;
 }

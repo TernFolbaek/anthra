@@ -112,7 +112,7 @@ const Connections: React.FC = () => {
                                     >
                                         <div className="connection-info">
                                             <img
-                                                src={`http://localhost:5001${user.profilePictureUrl}`}
+                                                src={`${user.profilePictureUrl}`}
                                                 alt={user.firstName}
                                                 className="connection-profile-picture"
                                             />

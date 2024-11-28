@@ -43,7 +43,7 @@ const Profile: React.FC = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(response.data);
+            localStorage.setItem('userProfilePicture', `${response.data.profilePictureUrl}`);
             setProfileData(response.data);
         } catch (err) {
             setError('Failed to fetch profile data.');
@@ -148,8 +148,6 @@ const Profile: React.FC = () => {
             if (profilePictureFile) {
                 formData.append('ProfilePicture', profilePictureFile);
             }
-
-            console.log(profilePictureFile)
 
             try {
                 await axios.post(

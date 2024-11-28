@@ -62,7 +62,6 @@ const Notifications: React.FC = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(response);
             setNotifications(response.data);
         } catch (error) {
             console.error('Failed to fetch notifications.', error);

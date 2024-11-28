@@ -142,7 +142,7 @@ const Connections: React.FC = () => {
                                     <li key={user.id} className="connection-item" onClick={() => handleUserClick(user.id)}>
                                         <div className="connection-info">
                                             <img
-                                                src={`http://localhost:5001${user.profilePictureUrl}`}
+                                                src={`${user.profilePictureUrl}`}
                                                 alt={user.firstName}
                                                 className="connection-profile-picture"
                                             />

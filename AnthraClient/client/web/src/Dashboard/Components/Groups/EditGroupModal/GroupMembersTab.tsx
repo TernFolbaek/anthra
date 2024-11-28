@@ -92,7 +92,7 @@ const GroupMembersTab: React.FC<GroupMembersTabProps> = ({ groupInfo }) => {
                     <li key={member.userId} className="group-member-item">
                         <div className="member-info">
                             <img
-                                src={`http://localhost:5001${member.profilePictureUrl}`}
+                                src={`${member.profilePictureUrl}`}
                                 alt={`${member.firstName} ${member.lastName}`}
                             />
                             <span>

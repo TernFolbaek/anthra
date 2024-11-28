@@ -99,7 +99,7 @@ const UserExplorePage: React.FC = () => {
                 <div className="explore-user-card">
                     <img
                         className="explore-user-card-img"
-                        src={`http://localhost:5001${currentUser.profilePictureUrl}`}
+                        src={`${currentUser.profilePictureUrl}`}
                         alt="Profile"
                     />
                     <div className="explore-user-card-content">

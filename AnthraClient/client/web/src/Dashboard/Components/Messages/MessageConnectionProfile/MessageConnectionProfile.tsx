@@ -64,7 +64,7 @@ const MessageConnectionProfile: React.FC<Props> = ({ userId }) => {
             <div className="profile-picture">
                 <img
                     className="profile-picture-image"
-                    src={`http://localhost:5001${profileData.profilePictureUrl}`}
+                    src={`${profileData.profilePictureUrl}`}
                     alt="Profile"
                 />
             </div>

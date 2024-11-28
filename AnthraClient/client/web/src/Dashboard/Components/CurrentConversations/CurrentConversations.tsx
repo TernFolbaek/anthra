@@ -81,7 +81,7 @@ const CurrentConversations: React.FC = () => {
                             }}
                         >
                             <img
-                                src={`http://localhost:5001${conv.userProfilePicture}`}
+                                src={`${conv.userProfilePicture}`}
                                 alt={conv.userName}
                                 className="conversation-profile-picture"
                             />

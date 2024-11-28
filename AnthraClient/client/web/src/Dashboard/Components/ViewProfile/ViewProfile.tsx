@@ -91,7 +91,7 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
                 </button>
                 <div className="viewprofile-content">
                     <img
-                        src={`http://localhost:5001${userProfile.profilePictureUrl}`}
+                        src={`${userProfile.profilePictureUrl}`}
                         alt={`${userProfile.firstName} ${userProfile.lastName}`}
                         className="viewprofile-profile-picture"
                     />

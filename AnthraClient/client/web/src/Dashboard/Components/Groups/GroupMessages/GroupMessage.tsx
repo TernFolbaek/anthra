@@ -277,7 +277,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                             <div className={`group-message-sender-info`}>
                                                 <img
                                                     className="group-message-sender-avatar"
-                                                    src={`http://localhost:5001/${message.senderProfilePictureUrl}`}
+                                                    src={`${message.senderProfilePictureUrl}`}
                                                     alt={message.senderFirstName}
                                                 />
                                                 <span className="group-message-sender-name">
@@ -301,7 +301,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                                             .toLowerCase()
                                                             .match(/\.(jpeg|jpg|gif|png|bmp|webp)$/) ? (
                                                             <img
-                                                                src={`http://localhost:5001/${attachment.fileUrl}`}
+                                                                src={`${attachment.fileUrl}`}
                                                                 alt={attachment.fileName}
                                                                 className="message-image"
                                                             />

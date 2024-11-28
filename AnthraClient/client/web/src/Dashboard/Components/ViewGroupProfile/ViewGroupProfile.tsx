@@ -120,7 +120,7 @@ const ViewGroupProfile: React.FC<ViewGroupProfileProps> = ({ groupId, onClose })
                         {groupProfile.members.map((member) => (
                             <li key={member.userId} onClick={()=>handleUserClick(member.userId)} className="viewgroupprofile-member-item">
                                 <img
-                                    src={`http://localhost:5001${member.profilePictureUrl}`}
+                                    src={`${member.profilePictureUrl}`}
                                     alt={`${member.firstName} ${member.lastName}`}
                                     className="viewgroupprofile-member-picture"
                                 />

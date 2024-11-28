@@ -101,7 +101,7 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
     const memberImages = groupInfo.members.slice(0, 3).map((member: any) => (
         <img
             key={member.userId}
-            src={`http://localhost:5001/${member.profilePictureUrl}`}
+            src={`${member.profilePictureUrl}`}
             alt={`${member.firstName} ${member.lastName}`}
             className="group-member-avatar"
         />

@@ -192,7 +192,7 @@ const Requests: React.FC = () => {
                             <div className="requests-user-info" onClick={() => handleUserClick(request.senderId)}>
                                 <img
                                     className="requests-user-card-img"
-                                    src={request.senderProfilePicture ? `http://localhost:5001/${request.senderProfilePicture}` : '/default-profile.png'}
+                                    src={request.senderProfilePicture}
                                     alt="Profile"
                                 />
                                 <h2>{request.senderFirstName} {request.senderLastName}</h2>
@@ -231,7 +231,7 @@ const Requests: React.FC = () => {
                                     <div className="requests-user-info" onClick={() => handleUserClick(application.applicantId)}>
                                         <img
                                             className="requests-user-card-img"
-                                            src={application.applicantProfilePictureUrl ? `http://localhost:5001${application.applicantProfilePictureUrl}` : '/default-profile.png'}
+                                            src={application.applicantProfilePictureUrl}
                                             alt="Profile"
                                         />
                                         <h2>{application.applicantName}</h2>

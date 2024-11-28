@@ -121,7 +121,7 @@ const GroupExplorePage: React.FC = () => {
                                     <li onClick={()=>handleUserClick(member.userId)} key={member.userId} className="group-explore-member-item">
                                         <img
                                             className="group-explore-member-avatar"
-                                            src={`http://localhost:5001${member.profilePictureUrl}`}
+                                            src={`${member.profilePictureUrl}`}
                                             alt={`${member.firstName} ${member.lastName}`}
                                         />
                                         <span>

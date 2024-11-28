@@ -72,7 +72,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({groupId}) => {
                 {members.map((member) => (
                     <li key={member.userId} className="group-member-item">
                         <img
-                            src={`http://localhost:5001/${member.profilePictureUrl}`}
+                            src={`${member.profilePictureUrl}`}
                             alt={`${member.firstName} ${member.lastName}`}
                             className="connection-profile-picture"
                         />

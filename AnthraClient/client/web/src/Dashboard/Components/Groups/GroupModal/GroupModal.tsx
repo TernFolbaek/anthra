@@ -166,7 +166,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                                     </p>
                                 </div>
                                 <img
-                                    src={`http://localhost:5001${user.profilePictureUrl}`}
+                                    src={`${user.profilePictureUrl}`}
                                     alt={`${user.firstName}`}
                                     className="connection-profile-picture"
                                 />

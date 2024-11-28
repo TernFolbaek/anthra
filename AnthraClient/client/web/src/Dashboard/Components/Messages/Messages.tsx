@@ -417,7 +417,7 @@ const Messages: React.FC = () => {
                         )}
                         <div className="contact-info">
                             <img
-                                src={`http://localhost:5001/${contactProfile.profilePictureUrl}`}
+                                src={`${contactProfile.profilePictureUrl}`}
                                 alt={`${contactProfile.firstName} ${contactProfile.lastName}`}
                                 className="contact-avatar"
                             />

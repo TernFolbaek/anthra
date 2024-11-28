@@ -76,7 +76,7 @@ const Sidebar: React.FC = () => {
                 <NavLink to="/profile">
                     <img
                         src={userProfilePictureSrc}
-                        alt="profile picture"
+                        alt="profile"
                         className="sidebar-profile-picture"
                     />
                 </NavLink>

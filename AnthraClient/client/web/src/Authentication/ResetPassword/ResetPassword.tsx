@@ -14,12 +14,14 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ onBack, onResetSuccess })
     const [email, setEmail] = useState('');
     const [code, setCode] = useState('');
     const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [formValid, setFormValid] = useState(false);
 
     const STATE_MACHINE_NAME = 'State Machine 1';
     const { rive, RiveComponent } = useRive({
-        src: '520-990-teddy-login-screen.riv',
+        src: 'rive/520-990-teddy-login-screen.riv',
         autoplay: true,
         stateMachines: STATE_MACHINE_NAME,
     });
@@ -31,6 +33,16 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ onBack, onResetSuccess })
     useEffect(() => {
         setLook();
     }, [email]);
+
+    useEffect(() => {
+        const isFormValid =
+            email.trim() !== '' &&
+            code.trim() !== '' &&
+            newPassword.trim() !== '' &&
+            confirmPassword.trim() !== '' &&
+            newPassword === confirmPassword;
+        setFormValid(isFormValid);
+    }, [email, code, newPassword, confirmPassword]);
 
     const setLook = () => {
         if (!stateLook || !stateCheck || !setHangUp) {
@@ -83,32 +95,45 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ onBack, onResetSuccess })
                 <RiveComponent className="teddy-bear-rive" />
             </div>
             <div className="auth-container">
-                <h2>Reset Password</h2>
+                <h2 className="font-bold mb-2">Reset Password</h2>
                 {message && <p className="reset-success-message">{message}</p>}
                 {error && <p className="error-message">{error}</p>}
                 <form onSubmit={handleSubmit}>
                     <input
                         type="email"
-                        placeholder="Enter your email"
+                        placeholder="Email"
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <input
                         type="text"
-                        placeholder="Enter the code"
+                        placeholder="Token"
                         required
                         value={code}
                         onChange={(e) => setCode(e.target.value)}
                     />
                     <input
                         type="password"
-                        placeholder="Enter new password"
+                        placeholder="New password"
                         required
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
                     />
-                    <button type="submit" className="submit-button">Reset Password</button>
+                    <input
+                        type="password"
+                        placeholder="Confirm password"
+                        required
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                    <button
+                        type="submit"
+                        className="submit-button"
+                        disabled={!formValid}
+                    >
+                        Reset Password
+                    </button>
                 </form>
             </div>
         </div>

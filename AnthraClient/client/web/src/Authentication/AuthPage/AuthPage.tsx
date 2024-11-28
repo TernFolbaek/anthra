@@ -1,8 +1,8 @@
 import './AuthPage.css';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
-import { useRive, useStateMachineInput } from '@rive-app/react-canvas';
+import {GoogleLogin, CredentialResponse} from '@react-oauth/google';
+import {useRive, useStateMachineInput} from '@rive-app/react-canvas';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
 import ResetPassword from '../ResetPassword/ResetPassword';
 
@@ -11,7 +11,7 @@ interface AuthPageProps {
     onAuthSuccess: (profileCreated: boolean) => void;
 }
 
-const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
+const AuthPage: React.FC<AuthPageProps> = ({onBackClick, onAuthSuccess}) => {
     const [isSignUp, setIsSignUp] = useState(true);
     const [showForgotPassword, setShowForgotPassword] = useState(false);
     const [showResetPassword, setShowResetPassword] = useState(false);
@@ -37,14 +37,14 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
             try {
                 const backendResponse = await axios.post(
                     'http://localhost:5001/api/Auth/GoogleLogin',
-                    { tokenId },
+                    {tokenId},
                     {
                         headers: {
                             'Content-Type': 'application/json',
                         }
                     }
                 );
-                const { token, userId, fullName } = backendResponse.data;
+                const {token, userId, fullName} = backendResponse.data;
                 localStorage.setItem('token', token);
                 localStorage.setItem('userId', userId);
                 localStorage.setItem('fullName', fullName);
@@ -90,12 +90,12 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
             : 'http://localhost:5001/api/Auth/Login';
 
         const payload = isSignUp
-            ? { username, email, password }
-            : { username, password };
+            ? {username, email, password}
+            : {username, password};
 
         try {
             const response = await axios.post(endpoint, payload);
-            const { userId, token, fullName } = response.data;
+            const {userId, token, fullName} = response.data;
             localStorage.setItem('token', token);
             localStorage.setItem('userId', userId);
             localStorage.setItem('fullName', fullName);
@@ -129,7 +129,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
     };
 
     const STATE_MACHINE_NAME = 'State Machine 1';
-    const { rive, RiveComponent } = useRive({
+    const {rive, RiveComponent} = useRive({
         src: '/rive/520-990-teddy-login-screen.riv',
         autoplay: true,
         stateMachines: STATE_MACHINE_NAME,
@@ -180,8 +180,6 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
         setShowResetPassword(true);
     };
 
-
-
     if (showForgotPassword) {
         return (
             <ForgotPassword
@@ -194,7 +192,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
     if (showResetPassword) {
         return (
             <ResetPassword onBack={() => setShowResetPassword(false)}
-                onResetSuccess={handleResetPasswordSuccess}
+                           onResetSuccess={handleResetPasswordSuccess}
             />
         );
     }
@@ -205,7 +203,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                 Back
             </button>
             <div>
-                <RiveComponent className="teddy-bear-rive" />
+                <RiveComponent className="teddy-bear-rive"/>
             </div>
             <div className="auth-container">
                 <h2 className="auth-container-h2">{isSignUp ? 'Sign Up' : 'Log In'}</h2>

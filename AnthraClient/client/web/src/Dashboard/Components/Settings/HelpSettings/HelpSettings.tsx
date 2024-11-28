@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import './ProfileSettings.css';
+import './HelpSettings.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const ProfileSettings: React.FC = () => {
-    const [email, setEmail] = useState('user@example.com');
+const HelpSettings: React.FC = () => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [num1, setNum1] = useState(0);
     const [num2, setNum2] = useState(0);
@@ -12,22 +11,14 @@ const ProfileSettings: React.FC = () => {
     const [correctAnswer, setCorrectAnswer] = useState(0);
     const navigate = useNavigate();
 
-    // Generate a random math question when the modal is opened
     const generateMathQuestion = () => {
         const newNum1 = Math.floor(Math.random() * 10) + 1;
         const newNum2 = Math.floor(Math.random() * 10) + 1;
         setNum1(newNum1);
         setNum2(newNum2);
-        setCorrectAnswer(newNum1 + newNum2); // Change this to other operations if desired
+        setCorrectAnswer(newNum1 + newNum2);
     };
 
-    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.target.value);
-    };
-
-    const saveChanges = () => {
-        alert('Profile updated!');
-    };
 
     const handleLogout = () => {
         localStorage.clear()
@@ -66,14 +57,9 @@ const ProfileSettings: React.FC = () => {
 
     return (
         <div className="profile-settings">
-            <div className="form-group">
-                <label className="form-group-label">Email:</label>
-                <input type="email" value={email} onChange={handleEmailChange} />
-            </div>
-            <button className="profile-settings-save-button" onClick={saveChanges}>Save Changes</button>
             <div className="profile-settings-actions">
                 <button className="logout-button" onClick={handleLogout}>Logout</button>
-                <button className="delete-button" onClick={openDeleteModal}>Delete Account</button>
+                <button className="delete-button text-gray-500" onClick={openDeleteModal}>Delete Account</button>
             </div>
 
             {showDeleteModal && (
@@ -103,4 +89,4 @@ const ProfileSettings: React.FC = () => {
     );
 };
 
-export default ProfileSettings;
+export default HelpSettings;

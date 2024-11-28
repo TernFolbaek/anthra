@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Settings.css';
 import { FaUser, FaCog, FaSlidersH } from 'react-icons/fa';
-import ProfileSettings from './ProfileSettings/ProfileSettings';
+import ProfileSettings from './HelpSettings/HelpSettings';
 import AdvancedSettings from './AdvancedSettings/AdvancedSettings';
 import ConfigurationSettings from './ConfigurationSettings/ConfigurationSettings';
 

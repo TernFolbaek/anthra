@@ -67,17 +67,30 @@ body.dark-mode .profile-settings-save-button:hover {
 .profile-settings-actions {
     margin-top: 20px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
     gap: 10px;
 }
 
-.logout-button,
-.delete-button {
+.logout-button{
+    width: 50%;
     padding: 10px 20px;
     border-radius: 4px;
     font-weight: 400;
     cursor: pointer;
-    flex: 1;
+}
+
+.delete-button {
+    width: 50%;
+    font-weight: 700;
+    font-size: 0.8rem;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.delete-button:hover {
+    color: black;
+    text-decoration: none;
 }
 
 .logout-button {
@@ -90,15 +103,6 @@ body.dark-mode .profile-settings-save-button:hover {
     background-color: #0056b3;
 }
 
-.delete-button {
-    background-color: #b8b6b6;
-    color: #fff;
-    border: none;
-}
-
-.delete-button:hover {
-    background-color: #616161;
-}
 
 /* Dark mode styles */
 body.dark-mode .logout-button {
@@ -110,11 +114,11 @@ body.dark-mode .logout-button:hover {
 }
 
 body.dark-mode .delete-button {
-    background-color: #555;
+    color: white;
 }
 
 body.dark-mode .delete-button:hover {
-    background-color: #444;
+    background-color: #e3e2e2;
 }
 
 /* Modal Styles */

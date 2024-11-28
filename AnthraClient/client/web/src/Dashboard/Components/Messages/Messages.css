@@ -74,6 +74,7 @@ body.dark-mode .contact-header:hover {
 }
 
 .contact-avatar {
+  object-fit: cover;
   width: 40px;
   height: 40px;
   border-radius: 50%;

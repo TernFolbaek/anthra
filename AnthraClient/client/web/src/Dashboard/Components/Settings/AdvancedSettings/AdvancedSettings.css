@@ -1,45 +1,144 @@
 /* AdvancedSettings.css */
-.advanced-settings h2 {
+
+.advanced-settings-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.advanced-settings-form-group {
     margin-bottom: 16px;
-    font-size: 1.5rem;
+    width: 50%;
 }
 
-.form-group {
-    margin-bottom: 16px;
-}
-
-.form-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-
-.form-group select {
+/* Custom Dropdown Styles */
+.advanced-settings-dropdown {
+    position: relative;
     width: 100%;
-    padding: 8px;
+    max-width: 300px;
+}
+
+.advanced-settings-dropdown-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #000;
+}
+
+.advanced-settings-dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
-.advanced-settings button {
-    padding: 10px 20px;
-    border: 2px solid #28a745;
-    color: #28a745;
+.advanced-settings-dropdown-header:hover {
+    background-color: #e6e6e6;
+}
+
+.advanced-settings-dropdown-arrow {
+    transition: transform 0.3s;
+}
+
+.advanced-settings-dropdown-arrow.open {
+    transform: rotate(180deg);
+}
+
+.advanced-settings-dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-top: none;
+    background-color: #fff;
+    z-index: 10;
+    border-radius: 0 0 4px 4px;
+}
+
+.advanced-settings-dropdown-list-item {
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.advanced-settings-dropdown-list-item:hover {
+    background-color: #e6e6e6;
+}
+
+/* Apply Filters Button */
+.advanced-settings-apply-button {
+    padding: 10px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
     border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    max-width: 200px;
 }
 
+.advanced-settings-apply-button:hover {
+    background-color: #0056b3;
+}
 
-.advanced-settings button:hover {
-    background-color: #c7f8d2;
+/* Dark mode styles */
+body.dark-mode .advanced-settings-container {
+    background-color: #2e2e2e;
+    color: #fff;
+}
+
+body.dark-mode .advanced-settings-dropdown-label {
+    color: #fff;
+}
+
+body.dark-mode .advanced-settings-dropdown-header {
+    background-color: #3a3a3a;
+    border-color: #555;
+    color: #fff;
+}
+
+body.dark-mode .advanced-settings-dropdown-header:hover {
+    background-color: #555;
+}
+
+body.dark-mode .advanced-settings-dropdown-list {
+    background-color: #3a3a3a;
+    border-color: #555;
+}
+
+body.dark-mode .advanced-settings-dropdown-list-item {
+    color: #fff;
+}
+
+body.dark-mode .advanced-settings-dropdown-list-item:hover {
+    background-color: #555;
+}
+
+body.dark-mode .advanced-settings-apply-button {
+    background-color: #0056b3;
+}
+
+body.dark-mode .advanced-settings-apply-button:hover {
+    background-color: #003f7f;
 }
 
 /* Responsive adjustments */
 @media (max-width: 480px) {
-    .advanced-settings h2 {
-        font-size: 1.25rem;
+    .advanced-settings-dropdown {
+        max-width: 100%;
     }
 
-    .advanced-settings button {
-        width: 100%;
+    .advanced-settings-apply-button {
+        max-width: 100%;
     }
 }

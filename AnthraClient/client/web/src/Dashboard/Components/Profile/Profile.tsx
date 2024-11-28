@@ -43,6 +43,7 @@ const Profile: React.FC = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
+            console.log(response.data);
             setProfileData(response.data);
         } catch (err) {
             setError('Failed to fetch profile data.');
@@ -148,6 +149,8 @@ const Profile: React.FC = () => {
                 formData.append('ProfilePicture', profilePictureFile);
             }
 
+            console.log(profilePictureFile)
+
             try {
                 await axios.post(
                     'http://localhost:5001/api/Profile/UpdateProfile',
@@ -200,11 +203,12 @@ const Profile: React.FC = () => {
                             src={
                                 profilePictureFile
                                     ? URL.createObjectURL(profilePictureFile)
-                                    : `http://localhost:5001${profileData.profilePictureUrl}`
+                                    : `${profileData.profilePictureUrl}`
                             }
                             className="profile-picture-img"
                             alt="Profile"
                         />
+                        {profileData.profilePictureUrl}
                         {editMode && (
                             <div className="profile-picture-overlay">
                                 <input

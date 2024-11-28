@@ -73,7 +73,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ onBack, onResetRequeste
                 <RiveComponent className="teddy-bear-rive" />
             </div>
             <div className="auth-container">
-                <h2>Forgot Password</h2>
+                <h2 className="font-bold mb-2">Forgot Password</h2>
                 {message && <p className="success-message">{message}</p>}
                 {error && <p className="error-message">{error}</p>}
                 <form onSubmit={handleSubmit}>

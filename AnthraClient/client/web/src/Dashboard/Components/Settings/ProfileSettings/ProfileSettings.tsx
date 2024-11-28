@@ -67,7 +67,7 @@ const ProfileSettings: React.FC = () => {
     return (
         <div className="profile-settings">
             <div className="form-group">
-                <label>Email:</label>
+                <label className="form-group-label">Email:</label>
                 <input type="email" value={email} onChange={handleEmailChange} />
             </div>
             <button className="profile-settings-save-button" onClick={saveChanges}>Save Changes</button>

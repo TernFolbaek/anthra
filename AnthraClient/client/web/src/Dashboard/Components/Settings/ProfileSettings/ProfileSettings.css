@@ -13,7 +13,7 @@ body.dark-mode .profile-settings h2 {
     margin-bottom: 16px;
 }
 
-.form-group label {
+.form-group-label {
     display: block;
     font-weight: 600;
     margin-bottom: 8px;

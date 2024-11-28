@@ -28,7 +28,8 @@
     margin-bottom: 1.5rem;
 }
 
-.form-label {
+.form-label-contact {
+    color: white;
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;

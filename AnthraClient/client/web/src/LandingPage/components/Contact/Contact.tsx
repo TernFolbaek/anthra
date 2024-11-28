@@ -19,7 +19,7 @@ const Contact: React.FC = () => {
                 <h2 className="contact-title">{t.title}</h2> {/* Use translated title */}
                 <form onSubmit={handleSubmit} className="contact-form">
                     <div className="form-group">
-                        <label htmlFor="subject" className="form-label">
+                        <label htmlFor="subject" className="form-label-contact">
                             {t.subjectLabel} {/* Use translated subject label */}
                         </label>
                         <input
@@ -32,7 +32,7 @@ const Contact: React.FC = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="body" className="form-label">
+                        <label htmlFor="body" className="form-label-contact">
                             {t.messageLabel} {/* Use translated message label */}
                         </label>
                         <textarea

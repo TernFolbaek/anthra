@@ -175,7 +175,7 @@ if (app.Environment.IsDevelopment())
                 AboutMe = "I am a passionate researcher exploring the intersections of quantum mechanics and computational algorithms. Always eager to connect with like-minded peers and delve into new projects.",
                 CreatedProfile = true,
                 ProfileCompleted = true,
-                ProfilePictureUrl = "/uploads/5121a904-a6b7-4063-9ec9-8d9eadeecb8e.png"
+                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/0d8c7527-80b0-4970-8908-32c95aa84cea_638684278673868460.png?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D"
             },
             new ApplicationUser 
             { 
@@ -196,7 +196,7 @@ if (app.Environment.IsDevelopment())
                 AboutMe = "Teaching and mentoring students while pursuing my passion for data science. I enjoy analyzing data and applying machine learning techniques to solve real-world problems.",
                 CreatedProfile = true,
                 ProfileCompleted = true,
-                ProfilePictureUrl = "/uploads/5121a904-a6b7-4063-9ec9-8d9eadeecb8e.png"
+                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/0d8c7527-80b0-4970-8908-32c95aa84cea_638684278673868460.png?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D"
             },
             new ApplicationUser 
             { 
@@ -217,7 +217,7 @@ if (app.Environment.IsDevelopment())
                 AboutMe = "Tech enthusiast with a knack for building web applications and exploring cloud solutions. Currently interning to gain hands-on experience in the tech industry.",
                 CreatedProfile = true,
                 ProfileCompleted = true,
-                ProfilePictureUrl = "/uploads/5121a904-a6b7-4063-9ec9-8d9eadeecb8e.png"
+                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/0d8c7527-80b0-4970-8908-32c95aa84cea_638684278673868460.png?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D"
             },
             new ApplicationUser 
             { 
@@ -238,7 +238,7 @@ if (app.Environment.IsDevelopment())
                 AboutMe = "Fascinated by the capabilities of artificial intelligence and its applications in understanding human cognition. I am currently involved in research projects focused on neural network models.",
                 CreatedProfile = true,
                 ProfileCompleted = true,
-                ProfilePictureUrl = "/uploads/5121a904-a6b7-4063-9ec9-8d9eadeecb8e.png"
+                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/0d8c7527-80b0-4970-8908-32c95aa84cea_638684278673868460.png?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D"
             },
             new ApplicationUser 
             { 
@@ -259,7 +259,7 @@ if (app.Environment.IsDevelopment())
                 AboutMe = "Building secure and scalable mobile applications is my passion. As a freelance developer, I work on various projects and love staying updated with the latest trends in mobile tech.",
                 CreatedProfile = true,
                 ProfileCompleted = true,
-                ProfilePictureUrl = "/uploads/5121a904-a6b7-4063-9ec9-8d9eadeecb8e.png" 
+                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/0d8c7527-80b0-4970-8908-32c95aa84cea_638684278673868460.png?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D" 
             }
         };
 

@@ -39,6 +39,18 @@
   <ItemGroup>
     <Content Remove="DTO\**" />
     <Content Remove="Hubs\NotificationsHub\**" />
+    <Content Remove="wwwroot\uploads\6db407c8-6e1d-483f-8d63-3780c4bdc09d.png" />
+    <Content Remove="wwwroot\uploads\9dbd5987-732b-4111-9779-01cdd254dab5.png" />
+    <Content Remove="wwwroot\uploads\17f5a735-7be8-4b20-9dbf-546defbf8303.png" />
+    <Content Remove="wwwroot\uploads\77f24112-514d-4258-ad81-5b39670e0f88.png" />
+    <Content Remove="wwwroot\uploads\291f2e0e-253a-4c4f-9c94-3275c30940c2.png" />
+    <Content Remove="wwwroot\uploads\5121a904-a6b7-4063-9ec9-8d9eadeecb8e.png" />
+    <Content Remove="wwwroot\uploads\8987bee5-ab72-4c24-8603-0c1ad9062863.png" />
+    <Content Remove="wwwroot\uploads\47685a5e-7ed2-4c1f-9e86-40ea5831e34d.png" />
+    <Content Remove="wwwroot\uploads\a133d91e-31c0-47f3-92ee-f32da6632848.png" />
+    <Content Remove="wwwroot\uploads\b4c7cc47-e508-4864-a000-bc1e04fbe085.png" />
+    <Content Remove="wwwroot\uploads\cf9801be-38d1-41f6-bc24-ec100936d57e.png" />
+    <Content Remove="wwwroot\uploads\e6b11497-6323-4ec8-94e9-926a1b94f46a.png" />
   </ItemGroup>
 
   <ItemGroup>

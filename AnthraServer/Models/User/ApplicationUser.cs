@@ -11,7 +11,7 @@ namespace MyBackendApp.Models
         public string? Institution { get; set; }
         public string? Work { get; set; }
         public List<Course>? Courses { get; set; }
-        public List<string>? Subjects { get; set; } // Use a collection type
+        public List<string>? Subjects { get; set; } 
         public string? AboutMe { get; set; }
         public int? Age { get; set; }
         public string? ProfilePictureUrl { get; set; }

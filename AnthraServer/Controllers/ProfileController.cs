@@ -40,27 +40,8 @@ namespace MyBackendApp.Controllers
 
             var user = await _userManager.FindByIdAsync(userId);
 
-            if (user == null)
-                return NotFound("User not found.");
-
-            // Handle file upload
-            if (model.ProfilePicture != null && model.ProfilePicture.Length > 0)
-            {
-                var uploadsFolder = Path.Combine("wwwroot", "uploads");
-                Directory.CreateDirectory(uploadsFolder);
-
-                // Use the userId as part of the file name to ensure uniqueness
-                var uniqueFileName = $"{userId}{Path.GetExtension(model.ProfilePicture.FileName)}";
-                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await model.ProfilePicture.CopyToAsync(fileStream);
-                }
-
-                // Update the user's ProfilePictureUrl property
-                user.ProfilePictureUrl = "/uploads/" + uniqueFileName;
-            }
+            if (user == null) return NotFound("User not found.");
+            
             
             if (!string.IsNullOrEmpty(model.Courses))
             {
@@ -81,13 +62,15 @@ namespace MyBackendApp.Controllers
             user.ProfileCompleted = true;
 
 
-            var result = await _userManager.UpdateAsync(user);
             if (model.ProfilePicture != null && model.ProfilePicture.Length > 0)
             {
                 // Upload to Azure Blob Storage
                 var blobUrl = await UploadProfilePictureToAzure(userId, model.ProfilePicture);
                 user.ProfilePictureUrl = blobUrl;
             }
+            
+            var result = await _userManager.UpdateAsync(user);
+
 
             if (result.Succeeded)
             {
@@ -109,8 +92,8 @@ namespace MyBackendApp.Controllers
             // Create the container if it does not exist
             await containerClient.CreateIfNotExistsAsync(PublicAccessType.Blob);
 
-            // Set the blob name to the userId
-            string blobName = userId;
+            // Generate a unique blob name using userId and timestamp
+            string blobName = $"{userId}_{DateTime.UtcNow.Ticks}{Path.GetExtension(profilePicture.FileName)}";
 
             // Get the blob client
             BlobClient blobClient = containerClient.GetBlobClient(blobName);

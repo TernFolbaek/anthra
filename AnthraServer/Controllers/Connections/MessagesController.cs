@@ -6,9 +6,11 @@ using MyBackendApp.Hubs;
 using MyBackendApp.Models;
 using System;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using MyBackendApp.ViewModels;
+using Newtonsoft.Json;
 
 namespace MyBackendApp.Controllers
 {
@@ -53,41 +55,112 @@ namespace MyBackendApp.Controllers
             return Ok(conversations);
         }
 
-        [HttpGet("GetChatHistory")]
-        public async Task<IActionResult> GetChatHistory(string userId, string contactId)
-        {
-            var messages = await _context.Messages
-                .Include(m => m.Attachment)
-                .Where(m =>
-                    (m.SenderId == userId && m.ReceiverId == contactId) ||
-                    (m.SenderId == contactId && m.ReceiverId == userId) )
-                .OrderBy(m => m.Timestamp)
-                .Select(m => new
-                {
-                    m.Id,
-                    m.SenderId,
-                    m.ReceiverId,
-                    m.Content,
-                    m.Timestamp,
-                    m.IsGroupInvitation,
-                    m.GroupId,
-                    m.GroupName,
-                    Attachments = m.Attachment != null ? new[] {
-                        new {
-                            m.Attachment.Id,
-                            m.Attachment.FileName,
-                            m.Attachment.FileUrl
-                        }
-                    } : null
-                })
-                .ToListAsync();
 
-            return Ok(messages);
+
+
+        
+    [HttpGet("GetChatHistory")]
+    public async Task<IActionResult> GetChatHistory(string userId, string contactId, int pageSize = 20, string nextToken = null)
+    {
+        var query = _context.Messages
+            .Include(m => m.Attachment)
+            .Where(m =>
+                (m.SenderId == userId && m.ReceiverId == contactId) ||
+                (m.SenderId == contactId && m.ReceiverId == userId));
+
+        if (!string.IsNullOrEmpty(nextToken))
+        {
+            try
+            {
+                // Decode the nextToken from base64
+                var decodedBytes = Convert.FromBase64String(nextToken);
+                var decodedString = Encoding.UTF8.GetString(decodedBytes);
+
+                // Deserialize the token JSON
+                var token = JsonConvert.DeserializeObject<NextToken>(decodedString);
+
+                if (token != null)
+                {
+                    // Fetch messages before the lastTimestamp and lastId
+                    query = query.Where(m => m.Timestamp < token.Timestamp || (m.Timestamp == token.Timestamp && m.Id < token.Id));
+                }
+                else
+                {
+                    return BadRequest("Invalid nextToken.");
+                }
+            }
+            catch (FormatException)
+            {
+                return BadRequest("Invalid nextToken format.");
+            }
+            catch (JsonException)
+            {
+                return BadRequest("Invalid nextToken content.");
+            }
         }
 
+        // Order by descending to get latest messages first
+        query = query.OrderByDescending(m => m.Timestamp).ThenByDescending(m => m.Id);
+
+        var fetchedMessages = await query
+            .Take(pageSize)
+            .Select(m => new
+            {
+                m.Id,
+                m.SenderId,
+                m.ReceiverId,
+                m.Content,
+                m.Timestamp,
+                m.IsGroupInvitation,
+                m.GroupId,
+                m.GroupName,
+                Attachments = m.Attachment != null ? new[] {
+                    new {
+                        m.Attachment.Id,
+                        m.Attachment.FileName,
+                        m.Attachment.FileUrl
+                    }
+                } : null
+            })
+            .ToListAsync();
+
+        // Determine if there's a next page
+        string newNextToken = null;
+        if (fetchedMessages.Count == pageSize)
+        {
+            var lastMessage = fetchedMessages.Last();
+            var tokenObject = new NextToken
+            {
+                Timestamp = lastMessage.Timestamp,
+                Id = lastMessage.Id
+            };
+            var tokenJson = JsonConvert.SerializeObject(tokenObject);
+            newNextToken = Convert.ToBase64String(Encoding.UTF8.GetBytes(tokenJson));
+        }
+
+        // Reverse the list to have chronological order
+        var messages = fetchedMessages
+            .OrderBy(m => m.Timestamp)
+            .ThenBy(m => m.Id)
+            .ToList();
+
+        return Ok(new
+        {
+            messages,
+            nextToken = newNextToken
+        });
+    }
 
 
-       [HttpPost("SendMessage")]
+    public class NextToken
+    {
+        public DateTime Timestamp { get; set; }
+        public int Id { get; set; }
+    }
+
+
+
+    [HttpPost("SendMessage")]
 public async Task<IActionResult> SendMessage([FromForm] SendMessageModel model)
 {
     if (!ModelState.IsValid)

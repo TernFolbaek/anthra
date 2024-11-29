@@ -116,11 +116,6 @@ body.dark-mode .profile-settings-save-button:hover {
 }
 
 
-/* Dark mode styles */
-body.dark-mode .logout-button {
-    background-color: #0056b3;
-}
-
 body.dark-mode .logout-button:hover {
     background-color: #003f7f;
 }
@@ -129,9 +124,6 @@ body.dark-mode .delete-button {
     color: white;
 }
 
-body.dark-mode .delete-button:hover {
-    background-color: #e3e2e2;
-}
 
 /* Modal Styles */
 .profile-modal-overlay {

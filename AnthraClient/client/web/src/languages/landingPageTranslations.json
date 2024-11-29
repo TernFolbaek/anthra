@@ -71,7 +71,11 @@
       "subjectLabel": "Emne",
       "messageLabel": "Besked",
       "submitButton": "Send Besked",
-      "footer": "Anthra. Alle rettigheder forbeholdes."
+      "footer": "Anthra. Alle rettigheder forbeholdes.",
+      "submitSuccess": "Besked sendt ",
+      "submitError": "Fejl ved afsendelse",
+      "submitting": "Sender...",
+      "emailLabel": "Din Email"
     }
   },
   "en": {
@@ -146,7 +150,11 @@
       "subjectLabel": "Subject",
       "messageLabel": "Message",
       "submitButton": "Send Message",
-      "footer": "Anthra. All rights reserved."
+      "footer": "Anthra. All rights reserved.",
+      "submitSuccess": "Successfully sent message",
+      "submitError": "Error submitting message",
+      "submitting": "Submitting...",
+      "emailLabel": "Your Email"
     }
   }
 }

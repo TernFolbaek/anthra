@@ -1,17 +1,18 @@
 import './AuthPage.css';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {GoogleLogin, CredentialResponse} from '@react-oauth/google';
-import {useRive, useStateMachineInput} from '@rive-app/react-canvas';
+import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
+import { useRive, useStateMachineInput } from '@rive-app/react-canvas';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
 import ResetPassword from '../ResetPassword/ResetPassword';
+import EmailVerification from '../EmailVerification/EmailVerification';
 
 interface AuthPageProps {
     onBackClick: () => void;
     onAuthSuccess: (profileCreated: boolean) => void;
 }
 
-const AuthPage: React.FC<AuthPageProps> = ({onBackClick, onAuthSuccess}) => {
+const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
     const [isSignUp, setIsSignUp] = useState(true);
     const [showForgotPassword, setShowForgotPassword] = useState(false);
     const [showResetPassword, setShowResetPassword] = useState(false);
@@ -20,6 +21,8 @@ const AuthPage: React.FC<AuthPageProps> = ({onBackClick, onAuthSuccess}) => {
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [showEmailVerification, setShowEmailVerification] = useState(false);
+    const [userId, setUserId] = useState('');
 
     const switchAuthMode = () => {
         setIsSignUp(!isSignUp);
@@ -66,8 +69,7 @@ const AuthPage: React.FC<AuthPageProps> = ({onBackClick, onAuthSuccess}) => {
             }
         } else {
             setError('Google login failed.');
-        }
-    };
+        }    };
 
     const handleGoogleFailure = () => {
         setError('Google login failed.');
@@ -90,37 +92,49 @@ const AuthPage: React.FC<AuthPageProps> = ({onBackClick, onAuthSuccess}) => {
             : 'http://localhost:5001/api/Auth/Login';
 
         const payload = isSignUp
-            ? {username, email, password}
-            : {username, password};
+            ? { username, email, password }
+            : { username, password };
 
         try {
             const response = await axios.post(endpoint, payload);
-            const {userId, token, fullName} = response.data;
-            localStorage.setItem('token', token);
-            localStorage.setItem('userId', userId);
-            localStorage.setItem('fullName', fullName);
 
-            const profileResponse = await axios.get(
-                'http://localhost:5001/api/Profile/GetProfile',
-                {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
+            if (isSignUp) {
+                const { userId, Message } = response.data;
+                setUserId(userId);
+                setShowEmailVerification(true);
+                setMessage(Message);
+            } else {
+                const { userId, token, fullName } = response.data;
+                localStorage.setItem('token', token);
+                localStorage.setItem('userId', userId);
+                localStorage.setItem('fullName', fullName);
+
+                const profileResponse = await axios.get(
+                    'http://localhost:5001/api/Profile/GetProfile',
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        }
                     }
-                }
-            );
-            const userProfile = profileResponse.data;
-            localStorage.setItem('userProfilePicture', `${profileResponse.data.profilePictureUrl}`);
-            triggerSuccess();
-            onAuthSuccess(userProfile.createdProfile);
+                );
+                const userProfile = profileResponse.data;
+                localStorage.setItem('userProfilePicture', `${profileResponse.data.profilePictureUrl}`);
+                triggerSuccess();
+                onAuthSuccess(userProfile.createdProfile);
+            }
         } catch (err: any) {
             triggerFail();
             if (err.response && err.response.data) {
                 const errorData = err.response.data;
-                setError(
-                    errorData.Message ||
-                    Object.values(errorData.errors || {}).join(' ') ||
-                    'An error occurred'
-                );
+                if (errorData === 'Email not verified.') {
+                    setError('Please verify your email before logging in.');
+                } else {
+                    setError(
+                        errorData.Message ||
+                        Object.values(errorData.errors || {}).join(' ') ||
+                        'An error occurred'
+                    );
+                }
             } else {
                 setError('An error occurred. Please try again.');
             }
@@ -128,8 +142,14 @@ const AuthPage: React.FC<AuthPageProps> = ({onBackClick, onAuthSuccess}) => {
         }
     };
 
+    const handleEmailVerified = () => {
+        setShowEmailVerification(false);
+        triggerSuccess();
+        onAuthSuccess(false); // Assuming profile is not created yet
+    };
+
     const STATE_MACHINE_NAME = 'State Machine 1';
-    const {rive, RiveComponent} = useRive({
+    const { rive, RiveComponent } = useRive({
         src: '/rive/520-990-teddy-login-screen.riv',
         autoplay: true,
         stateMachines: STATE_MACHINE_NAME,
@@ -197,13 +217,23 @@ const AuthPage: React.FC<AuthPageProps> = ({onBackClick, onAuthSuccess}) => {
         );
     }
 
+    if (showEmailVerification) {
+        return (
+            <EmailVerification
+                userId={userId}
+                onVerified={handleEmailVerified}
+                onBack={() => setShowEmailVerification(false)}
+            />
+        );
+    }
+
     return (
         <div className="auth-page">
             <button className="back-button" onClick={goBack}>
                 Back
             </button>
             <div>
-                <RiveComponent className="teddy-bear-rive"/>
+                <RiveComponent className="teddy-bear-rive" />
             </div>
             <div className="auth-container">
                 <h2 className="auth-container-h2">{isSignUp ? 'Sign Up' : 'Log In'}</h2>

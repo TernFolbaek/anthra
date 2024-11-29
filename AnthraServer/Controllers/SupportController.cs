@@ -44,7 +44,7 @@ public async Task<IActionResult> SendSupportEmail([FromBody] SupportEmailRequest
 {
     _logger.LogInformation("SendSupportEmail action called");
 
-    // Get the current user's email from the JWT token
+
     var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
     if (string.IsNullOrEmpty(userEmail))
     {
@@ -93,7 +93,6 @@ public async Task<IActionResult> SendSupportEmail([FromBody] SupportEmailRequest
     }
 }
 
-// Add this class to your ViewModels folder
 public class SupportEmailRequest
 {
     public string Message { get; set; }
@@ -116,7 +115,7 @@ public async Task<IActionResult> SendSupportEmailGuest([FromBody] GuestSupportEm
         var client = new SendGridClient(apiKey);
         var fromEmail = "anthradk@gmail.com";
         var from = new EmailAddress(fromEmail, "Guest Support Request");
-        var to = new EmailAddress("anthradk@gmail.com"); // Your support email address
+        var to = new EmailAddress("anthradk@gmail.com"); 
         var subject = "Guest Support Request";
         
         var plainTextContent = $"From: {model.Email}\n\nSubject: {model.Subject}\n\nMessage:\n{model.Message}";
@@ -147,7 +146,6 @@ public async Task<IActionResult> SendSupportEmailGuest([FromBody] GuestSupportEm
     }
 }
 
-// Add this class to your ViewModels folder
 public class GuestSupportEmailRequest
 {
     public string Email { get; set; }

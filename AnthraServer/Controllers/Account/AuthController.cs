@@ -84,8 +84,7 @@ namespace AnthraBackend.Controllers.Account
                 return StatusCode(500, new { Error = ex.Message });
             }
         }
-        // POST: api/Auth/Register
-        [HttpPost("Register")]
+         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
         {
             _logger.LogInformation("Register action called");
@@ -105,12 +104,19 @@ namespace AnthraBackend.Controllers.Account
             {
                 _logger.LogInformation("User created a new account with password.");
 
-                // Sign in the user to create the authentication cookie
-                await _signInManager.SignInAsync(user, isPersistent: false);
+                // Generate email verification code
+                var verificationCode = new Random().Next(100000, 999999).ToString();
 
-                var token = GenerateJwtToken(user);
+                // Store the code and its expiry
+                user.EmailVerificationCode = verificationCode;
+                user.EmailVerificationExpiry = DateTime.UtcNow.AddHours(1);
 
-                return Ok(new { Message = "Registration successful", userId = user.Id, token, fullname = user.FirstName + " " + user.LastName });
+                await _userManager.UpdateAsync(user);
+
+                // Send verification email
+                await SendVerificationEmail(user.Email, verificationCode);
+
+                return Ok(new { Message = "Registration successful. Verification code sent to email.", userId = user.Id });
             }
 
             foreach (var error in result.Errors)
@@ -122,6 +128,44 @@ namespace AnthraBackend.Controllers.Account
             return BadRequest(ModelState);
         }
 
+        private async Task SendVerificationEmail(string email, string verificationCode)
+        {
+            var apiKey = _configuration["SendGrid:ApiKey"];
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress("anthradk@gmail.com", "Anthra");
+            var to = new EmailAddress(email);
+            var subject = "Email Verification Code";
+            var plainTextContent = $"Your email verification code is: {verificationCode}";
+            var htmlContent = $"<p>Your email verification code is: <strong>{verificationCode}</strong></p>";
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+            await client.SendEmailAsync(msg);
+        }
+        
+        [HttpPost("VerifyEmail")]
+        public async Task<IActionResult> VerifyEmail([FromBody] VerifyEmailViewModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.UserId);
+            if (user == null)
+            {
+                return BadRequest("User not found.");
+            }
+
+            if (user.EmailVerificationCode != model.Code || user.EmailVerificationExpiry < DateTime.UtcNow)
+            {
+                return BadRequest("Invalid or expired verification code.");
+            }
+
+            user.EmailConfirmed = true;
+            user.EmailVerificationCode = null;
+            user.EmailVerificationExpiry = null;
+
+            await _userManager.UpdateAsync(user);
+
+            var token = GenerateJwtToken(user);
+            return Ok(new { Message = "Email verified successfully", userId = user.Id, token, fullName = user.FirstName + " " + user.LastName });
+        }
+
+    
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
@@ -137,10 +181,15 @@ namespace AnthraBackend.Controllers.Account
             if (result.Succeeded)
             {
                 var user = await _userManager.FindByNameAsync(model.Username);
+
+                if (!user.EmailConfirmed)
+                {
+                    return BadRequest("Email not verified.");
+                }
+
                 var token = GenerateJwtToken(user);
 
-                // cookie
-                return Ok(new { Message = "Registration successful", userId = user.Id, token, userName = user.UserName, fullname = user.FirstName + " " + user.LastName });
+                return Ok(new { Message = "Login successful", userId = user.Id, token, userName = user.UserName, fullName = user.FirstName + " " + user.LastName });
             }
 
             return Unauthorized("Invalid username or password.");
@@ -169,6 +218,36 @@ namespace AnthraBackend.Controllers.Account
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        [HttpPost("ResendVerificationCode")]
+        public async Task<IActionResult> ResendVerificationCode([FromBody] ResendVerificationCodeViewModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.UserId);
+            if (user == null)
+            {
+                return BadRequest("User not found.");
+            }
+
+            var verificationCode = new Random().Next(100000, 999999).ToString();
+            user.EmailVerificationCode = verificationCode;
+            user.EmailVerificationExpiry = DateTime.UtcNow.AddHours(1);
+            await _userManager.UpdateAsync(user);
+
+            await SendVerificationEmail(user.Email, verificationCode);
+            return Ok("Verification code resent.");
+        }
+        
+        public class VerifyEmailViewModel
+        {
+            public string UserId { get; set; }
+            public string Code { get; set; }
+        }
+
+        public class ResendVerificationCodeViewModel
+        {
+            public string UserId { get; set; }
+        }
+
         
         [HttpGet("ExternalLogin")]
         public IActionResult ExternalLogin(string provider, string returnUrl = null)

@@ -19,6 +19,9 @@ namespace MyBackendApp.Models
         public string? PasswordResetCode { get; set; }
         public DateTime? PasswordResetExpiry { get; set; }
         public bool ProfileCompleted { get; set; } // Add this property
+        public string? EmailVerificationCode { get; set; }
+        public DateTime? EmailVerificationExpiry { get; set; }
+
 
     }
 }

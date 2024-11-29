@@ -72,13 +72,7 @@ body.dark-mode .profile-settings-save-button:hover {
     gap: 10px;
 }
 
-.logout-button{
-    width: 50%;
-    padding: 10px 20px;
-    border-radius: 4px;
-    font-weight: 400;
-    cursor: pointer;
-}
+
 
 .delete-button {
     width: 50%;
@@ -94,12 +88,30 @@ body.dark-mode .profile-settings-save-button:hover {
 }
 
 .logout-button {
+    width: 50%;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: 400;
+    cursor: pointer;
     background-color: #007bff;
     color: #fff;
     border: none;
 }
 
-.logout-button:hover {
+.help-contact-support-button{
+    width: 50%;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: 400;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+}
+
+.logout-button:hover,
+.help-contact-support-button:hover
+{
     background-color: #0056b3;
 }
 

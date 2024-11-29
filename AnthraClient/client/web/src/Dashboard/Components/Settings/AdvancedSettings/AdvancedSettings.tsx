@@ -67,14 +67,10 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ label, options, selecte
 };
 
 const AdvancedSettings: React.FC = () => {
-    const [filterOption, setFilterOption] = useState('all');
     const [distanceOption, setDistanceOption] = useState('any');
     const [institutionOption, setInstitutionOption] = useState('any');
     const [ageGroupOption, setAgeGroupOption] = useState('any');
 
-    const handleFilterChange = (value: string) => {
-        setFilterOption(value);
-    };
 
     const handleDistanceChange = (value: string) => {
         setDistanceOption(value);
@@ -90,22 +86,14 @@ const AdvancedSettings: React.FC = () => {
     };
 
     const applyFilters = () => {
-        // Implement filter functionality here
         alert(
             `Filters applied:\n` +
-            `General: ${filterOption}\n` +
             `Distance: ${distanceOption}\n` +
             `Institution: ${institutionOption}\n` +
             `Age Group: ${ageGroupOption}`
         );
     };
 
-    // Define options for each dropdown
-    const filterOptions: DropdownOption[] = [
-        { label: 'Show All Users', value: 'all' },
-        { label: 'Show Nearby Users', value: 'nearby' },
-        { label: 'Show Online Users', value: 'online' },
-    ];
 
     const distanceOptions: DropdownOption[] = [
         { label: 'Any Distance', value: 'any' },
@@ -131,14 +119,6 @@ const AdvancedSettings: React.FC = () => {
 
     return (
         <div className="advanced-settings-container">
-            <div className="advanced-settings-form-group">
-                <CustomDropdown
-                    label="Filter Users"
-                    options={filterOptions}
-                    selectedOption={filterOption}
-                    onSelect={handleFilterChange}
-                />
-            </div>
             <div className="advanced-settings-form-group">
                 <CustomDropdown
                     label="Distance"

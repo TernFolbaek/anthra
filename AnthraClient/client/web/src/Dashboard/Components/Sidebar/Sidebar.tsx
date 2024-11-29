@@ -3,11 +3,11 @@ import { NavLink } from 'react-router-dom';
 import {
     FaSearch,
     FaUsers,
-    FaFacebookMessenger,
     FaCog,
     FaHandHoldingHeart,
     FaUserFriends,
 } from 'react-icons/fa';
+import { MdMessage } from "react-icons/md";
 import './Sidebar.css';
 import Notifications from "../Notifications/Notifications";
 const Sidebar: React.FC = () => {
@@ -30,7 +30,7 @@ const Sidebar: React.FC = () => {
                     className={({isActive}) => `sidebar-link ${isActive ? 'active-link' : ''}`}
                 >
                     <div className="tooltip-container">
-                        <FaFacebookMessenger className="sidebar-icon"/>
+                        <MdMessage className="sidebar-icon"/>
                         <span className="tooltip">Messages</span>
                     </div>
                 </NavLink>

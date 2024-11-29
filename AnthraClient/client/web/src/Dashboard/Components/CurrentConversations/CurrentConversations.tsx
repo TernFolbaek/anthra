@@ -14,7 +14,7 @@ interface Conversation {
     lastMessageSenderId: string;
 }
 
-const CurrentConversations: React.FC = () => {
+const CurrentConversations: React.FC = React.memo(() => {
     const [conversations, setConversations] = useState<Conversation[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -110,6 +110,6 @@ const CurrentConversations: React.FC = () => {
             )}
         </CardContainer>
     );
-};
+});
 
 export default CurrentConversations;

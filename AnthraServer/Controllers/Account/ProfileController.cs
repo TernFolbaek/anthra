@@ -1,17 +1,15 @@
 // Controllers/ProfileController.cs
+
 using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyBackendApp.Models;
 using MyBackendApp.ViewModels;
-using System.Threading.Tasks;
-using System.IO;
-using Azure.Storage.Blobs;
-using Azure.Storage.Blobs.Models;
 using Newtonsoft.Json;
 
-namespace MyBackendApp.Controllers
+namespace AnthraBackend.Controllers.Account
 {
     [ApiController]
     [Route("api/[controller]")]

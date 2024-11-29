@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using MyBackendApp.Data;
 using MyBackendApp.Models;
 
+namespace AnthraBackend.Controllers.Group;
+
 [ApiController]
 [Route("api/[controller]")]
 public class RequestsController : ControllerBase

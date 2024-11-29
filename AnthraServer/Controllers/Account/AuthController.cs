@@ -1,20 +1,17 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.AspNetCore.Mvc;
+using Google.Apis.Auth;
 using Microsoft.AspNetCore.Identity;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using MyBackendApp.Data;
 using MyBackendApp.Models;
 using MyBackendApp.ViewModels;
-using Google.Apis.Auth;
-using MyBackendApp.Data;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 
-
-namespace MyBackendApp.Controllers
+namespace AnthraBackend.Controllers.Account
 {
     [ApiController]
     [Route("api/[controller]")]

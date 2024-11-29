@@ -1,15 +1,12 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyBackendApp.Data;
 using MyBackendApp.Models;
-using System;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
-namespace MyBackendApp.Controllers;
+namespace AnthraBackend.Controllers.Account;
 
 [ApiController]
 [Route("api/[controller]")]

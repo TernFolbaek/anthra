@@ -6,7 +6,7 @@ using MyBackendApp.Data;
 using MyBackendApp.Models;
 using MyBackendApp.ViewModels;
 
-namespace MyBackendApp.Controllers
+namespace AnthraBackend.Controllers.Connections
 {
     [ApiController]
     [Route("api/[controller]")]

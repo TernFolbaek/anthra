@@ -361,7 +361,7 @@ const Profile: React.FC = () => {
                                             <button type="button" onClick={addSubject} className="profile-icon-button">
                                                 <FaPlus/>
                                             </button>
-                                            <p>New Subject</p>
+                                            <p className="text-gray-500 text-xs font-bold ">New Subject</p>
                                         </div>
                                     </div>
                                 ) : (
@@ -406,7 +406,7 @@ const Profile: React.FC = () => {
                                             <button type="button" onClick={addCourse} className="profile-icon-button">
                                                 <FaPlus/>
                                             </button>
-                                            <p>New Course</p>
+                                            <p className="text-gray-500 text-xs font-bold ">New Course</p>
                                         </div>
 
                                     </div>

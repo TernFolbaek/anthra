@@ -99,6 +99,61 @@ public class SupportEmailRequest
     public string Message { get; set; }
 }
 
+[HttpPost("SendSupportEmailGuest")]
+public async Task<IActionResult> SendSupportEmailGuest([FromBody] GuestSupportEmailRequest model)
+{
+    _logger.LogInformation("SendSupportEmailGuest action called");
+
+    try
+    {
+        var apiKey = _configuration["SendGrid:ApiKey"];
+        if (string.IsNullOrEmpty(apiKey))
+        {
+            _logger.LogError("SendGrid API Key is not configured.");
+            return StatusCode(500, "Email service is not configured.");
+        }
+
+        var client = new SendGridClient(apiKey);
+        var fromEmail = "anthradk@gmail.com";
+        var from = new EmailAddress(fromEmail, "Guest Support Request");
+        var to = new EmailAddress("anthradk@gmail.com"); // Your support email address
+        var subject = "Guest Support Request";
+        
+        var plainTextContent = $"From: {model.Email}\n\nSubject: {model.Subject}\n\nMessage:\n{model.Message}";
+        var htmlContent = $@"
+            <p><strong>From:</strong> {System.Web.HttpUtility.HtmlEncode(model.Email)}</p>
+            <p><strong>Subject:</strong> {System.Web.HttpUtility.HtmlEncode(model.Subject)}</p>
+            <p><strong>Message:</strong></p>
+            <p>{System.Web.HttpUtility.HtmlEncode(model.Message)}</p>
+        ";
+
+        var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+
+        var response = await client.SendEmailAsync(msg);
+        var responseBody = await response.Body.ReadAsStringAsync();
+
+        if (response.StatusCode != System.Net.HttpStatusCode.Accepted)
+        {
+            _logger.LogError("Failed to send guest support email via SendGrid: {StatusCode} - {ResponseBody}", response.StatusCode, responseBody);
+            return StatusCode(500, "Error sending support email.");
+        }
+
+        return Ok("Support email sent successfully.");
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "Error sending guest support email.");
+        return StatusCode(500, "Error sending support email.");
+    }
+}
+
+// Add this class to your ViewModels folder
+public class GuestSupportEmailRequest
+{
+    public string Email { get; set; }
+    public string Subject { get; set; }
+    public string Message { get; set; }
+}
     
     }
 }

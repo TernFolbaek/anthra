@@ -15,7 +15,7 @@ body.dark-mode .groups-page {
 .group-message-view {
     flex: 1;
     border-radius: 10px;
-    margin: 15px;
+    margin: 15px 15px 15px 0;
     background-color: white;
     font-family: 'Montserrat', sans-serif;
     position: relative;

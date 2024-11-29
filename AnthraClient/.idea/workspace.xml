@@ -4,7 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Restyle with weaker error message color" />
+    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Remove console log">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Connections/Connections.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Connections/Connections.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Profile/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Sidebar/Sidebar.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Sidebar/Sidebar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Sidebar/Sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Sidebar/Sidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/AnthraBackend.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/AnthraBackend.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/Controllers/ProfileController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Controllers/ProfileController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/wwwroot/uploads/47685a5e-7ed2-4c1f-9e86-40ea5831e34d.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/wwwroot/uploads/5121a904-a6b7-4063-9ec9-8d9eadeecb8e.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/wwwroot/uploads/6db407c8-6e1d-483f-8d63-3780c4bdc09d.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/wwwroot/uploads/77f24112-514d-4258-ad81-5b39670e0f88.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/wwwroot/uploads/8987bee5-ab72-4c24-8603-0c1ad9062863.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/wwwroot/uploads/a133d91e-31c0-47f3-92ee-f32da6632848.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/wwwroot/uploads/b4c7cc47-e508-4864-a000-bc1e04fbe085.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/wwwroot/uploads/cf9801be-38d1-41f6-bc24-ec100936d57e.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/wwwroot/uploads/e6b11497-6323-4ec8-94e9-926a1b94f46a.png" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,11 +71,11 @@
       <recent name="$PROJECT_DIR$/client/web/src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/client/web/src/Dashboard/Components/Groups" />
-      <recent name="$PROJECT_DIR$/client/web/src/Dashboard/Components" />
-      <recent name="$PROJECT_DIR$/client/web/src/Authentication/AuthPage" />
+      <recent name="$PROJECT_DIR$/client/web/public/rive" />
       <recent name="$PROJECT_DIR$/client/web/public" />
-      <recent name="$PROJECT_DIR$/client/web/src/assets" />
+      <recent name="$PROJECT_DIR$/client/web/src/Dashboard/Layouts" />
+      <recent name="$PROJECT_DIR$/client/web/src/Dashboard/Components/Groups" />
+      <recent name="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -162,431 +179,468 @@
       <workItem from="1731422349576" duration="7000" />
       <workItem from="1731437143369" duration="9339000" />
       <workItem from="1731521497428" duration="1674000" />
+      <workItem from="1731570726818" duration="1460000" />
+      <workItem from="1731573284656" duration="176000" />
+      <workItem from="1731589568095" duration="24626000" />
+      <workItem from="1731679350146" duration="5421000" />
+      <workItem from="1731688428649" duration="312000" />
+      <workItem from="1731689158904" duration="31110000" />
+      <workItem from="1731931078728" duration="597000" />
+      <workItem from="1731940568366" duration="4210000" />
+      <workItem from="1732009895012" duration="606000" />
+      <workItem from="1732010509181" duration="33867000" />
+      <workItem from="1732123680074" duration="19998000" />
+      <workItem from="1732270765904" duration="77000" />
+      <workItem from="1732281232182" duration="18601000" />
+      <workItem from="1732484036514" duration="3401000" />
+      <workItem from="1732521710683" duration="260000" />
+      <workItem from="1732522983739" duration="4000" />
+      <workItem from="1732526423834" duration="261000" />
+      <workItem from="1732538542754" duration="755000" />
+      <workItem from="1732544606356" duration="12510000" />
+      <workItem from="1732609983673" duration="3000" />
+      <workItem from="1732635207889" duration="9959000" />
+      <workItem from="1732694102262" duration="1891000" />
+      <workItem from="1732705333366" duration="2178000" />
+      <workItem from="1732710696835" duration="1574000" />
+      <workItem from="1732712741628" duration="21237000" />
+      <workItem from="1732798158189" duration="9021000" />
     </task>
-    <task id="LOCAL-00163" summary="Advance groups styling, as now groups contains groupslist and groupmessage">
+    <task id="LOCAL-00309" summary="Create UserExplore page">
       <option name="closed" value="true" />
-      <created>1730614933542</created>
-      <option name="number" value="00163" />
-      <option name="presentableId" value="LOCAL-00163" />
+      <created>1732199169694</created>
+      <option name="number" value="00309" />
+      <option name="presentableId" value="LOCAL-00309" />
       <option name="project" value="LOCAL" />
-      <updated>1730614933542</updated>
+      <updated>1732199169694</updated>
     </task>
-    <task id="LOCAL-00164" summary="Refactor HowItWorks.css styling so animations are called on mobile">
+    <task id="LOCAL-00310" summary="Style Menu individuals and groups explore page">
       <option name="closed" value="true" />
-      <created>1730614958329</created>
-      <option name="number" value="00164" />
-      <option name="presentableId" value="LOCAL-00164" />
+      <created>1732199194325</created>
+      <option name="number" value="00310" />
+      <option name="presentableId" value="LOCAL-00310" />
       <option name="project" value="LOCAL" />
-      <updated>1730614958329</updated>
+      <updated>1732199194325</updated>
     </task>
-    <task id="LOCAL-00165" summary="Fix height for MessageConnectionProfile.css">
+    <task id="LOCAL-00311" summary="Center rive animation">
       <option name="closed" value="true" />
-      <created>1730614970048</created>
-      <option name="number" value="00165" />
-      <option name="presentableId" value="LOCAL-00165" />
+      <created>1732199206121</created>
+      <option name="number" value="00311" />
+      <option name="presentableId" value="LOCAL-00311" />
       <option name="project" value="LOCAL" />
-      <updated>1730614970048</updated>
+      <updated>1732199206121</updated>
     </task>
-    <task id="LOCAL-00166" summary="Fix height for Messages">
+    <task id="LOCAL-00312" summary="Back button">
       <option name="closed" value="true" />
-      <created>1730614979959</created>
-      <option name="number" value="00166" />
-      <option name="presentableId" value="LOCAL-00166" />
+      <created>1732284636877</created>
+      <option name="number" value="00312" />
+      <option name="presentableId" value="LOCAL-00312" />
       <option name="project" value="LOCAL" />
-      <updated>1730614979959</updated>
+      <updated>1732284636878</updated>
     </task>
-    <task id="LOCAL-00167" summary="Remove connections page styling in requests.css">
+    <task id="LOCAL-00313" summary="Add width and height to ensure rive animation is rendered">
       <option name="closed" value="true" />
-      <created>1730614995130</created>
-      <option name="number" value="00167" />
-      <option name="presentableId" value="LOCAL-00167" />
+      <created>1732284652729</created>
+      <option name="number" value="00313" />
+      <option name="presentableId" value="LOCAL-00313" />
       <option name="project" value="LOCAL" />
-      <updated>1730614995130</updated>
+      <updated>1732284652729</updated>
     </task>
-    <task id="LOCAL-00168" summary="Remove redundant comments">
+    <task id="LOCAL-00314" summary="Add border for image">
       <option name="closed" value="true" />
-      <created>1730759095069</created>
-      <option name="number" value="00168" />
-      <option name="presentableId" value="LOCAL-00168" />
+      <created>1732284659308</created>
+      <option name="number" value="00314" />
+      <option name="presentableId" value="LOCAL-00314" />
       <option name="project" value="LOCAL" />
-      <updated>1730759095070</updated>
+      <updated>1732284659308</updated>
     </task>
-    <task id="LOCAL-00169" summary="Add padding to when no group selected">
+    <task id="LOCAL-00315" summary="Back click">
       <option name="closed" value="true" />
-      <created>1730759169629</created>
-      <option name="number" value="00169" />
-      <option name="presentableId" value="LOCAL-00169" />
+      <created>1732284883177</created>
+      <option name="number" value="00315" />
+      <option name="presentableId" value="LOCAL-00315" />
       <option name="project" value="LOCAL" />
-      <updated>1730759169629</updated>
+      <updated>1732284883177</updated>
     </task>
-    <task id="LOCAL-00170" summary="Make height of explore card shorter">
+    <task id="LOCAL-00316" summary="Style group explore page">
       <option name="closed" value="true" />
-      <created>1730830587874</created>
-      <option name="number" value="00170" />
-      <option name="presentableId" value="LOCAL-00170" />
+      <created>1732284893341</created>
+      <option name="number" value="00316" />
+      <option name="presentableId" value="LOCAL-00316" />
       <option name="project" value="LOCAL" />
-      <updated>1730830587874</updated>
+      <updated>1732284893341</updated>
     </task>
-    <task id="LOCAL-00171" summary="adding currentConversations as prefix to relevant components">
+    <task id="LOCAL-00317" summary="Remove useless container">
       <option name="closed" value="true" />
-      <created>1730830659637</created>
-      <option name="number" value="00171" />
-      <option name="presentableId" value="LOCAL-00171" />
+      <created>1732284901624</created>
+      <option name="number" value="00317" />
+      <option name="presentableId" value="LOCAL-00317" />
       <option name="project" value="LOCAL" />
-      <updated>1730830659637</updated>
+      <updated>1732284901624</updated>
     </task>
-    <task id="LOCAL-00172" summary="Add border radius to contact header of Messages.css">
+    <task id="LOCAL-00318" summary="Remove redundant container">
       <option name="closed" value="true" />
-      <created>1730830682204</created>
-      <option name="number" value="00172" />
-      <option name="presentableId" value="LOCAL-00172" />
+      <created>1732285087206</created>
+      <option name="number" value="00318" />
+      <option name="presentableId" value="LOCAL-00318" />
       <option name="project" value="LOCAL" />
-      <updated>1730830682204</updated>
+      <updated>1732285087206</updated>
     </task>
-    <task id="LOCAL-00173" summary="Restyle Notification bell">
+    <task id="LOCAL-00319" summary="Remove unused rive variable">
       <option name="closed" value="true" />
-      <created>1730830699650</created>
-      <option name="number" value="00173" />
-      <option name="presentableId" value="LOCAL-00173" />
+      <created>1732285120258</created>
+      <option name="number" value="00319" />
+      <option name="presentableId" value="LOCAL-00319" />
       <option name="project" value="LOCAL" />
-      <updated>1730830699650</updated>
+      <updated>1732285120258</updated>
     </task>
-    <task id="LOCAL-00174" summary="Integrate notifications to sidebar">
+    <task id="LOCAL-00320" summary="Add required asterisk">
       <option name="closed" value="true" />
-      <created>1730830713377</created>
-      <option name="number" value="00174" />
-      <option name="presentableId" value="LOCAL-00174" />
+      <created>1732285138497</created>
+      <option name="number" value="00320" />
+      <option name="presentableId" value="LOCAL-00320" />
       <option name="project" value="LOCAL" />
-      <updated>1730830713377</updated>
+      <updated>1732285138497</updated>
     </task>
-    <task id="LOCAL-00175" summary="Fix message input container">
+    <task id="LOCAL-00321" summary="Position absolute for the button container">
       <option name="closed" value="true" />
-      <created>1730990230521</created>
-      <option name="number" value="00175" />
-      <option name="presentableId" value="LOCAL-00175" />
+      <created>1732285157511</created>
+      <option name="number" value="00321" />
+      <option name="presentableId" value="LOCAL-00321" />
       <option name="project" value="LOCAL" />
-      <updated>1730990230521</updated>
+      <updated>1732285157511</updated>
     </task>
-    <task id="LOCAL-00176" summary="remove redundant comments">
+    <task id="LOCAL-00322" summary="Explicit class name for button container">
       <option name="closed" value="true" />
-      <created>1730990245994</created>
-      <option name="number" value="00176" />
-      <option name="presentableId" value="LOCAL-00176" />
+      <created>1732285175525</created>
+      <option name="number" value="00322" />
+      <option name="presentableId" value="LOCAL-00322" />
       <option name="project" value="LOCAL" />
-      <updated>1730990245994</updated>
+      <updated>1732285175525</updated>
     </task>
-    <task id="LOCAL-00177" summary="Add relative position to bell icon">
+    <task id="LOCAL-00323" summary="Explore user card buttons">
       <option name="closed" value="true" />
-      <created>1730990272847</created>
-      <option name="number" value="00177" />
-      <option name="presentableId" value="LOCAL-00177" />
+      <created>1732291078761</created>
+      <option name="number" value="00323" />
+      <option name="presentableId" value="LOCAL-00323" />
       <option name="project" value="LOCAL" />
-      <updated>1730990272847</updated>
+      <updated>1732291078761</updated>
     </task>
-    <task id="LOCAL-00178" summary="Fix notifications not being displayed">
+    <task id="LOCAL-00324" summary="Restyle menu icon and connections title font">
       <option name="closed" value="true" />
-      <created>1730990810792</created>
-      <option name="number" value="00178" />
-      <option name="presentableId" value="LOCAL-00178" />
+      <created>1732348056318</created>
+      <option name="number" value="00324" />
+      <option name="presentableId" value="LOCAL-00324" />
       <option name="project" value="LOCAL" />
-      <updated>1730990810792</updated>
+      <updated>1732348056318</updated>
     </task>
-    <task id="LOCAL-00179" summary="Refactor import path">
+    <task id="LOCAL-00325" summary="Two columns in request one for groups one for personal requests">
       <option name="closed" value="true" />
-      <created>1731015709742</created>
-      <option name="number" value="00179" />
-      <option name="presentableId" value="LOCAL-00179" />
+      <created>1732348087960</created>
+      <option name="number" value="00325" />
+      <option name="presentableId" value="LOCAL-00325" />
       <option name="project" value="LOCAL" />
-      <updated>1731015709742</updated>
+      <updated>1732348087960</updated>
     </task>
-    <task id="LOCAL-00180" summary="Remove uninformative comment">
+    <task id="LOCAL-00326" summary="Better font styling when no conversations are found">
       <option name="closed" value="true" />
-      <created>1731104875994</created>
-      <option name="number" value="00180" />
-      <option name="presentableId" value="LOCAL-00180" />
+      <created>1732398724178</created>
+      <option name="number" value="00326" />
+      <option name="presentableId" value="LOCAL-00326" />
       <option name="project" value="LOCAL" />
-      <updated>1731104875994</updated>
+      <updated>1732398724178</updated>
     </task>
-    <task id="LOCAL-00181" summary="Add profile route outside messageLayout container to not include currentConversations to the page">
+    <task id="LOCAL-00327" summary="Add button to refer to a connection, without functionality">
       <option name="closed" value="true" />
-      <created>1731105064011</created>
-      <option name="number" value="00181" />
-      <option name="presentableId" value="LOCAL-00181" />
+      <created>1732443177148</created>
+      <option name="number" value="00327" />
+      <option name="presentableId" value="LOCAL-00327" />
       <option name="project" value="LOCAL" />
-      <updated>1731105064011</updated>
+      <updated>1732443177148</updated>
     </task>
-    <task id="LOCAL-00182" summary="Move components to other folder">
+    <task id="LOCAL-00328" summary="Change styling of connect and skip button to reduce padding">
       <option name="closed" value="true" />
-      <created>1731105170255</created>
-      <option name="number" value="00182" />
-      <option name="presentableId" value="LOCAL-00182" />
+      <created>1732444109349</created>
+      <option name="number" value="00328" />
+      <option name="presentableId" value="LOCAL-00328" />
       <option name="project" value="LOCAL" />
-      <updated>1731105170255</updated>
+      <updated>1732444109349</updated>
     </task>
-    <task id="LOCAL-00183" summary="Add card-content class to CardContainer.tsx">
+    <task id="LOCAL-00329" summary="Add amount of message sent from user">
       <option name="closed" value="true" />
-      <created>1731105189612</created>
-      <option name="number" value="00183" />
-      <option name="presentableId" value="LOCAL-00183" />
+      <created>1732467356755</created>
+      <option name="number" value="00329" />
+      <option name="presentableId" value="LOCAL-00329" />
       <option name="project" value="LOCAL" />
-      <updated>1731105189612</updated>
+      <updated>1732467356755</updated>
     </task>
-    <task id="LOCAL-00184" summary="Move GroupMessage">
+    <task id="LOCAL-00330" summary="If there are more than 9+ notification messages then render 9+">
       <option name="closed" value="true" />
-      <created>1731105200099</created>
-      <option name="number" value="00184" />
-      <option name="presentableId" value="LOCAL-00184" />
+      <created>1732468210539</created>
+      <option name="number" value="00330" />
+      <option name="presentableId" value="LOCAL-00330" />
       <option name="project" value="LOCAL" />
-      <updated>1731105200099</updated>
+      <updated>1732468210539</updated>
     </task>
-    <task id="LOCAL-00185" summary="Move GroupModal.tsx">
+    <task id="LOCAL-00331" summary="Add view profile to connections component">
       <option name="closed" value="true" />
-      <created>1731105215570</created>
-      <option name="number" value="00185" />
-      <option name="presentableId" value="LOCAL-00185" />
+      <created>1732544726561</created>
+      <option name="number" value="00331" />
+      <option name="presentableId" value="LOCAL-00331" />
       <option name="project" value="LOCAL" />
-      <updated>1731105215570</updated>
+      <updated>1732544726561</updated>
     </task>
-    <task id="LOCAL-00186" summary="Add max width to groups-page">
+    <task id="LOCAL-00332" summary="Add border radius to conversation item in current conversations component">
       <option name="closed" value="true" />
-      <created>1731105228851</created>
-      <option name="number" value="00186" />
-      <option name="presentableId" value="LOCAL-00186" />
+      <created>1732544742466</created>
+      <option name="number" value="00332" />
+      <option name="presentableId" value="LOCAL-00332" />
       <option name="project" value="LOCAL" />
-      <updated>1731105228851</updated>
+      <updated>1732544742466</updated>
     </task>
-    <task id="LOCAL-00187" summary="center social login">
+    <task id="LOCAL-00333" summary="Add view profile component to Requests">
       <option name="closed" value="true" />
-      <created>1731319652318</created>
-      <option name="number" value="00187" />
-      <option name="presentableId" value="LOCAL-00187" />
+      <created>1732544752367</created>
+      <option name="number" value="00333" />
+      <option name="presentableId" value="LOCAL-00333" />
       <option name="project" value="LOCAL" />
-      <updated>1731319652318</updated>
+      <updated>1732544752367</updated>
     </task>
-    <task id="LOCAL-00188" summary="Functional auto focus to message input and image preview before sending">
+    <task id="LOCAL-00334" summary="Add View profile component to view individual members in a group">
       <option name="closed" value="true" />
-      <created>1731319695082</created>
-      <option name="number" value="00188" />
-      <option name="presentableId" value="LOCAL-00188" />
+      <created>1732564495699</created>
+      <option name="number" value="00334" />
+      <option name="presentableId" value="LOCAL-00334" />
       <option name="project" value="LOCAL" />
-      <updated>1731319695082</updated>
+      <updated>1732564495699</updated>
     </task>
-    <task id="LOCAL-00189" summary="Add styling for file preview">
+    <task id="LOCAL-00335" summary="Add View Group Profile component to Messages component">
       <option name="closed" value="true" />
-      <created>1731319723546</created>
-      <option name="number" value="00189" />
-      <option name="presentableId" value="LOCAL-00189" />
+      <created>1732573468245</created>
+      <option name="number" value="00335" />
+      <option name="presentableId" value="LOCAL-00335" />
       <option name="project" value="LOCAL" />
-      <updated>1731319723546</updated>
+      <updated>1732573468249</updated>
     </task>
-    <task id="LOCAL-00190" summary="Add file attachment to messages">
+    <task id="LOCAL-00336" summary="Create View Group Profile component">
       <option name="closed" value="true" />
-      <created>1731319760100</created>
-      <option name="number" value="00190" />
-      <option name="presentableId" value="LOCAL-00190" />
+      <created>1732573480828</created>
+      <option name="number" value="00336" />
+      <option name="presentableId" value="LOCAL-00336" />
       <option name="project" value="LOCAL" />
-      <updated>1731319760100</updated>
+      <updated>1732573480828</updated>
     </task>
-    <task id="LOCAL-00191" summary="Remove border bottom that made the app look old-school">
+    <task id="LOCAL-00337" summary="Edit group member item styling">
       <option name="closed" value="true" />
-      <created>1731356789404</created>
-      <option name="number" value="00191" />
-      <option name="presentableId" value="LOCAL-00191" />
+      <created>1732635230875</created>
+      <option name="number" value="00337" />
+      <option name="presentableId" value="LOCAL-00337" />
       <option name="project" value="LOCAL" />
-      <updated>1731356789405</updated>
+      <updated>1732635230875</updated>
     </task>
-    <task id="LOCAL-00192" summary="If screen is small enough then only show groupmessage or groups list">
+    <task id="LOCAL-00338" summary="Remove border radius on group attachment in group info">
       <option name="closed" value="true" />
-      <created>1731356830016</created>
-      <option name="number" value="00192" />
-      <option name="presentableId" value="LOCAL-00192" />
+      <created>1732635244581</created>
+      <option name="number" value="00338" />
+      <option name="presentableId" value="LOCAL-00338" />
       <option name="project" value="LOCAL" />
-      <updated>1731356830016</updated>
+      <updated>1732635244581</updated>
     </task>
-    <task id="LOCAL-00193" summary="If screen is small enough then only show groupmessage or groups list">
+    <task id="LOCAL-00339" summary="Create group invitation message">
       <option name="closed" value="true" />
-      <created>1731356833100</created>
-      <option name="number" value="00193" />
-      <option name="presentableId" value="LOCAL-00193" />
+      <created>1732635254191</created>
+      <option name="number" value="00339" />
+      <option name="presentableId" value="LOCAL-00339" />
       <option name="project" value="LOCAL" />
-      <updated>1731356833100</updated>
+      <updated>1732635254191</updated>
     </task>
-    <task id="LOCAL-00194" summary="Remove border bottom to make the app look less old school">
+    <task id="LOCAL-00340" summary="Border on image avatar">
       <option name="closed" value="true" />
-      <created>1731356858727</created>
-      <option name="number" value="00194" />
-      <option name="presentableId" value="LOCAL-00194" />
+      <created>1732635390794</created>
+      <option name="number" value="00340" />
+      <option name="presentableId" value="LOCAL-00340" />
       <option name="project" value="LOCAL" />
-      <updated>1731356858727</updated>
+      <updated>1732635390794</updated>
     </task>
-    <task id="LOCAL-00195" summary="Add specific routes to Main.tsx so if there is a groupId then it will display the correct component">
+    <task id="LOCAL-00341" summary="Add styling for group invitation message">
       <option name="closed" value="true" />
-      <created>1731356931822</created>
-      <option name="number" value="00195" />
-      <option name="presentableId" value="LOCAL-00195" />
+      <created>1732635432526</created>
+      <option name="number" value="00341" />
+      <option name="presentableId" value="LOCAL-00341" />
       <option name="project" value="LOCAL" />
-      <updated>1731356931822</updated>
+      <updated>1732635432526</updated>
     </task>
-    <task id="LOCAL-00196" summary="Reformat code">
+    <task id="LOCAL-00342" summary="Import group invitation message to Messages component">
       <option name="closed" value="true" />
-      <created>1731357024829</created>
-      <option name="number" value="00196" />
-      <option name="presentableId" value="LOCAL-00196" />
+      <created>1732635445399</created>
+      <option name="number" value="00342" />
+      <option name="presentableId" value="LOCAL-00342" />
       <option name="project" value="LOCAL" />
-      <updated>1731357024829</updated>
+      <updated>1732635445399</updated>
     </task>
-    <task id="LOCAL-00197" summary="If the screen is small enough then set wideScreen to false, where it will then only display Outlet or CurrentConversations">
+    <task id="LOCAL-00343" summary="Fix selected chat and opened message inconsistency">
       <option name="closed" value="true" />
-      <created>1731357071010</created>
-      <option name="number" value="00197" />
-      <option name="presentableId" value="LOCAL-00197" />
+      <created>1732686191685</created>
+      <option name="number" value="00343" />
+      <option name="presentableId" value="LOCAL-00343" />
       <option name="project" value="LOCAL" />
-      <updated>1731357071010</updated>
+      <updated>1732686191685</updated>
     </task>
-    <task id="LOCAL-00198" summary="Save fullname of user on login">
+    <task id="LOCAL-00344" summary="Add view profile to viewGroupProfile">
       <option name="closed" value="true" />
-      <created>1731359808494</created>
-      <option name="number" value="00198" />
-      <option name="presentableId" value="LOCAL-00198" />
+      <created>1732694985612</created>
+      <option name="number" value="00344" />
+      <option name="presentableId" value="LOCAL-00344" />
       <option name="project" value="LOCAL" />
-      <updated>1731359808494</updated>
+      <updated>1732694985615</updated>
     </task>
-    <task id="LOCAL-00199" summary="Make the width full in connections page class">
+    <task id="LOCAL-00345" summary="Configuration of dark mode styling">
       <option name="closed" value="true" />
-      <created>1731448893715</created>
-      <option name="number" value="00199" />
-      <option name="presentableId" value="LOCAL-00199" />
+      <created>1732713869003</created>
+      <option name="number" value="00345" />
+      <option name="presentableId" value="LOCAL-00345" />
       <option name="project" value="LOCAL" />
-      <updated>1731448893715</updated>
+      <updated>1732713869003</updated>
     </task>
-    <task id="LOCAL-00200" summary="Minimize margin add margin bottom">
+    <task id="LOCAL-00346" summary="Fix dark mode toggling from local storage">
       <option name="closed" value="true" />
-      <created>1731448918027</created>
-      <option name="number" value="00200" />
-      <option name="presentableId" value="LOCAL-00200" />
+      <created>1732713878677</created>
+      <option name="number" value="00346" />
+      <option name="presentableId" value="LOCAL-00346" />
       <option name="project" value="LOCAL" />
-      <updated>1731448918027</updated>
+      <updated>1732713878677</updated>
     </task>
-    <task id="LOCAL-00201" summary="Instead of translate y-axis, scale up, slower transition">
+    <task id="LOCAL-00347" summary="Small text on notifications">
       <option name="closed" value="true" />
-      <created>1731448936527</created>
-      <option name="number" value="00201" />
-      <option name="presentableId" value="LOCAL-00201" />
+      <created>1732716225882</created>
+      <option name="number" value="00347" />
+      <option name="presentableId" value="LOCAL-00347" />
       <option name="project" value="LOCAL" />
-      <updated>1731448936527</updated>
+      <updated>1732716225882</updated>
     </task>
-    <task id="LOCAL-00202" summary="Full width on no connections overlay, style text">
+    <task id="LOCAL-00348" summary="Reduce padding on card container">
       <option name="closed" value="true" />
-      <created>1731448958362</created>
-      <option name="number" value="00202" />
-      <option name="presentableId" value="LOCAL-00202" />
+      <created>1732727864073</created>
+      <option name="number" value="00348" />
+      <option name="presentableId" value="LOCAL-00348" />
       <option name="project" value="LOCAL" />
-      <updated>1731448958362</updated>
+      <updated>1732727864073</updated>
     </task>
-    <task id="LOCAL-00203" summary="h2 -&gt; p">
+    <task id="LOCAL-00349" summary="Style group attachment and member item">
       <option name="closed" value="true" />
-      <created>1731448975595</created>
-      <option name="number" value="00203" />
-      <option name="presentableId" value="LOCAL-00203" />
+      <created>1732727946166</created>
+      <option name="number" value="00349" />
+      <option name="presentableId" value="LOCAL-00349" />
       <option name="project" value="LOCAL" />
-      <updated>1731448975595</updated>
+      <updated>1732727946166</updated>
     </task>
-    <task id="LOCAL-00204" summary="Add groupname property to dynamically render group invitations">
+    <task id="LOCAL-00350" summary="Reduce padding in group card">
       <option name="closed" value="true" />
-      <created>1731448993295</created>
-      <option name="number" value="00204" />
-      <option name="presentableId" value="LOCAL-00204" />
+      <created>1732727955929</created>
+      <option name="number" value="00350" />
+      <option name="presentableId" value="LOCAL-00350" />
       <option name="project" value="LOCAL" />
-      <updated>1731448993295</updated>
+      <updated>1732727955929</updated>
     </task>
-    <task id="LOCAL-00205" summary="transform with scaling in requests.css as well explicitly">
+    <task id="LOCAL-00351" summary="Group oversight -&gt; group info">
       <option name="closed" value="true" />
-      <created>1731449013382</created>
-      <option name="number" value="00205" />
-      <option name="presentableId" value="LOCAL-00205" />
+      <created>1732727967531</created>
+      <option name="number" value="00351" />
+      <option name="presentableId" value="LOCAL-00351" />
       <option name="project" value="LOCAL" />
-      <updated>1731449013383</updated>
+      <updated>1732727967531</updated>
     </task>
-    <task id="LOCAL-00206" summary="Smaller tweaks">
+    <task id="LOCAL-00352" summary="Correct classname for image attachment">
       <option name="closed" value="true" />
-      <created>1731449055686</created>
-      <option name="number" value="00206" />
-      <option name="presentableId" value="LOCAL-00206" />
+      <created>1732727984845</created>
+      <option name="number" value="00352" />
+      <option name="presentableId" value="LOCAL-00352" />
       <option name="project" value="LOCAL" />
-      <updated>1731449055686</updated>
+      <updated>1732727984845</updated>
     </task>
-    <task id="LOCAL-00207" summary="Weaker red in error message color">
+    <task id="LOCAL-00353" summary="Gray text for no group application requests">
       <option name="closed" value="true" />
-      <created>1731524617871</created>
-      <option name="number" value="00207" />
-      <option name="presentableId" value="LOCAL-00207" />
+      <created>1732728009496</created>
+      <option name="number" value="00353" />
+      <option name="presentableId" value="LOCAL-00353" />
       <option name="project" value="LOCAL" />
-      <updated>1731524617871</updated>
+      <updated>1732728009496</updated>
     </task>
-    <task id="LOCAL-00208" summary="Weaker red in error message color">
+    <task id="LOCAL-00354" summary="Increase attachment view">
       <option name="closed" value="true" />
-      <created>1731524627915</created>
-      <option name="number" value="00208" />
-      <option name="presentableId" value="LOCAL-00208" />
+      <created>1732744797784</created>
+      <option name="number" value="00354" />
+      <option name="presentableId" value="LOCAL-00354" />
       <option name="project" value="LOCAL" />
-      <updated>1731524627915</updated>
+      <updated>1732744797784</updated>
     </task>
-    <task id="LOCAL-00209" summary="Align text in invitation message">
+    <task id="LOCAL-00355" summary="Select the correct opened message based off url param">
       <option name="closed" value="true" />
-      <created>1731524638241</created>
-      <option name="number" value="00209" />
-      <option name="presentableId" value="LOCAL-00209" />
+      <created>1732789649072</created>
+      <option name="number" value="00355" />
+      <option name="presentableId" value="LOCAL-00355" />
       <option name="project" value="LOCAL" />
-      <updated>1731524638241</updated>
+      <updated>1732789649072</updated>
     </task>
-    <task id="LOCAL-00210" summary="Show profile when contact header container is clicked">
+    <task id="LOCAL-00356" summary="Functional Messages component with pagination">
       <option name="closed" value="true" />
-      <created>1731524651269</created>
-      <option name="number" value="00210" />
-      <option name="presentableId" value="LOCAL-00210" />
+      <created>1732789868366</created>
+      <option name="number" value="00356" />
+      <option name="presentableId" value="LOCAL-00356" />
       <option name="project" value="LOCAL" />
-      <updated>1731524651269</updated>
+      <updated>1732789868367</updated>
     </task>
-    <task id="LOCAL-00211" summary="Restyle with weaker error message color">
+    <task id="LOCAL-00357" summary="Remove console log">
       <option name="closed" value="true" />
-      <created>1731524667901</created>
-      <option name="number" value="00211" />
-      <option name="presentableId" value="LOCAL-00211" />
+      <created>1732789878314</created>
+      <option name="number" value="00357" />
+      <option name="presentableId" value="LOCAL-00357" />
       <option name="project" value="LOCAL" />
-      <updated>1731524667901</updated>
+      <updated>1732789878314</updated>
     </task>
-    <option name="localTasksCounter" value="212" />
+    <option name="localTasksCounter" value="358" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Move GroupModal.tsx" />
-    <MESSAGE value="Add max width to groups-page" />
-    <MESSAGE value="center social login" />
-    <MESSAGE value="Functional auto focus to message input and image preview before sending" />
-    <MESSAGE value="Add styling for file preview" />
-    <MESSAGE value="Add file attachment to messages" />
-    <MESSAGE value="Remove border bottom that made the app look old-school" />
-    <MESSAGE value="If screen is small enough then only show groupmessage or groups list" />
-    <MESSAGE value="Remove border bottom to make the app look less old school" />
-    <MESSAGE value="Add specific routes to Main.tsx so if there is a groupId then it will display the correct component" />
-    <MESSAGE value="Reformat code" />
-    <MESSAGE value="If the screen is small enough then set wideScreen to false, where it will then only display Outlet or CurrentConversations" />
-    <MESSAGE value="Save fullname of user on login" />
-    <MESSAGE value="Make the width full in connections page class" />
-    <MESSAGE value="Minimize margin add margin bottom" />
-    <MESSAGE value="Instead of translate y-axis, scale up, slower transition" />
-    <MESSAGE value="Full width on no connections overlay, style text" />
-    <MESSAGE value="h2 -&gt; p" />
-    <MESSAGE value="Add groupname property to dynamically render group invitations" />
-    <MESSAGE value="transform with scaling in requests.css as well explicitly" />
-    <MESSAGE value="Smaller tweaks" />
-    <MESSAGE value="Weaker red in error message color" />
-    <MESSAGE value="Align text in invitation message" />
-    <MESSAGE value="Show profile when contact header container is clicked" />
-    <MESSAGE value="Restyle with weaker error message color" />
-    <option name="LAST_COMMIT_MESSAGE" value="Restyle with weaker error message color" />
+    <MESSAGE value="Add view profile component to Requests" />
+    <MESSAGE value="Add View profile component to view individual members in a group" />
+    <MESSAGE value="Add View Group Profile component to Messages component" />
+    <MESSAGE value="Create View Group Profile component" />
+    <MESSAGE value="Edit group member item styling" />
+    <MESSAGE value="Remove border radius on group attachment in group info" />
+    <MESSAGE value="Create group invitation message" />
+    <MESSAGE value="Border on image avatar" />
+    <MESSAGE value="Add styling for group invitation message" />
+    <MESSAGE value="Import group invitation message to Messages component" />
+    <MESSAGE value="Fix selected chat and opened message inconsistency" />
+    <MESSAGE value="Add view profile to viewGroupProfile" />
+    <MESSAGE value="Configuration of dark mode styling" />
+    <MESSAGE value="Fix dark mode toggling from local storage" />
+    <MESSAGE value="Small text on notifications" />
+    <MESSAGE value="Reduce padding on card container" />
+    <MESSAGE value="Style group attachment and member item" />
+    <MESSAGE value="Reduce padding in group card" />
+    <MESSAGE value="Group oversight -&gt; group info" />
+    <MESSAGE value="Correct classname for image attachment" />
+    <MESSAGE value="Gray text for no group application requests" />
+    <MESSAGE value="Increase attachment view" />
+    <MESSAGE value="Select the correct opened message based off url param" />
+    <MESSAGE value="Functional Messages component with pagination" />
+    <MESSAGE value="Remove console log" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove console log" />
   </component>
 </project>

@@ -107,7 +107,7 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
                     <ul className="viewprofile-list">
                         {userProfile.courses.map((course, index) => (
                             <li key={index}>
-                                <a href={course.courseLink} target="_blank" rel="noopener noreferrer">
+                                <a href={course.courseLink} className="text-blue-600 hover:font-bold" target="_blank" rel="noopener noreferrer">
                                     {course.courseName}
                                 </a>
                             </li>

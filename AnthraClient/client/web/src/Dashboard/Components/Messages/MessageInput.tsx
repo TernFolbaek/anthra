@@ -56,7 +56,7 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-            if (inputRef.current && !inputRef.current.contains(document.activeElement)) {
+            if (inputRef.current && document.activeElement !== inputRef.current && document.activeElement !== document.querySelector('.search-input')) {
                 inputRef.current.focus();
             }
             if (event.key === 'Enter') {
@@ -68,6 +68,7 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
             document.removeEventListener('keydown', handleKeyDown);
         };
     }, [messageInput]);
+
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
@@ -93,47 +94,46 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
 
     return (
         <>
-        {selectedFile && (
-            <div className="selected-file-preview">
-                {selectedImagePreview ? (
-                    <div className="image-preview-container">
-                        <img
-                            src={selectedImagePreview}
-                            alt="Selected"
-                            className="image-preview-attachment"
-                        />
-                        <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
-                    </div>
-                ) : (
-                    <div className="file-preview-container">
-                        <span>{selectedFile.name}</span>
-                        <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
-                    </div>
-                )}
+            {selectedFile && (
+                <div className="selected-file-preview">
+                    {selectedImagePreview ? (
+                        <div className="image-preview-container">
+                            <img
+                                src={selectedImagePreview}
+                                alt="Selected"
+                                className="image-preview-attachment"
+                            />
+                            <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
+                        </div>
+                    ) : (
+                        <div className="file-preview-container">
+                            <span>{selectedFile.name}</span>
+                            <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
+                        </div>
+                    )}
+                </div>
+            )}
+            <div className="message-input-container">
+                <FaPaperclip
+                    className="paperclip-icon"
+                    onClick={() => fileInputRef.current?.click()}
+                />
+                <input
+                    type="file"
+                    ref={fileInputRef}
+                    style={{ display: 'none' }}
+                    onChange={handleFileChange}
+                />
+                <input
+                    ref={inputRef}
+                    type="text"
+                    value={messageInput}
+                    onChange={(e) => setMessageInput(e.target.value)}
+                    placeholder="Aa"
+                    disabled={!userId}
+                />
+                <FaArrowRight onClick={sendMessage} className="send-icon" />
             </div>
-        )}
-        <div className="message-input-container">
-
-            <FaPaperclip
-                className="paperclip-icon"
-                onClick={() => fileInputRef.current?.click()}
-            />
-            <input
-                type="file"
-                ref={fileInputRef}
-                style={{ display: 'none' }}
-                onChange={handleFileChange}
-            />
-            <input
-                ref={inputRef}
-                type="text"
-                value={messageInput}
-                onChange={(e) => setMessageInput(e.target.value)}
-                placeholder="Aa"
-                disabled={!userId}
-            />
-            <FaArrowRight onClick={sendMessage} className="send-icon" />
-        </div>
         </>
     );
 };

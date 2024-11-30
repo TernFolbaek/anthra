@@ -84,49 +84,74 @@ namespace AnthraBackend.Controllers.Account
                 return StatusCode(500, new { Error = ex.Message });
             }
         }
-         [HttpPost("Register")]
-        public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
-        {
-            _logger.LogInformation("Register action called");
+    [HttpPost("Register")]
+public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
+{
+    _logger.LogInformation("Register action called");
 
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState.Values.SelectMany(v => v.Errors)
-                    .Select(e => e.ErrorMessage);
-                _logger.LogWarning("ModelState is invalid: {Errors}", string.Join("; ", errors));
-                return BadRequest(new { errors });
-            }
+    if (!ModelState.IsValid)
+    {
+        var errors = ModelState.Values.SelectMany(v => v.Errors)
+            .Select(e => e.ErrorMessage).ToArray();
+        _logger.LogWarning("ModelState is invalid: {Errors}", string.Join("; ", errors));
+        return BadRequest(new { errors });
+    }
 
-            var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
-            var result = await _userManager.CreateAsync(user, model.Password);
+    var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
+    var result = await _userManager.CreateAsync(user, model.Password);
 
-            if (result.Succeeded)
-            {
-                _logger.LogInformation("User created a new account with password.");
+    if (result.Succeeded)
+    {
+        _logger.LogInformation("User created a new account with password.");
 
-                // Generate email verification code
-                var verificationCode = new Random().Next(100000, 999999).ToString();
+        // Generate email verification code
+        var verificationCode = new Random().Next(100000, 999999).ToString();
 
-                // Store the code and its expiry
-                user.EmailVerificationCode = verificationCode;
-                user.EmailVerificationExpiry = DateTime.UtcNow.AddHours(1);
+        // Store the code and its expiry
+        user.EmailVerificationCode = verificationCode;
+        user.EmailVerificationExpiry = DateTime.UtcNow.AddHours(1);
 
-                await _userManager.UpdateAsync(user);
+        await _userManager.UpdateAsync(user);
 
-                // Send verification email
-                await SendVerificationEmail(user.Email, verificationCode);
+        // Send verification email
+        await SendVerificationEmail(user.Email, verificationCode);
 
-                return Ok(new { Message = "Registration successful. Verification code sent to email.", userId = user.Id });
-            }
+        return Ok(new { Message = "Registration successful. Verification code sent to email.", userId = user.Id });
+    }
 
-            foreach (var error in result.Errors)
-            {
-                _logger.LogWarning("Error creating user: {Code} - {Description}", error.Code, error.Description);
-                ModelState.AddModelError(error.Code, error.Description);
-            }
+    var errorMessages = result.Errors.Select(e => MapIdentityErrorCodeToMessage(e.Code)).ToArray();
+    _logger.LogWarning("Error creating user: {Errors}", string.Join("; ", errorMessages));
+    return BadRequest(new { errors = errorMessages });
+}
 
-            return BadRequest(ModelState);
-        }
+// Helper method to map Identity error codes to custom messages
+private string MapIdentityErrorCodeToMessage(string errorCode)
+{
+    switch (errorCode)
+    {
+        case "PasswordTooShort":
+            return "Password should container min. 6 characters, one uppercase letter, one digit & one special character ";
+        case "PasswordRequiresNonAlphanumeric":
+            return "Password should container min. 6 characters, one uppercase letter, one digit & one special character ";
+        case "PasswordRequiresDigit":
+            return "Password should container min. 6 characters, one uppercase letter, one digit & one special character ";
+        case "PasswordRequiresUpper":
+            return "Password should container min. 6 characters, one uppercase letter, one digit & one special character ";
+        case "PasswordRequiresLower":
+            return "Password should container min. 6 characters, one uppercase letter, one digit & one special character ";
+        case "DuplicateUserName":
+            return "Username is already taken.";
+        case "InvalidUserName":
+            return "Username is invalid.";
+        case "DuplicateEmail":
+            return "Email is already taken. Try logging in.";
+        case "InvalidEmail":
+            return "Email is invalid.";
+        default:
+            return "An error occurred during registration.";
+    }
+}
+
 
         private async Task SendVerificationEmail(string email, string verificationCode)
         {

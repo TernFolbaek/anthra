@@ -29,18 +29,18 @@ namespace MyBackendApp.Data
         {
             base.OnModelCreating(builder);
 
-            // Configure relationships if necessary
+
             builder.Entity<SkippedUserModel>()
                 .HasOne(su => su.User)
                 .WithMany()
                 .HasForeignKey(su => su.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<SkippedUserModel>()
                 .HasOne(su => su.SkippedUser)
                 .WithMany()
                 .HasForeignKey(su => su.SkippedUserId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
            
             builder.Entity<ApplicationUser>(b =>
             {

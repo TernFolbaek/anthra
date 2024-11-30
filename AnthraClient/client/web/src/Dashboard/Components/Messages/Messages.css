@@ -143,6 +143,7 @@ body.dark-mode .back-arrow:hover {
   border-radius: 5px;
   width: 250px;
   z-index: 1;
+  padding: 5px;
 }
 
 /* Dark mode styles */
@@ -159,6 +160,9 @@ body.dark-mode .messages-dropdown-menu {
   text-align: left;
   cursor: pointer;
   font-size: 0.8rem;
+}
+.messages-dropdown-menu button:hover {
+  cursor: pointer;
 }
 
 /* Dark mode styles */

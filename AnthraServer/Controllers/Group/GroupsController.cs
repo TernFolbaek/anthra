@@ -290,6 +290,26 @@ public class GroupsController : ControllerBase
         return Ok();
     }
     
+    [HttpPost("LeaveGroup")]
+    [Authorize]
+    public async Task<IActionResult> LeaveGroup([FromBody] LeaveGroupModel model)
+    {
+        var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        var groupMember = await _context.GroupMembers
+            .FirstOrDefaultAsync(gm => gm.GroupId == model.GroupId && gm.UserId == currentUserId);
+
+        if (groupMember == null)
+        {
+            return NotFound("You are not a member of this group.");
+        }
+
+        _context.GroupMembers.Remove(groupMember);
+        await _context.SaveChangesAsync();
+
+        return Ok();
+    }
+    
     [HttpPost("KickMember")]
     [Authorize]
     public async Task<IActionResult> KickMember([FromBody] KickMemberModel model)

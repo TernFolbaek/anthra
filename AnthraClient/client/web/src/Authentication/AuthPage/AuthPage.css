@@ -8,6 +8,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    overflow: hidden;
 }
 
 .auth-container {
@@ -15,11 +16,11 @@
     padding: 2rem;
     border-radius: 8px;
     width: 90%;
-    max-width: 400px;
+    width: 400px;
     text-align: center;
     animation: fade-in 1s forwards;
     position: absolute;
-    top: 400px;
+    top: 40%;
     z-index: 2;
 }
 
@@ -91,6 +92,7 @@
     cursor: pointer;
     font-weight: 600;
     font-size: 1rem;
+    z-index: 4;
 }
 
 .auth-container-p {
@@ -100,11 +102,8 @@
 }
 
 .teddy-bear-rive{
-    width: 400px;
-    height: 400px;
     position: relative;
     z-index: 1;
-    margin-bottom: 500px;
     border-radius: 10px;
 }
 

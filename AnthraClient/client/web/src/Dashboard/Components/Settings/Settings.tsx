@@ -29,21 +29,21 @@ const Settings: React.FC = () => {
                     onClick={() => setActiveTab('profile')}
                 >
                     <FaUser size={24} />
-                    <span>Help</span>
+                    <span className="text-gray-700 font-bold">Help</span>
                 </div>
                 <div
                     className={`settings-tab ${activeTab === 'advanced' ? 'active' : ''}`}
                     onClick={() => setActiveTab('advanced')}
                 >
                     <FaSlidersH size={24} />
-                    <span>Advanced</span>
+                    <span className="text-gray-700 font-bold">Advanced</span>
                 </div>
                 <div
                     className={`settings-tab-right settings-tab ${activeTab === 'configuration' ? 'active' : ''}`}
                     onClick={() => setActiveTab('configuration')}
                 >
                     <FaCog size={24} />
-                    <span>Configuration</span>
+                    <span className="text-gray-700 font-bold">Configuration</span>
                 </div>
             </div>
             <div className="settings-content">{renderContent()}</div>

@@ -890,13 +890,13 @@ namespace AnthraBackend.Migrations
                     b.HasOne("MyBackendApp.Models.ApplicationUser", "SkippedUser")
                         .WithMany()
                         .HasForeignKey("SkippedUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MyBackendApp.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("SkippedUser");

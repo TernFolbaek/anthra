@@ -4,7 +4,7 @@ import * as signalR from '@microsoft/signalr';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import MessageConnectionProfile from './MessageConnectionProfile/MessageConnectionProfile';
-import { FaEllipsisV, FaArrowLeft } from 'react-icons/fa';
+import {FaEllipsisV, FaArrowLeft, FaUserMinus, FaInfo} from 'react-icons/fa';
 import MessageInput from "./MessageInput";
 import ViewGroupProfile from "../ViewGroupProfile/ViewGroupProfile";
 import GroupInvitationMessage from "./GroupInvitationMessage";
@@ -40,7 +40,7 @@ const Messages: React.FC = () => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
-    const messagesContainerRef = useRef<HTMLDivElement>(null); // Ref for the messages container
+    const messagesContainerRef = useRef<HTMLDivElement>(null);
     const token = localStorage.getItem('token');
     const [contactProfile, setContactProfile] = useState<UserProfile | null>(null);
     const [showProfile, setShowProfile] = useState(false);
@@ -81,6 +81,7 @@ const Messages: React.FC = () => {
                     if (data.length > 0) {
                         navigate(`/messages/${data[0].userId}`);
                     } else {
+                        setMessages([])
                         console.warn('No conversations found.');
                     }
                 })
@@ -109,6 +110,7 @@ const Messages: React.FC = () => {
 
                 const data = await response.json();
                 setMessages(data.messages);
+                console.log(data.messages);
                 setNextTokenValue(data.nextToken);
                 console.log(`Fetched ${data.messages.length} messages. NextToken: ${data.nextToken}`);
 
@@ -422,8 +424,8 @@ const Messages: React.FC = () => {
                                 className="contact-avatar"
                             />
                             <span className="contact-name">
-                                {contactProfile.firstName} {contactProfile.lastName}
-                            </span>
+                            {contactProfile.firstName} {contactProfile.lastName}
+                        </span>
                         </div>
                         <div className="menu-container" ref={dropdownRef}>
                             <div
@@ -435,11 +437,17 @@ const Messages: React.FC = () => {
                             >
                                 {showMenu && (
                                     <div className="messages-dropdown-menu">
-                                        <button onClick={handleRemoveConnection}>
-                                            Remove Connection
+                                        <button className="flex items-center gap-2 font-bold text-gray-500 text-sm" onClick={handleRemoveConnection}>
+                                            <FaUserMinus/>
+                                            <div>
+                                                Remove Connection
+                                            </div>
                                         </button>
-                                        <button onClick={handleToggleProfileVisibility}>
-                                            {showProfile ? 'Hide Profile' : 'Show Profile'}
+                                        <button className="flex gap-2 items-center font-bold text-gray-500 text-sm" onClick={handleToggleProfileVisibility}>
+                                            <FaInfo/>
+                                            <div>
+                                                {showProfile ? 'Hide Profile' : 'Show Profile'}
+                                            </div>
                                         </button>
                                     </div>
                                 )}
@@ -448,16 +456,15 @@ const Messages: React.FC = () => {
                         </div>
                     </div>
                 )}
-                <div
-                    className="messages-container"
-                    ref={messagesContainerRef} // Attach the ref to the container
-                >
+                <div className="messages-container" ref={messagesContainerRef}>
                     {isMobile && showProfile ? (
                         <MessageConnectionProfile userId={userId!} />
                     ) : (
                         <>
                             {messages.length === 0 ? (
-                                <></>
+                                <div className="h-full w-full flex items-center justify-center">
+                                    <p className="text-gray-500 text-base font-bold">No Messages</p>
+                                </div>
                             ) : (
                                 messages.map((msg, index) => {
                                     const isLastMessage = index === messages.length - 1;
@@ -481,11 +488,10 @@ const Messages: React.FC = () => {
                                                         isCurrentUser ? 'sent' : 'received'
                                                     } ${isLastMessage ? 'last-message' : ''}`}
                                                 >
-                                                    {/* Display attachments if any */}
                                                     {msg.attachments &&
                                                         msg.attachments.map((attachment) => (
                                                             <div
-                                                                key={`${attachment.id}-${msg.id}`} // Ensure unique key
+                                                                key={`${attachment.id}-${msg.id}`}
                                                                 className="message-attachment"
                                                             >
                                                                 {attachment.fileName
@@ -509,14 +515,14 @@ const Messages: React.FC = () => {
                                                                         rel="noopener noreferrer"
                                                                     >
                                                                         <div className="attachment-preview">
-                                                                            <span className="attachment-filename">
-                                                                                {attachment.fileName.length > 10
-                                                                                    ? `${attachment.fileName.substring(
-                                                                                        0,
-                                                                                        10
-                                                                                    )}...`
-                                                                                    : attachment.fileName}
-                                                                            </span>
+                                                                        <span className="attachment-filename">
+                                                                            {attachment.fileName.length > 10
+                                                                                ? `${attachment.fileName.substring(
+                                                                                    0,
+                                                                                    10
+                                                                                )}...`
+                                                                                : attachment.fileName}
+                                                                        </span>
                                                                         </div>
                                                                     </a>
                                                                 )}
@@ -544,10 +550,8 @@ const Messages: React.FC = () => {
                         </>
                     )}
                 </div>
-                {(!isMobile || !showProfile) && (
-                    <>
-                        <MessageInput userId={userId} />
-                    </>
+                {messages.length > 0 && (!isMobile || !showProfile) && (
+                    <MessageInput userId={userId} />
                 )}
                 {selectedGroupId && (
                     <ViewGroupProfile groupId={selectedGroupId} onClose={handleCloseGroupProfile} />
@@ -558,6 +562,7 @@ const Messages: React.FC = () => {
             )}
         </div>
     );
+
 };
 
 export default Messages;

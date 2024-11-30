@@ -153,34 +153,64 @@ body.dark-mode .connection-name {
     color: #fff;
 }
 
-.menu-button {
+.connections-options-menu{
+    position: absolute;
+    right: 0;
+    top: 25px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 250px;
+    z-index: 1;
+    padding: 5px;
+}
+body.dark-mode .connections-options-menu {
+    background-color: #2e2e2e;
+    border: 1px solid #444;
+}
+.connections-options-menu button {
+    width: 100%;
+    padding: 10px;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+body.dark-mode .connections-options-menu button {
+    color: #fff;
+}
+
+/* Dark mode styles */
+body.dark-mode .connections-options-menu button:hover {
+    background-color: #444;
+}
+
+.connections-options-menu button:hover {
+    background-color: #f1f1f1;
+}
+
+
+.connections-menu-button {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 24px;
     outline: none;
+    padding: 6px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
 }
 
-.menu-icon {
-    font-size: 24px;
-}
-
-.connections-menu-icon {
-    font-size: 24px;
-    padding:  0px 8px;
-    border-radius: 15%;
-}
-
-.connections-menu-icon:hover {
+.connections-menu-button:hover {
     background-color: #e3e2e2;
 }
 
-
-body.dark-mode .connections-menu-icon {
+body.dark-mode .connections-menu-button {
     color: white;
 }
 
-body.dark-mode .connections-menu-icon:hover {
+body.dark-mode .connections-menu-button:hover {
     background-color: #555;
 }
 

@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import './Connections.css';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import NoConnectionsRive from "../../Helpers/Animations/NoConnections";
-import ViewProfile from '../ViewProfile/ViewProfile'
+import ViewProfile from '../ViewProfile/ViewProfile';
+import { FaEllipsisV, FaUserMinus, FaVolumeMute } from 'react-icons/fa';
 
 interface ApplicationUser {
     id: string;
@@ -31,12 +32,44 @@ const Connections: React.FC = () => {
     const userId = localStorage.getItem('userId');
 
     const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+    const [openMenuConnectionId, setOpenMenuConnectionId] = useState<string | null>(null); // Menu state
+    const menuRef = useRef<HTMLDivElement | null>(null); // Ref for the open menu
+
     const handleUserClick = (userId: string) => {
         setSelectedUserId(userId);
     };
 
     const handleCloseProfile = () => {
         setSelectedUserId(null);
+    };
+
+    const handleMute = (userId: string) => {
+        // Implement mute functionality here
+        console.log(`Mute user ${userId}`);
+        setOpenMenuConnectionId(null);
+    };
+
+    const handleRemoveConnection = async (connectionId: string) => {
+        try {
+            await axios.post(
+                'http://localhost:5001/api/Connections/Remove',
+                { userId: connectionId, currentUserId: userId },
+                {
+                    withCredentials: true,
+                }
+            );
+            // Update the connections lists after removal
+            setUsersWithConversations(
+                usersWithConversations.filter((user) => user.id !== connectionId)
+            );
+            setUsersWithoutConversations(
+                usersWithoutConversations.filter((user) => user.id !== connectionId)
+            );
+            setOpenMenuConnectionId(null);
+        } catch (error) {
+            console.error('Error removing connection:', error);
+            alert('Failed to remove the connection. Please try again later.');
+        }
     };
 
     useEffect(() => {
@@ -78,6 +111,24 @@ const Connections: React.FC = () => {
         fetchData();
     }, [userId]);
 
+    // Handle clicks outside the menu to close it
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                openMenuConnectionId !== null &&
+                menuRef.current &&
+                !menuRef.current.contains(event.target as Node)
+            ) {
+                setOpenMenuConnectionId(null);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [openMenuConnectionId]);
 
     if (loading) {
         return <div className="connections-loading">Loading connections...</div>;
@@ -91,7 +142,7 @@ const Connections: React.FC = () => {
         <div className="connections-page">
             {usersWithConversations.length === 0 && usersWithoutConversations.length === 0 ? (
                 <div className="connections-container">
-                    <NoConnectionsRive/>
+                    <NoConnectionsRive />
                 </div>
             ) : (
                 <>
@@ -118,10 +169,35 @@ const Connections: React.FC = () => {
                                             />
                                             <span className="connection-name">{user.firstName}</span>
                                         </div>
-                                        <div className="connection-menu">
-                                            <button className="menu-button">
-                                                <span className="connections-menu-icon">⋮</span>
+                                        <div className="connections-menu-button">
+                                            <button
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    setOpenMenuConnectionId(
+                                                        openMenuConnectionId === user.id ? null : user.id
+                                                    );
+                                                }}
+                                            >
+                                                <FaEllipsisV />
                                             </button>
+                                            {openMenuConnectionId === user.id && (
+                                                <div
+                                                    className="connections-options-menu"
+                                                    ref={menuRef}
+                                                    onClick={(e) => e.stopPropagation()}
+                                                >
+                                                    <button className="flex items-center gap-2 text-sm font-bold text-gray-500" onClick={() => handleMute(user.id)}>
+                                                        <FaVolumeMute/>
+                                                        <div>Mute</div>
+                                                    </button>
+                                                    <button className="flex items-center gap-2 text-sm font-bold text-gray-500" onClick={() => handleRemoveConnection(user.id)}>
+                                                        <FaUserMinus/>
+                                                        <div>
+                                                            Remove Connection
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            )}
                                         </div>
                                     </li>
                                 ))}
@@ -134,12 +210,16 @@ const Connections: React.FC = () => {
                         <h2 className="connections-title">New Connections</h2>
                         {usersWithoutConversations.length === 0 ? (
                             <div className="connections-list">
-                                <NoConnectionsRive/>
+                                <NoConnectionsRive />
                             </div>
                         ) : (
                             <ul className="connections-list">
                                 {usersWithoutConversations.map((user) => (
-                                    <li key={user.id} className="connection-item" onClick={() => handleUserClick(user.id)}>
+                                    <li
+                                        key={user.id}
+                                        className="connection-item"
+                                        onClick={() => handleUserClick(user.id)}
+                                    >
                                         <div className="connection-info">
                                             <img
                                                 src={`${user.profilePictureUrl}`}
@@ -150,14 +230,47 @@ const Connections: React.FC = () => {
                                         </div>
                                         <button
                                             className="message-button"
-                                            onClick={() => navigate(`/messages/${user.id}`)}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                navigate(`/messages/${user.id}`);
+                                            }}
                                         >
                                             Message
                                         </button>
-                                        <div className="connection-menu">
-                                            <button className="menu-button">
-                                                <span className="connections-menu-icon">⋮</span>
+                                        <div>
+                                            <button
+                                                className="connections-menu-button"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    setOpenMenuConnectionId(
+                                                        openMenuConnectionId === user.id ? null : user.id
+                                                    );
+                                                }}
+                                            >
+                                                <FaEllipsisV/>
                                             </button>
+                                            {openMenuConnectionId === user.id && (
+                                                <div
+                                                    className="connections-options-menu"
+                                                    ref={menuRef}
+                                                    onClick={(e) => e.stopPropagation()}
+                                                >
+                                                    <button
+                                                        className="flex items-center gap-2 text-sm font-bold text-gray-500"
+                                                        onClick={() => handleMute(user.id)}>
+                                                        <FaVolumeMute/>
+                                                        <div>Mute</div>
+                                                    </button>
+                                                    <button
+                                                        className="flex items-center gap-2 text-sm font-bold text-gray-500"
+                                                        onClick={() => handleRemoveConnection(user.id)}>
+                                                        <FaUserMinus/>
+                                                        <div>
+                                                            Remove Connection
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            )}
                                         </div>
                                     </li>
                                 ))}

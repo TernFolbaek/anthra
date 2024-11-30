@@ -2,7 +2,7 @@ import React from "react";
 import {useRive} from "@rive-app/react-canvas";
 
 const NoGroups: React.FC = () => {
-    const { rive, RiveComponent } = useRive({
+    const { RiveComponent } = useRive({
         src: '/rive/no_connections.riv',
         autoplay: true,
     });

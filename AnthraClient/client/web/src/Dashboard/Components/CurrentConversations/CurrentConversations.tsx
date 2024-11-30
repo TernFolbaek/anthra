@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {useLocation, useNavigate} from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './CurrentConversations.css';
 import CardContainer from '../CardContainer/CardContainer';
 import NoConversationsRive from "../../Helpers/Animations/NoConversations";
@@ -8,6 +8,7 @@ interface Conversation {
     userId: string;
     userName: string;
     firstName: string;
+    lastName: string;
     userProfilePicture: string;
     lastMessageContent: string;
     lastMessageTimestamp: string;
@@ -18,6 +19,7 @@ const CurrentConversations: React.FC = React.memo(() => {
     const [conversations, setConversations] = useState<Conversation[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [searchQuery, setSearchQuery] = useState<string>('');  // State for the search query
     const currentUserId = localStorage.getItem('userId');
     const navigate = useNavigate();
     const location = useLocation();
@@ -26,7 +28,6 @@ const CurrentConversations: React.FC = React.memo(() => {
     const selectedConversationId = pathMatch ? pathMatch[1] : null;
 
     useEffect(() => {
-        console.log(selectedConversationId);
         if (!currentUserId) {
             console.error('User ID not found in localStorage.');
             setError('User ID not found.');
@@ -46,7 +47,6 @@ const CurrentConversations: React.FC = React.memo(() => {
             .then((data) => {
                 setConversations(data);
                 setLoading(false);
-
             })
             .catch((error) => {
                 console.error('Error fetching conversations:', error);
@@ -54,6 +54,12 @@ const CurrentConversations: React.FC = React.memo(() => {
                 setLoading(false);
             });
     }, [currentUserId]);
+
+    // Filter conversations based on the search query
+    const filteredConversations = conversations.filter((conv) => {
+        const fullName = `${conv.firstName} ${conv.lastName}`.toLowerCase();
+        return fullName.includes(searchQuery.toLowerCase());
+    });
 
     if (loading) {
         return <div className="conversations-loading">Loading conversations...</div>;
@@ -64,19 +70,29 @@ const CurrentConversations: React.FC = React.memo(() => {
     }
 
     return (
-        <CardContainer title="Chats">
-            {conversations.length === 0 ? (
-               <NoConversationsRive />
+        <CardContainer title="Messages">
+            {/* Search Input */}
+            <div className="search-container">
+                <input
+                    type="text"
+                    placeholder="Search Conversations"
+                    className="search-input"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
+            </div>
+
+            {filteredConversations.length === 0 ? (
+                <NoConversationsRive />
             ) : (
                 <ul className="conversations-list">
-                    {conversations.map((conv) => (
+                    {filteredConversations.map((conv) => (
                         <li
                             key={conv.userId}
                             className={`conversation-item ${
                                 selectedConversationId === conv.userId ? 'selected' : ''
                             }`}
                             onClick={() => {
-                                console.log('click', conv.userId);
                                 navigate(`/messages/${conv.userId}`);
                             }}
                         >
@@ -86,7 +102,7 @@ const CurrentConversations: React.FC = React.memo(() => {
                                 className="conversation-profile-picture"
                             />
                             <div className="conversation-details">
-                                <h3>{conv.firstName}</h3>
+                                <h3>{conv.firstName} {conv.lastName}</h3>
                                 <p className="last-message">
                                     {conv.lastMessageContent.length > 15
                                         ? `${conv.lastMessageContent.substring(0, 10)}...`

@@ -74,7 +74,7 @@ const HelpSettings: React.FC = () => {
                 },
             });
             localStorage.removeItem('token');
-            navigate('/login');
+            navigate('/');
         } catch (error) {
             console.error('Error deleting account:', error);
             alert('An error occurred while deleting your account.');
@@ -140,12 +140,13 @@ const HelpSettings: React.FC = () => {
                             placeholder="Your answer"
                         />
                         <div className="modal-actions">
-                            <button className="confirm-delete-button" onClick={handleDeleteAccount}>
-                                Delete
-                            </button>
                             <button className="delete-account-cancel-button" onClick={closeDeleteModal}>
                                 Cancel
                             </button>
+                            <button className="confirm-delete-button" onClick={handleDeleteAccount}>
+                                Delete
+                            </button>
+
                         </div>
                     </div>
                 </div>

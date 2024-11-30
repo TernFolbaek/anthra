@@ -118,7 +118,7 @@ const Groups: React.FC = () => {
                             ) : (
                                 isWideScreen && (
                                     <div className="no-group-selected">
-                                        <p className="text-center">Please select a group to view messages</p>
+                                        <p className="text-base text-gray-500 font-bold">Please select a group to view messages</p>
                                     </div>
                                 )
                             )}

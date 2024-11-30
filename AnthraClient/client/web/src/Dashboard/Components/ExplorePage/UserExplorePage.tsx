@@ -141,7 +141,7 @@ const UserExplorePage: React.FC = () => {
                             Connect
                         </button>
                         <button className="connect-button" onClick={handleConnect}>
-                            Refer to Connection
+                            Refer
                         </button>
                         <button className="skip-button" onClick={handleSkip}>
                             Skip

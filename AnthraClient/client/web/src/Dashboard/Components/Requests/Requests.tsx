@@ -206,7 +206,7 @@ const Requests: React.FC = () => {
                                 </button>
                                 <button
                                     className="requests-skip-button"
-                                    onClick={() => handleDecline(request.id)}
+                                    onClick={(e) =>{e.stopPropagation(); handleDecline(request.id)}}
                                 >
                                     Decline
                                 </button>
@@ -227,7 +227,6 @@ const Requests: React.FC = () => {
                             <h3 className="requests-group-name">{group.groupName}</h3>
                             {group.applications.map((application) => (
                                 <div key={application.requestId} className="requests-user-card">
-                                    {/* **Add onClick handler to user info** */}
                                     <div className="requests-user-info" onClick={() => handleUserClick(application.applicantId)}>
                                         <img
                                             className="requests-user-card-img"

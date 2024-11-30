@@ -1,9 +1,11 @@
 // Components/GroupsList/GroupsList.tsx
-import React, {useState, useEffect} from 'react';
-import {FaPlusCircle} from "react-icons/fa";
-import NoGroups from '../../../Helpers/Animations/NoGroups'
+import React, { useState, useEffect, useRef } from 'react';
+import {FaInfo} from 'react-icons/fa';
+import axios from 'axios';
+import NoGroups from '../../../Helpers/Animations/NoGroups';
 import CardContainer from '../../CardContainer/CardContainer';
 import './GroupsList.css';
+import { MdGroupAdd, MdExitToApp} from 'react-icons/md';
 
 interface GroupMember {
     userId: string;
@@ -25,38 +27,102 @@ interface GroupsListProps {
     selectedGroupId: number | null;
 }
 
-const GroupsList: React.FC<GroupsListProps> = ({groups, onGroupClick, onCreateGroup, selectedGroupId}) => {
+const GroupsList: React.FC<GroupsListProps> = ({
+                                                   groups,
+                                                   onGroupClick,
+                                                   onCreateGroup,
+                                                   selectedGroupId,
+                                               }) => {
     const [openMenuGroupId, setOpenMenuGroupId] = useState<number | null>(null);
+    const [searchQuery, setSearchQuery] = useState<string>(''); // Search query state
+    const token = localStorage.getItem('token');
+    const menuRef = useRef<HTMLDivElement | null>(null); // Ref for the open menu
 
     const handleGroupClick = (groupId: number) => {
         onGroupClick(groupId);
     };
 
-    const handleLeaveGroup = (groupId: number) => {
-        // Implement the logic to leave the group
-        console.log(`Leave group ${groupId}`);
-        setOpenMenuGroupId(null);
+    const handleLeaveGroup = async (groupId: number) => {
+        try {
+            await axios.post(
+                'http://localhost:5001/api/Groups/LeaveGroup',
+                { groupId },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            console.log(`Successfully left group ${groupId}`);
+            setOpenMenuGroupId(null);
+
+            // Optionally, you can refresh the groups list by notifying the parent component.
+            // Since 'groups' is a prop, you can't modify it directly here.
+            // You might consider calling a function passed from the parent to refresh the groups.
+        } catch (error) {
+            console.error('Error leaving group:', error);
+            alert('Failed to leave the group. Please try again later.');
+        }
     };
 
     const handleGroupOversight = (groupId: number) => {
-        // Implement the logic to navigate to the group oversight page
-        console.log(`Group oversight for group ${groupId}`);
+        // Navigate to the group oversight page or open group info
+        onGroupClick(groupId); // Assuming this opens the group profile
         setOpenMenuGroupId(null);
     };
 
+    // Filter groups based on the search query
+    const filteredGroups = groups.filter((group) =>
+        group.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    // Effect to handle clicks outside the menu
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                menuRef.current &&
+                !menuRef.current.contains(event.target as Node)
+            ) {
+                setOpenMenuGroupId(null);
+            }
+        };
+
+        if (openMenuGroupId !== null) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+
+        // Cleanup function
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [openMenuGroupId]);
+
     return (
         <CardContainer title="Groups">
-            <button className="create-group-button" onClick={onCreateGroup}>
-                <div className="flex items-center justify-center gap-2">
-                    <FaPlusCircle/> Create Group
+            {/* Search Input */}
+            <div className="ml-[10px] search-container-groups flex gap-2">
+                <div className="create-group-button flex items-center justify-center gap-2" onClick={onCreateGroup}>
+                    <MdGroupAdd/>
                 </div>
-            </button>
-            {groups.length === 0 ? (
+                <input
+                    type="text"
+                    placeholder="Search Groups"
+                    className="search-input-groups"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
+            </div>
+
+            {filteredGroups.length === 0 ? (
                 <NoGroups/>
             ) : (
-                groups.map((group) => (
+                filteredGroups.map((group) => (
                     <div
-                        className={`group-card ${selectedGroupId === group.id ? 'group-card-selected' : ''}`}
+                        className={`group-card ${
+                            selectedGroupId === group.id ? 'group-card-selected' : ''
+                        }`}
                         key={group.id}
                         onClick={() => handleGroupClick(group.id)}
                     >
@@ -66,7 +132,9 @@ const GroupsList: React.FC<GroupsListProps> = ({groups, onGroupClick, onCreateGr
                                 className="group-options-button"
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    setOpenMenuGroupId(openMenuGroupId === group.id ? null : group.id);
+                                    setOpenMenuGroupId(
+                                        openMenuGroupId === group.id ? null : group.id
+                                    );
                                 }}
                             >
                                 ⋯
@@ -74,19 +142,25 @@ const GroupsList: React.FC<GroupsListProps> = ({groups, onGroupClick, onCreateGr
                             {openMenuGroupId === group.id && (
                                 <div
                                     className="group-options-menu"
+                                    ref={menuRef}
                                     onClick={(e) => e.stopPropagation()}
                                 >
-                                    <button onClick={() => handleLeaveGroup(group.id)}>
+                                    <button className="flex items-center gap-2 font-bold text-sm text-gray-500" onClick={() => handleLeaveGroup(group.id)}>
+                                        <MdExitToApp/>
                                         Leave Group
                                     </button>
-                                    <button onClick={() => handleGroupOversight(group.id)}>
-                                        Group Info
+                                    <button className="flex items-center gap-2 font-bold text-sm text-gray-500" onClick={() => handleGroupOversight(group.id)}>
+                                        <FaInfo/>
+                                        <div>
+                                            Group Info
+                                        </div>
                                     </button>
                                 </div>
                             )}
                         </div>
                     </div>
-                )))}
+                ))
+            )}
         </CardContainer>
     );
 };

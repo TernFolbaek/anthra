@@ -1,14 +1,14 @@
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using MyBackendApp.Data;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using MyBackendApp.Data;
 using MyBackendApp.Hubs;
 using MyBackendApp.Models;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,64 +19,68 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Add signalR
+// Add SignalR
 builder.Services.AddSignalR();
+
+// Configure Identity with options
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    options.User.RequireUniqueEmail = true; 
+})
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
 
 // Configure JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var key = Encoding.ASCII.GetBytes(jwtSettings["Secret"]);
 
-// Configure Identity
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
-
 builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+// JWT Bearer Authentication
+.AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false; // Set to true in production
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
     {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(options =>
-    {
-        options.RequireHttpsMetadata = false; // Set to true in production
-        options.SaveToken = true;
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtSettings["Issuer"],
-            ValidAudience = jwtSettings["Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(key)
-        };
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(key)
+    };
 
-        // Add this block to read access tokens from the query string
-        options.Events = new JwtBearerEvents
+    // Configure SignalR authentication
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
         {
-            OnMessageReceived = context =>
+            var accessToken = context.Request.Query["access_token"];
+
+            // If the request is for our hubs...
+            var path = context.HttpContext.Request.Path;
+            if (!string.IsNullOrEmpty(accessToken) &&
+                (path.StartsWithSegments("/chatHub")
+                 || path.StartsWithSegments("/notificationHub")))
             {
-                var accessToken = context.Request.Query["access_token"];
-
-                // If the request is for our hub...
-                var path = context.HttpContext.Request.Path;
-                if (!string.IsNullOrEmpty(accessToken) &&
-                    (path.StartsWithSegments("/chatHub")
-                     || (path.StartsWithSegments("/notificationHub"))))
-                {
-                    // Read the token out of the query string
-                    context.Token = accessToken;
-                }
-                return Task.CompletedTask;
+                // Read the token out of the query string
+                context.Token = accessToken;
             }
-        };
-    })
-    .AddGoogle(options =>
-    {
-        options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-    });
+            return Task.CompletedTask;
+        }
+    };
+})
+// Google Authentication
+.AddGoogle(options =>
+{
+    options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+    options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+});
 
-//create env file
 // Configure CORS
 builder.Services.AddCors(options =>
 {
@@ -94,10 +98,11 @@ builder.Services.AddCors(options =>
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.HttpOnly = true;
-    options.Cookie.SameSite = SameSiteMode.Unspecified; // Allows cross-site cookie over HTTP
+    options.Cookie.SameSite = SameSiteMode.Unspecified; // Allows cross-site cookies over HTTP
     options.Cookie.SecurePolicy = CookieSecurePolicy.None; // Allow cookies over HTTP
 });
 
+// Configure JSON options
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -106,7 +111,6 @@ builder.Services.AddControllers()
 
 var app = builder.Build();
 
-
 // Apply migrations (if needed)
 using (var scope = app.Services.CreateScope())
 {
@@ -114,20 +118,17 @@ using (var scope = app.Services.CreateScope())
     db.Database.Migrate();
 }
 
-// Configure the HTTP request pipeline.
-// Remove HTTPS redirection since we're using HTTP
-// app.UseHttpsRedirection();
-
+// Configure the HTTP request pipeline
 app.UseCors("AllowSpecificOrigin");
 
 app.UseExceptionHandler(a => a.Run(async context =>
 {
-    var exception = context.Features.Get<IExceptionHandlerPathFeature>().Error;
+    var exception = context.Features.Get<IExceptionHandlerPathFeature>()?.Error;
     var result = JsonSerializer.Serialize(new
     {
-        error = exception.Message,
-        stackTrace = exception.StackTrace // Include stack trace
-    });    
+        error = exception?.Message,
+        stackTrace = exception?.StackTrace // Include stack trace
+    });
     context.Response.ContentType = "application/json";
     context.Response.StatusCode = 500;
     await context.Response.WriteAsync(result);

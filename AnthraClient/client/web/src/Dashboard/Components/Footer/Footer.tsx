@@ -7,7 +7,7 @@ import {
     FaEnvelope,
     FaCog,
     FaBars,
-    FaTimes,
+    FaTimes, FaUser, FaHandHoldingHeart, FaUsers,
 } from 'react-icons/fa'; // Import FaTimes for close icon
 import './Footer.css';
 
@@ -53,21 +53,27 @@ const Footer: React.FC = () => {
                 <div className="footer-menu-overlay" onClick={closeMenu}>
                     <div className="footer-menu" onClick={(e) => e.stopPropagation()}>
                         <button className="close-button" onClick={closeMenu}>
-                            <FaTimes />
+                            <FaTimes size={20}/>
                         </button>
                         {/* Render additional links here */}
                         <NavLink to="/requests" onClick={closeMenu}>
-                            Requests
+                            <div className="flex gap-2 items-center">
+                                <FaHandHoldingHeart/> Requests
+                            </div>
                         </NavLink>
                         <NavLink to="/profile" onClick={closeMenu}>
-                            Your Profile
+                        <div className="flex gap-2 items-center">
+                                <FaUser/> Profile
+                            </div>
                         </NavLink>
                         <NavLink to="/groups" onClick={closeMenu}>
-                            Groups
+                            <div className="flex gap-2 items-center">
+                                <FaUsers/> Groups
+                            </div>
                         </NavLink>
                     </div>
                 </div>
-            )}
+                )}
         </div>
     );
 };

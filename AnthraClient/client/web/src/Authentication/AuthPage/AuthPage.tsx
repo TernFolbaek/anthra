@@ -84,8 +84,17 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
         setIsSignUp(false);
     };
 
+    const validateUsername = (username: string): boolean => {
+        return username.length >= 5;
+    };
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (!validateUsername(username)) {
+            setError("Username must be at least 5 characters long.");
+            return;
+        }
 
         const endpoint = isSignUp
             ? 'http://localhost:5001/api/Auth/Register'
@@ -122,24 +131,23 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                 triggerSuccess();
                 onAuthSuccess(userProfile.createdProfile);
             }
-        } catch (err: any) {
-            triggerFail();
-            if (err.response && err.response.data) {
-                const errorData = err.response.data;
-                if (errorData === 'Email not verified.') {
-                    setError('Please verify your email before logging in.');
-                } else {
-                    setError(
-                        errorData.Message ||
-                        Object.values(errorData.errors || {}).join(' ') ||
-                        'An error occurred'
-                    );
-                }
+        }  catch (err: any) {
+        triggerFail();
+        if (axios.isAxiosError(err) && err.response) {
+            const errorData = err.response.data;
+
+            if (errorData === 'Email not verified.') {
+                setError('Please verify your email before logging in.');
+            } else if (errorData.errors) {
+                setError(errorData.errors[0]);
             } else {
                 setError('An error occurred. Please try again.');
             }
-            setMessage(null);
+        } else {
+            setError('An error occurred. Please try again.');
         }
+        setMessage(null);
+    }
     };
 
     const handleEmailVerified = () => {
@@ -233,68 +241,70 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                 Back
             </button>
             <div>
-                <RiveComponent className="teddy-bear-rive" />
-            </div>
-            <div className="auth-container">
-                <h2 className="auth-container-h2">{isSignUp ? 'Sign Up' : 'Log In'}</h2>
-
-                {message && <p className="success-message">{message}</p>}
-                {error && <p className="error-message">{error}</p>}
-
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        placeholder="Username"
-                        required
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                    {isSignUp && (
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            required
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    )}
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        required
-                        value={password}
-                        onChange={(e) => {
-                            setPassword(e.target.value);
-                            setHangUp(true);
-                        }}
-                    />
-                    <button type="submit" className="submit-button">
-                        {isSignUp ? 'Sign Up' : 'Log In'}
-                    </button>
-                    {!isSignUp && (
-                        <p className="auth-container-p">
-                            <button
-                                className="forgot-password-button"
-                                onClick={() => setShowForgotPassword(true)}
-                            >
-                                Forgot Password?
-                            </button>
-                        </p>
-                    )}
-                </form>
-                <div className="social-login">
-                    <GoogleLogin
-                        onSuccess={handleGoogleSuccess}
-                        onError={handleGoogleFailure}
-                    />
+                <div>
+                    <RiveComponent className="teddy-bear-rive"/>
                 </div>
+                <div className="auth-container">
+                    <h2 className="auth-container-h2">{isSignUp ? 'Sign Up' : 'Log In'}</h2>
 
-                <p className="auth-container-p">
-                    {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
-                    <button className="switch-button" onClick={switchAuthMode}>
-                        {isSignUp ? 'Log In' : 'Sign Up'}
-                    </button>
-                </p>
+                    {message && <p className="success-message">{message}</p>}
+                    {error && <p className="error-message">{error}</p>}
+
+                    <form onSubmit={handleSubmit}>
+                        <input
+                            type="text"
+                            placeholder="Username"
+                            required
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                        {isSignUp && (
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                required
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        )}
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            required
+                            value={password}
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                                setHangUp(true);
+                            }}
+                        />
+                        <button type="submit" className="submit-button">
+                            {isSignUp ? 'Sign Up' : 'Log In'}
+                        </button>
+                        {!isSignUp && (
+                            <p className="auth-container-p">
+                                <button
+                                    className="forgot-password-button"
+                                    onClick={() => setShowForgotPassword(true)}
+                                >
+                                    Forgot Password?
+                                </button>
+                            </p>
+                        )}
+                    </form>
+                    <div className="social-login">
+                        <GoogleLogin
+                            onSuccess={handleGoogleSuccess}
+                            onError={handleGoogleFailure}
+                        />
+                    </div>
+
+                    <p className="auth-container-p">
+                        {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
+                        <button className="switch-button" onClick={switchAuthMode}>
+                            {isSignUp ? 'Log In' : 'Sign Up'}
+                        </button>
+                    </p>
+                </div>
             </div>
         </div>
     );

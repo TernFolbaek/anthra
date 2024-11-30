@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './GroupMessage.css';
 import { useNavigate } from 'react-router-dom';
-import { FaEllipsisV, FaArrowLeft } from 'react-icons/fa';
+import { FaEllipsisV, FaArrowLeft, FaPenSquare, FaInfo } from 'react-icons/fa';
 import * as signalR from '@microsoft/signalr';
 import GroupInfo from '../GroupInfo/GroupInfo';
 import GroupMessageInput from "./GroupMessageInput";
@@ -131,6 +131,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
+            console.log('here');
             if (
                 showMenu &&
                 dropdownRef.current &&
@@ -240,26 +241,38 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                         }}
                     >
                         {showMenu && (
-                            <div className="messages-dropdown-menu">
+                            <div className="messages-dropdown-menu"
+                                 ref={dropdownRef}
+                                 onClick={(event) => event.stopPropagation()}>
                                 {isGroupCreator && (
-                                    <button onClick={handleEditGroup}>
-                                        Edit Group
+                                    <button className="flex items-center gap-2 text-gray-500 text-sm font-bold"
+                                            onClick={handleEditGroup}>
+                                        <FaPenSquare/>
+                                        <div>
+                                            Edit Group
+                                        </div>
                                     </button>
+
                                 )}
-                                <button onClick={handleToggleGroupInfoVisibility}>
-                                    {showGroupInfo ? 'Hide Info' : 'Show Info'}
+                                <button className="flex items-center gap-2 text-gray-500 text-sm font-bold"
+                                        onClick={handleToggleGroupInfoVisibility}>
+                                    <FaInfo/>
+                                    <div>
+                                        {showGroupInfo ? 'Hide Info' : 'Show Info'}
+                                    </div>
                                 </button>
+
                             </div>
                         )}
-                        <FaEllipsisV />
+                        <FaEllipsisV/>
                     </div>
                 </div>
                 <div className="group-message-list">
                     {isMobile && showGroupInfo ? (
-                        <GroupInfo groupId={groupId} />
+                        <GroupInfo groupId={groupId}/>
                     ) : (
                         <>
-                            {messages.map((message, index) => {
+                        {messages.map((message, index) => {
                                 const previousMessage = messages[index - 1];
                                 const showSenderInfo =
                                     !previousMessage || previousMessage.senderId !== message.senderId;

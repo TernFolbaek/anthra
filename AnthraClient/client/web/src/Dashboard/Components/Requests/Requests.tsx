@@ -200,7 +200,7 @@ const Requests: React.FC = () => {
                             <div className="requests-button-container">
                                 <button
                                     className="requests-connect-button"
-                                    onClick={() => handleAccept(request.id)}
+                                    onClick={(e) =>{e.stopPropagation(); handleAccept(request.id)}}
                                 >
                                     Accept
                                 </button>

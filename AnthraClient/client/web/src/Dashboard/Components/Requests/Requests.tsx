@@ -1,4 +1,3 @@
-// Requests.tsx
 import React, { useState, useEffect } from 'react';
 import './Requests.css';
 import NoConnectionsRive from "../../Helpers/Animations/NoConnections";
@@ -35,8 +34,18 @@ const Requests: React.FC = () => {
     const [groupApplicationRequests, setGroupApplicationRequests] = useState<GroupApplicationRequestDTO[]>([]);
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
-
+    const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth);
+    const [selectedTab, setSelectedTab] = useState<'personal' | 'groups'>('personal');
     const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+
+    useEffect(() => {
+        const handleResize = () => setScreenWidth(window.innerWidth);
+
+        window.addEventListener('resize', handleResize);
+
+        // Clean up the event listener on unmount
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     useEffect(() => {
         if (!userId) {
@@ -178,90 +187,122 @@ const Requests: React.FC = () => {
         setSelectedUserId(null);
     };
 
+    const renderPersonalRequests = () => (
+        <div className="connections-card-container">
+            <h2 className="requests-title">Personal Connection Requests</h2>
+            {connectionRequests.length === 0 ? (
+                <NoConnectionsRive />
+            ) : (
+                connectionRequests.map((request) => (
+                    <div
+                        key={request.id}
+                        onClick={() => handleUserClick(request.senderId)}
+                        className="requests-user-card"
+                    >
+                        <div className="requests-user-info" onClick={() => handleUserClick(request.senderId)}>
+                            <img
+                                className="requests-user-card-img"
+                                src={request.senderProfilePicture}
+                                alt="Profile"
+                            />
+                            <h2>{request.senderFirstName} {request.senderLastName}</h2>
+                        </div>
+                        <div className="requests-button-container">
+                            <button
+                                className="requests-connect-button"
+                                onClick={(e) => { e.stopPropagation(); handleAccept(request.id) }}
+                            >
+                                Accept
+                            </button>
+                            <button
+                                className="requests-skip-button"
+                                onClick={(e) => { e.stopPropagation(); handleDecline(request.id) }}
+                            >
+                                Decline
+                            </button>
+                        </div>
+                    </div>
+                ))
+            )}
+        </div>
+    );
+
+    const renderGroupRequests = () => (
+        <div className="connections-card-container">
+            <h2 className="requests-title">Group Application Requests</h2>
+            {groupApplicationRequests.length === 0 ? (
+                <p className="no-group-text text-gray-700">No group application requests</p>
+            ) : (
+                groupApplicationRequests.map((group) => (
+                    <div key={group.groupId} className="requests-group-section">
+                        <h3 className="requests-group-name">{group.groupName}</h3>
+                        {group.applications.map((application) => (
+                            <div key={application.requestId} className="requests-user-card">
+                                <div className="requests-user-info" onClick={() => handleUserClick(application.applicantId)}>
+                                    <img
+                                        className="requests-user-card-img"
+                                        src={application.applicantProfilePictureUrl}
+                                        alt="Profile"
+                                    />
+                                    <h2>{application.applicantName}</h2>
+                                </div>
+                                <div className="requests-button-container">
+                                    <button
+                                        className="requests-connect-button"
+                                        onClick={() => handleGroupApplicationAccept(application.requestId)}
+                                    >
+                                        Accept
+                                    </button>
+                                    <button
+                                        className="requests-skip-button"
+                                        onClick={() => handleGroupApplicationDecline(application.requestId)}
+                                    >
+                                        Decline
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ))
+            )}
+        </div>
+    );
+
     return (
         <div className="requests-page">
-            {/* Personal Connection Requests */}
-            <div className="connections-card-container">
-                <h2 className="requests-title">Personal Connection Requests</h2>
-                {connectionRequests.length === 0 ? (
-                    <NoConnectionsRive />
-                ) : (
-                    connectionRequests.map((request) => (
-                        <div key={request.id} onClick={() => handleUserClick(request.senderId)} className="requests-user-card">
-                            {/* **Add onClick handler to user info** */}
-                            <div className="requests-user-info" onClick={() => handleUserClick(request.senderId)}>
-                                <img
-                                    className="requests-user-card-img"
-                                    src={request.senderProfilePicture}
-                                    alt="Profile"
-                                />
-                                <h2>{request.senderFirstName} {request.senderLastName}</h2>
-                            </div>
-                            <div className="requests-button-container">
-                                <button
-                                    className="requests-connect-button"
-                                    onClick={(e) =>{e.stopPropagation(); handleAccept(request.id)}}
-                                >
-                                    Accept
-                                </button>
-                                <button
-                                    className="requests-skip-button"
-                                    onClick={(e) =>{e.stopPropagation(); handleDecline(request.id)}}
-                                >
-                                    Decline
-                                </button>
-                            </div>
-                        </div>
-                    ))
-                )}
-            </div>
+            {/* Tabs for mobile view */}
+            {screenWidth < 768 && (
+                <div className="requests-tabs">
+                    <button
+                        onClick={() => setSelectedTab('personal')}
+                        className={selectedTab === 'personal' ? 'active' : ''}
+                    >
+                        Personal
+                    </button>
+                    <button
+                        onClick={() => setSelectedTab('groups')}
+                        className={selectedTab === 'groups' ? 'active' : ''}
+                    >
+                        Groups
+                    </button>
+                </div>
+            )}
 
-            {/* Group Application Requests */}
-            <div className="connections-card-container">
-                <h2 className="requests-title">Group Application Requests</h2>
-                {groupApplicationRequests.length === 0 ? (
-                    <p className="no-group-text text-gray-700">No group application requests</p>
-                ) : (
-                    groupApplicationRequests.map((group) => (
-                        <div key={group.groupId} className="requests-group-section">
-                            <h3 className="requests-group-name">{group.groupName}</h3>
-                            {group.applications.map((application) => (
-                                <div key={application.requestId} className="requests-user-card">
-                                    <div className="requests-user-info" onClick={() => handleUserClick(application.applicantId)}>
-                                        <img
-                                            className="requests-user-card-img"
-                                            src={application.applicantProfilePictureUrl}
-                                            alt="Profile"
-                                        />
-                                        <h2>{application.applicantName}</h2>
-                                    </div>
-                                    <div className="requests-button-container">
-                                        <button
-                                            className="requests-connect-button"
-                                            onClick={() => handleGroupApplicationAccept(application.requestId)}
-                                        >
-                                            Accept
-                                        </button>
-                                        <button
-                                            className="requests-skip-button"
-                                            onClick={() => handleGroupApplicationDecline(application.requestId)}
-                                        >
-                                            Decline
-                                        </button>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    ))
-                )}
-            </div>
+            {/* Conditional rendering based on screen width */}
+            {screenWidth < 768 ? (
+                selectedTab === 'personal' ? renderPersonalRequests() : renderGroupRequests()
+            ) : (
+                <div className="requests-columns">
+                    {renderPersonalRequests()}
+                    {renderGroupRequests()}
+                </div>
+            )}
 
-            {/* **Render ViewProfile modal if a user is selected** */}
             {selectedUserId && (
                 <ViewProfile userId={selectedUserId} onClose={handleCloseProfile} />
             )}
         </div>
     );
-
 };
+
 export default Requests;

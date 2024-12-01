@@ -130,17 +130,30 @@ const Groups: React.FC = () => {
                 </>
             ) : (
                 <>
-                    {(isWideScreen || !groupId) && (
-                        <GroupsList
+                    {(isWideScreen ) && (
+                        <>
+                            <GroupsList
                             groups={groups}
                             onGroupClick={handleGroupClick}
                             onCreateGroup={handleCreateGroup}
                             selectedGroupId={groupId ? parseInt(groupId) : null}
                         />
+                        <div className="no-groups-container">
+                        <NoConnectionsRive/>
+                        </div>
+                        </>
                     )}
-                <div className="no-groups-container">
-                    <NoConnectionsRive/>
-                </div>
+                    {(!isWideScreen ) && (
+                        <>
+                            <GroupsList
+                                groups={groups}
+                                onGroupClick={handleGroupClick}
+                                onCreateGroup={handleCreateGroup}
+                                selectedGroupId={groupId ? parseInt(groupId) : null}
+                            />
+                        </>
+                    )}
+
                 </>
             )}
         </div>

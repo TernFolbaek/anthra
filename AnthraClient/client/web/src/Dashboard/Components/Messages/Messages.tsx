@@ -461,7 +461,7 @@ const Messages: React.FC = () => {
                         <MessageConnectionProfile userId={userId!} />
                     ) : (
                         <>
-                            {messages.length === 0 ? (
+                            {!userId? (
                                 <div className="h-full w-full flex items-center justify-center">
                                     <p className="text-gray-500 text-base font-bold">No Messages</p>
                                 </div>
@@ -550,7 +550,7 @@ const Messages: React.FC = () => {
                         </>
                     )}
                 </div>
-                {messages.length > 0 && (!isMobile || !showProfile) && (
+                {userId && (!isMobile || !showProfile) && (
                     <MessageInput userId={userId} />
                 )}
                 {selectedGroupId && (

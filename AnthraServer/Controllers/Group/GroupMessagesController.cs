@@ -31,7 +31,7 @@ namespace MyBackendApp.Controllers
         {
             var messages = await _context.GroupMessages
                 .Include(m => m.Sender)
-                .Include(m => m.Attachment) 
+                .Include(m => m.Attachment)
                 .Where(m => m.GroupId == groupId)
                 .OrderBy(m => m.Timestamp)
                 .Select(m => new
@@ -40,15 +40,15 @@ namespace MyBackendApp.Controllers
                     m.Content,
                     m.Timestamp,
                     SenderId = m.SenderId,
-                    SenderFirstName = m.Sender.FirstName,
-                    SenderProfilePictureUrl = m.Sender.ProfilePictureUrl,
+                    SenderFirstName = m.Sender != null ? m.Sender.FirstName : "Deleted User",
+                    SenderProfilePictureUrl = m.Sender != null ? m.Sender.ProfilePictureUrl : null,
                     Attachments = m.Attachment != null ? new[] {
-                    new {
-                    m.Attachment.Id,
-                    m.Attachment.FileName,
-                    m.Attachment.FileUrl
-                }
-            } : null
+                        new {
+                            m.Attachment.Id,
+                            m.Attachment.FileName,
+                            m.Attachment.FileUrl
+                        }
+                    } : null
                 })
                 .ToListAsync();
 

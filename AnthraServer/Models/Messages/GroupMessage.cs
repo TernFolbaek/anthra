@@ -16,12 +16,12 @@ namespace MyBackendApp.Models
         [ValidateNever]
         public Group Group { get; set; }
 
-        [Required]
-        public string SenderId { get; set; }
+
+        public string? SenderId { get; set; }
 
         [JsonIgnore]
         [ValidateNever]
-        public ApplicationUser Sender { get; set; }
+        public ApplicationUser? Sender { get; set; }
 
         [Required]
         public string Content { get; set; }

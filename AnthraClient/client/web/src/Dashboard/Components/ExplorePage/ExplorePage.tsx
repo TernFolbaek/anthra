@@ -10,9 +10,9 @@ const ExplorePage: React.FC = () => {
 
     return (
         <div className="explore-page">
-            <div className="w-[100vw]">
-                    <Menu activePage={activePage} setActivePage={setActivePage} />
-                    {activePage === 'individuals' ? <UserExplorePage /> : <GroupExplorePage />}
+            <div  className="w-[100vw]">
+                <Menu activePage={activePage} setActivePage={setActivePage} />
+                {activePage === 'individuals' ? <UserExplorePage /> : <GroupExplorePage />}
             </div>
         </div>
     );

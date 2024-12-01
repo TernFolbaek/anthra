@@ -42,6 +42,7 @@
 @media(max-width: 480px){
     .explore-page{
         padding: 10px;
+        margin-bottom: 55px;
     }
 }
 

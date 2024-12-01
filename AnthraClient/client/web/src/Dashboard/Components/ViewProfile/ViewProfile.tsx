@@ -12,10 +12,6 @@ interface Course {
     courseLink: string;
 }
 
-interface Subject {
-    subjectName: string;
-}
-
 interface UserProfile {
     firstName: string;
     lastName: string;
@@ -72,11 +68,11 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
     }, []);
 
     if (loading) {
-        return null; // You can return a loading spinner if desired
+        return null;
     }
 
     if (error) {
-        return null; // You can display an error message if desired
+        return null;
     }
 
     if (!userProfile) {
@@ -107,7 +103,7 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
                     <ul className="viewprofile-list">
                         {userProfile.courses.map((course, index) => (
                             <li key={index}>
-                                <a href={course.courseLink} className="text-blue-600 hover:font-bold" target="_blank" rel="noopener noreferrer">
+                                <a href={course.courseLink} className=" dark:text-blue-400 text-blue-600 hover:font-bold" target="_blank" rel="noopener noreferrer">
                                     {course.courseName}
                                 </a>
                             </li>

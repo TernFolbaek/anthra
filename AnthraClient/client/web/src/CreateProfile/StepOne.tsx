@@ -258,20 +258,26 @@ const StepOne: React.FC<StepOneProps> = ({
                 )}
             </div>
 
-            <label htmlFor="profilePicture" className="input-label">
-                Profile Picture<span className="required-asterisk">*</span>
+            <label htmlFor="profilePicture">Profile Picture<span className="required-asterisk">*</span>
             </label>
-            <input
-                id="profilePicture"
-                type="file"
-                accept="image/*"
-                required
-                onChange={handleFileChange}
-                className="choose-pfp mb-2"
-            />
-            <div className="w-full flex justify-center">
-                {previewUrl && <img src={previewUrl} alt="Preview" className="image-preview" />}
+            <div className="profile-picture-picker">
+                <input
+                    id="profilePicture"
+                    type="file"
+                    accept="image/*"
+                    required
+                    onChange={handleFileChange}
+                    className="file-input"
+                />
+                <label htmlFor="profilePicture" className="file-input-label">
+                    {previewUrl ? (
+                        <img src={previewUrl} alt="Profile Preview" className="image-preview"/>
+                    ) : (
+                        <span className="placeholder-text">Click to upload</span>
+                    )}
+                </label>
             </div>
+
         </div>
     );
 };

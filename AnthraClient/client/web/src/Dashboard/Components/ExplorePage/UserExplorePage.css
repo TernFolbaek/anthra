@@ -263,6 +263,9 @@ body.dark-mode .user-explore-no-more {
         flex-direction: column;
         width: 100%;
     }
+    .user-explore-page-button-container {
+        width: 100% ;
+    }
 
     .connect-button,
     .skip-button {

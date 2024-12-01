@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './UserExplorePage.css';
 import NoMoreUsersToExplore from '../../Helpers/Animations/NoMoreUsersToExplore';
+import Snackbar from "../../Helpers/Snackbar/Snackbar";
 
 interface Course {
     courseName: string;
@@ -28,6 +29,10 @@ const UserExplorePage: React.FC = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const token = localStorage.getItem('token');
+
+    const [snackbarVisible, setSnackbarVisible] = useState<boolean>(false);
+    const [snackbarTitle, setSnackbarTitle] = useState<string>('');
+    const [snackbarMessage, setSnackbarMessage] = useState<string>('');
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -67,6 +72,10 @@ const UserExplorePage: React.FC = () => {
                         },
                     }
                 );
+                // Show the snackbar
+                setSnackbarTitle('Connection Request Sent');
+                setSnackbarMessage(`You have sent a connection request to ${currentUser.firstName} ${currentUser.lastName}.`);
+                setSnackbarVisible(true);
             } catch (error) {
                 console.error('Error sending connection request:', error);
             }
@@ -98,67 +107,76 @@ const UserExplorePage: React.FC = () => {
             {currentUser ? (
                 <div className="explore-user-card">
                     <div className="flex flex-col">
-                    <>
-                        <div className="explore-user-card-content">
-                            <div className="flex items-center gap-2">
-                                <img
-                                    className="explore-user-card-img"
-                                    src={`${currentUser.profilePictureUrl}`}
-                                    alt="Profile"
-                                />
-                                <div className="flex flex-col">
-                                <h2 className="user-name">
-                                    {currentUser.firstName} {currentUser.lastName}, {currentUser.age}
-                                </h2>
-                                <p className="user-location">{currentUser.location}</p>
+                        <>
+                            <div className="explore-user-card-content">
+                                <div className="flex items-center gap-2">
+                                    <img
+                                        className="explore-user-card-img"
+                                        src={`${currentUser.profilePictureUrl}`}
+                                        alt="Profile"
+                                    />
+                                    <div className="flex flex-col">
+                                        <h2 className="user-name">
+                                            {currentUser.firstName} {currentUser.lastName}, {currentUser.age}
+                                        </h2>
+                                        <p className="user-location">{currentUser.location}</p>
+                                    </div>
+                                </div>
+                                <div className="user-info">
+                                    <h3>Institution</h3>
+                                    <p>{currentUser.institution}</p>
+                                    <h3>Work</h3>
+                                    <p>{currentUser.work}</p>
+                                    <h3>About Me</h3>
+                                    <p>{currentUser.aboutMe}</p>
+                                    {currentUser.subjects && currentUser.subjects.length > 0 && (
+                                        <div>
+                                            <h3>Subjects</h3>
+                                            <p>{currentUser.subjects.join(', ')}</p>
+                                        </div>
+                                    )}
+                                    {currentUser.courses && currentUser.courses.length > 0 && (
+                                        <div>
+                                            <h3>Courses</h3>
+                                            <ul className="user-explore-courses-list">
+                                                {currentUser.courses.map((course, index) => (
+                                                    <li key={index}>
+                                                        <a href={course.courseLink} target="_blank" rel="noopener noreferrer">
+                                                            {course.courseName}
+                                                        </a>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
-                            <div className="user-info">
-                            <h3>Institution</h3>
-                                <p>{currentUser.institution}</p>
-                                <h3>Work</h3>
-                                <p>{currentUser.work}</p>
-                                <h3>About Me</h3>
-                                <p>{currentUser.aboutMe}</p>
-                                {currentUser.subjects && currentUser.subjects.length > 0 && (
-                                    <div>
-                                        <h3>Subjects</h3>
-                                        <p>{currentUser.subjects.join(', ')}</p>
-                                    </div>
-                                )}
-                                {currentUser.courses && currentUser.courses.length > 0 && (
-                                    <div>
-                                        <h3>Courses</h3>
-                                        <ul className="user-explore-courses-list">
-                                            {currentUser.courses.map((course, index) => (
-                                                <li key={index}>
-                                                    <a href={course.courseLink} target="_blank"
-                                                       rel="noopener noreferrer">
-                                                        {course.courseName}
-                                                    </a>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    </>
+                        </>
                         <div className="user-explore-page-button-container">
                             <button className="connect-button" onClick={handleConnect}>
-                            Connect
-                        </button>
-                        <button className="connect-button" onClick={handleConnect}>
-                            Refer
-                        </button>
-                        <button className="skip-button" onClick={handleSkip}>
-                            Skip
-                        </button>
-                    </div>
+                                Connect
+                            </button>
+                            <button className="connect-button">
+                                Refer
+                            </button>
+                            <button className="skip-button" onClick={handleSkip}>
+                                Skip
+                            </button>
+                        </div>
                     </div>
                 </div>
             ) : (
-                <NoMoreUsersToExplore/>
+                <NoMoreUsersToExplore />
+            )}
+
+            {/* Render the Snackbar */}
+            {snackbarVisible && (
+                <Snackbar
+                    title={snackbarTitle}
+                    message={snackbarMessage}
+                    duration={4000}
+                    onClose={() => setSnackbarVisible(false)}
+                />
             )}
         </div>
     );

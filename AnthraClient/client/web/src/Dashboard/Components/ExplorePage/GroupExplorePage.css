@@ -115,6 +115,7 @@ body.dark-mode .group-explore-member-item:hover {
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
+    object-fit: cover;
 }
 
 .group-explore-button-container {

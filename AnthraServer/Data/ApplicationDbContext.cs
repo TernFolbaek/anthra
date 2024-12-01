@@ -57,7 +57,7 @@ namespace MyBackendApp.Data
                 .HasOne(gm => gm.User)
                 .WithMany()
                 .HasForeignKey(gm => gm.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
        
             builder.Entity<Connection>()
                 .HasOne(c => c.User1)
@@ -81,7 +81,8 @@ namespace MyBackendApp.Data
                 .HasOne(gm => gm.Sender)
                 .WithMany()
                 .HasForeignKey(gm => gm.SenderId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.SetNull);
+
 
             // Ensure the Group model has a Messages collection
             builder.Entity<Group>()

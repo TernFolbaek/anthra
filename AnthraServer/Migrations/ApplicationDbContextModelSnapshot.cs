@@ -479,7 +479,6 @@ namespace AnthraBackend.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("SenderId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("Timestamp")
@@ -820,7 +819,7 @@ namespace AnthraBackend.Migrations
                     b.HasOne("MyBackendApp.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Group");
@@ -839,8 +838,7 @@ namespace AnthraBackend.Migrations
                     b.HasOne("MyBackendApp.Models.ApplicationUser", "Sender")
                         .WithMany()
                         .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Group");
 

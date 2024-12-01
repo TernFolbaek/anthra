@@ -63,7 +63,7 @@ body.dark-mode .profile-username {
 .profile-institution-label,
 .profile-age-label {
     font-weight: 700;
-    color: #888;
+    color: #555;
     margin-right: 5px;
 }
 
@@ -78,6 +78,7 @@ body.dark-mode .profile-age-label {
 /* General text and property styling */
 .profile-info-text {
     font-size: 0.95rem;
+    line-break: anywhere;
     color: #666;
 }
 

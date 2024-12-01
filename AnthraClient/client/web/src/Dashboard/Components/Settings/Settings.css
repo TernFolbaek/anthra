@@ -120,6 +120,17 @@ body.dark-mode .settings-content {
 }
 
 @media (max-width: 480px) {
+    .settings-card{
+        margin: 100px 5px auto 5px;
+    }
+    .settings-tab-left{
+        border-top-left-radius: 0;
+    }
+
+    .settings-tab-right{
+        border-top-right-radius: 0;
+    }
+
     .settings-tab {
         flex-direction: row;
         justify-content: flex-start;

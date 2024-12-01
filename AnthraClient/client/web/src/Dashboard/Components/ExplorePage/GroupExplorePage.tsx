@@ -109,6 +109,7 @@ const GroupExplorePage: React.FC = () => {
             {currentGroup ? (
                 <div className="explore-group-card">
                     <div className="explore-group-card-content">
+                        <div>
                         <h2 className="group-explore-name">{currentGroup.name}</h2>
                         <h3>About the group:</h3>
                         <p className="group-explore-description">{currentGroup.groupDescription}</p>
@@ -130,6 +131,7 @@ const GroupExplorePage: React.FC = () => {
                                     </li>
                                 ))}
                             </ul>
+                        </div>
                         </div>
                         <div className="group-explore-button-container">
                             <button className="group-explore-apply-button" onClick={handleApply}>

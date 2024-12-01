@@ -17,8 +17,7 @@
     border-radius: 16px;
     width: 100%;
     max-width: 1000px;
-    height: 100%;
-    min-height: 700px;
+    height: 700px;
     text-align: left;
     display: flex;
     flex-direction: column;
@@ -39,7 +38,9 @@ body.dark-mode .explore-group-card {
     flex: 1;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 15px;
+    height: 100%;
 }
 
 .group-explore-name {
@@ -121,9 +122,8 @@ body.dark-mode .group-explore-member-item:hover {
 .group-explore-button-container {
     display: flex;
     justify-content: space-around;
-    position: absolute;
-    width: calc(100% - 100px);
-    bottom: 20px;
+    gap: 15px;
+    width: 100%;
 }
 
 .group-explore-apply-button,
@@ -236,16 +236,6 @@ body.dark-mode .group-explore-no-more {
         width: 80%;
     }
 
-    .group-explore-button-container {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .group-explore-apply-button,
-    .group-explore-skip-button {
-        width: 100%;
-        max-width: none;
-    }
 }
 
 /* Adjust font sizes for mobile devices */

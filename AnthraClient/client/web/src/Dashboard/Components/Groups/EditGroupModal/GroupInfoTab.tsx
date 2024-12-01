@@ -128,8 +128,8 @@ const GroupInfoTab: React.FC<GroupInfoTabProps> = ({
                 />
             </div>
             <div className="edit-group-buttons">
-                <button onClick={handleSaveChanges}>Save Changes</button>
-                <button onClick={onClose}>Cancel</button>
+                <button className="bg-sky-100 hover:bg-sky-200 border text-sm rounded-md" onClick={handleSaveChanges}>Save Changes</button>
+                <button className="bg-slate-100 hover:bg-slate-200 border text-sm rounded-md"onClick={onClose}>Cancel</button>
             </div>
 </div>
 )

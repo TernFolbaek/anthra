@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './EditGroupModal.css';
 import { useNavigate } from 'react-router-dom';
-
+import ViewProfile from "../../ViewProfile/ViewProfile";
 interface GroupMember {
     userId: string;
     firstName: string;
@@ -24,9 +24,9 @@ const GroupMembersTab: React.FC<GroupMembersTabProps> = ({ groupInfo }) => {
     const [selectedMemberToKick, setSelectedMemberToKick] =
         useState<GroupMember | null>(null);
     const [showKickConfirmation, setShowKickConfirmation] = useState(false);
+    const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
     const token = localStorage.getItem('token');
-    const navigate = useNavigate();
 
     useEffect(() => {
         fetchGroupMembers();
@@ -81,15 +81,19 @@ const GroupMembersTab: React.FC<GroupMembersTabProps> = ({ groupInfo }) => {
         setShowKickConfirmation(false);
     };
 
-    const handleOpenProfile = (member: GroupMember) => {
-        navigate(`/messages/${member.userId}`);
+    const handleOpenProfile = (userId: string) => {
+        setSelectedUserId(userId)
     };
+
+    const handleCloseProfile = () =>{
+        setSelectedUserId(null);
+    }
 
     return (
         <div className="edit-group-members-section">
             <ul className="group-members-list">
                 {groupMembers.map((member) => (
-                    <li key={member.userId} className="group-member-item">
+                    <li key={member.userId} className="group-member-item-edit">
                         <div className="member-info">
                             <img
                                 src={`${member.profilePictureUrl}`}
@@ -101,11 +105,11 @@ const GroupMembersTab: React.FC<GroupMembersTabProps> = ({ groupInfo }) => {
                         </div>
                         <div className="member-actions">
                             {member.userId !== groupInfo.creatorId && (
-                                <button className="edit-member-action-button-kick" onClick={() => handleKickMember(member)}>
+                                <button className="edit-member-action-button-kick text-sm" onClick={() => handleKickMember(member)}>
                                     Kick Member
                                 </button>
                             )}
-                            <button className="edit-member-action-button-profile" onClick={() => handleOpenProfile(member)}>
+                            <button className="edit-member-action-button-profile text-sm" onClick={() => handleOpenProfile(member.userId)}>
                                 Open Profile
                             </button>
 
@@ -113,7 +117,9 @@ const GroupMembersTab: React.FC<GroupMembersTabProps> = ({ groupInfo }) => {
                     </li>
                 ))}
             </ul>
-
+            {selectedUserId && (
+                <ViewProfile userId={selectedUserId} onClose={handleCloseProfile}/>
+            )}
             {/* Kick Confirmation Modal */}
             {showKickConfirmation && selectedMemberToKick && (
                 <div className="kick-confirmation-overlay">

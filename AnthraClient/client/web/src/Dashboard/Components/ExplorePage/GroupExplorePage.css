@@ -13,7 +13,6 @@
 .explore-group-card {
     background: white;
     color: #333;
-    padding: 25px;
     border-radius: 16px;
     width: 100%;
     max-width: 1000px;
@@ -41,6 +40,8 @@ body.dark-mode .explore-group-card {
     justify-content: space-between;
     gap: 15px;
     height: 100%;
+    width: 100%;
+    padding: 25px;
 }
 
 .group-explore-name {

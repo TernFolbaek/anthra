@@ -150,7 +150,6 @@ body.dark-mode .user-explore-courses-list a {
 }
 
 .user-explore-page-button-container {
-    position: absolute;
     display: flex;
     gap: 5px;
     justify-content: space-around;

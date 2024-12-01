@@ -71,7 +71,6 @@ const CurrentConversations: React.FC = React.memo(() => {
 
     return (
         <CardContainer title="Messages">
-            {/* Search Input */}
             <div className="search-container">
                 <input
                     type="text"

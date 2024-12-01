@@ -17,10 +17,9 @@
     flex: 1;
     overflow-y: auto; /* Make the main-content scrollable */
     height: 100vh;
+    width: 100vw;
     background-color: rgb(245,245,245);
 }
-
-
 
 .dashboard-navbar {
     position: fixed;
@@ -37,10 +36,6 @@ body.dark-mode .main-content {
 @media (max-width: 768px) {
     .sidebar {
         display: none;
-    }
-
-    .main-content {
-        padding: 0 20px;
     }
 }
 

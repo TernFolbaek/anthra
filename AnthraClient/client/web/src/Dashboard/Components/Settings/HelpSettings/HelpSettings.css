@@ -70,9 +70,8 @@ body.dark-mode .profile-settings-save-button:hover {
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    width: 100%;
 }
-
-
 
 .delete-button {
     width: 50%;

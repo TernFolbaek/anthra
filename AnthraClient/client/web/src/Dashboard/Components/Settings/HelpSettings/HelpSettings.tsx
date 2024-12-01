@@ -84,15 +84,17 @@ const HelpSettings: React.FC = () => {
     return (
         <div className="profile-settings">
             <div className="profile-settings-actions">
-                <button
-                    className="help-contact-support-button"
-                    onClick={() => {
-                        setShowSupportModal(true);
-                    }}
-                >
-                    Contact Support
-                </button>
-                <button className="logout-button" onClick={handleLogout}>Logout</button>
+                <div className="flex gap-2 w-full">
+                    <button
+                        className="help-contact-support-button"
+                        onClick={() => {
+                            setShowSupportModal(true);
+                        }}
+                    >
+                        Contact Support
+                    </button>
+                    <button className="logout-button" onClick={handleLogout}>Logout</button>
+                </div>
                 <button className="delete-button text-gray-500" onClick={openDeleteModal}>Delete Account</button>
             </div>
 

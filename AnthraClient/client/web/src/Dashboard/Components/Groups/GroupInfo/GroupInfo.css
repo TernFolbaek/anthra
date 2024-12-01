@@ -87,6 +87,7 @@ body.dark-mode .group-desired-members {
 
 .group-member-item:hover {
     cursor: pointer;
+    background-color: #e3e2e2;
 }
 
 .group-member-item-edit:hover{

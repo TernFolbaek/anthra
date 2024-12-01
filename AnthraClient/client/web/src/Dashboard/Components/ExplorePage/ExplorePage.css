@@ -3,7 +3,6 @@
 
 .explore-page {
     display: flex;
-    align-items: center;
     justify-content: center;
     flex: 1;
     font-family: 'Montserrat', sans-serif;
@@ -37,6 +36,12 @@
     transform: translateY(100%);
     opacity: 0;
     transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
+}
+
+@media(max-width: 480px){
+    .explore-page{
+        padding: 10px;
+    }
 }
 
 

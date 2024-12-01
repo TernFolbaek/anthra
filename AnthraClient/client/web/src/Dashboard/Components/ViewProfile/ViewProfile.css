@@ -1,7 +1,7 @@
 /* ViewProfile.css */
 
 #viewprofile.viewprofile-overlay {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
@@ -17,7 +17,8 @@
     background-color: #fff;
     border-radius: 10px;
     padding: 30px;
-    width: 90%;
+    width: 95%;
+    height: fit-content;
     max-width: 600px;
     position: relative;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
@@ -141,3 +142,16 @@ body.dark-mode #viewprofile .viewprofile-list li {
 #viewprofile .viewprofile-list li:not(:last-child) {
     margin-bottom: 8px;
 }
+
+@media(max-width: 768px) {
+    #viewprofile.viewprofile-overlay{
+        padding: 5px 0 50px 0;
+    }
+}
+
+@media(max-width: 480px) {
+    #viewprofile.viewprofile-overlay {
+        height: fit-content;
+    }
+
+    }

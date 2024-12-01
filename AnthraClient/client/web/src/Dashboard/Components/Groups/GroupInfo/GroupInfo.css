@@ -85,10 +85,15 @@ body.dark-mode .group-desired-members {
     justify-content: space-between;
 }
 
+.group-member-item:hover {
+    cursor: pointer;
+}
+
 .group-member-item-edit:hover{
    background-color: #e3e2e2;
     cursor: pointer;
 }
+
 /* Dark mode styles */
 body.dark-mode .group-member-item:hover,
 body.dark-mode .group-attachment-item:hover {

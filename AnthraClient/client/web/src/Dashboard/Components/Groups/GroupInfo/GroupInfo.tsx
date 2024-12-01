@@ -2,6 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import './GroupInfo.css';
+import ViewProfile from "../../ViewProfile/ViewProfile";
 
 interface GroupMember {
     userId: string;
@@ -26,6 +27,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({groupId}) => {
     const [groupDesiredMembers, setGroupDesiredMembers] = useState('');
     const [isPublic, setIsPublic] = useState(false);
     const [attachments, setAttachments] = useState<Attachment[]>([]);
+    const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
     const token = localStorage.getItem('token');
 
     useEffect(() => {
@@ -52,6 +54,14 @@ const GroupInfo: React.FC<GroupInfoProps> = ({groupId}) => {
         fetchGroupInfo();
     }, [groupId, token]);
 
+    const handleUserClick = (member: string) => {
+        setSelectedUserId(member);
+    }
+
+    const handleCloseProfile = () =>{
+        setSelectedUserId(null);
+    }
+
     return (
         <div className="group-info">
             <div className="group-info-header">Group Information</div>
@@ -70,7 +80,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({groupId}) => {
             <div className="group-section-title">Members</div>
             <ul className="group-members-list">
                 {members.map((member) => (
-                    <li key={member.userId} className="group-member-item">
+                    <li key={member.userId} onClick={()=>handleUserClick(member.userId)} className="group-member-item">
                         <img
                             src={`${member.profilePictureUrl}`}
                             alt={`${member.firstName} ${member.lastName}`}
@@ -98,6 +108,9 @@ const GroupInfo: React.FC<GroupInfoProps> = ({groupId}) => {
                     </li>
                 ))}
             </ul>
+            {selectedUserId && (
+                <ViewProfile userId={selectedUserId} onClose={handleCloseProfile}/>
+            )}
         </div>
     );
 

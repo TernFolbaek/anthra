@@ -117,6 +117,7 @@ body.dark-mode .group-message-timestamp {
     border-radius: 50%;
     margin-right: 10px;
     border: 2px solid #85bff8;
+    object-fit: cover;
 }
 
 .group-message-sender-name {

@@ -7,6 +7,7 @@ import * as signalR from '@microsoft/signalr';
 import GroupInfo from '../GroupInfo/GroupInfo';
 import GroupMessageInput from "./GroupMessageInput";
 import EditGroupModal from "../EditGroupModal/EditGroupModal";
+import {MdExitToApp} from "react-icons/md";
 
 interface Attachment {
     id: number;
@@ -220,6 +221,30 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
     };
 
 
+    const handleLeaveGroup = async (groupId: number) => {
+        try {
+            await axios.post(
+                'http://localhost:5001/api/Groups/LeaveGroup',
+                { groupId },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            console.log(`Successfully left group ${groupId}`);
+            setShowMenu(false);
+
+            // Optionally, you can refresh the groups list by notifying the parent component.
+            // Since 'groups' is a prop, you can't modify it directly here.
+            // You might consider calling a function passed from the parent to refresh the groups.
+        } catch (error) {
+            console.error('Error leaving group:', error);
+            alert('Failed to leave the group. Please try again later.');
+        }
+    };
+
+
     return (
         <div className="group-message-page">
             <div className="group-message-container">
@@ -260,6 +285,11 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                     <div>
                                         {showGroupInfo ? 'Hide Info' : 'Show Info'}
                                     </div>
+                                </button>
+                                <button className="flex items-center gap-2 font-bold text-sm text-gray-500"
+                                        onClick={() => handleLeaveGroup(groupId)}>
+                                    <MdExitToApp/>
+                                    Leave Group
                                 </button>
 
                             </div>

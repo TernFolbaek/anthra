@@ -382,7 +382,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                             profilePictureFile={profilePictureFile}
                             setProfilePictureFile={setProfilePictureFile}
                         />
-                        <div className="button-container">
+                        <div className="create-profile-button-container">
                             <button
                                 type="submit"
                                 className="create-profile-next-button"
@@ -397,13 +397,15 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                     <form onSubmit={(e) => { e.preventDefault(); handleNext(); }}>
                         <div className="form-step">
                             <label htmlFor="aboutMe" className="input-label">
-                                About Me<span className="required-asterisk">*</span>
+                                About Me <span className="required-asterisk">*</span>
+                                <span className="font-medium text-xs"> min. 100 chars.</span>
                             </label>
                             <div className="textarea-with-counter">
                                 <div className="char-counter">{aboutMe.length}/250</div>
                                 <textarea
                                     id="aboutMe"
                                     placeholder="About Me"
+                                    minLength={120}
                                     maxLength={250}
                                     value={aboutMe}
                                     onChange={(e) => setAboutMe(e.target.value)}
@@ -415,13 +417,14 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                                     className="custom-dropdown flex items-center gap-x-2 mb-2"
                                     ref={institutionDropdownRef}
                                 >
-                                    <label className="input-label">Institution:<span className="required-asterisk">*</span></label>
+                                    <label className="input-label">Institution:<span
+                                        className="required-asterisk">*</span></label>
                                     <div
-                                        className="create-profile-dropdown-header mr-5"
+                                        className="create-profile-dropdown-header text-sm mr-5"
                                         onClick={handleDropdownClick}
                                     >
                                         {institution ? institution : 'Select Institution'}
-                                        <span className="dropdown-arrow">▼</span>
+                                        <span className={`dropdown-arrow ${isOpen ? 'open' : ''}`}>▼</span>
                                     </div>
                                     {isOpen && (
                                         <div className="uni-dropdown-menu">
@@ -431,12 +434,13 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                                                     className="uni-dropdown-item"
                                                     onClick={() => handleOptionClick(inst)}
                                                 >
-                                                    {inst}
+                                                    <p className="text-sm">{inst}</p>
                                                 </div>
                                             ))}
                                         </div>
                                     )}
                                 </div>
+
                                 {institution === 'KU' && (
                                     <div
                                         className="custom-dropdown flex items-center gap-x-2"
@@ -487,7 +491,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
 
                             {/* Course input */}
                             <label htmlFor="courseInput" className="input-label">
-                                Courses<span className="required-asterisk">*</span>{' '}
+                                Courses <span className="text-xs font-medium">(online or in school)</span><span className="required-asterisk">*</span>{' '}
                                 <span className="counter">({courses.length}/4)</span>
                             </label>
                             <div className="course-input-container">
@@ -591,7 +595,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
 
                             {/* Subjects input */}
                             <label htmlFor="subjectInput" className="input-label">
-                                Subjects<span className="required-asterisk">*</span>{' '}
+                                Subjects of interest<span className="required-asterisk">*</span>{' '}
                                 <span className="counter">({subjects.length}/5)</span>
                             </label>
                             <div className="subject-input-container">
@@ -625,7 +629,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
 
                             {/* Display selected subjects */}
                             {subjects.length > 0 && (
-                                <div className="selected-subjects flex justify-center gap-2">
+                                <div className="flex flex-wrap justify-center gap-2">
                                     {subjects.map((subject, index) => (
                                         <span
                                             key={index}
@@ -645,12 +649,12 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                             )}
 
                             <label htmlFor="work" className="input-label">
-                                Work<span className="required-asterisk">*</span>
+                                Job Title<span className="required-asterisk">*</span>
                             </label>
                             <input
                                 id="work"
                                 type="text"
-                                placeholder="Work"
+                                placeholder="Student"
                                 value={work}
                                 onChange={(e) => setWork(e.target.value)}
                                 onKeyDown={(e) => {
@@ -662,7 +666,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                             />
                         </div>
 
-                        <div className="button-container">
+                        <div className="create-profile-button-container">
                             {step > 1 && (
                                 <button
                                     type="button"

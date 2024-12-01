@@ -6,6 +6,7 @@ import NoGroups from '../../../Helpers/Animations/NoGroups';
 import CardContainer from '../../CardContainer/CardContainer';
 import './GroupsList.css';
 import { MdGroupAdd, MdExitToApp} from 'react-icons/md';
+import ViewGroupProfile  from "../../ViewGroupProfile/ViewGroupProfile";
 
 interface GroupMember {
     userId: string;
@@ -35,6 +36,7 @@ const GroupsList: React.FC<GroupsListProps> = ({
                                                }) => {
     const [openMenuGroupId, setOpenMenuGroupId] = useState<number | null>(null);
     const [searchQuery, setSearchQuery] = useState<string>(''); // Search query state
+    const [selectedGroupIdInfo, setSelectedGroupIdInfo] = useState<number | null>(null);
     const token = localStorage.getItem('token');
     const menuRef = useRef<HTMLDivElement | null>(null); // Ref for the open menu
 
@@ -65,11 +67,6 @@ const GroupsList: React.FC<GroupsListProps> = ({
         }
     };
 
-    const handleGroupOversight = (groupId: number) => {
-        // Navigate to the group oversight page or open group info
-        onGroupClick(groupId); // Assuming this opens the group profile
-        setOpenMenuGroupId(null);
-    };
 
     // Filter groups based on the search query
     const filteredGroups = groups.filter((group) =>
@@ -99,6 +96,13 @@ const GroupsList: React.FC<GroupsListProps> = ({
         };
     }, [openMenuGroupId]);
 
+    const handleCloseGroupProfile = () => {
+        setSelectedGroupIdInfo(null);
+    };
+
+    const handleUserClick = (groupId: number | null) => {
+        setSelectedGroupIdInfo(groupId);
+    };
     return (
         <CardContainer title="Groups">
             {/* Search Input */}
@@ -149,7 +153,7 @@ const GroupsList: React.FC<GroupsListProps> = ({
                                         <MdExitToApp/>
                                         Leave Group
                                     </button>
-                                    <button className="flex items-center gap-2 font-bold text-sm text-gray-500" onClick={() => handleGroupOversight(group.id)}>
+                                    <button className="flex items-center gap-2 font-bold text-sm text-gray-500" onClick={() => handleUserClick(group.id)}>
                                         <FaInfo/>
                                         <div>
                                             Group Info
@@ -158,6 +162,9 @@ const GroupsList: React.FC<GroupsListProps> = ({
                                 </div>
                             )}
                         </div>
+                        {selectedGroupIdInfo && (
+                            <ViewGroupProfile groupId={selectedGroupIdInfo} onClose={handleCloseGroupProfile} />
+                        )}
                     </div>
                 ))
             )}

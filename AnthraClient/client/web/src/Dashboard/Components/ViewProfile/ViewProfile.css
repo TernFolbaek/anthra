@@ -109,6 +109,7 @@ body.dark-mode #viewprofile .viewprofile-section-title {
 #viewprofile .viewprofile-aboutme {
     text-align: left;
     margin-top: 10px;
+    line-break: anywhere;
     color: #333;
 }
 

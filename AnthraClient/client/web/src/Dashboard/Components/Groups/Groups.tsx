@@ -5,7 +5,6 @@ import GroupModal from './GroupModal/GroupModal';
 import GroupMessage from './GroupMessages/GroupMessage';
 import { useNavigate, useParams } from 'react-router-dom';
 import GroupsList from './GroupsList/GroupsList';
-import { useRive } from '@rive-app/react-canvas';
 import NoConnectionsRive from "../../Helpers/Animations/NoConnections";
 
 interface GroupMember {

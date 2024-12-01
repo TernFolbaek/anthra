@@ -115,6 +115,7 @@ body.dark-mode .user-location{
 
 .user-info p {
     margin: 0 0 10px;
+    line-break: anywhere;
     font-size: 0.95rem;
     color: #555;
 }

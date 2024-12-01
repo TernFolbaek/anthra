@@ -4,7 +4,7 @@ import './Connections.css';
 import { useNavigate } from 'react-router-dom';
 import NoConnectionsRive from "../../Helpers/Animations/NoConnections";
 import ViewProfile from '../ViewProfile/ViewProfile';
-import { FaEllipsisV, FaUserMinus, FaVolumeMute } from 'react-icons/fa';
+import { FaEllipsisV, FaUserMinus } from 'react-icons/fa';
 
 interface ApplicationUser {
     id: string;
@@ -46,10 +46,6 @@ const Connections: React.FC = () => {
         setSelectedUserId(null);
     };
 
-    const handleMute = (userId: string) => {
-        console.log(`Mute user ${userId}`);
-        setOpenMenuConnectionId(null);
-    };
 
     const handleRemoveConnection = async (connectionId: string) => {
         try {
@@ -189,10 +185,6 @@ const Connections: React.FC = () => {
                                         ref={menuRef}
                                         onClick={(e) => e.stopPropagation()}
                                     >
-                                        <button className="flex items-center gap-2 text-sm font-bold text-gray-500" onClick={() => handleMute(user.id)}>
-                                            <FaVolumeMute/>
-                                            <div>Mute</div>
-                                        </button>
                                         <button className="flex items-center gap-2 text-sm font-bold text-gray-500" onClick={() => handleRemoveConnection(user.id)}>
                                             <FaUserMinus/>
                                             <div>
@@ -259,12 +251,6 @@ const Connections: React.FC = () => {
                                         ref={menuRef}
                                         onClick={(e) => e.stopPropagation()}
                                     >
-                                        <button
-                                            className="flex items-center gap-2 text-sm font-bold text-gray-500"
-                                            onClick={() => handleMute(user.id)}>
-                                            <FaVolumeMute/>
-                                            <div>Mute</div>
-                                        </button>
                                         <button
                                             className="flex items-center gap-2 text-sm font-bold text-gray-500"
                                             onClick={() => handleRemoveConnection(user.id)}>

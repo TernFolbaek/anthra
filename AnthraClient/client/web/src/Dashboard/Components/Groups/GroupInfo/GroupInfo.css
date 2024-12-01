@@ -66,15 +66,29 @@ body.dark-mode .group-desired-members {
 .group-member-item,
 .group-attachment-item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 10px 10px 10px 5px;
     transition: background-color 0.2s;
     border-radius: 10px;
     margin-bottom: 10px;
-    gap: 5px;
+    gap: 15px;
 }
 
+.group-member-item-edit{
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 10px 5px;
+    transition: background-color 0.2s;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+.group-member-item-edit:hover{
+   background-color: #e3e2e2;
+    cursor: pointer;
+}
 /* Dark mode styles */
 body.dark-mode .group-member-item:hover,
 body.dark-mode .group-attachment-item:hover {

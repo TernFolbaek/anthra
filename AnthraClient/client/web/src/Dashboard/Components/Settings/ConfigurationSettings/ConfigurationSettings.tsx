@@ -27,7 +27,6 @@ const ConfigurationSettings: React.FC = () => {
 
     return (
         <div className="configuration-settings">
-            <h2>Configuration</h2>
             <div className="toggle-group">
                 <label>Dark Mode:</label>
                 <div className="toggle-switch">

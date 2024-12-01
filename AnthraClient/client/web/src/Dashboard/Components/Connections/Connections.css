@@ -11,7 +11,7 @@
 }
 
 .connections-card-container {
-    width: 48%;
+    width: 50%;
     background-color: white;
     border-radius: 10px;
     padding: 20px;
@@ -60,7 +60,7 @@ body.dark-mode .connections-error {
 }
 
 .connections-column {
-    width: 48%;
+    width: 50%;
 }
 
 .connections-title {

@@ -205,9 +205,7 @@ const Connections: React.FC = () => {
         <div className="connections-card-container">
             <h2 className="connections-title">New Connections</h2>
             {usersWithoutConversations.length === 0 ? (
-                <div className="connections-list">
                     <NoConnectionsRive />
-                </div>
             ) : (
                 <ul className="connections-list">
                     {usersWithoutConversations.map((user) => (

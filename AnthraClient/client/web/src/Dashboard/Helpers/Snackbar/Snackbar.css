@@ -1,0 +1,68 @@
+/* Snackbar.css */
+
+.snackbar-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.snackbar {
+    background-color: #323232;
+    color: #fff;
+    border-radius: 10px;
+    min-width: 250px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.snackbar-content {
+    padding: 16px;
+}
+
+.snackbar-title {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.snackbar-message {
+    font-size: 0.9rem;
+}
+
+/* Progress Bar */
+.snackbar-progress {
+    height: 4px;
+    background-color: #85bff8;
+    animation-name: shrink;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+/* Animation for the progress bar */
+@keyframes shrink {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0%;
+    }
+}
+
+/* Fade-in animation for the snackbar */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply the fade-in animation */
+.snackbar {
+    animation: fadeIn 0.3s ease-in-out;
+}

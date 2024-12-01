@@ -66,3 +66,10 @@
 .snackbar {
     animation: fadeIn 0.3s ease-in-out;
 }
+
+@media screen and (max-width: 480px) {
+    .snackbar-container {
+        right: 50%;
+        transform: translateX(50%);
+    }
+}

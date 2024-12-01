@@ -4,6 +4,7 @@
     width: 100%;
     display: flex;
     justify-content: space-around;
+    align-items: center;
     background-color: #ffffff;
     padding: 10px 0;
     box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
@@ -19,7 +20,7 @@ body.dark-mode .footer {
 .footer-link {
     color: #333;
     text-decoration: none;
-    font-size: 24px;
+    font-size: 25px;
     background: none;
     border: none;
 }

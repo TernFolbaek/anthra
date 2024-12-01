@@ -10,7 +10,7 @@ import {
     FaTimes, FaUser, FaHandHoldingHeart, FaUsers,
 } from 'react-icons/fa'; // Import FaTimes for close icon
 import './Footer.css';
-
+import Notifications from "../Notifications/Notifications";
 const Footer: React.FC = () => {
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -33,6 +33,9 @@ const Footer: React.FC = () => {
 
     return (
         <div className="footer">
+            <div>
+                <Notifications />
+            </div>
             <NavLink to="/explore" className="footer-link">
                 <FaHome />
             </NavLink>

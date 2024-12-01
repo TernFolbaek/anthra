@@ -3,6 +3,7 @@
 
 .connections-page {
     display: flex;
+    flex-direction: column;
     height: 100%;
     width: 100%;
     font-family: 'Montserrat', sans-serif;
@@ -26,6 +27,7 @@ body.dark-mode .connections-card-container {
 .connections-container {
     background-color: white;
     border-radius: 10px;
+    height: 100%;
     width: 100%;
     padding: 20px;
     margin: 15px;
@@ -53,8 +55,8 @@ body.dark-mode .connections-error {
 
 .connections-columns {
     display: flex;
+    height: 100%;
     justify-content: space-between;
-    height: 97%;
 }
 
 .connections-column {
@@ -77,7 +79,6 @@ body.dark-mode .connections-title {
     list-style: none;
     padding: 0;
     margin: 0;
-    height: 100%;
 }
 
 .connection-item {
@@ -101,14 +102,7 @@ body.dark-mode .connection-item:hover {
     align-items: center;
 }
 
-.no-conversations-rive {
-    width: 350px;
-    height: 350px;
-    position: relative;
-    z-index: 1;
-    border-radius: 10px;
-}
-
+.no-conversations-rive,
 .no-connections-rive {
     width: 350px;
     height: 350px;
@@ -153,7 +147,7 @@ body.dark-mode .connection-name {
     color: #fff;
 }
 
-.connections-options-menu{
+.connections-options-menu {
     position: absolute;
     right: 0;
     top: 25px;
@@ -164,10 +158,12 @@ body.dark-mode .connection-name {
     z-index: 1;
     padding: 5px;
 }
+
 body.dark-mode .connections-options-menu {
     background-color: #2e2e2e;
     border: 1px solid #444;
 }
+
 .connections-options-menu button {
     width: 100%;
     padding: 10px;
@@ -189,7 +185,6 @@ body.dark-mode .connections-options-menu button:hover {
 .connections-options-menu button:hover {
     background-color: #f1f1f1;
 }
-
 
 .connections-menu-button {
     background: none;
@@ -213,7 +208,6 @@ body.dark-mode .connections-menu-button {
 body.dark-mode .connections-menu-button:hover {
     background-color: #555;
 }
-
 
 .message-button {
     font-size: 0.85rem;
@@ -242,4 +236,59 @@ body.dark-mode .message-button {
 body.dark-mode .message-button:hover {
     background-color: #85bff8;
     color: #fff;
+}
+
+/* New styles for tabs */
+.connections-tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.connections-tabs button {
+    flex: 1;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: none;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Dark mode styles */
+body.dark-mode .connections-tabs button {
+    background-color: #2e2e2e;
+    color: #fff;
+}
+
+.connections-tabs button.active {
+    border-bottom: 2px solid #85bff8;
+    color: #85bff8;
+}
+
+/* Hover effects */
+.connections-tabs button:hover {
+    background-color: #e0e0e0;
+}
+
+/* Dark mode hover effects */
+body.dark-mode .connections-tabs button:hover {
+    background-color: #3a3a3a;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .connections-columns {
+        flex-direction: column;
+    }
+
+    .connections-card-container {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
+@media(max-width: 480px) {
+    .connections-page{
+        margin: 5px;
+    }
 }

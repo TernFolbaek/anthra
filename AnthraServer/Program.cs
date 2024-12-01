@@ -266,6 +266,31 @@ if (app.Environment.IsDevelopment())
                 ProfileCompleted = true,
                 EmailConfirmed = true,
                 ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/0d8c7527-80b0-4970-8908-32c95aa84cea_638684278673868460.png?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D" 
+            },
+            new ApplicationUser 
+            { 
+                UserName = "carsten", 
+                Email = "test6@example.com", 
+                FirstName = "Carsten", 
+                LastName = "Folbaek", 
+                Location = "Sweden, Stockholm", 
+                Age = 23, 
+                Institution = "KTH Royal Institute of Technology", 
+                Work = "Freelance Developer", 
+                Courses = new List<Course> 
+                {
+                    new Course { CourseName = "Mobile App  erfq rfqefrqf rqfDevelopment", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+                    new Course { CourseName = "Cybersecurity", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+                    new Course { CourseName = "Mobile App erfqoerinf erfqeDevelopment", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+                    new Course { CourseName = "Mobileqeo rfnporeinfornf qonrfpoqinrefponreopfinq App Development", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+
+                }, 
+                Subjects = new List<string> { "Mobile Development", "Cybersecurity" },
+                AboutMe = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.\n\n",
+                CreatedProfile = true,
+                ProfileCompleted = true,
+                EmailConfirmed = true,
+                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/0d8c7527-80b0-4970-8908-32c95aa84cea_638684278673868460.png?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D" 
             }
         };
 
@@ -279,7 +304,7 @@ if (app.Environment.IsDevelopment())
 
     app.MapPost("/delete-test-users", async (ApplicationDbContext db) =>
     {
-        var testUsers = await db.Users.Where(u => u.UserName == "tern" || u.UserName == "gab" || u.UserName == "justin" || u.UserName == "birk" || u.UserName == "andreas").ToListAsync();
+        var testUsers = await db.Users.Where(u => u.UserName == "tern" || u.UserName == "gab" || u.UserName == "justin" || u.UserName == "birk" || u.UserName == "andreas" || u.UserName == "carsten").ToListAsync();
         db.Users.RemoveRange(testUsers);
         await db.SaveChangesAsync();
 

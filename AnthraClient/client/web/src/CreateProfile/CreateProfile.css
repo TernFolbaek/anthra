@@ -151,7 +151,13 @@
 }
 
 .dropdown-arrow {
+    display: inline-block;
     margin-left: 10px;
+    transition: transform 0.3s ease; /* Smooth rotation */
+}
+
+.rotate-180 {
+    transform: rotate(180deg); /* Rotate arrow when dropdown is open */
 }
 
 .uni-dropdown-menu {

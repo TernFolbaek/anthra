@@ -417,14 +417,21 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                                     className="custom-dropdown flex items-center gap-x-2 mb-2"
                                     ref={institutionDropdownRef}
                                 >
-                                    <label className="input-label">Institution:<span
-                                        className="required-asterisk">*</span></label>
+                                    <label className="input-label">
+                                        Institution:<span className="required-asterisk">*</span>
+                                    </label>
                                     <div
                                         className="create-profile-dropdown-header text-sm mr-5"
                                         onClick={handleDropdownClick}
                                     >
                                         {institution ? institution : 'Select Institution'}
-                                        <span className={`dropdown-arrow ${isOpen ? 'open' : ''}`}>▼</span>
+                                        <span
+                                            className={`dropdown-arrow transition-transform duration-300 ${
+                                                isOpen ? 'rotate-180' : ''
+                                            }`}
+                                        >
+                ▼
+            </span>
                                     </div>
                                     {isOpen && (
                                         <div className="uni-dropdown-menu">
@@ -448,11 +455,17 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                                     >
                                         <label className="input-label">Faculty</label>
                                         <div
-                                            className="create-profile-dropdown-header"
+                                            className="create-profile-dropdown-header text-sm"
                                             onClick={handleFacultyDropdownClick}
                                         >
                                             {faculty ? faculty : 'Select Faculty'}
-                                            <span className="dropdown-arrow">▼</span>
+                                            <span
+                                                className={`dropdown-arrow transition-transform duration-300 ${
+                                                    isFacultyDropdownOpen ? 'rotate-180' : ''
+                                                }`}
+                                            >
+                    ▼
+                </span>
                                         </div>
                                         {isFacultyDropdownOpen && (
                                             <div className="uni-dropdown-menu">
@@ -470,6 +483,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                                     </div>
                                 )}
                             </div>
+
 
                             {institution === 'Other' && (
                                 <div className="flex items-center gap-x-2 mb-2">
@@ -491,7 +505,8 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
 
                             {/* Course input */}
                             <label htmlFor="courseInput" className="input-label">
-                                Courses <span className="text-xs font-medium">(online or in school)</span><span className="required-asterisk">*</span>{' '}
+                                Courses <span className="text-xs font-medium">(online or in school)</span><span
+                                className="required-asterisk">*</span>{' '}
                                 <span className="counter">({courses.length}/4)</span>
                             </label>
                             <div className="course-input-container">
@@ -523,7 +538,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                                         className="course-add-button"
                                         disabled={courses.length >= 4}
                                     >
-                                        <FaPlusCircle />
+                                        <FaPlusCircle/>
                                     </button>
                                 </div>
 
@@ -576,7 +591,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                                                     rel="noopener noreferrer"
                                                 >
                                                     {course.courseName}
-                                                    <FaExternalLinkAlt className="external-link-icon" />
+                                                    <FaExternalLinkAlt className="external-link-icon"/>
                                                 </a>
                                             ) : (
                                                 <span>{course.courseName}</span>
@@ -586,7 +601,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                                                 onClick={() => handleRemoveCourse(course.courseName)}
                                                 className="remove-course-button"
                                             >
-                                                <FaTimes />
+                                                <FaTimes/>
                                             </button>
                                         </span>
                                     ))}
@@ -622,7 +637,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                                         className="course-add-button"
                                         disabled={subjects.length >= 5}
                                     >
-                                        <FaPlusCircle />
+                                        <FaPlusCircle/>
                                     </button>
                                 </div>
                             </div>
@@ -641,7 +656,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                                                 onClick={() => handleRemoveSubject(subject)}
                                                 className="remove-subject-button"
                                             >
-                                                <FaTimes />
+                                                <FaTimes/>
                                             </button>
                                         </span>
                                     ))}

@@ -79,3 +79,9 @@ body.dark-mode .explore-menu-button.active {
 body.dark-mode .explore-menu-button:not(.active) {
     color: #ccc;
 }
+
+@media(max-width: 480px) {
+    .explore-menu-container {
+        padding-bottom: 5px;
+    }
+}

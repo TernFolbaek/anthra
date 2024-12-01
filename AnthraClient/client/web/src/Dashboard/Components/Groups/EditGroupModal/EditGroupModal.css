@@ -87,7 +87,7 @@
 
 .edit-group-buttons {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     gap: 10px;
 }
 
@@ -129,7 +129,6 @@
 }
 
 .edit-member-action-button-profile{
-    font-size: 14px;
     background-color: rgba(180, 209, 255, 0.5);
     padding: 5px;
     border-radius: 5px;
@@ -137,7 +136,6 @@
 }
 
 .edit-member-action-button-kick{
-    font-size: 14px;
     background-color: rgba(255, 180, 180, 0.5);
     padding: 5px;
     border-radius: 5px;

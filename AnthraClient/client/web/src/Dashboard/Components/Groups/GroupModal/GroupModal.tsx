@@ -110,7 +110,9 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                 <div className="input-group">
                     <div className="label-and-counter">
                         <p className="font-bold text-sm">
-                            Description<span className="required-asterisk">*</span>
+                            Description<span className="required-asterisk">*</span> <span
+                            className="font-medium text-xs"> min. 100 chars.</span>
+
                         </p>
                         <div className="create-group-char-counter">{groupDescription.length}/150</div>
                     </div>
@@ -119,7 +121,8 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                         placeholder="Group description"
                         value={groupDescription}
                         onChange={(e) => setGroupDescription(e.target.value)}
-                        maxLength={100}
+                        minLength={80}
+                        maxLength={150}
                         required
                     />
                 </div>
@@ -127,16 +130,19 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                 <div className="input-group">
                     <div className="label-and-counter">
                         <p className="font-bold text-sm">
-                            Who are you looking for<span className="required-asterisk">*</span>
+                            Who are you looking for<span className="required-asterisk">*</span> <span
+                            className="font-medium text-xs"> min. 100 chars.</span>
+
                         </p>
-                        <div className="create-group-char-counter">{groupMemberDesire.length}/100</div>
+                        <div className="create-group-char-counter">{groupMemberDesire.length}/150</div>
                     </div>
                     <textarea
                         className="group-description-input"
                         placeholder="Which type of members is this group looking for?"
                         value={groupMemberDesire}
                         onChange={(e) => setGroupMemberDesire(e.target.value)}
-                        maxLength={100}
+                        minLength={80}
+                        maxLength={150}
                         required
                     />
                 </div>

@@ -89,6 +89,7 @@ body.dark-mode #viewgroupprofile .viewgroupprofile-section-subtitle {
 #viewgroupprofile .viewgroupprofile-desired-members {
     font-size: 0.84375rem;
     margin-top: 0.3125rem;
+    line-break: anywhere;
     color: #555;
     text-align: left;
 }

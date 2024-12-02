@@ -1,11 +1,11 @@
 .group-info {
-    width: 400px;
     padding: 20px;
     overflow-y: auto;
     border-radius: 10px;
     background-color: white;
     font-family: 'Montserrat', sans-serif;
     scrollbar-color: #e4e4e4 transparent;
+    flex: 1;
 }
 
 .group-info::-webkit-scrollbar {
@@ -47,6 +47,7 @@ body.dark-mode .group-section-title {
 .group-desired-members {
     font-size: 0.85rem;
     color: #666;
+    line-break: anywhere;
     margin-bottom: 10px;
 }
 

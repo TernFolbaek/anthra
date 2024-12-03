@@ -74,7 +74,7 @@ const CurrentConversations: React.FC = React.memo(() => {
             <div className="search-container">
                 <input
                     type="text"
-                    placeholder="Search Conversations"
+                    placeholder="Search messages"
                     className="search-input"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}

@@ -43,6 +43,14 @@
     .explore-page{
         padding: 10px;
         margin-bottom: 55px;
+        overflow-x: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: normal;
+    }
+
+    .explore-page::-webkit-scrollbar{
+        display: none;
     }
 }
 

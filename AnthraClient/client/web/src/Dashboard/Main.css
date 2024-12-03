@@ -14,7 +14,6 @@
 .main-content {
     position: relative;
     flex: 1;
-    overflow-y: auto; /* Make the main-content scrollable */
     height: 100vh;
     width: 100vw;
     background-color: rgb(245,245,245);
@@ -38,8 +37,3 @@ body.dark-mode .main-content {
     }
 }
 
-@media (max-width: 500px) {
-    .main-content {
-        margin-bottom: 50px;
-    }
-}

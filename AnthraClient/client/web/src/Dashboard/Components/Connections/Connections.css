@@ -293,6 +293,14 @@ body.dark-mode .connections-tabs button:hover {
 
 @media(max-width: 480px) {
     .connections-page{
-        margin: 5px;
+        margin: 0;
+    }
+
+    .connections-card-container {
+        margin: 0;
+    }
+
+    .connections-tabs{
+        margin: 0;
     }
 }

@@ -27,7 +27,7 @@ body.dark-mode .card-title {
 
 @media(max-width: 768px) {
     .card-container {
-        margin: 5px 0 50px 0;
-        width: 80%;
+        margin: 0 0 50px 0;
+        width: 100%;
     }
 }

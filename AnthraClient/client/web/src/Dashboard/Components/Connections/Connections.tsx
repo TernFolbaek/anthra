@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import NoConnectionsRive from "../../Helpers/Animations/NoConnections";
 import ViewProfile from '../ViewProfile/ViewProfile';
 import { FaEllipsisV, FaUserMinus } from 'react-icons/fa';
+import {FaMessage, FaUsers} from "react-icons/fa6";
 
 interface ApplicationUser {
     id: string;
@@ -271,12 +272,12 @@ const Connections: React.FC = () => {
         <div className="connections-page">
             {usersWithConversations.length === 0 && usersWithoutConversations.length === 0 ? (
                 <div className="connections-container">
-                    <NoConnectionsRive />
+                    <NoConnectionsRive/>
                 </div>
             ) : (
                 <>
-                    {/* Tabs for mobile view */}
-                    {screenWidth < 768 && (
+                {/* Tabs for mobile view */}
+                    {screenWidth < 768 && screenWidth > 480 && (
                         <div className="connections-tabs">
                             <button
                                 onClick={() => setSelectedTab('conversations')}
@@ -292,6 +293,27 @@ const Connections: React.FC = () => {
                             </button>
                         </div>
                     )}
+
+                    {screenWidth < 481 && (
+                        <div className="connections-tabs">
+                            <button
+                                onClick={() => setSelectedTab('conversations')}
+                                className={selectedTab === 'conversations' ? 'active' : ''}
+                            >
+                                <div className="flex justify-center w-full">
+                                    <FaMessage/>
+                                </div>
+                            </button>
+                            <button
+                                onClick={() => setSelectedTab('connections')}
+                                className={selectedTab === 'connections' ? 'active' : ''}
+                            >
+                                <div className="flex justify-center w-full">
+                                    <FaUsers/>
+                                </div>
+                            </button>
+                        </div>
+                        )}
 
                     {/* Conditional rendering based on screen width */}
                     {screenWidth < 768 ? (

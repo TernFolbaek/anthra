@@ -245,6 +245,10 @@ body.dark-mode .group-explore-no-more {
         font-size: 1.5rem;
     }
 
+    .explore-group-card{
+        margin-bottom: 50px;
+    }
+
     .group-explore-info h3 {
         font-size: 1rem;
     }

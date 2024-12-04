@@ -36,17 +36,14 @@ const Footer: React.FC = () => {
             <div>
                 <Notifications />
             </div>
-            <NavLink to="/explore" className="footer-link">
-                <FaHome />
-            </NavLink>
             <NavLink to="/connections" className="footer-link">
                 <FaUserFriends />
             </NavLink>
+            <NavLink to="/explore" className="footer-link">
+                <FaHome />
+            </NavLink>
             <NavLink to="/messages" className="footer-link">
                 <FaEnvelope />
-            </NavLink>
-            <NavLink to="/settings" className="footer-link">
-                <FaCog />
             </NavLink>
             <button className="footer-link" onClick={toggleMenu}>
                 <FaBars />
@@ -58,12 +55,6 @@ const Footer: React.FC = () => {
                         <button className="close-button" onClick={closeMenu}>
                             <FaTimes size={20}/>
                         </button>
-                        {/* Render additional links here */}
-                        <NavLink to="/requests" onClick={closeMenu}>
-                            <div className="flex gap-2 items-center">
-                                <FaHandHoldingHeart/> Requests
-                            </div>
-                        </NavLink>
                         <NavLink to="/profile" onClick={closeMenu}>
                         <div className="flex gap-2 items-center">
                                 <FaUser/> Profile
@@ -73,6 +64,9 @@ const Footer: React.FC = () => {
                             <div className="flex gap-2 items-center">
                                 <FaUsers/> Groups
                             </div>
+                        </NavLink>
+                        <NavLink to="/settings" className="footer-link">
+                            <FaCog /> Settings
                         </NavLink>
                     </div>
                 </div>

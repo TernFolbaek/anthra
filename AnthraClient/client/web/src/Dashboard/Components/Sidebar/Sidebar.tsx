@@ -53,15 +53,6 @@ const Sidebar: React.FC = () => {
                     </div>
                 </NavLink>
                 <NavLink
-                    to="/requests"
-                    className={({isActive}) => `sidebar-link ${isActive ? 'active-link' : ''}`}
-                >
-                    <div className="tooltip-container">
-                        <FaHandHoldingHeart className="sidebar-icon"/>
-                        <span className="tooltip">Requests</span>
-                    </div>
-                </NavLink>
-                <NavLink
                     to="/settings"
                     className={({isActive}) => `sidebar-link ${isActive ? 'active-link' : ''}`}
                 >

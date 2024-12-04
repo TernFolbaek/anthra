@@ -190,6 +190,10 @@ body.dark-mode .requests-tabs button:hover {
 
 @media(max-width: 480px) {
     .requests-page{
-        margin: 5px;
+        margin: 0;
+    }
+
+    .requests-tabs{
+        margin: 0;
     }
 }

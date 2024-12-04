@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Requests.css';
 import NoConnectionsRive from "../../Helpers/Animations/NoConnections";
 import ViewProfile from '../ViewProfile/ViewProfile';
+import {FaUser, FaUsers} from "react-icons/fa";
 
 interface ConnectionRequestDTO {
     id: number;
@@ -271,7 +272,7 @@ const Requests: React.FC = () => {
     return (
         <div className="requests-page">
             {/* Tabs for mobile view */}
-            {screenWidth < 768 && (
+            {screenWidth < 768 && screenWidth > 480 && (
                 <div className="requests-tabs">
                     <button
                         onClick={() => setSelectedTab('personal')}
@@ -287,6 +288,27 @@ const Requests: React.FC = () => {
                     </button>
                 </div>
             )}
+
+            {screenWidth < 481 && (
+                <div className="requests-tabs">
+                    <button
+                        onClick={() => setSelectedTab('personal')}
+                        className={selectedTab === 'personal' ? 'active' : ''}
+                    >
+                        <div className="w-full flex justify-center">
+                            <FaUser/>
+                        </div>
+                    </button>
+                    <button
+                        onClick={() => setSelectedTab('groups')}
+                        className={selectedTab === 'groups' ? 'active' : ''}
+                    >
+                        <div className="w-full flex justify-center">
+                            <FaUsers/>
+                        </div>
+                    </button>
+                </div>
+                )}
 
             {/* Conditional rendering based on screen width */}
             {screenWidth < 768 ? (

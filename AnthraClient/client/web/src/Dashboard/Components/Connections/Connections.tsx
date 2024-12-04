@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import NoConnectionsRive from "../../Helpers/Animations/NoConnections";
 import ViewProfile from '../ViewProfile/ViewProfile';
 import { FaEllipsisV, FaUserMinus } from 'react-icons/fa';
-import {FaMessage, FaUsers} from "react-icons/fa6";
+import { FaUser, FaUsers } from "react-icons/fa";
 
 interface ApplicationUser {
     id: string;
@@ -14,30 +14,47 @@ interface ApplicationUser {
     connectedAt: string;
 }
 
-interface Conversation {
-    userId: string;
-    FirstName: string;
-    UserProfilePicture: string;
-    LastMessageContent: string;
-    LastMessageTimestamp: string;
-    LastMessageSenderId: string;
+interface ConnectionRequestDTO {
+    id: number;
+    senderId: string;
+    senderName: string;
+    senderFirstName: string;
+    senderLastName: string;
+    senderEmail: string;
+    senderProfilePicture?: string;
+    receiverId: string;
+    status: number;
+    requestedAt: string;
+    respondedAt?: string;
+}
+
+interface GroupApplicationRequestDTO {
+    groupId: number;
+    groupName: string;
+    applications: {
+        requestId: number;
+        applicantId: string;
+        applicantName: string;
+        applicantProfilePictureUrl: string;
+        requestedAt: string;
+    }[];
 }
 
 const Connections: React.FC = () => {
-    const [usersWithConversations, setUsersWithConversations] = useState<ApplicationUser[]>([]);
-    const [usersWithoutConversations, setUsersWithoutConversations] = useState<ApplicationUser[]>([]);
+    const [connections, setConnections] = useState<ApplicationUser[]>([]);
+    const [connectionRequests, setConnectionRequests] = useState<ConnectionRequestDTO[]>([]);
+    const [groupApplicationRequests, setGroupApplicationRequests] = useState<GroupApplicationRequestDTO[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const navigate = useNavigate();
-    const userId = localStorage.getItem('userId');
-
     const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
     const [openMenuConnectionId, setOpenMenuConnectionId] = useState<string | null>(null);
-    const menuRef = useRef<HTMLDivElement | null>(null);
-
-    // New state variables for responsiveness and tab selection
     const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth);
-    const [selectedTab, setSelectedTab] = useState<'conversations' | 'connections'>('conversations');
+    const [selectedTab, setSelectedTab] = useState<'connections' | 'requests'>('connections');
+    const [selectedRequestTab, setSelectedRequestTab] = useState<'personal' | 'groups'>('personal');
+    const menuRef = useRef<HTMLDivElement | null>(null);
+    const navigate = useNavigate();
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
 
     const handleUserClick = (userId: string) => {
         setSelectedUserId(userId);
@@ -46,7 +63,6 @@ const Connections: React.FC = () => {
     const handleCloseProfile = () => {
         setSelectedUserId(null);
     };
-
 
     const handleRemoveConnection = async (connectionId: string) => {
         try {
@@ -57,12 +73,8 @@ const Connections: React.FC = () => {
                     withCredentials: true,
                 }
             );
-            // Update the connections lists after removal
-            setUsersWithConversations(
-                usersWithConversations.filter((user) => user.id !== connectionId)
-            );
-            setUsersWithoutConversations(
-                usersWithoutConversations.filter((user) => user.id !== connectionId)
+            setConnections(
+                connections.filter((user) => user.id !== connectionId)
             );
             setOpenMenuConnectionId(null);
         } catch (error) {
@@ -71,32 +83,109 @@ const Connections: React.FC = () => {
         }
     };
 
+    const handleAccept = (requestId: number) => {
+        fetch(`http://localhost:5001/api/Request/AcceptRequest?requestId=${requestId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            method: 'POST',
+        })
+            .then((response) => {
+                if (response.ok) {
+                    setConnectionRequests((prevRequests) =>
+                        prevRequests.filter((req) => req.id !== requestId)
+                    );
+                } else {
+                    return response.text().then((text) => {
+                        throw new Error(text);
+                    });
+                }
+            })
+            .catch((error) => console.error('Error accepting request:', error));
+    };
+
+    const handleDecline = (requestId: number) => {
+        fetch(`http://localhost:5001/api/Request/DeclineRequest?requestId=${requestId}`, {
+            method: 'POST',
+        })
+            .then((response) => {
+                if (response.ok) {
+                    setConnectionRequests((prevRequests) =>
+                        prevRequests.filter((req) => req.id !== requestId)
+                    );
+                } else {
+                    return response.text().then((text) => {
+                        throw new Error(text);
+                    });
+                }
+            })
+            .catch((error) => console.error('Error declining request:', error));
+    };
+
+    const handleGroupApplicationAccept = (requestId: number) => {
+        fetch(`http://localhost:5001/api/Requests/RespondToGroupApplication`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            body: JSON.stringify({ requestId, accept: true }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    setGroupApplicationRequests(prevState => {
+                        return prevState.map(group => ({
+                            ...group,
+                            applications: group.applications.filter(app => app.requestId !== requestId)
+                        })).filter(group => group.applications.length > 0);
+                    });
+                } else {
+                    return response.text().then((text) => {
+                        throw new Error(text);
+                    });
+                }
+            })
+            .catch((error) => console.error('Error accepting group application:', error));
+    };
+
+    const handleGroupApplicationDecline = (requestId: number) => {
+        fetch(`http://localhost:5001/api/Requests/RespondToGroupApplication`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            body: JSON.stringify({ requestId, accept: false }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    setGroupApplicationRequests(prevState => {
+                        return prevState.map(group => ({
+                            ...group,
+                            applications: group.applications.filter(app => app.requestId !== requestId)
+                        })).filter(group => group.applications.length > 0);
+                    });
+                } else {
+                    return response.text().then((text) => {
+                        throw new Error(text);
+                    });
+                }
+            })
+            .catch((error) => console.error('Error declining group application:', error));
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [connectionsResponse, conversationsResponse] = await Promise.all([
-                    axios.get('http://localhost:5001/api/Connections/List', {
-                        params: {
-                            userId: userId,
-                        },
-                        withCredentials: true,
-                    }),
-                    axios.get(`http://localhost:5001/api/Messages/GetConversations?userId=${userId}`),
-                ]);
+                const response = await axios.get('http://localhost:5001/api/Connections/List', {
+                    params: {
+                        userId: userId,
+                    },
+                    withCredentials: true,
+                });
 
-                const connectedUsers: ApplicationUser[] = connectionsResponse.data;
-                const conversationData: Conversation[] = conversationsResponse.data;
-
-                const usersWithConversations = connectedUsers.filter(user =>
-                    conversationData.some(conversation => conversation.userId === user.id)
-                );
-
-                const usersWithoutConversations = connectedUsers.filter(user =>
-                    !conversationData.some(conversation => conversation.userId === user.id)
-                );
-
-                setUsersWithConversations(usersWithConversations);
-                setUsersWithoutConversations(usersWithoutConversations);
+                const connectedUsers: ApplicationUser[] = response.data;
+                setConnections(connectedUsers);
 
                 setLoading(false);
             } catch (err) {
@@ -109,7 +198,40 @@ const Connections: React.FC = () => {
         fetchData();
     }, [userId]);
 
-    // Handle screen resize for responsiveness
+    useEffect(() => {
+        if (!userId) {
+            return;
+        }
+        fetch(`http://localhost:5001/api/Request/Pending?userId=${userId}`)
+            .then((response) => {
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    });
+                }
+                return response.json();
+            })
+            .then((data) => setConnectionRequests(data))
+            .catch((error) => console.error('Error fetching requests:', error));
+
+        fetch(`http://localhost:5001/api/Requests/GetGroupApplicationRequests`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    });
+                }
+                return response.json();
+            })
+            .then((data) => setGroupApplicationRequests(data))
+            .catch((error) => console.error('Error fetching group application requests:', error));
+
+    }, [userId, token]);
+
     useEffect(() => {
         const handleResize = () => setScreenWidth(window.innerWidth);
 
@@ -118,7 +240,6 @@ const Connections: React.FC = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    // Handle clicks outside the menu to close it
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (
@@ -145,71 +266,14 @@ const Connections: React.FC = () => {
         return <div className="connections-error">{error}</div>;
     }
 
-    // Helper functions to render content
-    const renderConversations = () => (
+    const renderConnections = () => (
         <div className="connections-card-container">
-            <h2 className="connections-title">Ongoing Conversations</h2>
-            {usersWithConversations.length === 0 ? (
-                <div className="connections-list">
-                    <p className="p-2 text-center font-bold text-gray-500">No conversations yet</p>
-                </div>
+            <h2 className="connections-title">Connections</h2>
+            {connections.length === 0 ? (
+                <NoConnectionsRive />
             ) : (
                 <ul className="connections-list">
-                    {usersWithConversations.map((user) => (
-                        <li
-                            key={user.id}
-                            className="connection-item"
-                            onClick={() => navigate(`/messages/${user.id}`)}
-                        >
-                            <div className="connection-info">
-                                <img
-                                    src={`${user.profilePictureUrl}`}
-                                    alt={user.firstName}
-                                    className="connection-profile-picture"
-                                />
-                                <span className="connection-name">{user.firstName}</span>
-                            </div>
-                            <div className="connections-menu-button">
-                                <button
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        setOpenMenuConnectionId(
-                                            openMenuConnectionId === user.id ? null : user.id
-                                        );
-                                    }}
-                                >
-                                    <FaEllipsisV />
-                                </button>
-                                {openMenuConnectionId === user.id && (
-                                    <div
-                                        className="connections-options-menu"
-                                        ref={menuRef}
-                                        onClick={(e) => e.stopPropagation()}
-                                    >
-                                        <button className="flex items-center gap-2 text-sm font-bold text-gray-500" onClick={() => handleRemoveConnection(user.id)}>
-                                            <FaUserMinus/>
-                                            <div>
-                                                Remove Connection
-                                            </div>
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            )}
-        </div>
-    );
-
-    const renderNewConnections = () => (
-        <div className="connections-card-container">
-            <h2 className="connections-title">New Connections</h2>
-            {usersWithoutConversations.length === 0 ? (
-                    <NoConnectionsRive />
-            ) : (
-                <ul className="connections-list">
-                    {usersWithoutConversations.map((user) => (
+                    {connections.map((user) => (
                         <li
                             key={user.id}
                             className="connection-item"
@@ -268,64 +332,150 @@ const Connections: React.FC = () => {
         </div>
     );
 
+    const renderPersonalRequests = () => (
+        <div className="requests-content">
+            {connectionRequests.length === 0 ? (
+                <h2 className="w-full text-center text-gray-700 text-base font-bold dark:text-white">No new connection requests</h2>
+            ) : (
+                connectionRequests.map((request) => (
+                    <div
+                        key={request.id}
+                        onClick={() => handleUserClick(request.senderId)}
+                        className="requests-user-card"
+                    >
+                        <div className="requests-user-info">
+                            <img
+                                className="requests-user-card-img"
+                                src={request.senderProfilePicture}
+                                alt="Profile"
+                            />
+                            <h2>{request.senderFirstName} {request.senderLastName}</h2>
+                        </div>
+                        <div className="requests-button-container">
+                            <button
+                                className="requests-connect-button"
+                                onClick={(e) => { e.stopPropagation(); handleAccept(request.id) }}
+                            >
+                                Accept
+                            </button>
+                            <button
+                                className="requests-skip-button"
+                                onClick={(e) => { e.stopPropagation(); handleDecline(request.id) }}
+                            >
+                                Decline
+                            </button>
+                        </div>
+                    </div>
+                ))
+            )}
+        </div>
+    );
+
+    const renderGroupRequests = () => (
+        <div className="requests-content">
+            {groupApplicationRequests.length === 0 ? (
+                <p className="no-group-text text-gray-700 w-full text-center text-base font-bold">No group application requests</p>
+            ) : (
+                groupApplicationRequests.map((group) => (
+                    <div key={group.groupId} className="requests-group-section">
+                        <h3 className="requests-group-name">{group.groupName}</h3>
+                        {group.applications.map((application) => (
+                            <div key={application.requestId} className="requests-user-card">
+                                <div className="requests-user-info">
+                                    <img
+                                        className="requests-user-card-img"
+                                        src={application.applicantProfilePictureUrl}
+                                        alt="Profile"
+                                    />
+                                    <h2>{application.applicantName}</h2>
+                                </div>
+                                <div className="requests-button-container">
+                                    <button
+                                        className="requests-connect-button"
+                                        onClick={() => handleGroupApplicationAccept(application.requestId)}
+                                    >
+                                        Accept
+                                    </button>
+                                    <button
+                                        className="requests-skip-button"
+                                        onClick={() => handleGroupApplicationDecline(application.requestId)}
+                                    >
+                                        Decline
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ))
+            )}
+        </div>
+    );
+
     return (
         <div className="connections-page">
-            {usersWithConversations.length === 0 && usersWithoutConversations.length === 0 ? (
-                <div className="connections-container">
-                    <NoConnectionsRive/>
-                </div>
-            ) : (
                 <>
-                {/* Tabs for mobile view */}
-                    {screenWidth < 768 && screenWidth > 480 && (
+                    {screenWidth < 768 && (
                         <div className="connections-tabs">
-                            <button
-                                onClick={() => setSelectedTab('conversations')}
-                                className={selectedTab === 'conversations' ? 'active' : ''}
-                            >
-                                Conversations
-                            </button>
                             <button
                                 onClick={() => setSelectedTab('connections')}
                                 className={selectedTab === 'connections' ? 'active' : ''}
                             >
-                                Connections
+                                {screenWidth < 481 ? <FaUser /> : 'Connections'}
+                            </button>
+                            <button
+                                onClick={() => setSelectedTab('requests')}
+                                className={selectedTab === 'requests' ? 'active' : ''}
+                            >
+                                {screenWidth < 481 ? <FaUsers /> : 'Requests'}
                             </button>
                         </div>
                     )}
 
-                    {screenWidth < 481 && (
-                        <div className="connections-tabs">
-                            <button
-                                onClick={() => setSelectedTab('conversations')}
-                                className={selectedTab === 'conversations' ? 'active' : ''}
-                            >
-                                <div className="flex justify-center w-full">
-                                    <FaMessage/>
-                                </div>
-                            </button>
-                            <button
-                                onClick={() => setSelectedTab('connections')}
-                                className={selectedTab === 'connections' ? 'active' : ''}
-                            >
-                                <div className="flex justify-center w-full">
-                                    <FaUsers/>
-                                </div>
-                            </button>
-                        </div>
-                        )}
-
-                    {/* Conditional rendering based on screen width */}
                     {screenWidth < 768 ? (
-                        selectedTab === 'conversations' ? renderConversations() : renderNewConnections()
+                        selectedTab === 'connections' ? (
+                            renderConnections()
+                        ) : (
+                            <div className="connections-card-container">
+                                <div className="requests-tabs">
+                                    <button
+                                        onClick={() => setSelectedRequestTab('personal')}
+                                        className={selectedRequestTab === 'personal' ? 'active' : ''}
+                                    >
+                                        Personal
+                                    </button>
+                                    <button
+                                        onClick={() => setSelectedRequestTab('groups')}
+                                        className={selectedRequestTab === 'groups' ? 'active' : ''}
+                                    >
+                                        Groups
+                                    </button>
+                                </div>
+                                {selectedRequestTab === 'personal' ? renderPersonalRequests() : renderGroupRequests()}
+                            </div>
+                        )
                     ) : (
                         <div className="connections-columns">
-                            {renderConversations()}
-                            {renderNewConnections()}
+                            {renderConnections()}
+                            <div className="connections-card-container">
+                                <div className="requests-tabs">
+                                    <button
+                                        onClick={() => setSelectedRequestTab('personal')}
+                                        className={selectedRequestTab === 'personal' ? 'active' : ''}
+                                    >
+                                        Personal
+                                    </button>
+                                    <button
+                                        onClick={() => setSelectedRequestTab('groups')}
+                                        className={selectedRequestTab === 'groups' ? 'active' : ''}
+                                    >
+                                        Groups
+                                    </button>
+                                </div>
+                                {selectedRequestTab === 'personal' ? renderPersonalRequests() : renderGroupRequests()}
+                            </div>
                         </div>
                     )}
                 </>
-            )}
             {selectedUserId && (
                 <ViewProfile userId={selectedUserId} onClose={handleCloseProfile}/>
             )}

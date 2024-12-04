@@ -1,8 +1,8 @@
 // Profile.tsx
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import './Profile.css';
 import axios from 'axios';
-import { FaRegHandPointer, FaPlus, FaTrash } from "react-icons/fa";
+import {FaRegHandPointer, FaPlus, FaTrash} from "react-icons/fa";
 
 interface Course {
     courseName: string;
@@ -52,7 +52,7 @@ const Profile: React.FC = () => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         if (profileData) {
-            const { name, value } = e.target;
+            const {name, value} = e.target;
             setProfileData({
                 ...profileData,
                 [name]: value,
@@ -79,7 +79,7 @@ const Profile: React.FC = () => {
         if (profileData) {
             setProfileData({
                 ...profileData,
-                courses: [...profileData.courses, { courseName: '', courseLink: '' }],
+                courses: [...profileData.courses, {courseName: '', courseLink: ''}],
             });
         }
     };
@@ -188,253 +188,260 @@ const Profile: React.FC = () => {
     };
 
     return (
-        <div className="profile-page ">
-            <div className="profile-card">
-                <div className="profile-header">
-                    <button onClick={() => setEditMode(!editMode)}>
-                        {editMode ? 'Cancel' : 'Edit'}
-                    </button>
-                </div>
-                <div className="profile-content">
-                    <div className="profile-picture">
-                        <img
-                            src={
-                                profilePictureFile
-                                    ? URL.createObjectURL(profilePictureFile)
-                                    : `${profileData.profilePictureUrl}`
-                            }
-                            className="profile-picture-img"
-                            alt="Profile"
-                        />
-                        {profileData.profilePictureUrl}
-                        {editMode && (
-                            <div className="profile-picture-overlay">
-                                <input
-                                    type="file"
-                                    name="profileImage"
-                                    accept="image/*"
-                                    onChange={handleProfilePictureChange}
-                                    className="hidden-file-input"
-                                />
-                                <div className="overlay-content">
-                                    <FaRegHandPointer className="cursor-icon"/>
-                                    <span>Change Profile Picture</span>
+        <div className="overflow-auto h-full ">
+            <div className="profile-page h-full overflow-auto">
+                <div className="profile-card">
+                    <div className="profile-header">
+                        <button onClick={() => setEditMode(!editMode)}>
+                            {editMode ? 'Cancel' : 'Edit'}
+                        </button>
+                    </div>
+                    <div className="profile-content">
+                        <div className="profile-picture">
+                            <img
+                                src={
+                                    profilePictureFile
+                                        ? URL.createObjectURL(profilePictureFile)
+                                        : `${profileData.profilePictureUrl}`
+                                }
+                                className="profile-picture-img"
+                                alt="Profile"
+                            />
+                            {profileData.profilePictureUrl}
+                            {editMode && (
+                                <div className="profile-picture-overlay">
+                                    <input
+                                        type="file"
+                                        name="profileImage"
+                                        accept="image/*"
+                                        onChange={handleProfilePictureChange}
+                                        className="hidden-file-input"
+                                    />
+                                    <div className="overlay-content">
+                                        <FaRegHandPointer className="cursor-icon"/>
+                                        <span>Change Profile Picture</span>
+                                    </div>
+                                </div>)}
+                        </div>
+                        <div className="profile-info">
+                            {/* Username */}
+                            <div className="profile-row">
+                                <div className="profile-field full-width">
+                                    <label className="profile-label">Username:</label>
+                                    <span>{profileData.userName}</span>
                                 </div>
-                            </div>)}
                             </div>
-                            <div className="profile-info">
-                        {/* Username */}
-                        <div className="profile-row">
-                            <div className="profile-field full-width">
-                                <label className="profile-label">Username:</label>
-                                <span>{profileData.userName}</span>
-                            </div>
-                        </div>
 
-                        {/* First Name and Last Name */}
-                        <div className="profile-row">
-                            <div className="profile-field half-width">
-                                <label className="profile-label">First Name:</label>
-                                {editMode ? (
-                                    <input
-                                        type="text"
-                                        name="firstName"
-                                        value={profileData.firstName}
-                                        onChange={handleInputChange}
-                                    />
-                                ) : (
-                                    <span>{profileData.firstName}</span>
-                                )}
+                            {/* First Name and Last Name */}
+                            <div className="profile-row">
+                                <div className="profile-field half-width">
+                                    <label className="profile-label">First Name:</label>
+                                    {editMode ? (
+                                        <input
+                                            type="text"
+                                            name="firstName"
+                                            value={profileData.firstName}
+                                            onChange={handleInputChange}
+                                        />
+                                    ) : (
+                                        <span>{profileData.firstName}</span>
+                                    )}
+                                </div>
+                                <div className="profile-field half-width">
+                                    <label className="profile-label">Last Name:</label>
+                                    {editMode ? (
+                                        <input
+                                            type="text"
+                                            name="lastName"
+                                            value={profileData.lastName}
+                                            onChange={handleInputChange}
+                                        />
+                                    ) : (
+                                        <span>{profileData.lastName}</span>
+                                    )}
+                                </div>
                             </div>
-                            <div className="profile-field half-width">
-                                <label className="profile-label">Last Name:</label>
-                                {editMode ? (
-                                    <input
-                                        type="text"
-                                        name="lastName"
-                                        value={profileData.lastName}
-                                        onChange={handleInputChange}
-                                    />
-                                ) : (
-                                    <span>{profileData.lastName}</span>
-                                )}
-                            </div>
-                        </div>
 
-                        {/* Age and Location */}
-                        <div className="profile-row">
-                            <div className="profile-field half-width">
-                                <label className="profile-label">Age:</label>
-                                {editMode ? (
-                                    <input
-                                        type="number"
-                                        name="age"
-                                        value={profileData.age}
-                                        onChange={handleInputChange}
-                                    />
-                                ) : (
-                                    <span>{profileData.age}</span>
-                                )}
+                            {/* Age and Location */}
+                            <div className="profile-row">
+                                <div className="profile-field half-width">
+                                    <label className="profile-label">Age:</label>
+                                    {editMode ? (
+                                        <input
+                                            type="number"
+                                            name="age"
+                                            value={profileData.age}
+                                            onChange={handleInputChange}
+                                        />
+                                    ) : (
+                                        <span>{profileData.age}</span>
+                                    )}
+                                </div>
+                                <div className="profile-field half-width">
+                                    <label className="profile-label">Location:</label>
+                                    {editMode ? (
+                                        <input
+                                            type="text"
+                                            name="location"
+                                            value={profileData.location}
+                                            onChange={handleInputChange}
+                                        />
+                                    ) : (
+                                        <span>{profileData.location}</span>
+                                    )}
+                                </div>
                             </div>
-                            <div className="profile-field half-width">
-                                <label className="profile-label">Location:</label>
-                                {editMode ? (
-                                    <input
-                                        type="text"
-                                        name="location"
-                                        value={profileData.location}
-                                        onChange={handleInputChange}
-                                    />
-                                ) : (
-                                    <span>{profileData.location}</span>
-                                )}
-                            </div>
-                        </div>
 
-                        {/* Institution and Work */}
-                        <div className="profile-row">
-                            <div className="profile-field half-width">
-                                <label className="profile-label">Institution:</label>
-                                {editMode ? (
-                                    <input
-                                        type="text"
-                                        name="institution"
-                                        value={profileData.institution}
-                                        onChange={handleInputChange}
-                                    />
-                                ) : (
-                                    <span>{profileData.institution}</span>
-                                )}
+                            {/* Institution and Work */}
+                            <div className="profile-row">
+                                <div className="profile-field half-width">
+                                    <label className="profile-label">Institution:</label>
+                                    {editMode ? (
+                                        <input
+                                            type="text"
+                                            name="institution"
+                                            value={profileData.institution}
+                                            onChange={handleInputChange}
+                                        />
+                                    ) : (
+                                        <span>{profileData.institution}</span>
+                                    )}
+                                </div>
+                                <div className="profile-field half-width">
+                                    <label className="profile-label">Work:</label>
+                                    {editMode ? (
+                                        <input
+                                            type="text"
+                                            name="work"
+                                            value={profileData.work}
+                                            onChange={handleInputChange}
+                                        />
+                                    ) : (
+                                        <span>{profileData.work}</span>
+                                    )}
+                                </div>
                             </div>
-                            <div className="profile-field half-width">
-                                <label className="profile-label">Work:</label>
-                                {editMode ? (
-                                    <input
-                                        type="text"
-                                        name="work"
-                                        value={profileData.work}
-                                        onChange={handleInputChange}
-                                    />
-                                ) : (
-                                    <span>{profileData.work}</span>
-                                )}
-                            </div>
-                        </div>
 
-                        {/* About Me */}
-                        <div className="profile-row">
-                            <div className="profile-field full-width">
-                                <label className="profile-label">About Me:</label>
-                                {editMode ? (
-                                    <textarea
-                                        name="aboutMe"
-                                        value={profileData.aboutMe}
-                                        onChange={handleInputChange}
-                                        rows={5}
-                                    />
-                                ) : (
-                                    <p className="about-me-text">{profileData.aboutMe}</p>
-                                )}
+                            {/* About Me */}
+                            <div className="profile-row">
+                                <div className="profile-field full-width">
+                                    <label className="profile-label">About Me:</label>
+                                    {editMode ? (
+                                        <textarea
+                                            name="aboutMe"
+                                            value={profileData.aboutMe}
+                                            onChange={handleInputChange}
+                                            rows={5}
+                                        />
+                                    ) : (
+                                        <p className="about-me-text">{profileData.aboutMe}</p>
+                                    )}
+                                </div>
                             </div>
-                        </div>
 
-                        {/* Subjects */}
-                        <div className="profile-row">
-                            <div className="profile-field full-width">
-                                <label className="profile-label">Subjects:</label>
-                                {editMode ? (
-                                    <div className="subjects-list">
-                                        {profileData.subjects.map((subject, index) => (
-                                            <div key={index} className="subject-item flex">
-                                                <input
-                                                    type="text"
-                                                    value={subject}
-                                                    onChange={(e) => handleSubjectChange(index, e.target.value)}
-                                                />
-                                                <button type="button" onClick={() => removeSubject(index)}
-                                                        className="profile-edit-trash">
-                                                    <FaTrash />
-                                                </button>
-                                            </div>
-                                        ))}
-                                        <div className="flex items-center">
-                                            <button type="button" onClick={addSubject} className="profile-icon-button">
-                                                <FaPlus/>
-                                            </button>
-                                            <p className="text-gray-500 text-xs font-bold ">New Subject</p>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <ul className="subjects-list">
-                                        {profileData.subjects.map((subject, index) => (
-                                            <li key={index}>{subject}</li>
-                                        ))}
-                                    </ul>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Courses */}
-                        <div className="profile-row">
-                            <div className="profile-field full-width">
-                                <label className="profile-label">Courses:</label>
-                                {editMode ? (
-                                    <div className="courses-list">
-                                        {profileData.courses.map((course, index) => (
-                                            <div key={index} className="course-item flex items-center">
-                                                <div>
+                            {/* Subjects */}
+                            <div className="profile-row">
+                                <div className="profile-field full-width">
+                                    <label className="profile-label">Subjects:</label>
+                                    {editMode ? (
+                                        <div className="subjects-list">
+                                            {profileData.subjects.map((subject, index) => (
+                                                <div key={index} className="subject-item flex">
                                                     <input
                                                         type="text"
-                                                        placeholder="Course Name"
-                                                        value={course.courseName}
-                                                        onChange={(e) => handleCourseChange(index, 'courseName', e.target.value)}
+                                                        value={subject}
+                                                        onChange={(e) => handleSubjectChange(index, e.target.value)}
                                                     />
-                                                    <input
-                                                        type="text"
-                                                        placeholder="Course Link"
-                                                        value={course.courseLink}
-                                                        onChange={(e) => handleCourseChange(index, 'courseLink', e.target.value)}
-                                                    />
+                                                    <button type="button" onClick={() => removeSubject(index)}
+                                                            className="profile-edit-trash">
+                                                        <FaTrash/>
+                                                    </button>
                                                 </div>
-                                                <button type="button" onClick={() => removeCourse(index)}
-                                                        className="profile-edit-trash">
-                                                    <FaTrash/>
+                                            ))}
+                                            <div className="flex items-center">
+                                                <button type="button" onClick={addSubject}
+                                                        className="profile-icon-button">
+                                                    <FaPlus/>
                                                 </button>
+                                                <p className="text-gray-500 text-xs font-bold ">New Subject</p>
                                             </div>
-                                        ))}
-                                        <div className="flex items-center">
-                                            <button type="button" onClick={addCourse} className="profile-icon-button">
-                                                <FaPlus/>
-                                            </button>
-                                            <p className="text-gray-500 text-xs font-bold ">New Course</p>
                                         </div>
-
-                                    </div>
-                                ) : (
-                                    <ul className="courses-list">
-                                    {profileData.courses.map((course, index) => (
-                                            <li key={index}>
-                                                <a href={course.courseLink} className="dark:text-blue-400 text-blue-600 hover:font-bold" target="_blank" rel="noopener noreferrer">
-                                                    {course.courseName}
-                                                </a>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                )}
+                                    ) : (
+                                        <ul className="subjects-list">
+                                            {profileData.subjects.map((subject, index) => (
+                                                <li key={index}>{subject}</li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </div>
                             </div>
-                        </div>
 
-                        {editMode && (
-                            <button className="save-button" onClick={handleSave}>
-                                Save
-                            </button>
-                        )}
-                        {error && <p className="error-message">{error}</p>}
+                            {/* Courses */}
+                            <div className="profile-row">
+                                <div className="profile-field full-width">
+                                    <label className="profile-label">Courses:</label>
+                                    {editMode ? (
+                                        <div className="courses-list">
+                                            {profileData.courses.map((course, index) => (
+                                                <div key={index} className="course-item flex items-center">
+                                                    <div>
+                                                        <input
+                                                            type="text"
+                                                            placeholder="Course Name"
+                                                            value={course.courseName}
+                                                            onChange={(e) => handleCourseChange(index, 'courseName', e.target.value)}
+                                                        />
+                                                        <input
+                                                            type="text"
+                                                            placeholder="Course Link"
+                                                            value={course.courseLink}
+                                                            onChange={(e) => handleCourseChange(index, 'courseLink', e.target.value)}
+                                                        />
+                                                    </div>
+                                                    <button type="button" onClick={() => removeCourse(index)}
+                                                            className="profile-edit-trash">
+                                                        <FaTrash/>
+                                                    </button>
+                                                </div>
+                                            ))}
+                                            <div className="flex items-center">
+                                                <button type="button" onClick={addCourse}
+                                                        className="profile-icon-button">
+                                                    <FaPlus/>
+                                                </button>
+                                                <p className="text-gray-500 text-xs font-bold ">New Course</p>
+                                            </div>
+
+                                        </div>
+                                    ) : (
+                                        <ul className="courses-list">
+                                            {profileData.courses.map((course, index) => (
+                                                <li key={index}>
+                                                    <a href={course.courseLink}
+                                                       className="dark:text-blue-400 text-blue-600 hover:font-bold"
+                                                       target="_blank" rel="noopener noreferrer">
+                                                        {course.courseName}
+                                                    </a>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </div>
+                            </div>
+
+                            {editMode && (
+                                <button className="save-button" onClick={handleSave}>
+                                    Save
+                                </button>
+                            )}
+                            {error && <p className="error-message">{error}</p>}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-);
+
+    );
 };
 
 export default Profile;

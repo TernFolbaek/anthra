@@ -127,54 +127,72 @@ body.dark-mode .group-explore-member-item:hover {
     width: 100%;
 }
 
+
 .group-explore-apply-button,
 .group-explore-skip-button {
-    border: none;
-    color: #fff;
-    padding: 0.5rem;
+    padding: 0.75rem 1.5rem;
     cursor: pointer;
     font-weight: 600;
-    transition: background-color 0.3s, transform 0.2s;
-    border-radius: 12px;
+    border-radius: 8px;
     flex: 1;
     max-width: 200px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    border: none;
+    outline: none;
 }
 
+/* Connect Button */
 .group-explore-apply-button {
-    background-color: #66b2ff;
-    border: 2px solid #2c91f4;
-}
-
-.group-explore-skip-button {
-    background-color: #e1e4fb;
-    color: #3366cc;
-    border: 2px solid #3366cc;
-}
-
-/* Dark mode styles */
-body.dark-mode .group-explore-skip-button {
-    background-color: #3a3a3a;
-    color: #85bff8;
-    border: 2px solid #85bff8;
+    background-color: #007BFF; /* Modern blue color */
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);
 }
 
 .group-explore-apply-button:hover {
-    background-color: #abddfb;
-    transform: scale(1.05);
+    background-color: #0056b3; /* Darker blue on hover */
+    box-shadow: 0 8px 12px rgba(0, 123, 255, 0.2);
+    transform: translateY(-3px);
+}
+
+/* Skip Button */
+.group-explore-skip-button {
+    background-color: transparent;
+    color: #007BFF;
+    border: 2px solid #007BFF;
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);
 }
 
 .group-explore-skip-button:hover {
-    background-color: #bac0f3;
-    transform: scale(1.05);
+    background-color: #007BFF;
+    color: white;
+    box-shadow: 0 8px 12px rgba(0, 123, 255, 0.2);
+    transform: translateY(-3px);
 }
 
 /* Dark mode styles */
-body.dark-mode .group-explore-apply-button:hover {
+body.dark-mode .group-explore-apply-button {
     background-color: #0056b3;
+    box-shadow: 0 4px 6px rgba(0, 86, 179, 0.1);
+}
+
+body.dark-mode .group-explore-apply-button:hover {
+    background-color: #004085;
+    box-shadow: 0 8px 12px rgba(0, 86, 179, 0.2);
+}
+
+body.dark-mode .group-explore-skip-button {
+    color: #85bff8;
+    border: 2px solid #85bff8;
+    box-shadow: 0 4px 6px rgba(133, 191, 248, 0.1);
 }
 
 body.dark-mode .group-explore-skip-button:hover {
-    background-color: #444;
+    background-color: #85bff8;
+    color: white;
+    box-shadow: 0 8px 12px rgba(133, 191, 248, 0.2);
+    transform: translateY(-3px);
 }
 
 .explore-group-card-content h3 {
@@ -247,6 +265,7 @@ body.dark-mode .group-explore-no-more {
 
     .explore-group-card{
         margin-bottom: 50px;
+        border-radius: 0;
     }
 
     .group-explore-info h3 {

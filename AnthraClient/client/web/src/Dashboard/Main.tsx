@@ -6,7 +6,6 @@ import ExplorePage from './Components/ExplorePage/ExplorePage';
 import Connections from './Components/Connections/Connections';
 import Messages from './Components/Messages/Messages';
 import Settings from './Components/Settings/Settings';
-import Requests from './Components/Requests/Requests';
 import Profile from './Components/Profile/Profile';
 import Groups from './Components/Groups/Groups';
 import Footer from './Components/Footer/Footer';
@@ -33,7 +32,6 @@ const Dashboard: React.FC = () => {
                             </Route>
                             <Route element={<MessageOptionalLayout/>}>
                                 <Route path="/connections" element={<Connections />} />
-                                <Route path="/requests" element={<Requests />} />
                                 <Route path="/settings" element={<Settings />} />
                             </Route>
                             <Route path="/" element={<ExplorePage />} />

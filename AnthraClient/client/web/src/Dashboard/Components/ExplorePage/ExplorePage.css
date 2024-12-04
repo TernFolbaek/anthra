@@ -41,7 +41,7 @@
 
 @media(max-width: 480px){
     .explore-page{
-        padding: 10px;
+        padding: 0;
         margin-bottom: 55px;
         overflow-x: hidden;
         display: flex;

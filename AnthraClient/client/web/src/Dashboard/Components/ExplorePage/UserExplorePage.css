@@ -278,8 +278,8 @@ body.dark-mode .user-explore-no-more {
 @media (max-width: 480px) {
 
     .explore-user-card{
-        width: calc(100vw - 10px);
         margin-bottom: 50px;
+        border-radius: 0;
     }
     .user-name {
         font-size: 1.5rem;

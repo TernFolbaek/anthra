@@ -81,8 +81,13 @@ body.dark-mode .explore-menu-button:not(.active) {
 }
 
 @media(max-width: 480px) {
+    .menu-toggle {
+        width: 100%;
+        border: none;
+    }
+
     .explore-menu-container {
-        margin: 5px 0 5px 0;
+        margin: 0;
         padding: 0;
     }
 

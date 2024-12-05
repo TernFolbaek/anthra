@@ -319,6 +319,71 @@ body.dark-mode .requests-user-card:hover {
     font-size: 14px;
 }
 
+.slide-toggle {
+    position: relative;
+    width: 80%;
+    height: 30px;
+    margin: 20px auto;
+    border: 1px solid lightgray;
+    border-radius: 25px;
+}
+
+.slide-toggle input[type='checkbox'] {
+    display: none;
+}
+
+.slide-toggle label {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.slide-toggle .toggle-option {
+    flex: 1;
+    text-align: center;
+    line-height: 30px;
+    font-size: 16px;
+    color: #666;
+    z-index: 2;
+    position: relative;
+    transition: color 0.3s ease;
+    font-weight: bold;
+}
+
+.slide-toggle input[type='checkbox']:checked + label .toggle-option.groups {
+    color: #fff;
+}
+
+.slide-toggle input[type='checkbox']:not(:checked) + label .toggle-option.personal {
+    color: #fff;
+}
+
+.slide-toggle input[type='checkbox']:checked + label .toggle-option.personal:hover,
+.slide-toggle input[type='checkbox']:not(:checked) + label .toggle-option.groups:hover {
+    cursor: pointer;
+}
+
+.slide-toggle .toggle-slider {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    background: #85bff8;
+    border-radius: 25px;
+    left: 0;
+    top: 0;
+    transition: left 0.3s ease;
+    z-index: 1;
+}
+
+.slide-toggle input[type='checkbox']:checked + label .toggle-slider {
+    left: 50%;
+}
+
+
 .requests-connect-button:hover,
 .requests-skip-button:hover {
     opacity: 0.8;

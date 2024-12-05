@@ -412,74 +412,87 @@ const Connections: React.FC = () => {
 
     return (
         <div className="connections-page">
-                <>
-                    {screenWidth < 768 && (
-                        <div className="connections-tabs">
-                            <button
-                                onClick={() => setSelectedTab('connections')}
-                                className={selectedTab === 'connections' ? 'active' : ''}
-                            >
-                                {screenWidth < 481 ? <FaUser /> : 'Connections'}
-                            </button>
-                            <button
-                                onClick={() => setSelectedTab('requests')}
-                                className={selectedTab === 'requests' ? 'active' : ''}
-                            >
-                                {screenWidth < 481 ? <FaUsers /> : 'Requests'}
-                            </button>
-                        </div>
-                    )}
+            <>
+                {screenWidth < 768 && (
+                    <div className="connections-tabs">
+                        <button
+                            onClick={() => setSelectedTab('connections')}
+                            className={selectedTab === 'connections' ? 'active' : ''}
+                        >
+                            {screenWidth < 481 ? <FaUser /> : 'Connections'}
+                        </button>
+                        <button
+                            onClick={() => setSelectedTab('requests')}
+                            className={selectedTab === 'requests' ? 'active' : ''}
+                        >
+                            {screenWidth < 481 ? <FaUsers /> : 'Requests'}
+                        </button>
+                    </div>
+                )}
 
-                    {screenWidth < 768 ? (
-                        selectedTab === 'connections' ? (
-                            renderConnections()
-                        ) : (
-                            <div className="connections-card-container">
-                                <div className="requests-tabs">
-                                    <button
-                                        onClick={() => setSelectedRequestTab('personal')}
-                                        className={selectedRequestTab === 'personal' ? 'active' : ''}
-                                    >
-                                        Personal
-                                    </button>
-                                    <button
-                                        onClick={() => setSelectedRequestTab('groups')}
-                                        className={selectedRequestTab === 'groups' ? 'active' : ''}
-                                    >
-                                        Groups
-                                    </button>
-                                </div>
-                                {selectedRequestTab === 'personal' ? renderPersonalRequests() : renderGroupRequests()}
-                            </div>
-                        )
+                {screenWidth < 768 ? (
+                    selectedTab === 'connections' ? (
+                        renderConnections()
                     ) : (
-                        <div className="connections-columns">
-                            {renderConnections()}
-                            <div className="connections-card-container">
-                                <div className="requests-tabs">
-                                    <button
-                                        onClick={() => setSelectedRequestTab('personal')}
-                                        className={selectedRequestTab === 'personal' ? 'active' : ''}
-                                    >
-                                        Personal
-                                    </button>
-                                    <button
-                                        onClick={() => setSelectedRequestTab('groups')}
-                                        className={selectedRequestTab === 'groups' ? 'active' : ''}
-                                    >
-                                        Groups
-                                    </button>
-                                </div>
-                                {selectedRequestTab === 'personal' ? renderPersonalRequests() : renderGroupRequests()}
+                        <div className="connections-card-container">
+                            <div className="slide-toggle">
+                                <input
+                                    type="checkbox"
+                                    id="toggle"
+                                    checked={selectedRequestTab === 'groups'}
+                                    onChange={() =>
+                                        setSelectedRequestTab(
+                                            selectedRequestTab === 'personal' ? 'groups' : 'personal'
+                                        )
+                                    }
+                                />
+                                <label htmlFor="toggle">
+                                    <span className="toggle-option personal">Personal</span>
+                                    <span className="toggle-option groups">Groups</span>
+                                    <span className="toggle-slider"></span>
+                                </label>
                             </div>
+                            {selectedRequestTab === 'personal'
+                                ? renderPersonalRequests()
+                                : renderGroupRequests()}
                         </div>
-                    )}
-                </>
+                    )
+                ) : (
+                    <div className="connections-columns">
+                        {renderConnections()}
+                        <div className="connections-card-container">
+                            <div className="slide-toggle">
+                                <input
+                                    type="checkbox"
+                                    id="toggle"
+                                    checked={selectedRequestTab === 'groups'}
+                                    onChange={() =>
+                                        setSelectedRequestTab(
+                                            selectedRequestTab === 'personal' ? 'groups' : 'personal'
+                                        )
+                                    }
+                                />
+                                <label htmlFor="toggle">
+                                    <span className="toggle-option personal">Personal Requests</span>
+                                    <span className="toggle-option groups">Group Requests</span>
+                                    <span className="toggle-slider"></span>
+                                </label>
+                            </div>
+                            {selectedRequestTab === 'personal'
+                                ? renderPersonalRequests()
+                                : renderGroupRequests()}
+                        </div>
+                    </div>
+                )}
+            </>
             {selectedUserId && (
-                <ViewProfile userId={selectedUserId} onClose={handleCloseProfile}/>
+                <ViewProfile userId={selectedUserId} onClose={handleCloseProfile} />
             )}
         </div>
     );
+
+
+
 };
 
 export default Connections;

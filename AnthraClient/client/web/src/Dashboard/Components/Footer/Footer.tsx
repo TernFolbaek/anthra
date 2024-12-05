@@ -66,7 +66,9 @@ const Footer: React.FC = () => {
                             </div>
                         </NavLink>
                         <NavLink to="/settings" className="footer-link">
-                            <FaCog /> Settings
+                            <div className="flex gap-2 items-center">
+                                <FaCog/> Settings
+                            </div>
                         </NavLink>
                     </div>
                 </div>

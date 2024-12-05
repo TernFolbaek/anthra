@@ -16,7 +16,7 @@
     height: 100%;
     background-color: white;
     border-radius: 10px;
-    padding: 20px;
+    padding: 0 20px 20px 20px;
     margin: 15px 15px 15px 0;
 }
 
@@ -355,11 +355,11 @@ body.dark-mode .requests-user-card:hover {
 }
 
 .slide-toggle input[type='checkbox']:checked + label .toggle-option.groups {
-    color: #fff;
+    color: black;
 }
 
 .slide-toggle input[type='checkbox']:not(:checked) + label .toggle-option.personal {
-    color: #fff;
+    color: black;
 }
 
 .slide-toggle input[type='checkbox']:checked + label .toggle-option.personal:hover,
@@ -371,7 +371,7 @@ body.dark-mode .requests-user-card:hover {
     position: absolute;
     width: 50%;
     height: 100%;
-    background: #85bff8;
+    background: #e3e2e2;
     border-radius: 25px;
     left: 0;
     top: 0;

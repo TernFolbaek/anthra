@@ -117,7 +117,7 @@ const Notifications: React.FC = () => {
                 navigate(`/group-messages/${notification.groupId}`);
             } else if (notification.type === 'ConnectionRequest') {
                 // Redirect to connection requests page
-                navigate(`/requests`);
+                navigate(`/connections`);
             }
             setShowDropdown(false);
 

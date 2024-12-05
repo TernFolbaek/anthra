@@ -418,7 +418,7 @@ const Profile: React.FC = () => {
                                             {profileData.courses.map((course, index) => (
                                                 <li key={index}>
                                                     <a href={course.courseLink}
-                                                       className="dark:text-blue-400 text-blue-600 hover:font-bold"
+                                                       className="text-blue-400 hover:font-bold"
                                                        target="_blank" rel="noopener noreferrer">
                                                         {course.courseName}
                                                     </a>

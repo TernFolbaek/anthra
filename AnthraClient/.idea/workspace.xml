@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Minimize menu bottom padding to allow more spacing for user &amp; group card">
+    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Add margin bottom to explore user card in mobile view">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/ExplorePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/ExplorePage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/GroupExplorePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/GroupExplorePage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/assets/vehicles.riv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/Menu.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/Menu.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/LandingPage/components/Home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/LandingPage/components/Home/Home.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,143 +195,8 @@
       <workItem from="1732710696835" duration="1574000" />
       <workItem from="1732712741628" duration="21237000" />
       <workItem from="1732798158189" duration="9021000" />
-      <workItem from="1732830690793" duration="72604000" />
-    </task>
-    <task id="LOCAL-00397" summary="Add responsive styling to Requests">
-      <option name="closed" value="true" />
-      <created>1733054398183</created>
-      <option name="number" value="00397" />
-      <option name="presentableId" value="LOCAL-00397" />
-      <option name="project" value="LOCAL" />
-      <updated>1733054398183</updated>
-    </task>
-    <task id="LOCAL-00398" summary="Add responsive styling to main">
-      <option name="closed" value="true" />
-      <created>1733054406493</created>
-      <option name="number" value="00398" />
-      <option name="presentableId" value="LOCAL-00398" />
-      <option name="project" value="LOCAL" />
-      <updated>1733054406493</updated>
-    </task>
-    <task id="LOCAL-00399" summary="Add responsive styling to CreateProfile as well as more explicit definitions of inputs">
-      <option name="closed" value="true" />
-      <created>1733054431274</created>
-      <option name="number" value="00399" />
-      <option name="presentableId" value="LOCAL-00399" />
-      <option name="project" value="LOCAL" />
-      <updated>1733054431274</updated>
-    </task>
-    <task id="LOCAL-00400" summary="Minimum 100 chars on about me">
-      <option name="closed" value="true" />
-      <created>1733054441774</created>
-      <option name="number" value="00400" />
-      <option name="presentableId" value="LOCAL-00400" />
-      <option name="project" value="LOCAL" />
-      <updated>1733054441774</updated>
-    </task>
-    <task id="LOCAL-00401" summary="Remove pointless comment">
-      <option name="closed" value="true" />
-      <created>1733054450723</created>
-      <option name="number" value="00401" />
-      <option name="presentableId" value="LOCAL-00401" />
-      <option name="project" value="LOCAL" />
-      <updated>1733054450723</updated>
-    </task>
-    <task id="LOCAL-00402" summary="More explicit classnames and remove redundant styling code">
-      <option name="closed" value="true" />
-      <created>1733054468086</created>
-      <option name="number" value="00402" />
-      <option name="presentableId" value="LOCAL-00402" />
-      <option name="project" value="LOCAL" />
-      <updated>1733054468086</updated>
-    </task>
-    <task id="LOCAL-00403" summary="Add notifications to footer">
-      <option name="closed" value="true" />
-      <created>1733054476533</created>
-      <option name="number" value="00403" />
-      <option name="presentableId" value="LOCAL-00403" />
-      <option name="project" value="LOCAL" />
-      <updated>1733054476533</updated>
-    </task>
-    <task id="LOCAL-00404" summary="Remove mute">
-      <option name="closed" value="true" />
-      <created>1733054568177</created>
-      <option name="number" value="00404" />
-      <option name="presentableId" value="LOCAL-00404" />
-      <option name="project" value="LOCAL" />
-      <updated>1733054568177</updated>
-    </task>
-    <task id="LOCAL-00405" summary="More explicit class names on group info that was overlapping with edit group modal">
-      <option name="closed" value="true" />
-      <created>1733054581829</created>
-      <option name="number" value="00405" />
-      <option name="presentableId" value="LOCAL-00405" />
-      <option name="project" value="LOCAL" />
-      <updated>1733054581829</updated>
-    </task>
-    <task id="LOCAL-00406" summary="Add view profile component to groupinfo tab and groupmembers tab in edit group modal">
-      <option name="closed" value="true" />
-      <created>1733054606513</created>
-      <option name="number" value="00406" />
-      <option name="presentableId" value="LOCAL-00406" />
-      <option name="project" value="LOCAL" />
-      <updated>1733054606513</updated>
-    </task>
-    <task id="LOCAL-00407" summary="Add leave group functionality to Group Message">
-      <option name="closed" value="true" />
-      <created>1733054618861</created>
-      <option name="number" value="00407" />
-      <option name="presentableId" value="LOCAL-00407" />
-      <option name="project" value="LOCAL" />
-      <updated>1733054618861</updated>
-    </task>
-    <task id="LOCAL-00408" summary="Add styling for group pages &#10;&#10;Ensure that group list uses its space respectively by giving no-groups-container flex 1">
-      <option name="closed" value="true" />
-      <created>1733054649322</created>
-      <option name="number" value="00408" />
-      <option name="presentableId" value="LOCAL-00408" />
-      <option name="project" value="LOCAL" />
-      <updated>1733054649322</updated>
-    </task>
-    <task id="LOCAL-00409" summary="Add ViewGroupProfile to grouplist">
-      <option name="closed" value="true" />
-      <created>1733054660763</created>
-      <option name="number" value="00409" />
-      <option name="presentableId" value="LOCAL-00409" />
-      <option name="project" value="LOCAL" />
-      <updated>1733054660763</updated>
-    </task>
-    <task id="LOCAL-00410" summary="Add linebreak and keep color conventions">
-      <option name="closed" value="true" />
-      <created>1733054678460</created>
-      <option name="number" value="00410" />
-      <option name="presentableId" value="LOCAL-00410" />
-      <option name="project" value="LOCAL" />
-      <updated>1733054678460</updated>
-    </task>
-    <task id="LOCAL-00411" summary="Add responsive styling for messages">
-      <option name="closed" value="true" />
-      <created>1733056404535</created>
-      <option name="number" value="00411" />
-      <option name="presentableId" value="LOCAL-00411" />
-      <option name="project" value="LOCAL" />
-      <updated>1733056404535</updated>
-    </task>
-    <task id="LOCAL-00412" summary="Fix display of no connections so its centered">
-      <option name="closed" value="true" />
-      <created>1733056426508</created>
-      <option name="number" value="00412" />
-      <option name="presentableId" value="LOCAL-00412" />
-      <option name="project" value="LOCAL" />
-      <updated>1733056426508</updated>
-    </task>
-    <task id="LOCAL-00413" summary="Object fit cover on avatar image">
-      <option name="closed" value="true" />
-      <created>1733056435881</created>
-      <option name="number" value="00413" />
-      <option name="presentableId" value="LOCAL-00413" />
-      <option name="project" value="LOCAL" />
-      <updated>1733056435881</updated>
+      <workItem from="1732830690793" duration="76734000" />
+      <workItem from="1733146313607" duration="13033000" />
     </task>
     <task id="LOCAL-00414" summary="If there is no userId in params then there should display no messages">
       <option name="closed" value="true" />
@@ -586,7 +454,143 @@
       <option name="project" value="LOCAL" />
       <updated>1733093632349</updated>
     </task>
-    <option name="localTasksCounter" value="446" />
+    <task id="LOCAL-00446" summary="Center snackbar if in mobile view">
+      <option name="closed" value="true" />
+      <created>1733096409445</created>
+      <option name="number" value="00446" />
+      <option name="presentableId" value="LOCAL-00446" />
+      <option name="project" value="LOCAL" />
+      <updated>1733096409445</updated>
+    </task>
+    <task id="LOCAL-00447" summary="Make all information in user card visible also in edge cases with users with maximum information">
+      <option name="closed" value="true" />
+      <created>1733096434744</created>
+      <option name="number" value="00447" />
+      <option name="presentableId" value="LOCAL-00447" />
+      <option name="project" value="LOCAL" />
+      <updated>1733096434744</updated>
+    </task>
+    <task id="LOCAL-00448" summary="Fix no line break for long words">
+      <option name="closed" value="true" />
+      <created>1733147012937</created>
+      <option name="number" value="00448" />
+      <option name="presentableId" value="LOCAL-00448" />
+      <option name="project" value="LOCAL" />
+      <updated>1733147012938</updated>
+    </task>
+    <task id="LOCAL-00449" summary="Add min 100 characters for group description and desired members">
+      <option name="closed" value="true" />
+      <created>1733147030602</created>
+      <option name="number" value="00449" />
+      <option name="presentableId" value="LOCAL-00449" />
+      <option name="project" value="LOCAL" />
+      <updated>1733147030602</updated>
+    </task>
+    <task id="LOCAL-00450" summary="Chang invitation message width to occupy 70% of width">
+      <option name="closed" value="true" />
+      <created>1733147056445</created>
+      <option name="number" value="00450" />
+      <option name="presentableId" value="LOCAL-00450" />
+      <option name="project" value="LOCAL" />
+      <updated>1733147056446</updated>
+    </task>
+    <task id="LOCAL-00451" summary="Make group info and message connection profile info use full width but respect the width of the neighbouring container">
+      <option name="closed" value="true" />
+      <created>1733148694902</created>
+      <option name="number" value="00451" />
+      <option name="presentableId" value="LOCAL-00451" />
+      <option name="project" value="LOCAL" />
+      <updated>1733148694902</updated>
+    </task>
+    <task id="LOCAL-00452" summary="Remove margin in mobile view to use limited screen space">
+      <option name="closed" value="true" />
+      <created>1733238375661</created>
+      <option name="number" value="00452" />
+      <option name="presentableId" value="LOCAL-00452" />
+      <option name="project" value="LOCAL" />
+      <updated>1733238375661</updated>
+    </task>
+    <task id="LOCAL-00453" summary="Remove margin in mobile view">
+      <option name="closed" value="true" />
+      <created>1733238386818</created>
+      <option name="number" value="00453" />
+      <option name="presentableId" value="LOCAL-00453" />
+      <option name="project" value="LOCAL" />
+      <updated>1733238386818</updated>
+    </task>
+    <task id="LOCAL-00454" summary="Make tabs more slick on mobile view">
+      <option name="closed" value="true" />
+      <created>1733238399335</created>
+      <option name="number" value="00454" />
+      <option name="presentableId" value="LOCAL-00454" />
+      <option name="project" value="LOCAL" />
+      <updated>1733238399335</updated>
+    </task>
+    <task id="LOCAL-00455" summary="Search conversations -&gt; search messages">
+      <option name="closed" value="true" />
+      <created>1733238414290</created>
+      <option name="number" value="00455" />
+      <option name="presentableId" value="LOCAL-00455" />
+      <option name="project" value="LOCAL" />
+      <updated>1733238414290</updated>
+    </task>
+    <task id="LOCAL-00456" summary="Styling so explore page shows entire card in mobile view">
+      <option name="closed" value="true" />
+      <created>1733238434800</created>
+      <option name="number" value="00456" />
+      <option name="presentableId" value="LOCAL-00456" />
+      <option name="project" value="LOCAL" />
+      <updated>1733238434800</updated>
+    </task>
+    <task id="LOCAL-00457" summary="Add margin bottom to explore group card so it is above footer">
+      <option name="closed" value="true" />
+      <created>1733238447781</created>
+      <option name="number" value="00457" />
+      <option name="presentableId" value="LOCAL-00457" />
+      <option name="project" value="LOCAL" />
+      <updated>1733238447781</updated>
+    </task>
+    <task id="LOCAL-00458" summary="Remove overflow y in main, no scrolling bugs in mobile view">
+      <option name="closed" value="true" />
+      <created>1733238497843</created>
+      <option name="number" value="00458" />
+      <option name="presentableId" value="LOCAL-00458" />
+      <option name="project" value="LOCAL" />
+      <updated>1733238497843</updated>
+    </task>
+    <task id="LOCAL-00459" summary="Remove redundant code and code that was pushing down connections and requests">
+      <option name="closed" value="true" />
+      <created>1733238745287</created>
+      <option name="number" value="00459" />
+      <option name="presentableId" value="LOCAL-00459" />
+      <option name="project" value="LOCAL" />
+      <updated>1733238745288</updated>
+    </task>
+    <task id="LOCAL-00460" summary="Send connections to create connections -&gt; Explore new connections">
+      <option name="closed" value="true" />
+      <created>1733238778856</created>
+      <option name="number" value="00460" />
+      <option name="presentableId" value="LOCAL-00460" />
+      <option name="project" value="LOCAL" />
+      <updated>1733238778856</updated>
+    </task>
+    <task id="LOCAL-00461" summary="Change background of snackbar">
+      <option name="closed" value="true" />
+      <created>1733238787160</created>
+      <option name="number" value="00461" />
+      <option name="presentableId" value="LOCAL-00461" />
+      <option name="project" value="LOCAL" />
+      <updated>1733238787160</updated>
+    </task>
+    <task id="LOCAL-00462" summary="Add margin bottom to explore user card in mobile view">
+      <option name="closed" value="true" />
+      <created>1733238797654</created>
+      <option name="number" value="00462" />
+      <option name="presentableId" value="LOCAL-00462" />
+      <option name="project" value="LOCAL" />
+      <updated>1733238797654</updated>
+    </task>
+    <option name="localTasksCounter" value="463" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -604,23 +608,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Refactor styling of buttons in help settings" />
-    <MESSAGE value="Change styling to adapt to mobile" />
-    <MESSAGE value="Add line break to about me text" />
-    <MESSAGE value="Add view profile to group Info" />
-    <MESSAGE value="Style course link text color in dark mode" />
-    <MESSAGE value="Responsive styling for mobile and tablet" />
-    <MESSAGE value="Remove round border for image preview" />
-    <MESSAGE value="Add line break" />
-    <MESSAGE value="Add dropdown arrow animation" />
-    <MESSAGE value="Add explore page responsive styling for mobile, less padding" />
-    <MESSAGE value="Don't display no connections if screen is too narrow" />
-    <MESSAGE value="Center explore user and group card" />
-    <MESSAGE value="Responsive styling for profile page" />
-    <MESSAGE value="Make button container for user explore card not absolute" />
-    <MESSAGE value="Remove pointless overflow: hidden statements" />
-    <MESSAGE value="Remove overflow hidden" />
-    <MESSAGE value="Object fit cover for sender avatar" />
     <MESSAGE value="Add background color on hover on member item" />
     <MESSAGE value="Remove unused variable" />
     <MESSAGE value="Functional snackbar" />
@@ -629,6 +616,23 @@
     <MESSAGE value="Add overflow: hidden to content wrapper as it removes bumpy duplicate scrolling that clashes with main-content" />
     <MESSAGE value="Add styling so height of group card allows button container to remain on bottom of card" />
     <MESSAGE value="Minimize menu bottom padding to allow more spacing for user &amp; group card" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minimize menu bottom padding to allow more spacing for user &amp; group card" />
+    <MESSAGE value="Center snackbar if in mobile view" />
+    <MESSAGE value="Make all information in user card visible also in edge cases with users with maximum information" />
+    <MESSAGE value="Fix no line break for long words" />
+    <MESSAGE value="Add min 100 characters for group description and desired members" />
+    <MESSAGE value="Chang invitation message width to occupy 70% of width" />
+    <MESSAGE value="Make group info and message connection profile info use full width but respect the width of the neighbouring container" />
+    <MESSAGE value="Remove margin in mobile view to use limited screen space" />
+    <MESSAGE value="Remove margin in mobile view" />
+    <MESSAGE value="Make tabs more slick on mobile view" />
+    <MESSAGE value="Search conversations -&gt; search messages" />
+    <MESSAGE value="Styling so explore page shows entire card in mobile view" />
+    <MESSAGE value="Add margin bottom to explore group card so it is above footer" />
+    <MESSAGE value="Remove overflow y in main, no scrolling bugs in mobile view" />
+    <MESSAGE value="Remove redundant code and code that was pushing down connections and requests" />
+    <MESSAGE value="Send connections to create connections -&gt; Explore new connections" />
+    <MESSAGE value="Change background of snackbar" />
+    <MESSAGE value="Add margin bottom to explore user card in mobile view" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add margin bottom to explore user card in mobile view" />
   </component>
 </project>

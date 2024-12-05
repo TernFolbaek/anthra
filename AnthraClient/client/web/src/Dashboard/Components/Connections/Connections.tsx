@@ -268,7 +268,6 @@ const Connections: React.FC = () => {
 
     const renderConnections = () => (
         <div className="connections-card-container">
-            <h2 className="connections-title">Connections</h2>
             {connections.length === 0 ? (
                 <NoConnectionsRive />
             ) : (
@@ -335,7 +334,7 @@ const Connections: React.FC = () => {
     const renderPersonalRequests = () => (
         <div className="requests-content">
             {connectionRequests.length === 0 ? (
-                <h2 className="w-full text-center text-gray-700 text-base font-bold dark:text-white">No new connection requests</h2>
+                <h2 className="w-full text-center text-gray-700 text-base font-bold">No new connection requests</h2>
             ) : (
                 connectionRequests.map((request) => (
                     <div

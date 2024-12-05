@@ -13,7 +13,7 @@ const NoConversationsRive: React.FC = () => {
     return (
         <div className="no-connections-container">
             <RiveComponent className="no-conversations-rive"/>
-            <p className="text-m font-bold text-gray-500 text-center mb-2 dark:text-white">Begin a conversation with a connection</p>
+            <p className="text-m font-bold text-gray-500 text-center mb-2 ">Begin a conversation with a connection</p>
             <button className="explore-button" onClick={() => navigate('/connections')}><FaMagnifyingGlass/>Connections
             </button>
         </div>

@@ -419,13 +419,13 @@ const Connections: React.FC = () => {
                             onClick={() => setSelectedTab('connections')}
                             className={selectedTab === 'connections' ? 'active' : ''}
                         >
-                            {screenWidth < 481 ? <FaUser /> : 'Connections'}
-                        </button>
+                            {screenWidth < 481 ? <div className="w-full flex justify-center"><FaUser/></div> : 'Connections'}
+                                </button>
                         <button
                             onClick={() => setSelectedTab('requests')}
                             className={selectedTab === 'requests' ? 'active' : ''}
                         >
-                            {screenWidth < 481 ? <FaUsers /> : 'Requests'}
+                            {screenWidth < 481 ? <div className="w-full flex justify-center"><FaUsers /></div> : 'Requests'}
                         </button>
                     </div>
                 )}

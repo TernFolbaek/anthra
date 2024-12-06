@@ -348,7 +348,7 @@ const Connections: React.FC = () => {
                                 src={request.senderProfilePicture}
                                 alt="Profile"
                             />
-                            <h2>{request.senderFirstName} {request.senderLastName}</h2>
+                            <p className="sm:text-sm">{request.senderFirstName} {request.senderLastName}</p>
                         </div>
                         <div className="requests-button-container">
                             <button
@@ -473,8 +473,8 @@ const Connections: React.FC = () => {
                                     }
                                 />
                                 <label htmlFor="toggle">
-                                    <span className="toggle-option personal">Personal Requests</span>
-                                    <span className="toggle-option groups">Group Requests</span>
+                                    <span className="toggle-option personal">Personal</span>
+                                    <span className="toggle-option groups">Groups</span>
                                     <span className="toggle-slider"></span>
                                 </label>
                             </div>

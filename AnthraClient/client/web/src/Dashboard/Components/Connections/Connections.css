@@ -1,5 +1,5 @@
 /* Connections.css */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 .connections-page {
     display: flex;
@@ -306,7 +306,7 @@ body.dark-mode .requests-user-card:hover {
     border-radius: 5px;
     padding: 4px 6px;
     color: white;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 14px;
 }
 
@@ -315,7 +315,7 @@ body.dark-mode .requests-user-card:hover {
     border-radius: 5px;
     padding: 4px 6px;
     color: white;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 14px;
 }
 
@@ -324,7 +324,7 @@ body.dark-mode .requests-user-card:hover {
     width: 80%;
     height: 30px;
     margin: 20px auto;
-    border: 1px solid lightgray;
+    border: 1px solid #e4e4e4;
     border-radius: 25px;
 }
 
@@ -351,7 +351,7 @@ body.dark-mode .requests-user-card:hover {
     z-index: 2;
     position: relative;
     transition: color 0.3s ease;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .slide-toggle input[type='checkbox']:checked + label .toggle-option.groups {

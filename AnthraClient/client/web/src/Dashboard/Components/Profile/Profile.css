@@ -4,6 +4,7 @@
 .profile-page {
     padding: 20px;
     display: flex;
+    align-items: center;
 }
 
 body.dark-mode .profile-page {
@@ -11,14 +12,15 @@ body.dark-mode .profile-page {
 }
 
 .profile-card {
-    width: 95%;
+    width: 65%;
+    height: fit-content;
     max-width: 1200px;
     margin: 0 auto 50px auto;
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     font-family: 'Montserrat', sans-serif;
-    padding: 40px;
+    padding: 20px;
 }
 
 /* Dark mode styles */

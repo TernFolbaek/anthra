@@ -135,7 +135,7 @@ body.dark-mode .user-info p {
 }
 
 .user-explore-courses-list a {
-    color: #3366cc;
+    color: #2c91f4;
     text-decoration: none;
     font-weight: 500;
 }
@@ -146,7 +146,7 @@ body.dark-mode .user-explore-courses-list a {
 }
 
 .user-explore-courses-list a:hover {
-    text-decoration: underline;
+    font-weight: 600;
 }
 
 .user-explore-page-button-container {

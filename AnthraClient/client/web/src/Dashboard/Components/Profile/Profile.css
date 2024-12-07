@@ -286,6 +286,11 @@ body.dark-mode .error-message {
     color: #ff6b6b;
 }
 
+@media (max-width: 1400px){
+    .profile-card{
+        width: 95%;
+    }
+}
 /* Responsive Layout Adjustments */
 @media (max-width: 768px) {
     .profile-page{

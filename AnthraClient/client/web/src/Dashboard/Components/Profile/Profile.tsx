@@ -189,7 +189,7 @@ const Profile: React.FC = () => {
 
     return (
         <div className="overflow-auto h-[100vh]">
-            <div className="profile-page h-[100vh] overflow-auto">
+            <div className="profile-page">
                 <div className="profile-card">
                     <div className="profile-header">
                         <button onClick={() => setEditMode(!editMode)}>

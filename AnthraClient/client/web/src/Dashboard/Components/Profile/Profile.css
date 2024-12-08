@@ -195,6 +195,7 @@ body.dark-mode .profile-field textarea {
 .about-me-text {
     white-space: pre-wrap;
     line-break: anywhere;
+
 }
 
 .save-button {
@@ -308,7 +309,6 @@ body.dark-mode .error-message {
     }
     .profile-content {
         flex-direction: column;
-        align-items: center;
     }
 
     .profile-row {

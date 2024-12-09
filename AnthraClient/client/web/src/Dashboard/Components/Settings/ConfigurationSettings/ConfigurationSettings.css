@@ -6,7 +6,7 @@
 }
 
 /* Dark mode styles */
-body.dark-mode .configuration-settings h2 {
+body.dark .configuration-settings h2 {
     color: #fff;
 }
 
@@ -22,7 +22,7 @@ body.dark-mode .configuration-settings h2 {
 }
 
 /* Dark mode styles */
-body.dark-mode .toggle-group label {
+body.dark .toggle-group label {
     color: #ccc;
 }
 
@@ -69,15 +69,15 @@ body.dark-mode .toggle-group label {
 }
 
 /* Dark mode styles */
-body.dark-mode .toggle-switch label {
+body.dark .toggle-switch label {
     background-color: #555;
 }
 
-body.dark-mode .toggle-switch input:checked + label {
+body.dark .toggle-switch input:checked + label {
     background-color: #85bff8;
 }
 
-body.dark-mode .toggle-switch label::after {
+body.dark .toggle-switch label::after {
     background-color: #fff;
 }
 

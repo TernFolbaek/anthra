@@ -112,6 +112,7 @@ namespace MyBackendApp.Controllers
                 m.Content,
                 m.Timestamp,
                 m.IsGroupInvitation,
+                m.IsReferralCard,
                 m.GroupId,
                 m.GroupName,
                 Attachments = m.Attachment != null ? new[] {
@@ -173,7 +174,8 @@ public async Task<IActionResult> SendMessage([FromForm] SendMessageModel model)
         SenderId = model.SenderId,
         ReceiverId = model.ReceiverId,
         Content = model.Content,
-        Timestamp = DateTime.UtcNow
+        Timestamp = DateTime.UtcNow,
+        IsReferralCard = model.IsReferralCard
     };
 
     // Handle file upload
@@ -262,6 +264,7 @@ public async Task<IActionResult> SendMessage([FromForm] SendMessageModel model)
         message.Content,
         message.Timestamp,
         message.IsGroupInvitation,
+        message.IsReferralCard,
         message.GroupId,
         Attachments = message.Attachment != null ? new[] {
             new {

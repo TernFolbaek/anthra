@@ -268,8 +268,9 @@ const Connections: React.FC = () => {
 
     const renderConnections = () => (
         <div className="connections-card-container">
+            <p className="dark:text-white pl-2 pt-3 pb-2 text-xl font-bold">Connections</p>
             {connections.length === 0 ? (
-                <NoConnectionsRive />
+                <NoConnectionsRive/>
             ) : (
                 <ul className="connections-list">
                     {connections.map((user) => (
@@ -334,7 +335,7 @@ const Connections: React.FC = () => {
     const renderPersonalRequests = () => (
         <div className="requests-content">
             {connectionRequests.length === 0 ? (
-                <h2 className="w-full text-center text-gray-700 text-base font-bold">No new connection requests</h2>
+                <h2 className="dark:text-white w-full text-center text-gray-700 text-base font-bold">No new connection requests</h2>
             ) : (
                 connectionRequests.map((request) => (
                     <div
@@ -435,6 +436,7 @@ const Connections: React.FC = () => {
                         renderConnections()
                     ) : (
                         <div className="connections-card-container">
+                            <p className="dark:text-white pl-2 pt-1 pb-1 text-xl font-bold">Requests</p>
                             <div className="slide-toggle">
                                 <input
                                     type="checkbox"
@@ -461,6 +463,8 @@ const Connections: React.FC = () => {
                     <div className="connections-columns">
                         {renderConnections()}
                         <div className="connections-card-container">
+                            <p className="dark:text-white pl-2 pt-3 pb-2 text-xl font-bold">Requests</p>
+
                             <div className="slide-toggle">
                                 <input
                                     type="checkbox"

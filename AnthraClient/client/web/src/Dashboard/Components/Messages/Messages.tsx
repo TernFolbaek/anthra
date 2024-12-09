@@ -8,7 +8,7 @@ import {FaEllipsisV, FaArrowLeft, FaUserMinus, FaInfo} from 'react-icons/fa';
 import MessageInput from "./MessageInput";
 import ViewGroupProfile from "../ViewGroupProfile/ViewGroupProfile";
 import GroupInvitationMessage from "./GroupInvitationMessage";
-
+import ReferralCardMessage from "./ReferralCardMessage";
 interface Attachment {
     id: number;
     fileName: string;
@@ -22,6 +22,7 @@ interface Message {
     content: string;
     timestamp: string;
     isGroupInvitation: boolean;
+    isReferralCard: boolean;
     groupId: number | null;
     groupName?: string;
     attachments?: Attachment[];
@@ -109,6 +110,7 @@ const Messages: React.FC = () => {
                 }
 
                 const data = await response.json();
+                console.log(data.messages);
                 setMessages(data.messages);
                 console.log(data.messages);
                 setNextTokenValue(data.nextToken);
@@ -406,6 +408,25 @@ const Messages: React.FC = () => {
         setSelectedGroupId(null);
     };
 
+    const handleReferralConnect = async (referredUserId: string) => {
+        try {
+            await axios.post(
+                'http://localhost:5001/api/Connections/SendRequest',
+                { targetUserId: referredUserId },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+            // Optionally show a snackbar or update UI
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleReferralSkip = (referredUserId: string) => {
+        // If you want to do something when skipping, do it here.
+        // Otherwise, skipping might just mean ignoring this referral message.
+    };
+
+
     return (
         <div className="messages-page">
             <div className="message-page-subset">
@@ -471,7 +492,15 @@ const Messages: React.FC = () => {
                                     const isCurrentUser = msg.senderId === currentUserId;
                                     return (
                                         <React.Fragment key={msg.id}>
-                                            {msg.isGroupInvitation ? (
+                                            {msg.isReferralCard ? (
+                                                    <ReferralCardMessage
+                                                        msg={msg}
+                                                        isCurrentUser={isCurrentUser}
+                                                        onConnect={handleReferralConnect}
+                                                        onSkip={handleReferralSkip}
+                                                    />
+                                                ) :
+                                            msg.isGroupInvitation ? (
                                                 <GroupInvitationMessage
                                                     msg={msg}
                                                     isCurrentUser={isCurrentUser}

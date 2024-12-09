@@ -514,6 +514,9 @@ namespace AnthraBackend.Migrations
                     b.Property<bool>("IsGroupInvitation")
                         .HasColumnType("boolean");
 
+                    b.Property<bool>("IsReferralCard")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("ReceiverId")
                         .IsRequired()
                         .HasColumnType("text");

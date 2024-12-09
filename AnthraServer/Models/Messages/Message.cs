@@ -33,6 +33,8 @@ namespace MyBackendApp.Models
         
         public string? GroupName { get; set; }
         public bool IsGroupInvitation { get; set; }
+        public bool IsReferralCard { get; set; }
+
         public Attachment? Attachment { get; set; }
     }
 }

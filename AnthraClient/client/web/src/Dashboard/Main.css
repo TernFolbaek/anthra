@@ -26,7 +26,7 @@
     right: 0;
 }
 
-body.isDark .main-content {
+body.dark .main-content {
     background-color: #1e1e1e;
 }
 

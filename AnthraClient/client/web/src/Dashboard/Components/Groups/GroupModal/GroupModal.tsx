@@ -20,8 +20,10 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
     const [groupDescription, setGroupDescription] = useState('');
     const [groupMemberDesire, setGroupMemberDesire] = useState('');
     const [connections, setConnections] = useState<Connection[]>([]);
+    const [filteredConnections, setFilteredConnections] = useState<Connection[]>([]);
     const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
     const [isPublic, setIsPublic] = useState(true);
+    const [searchQuery, setSearchQuery] = useState('');
 
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
@@ -31,14 +33,26 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
         fetchConnections();
     }, []);
 
+    useEffect(() => {
+        if (searchQuery.trim() === '') {
+            setFilteredConnections(connections);
+        } else {
+            const filtered = connections.filter((c) =>
+                `${c.firstName} ${c.lastName}`.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+            setFilteredConnections(filtered);
+        }
+    }, [searchQuery, connections]);
+
     const fetchConnections = async () => {
         try {
             const response = await axios.get('http://localhost:5001/api/Connections/ConnectionsGroupList', {
                 params: { userId },
                 withCredentials: true,
             });
-            const connections: Connection[] = response.data;
-            setConnections(connections);
+            const data: Connection[] = response.data;
+            setConnections(data);
+            setFilteredConnections(data);
         } catch (error) {
             console.error('Error fetching connections:', error);
         }
@@ -59,10 +73,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
         selectedUserIds.length > 0;
 
     const handleCreateGroup = async () => {
-        if (!isFormValid) {
-            // Optionally display an error message
-            return;
-        }
+        if (!isFormValid) return;
 
         try {
             const payload = {
@@ -112,7 +123,6 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                         <p className="font-bold text-sm">
                             Description<span className="required-asterisk">*</span> <span
                             className="font-medium text-xs"> min. 100 chars.</span>
-
                         </p>
                         <div className="create-group-char-counter">{groupDescription.length}/150</div>
                     </div>
@@ -132,7 +142,6 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                         <p className="font-bold text-sm">
                             Who are you looking for<span className="required-asterisk">*</span> <span
                             className="font-medium text-xs"> min. 100 chars.</span>
-
                         </p>
                         <div className="create-group-char-counter">{groupMemberDesire.length}/150</div>
                     </div>
@@ -154,29 +163,30 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                 <h3 className="font-bold text-sm mt-3">
                     Select Users to Invite<span className="required-asterisk">*</span>
                 </h3>
+                <input
+                    type="text"
+                    placeholder="Search your connections..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="group-name-input"
+                />
                 <ul className="group-creation-connections-list">
-                    {connections.map((user) => (
-                        <li key={user.id} className="create-group-connection-item cursor-pointer w-full">
-                            <label
-                                className="cursor-pointer gap-4 flex items-center justify-between w-full"
-                                onClick={() => handleUserSelect(user.id)}
-                            >
-                                <div className="flex gap-2">
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedUserIds.includes(user.id)}
-                                        onChange={() => handleUserSelect(user.id)}
-                                    />
-                                    <p className="text-sm">
-                                        {user.firstName} {user.lastName}
-                                    </p>
-                                </div>
+                    {filteredConnections.map((user) => (
+                        <li
+                            key={user.id}
+                            className={`create-group-connection-item cursor-pointer w-full ${
+                                selectedUserIds.includes(user.id) ? 'selected-user' : ''
+                            }`}
+                            onClick={() => handleUserSelect(user.id)}
+                        >
+                            <div className="flex items-center gap-2">
                                 <img
                                     src={`${user.profilePictureUrl}`}
-                                    alt={`${user.firstName}`}
-                                    className="connection-profile-picture"
+                                    alt={`${user.firstName} ${user.lastName}`}
+                                    className="select-user-item-avatar"
                                 />
-                            </label>
+                                <span className="text-sm">{user.firstName} {user.lastName}</span>
+                            </div>
                         </li>
                     ))}
                 </ul>

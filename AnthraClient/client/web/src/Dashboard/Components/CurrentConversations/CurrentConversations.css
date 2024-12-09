@@ -15,7 +15,7 @@
 
 
 /* Dark Mode styles for search input */
-body.dark-mode .search-input {
+body.dark .search-input {
     background-color: #333;
     color: #fff;
     border-color: #555;
@@ -76,22 +76,22 @@ body.dark-mode .search-input {
 }
 
 /* Dark mode styles */
-body.dark-mode .conversation-item:hover {
+body.dark .conversation-item:hover {
     background-color: #3a3a3a;
 }
 
-body.dark-mode .conversation-item.selected {
+body.dark .conversation-item.selected {
     background-color: #3a3a3a;
 }
 
-body.dark-mode .conversation-details h3 {
+body.dark .conversation-details h3 {
     color: #fff;
 }
 
-body.dark-mode .conversation-details .last-message {
+body.dark .conversation-details .last-message {
     color: #ccc;
 }
 
-body.dark-mode .conversation-timestamp {
+body.dark .conversation-timestamp {
     color: #aaa;
 }

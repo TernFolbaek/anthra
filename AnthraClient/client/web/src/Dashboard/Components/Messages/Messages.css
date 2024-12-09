@@ -10,7 +10,7 @@
 }
 
 /* Dark mode styles */
-body.dark-mode .messages-page-container {
+body.dark .messages-page-container {
   background-color: #1e1e1e;
 }
 
@@ -25,7 +25,7 @@ body.dark-mode .messages-page-container {
 }
 
 /* Dark mode styles */
-body.dark-mode .messages-page {
+body.dark .messages-page {
   background-color: #1e1e1e;
 }
 
@@ -39,7 +39,7 @@ body.dark-mode .messages-page {
 }
 
 /* Dark mode styles */
-body.dark-mode .message-page-subset {
+body.dark .message-page-subset {
   background-color: #2e2e2e;
 }
 
@@ -59,12 +59,12 @@ body.dark-mode .message-page-subset {
 }
 
 /* Dark mode styles */
-body.dark-mode .contact-header {
+body.dark .contact-header {
   border-bottom: 1px solid #444;
   background-color: #2e2e2e;
 }
 
-body.dark-mode .contact-header:hover {
+body.dark .contact-header:hover {
   background-color: #3a3a3a;
 }
 
@@ -88,7 +88,7 @@ body.dark-mode .contact-header:hover {
 }
 
 /* Dark mode styles */
-body.dark-mode .contact-name {
+body.dark .contact-name {
   color: #fff;
 }
 
@@ -104,10 +104,10 @@ body.dark-mode .contact-name {
 }
 
 /* Dark mode styles */
-body.dark-mode .messages-menu-icon{
+body.dark .messages-menu-icon{
   color: white;
 }
-body.dark-mode .messages-menu-icon:hover {
+body.dark .messages-menu-icon:hover {
   background-color: #555;
 }
 
@@ -125,11 +125,11 @@ body.dark-mode .messages-menu-icon:hover {
 }
 
 /* Dark mode styles */
-body.dark-mode .back-arrow{
+body.dark .back-arrow{
   color: #fff;
 }
 
-body.dark-mode .back-arrow:hover {
+body.dark .back-arrow:hover {
   background-color: #555;
 
 }
@@ -147,7 +147,7 @@ body.dark-mode .back-arrow:hover {
 }
 
 /* Dark mode styles */
-body.dark-mode .messages-dropdown-menu {
+body.dark .messages-dropdown-menu {
   background-color: #2e2e2e;
   border: 1px solid #444;
 }
@@ -166,7 +166,7 @@ body.dark-mode .messages-dropdown-menu {
 }
 
 /* Dark mode styles */
-body.dark-mode .messages-dropdown-menu button {
+body.dark .messages-dropdown-menu button {
   color: #fff;
 }
 
@@ -176,7 +176,7 @@ body.dark-mode .messages-dropdown-menu button {
 }
 
 /* Dark mode styles */
-body.dark-mode .messages-dropdown-menu button:hover {
+body.dark .messages-dropdown-menu button:hover {
   background-color: #444;
 }
 
@@ -190,7 +190,7 @@ body.dark-mode .messages-dropdown-menu button:hover {
 }
 
 /* Dark mode styles */
-body.dark-mode .messages-container {
+body.dark .messages-container {
   scrollbar-color: #555 transparent;
 }
 
@@ -229,12 +229,12 @@ body.dark-mode .messages-container {
 }
 
 /* Dark mode styles */
-body.dark-mode .message-bubble.received {
+body.dark .message-bubble.received {
   background-color: #3a3a3a;
   color: #fff;
 }
 
-body.dark-mode .message-bubble.sent {
+body.dark .message-bubble.sent {
   background-color: #0056b3;
 }
 
@@ -248,7 +248,7 @@ body.dark-mode .message-bubble.sent {
 }
 
 /* Dark mode styles */
-body.dark-mode .message-timestamp {
+body.dark .message-timestamp {
   color: #aaa;
 }
 
@@ -270,7 +270,7 @@ body.dark-mode .message-timestamp {
 }
 
 /* Dark mode styles */
-body.dark-mode .message-input-container input {
+body.dark .message-input-container input {
   background-color: #2e2e2e;
   color: #fff;
   border: 1px solid #555;
@@ -311,12 +311,12 @@ body.dark-mode .message-input-container input {
 }
 
 /* Dark mode styles */
-body.dark-mode .invitation-message {
+body.dark .invitation-message {
   background-color: #2e2e2e;
   border: 1px solid #444;
 }
 
-body.dark-mode .invitation-message p {
+body.dark .invitation-message p {
   color: #fff;
 }
 
@@ -332,7 +332,7 @@ body.dark-mode .invitation-message p {
 }
 
 /* Dark mode styles */
-body.dark-mode .invitation-description {
+body.dark .invitation-description {
   color: #ccc;
 }
 
@@ -343,7 +343,7 @@ body.dark-mode .invitation-description {
 }
 
 /* Dark mode styles */
-body.dark-mode .invitation-member-count {
+body.dark .invitation-member-count {
   color: #aaa;
 }
 
@@ -374,7 +374,7 @@ body.dark-mode .invitation-member-count {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-name-clickable {
+body.dark .group-name-clickable {
   color: #85bff8;
 }
 
@@ -415,19 +415,19 @@ body.dark-mode .group-name-clickable {
 }
 
 /* Dark mode styles */
-body.dark-mode .invitation-accept-button {
+body.dark .invitation-accept-button {
   background-color: #007bff;
 }
 
-body.dark-mode .invitation-accept-button:hover {
+body.dark .invitation-accept-button:hover {
   background-color: #0056b3;
 }
 
-body.dark-mode .invitation-decline-button {
+body.dark .invitation-decline-button {
   background-color: #555;
 }
 
-body.dark-mode .invitation-decline-button:hover {
+body.dark .invitation-decline-button:hover {
   background-color: #444;
 }
 
@@ -452,11 +452,11 @@ body.dark-mode .invitation-decline-button:hover {
 }
 
 /* Dark mode styles */
-body.dark-mode .paperclip-icon {
+body.dark .paperclip-icon {
   color: #ccc;
 }
 
-body.dark-mode .paperclip-icon:hover {
+body.dark .paperclip-icon:hover {
   color: #85bff8;
 }
 
@@ -471,7 +471,7 @@ body.dark-mode .paperclip-icon:hover {
 }
 
 /* Dark mode styles */
-body.dark-mode .selected-file-preview {
+body.dark .selected-file-preview {
   background-color: #3a3a3a;
   color: #fff;
 }
@@ -504,7 +504,7 @@ body.dark-mode .selected-file-preview {
 }
 
 /* Dark mode styles */
-body.dark-mode .attachment-filename {
+body.dark .attachment-filename {
   color: #fff;
 }
 
@@ -523,11 +523,11 @@ body.dark-mode .attachment-filename {
 }
 
 /* Dark mode styles */
-body.dark-mode .send-icon {
+body.dark .send-icon {
   color: #85bff8;
 }
 
-body.dark-mode .send-icon:hover {
+body.dark .send-icon:hover {
   color: #439ef6;
 }
 
@@ -541,7 +541,7 @@ body.dark-mode .send-icon:hover {
 }
 
 /* Dark mode styles */
-body.dark-mode .image-preview-container {
+body.dark .image-preview-container {
   background-color: #3a3a3a;
 }
 

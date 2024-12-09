@@ -14,7 +14,7 @@
 }
 
 /* Dark mode styles */
-body.dark-mode .user-name {
+body.dark .user-name {
     color: #fff;
 }
 
@@ -37,7 +37,7 @@ body.dark-mode .user-name {
 }
 
 /* Dark mode styles */
-body.dark-mode .explore-user-card {
+body.dark .explore-user-card {
     background: #2e2e2e;
     color: #fff;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
@@ -60,7 +60,7 @@ body.dark-mode .explore-user-card {
 }
 
 /* Dark mode styles */
-body.dark-mode .no-more-users-or-groups {
+body.dark .no-more-users-or-groups {
     background: #2e2e2e;
     color: #fff;
 }
@@ -83,7 +83,7 @@ body.dark-mode .no-more-users-or-groups {
 }
 
 /* Dark mode styles */
-body.dark-mode .user-explore-name {
+body.dark .user-explore-name {
     color: #fff;
 }
 
@@ -94,7 +94,7 @@ body.dark-mode .user-explore-name {
 }
 
 /* Dark mode styles */
-body.dark-mode .user-explore-location {
+body.dark .user-explore-location {
     color: #ccc;
 }
 
@@ -105,11 +105,11 @@ body.dark-mode .user-explore-location {
 }
 
 /* Dark mode styles */
-body.dark-mode .user-info h3 {
+body.dark .user-info h3 {
     color: #ddd;
 }
 
-body.dark-mode .user-location{
+body.dark .user-location{
     color: #ddd;
 }
 
@@ -121,7 +121,7 @@ body.dark-mode .user-location{
 }
 
 /* Dark mode styles */
-body.dark-mode .user-info p {
+body.dark .user-info p {
     color: #ccc;
 }
 
@@ -141,7 +141,7 @@ body.dark-mode .user-info p {
 }
 
 /* Dark mode styles */
-body.dark-mode .user-explore-courses-list a {
+body.dark .user-explore-courses-list a {
     color: #439ef6;
 }
 
@@ -202,23 +202,23 @@ body.dark-mode .user-explore-courses-list a {
 }
 
 /* Dark mode styles */
-body.dark-mode .connect-button {
+body.dark .connect-button {
     background-color: #0056b3;
     box-shadow: 0 4px 6px rgba(0, 86, 179, 0.1);
 }
 
-body.dark-mode .connect-button:hover {
+body.dark .connect-button:hover {
     background-color: #004085;
     box-shadow: 0 8px 12px rgba(0, 86, 179, 0.2);
 }
 
-body.dark-mode .skip-button {
+body.dark .skip-button {
     color: #85bff8;
     border: 2px solid #85bff8;
     box-shadow: 0 4px 6px rgba(133, 191, 248, 0.1);
 }
 
-body.dark-mode .skip-button:hover {
+body.dark .skip-button:hover {
     background-color: #85bff8;
     color: white;
     box-shadow: 0 8px 12px rgba(133, 191, 248, 0.2);
@@ -232,7 +232,7 @@ body.dark-mode .skip-button:hover {
 }
 
 /* Dark mode styles */
-body.dark-mode .user-explore-no-more {
+body.dark .user-explore-no-more {
     color: #ccc;
 }
 

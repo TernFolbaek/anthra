@@ -8,7 +8,7 @@
 }
 
 /* Dark mode styles */
-body.dark-mode .card-container {
+body.dark .card-container {
     background-color: #2e2e2e;
 }
 
@@ -21,7 +21,7 @@ body.dark-mode .card-container {
 }
 
 /* Dark mode styles */
-body.dark-mode .card-title {
+body.dark .card-title {
     color: #fff;
 }
 

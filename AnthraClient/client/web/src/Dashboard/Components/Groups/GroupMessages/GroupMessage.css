@@ -12,7 +12,7 @@
 }
 
 /* Dark mode styles */
-body.dark-mode .group-message-page {
+body.dark .group-message-page {
     background-color: #1e1e1e;
 }
 
@@ -27,7 +27,7 @@ body.dark-mode .group-message-page {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-message-container {
+body.dark .group-message-container {
     background-color: #2e2e2e;
 }
 
@@ -38,7 +38,7 @@ body.dark-mode .group-message-container {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-message-content-other {
+body.dark .group-message-content-other {
     background-color: #3a3a3a;
     color: #fff;
 }
@@ -82,7 +82,7 @@ body.dark-mode .group-message-content-other {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-message-content-own {
+body.dark .group-message-content-own {
     background-color: #0056b3;
 }
 
@@ -101,7 +101,7 @@ body.dark-mode .group-message-content-own {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-message-timestamp {
+body.dark .group-message-timestamp {
     color: #aaa;
 }
 
@@ -127,7 +127,7 @@ body.dark-mode .group-message-timestamp {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-message-sender-name {
+body.dark .group-message-sender-name {
     color: #fff;
 }
 
@@ -150,7 +150,7 @@ body.dark-mode .group-message-sender-name {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-message-input {
+body.dark .group-message-input {
     background-color: #3a3a3a;
     color: #fff;
     border: 1px solid #555;
@@ -167,10 +167,10 @@ body.dark-mode .group-message-input {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-message-send-button {
+body.dark .group-message-send-button {
     color: #85bff8;
 }
 
-body.dark-mode .group-message-send-button:hover {
+body.dark .group-message-send-button:hover {
     color: #439ef6;
 }

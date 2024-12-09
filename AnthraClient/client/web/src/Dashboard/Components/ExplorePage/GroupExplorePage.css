@@ -27,7 +27,7 @@
 }
 
 /* Dark mode styles */
-body.dark-mode .explore-group-card {
+body.dark .explore-group-card {
     background: #2e2e2e;
     color: #fff;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
@@ -52,7 +52,7 @@ body.dark-mode .explore-group-card {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-explore-name {
+body.dark .group-explore-name {
     color: #fff;
 }
 
@@ -62,7 +62,7 @@ body.dark-mode .group-explore-name {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-explore-description {
+body.dark .group-explore-description {
     color: #ccc;
 }
 
@@ -73,7 +73,7 @@ body.dark-mode .group-explore-description {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-explore-info h3 {
+body.dark .group-explore-info h3 {
     color: #ddd;
 }
 
@@ -84,7 +84,7 @@ body.dark-mode .group-explore-info h3 {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-explore-info p {
+body.dark .group-explore-info p {
     color: #ccc;
 }
 
@@ -108,13 +108,14 @@ body.dark-mode .group-explore-info p {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-explore-member-item:hover {
+body.dark .group-explore-member-item:hover {
     background: #3a3a3a;
 }
 
 .group-explore-member-avatar {
     width: 40px;
     height: 40px;
+    border: 2px solid #85bff8;
     border-radius: 50%;
     margin-right: 10px;
     object-fit: cover;
@@ -172,23 +173,23 @@ body.dark-mode .group-explore-member-item:hover {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-explore-apply-button {
+body.dark .group-explore-apply-button {
     background-color: #0056b3;
     box-shadow: 0 4px 6px rgba(0, 86, 179, 0.1);
 }
 
-body.dark-mode .group-explore-apply-button:hover {
+body.dark .group-explore-apply-button:hover {
     background-color: #004085;
     box-shadow: 0 8px 12px rgba(0, 86, 179, 0.2);
 }
 
-body.dark-mode .group-explore-skip-button {
+body.dark .group-explore-skip-button {
     color: #85bff8;
     border: 2px solid #85bff8;
     box-shadow: 0 4px 6px rgba(133, 191, 248, 0.1);
 }
 
-body.dark-mode .group-explore-skip-button:hover {
+body.dark .group-explore-skip-button:hover {
     background-color: #85bff8;
     color: white;
     box-shadow: 0 8px 12px rgba(133, 191, 248, 0.2);
@@ -202,7 +203,7 @@ body.dark-mode .group-explore-skip-button:hover {
 }
 
 /* Dark mode styles */
-body.dark-mode .explore-group-card-content h3 {
+body.dark .explore-group-card-content h3 {
     color: #ddd;
 }
 
@@ -223,7 +224,7 @@ body.dark-mode .explore-group-card-content h3 {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-explore-no-more {
+body.dark .group-explore-no-more {
     background: #2e2e2e;
     color: #fff;
 }

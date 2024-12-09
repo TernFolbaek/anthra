@@ -24,7 +24,7 @@
 }
 
 /* Dark mode styles */
-body.dark-mode #viewgroupprofile .viewgroupprofile-modal {
+body.dark #viewgroupprofile .viewgroupprofile-modal {
     background-color: #2e2e2e;
     color: #fff;
 }
@@ -41,7 +41,7 @@ body.dark-mode #viewgroupprofile .viewgroupprofile-modal {
 }
 
 /* Dark mode styles */
-body.dark-mode #viewgroupprofile .viewgroupprofile-close-button {
+body.dark #viewgroupprofile .viewgroupprofile-close-button {
     color: #ccc;
 }
 
@@ -50,7 +50,7 @@ body.dark-mode #viewgroupprofile .viewgroupprofile-close-button {
 }
 
 /* Dark mode styles */
-body.dark-mode #viewgroupprofile .viewgroupprofile-close-button:hover {
+body.dark #viewgroupprofile .viewgroupprofile-close-button:hover {
     color: #fff;
 }
 
@@ -66,7 +66,7 @@ body.dark-mode #viewgroupprofile .viewgroupprofile-close-button:hover {
 }
 
 /* Dark mode styles */
-body.dark-mode #viewgroupprofile .viewgroupprofile-name {
+body.dark #viewgroupprofile .viewgroupprofile-name {
     color: #fff;
 }
 
@@ -80,7 +80,7 @@ body.dark-mode #viewgroupprofile .viewgroupprofile-name {
 }
 
 /* Dark mode styles */
-body.dark-mode #viewgroupprofile .viewgroupprofile-section-subtitle {
+body.dark #viewgroupprofile .viewgroupprofile-section-subtitle {
     color: #ddd;
 }
 
@@ -95,8 +95,8 @@ body.dark-mode #viewgroupprofile .viewgroupprofile-section-subtitle {
 }
 
 /* Dark mode styles */
-body.dark-mode #viewgroupprofile .viewgroupprofile-description,
-body.dark-mode #viewgroupprofile .viewgroupprofile-desired-members {
+body.dark #viewgroupprofile .viewgroupprofile-description,
+body.dark #viewgroupprofile .viewgroupprofile-desired-members {
     color: #ccc;
 }
 
@@ -116,7 +116,7 @@ body.dark-mode #viewgroupprofile .viewgroupprofile-desired-members {
 }
 
 /* Dark mode styles */
-body.dark-mode #viewgroupprofile .viewgroupprofile-section-title {
+body.dark #viewgroupprofile .viewgroupprofile-section-title {
     color: #fff;
 }
 
@@ -126,7 +126,7 @@ body.dark-mode #viewgroupprofile .viewgroupprofile-section-title {
 }
 
 /* Dark mode styles */
-body.dark-mode #viewgroupprofile .viewgroupprofile-members-count {
+body.dark #viewgroupprofile .viewgroupprofile-members-count {
     color: #aaa;
 }
 
@@ -160,7 +160,7 @@ body.dark-mode #viewgroupprofile .viewgroupprofile-members-count {
 }
 
 /* Dark mode styles */
-body.dark-mode #viewgroupprofile .viewgroupprofile-member-info h5 {
+body.dark #viewgroupprofile .viewgroupprofile-member-info h5 {
     color: #fff;
 }
 
@@ -171,6 +171,6 @@ body.dark-mode #viewgroupprofile .viewgroupprofile-member-info h5 {
 }
 
 /* Dark mode styles */
-body.dark-mode #viewgroupprofile .viewgroupprofile-member-info p {
+body.dark #viewgroupprofile .viewgroupprofile-member-info p {
     color: #ccc;
 }

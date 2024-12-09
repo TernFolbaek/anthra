@@ -5,7 +5,7 @@
 }
 
 /* Dark mode styles */
-body.dark-mode .profile-settings h2 {
+body.dark .profile-settings h2 {
     color: #fff;
 }
 
@@ -21,7 +21,7 @@ body.dark-mode .profile-settings h2 {
 }
 
 /* Dark mode styles */
-body.dark-mode .form-group label {
+body.dark .form-group label {
     color: #ccc;
 }
 
@@ -33,7 +33,7 @@ body.dark-mode .form-group label {
 }
 
 /* Dark mode styles */
-body.dark-mode .form-group input {
+body.dark .form-group input {
     background-color: #3a3a3a;
     color: #fff;
     border: 1px solid #555;
@@ -49,7 +49,7 @@ body.dark-mode .form-group input {
 }
 
 /* Dark mode styles */
-body.dark-mode .profile-settings-save-button {
+body.dark .profile-settings-save-button {
     background-color: #2e2e2e;
     color: #28a745;
     border-color: #28a745;
@@ -60,7 +60,7 @@ body.dark-mode .profile-settings-save-button {
 }
 
 /* Dark mode styles */
-body.dark-mode .profile-settings-save-button:hover {
+body.dark .profile-settings-save-button:hover {
     background-color: #3a3a3a;
 }
 
@@ -115,11 +115,11 @@ body.dark-mode .profile-settings-save-button:hover {
 }
 
 
-body.dark-mode .logout-button:hover {
+body.dark .logout-button:hover {
     background-color: #003f7f;
 }
 
-body.dark-mode .delete-button {
+body.dark .delete-button {
     color: white;
 }
 
@@ -148,7 +148,7 @@ body.dark-mode .delete-button {
 }
 
 /* Dark mode styles */
-body.dark-mode .modal {
+body.dark .modal {
     background: #2e2e2e;
     color: #fff;
 }
@@ -160,7 +160,7 @@ body.dark-mode .modal {
 }
 
 /* Dark mode styles */
-body.dark-mode .modal h3 {
+body.dark .modal h3 {
     color: #fff;
 }
 
@@ -170,7 +170,7 @@ body.dark-mode .modal h3 {
 }
 
 /* Dark mode styles */
-body.dark-mode .modal p {
+body.dark .modal p {
     color: #ddd;
 }
 
@@ -183,7 +183,7 @@ body.dark-mode .modal p {
 }
 
 /* Dark mode styles */
-body.dark-mode .modal input {
+body.dark .modal input {
     background-color: #3a3a3a;
     color: #fff;
     border: 1px solid #555;
@@ -221,19 +221,19 @@ body.dark-mode .modal input {
 }
 
 /* Dark mode styles */
-body.dark-mode .confirm-delete-button {
+body.dark .confirm-delete-button {
     background-color: #555;
 }
 
-body.dark-mode .confirm-delete-button:hover {
+body.dark .confirm-delete-button:hover {
     background-color: #444;
 }
 
-body.dark-mode .delete-account-cancel-button {
+body.dark .delete-account-cancel-button {
     background-color: #0056b3;
 }
 
-body.dark-mode .delete-account-cancel-button:hover {
+body.dark .delete-account-cancel-button:hover {
     background-color: #003f7f;
 }
 

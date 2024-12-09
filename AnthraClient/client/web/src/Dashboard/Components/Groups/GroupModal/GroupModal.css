@@ -5,7 +5,7 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px); /* Blur effect */
+    backdrop-filter: blur(5px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -13,7 +13,6 @@
     border-radius: 10px;
 }
 
-/* Modal Content */
 .modal-content {
     font-family: 'Montserrat', sans-serif;
     background-color: white;
@@ -48,6 +47,7 @@
     height: 100px;
     resize: none;
 }
+
 .group-creation-connections-list {
     list-style-type: none;
     padding: 0;
@@ -61,14 +61,29 @@
 .create-group-connection-item {
     padding: 8px;
     border-bottom: 1px solid #eee;
-}
-
-.create-group-connection-item:hover {
-    background-color: #ebf3fd;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
 }
 
 .create-group-connection-item:last-child {
     border-bottom: none;
+}
+
+.create-group-connection-item:hover {
+    background-color: #ebf3fd;
+    cursor: pointer;
+}
+
+.selected-user {
+    background-color: #ebf3fd;
+}
+
+.connection-profile-picture-small {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .modal-buttons {
@@ -105,7 +120,6 @@
     background-color: #5a6268;
 }
 
-/* Close Button */
 .create-group-close-button {
     position: absolute;
     top: 10px;
@@ -130,6 +144,7 @@
 .create-button:disabled:hover {
     background-color: #ccc;
 }
+
 .label-and-counter {
     display: flex;
     justify-content: space-between;
@@ -142,9 +157,18 @@
     color: grey;
 }
 
-
-
 .required-asterisk {
     color: red;
     margin-left: 2px;
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        height: calc(100vh - 55px);
+        overflow: auto;
+    }
+
+    .modal-content::-webkit-scrollbar{
+        display: none;
+    }
 }

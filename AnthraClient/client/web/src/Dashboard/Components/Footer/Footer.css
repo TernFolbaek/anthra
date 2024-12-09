@@ -12,7 +12,7 @@
 }
 
 /* Dark mode styles */
-body.dark-mode .footer {
+body.dark .footer {
     background-color: #2e2e2e;
     box-shadow: 0 -1px 5px rgba(255, 255, 255, 0.1);
 }
@@ -26,7 +26,7 @@ body.dark-mode .footer {
 }
 
 /* Dark mode styles */
-body.dark-mode .footer-link {
+body.dark .footer-link {
     color: #ccc;
 }
 
@@ -35,7 +35,7 @@ body.dark-mode .footer-link {
 }
 
 /* Dark mode styles */
-body.dark-mode .footer-link:hover {
+body.dark .footer-link:hover {
     color: #66b3ff;
 }
 
@@ -71,7 +71,7 @@ body.dark-mode .footer-link:hover {
 }
 
 /* Dark mode styles */
-body.dark-mode .footer-menu {
+body.dark .footer-menu {
     background-color: #3a3a3a;
 }
 
@@ -85,7 +85,7 @@ body.dark-mode .footer-menu {
 }
 
 /* Dark mode styles */
-body.dark-mode .close-button {
+body.dark .close-button {
     color: #ccc;
 }
 
@@ -99,7 +99,7 @@ body.dark-mode .close-button {
 }
 
 /* Dark mode styles */
-body.dark-mode .footer-menu a {
+body.dark .footer-menu a {
     color: #ccc;
     border-bottom: 1px solid #555;
 }
@@ -113,7 +113,7 @@ body.dark-mode .footer-menu a {
 }
 
 /* Dark mode styles */
-body.dark-mode .footer-menu a:hover {
+body.dark .footer-menu a:hover {
     color: #66b3ff;
 }
 

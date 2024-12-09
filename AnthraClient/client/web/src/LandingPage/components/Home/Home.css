@@ -12,50 +12,17 @@
     overflow: hidden;
 }
 
-/* Spline Background */
-.spline-background {
+/* Background Image Container */
+.home-background {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     z-index: 0;
-    overflow: hidden;
-    background-color: #000; /* Placeholder background color */
-}
-
-/* Hide the Spline component until it's loaded */
-.spline-background:not(.loaded) canvas {
-    opacity: 0;
-}
-
-/* Fade in the Spline component when loaded */
-.spline-background.loaded canvas {
-    opacity: 1;
-    transition: opacity 0.5s ease-in;
-}
-
-/* Spline Placeholder */
-.spline-placeholder {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000; /* Match the placeholder background color */
-    z-index: 1;
-}
-
-/* Hide the placeholder when Spline is loaded */
-.spline-background.loaded .spline-placeholder {
-    display: none;
-}
-
-/* Adjust the canvas to be absolute and fill the container */
-.spline-background canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
 }
 
 /* Home Content */
@@ -67,12 +34,18 @@
     margin-top: 13%;
 }
 
+.home-background-image {
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: contain;
+}
+
 /* Mission Text */
 .mission {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-style: normal;
-    color: white;
+    color: black;
     pointer-events: none;
 }
 
@@ -88,7 +61,6 @@
     line-height: 1.5;
     width: 50%;
     pointer-events: none;
-    color: white;
 }
 
 .dynamic-text {
@@ -159,11 +131,12 @@
     vertical-align: middle;
 }
 
-@media (max-width: 768px ) {
-    .home-content{
+@media (max-width: 768px) {
+    .home-content {
         margin-top: 25%;
     }
 }
+
 /* Animation to scroll from right to left */
 @keyframes scrollRight {
     0% {

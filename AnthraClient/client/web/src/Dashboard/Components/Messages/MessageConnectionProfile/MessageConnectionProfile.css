@@ -37,12 +37,12 @@
 }
 
 /* Dark mode styles */
-body.dark-mode .message-connection-profile {
+body.dark .message-connection-profile {
     background-color: #2e2e2e;
     color: #fff;
 }
 
-body.dark-mode .profile-info-header {
+body.dark .profile-info-header {
     color: #fff;
 }
 
@@ -53,7 +53,7 @@ body.dark-mode .profile-info-header {
 }
 
 /* Dark mode styles */
-body.dark-mode .profile-username {
+body.dark .profile-username {
     color: #ccc;
 }
 
@@ -68,10 +68,10 @@ body.dark-mode .profile-username {
 }
 
 /* Dark mode styles */
-body.dark-mode .profile-location-label,
-body.dark-mode .profile-work-label,
-body.dark-mode .profile-institution-label,
-body.dark-mode .profile-age-label {
+body.dark .profile-location-label,
+body.dark .profile-work-label,
+body.dark .profile-institution-label,
+body.dark .profile-age-label {
     color: #ccc;
 }
 
@@ -83,7 +83,7 @@ body.dark-mode .profile-age-label {
 }
 
 /* Dark mode styles */
-body.dark-mode .profile-info-text {
+body.dark .profile-info-text {
     color: #ddd;
 }
 
@@ -93,7 +93,7 @@ body.dark-mode .profile-info-text {
 }
 
 /* Dark mode styles */
-body.dark-mode .profile-section-title {
+body.dark .profile-section-title {
     color: #ccc;
 }
 
@@ -119,6 +119,6 @@ body.dark-mode .profile-section-title {
 }
 
 /* Dark mode styles */
-body.dark-mode .profile-info-link {
+body.dark .profile-info-link {
     color: #85bff8;
 }

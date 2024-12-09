@@ -13,7 +13,7 @@
 }
 
 /* Dark mode styles */
-body.dark-mode .group-info {
+body.dark .group-info {
     background-color: #2e2e2e;
     color: #fff;
 }
@@ -27,7 +27,7 @@ body.dark-mode .group-info {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-info-header {
+body.dark .group-info-header {
     color: #fff;
 }
 
@@ -39,7 +39,7 @@ body.dark-mode .group-info-header {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-section-title {
+body.dark .group-section-title {
     color: #ccc;
 }
 
@@ -52,8 +52,8 @@ body.dark-mode .group-section-title {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-description,
-body.dark-mode .group-desired-members {
+body.dark .group-description,
+body.dark .group-desired-members {
     color: #ddd;
 }
 
@@ -97,8 +97,8 @@ body.dark-mode .group-desired-members {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-member-item:hover,
-body.dark-mode .group-attachment-item:hover {
+body.dark .group-member-item:hover,
+body.dark .group-attachment-item:hover {
     background-color: #3a3a3a;
 }
 
@@ -109,7 +109,7 @@ body.dark-mode .group-attachment-item:hover {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-member-name {
+body.dark .group-member-name {
     color: #fff;
 }
 
@@ -121,7 +121,7 @@ body.dark-mode .group-member-name {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-attachment-link {
+body.dark .group-attachment-link {
     color: #85bff8;
 }
 

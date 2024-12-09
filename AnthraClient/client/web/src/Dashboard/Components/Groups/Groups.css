@@ -8,7 +8,7 @@
     flex: 1;
 }
 
-body.dark-mode .groups-page {
+body.dark .groups-page {
     background-color: #1e1e1e;
 }
 
@@ -22,7 +22,7 @@ body.dark-mode .groups-page {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-message-view {
+body.dark .group-message-view {
     background-color: #2e2e2e;
 }
 
@@ -37,7 +37,7 @@ body.dark-mode .group-message-view {
 }
 
 /* Dark mode styles */
-body.dark-mode .no-group-selected {
+body.dark .no-group-selected {
     color: #ccc;
 }
 
@@ -52,7 +52,7 @@ body.dark-mode .no-group-selected {
 }
 
 /* Dark mode styles */
-body.dark-mode .no-groups-container {
+body.dark .no-groups-container {
     background-color: #2e2e2e;
 }
 
@@ -73,11 +73,11 @@ body.dark-mode .no-groups-container {
 }
 
 /* Dark mode styles */
-body.dark-mode .explore-button {
+body.dark .explore-button {
     background-color: #007bff;
 }
 
-body.dark-mode .explore-button:hover {
+body.dark .explore-button:hover {
     background-color: #0056b3;
 }
 

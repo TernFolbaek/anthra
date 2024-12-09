@@ -7,7 +7,7 @@
     align-items: center;
 }
 
-body.dark-mode .profile-page {
+body.dark .profile-page {
     background-color: #1e1e1e;
 }
 
@@ -24,7 +24,7 @@ body.dark-mode .profile-page {
 }
 
 /* Dark mode styles */
-body.dark-mode .profile-card {
+body.dark .profile-card {
     background-color: #2e2e2e;
     box-shadow: none;
 }
@@ -121,7 +121,7 @@ body.dark-mode .profile-card {
 }
 
 /* Dark mode styles */
-body.dark-mode .profile-info {
+body.dark .profile-info {
     color: #fff;
 }
 
@@ -153,7 +153,7 @@ body.dark-mode .profile-info {
 }
 
 /* Dark mode styles */
-body.dark-mode .profile-field label {
+body.dark .profile-field label {
     color: #ccc;
 }
 
@@ -165,8 +165,8 @@ body.dark-mode .profile-field label {
 }
 
 /* Dark mode styles */
-body.dark-mode .profile-field span,
-body.dark-mode .profile-field p {
+body.dark .profile-field span,
+body.dark .profile-field p {
     color: #ddd;
 }
 
@@ -180,8 +180,8 @@ body.dark-mode .profile-field p {
 }
 
 /* Dark mode styles */
-body.dark-mode .profile-field input,
-body.dark-mode .profile-field textarea {
+body.dark .profile-field input,
+body.dark .profile-field textarea {
     background-color: #3a3a3a;
     color: #fff;
     border: 1px solid #555;
@@ -216,11 +216,11 @@ body.dark-mode .profile-field textarea {
 }
 
 /* Dark mode styles */
-body.dark-mode .save-button {
+body.dark .save-button {
     background-color: #007bff;
 }
 
-body.dark-mode .save-button:hover {
+body.dark .save-button:hover {
     background-color: #0056b3;
 }
 
@@ -283,7 +283,7 @@ body.dark-mode .save-button:hover {
 }
 
 /* Dark mode styles */
-body.dark-mode .error-message {
+body.dark .error-message {
     color: #ff6b6b;
 }
 

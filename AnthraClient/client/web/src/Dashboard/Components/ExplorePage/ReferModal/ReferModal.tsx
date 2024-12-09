@@ -100,7 +100,7 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
                 <button className="create-group-close-button" onClick={onClose}>
                     &times;
                 </button>
-                <h2>Refer {currentUser?.firstName} {currentUser?.lastName}</h2>
+                <p className="text-base font-semibold text-center">Refer {currentUser?.firstName} {currentUser?.lastName}</p>
                 <input
                     type="text"
                     placeholder="Search your connections..."
@@ -124,6 +124,7 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
                                     src={conn.profilePictureUrl}
                                     alt={`${conn.firstName} ${conn.lastName}`}
                                     style={{width: '30px', height: '30px', borderRadius: '50%'}}
+                                    className="select-user-item-avatar"
                                 />
                                 <span>{conn.firstName} {conn.lastName}</span>
                             </div>

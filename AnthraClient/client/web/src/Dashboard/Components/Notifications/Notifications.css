@@ -21,7 +21,7 @@
 }
 
 /* Dark mode styles */
-body.dark-mode .bell-icon {
+body.dark .bell-icon {
     color: #fff;
 }
 
@@ -31,7 +31,7 @@ body.dark-mode .bell-icon {
 }
 
 /* Dark mode styles */
-body.dark-mode .bell-icon:hover {
+body.dark .bell-icon:hover {
     background-color: #3a3a3a;
 }
 
@@ -63,7 +63,7 @@ body.dark-mode .bell-icon:hover {
 }
 
 /* Dark mode styles */
-body.dark-mode .notifications-dropdown {
+body.dark .notifications-dropdown {
     background: #2e2e2e;
     border: 1px solid #444;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
@@ -75,7 +75,7 @@ body.dark-mode .notifications-dropdown {
 }
 
 /* Dark mode styles */
-body.dark-mode .notification-item {
+body.dark .notification-item {
     color: #fff;
 }
 
@@ -92,7 +92,7 @@ body.dark-mode .notification-item {
 }
 
 /* Dark mode styles */
-body.dark-mode .notification-item.unread {
+body.dark .notification-item.unread {
     background-color: #3a3a3a;
 }
 
@@ -101,7 +101,7 @@ body.dark-mode .notification-item.unread {
 }
 
 /* Dark mode styles */
-body.dark-mode .notification-item:hover {
+body.dark .notification-item:hover {
     background-color: #444;
 }
 
@@ -112,7 +112,7 @@ body.dark-mode .notification-item:hover {
 }
 
 /* Dark mode styles */
-body.dark-mode .notification-content {
+body.dark .notification-content {
     color: #ddd;
 }
 
@@ -123,7 +123,7 @@ body.dark-mode .notification-content {
 }
 
 /* Dark mode styles */
-body.dark-mode .notification-timestamp {
+body.dark .notification-timestamp {
     color: #aaa;
 }
 

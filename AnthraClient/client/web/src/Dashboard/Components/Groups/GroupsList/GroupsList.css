@@ -25,7 +25,7 @@
 
 
 /* Dark Mode styles for search input */
-body.dark-mode .search-input-groups {
+body.dark .search-input-groups {
     background-color: #333;
     color: #fff;
     border-color: #555;
@@ -36,11 +36,11 @@ body.dark-mode .search-input-groups {
 }
 
 /* Dark mode styles */
-body.dark-mode .create-group-button {
+body.dark .create-group-button {
     background-color: #007bff;
 }
 
-body.dark-mode .create-group-button:hover {
+body.dark .create-group-button:hover {
     background-color: #0056b3;
 }
 
@@ -58,7 +58,7 @@ body.dark-mode .create-group-button:hover {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-card:hover {
+body.dark .group-card:hover {
     background-color: #3a3a3a;
 }
 
@@ -67,7 +67,7 @@ body.dark-mode .group-card:hover {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-card-selected {
+body.dark .group-card-selected {
     background-color: #3a3a3a;
 }
 
@@ -78,7 +78,7 @@ body.dark-mode .group-card-selected {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-name {
+body.dark .group-name {
     color: #fff;
 }
 
@@ -102,10 +102,10 @@ body.dark-mode .group-name {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-options-button{
+body.dark .group-options-button{
     color: white;
 }
-body.dark-mode .group-options-button:hover {
+body.dark .group-options-button:hover {
     background-color: #555;
 }
 
@@ -122,7 +122,7 @@ body.dark-mode .group-options-button:hover {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-options-menu {
+body.dark .group-options-menu {
     background-color: #2e2e2e;
     border: 1px solid #444;
 }
@@ -137,7 +137,7 @@ body.dark-mode .group-options-menu {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-options-menu button {
+body.dark .group-options-menu button {
     color: #fff;
 }
 
@@ -146,6 +146,6 @@ body.dark-mode .group-options-menu button {
 }
 
 /* Dark mode styles */
-body.dark-mode .group-options-menu button:hover {
+body.dark .group-options-menu button:hover {
     background-color: #444;
 }

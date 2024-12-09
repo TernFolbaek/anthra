@@ -20,8 +20,8 @@
     margin: 15px 15px 15px 0;
 }
 
-body.dark-mode .connections-card-container,
-body.dark-mode .requests-card-container {
+body.dark .connections-card-container,
+body.dark .requests-card-container {
     background-color: #2e2e2e;
 }
 
@@ -33,7 +33,7 @@ body.dark-mode .requests-card-container {
     margin: 15px;
 }
 
-body.dark-mode .connections-container {
+body.dark .connections-container {
     background-color: #2e2e2e;
 }
 
@@ -45,8 +45,8 @@ body.dark-mode .connections-container {
     color: #666;
 }
 
-body.dark-mode .connections-loading,
-body.dark-mode .connections-error {
+body.dark .connections-loading,
+body.dark .connections-error {
     color: #ccc;
 }
 
@@ -64,8 +64,8 @@ body.dark-mode .connections-error {
     color: #333;
 }
 
-body.dark-mode .connections-title,
-body.dark-mode .requests-title {
+body.dark .connections-title,
+body.dark .requests-title {
     color: #fff;
 }
 
@@ -105,7 +105,7 @@ body.dark-mode .requests-title {
     background-color: rgba(202, 222, 253, 0.5);
 }
 
-body.dark-mode .connection-item:hover {
+body.dark .connection-item:hover {
     background-color: #3a3a3a;
 }
 
@@ -130,7 +130,7 @@ body.dark-mode .connection-item:hover {
     color: #333;
 }
 
-body.dark-mode .connection-name {
+body.dark .connection-name {
     color: #fff;
 }
 
@@ -146,7 +146,7 @@ body.dark-mode .connection-name {
     padding: 5px;
 }
 
-body.dark-mode .connections-options-menu {
+body.dark .connections-options-menu {
     background-color: #2e2e2e;
     border: 1px solid #444;
 }
@@ -160,11 +160,11 @@ body.dark-mode .connections-options-menu {
     cursor: pointer;
 }
 
-body.dark-mode .connections-options-menu button {
+body.dark .connections-options-menu button {
     color: #fff;
 }
 
-body.dark-mode .connections-options-menu button:hover {
+body.dark .connections-options-menu button:hover {
     background-color: #444;
 }
 
@@ -187,11 +187,11 @@ body.dark-mode .connections-options-menu button:hover {
     background-color: #e3e2e2;
 }
 
-body.dark-mode .connections-menu-button {
+body.dark .connections-menu-button {
     color: white;
 }
 
-body.dark-mode .connections-menu-button:hover {
+body.dark .connections-menu-button:hover {
     background-color: #555;
 }
 
@@ -213,12 +213,12 @@ body.dark-mode .connections-menu-button:hover {
     color: #fff;
 }
 
-body.dark-mode .message-button {
+body.dark .message-button {
     border: 2px solid #85bff8;
     color: #85bff8;
 }
 
-body.dark-mode .message-button:hover {
+body.dark .message-button:hover {
     background-color: #85bff8;
     color: #fff;
 }
@@ -239,8 +239,8 @@ body.dark-mode .message-button:hover {
     color: #333;
 }
 
-body.dark-mode .connections-tabs button,
-body.dark-mode .requests-tabs button {
+body.dark .connections-tabs button,
+body.dark .requests-tabs button {
     background-color: #2e2e2e;
     color: #fff;
 }
@@ -256,8 +256,8 @@ body.dark-mode .requests-tabs button {
     color: #85bff8;
 }
 
-body.dark-mode .connections-tabs button:hover,
-body.dark-mode .requests-tabs button:hover {
+body.dark .connections-tabs button:hover,
+body.dark .requests-tabs button:hover {
     background-color: #3a3a3a;
 }
 
@@ -277,7 +277,7 @@ body.dark-mode .requests-tabs button:hover {
     cursor: pointer;
 }
 
-body.dark-mode .requests-user-card:hover {
+body.dark .requests-user-card:hover {
     background-color: #3a3a3a;
 }
 
@@ -389,12 +389,12 @@ body.dark-mode .requests-user-card:hover {
     opacity: 0.8;
 }
 
-body.dark-mode .requests-connect-button {
+body.dark .requests-connect-button {
     background-color: #007bff;
     border: 2px solid #0056b3;
 }
 
-body.dark-mode .requests-skip-button {
+body.dark .requests-skip-button {
     background-color: #555;
     border: 2px solid #333;
 }
@@ -408,11 +408,11 @@ body.dark-mode .requests-skip-button {
     color: #333;
 }
 
-body.dark-mode .requests-group-name {
+body.dark .requests-group-name {
     color: #fff;
 }
 
-body.dark-mode .no-group-text {
+body.dark .no-group-text {
     color: #fff;
 }
 
@@ -420,6 +420,11 @@ body.dark-mode .no-group-text {
     .connections-columns {
         flex-direction: column;
     }
+
+    .slide-toggle{
+        margin: 5px auto;
+    }
+
 
     .connections-card-container,
     .requests-card-container {
@@ -432,6 +437,7 @@ body.dark-mode .no-group-text {
     .connections-page {
         margin: 0;
     }
+
 
     .connections-card-container,
     .requests-card-container {

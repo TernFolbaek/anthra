@@ -13,7 +13,7 @@
 
 
 /* Dark mode styles */
-body.dark-mode .settings-card {
+body.dark .settings-card {
     background-color: #2e2e2e;
     box-shadow: none;
 }
@@ -27,7 +27,7 @@ body.dark-mode .settings-card {
 }
 
 /* Dark mode styles */
-body.dark-mode .settings-navbar {
+body.dark .settings-navbar {
     border-bottom: 1px solid #444;
 }
 
@@ -49,7 +49,7 @@ body.dark-mode .settings-navbar {
 }
 
 /* Dark mode styles */
-body.dark-mode .settings-tab {
+body.dark .settings-tab {
     color: #ccc;
 }
 
@@ -59,7 +59,7 @@ body.dark-mode .settings-tab {
 }
 
 /* Dark mode styles */
-body.dark-mode .settings-tab.active {
+body.dark .settings-tab.active {
     background-color: #3a3a3a;
     color: #fff;
 }
@@ -69,7 +69,7 @@ body.dark-mode .settings-tab.active {
 }
 
 /* Dark mode styles */
-body.dark-mode .settings-tab:hover {
+body.dark .settings-tab:hover {
     background-color: #3a3a3a;
 }
 
@@ -79,7 +79,7 @@ body.dark-mode .settings-tab:hover {
 }
 
 /* Dark mode styles */
-body.dark-mode .settings-tab span {
+body.dark .settings-tab span {
     color: inherit;
 }
 
@@ -89,7 +89,7 @@ body.dark-mode .settings-tab span {
 }
 
 /* Dark mode styles */
-body.dark-mode .settings-content {
+body.dark .settings-content {
     color: #fff;
 }
 
@@ -106,7 +106,7 @@ body.dark-mode .settings-content {
     }
 
     /* Dark mode styles */
-    body.dark-mode .settings-tab {
+    body.dark .settings-tab {
         border-bottom: 1px solid #444;
     }
 

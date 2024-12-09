@@ -92,43 +92,43 @@
 }
 
 /* Dark mode styles */
-body.dark-mode .advanced-settings-container {
+body.dark .advanced-settings-container {
     background-color: #2e2e2e;
     color: #fff;
 }
 
-body.dark-mode .advanced-settings-dropdown-label {
+body.dark .advanced-settings-dropdown-label {
     color: #fff;
 }
 
-body.dark-mode .advanced-settings-dropdown-header {
+body.dark .advanced-settings-dropdown-header {
     background-color: #3a3a3a;
     border-color: #555;
     color: #fff;
 }
 
-body.dark-mode .advanced-settings-dropdown-header:hover {
+body.dark .advanced-settings-dropdown-header:hover {
     background-color: #555;
 }
 
-body.dark-mode .advanced-settings-dropdown-list {
+body.dark .advanced-settings-dropdown-list {
     background-color: #3a3a3a;
     border-color: #555;
 }
 
-body.dark-mode .advanced-settings-dropdown-list-item {
+body.dark .advanced-settings-dropdown-list-item {
     color: #fff;
 }
 
-body.dark-mode .advanced-settings-dropdown-list-item:hover {
+body.dark .advanced-settings-dropdown-list-item:hover {
     background-color: #555;
 }
 
-body.dark-mode .advanced-settings-apply-button {
+body.dark .advanced-settings-apply-button {
     background-color: #0056b3;
 }
 
-body.dark-mode .advanced-settings-apply-button:hover {
+body.dark .advanced-settings-apply-button:hover {
     background-color: #003f7f;
 }
 

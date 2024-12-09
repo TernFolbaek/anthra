@@ -7,9 +7,7 @@ import './Home.css';
 import cbsBanner from '../../assets/cbs-banner.png';
 import dtuBanner from '../../assets/dtu-banner.png';
 import kuBanner from '../../assets/ku-banner.png';
-
-// Import the Spline component
-import Spline from '@splinetool/react-spline';
+import homeBackground from '../../assets/home-background.jpg';
 
 interface NavbarProps {
     onGetStartedClick: () => void;
@@ -50,41 +48,18 @@ const Home: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
         return () => clearTimeout(typingTimeout);
     }, [displayedText, isDeleting, currentWordIndex, typingSpeed, words]);
 
-    // State to track when Spline has loaded
-    const [splineLoaded, setSplineLoaded] = useState(false);
-
-    const handleSplineLoad = () => {
-        setSplineLoaded(true);
-    };
-
-    // Add the onWheelCapture handler here
-    const handleWheelCapture = (e: React.WheelEvent) => {
-        e.stopPropagation();
-        // Do not call e.preventDefault(), so the event continues to bubble up for page scrolling
-    };
-
     return (
         <div className="home-container">
             <div
-                className={`spline-background ${splineLoaded ? 'loaded' : ''}`}
-                onWheelCapture={handleWheelCapture}
-            >
-                {!splineLoaded && (
-                    <div className="spline-placeholder">
-                        {/* Optional: Add a spinner or placeholder content */}
-                    </div>
-                )}
-                <Spline
-                    scene="https://prod.spline.design/o3QvleIBNEpBoRyW/scene.splinecode"
-                    onLoad={handleSplineLoad}
-                    className="opacity-90"
-                />
-            </div>
+                className="home-background"
+                style={{ backgroundImage: `url(${homeBackground})` }}
+            />
+
             <div className="home-content items-center flex flex-col gap-5">
                 <div className="mission">
                     <h2>{t.mission}</h2>
                 </div>
-                <div className="home-content-text text-center text-white justify-center">
+                <div className="home-content-text text-center text-black justify-center">
                     <div>
                         {t.description}
                         <span className="dynamic-text">{displayedText}</span>?
@@ -98,6 +73,7 @@ const Home: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                     <Icon path={mdiArrowRightThin} size={1} />
                 </button>
             </div>
+
             <div className="image-banner">
                 <div className="image-track">
                     <div className="banner-image">

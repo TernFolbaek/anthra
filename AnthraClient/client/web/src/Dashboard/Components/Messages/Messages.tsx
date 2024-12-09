@@ -123,7 +123,7 @@ const Messages: React.FC = () => {
                 // Scroll to bottom after initial messages load
                 setTimeout(() => {
                     if (messagesEndRef.current) {
-                        messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
+                        messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
                     }
                 }, 0);
             } catch (error) {

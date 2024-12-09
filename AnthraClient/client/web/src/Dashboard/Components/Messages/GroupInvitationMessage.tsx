@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-import GroupsList from "../Groups/GroupsList/GroupsList";
 
 interface GroupInvitationMessageProps {
     msg: Message;

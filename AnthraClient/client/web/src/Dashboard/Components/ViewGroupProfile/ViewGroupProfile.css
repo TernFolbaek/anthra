@@ -141,7 +141,14 @@ body.dark #viewgroupprofile .viewgroupprofile-members-count {
 #viewgroupprofile .viewgroupprofile-member-item {
     display: flex;
     align-items: center;
-    margin-bottom: 0.9375rem;
+    margin-bottom: 0.95rem;
+    padding: 4px;
+    border-radius: 5px;
+}
+
+#viewgroupprofile .viewgroupprofile-member-item:hover{
+    background-color: #e3e2e2;
+    cursor: pointer;
 }
 
 #viewgroupprofile .viewgroupprofile-member-picture {

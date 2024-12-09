@@ -25,7 +25,7 @@
 }
 
 /* Dark mode styles */
-body.dark-mode #viewprofile .viewprofile-modal {
+body.dark #viewprofile .viewprofile-modal {
     background-color: #2e2e2e;
     color: #fff;
 }
@@ -42,7 +42,7 @@ body.dark-mode #viewprofile .viewprofile-modal {
 }
 
 /* Dark mode styles */
-body.dark-mode #viewprofile .viewprofile-close-button {
+body.dark #viewprofile .viewprofile-close-button {
     color: #ccc;
 }
 
@@ -51,7 +51,7 @@ body.dark-mode #viewprofile .viewprofile-close-button {
 }
 
 /* Dark mode styles */
-body.dark-mode #viewprofile .viewprofile-close-button:hover {
+body.dark #viewprofile .viewprofile-close-button:hover {
     color: #fff;
 }
 
@@ -75,7 +75,7 @@ body.dark-mode #viewprofile .viewprofile-close-button:hover {
 }
 
 /* Dark mode styles */
-body.dark-mode #viewprofile .viewprofile-name {
+body.dark #viewprofile .viewprofile-name {
     color: #fff;
 }
 
@@ -88,9 +88,9 @@ body.dark-mode #viewprofile .viewprofile-name {
 }
 
 /* Dark mode styles */
-body.dark-mode #viewprofile .viewprofile-location,
-body.dark-mode #viewprofile .viewprofile-institution,
-body.dark-mode #viewprofile .viewprofile-work {
+body.dark #viewprofile .viewprofile-location,
+body.dark #viewprofile .viewprofile-institution,
+body.dark #viewprofile .viewprofile-work {
     color: #ccc;
 }
 
@@ -103,7 +103,7 @@ body.dark-mode #viewprofile .viewprofile-work {
 }
 
 /* Dark mode styles */
-body.dark-mode #viewprofile .viewprofile-section-title {
+body.dark #viewprofile .viewprofile-section-title {
     color: #fff;
 }
 
@@ -115,7 +115,7 @@ body.dark-mode #viewprofile .viewprofile-section-title {
 }
 
 /* Dark mode styles */
-body.dark-mode #viewprofile .viewprofile-aboutme {
+body.dark #viewprofile .viewprofile-aboutme {
     color: #ddd;
 }
 
@@ -134,7 +134,7 @@ body.dark-mode #viewprofile .viewprofile-aboutme {
 }
 
 /* Dark mode styles */
-body.dark-mode #viewprofile .viewprofile-list li {
+body.dark #viewprofile .viewprofile-list li {
     background-color: #3a3a3a;
     color: #fff;
 }

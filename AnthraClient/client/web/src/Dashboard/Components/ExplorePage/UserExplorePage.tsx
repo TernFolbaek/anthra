@@ -4,6 +4,7 @@ import axios from 'axios';
 import './UserExplorePage.css';
 import NoMoreUsersToExplore from '../../Helpers/Animations/NoMoreUsersToExplore';
 import Snackbar from "../../Helpers/Snackbar/Snackbar";
+import ReferModal from './ReferModal/ReferModal';
 
 interface Course {
     courseName: string;
@@ -33,6 +34,8 @@ const UserExplorePage: React.FC = () => {
     const [snackbarVisible, setSnackbarVisible] = useState<boolean>(false);
     const [snackbarTitle, setSnackbarTitle] = useState<string>('');
     const [snackbarMessage, setSnackbarMessage] = useState<string>('');
+
+    const [showReferModal, setShowReferModal] = useState(false);
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -72,7 +75,6 @@ const UserExplorePage: React.FC = () => {
                         },
                     }
                 );
-                // Show the snackbar
                 setSnackbarTitle('Connection Request Sent');
                 setSnackbarMessage(`You have sent a connection request to ${currentUser.firstName} ${currentUser.lastName}.`);
                 setSnackbarVisible(true);
@@ -156,7 +158,7 @@ const UserExplorePage: React.FC = () => {
                             <button className="connect-button" onClick={handleConnect}>
                                 Connect
                             </button>
-                            <button className="connect-button">
+                            <button className="connect-button" onClick={() => setShowReferModal(true)}>
                                 Refer
                             </button>
                             <button className="skip-button" onClick={handleSkip}>
@@ -169,13 +171,19 @@ const UserExplorePage: React.FC = () => {
                 <NoMoreUsersToExplore />
             )}
 
-            {/* Render the Snackbar */}
             {snackbarVisible && (
                 <Snackbar
                     title={snackbarTitle}
                     message={snackbarMessage}
                     duration={4000}
                     onClose={() => setSnackbarVisible(false)}
+                />
+            )}
+
+            {showReferModal && currentUser && (
+                <ReferModal
+                    currentUser={currentUser}
+                    onClose={() => setShowReferModal(false)}
                 />
             )}
         </div>

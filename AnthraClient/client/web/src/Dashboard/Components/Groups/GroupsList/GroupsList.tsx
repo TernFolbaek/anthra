@@ -1,12 +1,12 @@
 // Components/GroupsList/GroupsList.tsx
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {FaInfo} from 'react-icons/fa';
 import axios from 'axios';
 import NoGroups from '../../../Helpers/Animations/NoGroups';
 import CardContainer from '../../CardContainer/CardContainer';
 import './GroupsList.css';
-import { MdGroupAdd, MdExitToApp} from 'react-icons/md';
-import ViewGroupProfile  from "../../ViewGroupProfile/ViewGroupProfile";
+import {MdGroupAdd, MdExitToApp} from 'react-icons/md';
+import ViewGroupProfile from "../../ViewGroupProfile/ViewGroupProfile";
 
 interface GroupMember {
     userId: string;
@@ -48,7 +48,7 @@ const GroupsList: React.FC<GroupsListProps> = ({
         try {
             await axios.post(
                 'http://localhost:5001/api/Groups/LeaveGroup',
-                { groupId },
+                {groupId},
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -104,71 +104,75 @@ const GroupsList: React.FC<GroupsListProps> = ({
         setSelectedGroupIdInfo(groupId);
     };
     return (
-        <CardContainer title="Groups">
-            {/* Search Input */}
-            <div className="ml-[10px] search-container-groups flex gap-2">
-                <div className="create-group-button flex items-center justify-center gap-2" onClick={onCreateGroup}>
-                    <MdGroupAdd/>
-                </div>
-                <input
-                    type="text"
-                    placeholder="Search Groups"
-                    className="search-input-groups"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                />
-            </div>
-
-            {filteredGroups.length === 0 ? (
-                <NoGroups/>
-            ) : (
-                filteredGroups.map((group) => (
-                    <div
-                        className={`group-card ${
-                            selectedGroupId === group.id ? 'group-card-selected' : ''
-                        }`}
-                        key={group.id}
-                        onClick={() => handleGroupClick(group.id)}
-                    >
-                        <div className="group-name">{group.name}</div>
-                        <div className="group-options">
-                            <button
-                                className="group-options-button"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    setOpenMenuGroupId(
-                                        openMenuGroupId === group.id ? null : group.id
-                                    );
-                                }}
-                            >
-                                ⋯
-                            </button>
-                            {openMenuGroupId === group.id && (
-                                <div
-                                    className="group-options-menu"
-                                    ref={menuRef}
-                                    onClick={(e) => e.stopPropagation()}
-                                >
-                                    <button className="flex items-center gap-2 font-bold text-sm text-gray-500" onClick={() => handleLeaveGroup(group.id)}>
-                                        <MdExitToApp/>
-                                        Leave Group
-                                    </button>
-                                    <button className="flex items-center gap-2 font-bold text-sm text-gray-500" onClick={() => handleUserClick(group.id)}>
-                                        <FaInfo/>
-                                        <div>
-                                            Group Info
-                                        </div>
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-                        {selectedGroupIdInfo && (
-                            <ViewGroupProfile groupId={selectedGroupIdInfo} onClose={handleCloseGroupProfile} />
-                        )}
+        <>
+            <CardContainer title="Groups">
+                {/* Search Input */}
+                <div className="ml-[10px] search-container-groups flex gap-2">
+                    <div className="create-group-button flex items-center justify-center gap-2" onClick={onCreateGroup}>
+                        <MdGroupAdd/>
                     </div>
-                ))
+                    <input
+                        type="text"
+                        placeholder="Search Groups"
+                        className="search-input-groups"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                </div>
+
+                {filteredGroups.length === 0 ? (
+                    <NoGroups/>
+                ) : (
+                    filteredGroups.map((group) => (
+                        <div
+                            className={`group-card ${
+                                selectedGroupId === group.id ? 'group-card-selected' : ''
+                            }`}
+                            key={group.id}
+                            onClick={() => handleGroupClick(group.id)}
+                        >
+                            <div className="group-name">{group.name}</div>
+                            <div className="group-options">
+                                <button
+                                    className="group-options-button"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setOpenMenuGroupId(
+                                            openMenuGroupId === group.id ? null : group.id
+                                        );
+                                    }}
+                                >
+                                    ⋯
+                                </button>
+                                {openMenuGroupId === group.id && (
+                                    <div
+                                        className="group-options-menu"
+                                        ref={menuRef}
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
+                                        <button className="flex items-center gap-2 font-bold text-sm text-gray-500"
+                                                onClick={() => handleLeaveGroup(group.id)}>
+                                            <MdExitToApp/>
+                                            Leave Group
+                                        </button>
+                                        <button className="flex items-center gap-2 font-bold text-sm text-gray-500"
+                                                onClick={() => handleUserClick(group.id)}>
+                                            <FaInfo/>
+                                            <div>
+                                                Group Info
+                                            </div>
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    ))
+                )}
+            </CardContainer>
+            {selectedGroupIdInfo && (
+                <ViewGroupProfile groupId={selectedGroupIdInfo} onClose={handleCloseGroupProfile}/>
             )}
-        </CardContainer>
+        </>
     );
 };
 

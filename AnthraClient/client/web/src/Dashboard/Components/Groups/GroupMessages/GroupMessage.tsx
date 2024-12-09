@@ -132,7 +132,6 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            console.log('here');
             if (
                 showMenu &&
                 dropdownRef.current &&

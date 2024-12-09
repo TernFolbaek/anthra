@@ -114,7 +114,7 @@ body.dark .group-message-timestamp {
 .group-message-sender-avatar {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
+    border-radius: 10%;
     margin-right: 10px;
     border: 2px solid #85bff8;
     object-fit: cover;

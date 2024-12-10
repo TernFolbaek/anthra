@@ -35,10 +35,10 @@ const GroupsList: React.FC<GroupsListProps> = ({
                                                    selectedGroupId,
                                                }) => {
     const [openMenuGroupId, setOpenMenuGroupId] = useState<number | null>(null);
-    const [searchQuery, setSearchQuery] = useState<string>(''); // Search query state
+    const [searchQuery, setSearchQuery] = useState<string>('');
     const [selectedGroupIdInfo, setSelectedGroupIdInfo] = useState<number | null>(null);
     const token = localStorage.getItem('token');
-    const menuRef = useRef<HTMLDivElement | null>(null); // Ref for the open menu
+    const menuRef = useRef<HTMLDivElement | null>(null);
 
     const handleGroupClick = (groupId: number) => {
         onGroupClick(groupId);
@@ -57,16 +57,11 @@ const GroupsList: React.FC<GroupsListProps> = ({
             );
             console.log(`Successfully left group ${groupId}`);
             setOpenMenuGroupId(null);
-
-            // Optionally, you can refresh the groups list by notifying the parent component.
-            // Since 'groups' is a prop, you can't modify it directly here.
-            // You might consider calling a function passed from the parent to refresh the groups.
         } catch (error) {
             console.error('Error leaving group:', error);
             alert('Failed to leave the group. Please try again later.');
         }
     };
-
 
     // Filter groups based on the search query
     const filteredGroups = groups.filter((group) =>
@@ -76,10 +71,7 @@ const GroupsList: React.FC<GroupsListProps> = ({
     // Effect to handle clicks outside the menu
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            if (
-                menuRef.current &&
-                !menuRef.current.contains(event.target as Node)
-            ) {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
                 setOpenMenuGroupId(null);
             }
         };
@@ -90,7 +82,6 @@ const GroupsList: React.FC<GroupsListProps> = ({
             document.removeEventListener('mousedown', handleClickOutside);
         }
 
-        // Cleanup function
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
@@ -103,6 +94,7 @@ const GroupsList: React.FC<GroupsListProps> = ({
     const handleUserClick = (groupId: number | null) => {
         setSelectedGroupIdInfo(groupId);
     };
+
     return (
         <>
             <CardContainer title="Groups">
@@ -131,8 +123,19 @@ const GroupsList: React.FC<GroupsListProps> = ({
                             key={group.id}
                             onClick={() => handleGroupClick(group.id)}
                         >
-                            <div className="group-name">{group.name}</div>
+                                <div className="group-name">{group.name}</div>
+
                             <div className="group-options">
+                                <div className="group-member-images">
+                                    {group.members.slice(0, 3).map((member, index) => (
+                                        <img
+                                            key={member.userId}
+                                            src={member.profilePictureUrl}
+                                            alt="Member"
+                                            className={`group-member-image group-member-image-${index}`}
+                                        />
+                                    ))}
+                                </div>
                                 <button
                                     className="group-options-button"
                                     onClick={(e) => {

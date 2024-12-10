@@ -13,7 +13,6 @@
 .connections-card-container,
 .requests-card-container {
     width: 50%;
-    height: 100%;
     background-color: white;
     border-radius: 10px;
     padding: 0 20px 20px 20px;
@@ -125,7 +124,7 @@ body.dark .connection-item:hover {
 
 .connection-name {
     margin-left: 15px;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 500;
 }
 
@@ -428,6 +427,7 @@ body.dark .no-group-text {
     .connections-card-container,
     .requests-card-container {
         width: 100%;
+        height: 100%;
         margin-right: 0;
     }
 }

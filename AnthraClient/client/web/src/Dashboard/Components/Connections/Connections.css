@@ -126,8 +126,7 @@ body.dark .connection-item:hover {
 .connection-name {
     margin-left: 15px;
     font-size: 0.95rem;
-    font-weight: 600;
-    color: #333;
+    font-weight: 500;
 }
 
 body.dark .connection-name {

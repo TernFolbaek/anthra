@@ -159,6 +159,7 @@ body.dark .user-explore-courses-list a {
 }
 
 .connect-button,
+.refer-button,
 .skip-button {
     padding: 0.75rem 1.5rem;
     cursor: pointer;
@@ -173,15 +174,21 @@ body.dark .user-explore-courses-list a {
     outline: none;
 }
 
+.refer-button{
+    background-color: #007BFF;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);
+}
+
 /* Connect Button */
 .connect-button {
-    background-color: #007BFF; /* Modern blue color */
+    background-color: #0056b3;
     color: white;
     box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);
 }
 
 .connect-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #0056b3;
     box-shadow: 0 8px 12px rgba(0, 123, 255, 0.2);
     transform: translateY(-3px);
 }

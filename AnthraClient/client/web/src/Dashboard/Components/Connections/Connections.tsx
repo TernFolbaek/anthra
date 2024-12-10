@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import axios from 'axios';
 import './Connections.css';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import NoConnectionsRive from "../../Helpers/Animations/NoConnections";
 import ViewProfile from '../ViewProfile/ViewProfile';
-import { FaEllipsisV, FaUserMinus } from 'react-icons/fa';
-import { FaUser, FaUsers } from "react-icons/fa";
+import {FaEllipsisV, FaUserMinus} from 'react-icons/fa';
+import {FaUser, FaUsers} from "react-icons/fa";
 
 interface ApplicationUser {
     id: string;
@@ -68,7 +68,7 @@ const Connections: React.FC = () => {
         try {
             await axios.post(
                 'http://localhost:5001/api/Connections/Remove',
-                { userId: connectionId, currentUserId: userId },
+                {userId: connectionId, currentUserId: userId},
                 {
                     withCredentials: true,
                 }
@@ -129,7 +129,7 @@ const Connections: React.FC = () => {
                 'Content-Type': 'application/json',
             },
             method: 'POST',
-            body: JSON.stringify({ requestId, accept: true }),
+            body: JSON.stringify({requestId, accept: true}),
         })
             .then((response) => {
                 if (response.ok) {
@@ -155,7 +155,7 @@ const Connections: React.FC = () => {
                 'Content-Type': 'application/json',
             },
             method: 'POST',
-            body: JSON.stringify({ requestId, accept: false }),
+            body: JSON.stringify({requestId, accept: false}),
         })
             .then((response) => {
                 if (response.ok) {
@@ -335,7 +335,8 @@ const Connections: React.FC = () => {
     const renderPersonalRequests = () => (
         <div className="requests-content">
             {connectionRequests.length === 0 ? (
-                <h2 className="dark:text-white w-full text-center text-gray-700 text-base font-bold">No new connection requests</h2>
+                <h2 className="dark:text-white w-full text-center text-gray-700 text-base font-bold">No new connection
+                    requests</h2>
             ) : (
                 connectionRequests.map((request) => (
                     <div
@@ -354,13 +355,19 @@ const Connections: React.FC = () => {
                         <div className="requests-button-container">
                             <button
                                 className="requests-connect-button"
-                                onClick={(e) => { e.stopPropagation(); handleAccept(request.id) }}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleAccept(request.id)
+                                }}
                             >
                                 Accept
                             </button>
                             <button
                                 className="requests-skip-button"
-                                onClick={(e) => { e.stopPropagation(); handleDecline(request.id) }}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDecline(request.id)
+                                }}
                             >
                                 Decline
                             </button>
@@ -374,7 +381,8 @@ const Connections: React.FC = () => {
     const renderGroupRequests = () => (
         <div className="requests-content">
             {groupApplicationRequests.length === 0 ? (
-                <p className="no-group-text text-gray-700 w-full text-center text-base font-bold">No group application requests</p>
+                <p className="no-group-text text-gray-700 w-full text-center text-base font-bold">No group application
+                    requests</p>
             ) : (
                 groupApplicationRequests.map((group) => (
                     <div key={group.groupId} className="requests-group-section">
@@ -420,13 +428,15 @@ const Connections: React.FC = () => {
                             onClick={() => setSelectedTab('connections')}
                             className={selectedTab === 'connections' ? 'active' : ''}
                         >
-                            {screenWidth < 481 ? <div className="w-full flex justify-center"><FaUser/></div> : 'Connections'}
-                                </button>
+                            {screenWidth < 481 ?
+                                <div className="w-full flex justify-center"><FaUser/></div> : 'Connections'}
+                        </button>
                         <button
                             onClick={() => setSelectedTab('requests')}
                             className={selectedTab === 'requests' ? 'active' : ''}
                         >
-                            {screenWidth < 481 ? <div className="w-full flex justify-center"><FaUsers /></div> : 'Requests'}
+                            {screenWidth < 481 ?
+                                <div className="w-full flex justify-center"><FaUsers/></div> : 'Requests'}
                         </button>
                     </div>
                 )}
@@ -450,7 +460,7 @@ const Connections: React.FC = () => {
                                 />
                                 <label htmlFor="toggle">
                                     <span className="toggle-option personal">Personal</span>
-                                    <span className="toggle-option groups">Groups</span>
+                                    <span className="toggle-option groups ">Groups</span>
                                     <span className="toggle-slider"></span>
                                 </label>
                             </div>
@@ -490,11 +500,10 @@ const Connections: React.FC = () => {
                 )}
             </>
             {selectedUserId && (
-                <ViewProfile userId={selectedUserId} onClose={handleCloseProfile} />
+                <ViewProfile userId={selectedUserId} onClose={handleCloseProfile}/>
             )}
         </div>
     );
-
 
 
 };

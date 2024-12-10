@@ -335,7 +335,7 @@ const Connections: React.FC = () => {
     const renderPersonalRequests = () => (
         <div className="requests-content">
             {connectionRequests.length === 0 ? (
-                <h2 className="dark:text-white w-full text-center text-gray-700 text-base font-bold">No new connection
+                <h2 className="dark:text-white w-full text-center text-gray-700 text-base font-semibold">No new connection
                     requests</h2>
             ) : (
                 connectionRequests.map((request) => (

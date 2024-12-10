@@ -158,7 +158,7 @@ const UserExplorePage: React.FC = () => {
                             <button className="connect-button" onClick={handleConnect}>
                                 Connect
                             </button>
-                            <button className="connect-button" onClick={() => setShowReferModal(true)}>
+                            <button className="refer-button" onClick={() => setShowReferModal(true)}>
                                 Refer
                             </button>
                             <button className="skip-button" onClick={handleSkip}>

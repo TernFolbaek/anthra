@@ -44,6 +44,7 @@ namespace MyBackendApp.Controllers
                     UserId = g.Key,
                     UserName = g.Select(m => m.SenderId == g.Key ? m.Sender.UserName : m.Receiver.UserName).FirstOrDefault(),
                     FirstName = g.Select(m =>m.SenderId == g.Key ? m.Sender.FirstName : m.Receiver.FirstName).FirstOrDefault(),
+                    LastName = g.Select(m =>m.SenderId == g.Key ? m.Sender.LastName : m.Receiver.LastName).FirstOrDefault(),
                     UserEmail = g.Select(m => m.SenderId == g.Key ? m.Sender.Email : m.Receiver.Email).FirstOrDefault(),
                     UserProfilePicture = g.Select(m => m.SenderId == g.Key ? m.Sender.ProfilePictureUrl : m.Receiver.ProfilePictureUrl).FirstOrDefault(),
                     LastMessageContent = g.OrderByDescending(m => m.Timestamp).Select(m => m.Content).FirstOrDefault(),

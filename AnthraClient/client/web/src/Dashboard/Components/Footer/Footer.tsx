@@ -7,7 +7,7 @@ import {
     FaEnvelope,
     FaCog,
     FaBars,
-    FaTimes, FaUser, FaHandHoldingHeart, FaUsers,
+    FaTimes, FaUser, FaUsers,
 } from 'react-icons/fa'; // Import FaTimes for close icon
 import './Footer.css';
 import Notifications from "../Notifications/Notifications";

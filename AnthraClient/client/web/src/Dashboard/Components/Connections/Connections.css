@@ -195,11 +195,11 @@ body.dark .connections-menu-button:hover {
 }
 
 .message-button {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     background-color: transparent;
     border: 2px solid #007bff;
     color: #007bff;
-    padding: 0.3rem 0.7rem;
+    padding: 0.2rem 0.5rem;
     cursor: pointer;
     font-weight: 600;
     transition: background-color 0.3s, color 0.3s;

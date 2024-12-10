@@ -458,13 +458,13 @@ const Messages: React.FC = () => {
                             >
                                 {showMenu && (
                                     <div className="messages-dropdown-menu">
-                                        <button className="flex items-center gap-2 font-bold text-gray-500 text-sm" onClick={handleRemoveConnection}>
+                                        <button className="flex items-center gap-2 font-medium text-gray-500 text-sm" onClick={handleRemoveConnection}>
                                             <FaUserMinus/>
                                             <div>
                                                 Remove Connection
                                             </div>
                                         </button>
-                                        <button className="flex gap-2 items-center font-bold text-gray-500 text-sm" onClick={handleToggleProfileVisibility}>
+                                        <button className="flex gap-2 items-center font-medium text-gray-500 text-sm" onClick={handleToggleProfileVisibility}>
                                             <FaInfo/>
                                             <div>
                                                 {showProfile ? 'Hide Profile' : 'Show Profile'}

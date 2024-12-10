@@ -73,8 +73,7 @@ body.dark .group-card-selected {
 
 .group-name {
     font-size: 0.85rem;
-    font-weight: bold;
-    color: #333;
+    font-weight: 600;
 }
 
 /* Dark mode styles */
@@ -84,6 +83,7 @@ body.dark .group-name {
 
 .group-options {
     position: relative;
+    display: flex;
 }
 
 .group-options-button {
@@ -91,18 +91,20 @@ body.dark .group-name {
     border: none;
     font-size: 1.2rem;
     cursor: pointer;
-    border-radius: 15%;
+    border-radius: 50%;
     width: 30px;
     height: 30px;
 }
 
 .group-options-button:hover {
     cursor: pointer;
-    background-color: #e3e2e2;
+    font-weight: bold;
+    background-color: white;
+    border: 1px solid lightgray;
 }
 
 /* Dark mode styles */
-body.dark .group-options-button{
+body.dark .group-options-button {
     color: white;
 }
 body.dark .group-options-button:hover {
@@ -117,7 +119,7 @@ body.dark .group-options-button:hover {
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 250px;
-    z-index: 1;
+    z-index: 5;
     padding: 5px;
 }
 
@@ -148,4 +150,41 @@ body.dark .group-options-menu button {
 /* Dark mode styles */
 body.dark .group-options-menu button:hover {
     background-color: #444;
+}
+
+/* Styles for member images */
+.group-member-images {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 30px;
+    width: 100px; /* Adjust if needed */
+}
+
+.group-member-image {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #85bff8;
+    border-radius: 50%;
+    object-fit: cover;
+    position: relative;
+}
+
+.group-member-image-0 {
+    z-index: 3;
+}
+
+.group-member-image-1 {
+    margin-left: -10px; /* overlap */
+    z-index: 2;
+}
+
+.group-member-image-2 {
+    margin-left: -10px; /* overlap */
+    z-index: 1;
+}
+
+/* Dark mode for profile image border if needed */
+body.dark .group-member-image {
+    border: 2px solid #333;
 }

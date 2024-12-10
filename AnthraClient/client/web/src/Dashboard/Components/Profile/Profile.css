@@ -174,7 +174,7 @@ body.dark .profile-field p {
 .profile-field textarea {
     width: 100%;
     padding: 12px 15px;
-    font-size: 1rem;
+    font-size: 0.8rem;
     border: 1px solid #ccc;
     border-radius: 8px;
 }

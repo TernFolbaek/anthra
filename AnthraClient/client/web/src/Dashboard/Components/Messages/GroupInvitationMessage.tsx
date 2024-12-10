@@ -110,7 +110,7 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
         <div className="invitation-message">
             {isCurrentUser ? (
                 <>
-                    <p>
+                    <p className="text-sm">
                         You have invited{' '}
                         <span className="font-bold">{contactProfile?.firstName}</span> to join
                         group:{' '}

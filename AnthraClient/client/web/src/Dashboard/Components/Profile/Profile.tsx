@@ -227,7 +227,7 @@ const Profile: React.FC = () => {
                             {/* Username */}
                             <div className="profile-row">
                                 <div className="profile-field full-width">
-                                    <label className="profile-label">Username:</label>
+                                    <label>Username:</label>
                                     <span>{profileData.userName}</span>
                                 </div>
                             </div>

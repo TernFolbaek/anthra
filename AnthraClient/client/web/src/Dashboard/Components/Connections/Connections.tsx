@@ -459,7 +459,7 @@ const Connections: React.FC = () => {
                                     }
                                 />
                                 <label htmlFor="toggle">
-                                    <span className="toggle-option personal">Personal</span>
+                                    <span className="toggle-option personal ">Personal</span>
                                     <span className="toggle-option groups ">Groups</span>
                                     <span className="toggle-slider"></span>
                                 </label>

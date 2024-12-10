@@ -149,7 +149,7 @@ body.dark .profile-info {
     font-weight: 600;
     margin-bottom: 8px;
     color: #444;
-    font-size: 18px;
+    font-size: 14px;
 }
 
 /* Dark mode styles */
@@ -159,7 +159,7 @@ body.dark .profile-field label {
 
 .profile-field span,
 .profile-field p {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #555;
     margin: 0;
 }

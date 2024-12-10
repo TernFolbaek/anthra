@@ -313,7 +313,7 @@ body.dark .message-input-container input {
 /* Dark mode styles */
 body.dark .invitation-message {
   background-color: #2e2e2e;
-  border: 1px solid #444;
+  border: 1px solid #9c9a9a;
 }
 
 body.dark .invitation-message p {

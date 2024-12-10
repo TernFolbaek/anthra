@@ -101,7 +101,7 @@ const CurrentConversations: React.FC = React.memo(() => {
                                 className="conversation-profile-picture"
                             />
                             <div className="conversation-details">
-                                <p className="font-medium text-sm">{conv.firstName} {conv.lastName}</p>
+                                <p className="font-medium text-sm dark:text-white">{conv.firstName} {conv.lastName}</p>
                                 <p className="last-message">
                                     {conv.lastMessageContent.length > 15
                                         ? `${conv.lastMessageContent.substring(0, 10)}...`

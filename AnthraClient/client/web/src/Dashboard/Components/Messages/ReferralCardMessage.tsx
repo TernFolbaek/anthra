@@ -58,9 +58,9 @@ const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurren
         : referredUser.aboutMe;
 
     return (
-        <div className={`referral-card-container ${isCurrentUser ? 'sent' : 'received'}`}>
+        <div className={`dark:text-white referral-card-container ${isCurrentUser ? 'sent' : 'received'}`}>
             {isCurrentUser ? (
-                <p>
+                <p className=" text-sm text-center">
                     You have referred{' '}
                     <span className="font-bold">{referredUser.firstName} {referredUser.lastName}</span>
                 </p>
@@ -81,9 +81,9 @@ const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurren
                         <p className="referral-user-name">
                             {referredUser.firstName} {referredUser.lastName}, {referredUser.age}
                         </p>
-                        <p className="referral-user-location">{referredUser.location}</p>
+                        <p className="dark:text-white referral-user-location">{referredUser.location}</p>
                         {descriptionPreview && (
-                            <p className="referral-user-about">{descriptionPreview}</p>
+                            <p className="dark:text-white referral-user-about">{descriptionPreview}</p>
                         )}
                     </div>
                 </div>

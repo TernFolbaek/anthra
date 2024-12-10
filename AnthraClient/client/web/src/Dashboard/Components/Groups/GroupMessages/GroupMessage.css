@@ -141,12 +141,11 @@ body.dark .group-message-sender-name {
 
 .group-message-input {
     flex: 1;
-    padding: 10px;
+    padding: 8px;
     font-size: 0.8rem;
-    border: 1px solid #ccc;
     border-radius: 20px;
+    background-color: rgb(243, 243, 243);
     margin-right: 10px;
-    outline: none;
 }
 
 /* Dark mode styles */

@@ -153,12 +153,12 @@ const GroupsList: React.FC<GroupsListProps> = ({
                                         ref={menuRef}
                                         onClick={(e) => e.stopPropagation()}
                                     >
-                                        <button className="flex items-center gap-2 font-bold text-sm text-gray-500"
+                                        <button className="flex items-center gap-2 font-medium text-sm text-gray-500"
                                                 onClick={() => handleLeaveGroup(group.id)}>
                                             <MdExitToApp/>
                                             Leave Group
                                         </button>
-                                        <button className="flex items-center gap-2 font-bold text-sm text-gray-500"
+                                        <button className="flex items-center gap-2 font-medium text-sm text-gray-500"
                                                 onClick={() => handleUserClick(group.id)}>
                                             <FaInfo/>
                                             <div>

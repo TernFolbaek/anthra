@@ -269,7 +269,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                  ref={dropdownRef}
                                  onClick={(event) => event.stopPropagation()}>
                                 {isGroupCreator && (
-                                    <button className="flex items-center gap-2 text-gray-500 text-sm font-bold"
+                                    <button className="flex items-center gap-2 text-gray-500 text-sm font-medium"
                                             onClick={handleEditGroup}>
                                         <FaPenSquare/>
                                         <div>
@@ -278,14 +278,14 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                     </button>
 
                                 )}
-                                <button className="flex items-center gap-2 text-gray-500 text-sm font-bold"
+                                <button className="flex items-center gap-2 text-gray-500 text-sm font-medium"
                                         onClick={handleToggleGroupInfoVisibility}>
                                     <FaInfo/>
                                     <div>
                                         {showGroupInfo ? 'Hide Info' : 'Show Info'}
                                     </div>
                                 </button>
-                                <button className="flex items-center gap-2 font-bold text-sm text-gray-500"
+                                <button className="flex items-center gap-2 font-medium text-sm text-gray-500"
                                         onClick={() => handleLeaveGroup(groupId)}>
                                     <MdExitToApp/>
                                     Leave Group

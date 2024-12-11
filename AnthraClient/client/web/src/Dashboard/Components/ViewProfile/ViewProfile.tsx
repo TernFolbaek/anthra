@@ -21,6 +21,7 @@ interface UserProfile {
     work: string;
     courses: Course[];
     subjects: string[];
+    statuses: string[];
     aboutMe: string;
     profilePictureUrl: string;
 }
@@ -86,15 +87,19 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
                     &times;
                 </button>
                 <div className="viewprofile-content">
-                    <img
-                        src={`${userProfile.profilePictureUrl}`}
-                        alt={`${userProfile.firstName} ${userProfile.lastName}`}
-                        className="viewprofile-profile-picture"
-                    />
-                    <h2 className="viewprofile-name">
-                        {userProfile.firstName} {userProfile.lastName}{userProfile.age ? `, ${userProfile.age}` : ''}
-                    </h2>
-                    <p className="viewprofile-location">{userProfile.location}</p>
+                    <div className="flex">
+                        <img
+                            src={`${userProfile.profilePictureUrl}`}
+                            alt={`${userProfile.firstName} ${userProfile.lastName}`}
+                            className="viewprofile-profile-picture"
+                        />
+                        <div>
+                            <h2 className="viewprofile-name sm:text-red">
+                                {userProfile.firstName} {userProfile.lastName}{userProfile.age ? `, ${userProfile.age}` : ''}
+                            </h2>
+                            <p className="viewprofile-location">{userProfile.location}</p>
+                        </div>
+                    </div>
                     <p className="viewprofile-institution">{userProfile.institution}</p>
                     <p className="viewprofile-work">{userProfile.work}</p>
                     <h3 className="viewprofile-section-title">About Me</h3>
@@ -103,7 +108,8 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
                     <ul className="viewprofile-list">
                         {userProfile.courses.map((course, index) => (
                             <li key={index}>
-                                <a href={course.courseLink} className="text-blue-400 hover:font-bold" target="_blank" rel="noopener noreferrer">
+                                <a href={course.courseLink} className="text-blue-400 hover:font-semibold" target="_blank"
+                                   rel="noopener noreferrer">
                                     {course.courseName}
                                 </a>
                             </li>
@@ -115,6 +121,21 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
                             <li key={index}>{subject}</li>
                         ))}
                     </ul>
+                    {userProfile.statuses && userProfile.statuses.length > 0 && (
+                        <div className="user-explore-statuses mt-[10px]">
+                            <h3 className="viewprofile-section-title">Status</h3>
+                            <div className="flex">
+                            {userProfile.statuses.map((st, i) => (
+                                <p
+                                    key={i}
+                                    className="status-tag-explore mr-1"
+                                >{st}
+                            </p>
+                            ))}
+                            </div>
+                        </div>
+                    )}
+
                 </div>
             </div>
         </div>

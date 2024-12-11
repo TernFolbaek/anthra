@@ -114,7 +114,7 @@ const GroupExplorePage: React.FC = () => {
                         <h3>About the group:</h3>
                         <p className="group-explore-description">{currentGroup.groupDescription}</p>
                         <h3>What the group is looking for:</h3>
-                        <p>{currentGroup.groupMemberDesire}</p>
+                        <p className="break-all">{currentGroup.groupMemberDesire}</p>
                         <div className="group-explore-info">
                             <h3>Members</h3>
                             <ul className="group-explore-members-list">

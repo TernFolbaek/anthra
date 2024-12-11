@@ -111,14 +111,16 @@ const MessageConnectionProfile: React.FC<Props> = ({ userId }) => {
                 </ul>
                 {profileData.statuses && profileData.statuses.length > 0 && (
                     <div className="user-explore-statuses">
-                        <h3>Status</h3>
+                        <p className="profile-section-title">Status</p>
+                        <div className="flex gap-2">
                         {profileData.statuses.map((st, i) => (
-                            <span
+                            <p
                                 key={i}
                                 className="status-tag-explore mr-1"
                             >{st}
-                            </span>
+                            </p>
                         ))}
+                        </div>
                     </div>
                 )}
             </div>

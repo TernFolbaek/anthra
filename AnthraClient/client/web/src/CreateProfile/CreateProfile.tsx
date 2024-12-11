@@ -51,13 +51,27 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [isFacultyDropdownOpen, setIsFacultyDropdownOpen] = useState<boolean>(false);
     const [faculty, setFaculty] = useState<string>('');
+    const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
+
     const institutions: string[] = ['CBS', 'DTU', 'KU', 'Other'];
     const faculties: string[] = ['Health & Medical', 'Humanities', 'Sciences', 'Theology', 'Social Sciences', 'Law'];
+
+    const statuses: string[] = [
+        "exam preparations",
+        "expanding network",
+        "searching collaborators",
+        "general studies",
+        "on exchange",
+        "attending workshops",
+        "seeking mentorship"
+    ];
+
     const courseSuggestionRef = useRef<HTMLDivElement>(null);
     const institutionDropdownRef = useRef<HTMLDivElement>(null);
     const facultyDropdownRef = useRef<HTMLDivElement>(null);
-    const courseLinkInputRef = useRef<HTMLInputElement>(null); // New ref for course link input
+    const courseLinkInputRef = useRef<HTMLInputElement>(null);
     const token = localStorage.getItem('token');
+
     const cbsCoursesArray: Course[] = cbsCourses as Course[];
     const dtuCoursesArray: Course[] = dtuCourses as Course[];
     const lawCoursesArray: Course[] = lawCourses as Course[];
@@ -103,6 +117,11 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
             setError('Please add at least one subject.');
             return;
         }
+        // Check if user selected between 2 and 3 statuses
+        if (selectedStatuses.length < 2 || selectedStatuses.length > 3) {
+            setError('Please select between 2 and 3 statuses.');
+            return;
+        }
 
         const formData = new FormData();
         formData.append('FirstName', firstName);
@@ -114,6 +133,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
         formData.append('Age', age === '' ? '' : age.toString());
         formData.append('Courses', JSON.stringify(courses));
         subjects.forEach((subject) => formData.append('Subjects', subject));
+        selectedStatuses.forEach((status) => formData.append('Statuses', status));
 
         if (profilePictureFile) {
             formData.append('ProfilePicture', profilePictureFile);
@@ -349,6 +369,23 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
         setError(null);
     };
 
+    // Toggle status selection with constraints (2-3 statuses)
+    const handleStatusSelect = (st: string) => {
+        if (selectedStatuses.includes(st)) {
+            // Remove status if already selected
+            setSelectedStatuses(selectedStatuses.filter(status => status !== st));
+            setError(null);
+        } else {
+            // Add only if less than 3 statuses selected
+            if (selectedStatuses.length < 3) {
+                setSelectedStatuses([...selectedStatuses, st]);
+                setError(null);
+            } else {
+                setError('');
+            }
+        }
+    };
+
     return (
         <div className="create-profile-page">
             <button className="back-button" onClick={onBackClick}>
@@ -361,7 +398,6 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                 ></div>
             </div>
             <div className="create-profile-container">
-                <h2>Create Your Profile</h2>
 
                 {message && <p className="success-message">{message}</p>}
                 {error && <p className="error-message">{error}</p>}
@@ -430,8 +466,8 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                                                 isOpen ? 'rotate-180' : ''
                                             }`}
                                         >
-                ▼
-            </span>
+                                            ▼
+                                        </span>
                                     </div>
                                     {isOpen && (
                                         <div className="uni-dropdown-menu">
@@ -464,8 +500,8 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                                                     isFacultyDropdownOpen ? 'rotate-180' : ''
                                                 }`}
                                             >
-                    ▼
-                </span>
+                                                ▼
+                                            </span>
                                         </div>
                                         {isFacultyDropdownOpen && (
                                             <div className="uni-dropdown-menu">
@@ -483,7 +519,6 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                                     </div>
                                 )}
                             </div>
-
 
                             {institution === 'Other' && (
                                 <div className="flex items-center gap-x-2 mb-2">
@@ -679,6 +714,23 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                                     }
                                 }}
                             />
+
+                            {/* Status selection */}
+                            <label className="input-label status-label" htmlFor="status">
+                                Current Status (Select 2-3)<span className="required-asterisk">*</span>
+                            </label>
+                            <div className="status-tags-container">
+                                {statuses.map((st, i) => (
+                                    <span
+                                        key={i}
+                                        className={`status-tag ${selectedStatuses.includes(st) ? 'status-tag-selected' : ''}`}
+                                        onClick={() => handleStatusSelect(st)}
+                                    >
+                                        {st}
+                                    </span>
+                                ))}
+                            </div>
+
                         </div>
 
                         <div className="create-profile-button-container">

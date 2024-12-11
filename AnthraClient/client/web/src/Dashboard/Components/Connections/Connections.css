@@ -115,17 +115,17 @@ body.dark .connection-item:hover {
 }
 
 .connection-profile-picture {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+    min-width: 50px;
+    min-height: 50px;
+    width: 50px;
+    height: 50px;
+    border-radius: 10%;
     object-fit: cover;
-    border: 2px solid #85bff8;
 }
 
 .connection-name {
-    margin-left: 15px;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 body.dark .connection-name {
@@ -343,13 +343,13 @@ body.dark .requests-user-card:hover {
 .slide-toggle .toggle-option {
     flex: 1;
     text-align: center;
+    font-weight: 500;
     line-height: 30px;
     font-size: 16px;
     color: #666;
     z-index: 2;
     position: relative;
     transition: color 0.3s ease;
-    font-weight: 600;
 }
 
 .slide-toggle input[type='checkbox']:checked + label .toggle-option.groups {

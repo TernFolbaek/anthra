@@ -10,6 +10,8 @@ import {FaUser, FaUsers} from "react-icons/fa";
 interface ApplicationUser {
     id: string;
     firstName: string;
+    lastName: string;
+    institution: string;
     profilePictureUrl: string;
     connectedAt: string;
 }
@@ -185,6 +187,7 @@ const Connections: React.FC = () => {
                 });
 
                 const connectedUsers: ApplicationUser[] = response.data;
+                console.log(response.data)
                 setConnections(connectedUsers);
 
                 setLoading(false);
@@ -285,7 +288,11 @@ const Connections: React.FC = () => {
                                     alt={user.firstName}
                                     className="connection-profile-picture"
                                 />
-                                <span className="connection-name">{user.firstName}</span>
+                                <div className="ml-2 flex flex-col justify-items-start">
+                                    <p className="connection-name">{user.firstName} {user.lastName}</p>
+                                    <p className="text-gray-500 text-xs font-light">{user.institution}</p>
+                                </div>
+
                             </div>
                             <button
                                 className="message-button"
@@ -381,7 +388,7 @@ const Connections: React.FC = () => {
     const renderGroupRequests = () => (
         <div className="requests-content">
             {groupApplicationRequests.length === 0 ? (
-                <p className="no-group-text text-gray-700 w-full text-center text-base font-bold">No group application
+                <p className="no-group-text text-gray-700 w-full text-center text-base font-semibold">No group application
                     requests</p>
             ) : (
                 groupApplicationRequests.map((group) => (

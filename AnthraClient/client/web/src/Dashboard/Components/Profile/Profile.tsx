@@ -22,6 +22,7 @@ interface ProfileData {
     subjects: string[];
     userName: string;
     work: string;
+    statuses: string[];
 }
 
 const Profile: React.FC = () => {
@@ -32,9 +33,28 @@ const Profile: React.FC = () => {
 
     const token = localStorage.getItem('token');
 
+    // Predefined statuses
+    const allStatuses: string[] = [
+        "exam preparations",
+        "expanding my network",
+        "looking for collaboration",
+        "general studies",
+        "on exchange",
+        "attending workshops",
+        "seeking mentorship"
+    ];
+    const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
+
     useEffect(() => {
         fetchProfile();
     }, []);
+
+    useEffect(() => {
+        if (profileData && !editMode) {
+            // Whenever we exit edit mode or first load, ensure selectedStatuses matches profileData
+            setSelectedStatuses(profileData.statuses || []);
+        }
+    }, [profileData, editMode]);
 
     const fetchProfile = async () => {
         try {
@@ -45,6 +65,7 @@ const Profile: React.FC = () => {
             });
             localStorage.setItem('userProfilePicture', `${response.data.profilePictureUrl}`);
             setProfileData(response.data);
+            setSelectedStatuses(response.data.statuses || []);
         } catch (err) {
             setError('Failed to fetch profile data.');
         }
@@ -127,53 +148,75 @@ const Profile: React.FC = () => {
         }
     };
 
-    const handleSave = async () => {
-        if (profileData) {
-            const formData = new FormData();
-
-            // Append scalar fields
-            formData.append('FirstName', profileData.firstName);
-            formData.append('LastName', profileData.lastName);
-            formData.append('Location', profileData.location);
-            formData.append('Institution', profileData.institution);
-            formData.append('Work', profileData.work);
-            formData.append('AboutMe', profileData.aboutMe);
-            formData.append('Age', profileData.age.toString());
-
-            // Append array fields
-            profileData.subjects.forEach((subject) => formData.append('Subjects', subject));
-            formData.append('Courses', JSON.stringify(profileData.courses));
-
-            // Append profile picture if updated
-            if (profilePictureFile) {
-                formData.append('ProfilePicture', profilePictureFile);
+    // Handle selecting/deselecting statuses
+    const handleStatusSelect = (st: string) => {
+        if (selectedStatuses.includes(st)) {
+            setSelectedStatuses(selectedStatuses.filter(status => status !== st));
+        } else {
+            if (selectedStatuses.length < 3) {
+                setSelectedStatuses([...selectedStatuses, st]);
+            } else {
+                setError('');
             }
+        }
+    };
 
-            try {
-                await axios.post(
-                    'http://localhost:5001/api/Profile/UpdateProfile',
-                    formData,
-                    {
-                        headers: {
-                            'Content-Type': 'multipart/form-data',
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }
-                );
-                setEditMode(false);
-                // Refresh the profile data to reflect changes
-                fetchProfile();
-            } catch (err: any) {
-                if (err.response && err.response.data) {
-                    const errorData = err.response.data;
-                    setError(
-                        errorData.Message ||
-                        Object.values(errorData.errors || {}).join(' ') ||
-                        'An error occurred'
-                    );
-                } else {
-                    setError('An error occurred. Please try again.');
+    const handleSave = async () => {
+        if (!profileData) return;
+
+        // Validate selected statuses: must have 2-3
+        if (selectedStatuses.length < 2 || selectedStatuses.length > 3) {
+            setError('Please select between 2 and 3 statuses.');
+            return;
+        }
+
+        const formData = new FormData();
+
+        // Append scalar fields
+        formData.append('FirstName', profileData.firstName);
+        formData.append('LastName', profileData.lastName);
+        formData.append('Location', profileData.location);
+        formData.append('Institution', profileData.institution);
+        formData.append('Work', profileData.work);
+        formData.append('AboutMe', profileData.aboutMe);
+        formData.append('Age', profileData.age.toString());
+
+        // Append array fields
+        profileData.subjects.forEach((subject) => formData.append('Subjects', subject));
+        formData.append('Courses', JSON.stringify(profileData.courses));
+
+        // Append statuses
+        selectedStatuses.forEach(status => formData.append('Statuses', status));
+
+        // Append profile picture if updated
+        if (profilePictureFile) {
+            formData.append('ProfilePicture', profilePictureFile);
+        }
+
+        try {
+            await axios.post(
+                'http://localhost:5001/api/Profile/UpdateProfile',
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${token}`,
+                    },
                 }
+            );
+            setEditMode(false);
+            // Refresh the profile data to reflect changes
+            fetchProfile();
+        } catch (err: any) {
+            if (err.response && err.response.data) {
+                const errorData = err.response.data;
+                setError(
+                    errorData.Message ||
+                    Object.values(errorData.errors || {}).join(' ') ||
+                    'An error occurred'
+                );
+            } else {
+                setError('An error occurred. Please try again.');
             }
         }
     };
@@ -189,46 +232,48 @@ const Profile: React.FC = () => {
 
     return (
         <div className="overflow-auto h-[100vh]">
-            <div className="profile-page">
+            <div className={`profile-page ${!editMode ? 'h-[100%]' : ''}`}>
                 <div className="profile-card">
-                    <div className="profile-header">
-                        <button onClick={() => setEditMode(!editMode)}>
-                            {editMode ? 'Cancel' : 'Edit'}
-                        </button>
-                    </div>
                     <div className="profile-content">
-                        <div className="profile-picture">
-                            <img
-                                src={
-                                    profilePictureFile
-                                        ? URL.createObjectURL(profilePictureFile)
-                                        : `${profileData.profilePictureUrl}`
-                                }
-                                className="profile-picture-img"
-                                alt="Profile"
-                            />
-                            {profileData.profilePictureUrl}
-                            {editMode && (
-                                <div className="profile-picture-overlay">
-                                    <input
-                                        type="file"
-                                        name="profileImage"
-                                        accept="image/*"
-                                        onChange={handleProfilePictureChange}
-                                        className="hidden-file-input"
-                                    />
-                                    <div className="overlay-content">
-                                        <FaRegHandPointer className="cursor-icon"/>
-                                        <span>Change Profile Picture</span>
-                                    </div>
-                                </div>)}
+                        <div className="flex flex-col justify-between">
+                            <div className="profile-picture">
+                                <img
+                                    src={
+                                        profilePictureFile
+                                            ? URL.createObjectURL(profilePictureFile)
+                                            : `${profileData.profilePictureUrl}`
+                                    }
+                                    className="profile-picture-img"
+                                    alt="Profile"
+                                />
+                                {editMode && (
+                                    <div className="profile-picture-overlay">
+                                        <input
+                                            type="file"
+                                            name="profileImage"
+                                            accept="image/*"
+                                            onChange={handleProfilePictureChange}
+                                            className="hidden-file-input"
+                                        />
+                                        <div className="overlay-content">
+                                            <FaRegHandPointer className="cursor-icon"/>
+                                            <span>Change Profile Picture</span>
+                                        </div>
+                                    </div>)}
+                            </div>
+                            <button className="save-button" onClick={() => {
+                                setError(null);
+                                setEditMode(!editMode);
+                            }}>
+                                {editMode ? 'Cancel' : 'Edit'}
+                            </button>
                         </div>
                         <div className="profile-info">
                             {/* Username */}
                             <div className="profile-row">
                                 <div className="profile-field full-width">
                                     <label>Username:</label>
-                                    <span>{profileData.userName}</span>
+                                    <span>@{profileData.userName}</span>
                                 </div>
                             </div>
 
@@ -411,14 +456,13 @@ const Profile: React.FC = () => {
                                                 </button>
                                                 <p className="text-gray-500 text-xs font-bold ">New Course</p>
                                             </div>
-
                                         </div>
                                     ) : (
                                         <ul className="courses-list">
                                             {profileData.courses.map((course, index) => (
                                                 <li key={index}>
                                                     <a href={course.courseLink}
-                                                       className="text-blue-400 hover:font-bold"
+                                                       className="text-blue-400 hover:font-semibold"
                                                        target="_blank" rel="noopener noreferrer">
                                                         {course.courseName}
                                                     </a>
@@ -429,8 +473,42 @@ const Profile: React.FC = () => {
                                 </div>
                             </div>
 
+                            {/* Statuses */}
+                            <div className="profile-row">
+                                <div className="profile-field full-width">
+                                    <label className="profile-label">Current Statuses (2-3):</label>
+                                    {editMode ? (
+                                        <div className="status-tags-container-profile">
+                                            {allStatuses.map((st, i) => (
+                                                <span
+                                                    key={i}
+                                                    className={`status-tag ${selectedStatuses.includes(st) ? 'status-tag-selected' : ''}`}
+                                                    onClick={() => {
+                                                        setError(null);
+                                                        handleStatusSelect(st);
+                                                    }}
+                                                >
+                                                    {st}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    ) : (
+                                        <div className="status-tags-container-profile">
+                                            {selectedStatuses.map((st, i) => (
+                                                <span
+                                                    key={i}
+                                                    className={`status-tag ${selectedStatuses.includes(st) ? 'status-tag-selected' : ''}`}
+                                                >
+                                                    {st}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
                             {editMode && (
-                                <button className="save-button" onClick={handleSave}>
+                                <button className="save-button text-sm" onClick={handleSave}>
                                     Save
                                 </button>
                             )}

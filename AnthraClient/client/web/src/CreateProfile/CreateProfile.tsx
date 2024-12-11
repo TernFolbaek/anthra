@@ -57,13 +57,12 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
     const faculties: string[] = ['Health & Medical', 'Humanities', 'Sciences', 'Theology', 'Social Sciences', 'Law'];
 
     const statuses: string[] = [
-        "exam preparations",
-        "expanding network",
-        "searching collaborators",
-        "general studies",
-        "on exchange",
-        "attending workshops",
-        "seeking mentorship"
+        "✎ exam preparations",
+        "☺ expanding my network",
+        "☏ looking for collaboration",
+        "❊ general studies",
+        "❀ on exchange",
+        "☂ seeking mentorship"
     ];
 
     const courseSuggestionRef = useRef<HTMLDivElement>(null);

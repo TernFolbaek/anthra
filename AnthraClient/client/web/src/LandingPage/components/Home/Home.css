@@ -104,15 +104,13 @@
     position: absolute;
     bottom: 0;
     z-index: 1;
-    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .image-track {
     display: flex;
-    width: calc(200%);
-    animation: scrollRight 15s linear infinite;
     align-items: center;
-    justify-content: flex-start;
+    animation: scrollLeft 15s linear infinite;
+    /* Extra length ensures there are always images in view */
 }
 
 .banner-image {
@@ -131,18 +129,20 @@
     vertical-align: middle;
 }
 
+/* Keyframes for smooth scrolling */
+@keyframes scrollLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+
 @media (max-width: 768px) {
     .home-content {
         margin-top: 25%;
     }
 }
 
-/* Animation to scroll from right to left */
-@keyframes scrollRight {
-    0% {
-        transform: translateX(-50%);
-    }
-    100% {
-        transform: translateX(0%);
-    }
-}

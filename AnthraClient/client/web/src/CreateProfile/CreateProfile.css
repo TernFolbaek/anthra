@@ -376,14 +376,7 @@
     justify-content: center;
 }
 
-.status-tag {
-    background-color: #f0f0f0;
-    padding: 0.5rem 0.8rem;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    user-select: none;
-}
+
 
 .status-tag:hover {
     background-color: #d6d6d6;

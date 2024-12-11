@@ -57,6 +57,7 @@ body.dark .group-explore-name {
 }
 
 .group-explore-description {
+    line-break: normal;
     font-size: 1rem;
     color: #666;
 }
@@ -80,6 +81,7 @@ body.dark .group-explore-info h3 {
 .group-explore-info p {
     margin: 0 0 10px;
     font-size: 0.95rem;
+    line-break: normal;
     color: #555;
 }
 

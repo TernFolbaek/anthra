@@ -1,5 +1,3 @@
-// Controllers/ProfileController.cs
-
 using System.Security.Claims;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
@@ -13,13 +11,15 @@ namespace AnthraBackend.Controllers.Account
 {
     [ApiController]
     [Route("api/[controller]")]
-
     public class ProfileController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        
-        private readonly string _storageConnectionString = "BlobEndpoint=https://anthra.blob.core.windows.net/;QueueEndpoint=https://anthra.queue.core.windows.net/;FileEndpoint=https://anthra.file.core.windows.net/;TableEndpoint=https://anthra.table.core.windows.net/;SharedAccessSignature=sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2026-10-01T16:15:49Z&st=2024-10-01T08:15:49Z&spr=https&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D";
+
+        private readonly string _storageConnectionString =
+            "BlobEndpoint=https://anthra.blob.core.windows.net/;QueueEndpoint=https://anthra.queue.core.windows.net/;FileEndpoint=https://anthra.file.core.windows.net/;TableEndpoint=https://anthra.table.core.windows.net/;SharedAccessSignature=sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2026-10-01T16:15:49Z&st=2024-10-01T08:15:49Z&spr=https&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D";
+
         private readonly string _containerName = "profile-pictures";
+
         public ProfileController(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
@@ -39,8 +39,8 @@ namespace AnthraBackend.Controllers.Account
             var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null) return NotFound("User not found.");
-            
-            
+
+            // Handle courses (JSON)
             if (!string.IsNullOrEmpty(model.Courses))
             {
                 user.Courses = JsonConvert.DeserializeObject<List<Course>>(model.Courses);
@@ -52,13 +52,17 @@ namespace AnthraBackend.Controllers.Account
             user.Location = model.Location;
             user.Institution = model.Institution;
             user.Work = model.Work;
-
             user.Subjects = model.Subjects;
             user.AboutMe = model.AboutMe;
             user.Age = model.Age;
             user.CreatedProfile = true;
             user.ProfileCompleted = true;
 
+            // Update statuses if provided
+            if (model.Statuses != null && model.Statuses.Count > 0)
+            {
+                user.Statuses = model.Statuses;
+            }
 
             if (model.ProfilePicture != null && model.ProfilePicture.Length > 0)
             {
@@ -66,13 +70,13 @@ namespace AnthraBackend.Controllers.Account
                 var blobUrl = await UploadProfilePictureToAzure(userId, model.ProfilePicture);
                 user.ProfilePictureUrl = blobUrl;
             }
-            
-            var result = await _userManager.UpdateAsync(user);
 
+            var result = await _userManager.UpdateAsync(user);
 
             if (result.Succeeded)
             {
-                return Ok(new {Message="Profile updated successfully.", profilePictureUrl=user.ProfilePictureUrl});
+                return Ok(new
+                    { Message = "Profile updated successfully.", profilePictureUrl = user.ProfilePictureUrl });
             }
 
             var updateErrors = result.Errors.Select(e => e.Description);
@@ -132,13 +136,14 @@ namespace AnthraBackend.Controllers.Account
                 user.Subjects,
                 user.AboutMe,
                 user.Age,
-                user.ProfilePictureUrl, 
-                user.CreatedProfile
+                user.ProfilePictureUrl,
+                user.CreatedProfile,
+                user.Statuses
             };
 
             return Ok(profile);
         }
-        
+
         [HttpGet("GetProfileById")]
         public async Task<IActionResult> GetProfileById(string userId)
         {
@@ -161,7 +166,8 @@ namespace AnthraBackend.Controllers.Account
                 user.AboutMe,
                 user.Age,
                 user.ProfilePictureUrl,
-                user.CreatedProfile
+                user.CreatedProfile,
+                user.Statuses
             };
 
             return Ok(profile);

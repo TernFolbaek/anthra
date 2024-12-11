@@ -68,6 +68,7 @@ namespace MyBackendApp.Controllers
                     u.Work,
                     u.Courses,
                     u.Subjects,
+                    u.Statuses,
                     u.AboutMe,
                     u.Age,
                     u.ProfilePictureUrl

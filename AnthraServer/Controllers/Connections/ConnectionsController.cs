@@ -145,10 +145,13 @@ namespace MyBackendApp.Controllers
 
             var result = connections.Select(c => new
             {
-                Id = c.ConnectedUser.Id,
-                FirstName = c.ConnectedUser.FirstName,
-                ProfilePictureUrl = c.ConnectedUser.ProfilePictureUrl,
-                ConnectedAt = c.ConnectedAt
+                c.ConnectedUser.Id,
+                c.ConnectedUser.FirstName,
+                c.ConnectedUser.LastName,
+                c.ConnectedUser.ProfilePictureUrl,
+                c.ConnectedUser.Institution,
+                c.ConnectedAt,
+                
             });
 
             return Ok(result);

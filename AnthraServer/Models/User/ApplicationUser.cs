@@ -12,6 +12,8 @@ namespace MyBackendApp.Models
         public string? Work { get; set; }
         public List<Course>? Courses { get; set; }
         public List<string>? Subjects { get; set; } 
+        public List<string>? Statuses { get; set; } 
+
         public string? AboutMe { get; set; }
         public int? Age { get; set; }
         public string? ProfilePictureUrl { get; set; }

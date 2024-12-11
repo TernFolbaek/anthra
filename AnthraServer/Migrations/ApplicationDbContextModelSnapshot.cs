@@ -278,6 +278,9 @@ namespace AnthraBackend.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
+                    b.Property<List<string>>("Statuses")
+                        .HasColumnType("text[]");
+
                     b.Property<List<string>>("Subjects")
                         .HasColumnType("text[]");
 

@@ -10,7 +10,7 @@ const NoGroups: React.FC = () => {
     return (
         <div className="no-connections-container">
             <RiveComponent className="no-conversations-rive"/>
-            <p className="text-m font-bold text-gray-500 text-center mb-2 ">Create a group with your connections</p>
+            <p className="text-m font-bold dark:text-white text-center mb-2 ">Create a group with your connections</p>
         </div>
     )
 }

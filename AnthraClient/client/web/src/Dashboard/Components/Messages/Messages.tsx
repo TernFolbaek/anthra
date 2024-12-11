@@ -484,7 +484,7 @@ const Messages: React.FC = () => {
                         <>
                             {!userId? (
                                 <div className="h-full w-full flex items-center justify-center">
-                                    <p className="text-gray-500 text-base font-bold">No Messages</p>
+                                    <p className="dark:text-white text-base font-bold">No Messages</p>
                                 </div>
                             ) : (
                                 messages.map((msg, index) => {

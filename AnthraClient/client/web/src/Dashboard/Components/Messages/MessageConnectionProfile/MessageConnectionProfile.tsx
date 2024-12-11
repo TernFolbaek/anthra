@@ -18,6 +18,7 @@ interface ProfileData {
     location: string;
     profilePictureUrl: string;
     subjects: string[];
+    statuses: string[];
     userName: string;
     work: string;
 }
@@ -108,6 +109,18 @@ const MessageConnectionProfile: React.FC<Props> = ({ userId }) => {
                         </li>
                     ))}
                 </ul>
+                {profileData.statuses && profileData.statuses.length > 0 && (
+                    <div className="user-explore-statuses">
+                        <h3>Status</h3>
+                        {profileData.statuses.map((st, i) => (
+                            <span
+                                key={i}
+                                className="status-tag-explore mr-1"
+                            >{st}
+                            </span>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );

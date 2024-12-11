@@ -217,11 +217,14 @@ public class GroupsController : ControllerBase
                 g.Name,
                 CreatorId = g.CreatorId,
                 g.adminName,
-                Members = g.Members.Select(m => new
-                {
-                    UserId = m.UserId,
-                    ProfilePictureUrl = m.User.ProfilePictureUrl
-                }).ToList()
+                Members = g.Members
+                    .Where(m => m.IsAccepted) 
+                    .Select(m => new
+                    {
+                        UserId = m.UserId,
+                        ProfilePictureUrl = m.User.ProfilePictureUrl
+                    })
+                    .ToList()
             })
             .ToListAsync();
 

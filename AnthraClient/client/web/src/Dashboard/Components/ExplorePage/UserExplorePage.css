@@ -183,11 +183,17 @@ body.dark .user-explore-courses-list a {
     box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4);
     color: #2c91f4;
     padding: 0.5rem 0.6rem;
-    border-radius: 20px;
+    border-radius: 5px;
     font-size: 0.9rem;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
     user-select: none;
+}
+
+body.dark .status-tag-explore{
+    background-color: white;
+    color: black !important;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4);
 }
 
 .refer-button{

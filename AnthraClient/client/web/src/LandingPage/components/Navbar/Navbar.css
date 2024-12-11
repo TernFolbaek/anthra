@@ -127,7 +127,7 @@
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.5);
     border: 1px solid white;
     border-radius: 4px;
     width: 100%;

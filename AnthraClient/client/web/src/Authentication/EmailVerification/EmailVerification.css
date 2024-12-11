@@ -49,24 +49,13 @@
 }
 
 .error-message {
-    color: red;
+    color: #ed1313;
 }
 
 .success-message {
-    color: green;
+    color: #5ae85a;
 }
 
-.back-button {
-    position: absolute;
-    top: 1.5rem;
-    left: 1.5rem;
-    background: none;
-    border: none;
-    color: black;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 1rem;
-}
 
 .otp-container {
     display: flex;

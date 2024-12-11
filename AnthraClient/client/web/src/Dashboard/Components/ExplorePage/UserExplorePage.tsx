@@ -1,5 +1,5 @@
 // UserExplorePage.tsx
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import './UserExplorePage.css';
 import NoMoreUsersToExplore from '../../Helpers/Animations/NoMoreUsersToExplore';
@@ -20,6 +20,7 @@ interface User {
     work: string;
     courses: Course[];
     subjects: string[];
+    statuses: string[]; // New property for user statuses
     aboutMe: string;
     age: number;
     profilePictureUrl: string;
@@ -46,6 +47,7 @@ const UserExplorePage: React.FC = () => {
                     },
                 });
                 setUsers(response.data);
+                console.log(response.data)
                 setCurrentIndex(0);
             } catch (error) {
                 console.error('Error fetching users:', error);
@@ -68,7 +70,7 @@ const UserExplorePage: React.FC = () => {
             try {
                 await axios.post(
                     'http://localhost:5001/api/Connections/SendRequest',
-                    { targetUserId: currentUser.id },
+                    {targetUserId: currentUser.id},
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -90,7 +92,7 @@ const UserExplorePage: React.FC = () => {
             try {
                 await axios.post(
                     'http://localhost:5001/api/Explore/SkipUser',
-                    { UserIdToSkip: currentUser.id },
+                    {UserIdToSkip: currentUser.id},
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -109,51 +111,67 @@ const UserExplorePage: React.FC = () => {
             {currentUser ? (
                 <div className="explore-user-card">
                     <div className="flex flex-col">
-                        <>
-                            <div className="explore-user-card-content">
-                                <div className="flex items-center gap-2">
-                                    <img
-                                        className="explore-user-card-img"
-                                        src={`${currentUser.profilePictureUrl}`}
-                                        alt="Profile"
-                                    />
-                                    <div className="flex flex-col">
-                                        <h2 className="user-name">
-                                            {currentUser.firstName} {currentUser.lastName}, {currentUser.age}
-                                        </h2>
-                                        <p className="user-location">{currentUser.location}</p>
-                                    </div>
-                                </div>
-                                <div className="user-info">
-                                    <h3>Institution</h3>
-                                    <p>{currentUser.institution}</p>
-                                    <h3>Work</h3>
-                                    <p>{currentUser.work}</p>
-                                    <h3>About Me</h3>
-                                    <p>{currentUser.aboutMe}</p>
-                                    {currentUser.subjects && currentUser.subjects.length > 0 && (
-                                        <div>
-                                            <h3>Subjects</h3>
-                                            <p>{currentUser.subjects.join(', ')}</p>
-                                        </div>
-                                    )}
-                                    {currentUser.courses && currentUser.courses.length > 0 && (
-                                        <div>
-                                            <h3>Courses</h3>
-                                            <ul className="user-explore-courses-list">
-                                                {currentUser.courses.map((course, index) => (
-                                                    <li key={index}>
-                                                        <a href={course.courseLink} target="_blank" rel="noopener noreferrer">
-                                                            {course.courseName}
-                                                        </a>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    )}
+                        <div className="explore-user-card-content">
+                            <div className="flex items-center gap-2">
+                                <img
+                                    className="explore-user-card-img"
+                                    src={`${currentUser.profilePictureUrl}`}
+                                    alt="Profile"
+                                />
+                                <div className="flex flex-col">
+                                    <h2 className="user-name">
+                                        {currentUser.firstName} {currentUser.lastName}, {currentUser.age}
+                                    </h2>
+                                    <p className="user-location">{currentUser.location}</p>
                                 </div>
                             </div>
-                        </>
+                            <div className="user-info">
+                                <h3>Institution</h3>
+                                <p>{currentUser.institution}</p>
+                                <h3>Work</h3>
+                                <p>{currentUser.work}</p>
+                                <h3>About Me</h3>
+                                <p>{currentUser.aboutMe}</p>
+
+                                {currentUser.subjects && currentUser.subjects.length > 0 && (
+                                    <div>
+                                        <h3>Subjects</h3>
+                                        <p>{currentUser.subjects.join(', ')}</p>
+                                    </div>
+                                )}
+
+                                {currentUser.courses && currentUser.courses.length > 0 && (
+                                    <div>
+                                        <h3>Courses</h3>
+                                        <ul className="user-explore-courses-list">
+                                            {currentUser.courses.map((course, index) => (
+                                                <li key={index}>
+                                                    <a href={course.courseLink} target="_blank"
+                                                       rel="noopener noreferrer">
+                                                        {course.courseName}
+                                                    </a>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+
+                                {currentUser.statuses && currentUser.statuses.length > 0 && (
+                                    <div className="user-explore-statuses">
+                                        <h3>Status</h3>
+                                        <div className="flex gap-2">                                        {currentUser.statuses.map((st, i) => (
+                                            <p
+                                                key={i}
+                                                className="status-tag-explore"
+                                            >{st}
+                                            </p>
+                                        ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
                         <div className="user-explore-page-button-container">
                             <button className="connect-button" onClick={handleConnect}>
                                 Connect
@@ -168,7 +186,7 @@ const UserExplorePage: React.FC = () => {
                     </div>
                 </div>
             ) : (
-                <NoMoreUsersToExplore />
+                <NoMoreUsersToExplore/>
             )}
 
             {snackbarVisible && (

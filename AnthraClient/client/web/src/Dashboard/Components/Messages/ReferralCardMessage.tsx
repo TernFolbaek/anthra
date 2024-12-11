@@ -40,7 +40,6 @@ const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurren
                     }
                 );
                 setReferredUser(response.data);
-                console.log(response.data);
             } catch (error) {
                 console.error('Error fetching referred user profile:', error);
             }

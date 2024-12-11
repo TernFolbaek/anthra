@@ -62,6 +62,7 @@ const Groups: React.FC = () => {
                 members: group.members || [],
             }));
             setGroups(groupsWithMembers);
+            console.log(groupsWithMembers);
 
             if (groupsWithMembers.length > 0 && !groupId && isWideScreen) {
                 // Navigate to the first group

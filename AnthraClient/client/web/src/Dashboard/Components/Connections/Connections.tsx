@@ -187,7 +187,6 @@ const Connections: React.FC = () => {
                 });
 
                 const connectedUsers: ApplicationUser[] = response.data;
-                console.log(response.data)
                 setConnections(connectedUsers);
 
                 setLoading(false);

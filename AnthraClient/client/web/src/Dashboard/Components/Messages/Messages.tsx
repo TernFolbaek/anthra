@@ -110,9 +110,7 @@ const Messages: React.FC = () => {
                 }
 
                 const data = await response.json();
-                console.log(data.messages);
                 setMessages(data.messages);
-                console.log(data.messages);
                 setNextTokenValue(data.nextToken);
                 console.log(`Fetched ${data.messages.length} messages. NextToken: ${data.nextToken}`);
 

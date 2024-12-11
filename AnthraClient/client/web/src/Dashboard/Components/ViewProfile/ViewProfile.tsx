@@ -34,7 +34,6 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
     const token = localStorage.getItem('token');
 
     useEffect(() => {
-        console.log(userId);
         const fetchUserProfile = async () => {
             try {
                 const response = await axios.get(`http://localhost:5001/api/Profile/GetProfileById?userId=${userId}`, {
@@ -42,7 +41,6 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                console.log(response.data)
                 setUserProfile(response.data);
             } catch (error) {
                 console.error('Failed to fetch user profile:', error);

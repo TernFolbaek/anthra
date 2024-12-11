@@ -47,7 +47,6 @@ const UserExplorePage: React.FC = () => {
                     },
                 });
                 setUsers(response.data);
-                console.log(response.data)
                 setCurrentIndex(0);
             } catch (error) {
                 console.error('Error fetching users:', error);

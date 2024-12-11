@@ -15,12 +15,12 @@ body.dark .profile-page {
     width: 65%;
     height: fit-content;
     max-width: 1200px;
-    margin: 0 auto 50px auto;
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     font-family: 'Montserrat', sans-serif;
     padding: 20px;
+    margin: 0 auto;
 }
 
 /* Dark mode styles */
@@ -29,11 +29,6 @@ body.dark .profile-card {
     box-shadow: none;
 }
 
-.profile-header {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
 
 .profile-header button {
     background-color: #007bff;
@@ -53,7 +48,6 @@ body.dark .profile-card {
 .profile-content {
     display: flex;
     flex-direction: row;
-    margin-top: 30px;
     gap: 40px;
 }
 
@@ -159,15 +153,13 @@ body.dark .profile-field label {
 
 .profile-field span,
 .profile-field p {
-    font-size: 0.9rem;
-    color: #555;
     margin: 0;
 }
 
 /* Dark mode styles */
 body.dark .profile-field span,
 body.dark .profile-field p {
-    color: #ddd;
+    color: white;
 }
 
 .profile-field input,
@@ -195,20 +187,21 @@ body.dark .profile-field textarea {
 .about-me-text {
     white-space: pre-wrap;
     line-break: anywhere;
-
+    font-size: 0.9rem;
 }
 
 .save-button {
-    margin-top: 30px;
     background-color: rgb(67, 158, 246);
     color: #fff;
     border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
+    padding: 10px 15px;
+    border-radius: 5px;
     cursor: pointer;
     font-weight: 600;
-    font-size: 1rem;
+    height: 40px;
+    font-size: 0.9rem;
     align-self: flex-start;
+    margin: 0 auto;
 }
 
 .save-button:hover {
@@ -230,8 +223,8 @@ body.dark .save-button:hover {
     background-color: #85bff8;
     border-radius: 50%;
     padding: 8px;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -246,8 +239,8 @@ body.dark .save-button:hover {
     color: #ffffff;
     border-radius: 50%;
     padding: 8px;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -261,6 +254,35 @@ body.dark .save-button:hover {
     flex: 1;
     margin-bottom: 10px;
 }
+
+.status-tags-container-profile {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    justify-content: flex-start;
+}
+
+.status-tag {
+    background-color: #f0f0f0;
+    padding: 0.5rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    user-select: none;
+}
+
+.status-tag:hover {
+    background-color: #d6d6d6;
+    transform: scale(1.05);
+}
+
+.status-tag-selected {
+    background-color: #2c91f4;
+    color: #fff;
+}
+
 
 .profile-icon-button:hover {
     transform: scale(1.1);
@@ -306,6 +328,7 @@ body.dark .error-message {
     .profile-card{
         width: 100%;
         padding: 20px;
+        margin: 0 auto 50px auto;
     }
     .profile-content {
         flex-direction: column;
@@ -330,7 +353,6 @@ body.dark .error-message {
     }
 
     .save-button {
-        width: 100%;
         text-align: center;
     }
 }

@@ -96,11 +96,15 @@ body.dark .group-name {
     height: 30px;
 }
 
-.group-options-button:hover {
+.group-card:hover .group-options-button {
     cursor: pointer;
     font-weight: bold;
     background-color: white;
     border: 1px solid lightgray;
+}
+
+.group-options-button:hover {
+    background-color: #e3e2e2 !important;
 }
 
 /* Dark mode styles */

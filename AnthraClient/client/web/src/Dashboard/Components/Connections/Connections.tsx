@@ -315,7 +315,7 @@ const Connections: React.FC = () => {
                                         onClick={(e) => e.stopPropagation()}
                                     >
                                         <button
-                                            className="flex items-center gap-2 text-sm font-medium text-gray-500"
+                                            className="flex items-center gap-2 text-sm font-medium text-black dark:text-white"
                                             onClick={() => handleRemoveConnection(user.id)}>
                                             <FaUserMinus/>
                                             <div>

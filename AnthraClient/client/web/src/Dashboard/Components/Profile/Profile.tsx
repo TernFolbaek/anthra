@@ -35,13 +35,12 @@ const Profile: React.FC = () => {
 
     // Predefined statuses
     const allStatuses: string[] = [
-        "exam preparations",
-        "expanding my network",
-        "looking for collaboration",
-        "general studies",
-        "on exchange",
-        "attending workshops",
-        "seeking mentorship"
+        "✎ exam preparations",
+        "☺ expanding my network",
+        "☏ looking for collaboration",
+        "❊ general studies",
+        "❀ on exchange",
+        "☂ seeking mentorship"
     ];
     const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
 

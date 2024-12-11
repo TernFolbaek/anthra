@@ -173,6 +173,7 @@ if (app.Environment.IsDevelopment())
                     new Course { CourseName = "Advanced Algorithms", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
                 }, 
                 Subjects = new List<string> { "Physics", "Mathematics", "Computer Science" },
+                Statuses = new List<string> { "examp prepping", "on exchange", "official exchange" },
                 AboutMe = "I am a passionate researcher exploring the intersections of quantum mechanics and computational algorithms. Always eager to connect with like-minded peers and delve into new projects.",
                 CreatedProfile = true,
                 ProfileCompleted = true,
@@ -195,6 +196,7 @@ if (app.Environment.IsDevelopment())
                     new Course { CourseName = "Machine Learning", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
                 }, 
                 Subjects = new List<string> { "Computer Science", "Data Science" },
+                Statuses = new List<string> { "examp prepping", "on exchange", "official exchange" },
                 AboutMe = "Teaching and mentoring students while pursuing my passion for data science. I enjoy analyzing data and applying machine learning techniques to solve real-world problems.",
                 CreatedProfile = true,
                 ProfileCompleted = true,
@@ -217,6 +219,7 @@ if (app.Environment.IsDevelopment())
                     new Course { CourseName = "Cloud Computing", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
                 }, 
                 Subjects = new List<string> { "Software Engineering", "Cloud Computing" },
+                Statuses = new List<string> { "examp prepping", "on exchange", "official exchange" },
                 AboutMe = "Tech enthusiast with a knack for building web applications and exploring cloud solutions. Currently interning to gain hands-on experience in the tech industry.",
                 CreatedProfile = true,
                 ProfileCompleted = true,
@@ -225,7 +228,7 @@ if (app.Environment.IsDevelopment())
             },
             new ApplicationUser 
             { 
-                UserName = "birk", 
+                UserName = "birkk", 
                 Email = "test4@example.com", 
                 FirstName = "Birk", 
                 LastName = "Andersen", 
@@ -239,6 +242,7 @@ if (app.Environment.IsDevelopment())
                     new Course { CourseName = "Neural Networks", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
                 }, 
                 Subjects = new List<string> { "AI", "Neuroscience", "Computer Science" },
+                Statuses = new List<string> { "examp prepping", "on exchange", "official exchange" },
                 AboutMe = "Fascinated by the capabilities of artificial intelligence and its applications in understanding human cognition. I am currently involved in research projects focused on neural network models.",
                 CreatedProfile = true,
                 ProfileCompleted = true,
@@ -261,6 +265,7 @@ if (app.Environment.IsDevelopment())
                     new Course { CourseName = "Cybersecurity", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
                 }, 
                 Subjects = new List<string> { "Mobile Development", "Cybersecurity" },
+                Statuses = new List<string> { "examp prepping", "on exchange", "official exchange" },
                 AboutMe = "Building secure and scalable mobile applications is my passion. As a freelance developer, I work on various projects and love staying updated with the latest trends in mobile tech.",
                 CreatedProfile = true,
                 ProfileCompleted = true,
@@ -286,6 +291,7 @@ if (app.Environment.IsDevelopment())
 
                 }, 
                 Subjects = new List<string> { "Mobile Development", "Cybersecurity" },
+                Statuses = new List<string> { "examp prepping", "on exchange", "official exchange" },
                 AboutMe = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.\n\n",
                 CreatedProfile = true,
                 ProfileCompleted = true,

@@ -52,7 +52,7 @@ const Home: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
         <div className="home-container">
             <div
                 className="home-background"
-                style={{ backgroundImage: `url(${homeBackground})` }}
+                style={{backgroundImage: `url(${homeBackground})`}}
             />
 
             <div className="home-content items-center flex flex-col gap-5">
@@ -70,43 +70,29 @@ const Home: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                     onClick={onGetStartedClick}
                 >
                     {t.getStarted}
-                    <Icon path={mdiArrowRightThin} size={1} />
+                    <Icon path={mdiArrowRightThin} size={1}/>
                 </button>
             </div>
 
             <div className="image-banner">
                 <div className="image-track">
-                    <div className="banner-image">
-                        <img src={cbsBanner} alt="banner for university" />
-                    </div>
-                    <div className="banner-image">
-                        <img src={dtuBanner} alt="banner for university" />
-                    </div>
-                    <div className="banner-image">
-                        <img src={kuBanner} alt="banner for university" />
-                    </div>
-                    {/* Duplicate images for seamless scrolling */}
-                    <div className="banner-image">
-                        <img src={cbsBanner} alt="banner for university" />
-                    </div>
-                    <div className="banner-image">
-                        <img src={dtuBanner} alt="banner for university" />
-                    </div>
-                    <div className="banner-image">
-                        <img src={kuBanner} alt="banner for university" />
-                    </div>
-                    {/* Duplicate images for seamless scrolling */}
-                    <div className="banner-image">
-                        <img src={cbsBanner} alt="banner for university" />
-                    </div>
-                    <div className="banner-image">
-                        <img src={dtuBanner} alt="banner for university" />
-                    </div>
-                    <div className="banner-image">
-                        <img src={kuBanner} alt="banner for university" />
-                    </div>
+                    {[...Array(5)].map((_, i) => (
+                        <React.Fragment key={i}>
+                            <div className="banner-image">
+                                <img src={cbsBanner} alt="banner for university"/>
+                            </div>
+                            <div className="banner-image">
+                                <img src={dtuBanner} alt="banner for university"/>
+                            </div>
+                            <div className="banner-image">
+                                <img src={kuBanner} alt="banner for university"/>
+                            </div>
+                        </React.Fragment>
+                    ))}
                 </div>
             </div>
+
+
         </div>
     );
 };

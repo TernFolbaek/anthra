@@ -68,9 +68,9 @@ body.dark .group-desired-members {
 .group-attachment-item {
     display: flex;
     align-items: center;
-    padding: 10px 10px 10px 5px;
+    padding: 5px 5px 5px 5px;
     transition: background-color 0.2s;
-    border-radius: 10px;
+    border-radius: 5px;
     margin-bottom: 10px;
     gap: 15px;
 }

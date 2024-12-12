@@ -3,10 +3,12 @@ import React, {useState, useEffect, useRef} from 'react';
 import axios from 'axios';
 import './Notifications.css';
 import {
-    FaBell
+    FaBell,
+    FaRegBell
 } from 'react-icons/fa';
 import * as signalR from '@microsoft/signalr';
 import {useNavigate} from 'react-router-dom';
+import {FcCheckmark} from "react-icons/fc";
 
 interface Notification {
     id: number;
@@ -135,8 +137,9 @@ const Notifications: React.FC = () => {
             </div>
             {showDropdown && (
                 <div className="notifications-dropdown">
+                    <div className="p-2 border-b border-gray-300 flex justify-between"><p className="flex items-center"><FaRegBell/></p><button className="text-sm flex items-center gap-2 rounded-md hover:bg-slate-200 p-1 "><FcCheckmark/> Mark all as read</button></div>
                     {notifications.length === 0 ? (
-                        <div className="notification-item text-sm">No notifications</div>
+                        <div className="notification-item text-sm text-center font-semibold">No notifications</div>
                     ) : (
                         notifications.map((notification) => (
                             <div

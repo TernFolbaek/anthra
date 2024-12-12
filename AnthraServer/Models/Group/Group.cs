@@ -15,6 +15,8 @@ namespace MyBackendApp.Models
         public string adminName { get; set; }
         public string GroupDescription { get; set; }
         public string GroupMemberDesire { get; set; }
+        
+        public string GroupPurpose { get; set; }
 
         public bool isPublic { get; set; }
         public string CreatorId { get; set; }

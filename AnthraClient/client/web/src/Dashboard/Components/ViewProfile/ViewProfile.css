@@ -1,5 +1,3 @@
-/* ViewProfile.css */
-
 #viewprofile.viewprofile-overlay {
     position: absolute;
     top: 0;
@@ -57,13 +55,15 @@ body.dark #viewprofile .viewprofile-close-button:hover {
 
 #viewprofile .viewprofile-content {
     text-align: center;
+    overflow: auto;
 }
 
 #viewprofile .viewprofile-profile-picture {
     width: 150px;
     height: 150px;
-    border-radius: 50%;
+    border-radius: 10%;
     object-fit: cover;
+    margin-right: 10px;
 }
 
 #viewprofile .viewprofile-name {
@@ -154,5 +154,15 @@ body.dark #viewprofile .viewprofile-list li {
     #viewprofile.viewprofile-overlay {
         height: fit-content;
     }
+    #viewprofile .viewprofile-name{
+        font-size: 1.2rem;
+    }
 
+    #viewprofile .viewprofile-location {
+        font-size: 1rem;
+    }
+    #viewprofile .viewprofile-profile-picture {
+        width: 100px;
+        height: 100px;
+    }
     }

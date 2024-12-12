@@ -180,9 +180,8 @@ body.dark .user-explore-courses-list a {
 .status-tag-explore{
     font-weight: 600;
     background-color: rgba(187, 211, 243, 0.5);
-    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4);
     color: #2c91f4;
-    padding: 0.5rem 0.6rem;
+    padding: 0.2rem 0.3rem;
     border-radius: 5px;
     font-size: 0.85rem;
     cursor: pointer;
@@ -193,7 +192,6 @@ body.dark .user-explore-courses-list a {
 body.dark .status-tag-explore{
     background-color: white;
     color: black !important;
-    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4);
 }
 
 .refer-button{

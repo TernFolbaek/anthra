@@ -110,7 +110,7 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
         <div className="invitation-message">
             {isCurrentUser ? (
                 <>
-                    <p className="text-sm">
+                    <p className="text-base">
                         You have invited{' '}
                         <span className="font-bold">{contactProfile?.firstName}</span> to join
                         group:{' '}
@@ -122,7 +122,10 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
             </span>
                     </p>
                     <div className="group-invitation-details">
-                        <p className="invitation-description">{descriptionPreview}</p>
+                        <p className="invitation-description text-sm">{descriptionPreview}</p>
+                        <p className="text-xs">
+                            Group Theme: <span className="text-black text-sm font-semibold">{msg.content}</span>
+                        </p>
                         <p className="invitation-member-count">
                             Members: {groupInfo.members.length}
                         </p>
@@ -143,6 +146,9 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
                     </p>
                     <div className="group-invitation-details">
                         <p className="invitation-description">{descriptionPreview}</p>
+                        <p className="invitation-member-count">
+                            Group Theme: {msg.content}
+                        </p>
                         <p className="invitation-member-count">
                             Members: {groupInfo.members.length}
                         </p>

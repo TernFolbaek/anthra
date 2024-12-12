@@ -81,6 +81,7 @@ public class GroupsController : ControllerBase
             CreatorId = currentUserId,
             adminName = model.AdminName,
             GroupDescription = model.GroupDescription,
+            GroupPurpose = model.GroupPurpose,
             GroupMemberDesire = model.GroupMemberDesire,
             isPublic = model.isPublic,
         };
@@ -114,7 +115,7 @@ public class GroupsController : ControllerBase
             {
                 SenderId = currentUserId,
                 ReceiverId = userId,
-                Content = "",
+                Content = model.GroupPurpose,
                 Timestamp = DateTime.UtcNow,
                 GroupId = group.Id,
                 GroupName = model.Name,

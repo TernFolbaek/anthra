@@ -8,14 +8,19 @@
 }
 
 .snackbar {
-    background-color: #757474;
-    color: #fff;
+    background-color: #ebf3fd;
+    color: black;
     border-radius: 10px;
     min-width: 250px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     display: flex;
     flex-direction: column;
+}
+
+body.dark .snackbar {
+    background-color: #757474;
+    color: white;
 }
 
 .snackbar-content {
@@ -29,6 +34,7 @@
 
 .snackbar-message {
     font-size: 0.9rem;
+    font-weight: 500;
 }
 
 /* Progress Bar */

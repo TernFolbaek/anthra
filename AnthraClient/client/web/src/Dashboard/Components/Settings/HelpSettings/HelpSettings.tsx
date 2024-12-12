@@ -75,6 +75,7 @@ const HelpSettings: React.FC = () => {
             });
             localStorage.removeItem('token');
             navigate('/');
+            window.location.reload();
         } catch (error) {
             console.error('Error deleting account:', error);
             alert('An error occurred while deleting your account.');

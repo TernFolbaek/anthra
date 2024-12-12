@@ -137,7 +137,7 @@ const Notifications: React.FC = () => {
             </div>
             {showDropdown && (
                 <div className="notifications-dropdown">
-                    <div className="p-2 border-b border-gray-300 flex justify-between"><p className="flex items-center"><FaRegBell/></p><button className="text-sm flex items-center gap-2 rounded-md hover:bg-slate-200 p-1 "><FcCheckmark/> Mark all as read</button></div>
+                    <div className="p-2 border-b border-gray-300 flex justify-between"><p className="flex items-center"><FaRegBell/></p><button className="text-sm flex items-center gap-2 rounded-md bg-slate-100 hover:bg-slate-200 p-1 "><FcCheckmark/> Mark all as read</button></div>
                     {notifications.length === 0 ? (
                         <div className="notification-item text-sm text-center font-semibold">No notifications</div>
                     ) : (

@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './GroupModal.css';
 import Switch from '../../../Helpers/Switch';
+// Icons
+import { MdGroups } from 'react-icons/md';
+import { FaChalkboardTeacher, FaBookReader, FaLaptopCode } from 'react-icons/fa';
 
 interface Props {
     onClose: () => void;
@@ -24,10 +27,19 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
     const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
     const [isPublic, setIsPublic] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
+    const [selectedPurpose, setSelectedPurpose] = useState<string>('');
 
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
     const fullName = localStorage.getItem('fullName');
+
+    // Define group purposes
+    const groupPurposes = [
+        { label: 'Social', value: 'social', icon: <MdGroups /> },
+        { label: 'General', value: 'general', icon: <FaChalkboardTeacher /> },
+        { label: 'Exam Preparation', value: 'exam preparation', icon: <FaBookReader /> },
+        { label: 'Studying', value: 'studying', icon: <FaLaptopCode /> },
+    ];
 
     useEffect(() => {
         fetchConnections();
@@ -66,11 +78,17 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
         }
     };
 
+    // User must select exactly one purpose
+    const handlePurposeSelect = (value: string) => {
+        setSelectedPurpose(value === selectedPurpose ? '' : value);
+    };
+
     const isFormValid =
         groupName.trim() !== '' &&
         groupDescription.trim() !== '' &&
         groupMemberDesire.trim() !== '' &&
-        selectedUserIds.length > 0;
+        selectedUserIds.length > 0 &&
+        selectedPurpose.trim() !== '';
 
     const handleCreateGroup = async () => {
         if (!isFormValid) return;
@@ -83,6 +101,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                 invitedUserIds: selectedUserIds,
                 isPublic: isPublic,
                 adminName: fullName,
+                groupPurpose: selectedPurpose,
             };
             await axios.post('http://localhost:5001/api/Groups/CreateGroup', payload, {
                 headers: { Authorization: `Bearer ${token}` },
@@ -93,9 +112,12 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
         }
     };
 
+    // Determine class for modal background based on selected purpose
+    const modalClass = `modal-content ${selectedPurpose ? `purpose-${selectedPurpose.replace(/\s/g, '-')}` : ''}`;
+
     return (
         <div className="modal-overlay">
-            <div className="modal-content">
+            <div className={modalClass}>
                 <button className="create-group-close-button" onClick={onClose}>
                     &times;
                 </button>
@@ -156,7 +178,26 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                     />
                 </div>
 
-                <div>
+                {/* Group Purpose Tags */}
+                <div className="input-group">
+                    <p className="font-bold text-sm">
+                        Group Purpose<span className="required-asterisk">*</span> (Select exactly one)
+                    </p>
+                    <div className="group-purpose-container">
+                        {groupPurposes.map((purpose) => (
+                            <div
+                                key={purpose.value}
+                                className={`group-purpose-tag ${selectedPurpose === purpose.value ? 'selected' : ''}`}
+                                onClick={() => handlePurposeSelect(purpose.value)}
+                            >
+                                {purpose.icon}
+                                <span>{purpose.label}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="mt-2">
                     <Switch label="Make Public" checked={isPublic} onChange={setIsPublic} />
                 </div>
 

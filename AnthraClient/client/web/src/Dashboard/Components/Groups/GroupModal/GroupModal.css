@@ -25,28 +25,28 @@
 }
 
 .modal-content.purpose-social {
-    background-image: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f91d.png');
+    background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f91d.png');
     background-size: 50px;
     background-repeat: repeat;
     background-position: center;
 }
 
 .modal-content.purpose-general {
-    background-image: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f4a1.png');
+    background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f4a1.png');
     background-size: 50px;
     background-repeat: repeat;
     background-position: center;
 }
 
 .modal-content.purpose-exam-preparation {
-    background-image: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f4cb.png');
+    background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f4cb.png');
     background-size: 50px;
     background-repeat: repeat;
     background-position: center;
 }
 
 .modal-content.purpose-studying {
-    background-image: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/270d.png');
+    background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),url('https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/270d.png');
     background-size: 50px;
     background-repeat: repeat;
     background-position: center;

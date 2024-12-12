@@ -28,6 +28,76 @@ namespace MyBackendApp.Controllers
             _logger = logger;
         }
 
+        [HttpGet("Status")]
+        [Authorize]
+        public async Task<IActionResult> GetConnectionStatus([FromQuery] string targetUserId)
+        {
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(currentUserId))
+                return Unauthorized("User is not authenticated.");
+
+            if (currentUserId == targetUserId)
+            {
+                return BadRequest("Cannot determine connection status for the same user.");
+            }
+
+            // Check if already connected
+            var isConnected = await _context.Connections.AnyAsync(
+                c => (c.UserId1 == currentUserId && c.UserId2 == targetUserId) ||
+                     (c.UserId1 == targetUserId && c.UserId2 == currentUserId));
+
+            // Check if a request is pending
+            var pendingRequest = await _context.ConnectionRequests.FirstOrDefaultAsync(cr =>
+                ((cr.SenderId == currentUserId && cr.ReceiverId == targetUserId) ||
+                 (cr.SenderId == targetUserId && cr.ReceiverId == currentUserId))
+                && cr.Status == ConnectionStatus.Pending);
+            
+            // Check if a request has been accepted
+            var acceptedRequest = await _context.ConnectionRequests.FirstOrDefaultAsync(cr =>
+                ((cr.SenderId == currentUserId && cr.ReceiverId == targetUserId) ||
+                 (cr.SenderId == targetUserId && cr.ReceiverId == currentUserId))
+                && cr.Status == ConnectionStatus.Accepted);
+            
+
+            bool requestPending = pendingRequest != null;
+            bool hasUserSentRequest = requestPending && pendingRequest.SenderId == currentUserId;
+            
+            bool requestAccepted = acceptedRequest != null;
+            bool hasUserAcceptedRequest = requestAccepted && acceptedRequest.SenderId == currentUserId;
+
+            return Ok(new { isConnected, requestPending, hasUserSentRequest, hasUserAcceptedRequest });
+        }
+
+
+        [HttpPost("RevokeRequest")]
+        [Authorize]
+        public async Task<IActionResult> RevokeRequest([FromBody] ConnectionRequestModel model)
+        {
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (currentUserId == null)
+                return Unauthorized("User is not authenticated.");
+
+            // Find a pending request from current user to the target user
+            var existingRequest = await _context.ConnectionRequests
+                .FirstOrDefaultAsync(cr =>
+                    cr.SenderId == currentUserId && 
+                    cr.ReceiverId == model.TargetUserId && 
+                    cr.Status == ConnectionStatus.Pending);
+
+            if (existingRequest == null)
+            {
+                return BadRequest("No pending request found to revoke.");
+            }
+
+            _context.ConnectionRequests.Remove(existingRequest);
+            await _context.SaveChangesAsync();
+
+            return Ok("Connection request revoked.");
+        }
+
+        
         [HttpPost("SendRequest")]
         public async Task<IActionResult> SendRequest([FromBody] ConnectionRequestModel model)
         {

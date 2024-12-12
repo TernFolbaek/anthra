@@ -758,11 +758,13 @@ namespace AnthraBackend.Migrations
                 {
                     b.HasOne("MyBackendApp.Models.GroupMessage", "GroupMessage")
                         .WithOne("Attachment")
-                        .HasForeignKey("MyBackendApp.Models.Attachment", "GroupMessageId");
+                        .HasForeignKey("MyBackendApp.Models.Attachment", "GroupMessageId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("MyBackendApp.Models.Message", "Message")
                         .WithOne("Attachment")
-                        .HasForeignKey("MyBackendApp.Models.Attachment", "MessageId");
+                        .HasForeignKey("MyBackendApp.Models.Attachment", "MessageId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("GroupMessage");
 

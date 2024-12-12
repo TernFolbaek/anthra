@@ -90,6 +90,19 @@ namespace MyBackendApp.Data
                 .WithOne(gm => gm.Group)
                 .HasForeignKey(gm => gm.GroupId)
                 .OnDelete(DeleteBehavior.Cascade);
+            
+            builder.Entity<Attachment>()
+                .HasOne(a => a.Message)
+                .WithOne(m => m.Attachment)
+                .HasForeignKey<Attachment>(a => a.MessageId)
+                .OnDelete(DeleteBehavior.Cascade); // Automatically delete Attachment when Message is deleted
+
+            // Optionally, configure one-to-one relationship between GroupMessage and Attachment
+            builder.Entity<Attachment>()
+                .HasOne(a => a.GroupMessage)
+                .WithOne(gm => gm.Attachment)
+                .HasForeignKey<Attachment>(a => a.GroupMessageId)
+                .OnDelete(DeleteBehavior.Cascade); 
         }
     }
 }

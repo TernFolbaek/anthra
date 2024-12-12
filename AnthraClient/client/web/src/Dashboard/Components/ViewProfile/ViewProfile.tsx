@@ -33,6 +33,12 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
     const modalRef = useRef<HTMLDivElement>(null);
     const token = localStorage.getItem('token');
 
+    // State to track connection status
+    const [isConnected, setIsConnected] = useState<boolean>(false);
+    const [requestPending, setRequestPending] = useState<boolean>(false);
+    const [hasUserSentRequest, setHasUserSentRequest] = useState<boolean>(false);
+    const [hasUserAcceptedRequest, setHasUserAcceptedRequest] = useState<boolean>(false);
+
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
@@ -50,7 +56,27 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
             }
         };
 
-        fetchUserProfile();
+        const fetchConnectionStatus = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5001/api/Connections/Status?targetUserId=${userId}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                setIsConnected(response.data.isConnected);
+                setRequestPending(response.data.requestPending);
+                setHasUserSentRequest(response.data.hasUserSentRequest);
+                setHasUserAcceptedRequest(response.data.hasUserAcceptedRequest);
+
+            } catch (error) {
+                console.error('Failed to fetch connection status:', error);
+            }
+        };
+
+        fetchUserProfile().then(() => {
+            // After user profile is fetched, fetch connection status
+            fetchConnectionStatus();
+        });
     }, [userId, token]);
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -65,6 +91,42 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
+
+    const handleConnect = async () => {
+        try {
+            await axios.post(
+                'http://localhost:5001/api/Connections/SendRequest',
+                { targetUserId: userId },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            setRequestPending(true);
+            setHasUserSentRequest(true); // The user has now sent a request
+        } catch (error) {
+            console.error('Error sending connection request:', error);
+        }
+    };
+
+    const handleCancelRequest = async () => {
+        try {
+            await axios.post(
+                'http://localhost:5001/api/Connections/RevokeRequest',
+                { targetUserId: userId },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            setRequestPending(false);
+            setHasUserSentRequest(false);
+        } catch (error) {
+            console.error('Error revoking connection request:', error);
+        }
+    };
 
     if (loading) {
         return null;
@@ -123,17 +185,43 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
                         <div className="user-explore-statuses mt-[10px]">
                             <h3 className="viewprofile-section-title">Status</h3>
                             <div className="flex">
-                            {userProfile.statuses.map((st, i) => (
-                                <p
-                                    key={i}
-                                    className="status-tag-explore mr-1"
-                                >{st}
-                            </p>
-                            ))}
+                                {userProfile.statuses.map((st, i) => (
+                                    <p key={i} className="status-tag-explore mr-1">{st}</p>
+                                ))}
                             </div>
                         </div>
                     )}
 
+                    {/* Connection button logic based on isConnected, requestPending, and hasUserSentRequest */}
+                    {!isConnected && (
+                        <div className="viewprofile-action-button">
+                            {hasUserAcceptedRequest && !isConnected ? (
+                                <p className="bg-slate-100 p-1 rounded-md text-sm font-semibold mt-2">You have removed or been removed from this profile</p>
+                            ) : hasUserSentRequest && requestPending ? (
+                                <button
+                                    className="viewprofile-connect-button"
+                                    onClick={handleCancelRequest}
+                                >
+                                    Cancel Request
+                                </button>
+                            ) : !requestPending ? (
+                                <button
+                                    className="viewprofile-connect-button"
+                                    onClick={handleConnect}
+                                >
+                                Connect
+                                </button>
+                            ) : (
+                                <button
+                                    className="viewprofile-connect-button"
+                                    onClick={handleCancelRequest}
+                                >
+                                    Cancel Request
+                                </button>
+                            )}
+                        </div>
+
+                    )}
                 </div>
             </div>
         </div>

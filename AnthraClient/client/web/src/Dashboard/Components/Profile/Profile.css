@@ -64,7 +64,6 @@ body.dark .profile-card {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
-    border: 3px solid #85bff8;
 }
 
 .profile-picture-overlay {

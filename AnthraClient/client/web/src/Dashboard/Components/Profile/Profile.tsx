@@ -242,7 +242,6 @@ const Profile: React.FC = () => {
                                             ? URL.createObjectURL(profilePictureFile)
                                             : `${profileData.profilePictureUrl}`
                                     }
-                                    className="profile-picture-img"
                                     alt="Profile"
                                 />
                                 {editMode && (

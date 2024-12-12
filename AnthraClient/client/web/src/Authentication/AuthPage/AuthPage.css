@@ -2,7 +2,7 @@
     background-color: rgb(216,226,233);
     color: white;
     font-family: 'Montserrat', sans-serif;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -111,6 +111,16 @@
 
 .teddy-bear-rive canvas{
     border-radius: 10px;
+}
+
+@media(max-width: 500px){
+    .auth-container {
+        top: 20%;
+    }
+
+    .teddy-bear-rive canvas{
+        display: none;
+    }
 }
 
 

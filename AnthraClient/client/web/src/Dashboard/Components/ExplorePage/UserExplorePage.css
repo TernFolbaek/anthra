@@ -190,15 +190,13 @@ body.dark .user-explore-courses-list a {
 }
 
 body.dark .status-tag-explore{
-    background-color: white;
-    color: black !important;
+    background-color: #757474;
 }
 
 .refer-button{
     background-color: rgba(0, 123, 255, 0.2);
     color: #007BFF;
     box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);
-    border: 2px solid #007BFF;
 }
 
 /* Connect Button */
@@ -243,7 +241,7 @@ body.dark .connect-button {
 }
 
 body.dark .connect-button:hover {
-    background-color: #004085;
+    background-color: #439ef6;
     box-shadow: 0 8px 12px rgba(0, 86, 179, 0.2);
 }
 

@@ -336,20 +336,10 @@ body.dark .group-name-clickable {
   max-width: 500px;
   width: 95%;
   margin: 10px auto;
-  animation: fadeIn 0.5s ease-in-out;
   position: relative;
   background-size: 50px;
   background-repeat: repeat;
   background-position: center;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 /* Dark mode styles */

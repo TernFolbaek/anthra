@@ -76,7 +76,7 @@ body.dark .profile-age-label {
 
 /* General text and property styling */
 .profile-info-text {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     line-break: anywhere;
     color: #666;
 }
@@ -100,7 +100,7 @@ body.dark .profile-section-title {
 .profile-info-list {
     list-style: none;
     padding: 0;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
 }
 
 .profile-info-list-item {

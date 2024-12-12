@@ -184,7 +184,7 @@ body.dark .user-explore-courses-list a {
     color: #2c91f4;
     padding: 0.5rem 0.6rem;
     border-radius: 5px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
     user-select: none;

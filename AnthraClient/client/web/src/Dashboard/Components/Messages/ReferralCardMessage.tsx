@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './ReferralCardMessage.css';
+import ViewProfile from "../ViewProfile/ViewProfile";
 
 interface ReferralCardMessageProps {
     msg: any;
@@ -10,6 +11,7 @@ interface ReferralCardMessageProps {
 }
 
 interface UserProfile {
+    id: string;
     userName: string;
     email: string;
     firstName: string;
@@ -27,6 +29,7 @@ interface UserProfile {
 
 const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurrentUser, onConnect, onSkip }) => {
     const [referredUser, setReferredUser] = useState<UserProfile | null>(null);
+    const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
     const token = localStorage.getItem('token');
 
     useEffect(() => {
@@ -56,31 +59,42 @@ const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurren
         ? `${referredUser.aboutMe.substring(0, 50)}...`
         : referredUser.aboutMe;
 
+    const handleUserSelect = (userId: string) => {
+        setSelectedUserId(userId);
+    }
+
+    const handleCloseProfile = () => {
+        setSelectedUserId(null);
+    }
+
+
+
     return (
-        <div className={`dark:text-white referral-card-container ${isCurrentUser ? 'sent' : 'received'}`}>
-            {isCurrentUser ? (
-                <p className=" text-sm text-center">
-                    You have referred{' '}
-                    <span className="font-bold">{referredUser.firstName} {referredUser.lastName}</span>
-                </p>
-            ) : (
-                <p>
-                    You have been referred to{' '}
-                    <span className="font-bold">{referredUser.firstName} {referredUser.lastName}</span>.
-                </p>
-            )}
+        <div onClick={()=>handleUserSelect(referredUser.id)} className={`cursor-pointer referral-card-container ${isCurrentUser ? 'sent' : 'received'}`}>
             <div className="referral-card-details">
                 <div className="referral-user-info">
-                    <img
-                        src={referredUser.profilePictureUrl}
-                        alt={`${referredUser.firstName} ${referredUser.lastName}`}
-                        className="referral-user-avatar"
-                    />
+                    <div className="flex flex-col items-center">
+                        <img
+                            src={referredUser.profilePictureUrl}
+                            alt={`${referredUser.firstName} ${referredUser.lastName}`}
+                            className="referral-user-avatar"
+                        />
+                        <p className="text-xs font-semibold hover:font-bold hover:cursor-pointer flex" > View Profile</p>
+                    </div>
+
                     <div className="referral-user-text">
-                        <p className="referral-user-name">
-                            {referredUser.firstName} {referredUser.lastName}, {referredUser.age}
-                        </p>
-                        <p className="dark:text-white referral-user-location">{referredUser.location}</p>
+                        {isCurrentUser ? (
+                            <p className="font-medium text-sm">
+                                You have referred{' '}
+                                <span className="font-bold">{referredUser.firstName} {referredUser.lastName}</span>
+                            </p>
+                        ) : (
+                            <p className="font-medium text-base">
+                                You have been referred to{' '}
+                                <span className="font-bold">{referredUser.firstName} {referredUser.lastName}</span>.
+                            </p>
+                        )}
+                        <p className="dark:text-white referral-user-location">{referredUser.institution}</p>
                         {descriptionPreview && (
                             <p className="dark:text-white referral-user-about">{descriptionPreview}</p>
                         )}
@@ -96,6 +110,9 @@ const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurren
                         Skip
                     </button>
                 </div>
+            )}
+            {selectedUserId && (
+                <ViewProfile userId={selectedUserId} onClose={handleCloseProfile}/>
             )}
         </div>
     );

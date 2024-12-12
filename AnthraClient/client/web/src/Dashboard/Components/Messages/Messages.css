@@ -455,9 +455,7 @@ body.dark .paperclip-icon:hover {
 .selected-file-preview {
   display: flex;
   align-items: center;
-  padding: 5px 10px;
   background-color: #f1f1f1;
-  margin: 10px 20px 0 20px;
   border-radius: 5px;
 }
 
@@ -527,7 +525,6 @@ body.dark .send-icon:hover {
   align-items: center;
   padding: 5px 10px;
   background-color: #f1f1f1;
-  margin: 10px 20px 0 20px;
   border-radius: 5px;
 }
 

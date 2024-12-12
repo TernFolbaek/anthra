@@ -207,8 +207,7 @@ body.dark .connections-menu-button:hover {
 }
 
 .message-button:hover {
-    background-color: #007bff;
-    color: #fff;
+    background-color: #abddfb;
 }
 
 body.dark .message-button {

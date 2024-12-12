@@ -4,6 +4,7 @@ import './GroupModal.css';
 import Switch from '../../../Helpers/Switch';
 import { MdGroups } from 'react-icons/md';
 import { FaChalkboardTeacher, FaBookReader, FaLaptopCode } from 'react-icons/fa';
+import { FaQuestion } from 'react-icons/fa';
 
 interface Props {
     onClose: () => void;
@@ -32,7 +33,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
     const userId = localStorage.getItem('userId');
     const fullName = localStorage.getItem('fullName');
 
-    // Define group purposes
+    // Define group purposes (remove size prop; rely on CSS)
     const groupPurposes = [
         { label: 'Social', value: 'social', icon: <MdGroups /> },
         { label: 'General', value: 'general', icon: <FaChalkboardTeacher /> },
@@ -111,12 +112,12 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
         }
     };
 
-    // Determine class for modal background based on selected purpose
-    const modalClass = `modal-content ${selectedPurpose ? `purpose-${selectedPurpose.replace(/\s/g, '-')}` : ''}`;
+    // Determine icon to show in the container
+    const chosenPurpose = groupPurposes.find((p) => p.value === selectedPurpose);
 
     return (
         <div className="modal-overlay">
-            <div className={modalClass}>
+            <div className="modal-content">
                 <button className="create-group-close-button" onClick={onClose}>
                     &times;
                 </button>
@@ -182,17 +183,31 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                     <p className="font-bold text-sm">
                         Group Purpose<span className="required-asterisk">*</span> (Select exactly one)
                     </p>
-                    <div className="group-purpose-container">
-                        {groupPurposes.map((purpose) => (
-                            <div
-                                key={purpose.value}
-                                className={`group-purpose-tag ${selectedPurpose === purpose.value ? 'selected' : ''}`}
-                                onClick={() => handlePurposeSelect(purpose.value)}
-                            >
-                                {purpose.icon}
-                                <span>{purpose.label}</span>
-                            </div>
-                        ))}
+                    <div className="flex w-full items-center">
+                        {/* Purpose Icon Container */}
+                        <div className="purpose-icon-container">
+                            {chosenPurpose ? (
+                                // Render a big version of the selected icon
+                                <div className="selected-purpose-icon">
+                                    {chosenPurpose.icon}
+                                </div>
+                            ) : (
+                                <FaQuestion size={60} color="#999" />
+                            )}
+                        </div>
+
+                        <div className="group-purpose-container">
+                            {groupPurposes.map((purpose) => (
+                                <div
+                                    key={purpose.value}
+                                    className={`group-purpose-tag ${selectedPurpose === purpose.value ? 'selected' : ''}`}
+                                    onClick={() => handlePurposeSelect(purpose.value)}
+                                >
+                                    {purpose.icon}
+                                    <span>{purpose.label}</span>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
 

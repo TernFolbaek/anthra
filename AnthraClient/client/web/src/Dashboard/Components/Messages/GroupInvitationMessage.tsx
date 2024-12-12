@@ -110,7 +110,6 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
 
     // Determine theme class based on msg.content
     let themeClass = '';
-    console.log(msg.content)
     switch (msg.content) {
         case 'social':
             themeClass = 'invitation-social';

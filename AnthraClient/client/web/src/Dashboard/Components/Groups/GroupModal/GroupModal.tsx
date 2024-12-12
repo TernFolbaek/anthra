@@ -192,7 +192,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                                     {chosenPurpose.icon}
                                 </div>
                             ) : (
-                                <FaQuestion size={60} color="#999" />
+                                <FaQuestion size={50} color="#999" />
                             )}
                         </div>
 

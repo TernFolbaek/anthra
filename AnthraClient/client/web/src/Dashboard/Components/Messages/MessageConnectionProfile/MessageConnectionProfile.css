@@ -121,3 +121,9 @@ body.dark .profile-section-title {
 body.dark .profile-info-link {
     color: #85bff8;
 }
+
+@media (max-width: 480px) {
+    .profile-info-header{
+        font-size: 1.4rem;
+    }
+}

@@ -78,7 +78,6 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
         }
     };
 
-    // User must select exactly one purpose
     const handlePurposeSelect = (value: string) => {
         setSelectedPurpose(value === selectedPurpose ? '' : value);
     };

@@ -136,6 +136,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                         onChange={(e) => setGroupName(e.target.value)}
                         className="group-name-input"
                         maxLength={15}
+                        minLength={4}
                         required
                     />
                 </div>

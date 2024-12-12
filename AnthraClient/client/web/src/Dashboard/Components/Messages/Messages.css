@@ -295,12 +295,6 @@ body.dark .message-input-container input {
 }
 
 
-.group-member-avatars {
-  display: flex;
-  justify-content: center;
-  margin-top: 5px;
-}
-
 .group-member-avatar {
   width: 40px;
   height: 40px;
@@ -352,13 +346,6 @@ body.dark .invitation-message p {
   color: #fff;
 }
 
-/* Additional styling for text contrast if needed */
-.invitation-message.invitation-social .text-black,
-.invitation-message.invitation-general .text-black,
-.invitation-message.invitation-exam-preparation .text-black,
-.invitation-message.invitation-studying .text-black {
-  color: #000;
-}
 
 .group-invitation-details {
   margin-top: 10px;

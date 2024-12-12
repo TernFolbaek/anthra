@@ -85,4 +85,19 @@ body.dark .explore-button:hover {
     .no-groups-container {
         margin-bottom: 50px;
     }
+    .groups-page {
+        margin: 5px;
+    }
 }
+
+@media(max-width: 480px) {
+    .groups-page {
+        margin: 0;
+    }
+
+    .group-message-view {
+        margin: 0;
+    }
+}
+
+

@@ -154,6 +154,7 @@ namespace AnthraBackend.Controllers.Account
 
             var profile = new
             {
+                user.Id,
                 user.UserName,
                 user.Email,
                 user.FirstName,

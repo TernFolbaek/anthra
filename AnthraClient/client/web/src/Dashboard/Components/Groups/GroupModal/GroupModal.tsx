@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './GroupModal.css';
 import Switch from '../../../Helpers/Switch';
-// Icons
 import { MdGroups } from 'react-icons/md';
 import { FaChalkboardTeacher, FaBookReader, FaLaptopCode } from 'react-icons/fa';
 

@@ -63,15 +63,17 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
             return null;
         }
     };
+
     useEffect(() => {
         let isMounted = true;
 
         const getGroupInfo = async () => {
-            if (groupInfoCache[msg.groupId!]) {
-                setGroupInfo(groupInfoCache[msg.groupId!]);
+            if (msg.groupId == null) return;
+            if (groupInfoCache[msg.groupId]) {
+                setGroupInfo(groupInfoCache[msg.groupId]);
             } else {
-                const fetchedGroupInfo = await fetchGroupInfo(msg.groupId!);
-                if (isMounted) {
+                const fetchedGroupInfo = await fetchGroupInfo(msg.groupId);
+                if (isMounted && fetchedGroupInfo) {
                     setGroupInfo(fetchedGroupInfo);
                     setGroupInfoCache((prevCache) => ({
                         ...prevCache,
@@ -106,8 +108,29 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
         />
     ));
 
+    // Determine theme class based on msg.content
+    let themeClass = '';
+    console.log(msg.content)
+    switch (msg.content) {
+        case 'social':
+            themeClass = 'invitation-social';
+            break;
+        case 'General':
+            themeClass = 'invitation-general';
+            break;
+        case 'Exam Preparation':
+            // Ensure exact match of the case or handle string variations
+            themeClass = 'invitation-exam-preparation';
+            break;
+        case 'Studying':
+            themeClass = 'invitation-studying';
+            break;
+        default:
+            break;
+    }
+
     return (
-        <div className="invitation-message">
+        <div className={`invitation-message ${themeClass}`}>
             {isCurrentUser ? (
                 <>
                     <p className="text-base">
@@ -118,8 +141,8 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
                             onClick={() => handleUserClick(msg.groupId)}
                             className="font-bold cursor-pointer group-name-clickable"
                         >
-              {groupInfo.name}
-            </span>
+                            {groupInfo.name}
+                        </span>
                     </p>
                     <div className="group-invitation-details">
                         <p className="invitation-description text-sm">{descriptionPreview}</p>
@@ -141,8 +164,8 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
                             onClick={() => handleUserClick(msg.groupId)}
                             className="font-bold cursor-pointer group-name-clickable"
                         >
-              {groupInfo.name}
-            </span>
+                            {groupInfo.name}
+                        </span>
                     </p>
                     <div className="group-invitation-details">
                         <p className="invitation-description">{descriptionPreview}</p>

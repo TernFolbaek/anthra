@@ -294,56 +294,6 @@ body.dark .message-input-container input {
   background-color: #0056b3;
 }
 
-.invitation-message {
-  background-color: rgb(235, 243, 253);
-  padding: 15px;
-  text-align: center;
-  border-radius: 8px;
-  max-width: 500px;
-  width: 95%;
-  margin: 10px auto;
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-.invitation-message p {
-  margin: 0;
-}
-
-/* Dark mode styles */
-body.dark .invitation-message {
-  background-color: #2e2e2e;
-  border: 1px solid #9c9a9a;
-}
-
-body.dark .invitation-message p {
-  color: #fff;
-}
-
-.group-invitation-details {
-  margin-top: 10px;
-  text-align: center;
-}
-
-.invitation-description {
-  color: #555;
-  margin: 5px 0;
-}
-
-/* Dark mode styles */
-body.dark .invitation-description {
-  color: #ccc;
-}
-
-.invitation-member-count {
-  font-size: 12px;
-  color: #777;
-  margin: 5px 0;
-}
-
-/* Dark mode styles */
-body.dark .invitation-member-count {
-  color: #aaa;
-}
 
 .group-member-avatars {
   display: flex;
@@ -356,8 +306,6 @@ body.dark .invitation-member-count {
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #fff;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
   margin-left: -10px; /* Overlapping effect */
 }
 
@@ -380,53 +328,19 @@ body.dark .group-name-clickable {
   text-decoration: none;
 }
 
-.invitation-buttons {
-  margin-top: 10px;
-}
-
-.invitation-accept-button,
-.invitation-decline-button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-right: 10px;
-  font-size: 14px;
-}
-
-.invitation-accept-button {
-  background-color: #85bff8;
-  color: white;
-}
-
-.invitation-accept-button:hover {
-  background-color: #439ef6;
-}
-
-.invitation-decline-button {
-  background-color: #757474;
-  color: white;
-}
-
-.invitation-decline-button:hover {
-  background-color: #b8b6b6;
-}
-
-/* Dark mode styles */
-body.dark .invitation-accept-button {
-  background-color: #007bff;
-}
-
-body.dark .invitation-accept-button:hover {
-  background-color: #0056b3;
-}
-
-body.dark .invitation-decline-button {
-  background-color: #555;
-}
-
-body.dark .invitation-decline-button:hover {
-  background-color: #444;
+.invitation-message {
+  background-color: rgba(244, 243, 244, 0.8);
+  padding: 15px;
+  text-align: center;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 95%;
+  margin: 10px auto;
+  animation: fadeIn 0.5s ease-in-out;
+  position: relative;
+  background-size: 50px;
+  background-repeat: repeat;
+  background-position: center;
 }
 
 @keyframes fadeIn {
@@ -437,6 +351,85 @@ body.dark .invitation-decline-button:hover {
     opacity: 1;
   }
 }
+
+/* Dark mode styles */
+body.dark .invitation-message {
+  background-color: #2e2e2e;
+  border: 1px solid #9c9a9a;
+}
+
+body.dark .invitation-message p {
+  color: #fff;
+}
+
+/* Additional styling for text contrast if needed */
+.invitation-message.invitation-social .text-black,
+.invitation-message.invitation-general .text-black,
+.invitation-message.invitation-exam-preparation .text-black,
+.invitation-message.invitation-studying .text-black {
+  color: #000;
+}
+
+.group-invitation-details {
+  margin-top: 10px;
+}
+
+.invitation-description {
+  margin-bottom: 5px;
+}
+
+.invitation-member-count {
+  margin-bottom: 5px;
+}
+
+.group-member-avatars {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.group-member-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.invitation-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.invitation-accept-button,
+.invitation-decline-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.invitation-accept-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.invitation-decline-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.invitation-accept-button:hover {
+  background-color: #45a049;
+}
+
+.invitation-decline-button:hover {
+  background-color: #e53935;
+}
+
 
 .paperclip-icon {
   font-size: 1rem;

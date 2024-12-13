@@ -1,7 +1,6 @@
-// StepOne.tsx
-
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
+import CropModal from './CropModal'; // Import the CropModal component
 
 interface StepOneProps {
     firstName: string;
@@ -39,6 +38,10 @@ const StepOne: React.FC<StepOneProps> = ({
     const countryInputRef = useRef<HTMLInputElement>(null);
     const cityInputRef = useRef<HTMLInputElement>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+    // States for cropping
+    const [isCropModalOpen, setIsCropModalOpen] = useState<boolean>(false);
+    const [selectedImage, setSelectedImage] = useState<string>('');
 
     // Fetch countries on component mount
     useEffect(() => {
@@ -94,9 +97,30 @@ const StepOne: React.FC<StepOneProps> = ({
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
-            setProfilePictureFile(file);
-            setPreviewUrl(URL.createObjectURL(file));
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                if (reader.result) {
+                    setSelectedImage(reader.result as string);
+                    setIsCropModalOpen(true);
+                }
+            };
+            reader.readAsDataURL(file);
         }
+    };
+
+    const handleCropComplete = (croppedImage: Blob | null) => {
+        if (croppedImage) {
+            const croppedFile = new File([croppedImage], 'profilePicture.jpg', {
+                type: 'image/jpeg',
+            });
+            setProfilePictureFile(croppedFile);
+            setPreviewUrl(URL.createObjectURL(croppedImage));
+        }
+    };
+
+    const handleCropModalClose = () => {
+        setIsCropModalOpen(false);
+        setSelectedImage('');
     };
 
     const handleCitySelect = (cityName: string) => {
@@ -260,7 +284,8 @@ const StepOne: React.FC<StepOneProps> = ({
                 )}
             </div>
 
-            <label htmlFor="profilePicture">Profile Picture<span className="required-asterisk">*</span>
+            <label htmlFor="profilePicture">
+                Profile Picture<span className="required-asterisk">*</span>
             </label>
             <div className="profile-picture-picker">
                 <input
@@ -273,13 +298,22 @@ const StepOne: React.FC<StepOneProps> = ({
                 />
                 <label htmlFor="profilePicture" className="file-input-label">
                     {previewUrl ? (
-                        <img src={previewUrl} alt="Profile Preview" className="image-preview"/>
+                        <img src={previewUrl} alt="Profile Preview" className="image-preview" />
                     ) : (
                         <span className="placeholder-text">Click to upload</span>
                     )}
                 </label>
             </div>
 
+            {/* Crop Modal */}
+            {isCropModalOpen && (
+                <CropModal
+                    isOpen={isCropModalOpen}
+                    imageSrc={selectedImage}
+                    onClose={handleCropModalClose}
+                    onCropComplete={handleCropComplete}
+                />
+            )}
         </div>
     );
 };

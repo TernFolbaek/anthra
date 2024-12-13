@@ -184,7 +184,7 @@ const StepOne: React.FC<StepOneProps> = ({
 
             {/* Country Input */}
             <div className="autocomplete-container mt-2" ref={countryInputRef}>
-                <div className="autocomplete-input-with-label">
+                <div className="autocomplete-input-with-label ">
                     <label htmlFor="country" className="input-label">
                         Country<span className="required-asterisk">*</span>
                     </label>
@@ -193,6 +193,7 @@ const StepOne: React.FC<StepOneProps> = ({
                         type="text"
                         placeholder="Country"
                         required
+                        autoComplete="nope"
                         value={country}
                         onChange={handleCountryInputChange}
                         onKeyDown={(e) => {
@@ -230,6 +231,7 @@ const StepOne: React.FC<StepOneProps> = ({
                         id="city"
                         type="text"
                         placeholder="City"
+                        autoComplete="nope"
                         required
                         value={city}
                         onChange={handleCityInputChange}

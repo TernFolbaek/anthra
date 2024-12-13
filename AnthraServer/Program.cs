@@ -178,7 +178,7 @@ if (app.Environment.IsDevelopment())
                 CreatedProfile = true,
                 ProfileCompleted = true,
                 EmailConfirmed = true,
-                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/0d8c7527-80b0-4970-8908-32c95aa84cea_638684278673868460.png?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D"
+                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/1d64e0db-c039-400c-8498-a3d8c4b6a72a_638695123408959910.jpeg?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D"
             },
             new ApplicationUser 
             { 
@@ -201,7 +201,7 @@ if (app.Environment.IsDevelopment())
                 CreatedProfile = true,
                 ProfileCompleted = true,
                 EmailConfirmed = true,
-                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/0d8c7527-80b0-4970-8908-32c95aa84cea_638684278673868460.png?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D"
+                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/e5cfb40d-c7c2-4b8c-afd3-d2f733951de4_638696439327625580.jpeg?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D"
             },
             new ApplicationUser 
             { 
@@ -247,7 +247,7 @@ if (app.Environment.IsDevelopment())
                 CreatedProfile = true,
                 ProfileCompleted = true,
                 EmailConfirmed = true,
-                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/0d8c7527-80b0-4970-8908-32c95aa84cea_638684278673868460.png?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D"
+                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/14ae8105-3d80-460a-a1f2-c3beef976bf2_638696440832626590.jpg?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D"
             },
             new ApplicationUser 
             { 
@@ -270,7 +270,7 @@ if (app.Environment.IsDevelopment())
                 CreatedProfile = true,
                 ProfileCompleted = true,
                 EmailConfirmed = true,
-                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/0d8c7527-80b0-4970-8908-32c95aa84cea_638684278673868460.png?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D" 
+                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/14074ea9-e7d2-484a-b2fa-b39b07e56a20_638696441434379230.jpg?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D" 
             },
             new ApplicationUser 
             { 
@@ -296,7 +296,7 @@ if (app.Environment.IsDevelopment())
                 CreatedProfile = true,
                 ProfileCompleted = true,
                 EmailConfirmed = true,
-                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/0d8c7527-80b0-4970-8908-32c95aa84cea_638684278673868460.png?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D" 
+                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/d1ce40a4-fb10-41d7-ae72-0e1addde8756_638696442365304750.avif?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D" 
             }
         };
 

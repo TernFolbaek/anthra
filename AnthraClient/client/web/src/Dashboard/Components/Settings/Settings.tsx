@@ -36,7 +36,7 @@ const Settings: React.FC = () => {
                     onClick={() => setActiveTab('advanced')}
                 >
                     <FaSlidersH size={24} />
-                    <span className="text-gray-700 font-bold">Advanced</span>
+                    <span className="text-gray-700 font-bold">Filters</span>
                 </div>
                 <div
                     className={`settings-tab-right settings-tab ${activeTab === 'configuration' ? 'active' : ''}`}

@@ -390,13 +390,15 @@ body.dark .invitation-message p {
 }
 
 .invitation-accept-button {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #99edac;
+  color: darkgreen;
+  font-weight: 600;
 }
 
 .invitation-decline-button {
-  background-color: #f44336;
-  color: white;
+  background-color: #ff7064;
+  color: #ae0505;
+  font-weight: 600;
 }
 
 .invitation-accept-button:hover {

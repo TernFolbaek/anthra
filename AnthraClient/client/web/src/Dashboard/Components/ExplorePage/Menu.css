@@ -82,16 +82,16 @@ body.dark .explore-menu-button:not(.active) {
 
 @media(max-width: 480px) {
     .menu-toggle {
-        width: 100%;
-        border: none;
+        width: 40%;
     }
 
     .explore-menu-container {
-        margin: 0;
+        margin: 5px 0;
         padding: 0;
     }
 
+
     .explore-menu-button {
-        padding: 6px 10px;
+        padding: 0 2px;
     }
 }

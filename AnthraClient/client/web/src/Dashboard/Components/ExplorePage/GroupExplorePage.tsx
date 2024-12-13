@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import './GroupExplorePage.css';
-import NoMoreUsersToExplore from '../../Helpers/Animations/NoMoreUsersToExplore';
+import NoMoreGroupsToExplore from '../../Helpers/Animations/NoMoreGroupsToExplore';
 import ViewProfile from "../ViewProfile/ViewProfile";
 
 interface GroupMember {
@@ -144,7 +144,7 @@ const GroupExplorePage: React.FC = () => {
                     </div>
                 </div>
             ) : (
-                <NoMoreUsersToExplore/>
+                <NoMoreGroupsToExplore/>
             )}
             {selectedUserId && (
                 <ViewProfile userId={selectedUserId} onClose={handleCloseProfile}/>

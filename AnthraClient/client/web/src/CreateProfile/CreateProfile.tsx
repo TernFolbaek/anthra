@@ -397,7 +397,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                 ></div>
             </div>
             <div className="create-profile-container">
-
+                <p className="text-base font-semibold">Create your profile</p>
                 {message && <p className="success-message">{message}</p>}
                 {error && <p className="error-message">{error}</p>}
 

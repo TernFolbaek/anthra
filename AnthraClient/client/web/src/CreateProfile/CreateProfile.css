@@ -114,6 +114,15 @@
     flex-grow: 1;
 }
 
+.autocomplete-container{
+    position: relative;
+}
+
+.autocomplete-container input{
+    width: 100%;
+}
+
+
 /* Character Counter */
 .textarea-with-counter {
     position: relative;
@@ -381,12 +390,6 @@
     background-color: #d6d6d6;
     transform: scale(1.05);
 }
-
-.status-tag-selected {
-    background-color: #007bff;
-    color: #fff;
-}
-
 
 
 /* Error/Success Messages */

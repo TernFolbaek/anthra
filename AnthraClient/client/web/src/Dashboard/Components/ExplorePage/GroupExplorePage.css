@@ -291,7 +291,7 @@ body.dark .group-explore-no-more {
     }
 
     .explore-group-card{
-        height: 78vh;
+        height: fit-content;
     }
 
     .group-explore-info h3 {

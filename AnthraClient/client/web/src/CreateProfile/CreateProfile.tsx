@@ -436,12 +436,12 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                                 <span className="font-medium text-xs"> min. 100 chars.</span>
                             </label>
                             <div className="textarea-with-counter">
-                                <div className="char-counter">{aboutMe.length}/250</div>
+                                <div className="char-counter">{aboutMe.length}/300</div>
                                 <textarea
                                     id="aboutMe"
                                     placeholder="About Me"
-                                    minLength={120}
-                                    maxLength={250}
+                                    minLength={150}
+                                    maxLength={300}
                                     value={aboutMe}
                                     onChange={(e) => setAboutMe(e.target.value)}
                                 />

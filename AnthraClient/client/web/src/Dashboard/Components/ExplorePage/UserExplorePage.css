@@ -284,7 +284,6 @@ body.dark .user-explore-no-more {
     }
 }
 
-/* For medium screens (tablets) */
 @media (max-width: 767px) {
     .explore-user-card {
         flex-direction: column;
@@ -311,7 +310,6 @@ body.dark .user-explore-no-more {
     }
 }
 
-/* Adjust font sizes and add responsive styles for small screens */
 @media (max-width: 480px) {
     .user-explore-page-button-container {
         bottom: 55px;
@@ -321,9 +319,8 @@ body.dark .user-explore-no-more {
     }
     .explore-user-card {
         min-height: 78vh;
-        border-radius: 0;
         padding: 15px;
-        position: relative; /* To position the click overlay */
+        position: relative;
     }
 
     .connect-button,

@@ -4,30 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Change profile pictures for seed users&lt;">
-      <change afterPath="$PROJECT_DIR$/client/web/src/CreateProfile/CropModal.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/web/src/CreateProfile/CropModal.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Helpers/Animations/NoMoreGroupsToExplore.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/web/src/Dashboard/hooks/useWindowWidth.ts" afterDir="false" />
+    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Change statuses of seed users">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/declarations.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/declarations.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/CreateProfile/CreateProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/CreateProfile/CreateProfile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/CreateProfile/StepOne.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/CreateProfile/StepOne.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/ExplorePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/ExplorePage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/GroupExplorePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/GroupExplorePage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/GroupExplorePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/GroupExplorePage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/Menu.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/Menu.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/Menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/Menu.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/Messages.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/Messages.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Settings/AdvancedSettings/AdvancedSettings.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Settings/AdvancedSettings/AdvancedSettings.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Settings/AdvancedSettings/AdvancedSettings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Settings/AdvancedSettings/AdvancedSettings.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Settings/Settings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Settings/Settings.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,103 +204,7 @@
       <workItem from="1733910078370" duration="8198000" />
       <workItem from="1733920368759" duration="1801000" />
       <workItem from="1733925229153" duration="41219000" />
-      <workItem from="1734049305262" duration="8880000" />
-    </task>
-    <task id="LOCAL-00521" summary="Change container so that it uses same margin between card as other components">
-      <option name="closed" value="true" />
-      <created>1733926702573</created>
-      <option name="number" value="00521" />
-      <option name="presentableId" value="LOCAL-00521" />
-      <option name="project" value="LOCAL" />
-      <updated>1733926702573</updated>
-    </task>
-    <task id="LOCAL-00522" summary="Add styling for status tags">
-      <option name="closed" value="true" />
-      <created>1733927099283</created>
-      <option name="number" value="00522" />
-      <option name="presentableId" value="LOCAL-00522" />
-      <option name="project" value="LOCAL" />
-      <updated>1733927099283</updated>
-    </task>
-    <task id="LOCAL-00523" summary="Change profile picture and heavier font weight">
-      <option name="closed" value="true" />
-      <created>1733954850995</created>
-      <option name="number" value="00523" />
-      <option name="presentableId" value="LOCAL-00523" />
-      <option name="project" value="LOCAL" />
-      <updated>1733954850995</updated>
-    </task>
-    <task id="LOCAL-00524" summary="Larger profile picture as well as the connections institution">
-      <option name="closed" value="true" />
-      <created>1733954863668</created>
-      <option name="number" value="00524" />
-      <option name="presentableId" value="LOCAL-00524" />
-      <option name="project" value="LOCAL" />
-      <updated>1733954863669</updated>
-    </task>
-    <task id="LOCAL-00525" summary="Add styling for status tag">
-      <option name="closed" value="true" />
-      <created>1733954882567</created>
-      <option name="number" value="00525" />
-      <option name="presentableId" value="LOCAL-00525" />
-      <option name="project" value="LOCAL" />
-      <updated>1733954882567</updated>
-    </task>
-    <task id="LOCAL-00526" summary="Create statuses in creation of profile">
-      <option name="closed" value="true" />
-      <created>1733954949121</created>
-      <option name="number" value="00526" />
-      <option name="presentableId" value="LOCAL-00526" />
-      <option name="project" value="LOCAL" />
-      <updated>1733954949121</updated>
-    </task>
-    <task id="LOCAL-00527" summary="Enhance success message color">
-      <option name="closed" value="true" />
-      <created>1733955854689</created>
-      <option name="number" value="00527" />
-      <option name="presentableId" value="LOCAL-00527" />
-      <option name="project" value="LOCAL" />
-      <updated>1733955854689</updated>
-    </task>
-    <task id="LOCAL-00528" summary="line break">
-      <option name="closed" value="true" />
-      <created>1733955879260</created>
-      <option name="number" value="00528" />
-      <option name="presentableId" value="LOCAL-00528" />
-      <option name="project" value="LOCAL" />
-      <updated>1733955879260</updated>
-    </task>
-    <task id="LOCAL-00529" summary="Options button styling">
-      <option name="closed" value="true" />
-      <created>1733955889565</created>
-      <option name="number" value="00529" />
-      <option name="presentableId" value="LOCAL-00529" />
-      <option name="project" value="LOCAL" />
-      <updated>1733955889565</updated>
-    </task>
-    <task id="LOCAL-00530" summary="infinite image track with no background">
-      <option name="closed" value="true" />
-      <created>1733955942886</created>
-      <option name="number" value="00530" />
-      <option name="presentableId" value="LOCAL-00530" />
-      <option name="project" value="LOCAL" />
-      <updated>1733955942886</updated>
-    </task>
-    <task id="LOCAL-00531" summary="infinite image track with no background">
-      <option name="closed" value="true" />
-      <created>1733955960539</created>
-      <option name="number" value="00531" />
-      <option name="presentableId" value="LOCAL-00531" />
-      <option name="project" value="LOCAL" />
-      <updated>1733955960539</updated>
-    </task>
-    <task id="LOCAL-00532" summary="Add statuses to message connection profile">
-      <option name="closed" value="true" />
-      <created>1733955978533</created>
-      <option name="number" value="00532" />
-      <option name="presentableId" value="LOCAL-00532" />
-      <option name="project" value="LOCAL" />
-      <updated>1733955978533</updated>
+      <workItem from="1734049305262" duration="9866000" />
     </task>
     <task id="LOCAL-00533" summary="white text in dark mode">
       <option name="closed" value="true" />
@@ -617,7 +502,103 @@
       <option name="project" value="LOCAL" />
       <updated>1734048563883</updated>
     </task>
-    <option name="localTasksCounter" value="570" />
+    <task id="LOCAL-00570" summary="Advanced -&gt; filters">
+      <option name="closed" value="true" />
+      <created>1734129186107</created>
+      <option name="number" value="00570" />
+      <option name="presentableId" value="LOCAL-00570" />
+      <option name="project" value="LOCAL" />
+      <updated>1734129186108</updated>
+    </task>
+    <task id="LOCAL-00571" summary="Functional cropping of profile picture for user creation">
+      <option name="closed" value="true" />
+      <created>1734129197485</created>
+      <option name="number" value="00571" />
+      <option name="presentableId" value="LOCAL-00571" />
+      <option name="project" value="LOCAL" />
+      <updated>1734129197486</updated>
+    </task>
+    <task id="LOCAL-00572" summary="Functional cropping of profile picture for user creation">
+      <option name="closed" value="true" />
+      <created>1734129201204</created>
+      <option name="number" value="00572" />
+      <option name="presentableId" value="LOCAL-00572" />
+      <option name="project" value="LOCAL" />
+      <updated>1734129201205</updated>
+    </task>
+    <task id="LOCAL-00573" summary="Declare react modal">
+      <option name="closed" value="true" />
+      <created>1734129209018</created>
+      <option name="number" value="00573" />
+      <option name="presentableId" value="LOCAL-00573" />
+      <option name="project" value="LOCAL" />
+      <updated>1734129209018</updated>
+    </task>
+    <task id="LOCAL-00574" summary="overflow hidden for explore page">
+      <option name="closed" value="true" />
+      <created>1734129219105</created>
+      <option name="number" value="00574" />
+      <option name="presentableId" value="LOCAL-00574" />
+      <option name="project" value="LOCAL" />
+      <updated>1734129219105</updated>
+    </task>
+    <task id="LOCAL-00575" summary="Create no more groups to explore for groups explore page">
+      <option name="closed" value="true" />
+      <created>1734129233813</created>
+      <option name="number" value="00575" />
+      <option name="presentableId" value="LOCAL-00575" />
+      <option name="project" value="LOCAL" />
+      <updated>1734129233813</updated>
+    </task>
+    <task id="LOCAL-00576" summary="If menu is in mobile view then no text">
+      <option name="closed" value="true" />
+      <created>1734129262530</created>
+      <option name="number" value="00576" />
+      <option name="presentableId" value="LOCAL-00576" />
+      <option name="project" value="LOCAL" />
+      <updated>1734129262530</updated>
+    </task>
+    <task id="LOCAL-00577" summary="Style invitation button">
+      <option name="closed" value="true" />
+      <created>1734129271932</created>
+      <option name="number" value="00577" />
+      <option name="presentableId" value="LOCAL-00577" />
+      <option name="project" value="LOCAL" />
+      <updated>1734129271932</updated>
+    </task>
+    <task id="LOCAL-00578" summary="Advanced -&gt; filtering settings">
+      <option name="closed" value="true" />
+      <created>1734129283306</created>
+      <option name="number" value="00578" />
+      <option name="presentableId" value="LOCAL-00578" />
+      <option name="project" value="LOCAL" />
+      <updated>1734129283306</updated>
+    </task>
+    <task id="LOCAL-00579" summary="Add crop profile picture to stepOne of creating profile">
+      <option name="closed" value="true" />
+      <created>1734129301099</created>
+      <option name="number" value="00579" />
+      <option name="presentableId" value="LOCAL-00579" />
+      <option name="project" value="LOCAL" />
+      <updated>1734129301099</updated>
+    </task>
+    <task id="LOCAL-00580" summary="Far better styling for mobile view where each card is two pages long">
+      <option name="closed" value="true" />
+      <created>1734129329172</created>
+      <option name="number" value="00580" />
+      <option name="presentableId" value="LOCAL-00580" />
+      <option name="project" value="LOCAL" />
+      <updated>1734129329172</updated>
+    </task>
+    <task id="LOCAL-00581" summary="Change statuses of seed users">
+      <option name="closed" value="true" />
+      <created>1734129341056</created>
+      <option name="number" value="00581" />
+      <option name="presentableId" value="LOCAL-00581" />
+      <option name="project" value="LOCAL" />
+      <updated>1734129341056</updated>
+    </task>
+    <option name="localTasksCounter" value="582" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -635,17 +616,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Remove double class" />
-    <MESSAGE value="won't render footer in message container, personal or in groups" />
-    <MESSAGE value="Make font smaller and remove shadow from status tags" />
-    <MESSAGE value="Remove whitespace" />
-    <MESSAGE value="Remove border from pfp" />
-    <MESSAGE value="Remove console log" />
-    <MESSAGE value="Remove useless comment" />
-    <MESSAGE value="Fix margin so it does not create too much space between cards" />
-    <MESSAGE value="Style status tag so it more subtle" />
-    <MESSAGE value="Add View profile to ReferralCardMessage and style the card" />
-    <MESSAGE value="Remove pointless import" />
     <MESSAGE value="Style snackbar" />
     <MESSAGE value="Reset animation when new snackbar comes" />
     <MESSAGE value="Remove excess styling" />
@@ -660,6 +630,17 @@
     <MESSAGE value="Reduce z index" />
     <MESSAGE value="Remove auto complete for country and city" />
     <MESSAGE value="Change profile pictures for seed users" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change profile pictures for seed users" />
+    <MESSAGE value="Advanced -&gt; filters" />
+    <MESSAGE value="Functional cropping of profile picture for user creation" />
+    <MESSAGE value="Declare react modal" />
+    <MESSAGE value="overflow hidden for explore page" />
+    <MESSAGE value="Create no more groups to explore for groups explore page" />
+    <MESSAGE value="If menu is in mobile view then no text" />
+    <MESSAGE value="Style invitation button" />
+    <MESSAGE value="Advanced -&gt; filtering settings" />
+    <MESSAGE value="Add crop profile picture to stepOne of creating profile" />
+    <MESSAGE value="Far better styling for mobile view where each card is two pages long" />
+    <MESSAGE value="Change statuses of seed users" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change statuses of seed users" />
   </component>
 </project>

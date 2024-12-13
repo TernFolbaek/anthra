@@ -110,38 +110,32 @@ const GroupExplorePage: React.FC = () => {
                 <div className="explore-group-card">
                     <div className="explore-group-card-content">
                         <div>
-                        <h2 className="group-explore-name">{currentGroup.name}</h2>
-                        <h3>About the group:</h3>
-                        <p className="group-explore-description">{currentGroup.groupDescription}</p>
-                        <h3>What the group is looking for:</h3>
-                        <p className="break-all">{currentGroup.groupMemberDesire}</p>
-                        <div className="group-explore-info">
-                            <h3>Members</h3>
-                            <ul className="group-explore-members-list">
-                                {currentGroup.members.map((member) => (
-                                    <li onClick={()=>handleUserClick(member.userId)} key={member.userId} className="group-explore-member-item">
-                                        <img
-                                            className="group-explore-member-avatar"
-                                            src={`${member.profilePictureUrl}`}
-                                            alt={`${member.firstName} ${member.lastName}`}
-                                        />
-                                        <span>
+                            <h2 className="group-explore-name">{currentGroup.name}</h2>
+                            <h3>About the group:</h3>
+                            <p className="group-explore-description">{currentGroup.groupDescription}</p>
+                            <h3>What the group is looking for:</h3>
+                            <p className="break-all">{currentGroup.groupMemberDesire}</p>
+                            <div className="group-explore-info">
+                                <h3>Members</h3>
+                                <ul className="group-explore-members-list">
+                                    {currentGroup.members.map((member) => (
+                                        <li onClick={() => handleUserClick(member.userId)} key={member.userId}
+                                            className="group-explore-member-item">
+                                            <img
+                                                className="group-explore-member-avatar"
+                                                src={`${member.profilePictureUrl}`}
+                                                alt={`${member.firstName} ${member.lastName}`}
+                                            />
+                                            <span>
                                         {member.firstName} {member.lastName}
                                         </span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        </div>
-                        <div className="group-explore-button-container">
-                            <button className="group-explore-apply-button" onClick={handleApply}>
-                                Apply
-                            </button>
-                            <button className="group-explore-skip-button" onClick={handleSkip}>
-                                Skip
-                            </button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             ) : (
                 <NoMoreGroupsToExplore/>
@@ -149,6 +143,14 @@ const GroupExplorePage: React.FC = () => {
             {selectedUserId && (
                 <ViewProfile userId={selectedUserId} onClose={handleCloseProfile}/>
             )}
+            <div className="group-explore-button-container">
+                <button className="group-explore-apply-button" onClick={handleApply}>
+                    Apply
+                </button>
+                <button className="group-explore-skip-button" onClick={handleSkip}>
+                    Skip
+                </button>
+            </div>
         </div>
     );
 };

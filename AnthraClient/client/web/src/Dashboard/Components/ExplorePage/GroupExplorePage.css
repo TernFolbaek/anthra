@@ -124,10 +124,14 @@ body.dark .group-explore-member-item:hover {
 }
 
 .group-explore-button-container {
+    position: absolute;
     display: flex;
+    gap: 5px;
     justify-content: space-around;
-    gap: 15px;
+    margin-top: 20px;
     width: 100%;
+    max-width: 1000px;
+    bottom: 25px;
 }
 
 
@@ -254,6 +258,10 @@ body.dark .group-explore-no-more {
         margin-left: 0;
     }
 
+    .group-explore-button-container {
+        width: 100%;
+    }
+
     .group-explore-member-item {
         width: 80%;
     }
@@ -266,9 +274,24 @@ body.dark .group-explore-no-more {
         font-size: 1.5rem;
     }
 
+    .group-explore-skip-button, .group-explore-apply-button {
+        padding: 0.35rem 0.3rem;
+        font-weight: 600;
+    }
+
+    .explore-group-card-content{
+        padding: 15px;
+    }
+
+    .group-explore-button-container{
+        bottom: 55px;
+        justify-content: space-around;
+        gap: 30px;
+        padding: 0 50px;
+    }
+
     .explore-group-card{
-        margin-bottom: 50px;
-        border-radius: 0;
+        height: 78vh;
     }
 
     .group-explore-info h3 {

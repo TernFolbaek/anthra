@@ -110,7 +110,7 @@ const AdvancedSettings: React.FC = () => {
     ];
 
     const ageGroupOptions: DropdownOption[] = [
-        { label: 'Any Age Group', value: 'any' },
+        { label: 'No constraint', value: 'any' },
         { label: 'Under 18', value: 'under_18' },
         { label: '18-25', value: '18_25' },
         { label: '26-35', value: '26_35' },

@@ -14,6 +14,9 @@
 /* Custom Dropdown Styles */
 .advanced-settings-dropdown {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
     max-width: 300px;
 }
@@ -29,6 +32,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 180px;
+    font-size: 15px;
     padding: 10px 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -43,6 +48,7 @@
 
 .advanced-settings-dropdown-arrow {
     transition: transform 0.3s;
+    font-size: 12px;
 }
 
 .advanced-settings-dropdown-arrow.open {
@@ -52,8 +58,10 @@
 .advanced-settings-dropdown-list {
     position: absolute;
     top: 100%;
-    left: 0;
-    width: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    right: 0;
+    width: 180px;
     max-height: 200px;
     overflow-y: auto;
     border: 1px solid #ccc;

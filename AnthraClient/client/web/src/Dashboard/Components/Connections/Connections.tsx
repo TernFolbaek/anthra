@@ -429,21 +429,22 @@ const Connections: React.FC = () => {
         <div className="connections-page">
             <>
                 {screenWidth < 768 && (
-                    <div className="connections-tabs">
-                        <button
-                            onClick={() => setSelectedTab('connections')}
-                            className={selectedTab === 'connections' ? 'active' : ''}
-                        >
-                            {screenWidth < 481 ?
-                                <div className="w-full flex justify-center"><FaUser/></div> : 'Connections'}
-                        </button>
-                        <button
-                            onClick={() => setSelectedTab('requests')}
-                            className={selectedTab === 'requests' ? 'active' : ''}
-                        >
-                            {screenWidth < 481 ?
-                                <div className="w-full flex justify-center"><FaUsers/></div> : 'Requests'}
-                        </button>
+                    <div className="connections-toggle-slider" style={{width: '200px'}}>
+                        <div className="slider-background">
+                            <button
+                                onClick={() => setSelectedTab('connections')}
+                                className={`flex justify-center toggle-button ${selectedTab === 'connections' ? 'active' : ''}`}
+                            >
+                                {screenWidth < 768 ? <FaUser/> : 'Connections'}
+                            </button>
+                            <button
+                                onClick={() => setSelectedTab('requests')}
+                                className={`flex justify-center toggle-button ${selectedTab === 'requests' ? 'active' : ''}`}
+                            >
+                                {screenWidth < 768 ? <FaUsers/> : 'Requests'}
+                            </button>
+                        </div>
+                        <div className={`connections-slider ${selectedTab === 'connections' ? 'left' : 'right'}`}></div>
                     </div>
                 )}
 

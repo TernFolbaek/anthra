@@ -49,8 +49,7 @@ namespace MyBackendApp.Controllers
 
             // Check if a request is pending
             var pendingRequest = await _context.ConnectionRequests.FirstOrDefaultAsync(cr =>
-                ((cr.SenderId == currentUserId && cr.ReceiverId == targetUserId) ||
-                 (cr.SenderId == targetUserId && cr.ReceiverId == currentUserId))
+                ((cr.SenderId == currentUserId && cr.ReceiverId == targetUserId) )
                 && cr.Status == ConnectionStatus.Pending);
             
             // Check if a request has been accepted

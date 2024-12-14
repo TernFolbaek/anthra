@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Change statuses of seed users">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Connections/Connections.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Connections/Connections.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Connections/Connections.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Connections/Connections.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/Controllers/Connections/ConnectionsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Controllers/Connections/ConnectionsController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,7 +202,7 @@
       <workItem from="1733910078370" duration="8198000" />
       <workItem from="1733920368759" duration="1801000" />
       <workItem from="1733925229153" duration="41219000" />
-      <workItem from="1734049305262" duration="13885000" />
+      <workItem from="1734049305262" duration="14675000" />
     </task>
     <task id="LOCAL-00533" summary="white text in dark mode">
       <option name="closed" value="true" />

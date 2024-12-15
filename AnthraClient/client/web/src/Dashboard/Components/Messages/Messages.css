@@ -310,7 +310,6 @@ body.dark .message-input-container input {
 .group-name-clickable {
   color: #007bff;
   cursor: pointer;
-  text-decoration: underline;
 }
 
 /* Dark mode styles */
@@ -323,9 +322,9 @@ body.dark .group-name-clickable {
 }
 
 .invitation-message {
-  background-color: rgba(244, 243, 244, 0.8);
+  display: flex;
   padding: 15px;
-  text-align: center;
+  gap: 10px;
   border-radius: 8px;
   max-width: 500px;
   width: 95%;
@@ -353,6 +352,7 @@ body.dark .invitation-message p {
 
 .invitation-description {
   margin-bottom: 5px;
+
 }
 
 .invitation-member-count {
@@ -361,7 +361,7 @@ body.dark .invitation-message p {
 
 .group-member-avatars {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   gap: 5px;
   margin-top: 5px;
 }
@@ -372,43 +372,6 @@ body.dark .invitation-message p {
   border-radius: 50%;
   object-fit: cover;
 }
-
-.invitation-buttons {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.invitation-accept-button,
-.invitation-decline-button {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.invitation-accept-button {
-  background-color: #99edac;
-  color: darkgreen;
-  font-weight: 600;
-}
-
-.invitation-decline-button {
-  background-color: #ff7064;
-  color: #ae0505;
-  font-weight: 600;
-}
-
-.invitation-accept-button:hover {
-  background-color: #45a049;
-}
-
-.invitation-decline-button:hover {
-  background-color: #e53935;
-}
-
 
 .paperclip-icon {
   font-size: 1rem;

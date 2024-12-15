@@ -6,6 +6,7 @@ using MyBackendApp.Hubs;
 using MyBackendApp.Models;
 using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -49,7 +50,9 @@ namespace MyBackendApp.Controllers
                     UserProfilePicture = g.Select(m => m.SenderId == g.Key ? m.Sender.ProfilePictureUrl : m.Receiver.ProfilePictureUrl).FirstOrDefault(),
                     LastMessageContent = g.OrderByDescending(m => m.Timestamp).Select(m => m.Content).FirstOrDefault(),
                     LastMessageTimestamp = g.Max(m => m.Timestamp),
-                    LastMessageSenderId = g.OrderByDescending(m => m.Timestamp).Select(m => m.SenderId).FirstOrDefault()
+                    LastMessageSenderId = g.OrderByDescending(m => m.Timestamp).Select(m => m.SenderId).FirstOrDefault(),
+                    ActionType = g.OrderByDescending(m => m.Timestamp).Select(m => m.ActionType).FirstOrDefault(),
+                    InvitationStatus = g.OrderByDescending(m => m.Timestamp).Select(m => m.InvitationStatus).FirstOrDefault(),
                 })
                 .ToListAsync();
 
@@ -116,6 +119,8 @@ namespace MyBackendApp.Controllers
                 m.IsReferralCard,
                 m.GroupId,
                 m.GroupName,
+                m.InvitationStatus,
+                m.ActionType,
                 Attachments = m.Attachment != null ? new[] {
                     new {
                         m.Attachment.Id,
@@ -295,6 +300,98 @@ public async Task<IActionResult> SendMessage([FromForm] SendMessageModel model)
 
             // Return the relative file path
             return Path.Combine("Uploads", "Messages", uniqueFileName).Replace("\\", "/");
+        }
+        
+         [HttpDelete("DeleteMessage")]
+        public async Task<IActionResult> DeleteMessage([FromBody] DeleteMessageRequest request)
+        {
+            if (request == null || request.MessageId <= 0)
+            {
+                return BadRequest("Invalid message ID.");
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();
+            }
+
+            var message = await _context.Messages.FindAsync(request.MessageId);
+            if (message == null)
+            {
+                return NotFound("Message not found.");
+            }
+
+            // Only the sender or receiver can delete the message
+            if (message.SenderId != userId && message.ReceiverId != userId)
+            {
+                return Forbid();
+            }
+
+            _context.Messages.Remove(message);
+            await _context.SaveChangesAsync();
+
+            // Optionally, notify the other user via SignalR that the message has been deleted
+            var otherUserId = message.SenderId == userId ? message.ReceiverId : message.SenderId;
+            var groupId = GetChatGroupId(userId, otherUserId);
+            await _hubContext.Clients.Group(groupId).SendAsync("MessageDeleted", new { messageId = message.Id });
+
+            return Ok(new { message = "Message deleted successfully." });
+        }
+
+        /// <summary>
+        /// Helper method to determine the chat group ID based on user IDs.
+        /// </summary>
+        /// <param name="userA">User A's ID.</param>
+        /// <param name="userB">User B's ID.</param>
+        /// <returns>The chat group ID string.</returns>
+
+
+        /// <summary>
+        /// Request model for deleting a message.
+        /// </summary>
+        public class DeleteMessageRequest
+        {
+            public int MessageId { get; set; }
+        }
+        
+        [HttpPatch("UpdateMessage")]
+        public async Task<IActionResult> UpdateMessage([FromBody] UpdateMessageRequest request)
+        {
+            if (request == null || request.MessageId <= 0)
+            {
+                return BadRequest("Invalid request data.");
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();
+            }
+
+            var message = await _context.Messages.FindAsync(request.MessageId);
+            if (message == null)
+            {
+                return NotFound("Message not found.");
+            }
+
+            // Ensure that only the receiver can update the invitation status
+            if (message.ReceiverId != userId)
+            {
+                return Forbid("You are not authorized to update this message.");
+            }
+
+            // Update the message properties
+            message.InvitationStatus = true;
+            message.ActionType = request.ActionType;
+
+            await _context.SaveChangesAsync();
+
+            // Optionally, notify the sender about the update via SignalR or other means
+            // Example:
+            // await _hubContext.Clients.User(message.SenderId).SendAsync("MessageUpdated", message.Id, message.ActionType);
+
+            return Ok(new { message = "Message updated successfully." });
         }
 
         private string GetChatGroupId(string userA, string userB)

@@ -298,6 +298,7 @@ const Messages: React.FC = () => {
     // Optional: Implement onRenderComplete callbacks
     const handleMessageRendered = () => {
         if(firstLoad){
+            console.log("it is the first load")
             messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
         }
     };

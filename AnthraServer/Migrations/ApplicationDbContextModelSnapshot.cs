@@ -508,6 +508,9 @@ namespace AnthraBackend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ActionType")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("text");
@@ -517,6 +520,9 @@ namespace AnthraBackend.Migrations
 
                     b.Property<string>("GroupName")
                         .HasColumnType("text");
+
+                    b.Property<bool?>("InvitationStatus")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsGroupInvitation")
                         .HasColumnType("boolean");

@@ -1,3 +1,5 @@
+using MyBackendApp.Models;
+
 namespace MyBackendApp.ViewModels
 {
     public class ConversationDTO
@@ -13,6 +15,9 @@ namespace MyBackendApp.ViewModels
         public string LastMessageContent { get; set; }
         public DateTime? LastMessageTimestamp { get; set; }
         public string LastMessageSenderId { get; set; } 
+        
+        public bool? InvitationStatus { get; set; }
+        public InvitationActionType ActionType { get; set; }
 
     }
 }

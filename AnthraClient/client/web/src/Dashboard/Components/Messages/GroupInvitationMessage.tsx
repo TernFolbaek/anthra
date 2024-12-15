@@ -8,13 +8,14 @@ import { Message, InvitationActionType, UserProfile } from '../../Components/typ
 
 interface GroupInvitationMessageProps {
     msg: Message;
-    isCurrentUser: boolean; // Determined by parent
+    isCurrentUser: boolean;
     contactProfile: UserProfile | null;
     handleAcceptInvitation: () => void;
     handleDeclineInvitation: () => void;
     handleUserClick: (groupId: number | null) => void;
     groupInfoCache: { [key: number]: any };
     setGroupInfoCache: React.Dispatch<React.SetStateAction<{ [key: number]: any }>>;
+    onRenderComplete: () => void; // New prop
 }
 
 const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
@@ -26,6 +27,7 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
                                                                            handleUserClick,
                                                                            groupInfoCache,
                                                                            setGroupInfoCache,
+                                                                           onRenderComplete
                                                                        }) => {
     const [groupInfo, setGroupInfo] = useState<any>(null);
     const [invitationStatus, setInvitationStatus] = useState<boolean | undefined>(msg.invitationStatus);
@@ -55,6 +57,7 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
             if (msg.groupId == null) return;
             if (groupInfoCache[msg.groupId]) {
                 setGroupInfo(groupInfoCache[msg.groupId]);
+                onRenderComplete(); // Notify parent
             } else {
                 const fetchedGroupInfo = await fetchGroupInfo(msg.groupId);
                 if (isMounted && fetchedGroupInfo) {
@@ -63,6 +66,7 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
                         ...prevCache,
                         [msg.groupId!]: fetchedGroupInfo,
                     }));
+                    onRenderComplete(); // Notify parent
                 }
             }
         };
@@ -72,7 +76,7 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
         return () => {
             isMounted = false;
         };
-    }, [msg.groupId, groupInfoCache, setGroupInfoCache, token]);
+    }, [msg.groupId, groupInfoCache, setGroupInfoCache, token, onRenderComplete]);
 
     // Update local state if msg prop changes
     useEffect(() => {

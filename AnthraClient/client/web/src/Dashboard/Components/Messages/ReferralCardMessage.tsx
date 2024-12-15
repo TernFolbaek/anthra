@@ -11,9 +11,10 @@ interface ReferralCardMessageProps {
     isCurrentUser: boolean;
     onConnect: (referredUserId: string) => void;
     onSkip: (referredUserId: string) => void;
+    onRenderComplete: () => void; // New prop
 }
 
-const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurrentUser, onConnect, onSkip }) => {
+const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurrentUser, onConnect, onSkip, onRenderComplete }) => {
     const [referredUser, setReferredUser] = useState<UserProfile | null>(null);
     const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
     const [showConfirmSkip, setShowConfirmSkip] = useState<boolean>(false);
@@ -34,13 +35,14 @@ const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurren
                     }
                 );
                 setReferredUser(response.data);
+                onRenderComplete(); // Notify parent after fetching data
             } catch (error) {
                 console.error('Error fetching referred user profile:', error);
             }
         };
 
         fetchReferredUser();
-    }, [msg.content, token]);
+    }, [msg.content, token, onRenderComplete]);
 
     // Synchronize local message state with msg prop in case of external updates
     useEffect(() => {
@@ -140,23 +142,22 @@ const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurren
 
     // Determine the action message based on the ActionType
     const getActionMessage = () => {
-        const otherUser = referredUser.firstName;
+        const otherUser = isCurrentUser ? "You" : "Someone"; // Replace with dynamic current user name if available
         if (isCurrentUser) {
             switch (message.actionType) {
                 case InvitationActionType.Skipped:
-                    return `${otherUser} was skipped `;
+                    return `You skipped ${referredUser.firstName}.`;
                 case InvitationActionType.Connected:
-                    return `Request sent to ${otherUser}`;
+                    return `Connection request sent to ${referredUser.firstName}.`;
                 default:
                     return null;
             }
         } else {
-            const currentUser = "You"; // Replace with dynamic current user name if available
             switch (message.actionType) {
                 case InvitationActionType.Skipped:
-                    return `${currentUser} skipped ${otherUser}`;
+                    return `You were skipped by ${otherUser}.`;
                 case InvitationActionType.Connected:
-                    return `${currentUser} sent a request to ${otherUser}`;
+                    return `${otherUser} sent you a connection request.`;
                 default:
                     return null;
             }

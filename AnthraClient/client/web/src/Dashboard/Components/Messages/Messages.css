@@ -380,6 +380,13 @@ body.dark .invitation-message p {
   color: #555;
 }
 
+.message-wrapper {
+  display: block;
+  width: 100%;
+  margin-bottom: 2px;
+}
+
+
 .paperclip-icon:hover {
   color: #007bff;
 }

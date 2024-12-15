@@ -114,6 +114,8 @@ const Messages: React.FC = () => {
             }
         };
 
+        setAllMessagesLoaded(false)
+
         fetchInitialMessages();
 
         // Fetch contact profile

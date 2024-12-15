@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Immediate feedback of click event for referral connection or skip">
-      <change afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/types/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="diverse">
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/Messages.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/Messages.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,23 +201,7 @@
       <workItem from="1733910078370" duration="8198000" />
       <workItem from="1733920368759" duration="1801000" />
       <workItem from="1733925229153" duration="41219000" />
-      <workItem from="1734049305262" duration="36999000" />
-    </task>
-    <task id="LOCAL-00541" summary="Fetch/post statuses property">
-      <option name="closed" value="true" />
-      <created>1733956155964</created>
-      <option name="number" value="00541" />
-      <option name="presentableId" value="LOCAL-00541" />
-      <option name="project" value="LOCAL" />
-      <updated>1733956155964</updated>
-    </task>
-    <task id="LOCAL-00542" summary="Add status to seed users">
-      <option name="closed" value="true" />
-      <created>1733956163081</created>
-      <option name="number" value="00542" />
-      <option name="presentableId" value="LOCAL-00542" />
-      <option name="project" value="LOCAL" />
-      <updated>1733956163081</updated>
+      <workItem from="1734049305262" duration="37659000" />
     </task>
     <task id="LOCAL-00543" summary="Higher font weight">
       <option name="closed" value="true" />
@@ -596,7 +579,23 @@
       <option name="project" value="LOCAL" />
       <updated>1734299860549</updated>
     </task>
-    <option name="localTasksCounter" value="590" />
+    <task id="LOCAL-00590" summary="Create file for shared types">
+      <option name="closed" value="true" />
+      <created>1734299959057</created>
+      <option name="number" value="00590" />
+      <option name="presentableId" value="LOCAL-00590" />
+      <option name="project" value="LOCAL" />
+      <updated>1734299959057</updated>
+    </task>
+    <task id="LOCAL-00591" summary="diverse">
+      <option name="closed" value="true" />
+      <created>1734299966898</created>
+      <option name="number" value="00591" />
+      <option name="presentableId" value="LOCAL-00591" />
+      <option name="project" value="LOCAL" />
+      <updated>1734299966898</updated>
+    </task>
+    <option name="localTasksCounter" value="592" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -614,8 +613,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Reload page after deletion of account" />
-    <MESSAGE value="Show dropdown in cities and countries suggestions in creation of profile" />
     <MESSAGE value="Style selected status tag" />
     <MESSAGE value="Reduce z index" />
     <MESSAGE value="Remove auto complete for country and city" />
@@ -639,6 +636,8 @@
     <MESSAGE value="Delete message and update message endpoints" />
     <MESSAGE value="Style referral card" />
     <MESSAGE value="Immediate feedback of click event for referral connection or skip" />
-    <option name="LAST_COMMIT_MESSAGE" value="Immediate feedback of click event for referral connection or skip" />
+    <MESSAGE value="Create file for shared types" />
+    <MESSAGE value="diverse" />
+    <option name="LAST_COMMIT_MESSAGE" value="diverse" />
   </component>
 </project>

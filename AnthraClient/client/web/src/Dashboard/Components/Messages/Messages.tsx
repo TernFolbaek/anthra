@@ -9,30 +9,15 @@ import MessageInput from "./MessageInput";
 import ViewGroupProfile from "../ViewGroupProfile/ViewGroupProfile";
 import GroupInvitationMessage from "./GroupInvitationMessage";
 import ReferralCardMessage from "./ReferralCardMessage";
+import { Message, InvitationActionType, UserProfile } from '../../Components/types/types';
+
 interface Attachment {
     id: number;
     fileName: string;
     fileUrl: string;
 }
 
-interface Message {
-    id: number;
-    senderId: string;
-    receiverId: string;
-    content: string;
-    timestamp: string;
-    isGroupInvitation: boolean;
-    isReferralCard: boolean;
-    groupId: number | null;
-    groupName?: string;
-    attachments?: Attachment[];
-}
 
-interface UserProfile {
-    firstName: string;
-    lastName: string;
-    profilePictureUrl: string;
-}
 
 const Messages: React.FC = () => {
     const { userId } = useParams<{ userId: string }>();
@@ -235,6 +220,31 @@ const Messages: React.FC = () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [showMenu]);
+    useEffect(() => {
+        if (connection) {
+            connection.on('UpdateMessage', (updatedMessage: Message) => {
+                setMessages(prevMessages =>
+                    prevMessages.map(msg =>
+                        msg.id === updatedMessage.id
+                            ? { ...msg, invitationStatus: updatedMessage.invitationStatus, actionType: updatedMessage.actionType }
+                            : msg
+                    )
+                );
+            });
+
+            connection.on('ReceiveMessage', (message: Message) => {
+                setMessages(prevMessages => [...prevMessages, message]);
+            });
+        }
+
+        // Clean up the event listeners when the component unmounts or connection changes
+        return () => {
+            if (connection) {
+                connection.off('UpdateMessage');
+                connection.off('ReceiveMessage');
+            }
+        };
+    }, [connection]);
 
     const fetchMoreMessages = async () => {
         if (!currentUserId || !userId) return;
@@ -319,29 +329,52 @@ const Messages: React.FC = () => {
         };
     }, [isLoadingMore, allMessagesLoaded, nextTokenValue]);
 
-    const handleAcceptInvitation = async (groupId: number) => {
+    const handleAcceptInvitation = async (groupId: number, messageId: number) => {
         try {
-            await axios.post(
+            const response = await axios.post(
                 'http://localhost:5001/api/Groups/RespondToInvitation',
-                { groupId, accept: true },
+                { groupId, Accept: true },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-            // Optionally, refresh messages or group list
+
+            const updatedMessage: Message = response.data;
+
+            // Update the message in the local state
+            setMessages(prevMessages =>
+                prevMessages.map(msg =>
+                    msg.id === updatedMessage.id
+                        ? { ...msg, invitationStatus: updatedMessage.invitationStatus, actionType: updatedMessage.actionType }
+                        : msg
+                )
+            );
         } catch (error) {
-            console.error('Error accepting invitation:', error);
+            console.error('Error accepting group invitation:', error);
+            alert('Failed to accept group invitation. Please try again.');
         }
     };
 
-    const handleDeclineInvitation = async (groupId: number) => {
+    // Handler for declining a group invitation
+    const handleDeclineInvitation = async (groupId: number, messageId: number) => {
         try {
-            await axios.post(
+            const response = await axios.post(
                 'http://localhost:5001/api/Groups/RespondToInvitation',
-                { groupId, accept: false },
+                { groupId, Accept: false },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-            // Optionally, refresh messages
+
+            const updatedMessage: Message = response.data;
+
+            // Update the message in the local state
+            setMessages(prevMessages =>
+                prevMessages.map(msg =>
+                    msg.id === updatedMessage.id
+                        ? { ...msg, invitationStatus: updatedMessage.invitationStatus, actionType: updatedMessage.actionType }
+                        : msg
+                )
+            );
         } catch (error) {
-            console.error('Error declining invitation:', error);
+            console.error('Error declining group invitation:', error);
+            alert('Failed to decline group invitation. Please try again.');
         }
     };
 
@@ -407,6 +440,8 @@ const Messages: React.FC = () => {
     };
 
     const handleReferralConnect = async (referredUserId: string) => {
+
+        console.log(referredUserId);
         try {
             await axios.post(
                 'http://localhost:5001/api/Connections/SendRequest',
@@ -487,7 +522,7 @@ const Messages: React.FC = () => {
                             ) : (
                                 messages.map((msg, index) => {
                                     const isLastMessage = index === messages.length - 1;
-                                    const isCurrentUser = msg.senderId === currentUserId;
+                                    const isCurrentUser = msg.receiverId === currentUserId;
                                     return (
                                         <React.Fragment key={msg.id}>
                                             {msg.isReferralCard ? (
@@ -500,11 +535,15 @@ const Messages: React.FC = () => {
                                                 ) :
                                             msg.isGroupInvitation ? (
                                                 <GroupInvitationMessage
-                                                    msg={msg}
+                                                    msg={{
+                                                        ...msg,
+                                                        actionType: msg.actionType ?? InvitationActionType.None,
+                                                        invitationStatus: msg.invitationStatus ?? false
+                                                    }}
                                                     isCurrentUser={isCurrentUser}
                                                     contactProfile={contactProfile}
-                                                    handleAcceptInvitation={handleAcceptInvitation}
-                                                    handleDeclineInvitation={handleDeclineInvitation}
+                                                    handleAcceptInvitation={() => handleAcceptInvitation(msg.groupId!, msg.id)}
+                                                    handleDeclineInvitation={() => handleDeclineInvitation(msg.groupId!, msg.id)}
                                                     handleUserClick={handleUserClick}
                                                     groupInfoCache={groupInfoCache}
                                                     setGroupInfoCache={setGroupInfoCache}
@@ -512,7 +551,7 @@ const Messages: React.FC = () => {
                                             ) : (
                                                 <div
                                                     className={`message-bubble ${
-                                                        isCurrentUser ? 'sent' : 'received'
+                                                        isCurrentUser ? 'received' : 'sent'
                                                     } ${isLastMessage ? 'last-message' : ''}`}
                                                 >
                                                     {msg.attachments &&

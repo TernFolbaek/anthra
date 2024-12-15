@@ -64,75 +64,78 @@ public class GroupsController : ControllerBase
         return string.CompareOrdinal(userA, userB) < 0 ? $"{userA}-{userB}" : $"{userB}-{userA}";
     }
 
-    [HttpPost("CreateGroup")]
-    public async Task<IActionResult> CreateGroup([FromBody] CreateGroupModel model)
+    // Controllers/GroupsController.cs
+
+[HttpPost("CreateGroup")]
+public async Task<IActionResult> CreateGroup([FromBody] CreateGroupModel model)
+{
+    var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var currentUserName = User.Identity.Name;
+
+    if (string.IsNullOrEmpty(model.Name))
     {
-        var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var currentUserName = User.Identity.Name;
+        return BadRequest("Group name is required.");
+    }
 
-        if (string.IsNullOrEmpty(model.Name))
-        {
-            return BadRequest("Group name is required.");
-        }
+    var group = new Group
+    {
+        Name = model.Name,
+        CreatorId = currentUserId,
+        adminName = model.AdminName,
+        GroupDescription = model.GroupDescription,
+        GroupPurpose = model.GroupPurpose,
+        GroupMemberDesire = model.GroupMemberDesire,
+        isPublic = model.isPublic,
+    };
 
-        var group = new Group
-        {
-            Name = model.Name,
-            CreatorId = currentUserId,
-            adminName = model.AdminName,
-            GroupDescription = model.GroupDescription,
-            GroupPurpose = model.GroupPurpose,
-            GroupMemberDesire = model.GroupMemberDesire,
-            isPublic = model.isPublic,
-        };
+    _context.Groups.Add(group);
+    await _context.SaveChangesAsync();
 
-        _context.Groups.Add(group);
-        await _context.SaveChangesAsync();
+    // Add the creator as an accepted member
+    var creatorMembership = new GroupMember
+    {
+        GroupId = group.Id,
+        UserId = currentUserId,
+        IsAccepted = true
+    };
+    _context.GroupMembers.Add(creatorMembership);
 
-        // Add the creator as an accepted member
-        var creatorMembership = new GroupMember
+    // Invite other users
+    foreach (var userId in model.InvitedUserIds)
+    {
+        var groupMember = new GroupMember
         {
             GroupId = group.Id,
-            UserId = currentUserId,
-            IsAccepted = true
+            UserId = userId,
+            IsAccepted = false
         };
-        _context.GroupMembers.Add(creatorMembership);
+        _context.GroupMembers.Add(groupMember);
 
-        // Invite other users
-        foreach (var userId in model.InvitedUserIds)
+        // Create the invitation message
+        var message = new Message
         {
-            var groupMember = new GroupMember
-            {
-                GroupId = group.Id,
-                UserId = userId,
-                IsAccepted = false
-            };
-            _context.GroupMembers.Add(groupMember);
+            SenderId = currentUserId,
+            ReceiverId = userId,
+            Content = model.GroupPurpose,
+            Timestamp = DateTime.UtcNow,
+            GroupId = group.Id,
+            GroupName = model.Name,
+            IsGroupInvitation = true,
+            ActionType = InvitationActionType.None,
+            InvitationStatus = false 
+        };
+        _context.Messages.Add(message);
 
-            // Send invitation message
-
-            var message = new Message
-            {
-                SenderId = currentUserId,
-                ReceiverId = userId,
-                Content = model.GroupPurpose,
-                Timestamp = DateTime.UtcNow,
-                GroupId = group.Id,
-                GroupName = model.Name,
-                IsGroupInvitation = true,
-            };
-            _context.Messages.Add(message);
-
-            // Send the invitation message via SignalR
-            var chatGroupId = GetChatGroupId(currentUserId, userId);
-            await _hubContext.Clients.Group(chatGroupId).SendAsync("ReceiveMessage", message);
-        }
-
-        await _context.SaveChangesAsync();
-
-        return Ok(group.Id);
+        // Send the invitation message via SignalR
+        var chatGroupId = GetChatGroupId(currentUserId, userId);
+        await _hubContext.Clients.Group(chatGroupId).SendAsync("ReceiveMessage", message);
     }
-    
+
+    await _context.SaveChangesAsync();
+
+    return Ok(group.Id);
+}
+
     [HttpGet("GetLatestGroupConversation")]
     public async Task<IActionResult> GetLatestGroupConversation(string userId)
     {
@@ -231,7 +234,8 @@ public class GroupsController : ControllerBase
 
         return Ok(groups);
     }
-    // Accept or decline group invitation
+    // Controllers/GroupsController.cs
+
     [HttpPost("RespondToInvitation")]
     public async Task<IActionResult> RespondToInvitation([FromBody] RespondToInvitationModel model)
     {
@@ -248,24 +252,41 @@ public class GroupsController : ControllerBase
         if (model.Accept)
         {
             groupMember.IsAccepted = true;
-            // Optionally, send a message to the group creator or members
+
+            // Update the corresponding message
+            var message = await _context.Messages
+                .FirstOrDefaultAsync(m => m.GroupId == model.GroupId && m.ReceiverId == currentUserId && m.IsGroupInvitation);
+
+            if (message != null)
+            {
+                message.ActionType = InvitationActionType.Accepted;
+                message.InvitationStatus = true;
+            }
+
+            // Optionally, notify group creator or other members via SignalR
+            // Example:
+            // await _hubContext.Clients.User(group.CreatorId).SendAsync("InvitationResponded", currentUserId, InvitationActionType.Accepted);
         }
         else
         {
             _context.GroupMembers.Remove(groupMember);
+
+            // Update the corresponding message
+            var message = await _context.Messages
+                .FirstOrDefaultAsync(m => m.GroupId == model.GroupId && m.ReceiverId == currentUserId && m.IsGroupInvitation);
+
+            if (message != null)
+            {
+                message.ActionType = InvitationActionType.Declined;
+                message.InvitationStatus = true;
+            }
         }
-
-        /*// Remove the invitation message
-        var invitationMessages = await _context.Messages
-            .Where(m => m.ReceiverId == currentUserId && m.IsGroupInvitation && m.GroupId == model.GroupId)
-            .ToListAsync();
-
-        _context.Messages.RemoveRange(invitationMessages);*/
 
         await _context.SaveChangesAsync();
 
         return Ok();
     }
+
     
     [HttpPost("UpdateGroup")]
     [Authorize]

@@ -1,4 +1,3 @@
-// Models/Message.cs
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
@@ -6,6 +5,15 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace MyBackendApp.Models
 {
+    public enum InvitationActionType
+    {
+        None,
+        Skipped,
+        Connected,
+        Accepted,
+        Declined
+    }
+
     public class Message
     {
         public int Id { get; set; }
@@ -36,5 +44,9 @@ namespace MyBackendApp.Models
         public bool IsReferralCard { get; set; }
 
         public Attachment? Attachment { get; set; }
+        
+        public bool? InvitationStatus { get; set; }
+        
+        public InvitationActionType ActionType { get; set; } = InvitationActionType.None;
     }
 }

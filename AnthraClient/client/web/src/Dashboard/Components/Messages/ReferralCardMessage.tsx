@@ -140,24 +140,22 @@ const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurren
         }
     }
 
-    // Determine the action message based on the ActionType
     const getActionMessage = () => {
-        const otherUser = isCurrentUser ? "You" : "Someone"; // Replace with dynamic current user name if available
         if (isCurrentUser) {
             switch (message.actionType) {
                 case InvitationActionType.Skipped:
                     return `You skipped ${referredUser.firstName}.`;
                 case InvitationActionType.Connected:
-                    return `Connection request sent to ${referredUser.firstName}.`;
+                    return `You sent a request to ${referredUser.firstName}.`;
                 default:
                     return null;
             }
         } else {
             switch (message.actionType) {
                 case InvitationActionType.Skipped:
-                    return `You were skipped by ${otherUser}.`;
+                    return `${referredUser.firstName} was skipped`;
                 case InvitationActionType.Connected:
-                    return `${otherUser} sent you a connection request.`;
+                    return `${referredUser.firstName} was sent a request.`;
                 default:
                     return null;
             }
@@ -165,36 +163,42 @@ const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurren
     }
 
     return (
-        <div onClick={() => handleUserSelect(referredUser.id)} className={`cursor-pointer referral-card-container ${isCurrentUser ? 'received' : 'sent'}`}>
+        <div onClick={() => handleUserSelect(referredUser.id)} className={`cursor-pointer bg-sky-50 referral-card-container ${isCurrentUser ? 'received' : 'sent'}`}>
             <div className="referral-card-details">
+
                 <div className="referral-user-info">
-                    <div className="referral-user-text">
-                        {!isCurrentUser ? (
-                            <p className="font-medium text-base ">
-                                You have referred{' '}
-                                <span className="p-1 rounded-md bg-sky-100 font-bold">{referredUser.firstName} {referredUser.lastName}</span>
-                            </p>
-                        ) : (
-                            <p className="font-medium text-base">
-                                You have been referred to{' '}
-                                <span className="bg-sky-100 p-1 rounded-md font-bold">{referredUser.firstName} {referredUser.lastName}</span>.
-                            </p>
-                        )}
-                    </div>
                     <div className="flex gap-2">
-                        <div className="flex flex-col items-center">
+                        <div className="bg-sky-100 mb-2 p-2 rounded-md flex flex-col items-center">
                             <img
                                 src={referredUser.profilePictureUrl}
                                 alt={`${referredUser.firstName} ${referredUser.lastName}`}
                                 className="referral-user-avatar"
                             />
-                            <p className="text-xs font-semibold hover:font-bold hover:cursor-pointer flex"> View Profile</p>
+                            <p className="text-xs font-semibold hover:font-bold hover:cursor-pointer flex"> View
+                                Profile</p>
                         </div>
-                        <div className="flex flex-col justify-start ">
-                            <p className="text-left font-semibold dark:text-white referral-user-location">{referredUser.institution}</p>
-                            {descriptionPreview && (
-                                <p className="font-medium referral-user-about">{descriptionPreview}</p>
-                            )}
+                        <div>
+                            <div >
+                                {!isCurrentUser ? (
+                                    <p className="font-medium text-sm ">
+                                        You have referred{' '}
+                                        <span
+                                            className="p-1 rounded-md bg-sky-100 font-bold">{referredUser.firstName} {referredUser.lastName}</span>
+                                    </p>
+                                ) : (
+                                    <p className="font-medium text-sm">
+                                        You have been referred to{' '}
+                                        <span
+                                            className="bg-sky-100 p-1 rounded-md font-bold">{referredUser.firstName} {referredUser.lastName}</span>.
+                                    </p>
+                                )}
+                            </div>
+                            <div className="">
+                                <p className="text-left font-semibold dark:text-white referral-user-location">{referredUser.institution}</p>
+                                {descriptionPreview && (
+                                    <p className="font-medium referral-user-about">{descriptionPreview}</p>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -202,7 +206,7 @@ const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurren
 
             {/* Display Action Message if InvitationStatus is true */}
             {message.invitationStatus && (
-                <div className="rounded-md w-full bg-slate-100 font-semibold text-base text-center p-1">
+                <div className="rounded-md w-full bg-slate-200 font-semibold text-base text-center p-1">
                     <p className="text-sm text-gray-600">{getActionMessage()}</p>
                 </div>
             )}

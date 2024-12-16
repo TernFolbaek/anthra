@@ -2,20 +2,11 @@
     padding: 15px;
     border-radius: 8px;
     width: 80%;
-    max-width: 400px;
+    max-width: 450px;
     margin: 10px auto;
     font-family: 'Montserrat', sans-serif;
-    border: 2px solid lightgray;
 }
 
-.referral-card-container.sent {
-    align-self: flex-end;
-}
-
-.referral-card-container.received {
-    align-self: flex-start;
-    background-color: #fff;
-}
 
 .referral-card-details {
     margin-top: 10px;
@@ -36,12 +27,6 @@
     object-fit: cover;
 }
 
-.referral-user-text {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-}
 
 .referral-user-name {
     text-align: center;

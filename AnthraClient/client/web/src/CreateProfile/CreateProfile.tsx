@@ -433,7 +433,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                         <div className="form-step">
                             <label htmlFor="aboutMe" className="input-label">
                                 About Me <span className="required-asterisk">*</span>
-                                <span className="font-medium text-xs"> min. 100 chars.</span>
+                                <span className="font-medium text-xs"> min. 150 chars.</span>
                             </label>
                             <div className="textarea-with-counter">
                                 <div className="char-counter">{aboutMe.length}/300</div>

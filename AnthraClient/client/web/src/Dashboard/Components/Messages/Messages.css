@@ -308,7 +308,7 @@ body.dark .message-input-container input {
 }
 
 .group-name-clickable {
-  color: rgb(67, 158, 246);
+  color: rgb(44, 145, 244);
   cursor: pointer;
 }
 
@@ -334,17 +334,6 @@ body.dark .group-name-clickable {
   background-repeat: repeat;
   background-position: center;
 }
-
-/* Dark mode styles */
-body.dark .invitation-message {
-  background-color: #2e2e2e;
-  border: 1px solid #9c9a9a;
-}
-
-body.dark .invitation-message p {
-  color: #fff;
-}
-
 
 .group-invitation-details {
   margin-top: 10px;

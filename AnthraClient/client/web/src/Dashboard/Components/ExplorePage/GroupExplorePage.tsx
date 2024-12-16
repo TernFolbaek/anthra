@@ -9,6 +9,8 @@ interface GroupMember {
     firstName: string;
     lastName: string;
     profilePictureUrl: string;
+    institution: string;
+    statuses: string[];
 }
 
 interface Group {
@@ -35,6 +37,7 @@ const GroupExplorePage: React.FC = () => {
                     },
                 });
                 setGroups(response.data);
+                console.log(response);
                 setCurrentIndex(0);
             } catch (error) {
                 console.error('Error fetching groups:', error);

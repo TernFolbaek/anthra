@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="diverse">
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/Messages.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/Messages.tsx" afterDir="false" />
+    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Status smaller, refined styling, more modern">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/GroupInvitationMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/GroupInvitationMessage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/Messages.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/Messages.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/ReferralCardMessage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/ReferralCardMessage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/ReferralCardMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/ReferralCardMessage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,71 +205,9 @@
       <workItem from="1733910078370" duration="8198000" />
       <workItem from="1733920368759" duration="1801000" />
       <workItem from="1733925229153" duration="41219000" />
-      <workItem from="1734049305262" duration="37659000" />
-    </task>
-    <task id="LOCAL-00543" summary="Higher font weight">
-      <option name="closed" value="true" />
-      <created>1733956519172</created>
-      <option name="number" value="00543" />
-      <option name="presentableId" value="LOCAL-00543" />
-      <option name="project" value="LOCAL" />
-      <updated>1733956519172</updated>
-    </task>
-    <task id="LOCAL-00544" summary="Remove console logs">
-      <option name="closed" value="true" />
-      <created>1733957672404</created>
-      <option name="number" value="00544" />
-      <option name="presentableId" value="LOCAL-00544" />
-      <option name="project" value="LOCAL" />
-      <updated>1733957672404</updated>
-    </task>
-    <task id="LOCAL-00545" summary="Remove double class">
-      <option name="closed" value="true" />
-      <created>1734012100730</created>
-      <option name="number" value="00545" />
-      <option name="presentableId" value="LOCAL-00545" />
-      <option name="project" value="LOCAL" />
-      <updated>1734012100730</updated>
-    </task>
-    <task id="LOCAL-00546" summary="won't render footer in message container, personal or in groups">
-      <option name="closed" value="true" />
-      <created>1734013121931</created>
-      <option name="number" value="00546" />
-      <option name="presentableId" value="LOCAL-00546" />
-      <option name="project" value="LOCAL" />
-      <updated>1734013121931</updated>
-    </task>
-    <task id="LOCAL-00547" summary="Make font smaller and remove shadow from status tags">
-      <option name="closed" value="true" />
-      <created>1734013131970</created>
-      <option name="number" value="00547" />
-      <option name="presentableId" value="LOCAL-00547" />
-      <option name="project" value="LOCAL" />
-      <updated>1734013131970</updated>
-    </task>
-    <task id="LOCAL-00548" summary="Remove whitespace">
-      <option name="closed" value="true" />
-      <created>1734040734195</created>
-      <option name="number" value="00548" />
-      <option name="presentableId" value="LOCAL-00548" />
-      <option name="project" value="LOCAL" />
-      <updated>1734040734195</updated>
-    </task>
-    <task id="LOCAL-00549" summary="Remove border from pfp">
-      <option name="closed" value="true" />
-      <created>1734040745150</created>
-      <option name="number" value="00549" />
-      <option name="presentableId" value="LOCAL-00549" />
-      <option name="project" value="LOCAL" />
-      <updated>1734040745150</updated>
-    </task>
-    <task id="LOCAL-00550" summary="Remove console log">
-      <option name="closed" value="true" />
-      <created>1734040753418</created>
-      <option name="number" value="00550" />
-      <option name="presentableId" value="LOCAL-00550" />
-      <option name="project" value="LOCAL" />
-      <updated>1734040753418</updated>
+      <workItem from="1734049305262" duration="42832000" />
+      <workItem from="1734343781870" duration="1761000" />
+      <workItem from="1734346167291" duration="851000" />
     </task>
     <task id="LOCAL-00551" summary="Remove useless comment">
       <option name="closed" value="true" />
@@ -595,7 +537,71 @@
       <option name="project" value="LOCAL" />
       <updated>1734299966898</updated>
     </task>
-    <option name="localTasksCounter" value="592" />
+    <task id="LOCAL-00592" summary="Add callback for rendering all messages">
+      <option name="closed" value="true" />
+      <created>1734302653231</created>
+      <option name="number" value="00592" />
+      <option name="presentableId" value="LOCAL-00592" />
+      <option name="project" value="LOCAL" />
+      <updated>1734302653231</updated>
+    </task>
+    <task id="LOCAL-00593" summary="Add callback for rendering all messages">
+      <option name="closed" value="true" />
+      <created>1734302656340</created>
+      <option name="number" value="00593" />
+      <option name="presentableId" value="LOCAL-00593" />
+      <option name="project" value="LOCAL" />
+      <updated>1734302656340</updated>
+    </task>
+    <task id="LOCAL-00594" summary="Only scroll to bottom once all referral messages and group invitations are rendered">
+      <option name="closed" value="true" />
+      <created>1734302675783</created>
+      <option name="number" value="00594" />
+      <option name="presentableId" value="LOCAL-00594" />
+      <option name="project" value="LOCAL" />
+      <updated>1734302675784</updated>
+    </task>
+    <task id="LOCAL-00595" summary="Fix to scrolling to bottom when fetching more messages">
+      <option name="closed" value="true" />
+      <created>1734302974528</created>
+      <option name="number" value="00595" />
+      <option name="presentableId" value="LOCAL-00595" />
+      <option name="project" value="LOCAL" />
+      <updated>1734302974528</updated>
+    </task>
+    <task id="LOCAL-00596" summary="Do not display loading as some groups can be deleted in the future">
+      <option name="closed" value="true" />
+      <created>1734345418744</created>
+      <option name="number" value="00596" />
+      <option name="presentableId" value="LOCAL-00596" />
+      <option name="project" value="LOCAL" />
+      <updated>1734345418744</updated>
+    </task>
+    <task id="LOCAL-00597" summary="Change color of group name clickable">
+      <option name="closed" value="true" />
+      <created>1734345433481</created>
+      <option name="number" value="00597" />
+      <option name="presentableId" value="LOCAL-00597" />
+      <option name="project" value="LOCAL" />
+      <updated>1734345433481</updated>
+    </task>
+    <task id="LOCAL-00598" summary="Style referral card with blue background and fix getActionMessage">
+      <option name="closed" value="true" />
+      <created>1734345452626</created>
+      <option name="number" value="00598" />
+      <option name="presentableId" value="LOCAL-00598" />
+      <option name="project" value="LOCAL" />
+      <updated>1734345452626</updated>
+    </task>
+    <task id="LOCAL-00599" summary="Status smaller, refined styling, more modern">
+      <option name="closed" value="true" />
+      <created>1734345468765</created>
+      <option name="number" value="00599" />
+      <option name="presentableId" value="LOCAL-00599" />
+      <option name="project" value="LOCAL" />
+      <updated>1734345468765</updated>
+    </task>
+    <option name="localTasksCounter" value="600" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -613,13 +619,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Style selected status tag" />
-    <MESSAGE value="Reduce z index" />
-    <MESSAGE value="Remove auto complete for country and city" />
-    <MESSAGE value="Change profile pictures for seed users" />
-    <MESSAGE value="Advanced -&gt; filters" />
-    <MESSAGE value="Functional cropping of profile picture for user creation" />
-    <MESSAGE value="Declare react modal" />
     <MESSAGE value="overflow hidden for explore page" />
     <MESSAGE value="Create no more groups to explore for groups explore page" />
     <MESSAGE value="If menu is in mobile view then no text" />
@@ -638,6 +637,13 @@
     <MESSAGE value="Immediate feedback of click event for referral connection or skip" />
     <MESSAGE value="Create file for shared types" />
     <MESSAGE value="diverse" />
-    <option name="LAST_COMMIT_MESSAGE" value="diverse" />
+    <MESSAGE value="Add callback for rendering all messages" />
+    <MESSAGE value="Only scroll to bottom once all referral messages and group invitations are rendered" />
+    <MESSAGE value="Fix to scrolling to bottom when fetching more messages" />
+    <MESSAGE value="Do not display loading as some groups can be deleted in the future" />
+    <MESSAGE value="Change color of group name clickable" />
+    <MESSAGE value="Style referral card with blue background and fix getActionMessage" />
+    <MESSAGE value="Status smaller, refined styling, more modern" />
+    <option name="LAST_COMMIT_MESSAGE" value="Status smaller, refined styling, more modern" />
   </component>
 </project>

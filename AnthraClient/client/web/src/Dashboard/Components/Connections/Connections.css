@@ -281,6 +281,7 @@ body.dark .requests-user-card:hover {
 .requests-user-info {
     display: flex;
     align-items: center;
+    font-size: 14px;
 }
 
 .requests-user-card-img {
@@ -380,7 +381,6 @@ body.dark .requests-user-card:hover {
     left: 50%;
 }
 
-
 .requests-connect-button:hover,
 .requests-skip-button:hover {
     opacity: 0.8;
@@ -394,15 +394,6 @@ body.dark .requests-connect-button {
 body.dark .requests-skip-button {
     background-color: #555;
     border: 2px solid #333;
-}
-
-.requests-group-section {
-    margin-top: 20px;
-}
-
-.requests-group-name {
-    margin-bottom: 10px;
-    color: #333;
 }
 
 body.dark .requests-group-name {
@@ -421,7 +412,6 @@ body.dark .no-group-text {
     .slide-toggle{
         margin: 5px auto;
     }
-
 
     .connections-card-container,
     .requests-card-container {
@@ -485,7 +475,6 @@ body.dark .no-group-text {
     .connections-page {
         margin: 0;
     }
-
 
     .connections-card-container,
     .requests-card-container {

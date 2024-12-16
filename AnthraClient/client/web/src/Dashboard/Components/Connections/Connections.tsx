@@ -270,7 +270,7 @@ const Connections: React.FC = () => {
 
     const renderConnections = () => (
         <div className="connections-card-container">
-            <p className="dark:text-white pl-2 pt-3 pb-2 text-xl font-bold">Connections</p>
+            <p className="dark:text-white p-1 pb-2 mt-2 text-xl font-bold">Connections</p>
             {connections.length === 0 ? (
                 <NoConnectionsRive/>
             ) : (
@@ -391,10 +391,10 @@ const Connections: React.FC = () => {
                     requests</p>
             ) : (
                 groupApplicationRequests.map((group) => (
-                    <div key={group.groupId} className="requests-group-section">
-                        <h3 className="requests-group-name">{group.groupName}</h3>
+                    <div key={group.groupId} className="requests-group-section rounded-md bg-sky-50 p-2 mb-2">
+                        <h3 className="mb-2 flex items-center text-sm font-semibold">Application to: <p className="p-1 m-2 bg-sky-100 w-fit rounded-md">{group.groupName}</p></h3>
                         {group.applications.map((application) => (
-                            <div key={application.requestId} className="requests-user-card">
+                            <div key={application.requestId} onClick={()=>{handleUserClick(application.applicantId)}} className="requests-user-card bg-white p-1 rounded-md">
                                 <div className="requests-user-info">
                                     <img
                                         className="requests-user-card-img"

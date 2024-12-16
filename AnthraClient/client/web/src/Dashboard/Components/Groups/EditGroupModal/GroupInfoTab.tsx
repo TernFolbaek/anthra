@@ -61,12 +61,12 @@ const GroupInfoTab: React.FC<GroupInfoTabProps> = ({
     };
 
     return (
-        <div className="edit-group-section">
+        <div className="edit-group-section z-10">
             <div className="flex items-center gap-2">
                 <FaHandPointer size={12}/>
                 <p className="font-bold text-sm">Group Name:</p>
             </div>
-            <div className="edit-group-field">
+            <div className="edit-group-field bg-slate-100 rounded-md">
                 {isEditingName ? (
                     <input
                         type="text"
@@ -77,7 +77,7 @@ const GroupInfoTab: React.FC<GroupInfoTabProps> = ({
                     />
                 ) : (
                     <div className="flex justify-between">
-                        <p onClick={() => setIsEditingName(true)}>{groupName}</p>
+                        <p className="w-full" onClick={() => setIsEditingName(true)}>{groupName}</p>
                     </div>
                 )}
             </div>
@@ -86,7 +86,7 @@ const GroupInfoTab: React.FC<GroupInfoTabProps> = ({
                 <FaHandPointer size={12}/>
                 <p className="font-bold text-sm">Description:</p>
             </div>
-            <div className="edit-group-field">
+            <div className="edit-group-field bg-slate-100 rounded-md">
                 {isEditingDescription ? (
                     <textarea
                         value={groupDescription}
@@ -96,7 +96,7 @@ const GroupInfoTab: React.FC<GroupInfoTabProps> = ({
                     />
                 ) : (
                     <div className="flex justify-between">
-                        <p onClick={() => setIsEditingDescription(true)}>{groupDescription}</p>
+                        <p className="w-full" onClick={() => setIsEditingDescription(true)}>{groupDescription}</p>
                     </div>
 
                 )}
@@ -105,7 +105,7 @@ const GroupInfoTab: React.FC<GroupInfoTabProps> = ({
                 <FaHandPointer size={12}/>
                 <p className="font-bold text-sm">What the group is looking for:</p>
             </div>
-            <div className="edit-group-field">
+            <div className="edit-group-field bg-slate-100 rounded-md">
                 {isEditingGroupMembersDesired ? (
                     <textarea
                         value={groupMembersDesired}
@@ -115,7 +115,7 @@ const GroupInfoTab: React.FC<GroupInfoTabProps> = ({
                     />
                 ) : (
                     <div className="flex justify-between">
-                        <p onClick={() => setIsEditingGroupMembersDesired(true)}>{groupMembersDesired}</p>
+                        <p className="w-full" onClick={() => setIsEditingGroupMembersDesired(true)}>{groupMembersDesired}</p>
                     </div>
                 )}
             </div>
@@ -128,8 +128,8 @@ const GroupInfoTab: React.FC<GroupInfoTabProps> = ({
                 />
             </div>
             <div className="edit-group-buttons">
-                <button className="bg-sky-100 hover:bg-sky-200 border text-sm rounded-md" onClick={handleSaveChanges}>Save Changes</button>
-                <button className="bg-slate-100 hover:bg-slate-200 border text-sm rounded-md"onClick={onClose}>Cancel</button>
+                <button className="bg-sky-100 text-blue-500 font-semibold hover:bg-sky-50  text-sm rounded-md" onClick={handleSaveChanges}>Save Changes</button>
+                <button className="bg-slate-100 font-semibold hover:bg-slate-200  text-sm rounded-md" onClick={onClose}>Cancel</button>
             </div>
 </div>
 )

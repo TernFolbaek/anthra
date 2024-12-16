@@ -173,7 +173,7 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
                             group:{' '}
                             <span
                                 onClick={() => handleUserClick(msg.groupId)}
-                                className="font-bold cursor-pointer group-name-clickable"
+                                className="p-1 bg-sky-200 rounded-md font-bold cursor-pointer group-name-clickable"
                             >
                                 {groupInfo.name}
                             </span>
@@ -228,13 +228,13 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
                         {!invitationStatus && (
                             <div className="flex justify-center gap-2">
                                 <button
-                                    className="p-2 hover:bg-sky-100 border-4 border-sky-300 rounded-md text-sm font-medium"
+                                    className="p-1 hover:bg-sky-100 border-4 border-sky-300 rounded-md text-sm font-semibold"
                                     onClick={onAccept}
                                 >
                                     Accept
                                 </button>
                                 <button
-                                    className="p-2 hover:bg-sky-200 bg-sky-400 rounded-md text-sm font-medium"
+                                    className="p-1 hover:bg-sky-200 bg-sky-400 rounded-md text-sm font-semibold"
                                     onClick={onDecline}
                                 >
                                     Decline

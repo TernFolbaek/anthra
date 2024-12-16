@@ -85,7 +85,7 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
     }, [msg.invitationStatus, msg.actionType]);
 
     if (!groupInfo) {
-        return <p>Loading group info...</p>;
+        return ;
     }
 
     const descriptionPreview =
@@ -157,11 +157,11 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
     }
 
     return (
-        <div className="invitation-message bg-amber-50">
-            <div className="bg-amber-100 min-w-[150px] rounded-md flex flex-col items-center justify-center" title={msg.content}>
+        <div className="invitation-message bg-sky-50">
+            <div className="bg-sky-100 min-w-[150px] rounded-md flex flex-col items-center justify-center" title={msg.content}>
                 {ThemeIcon}
                 <p className="text-xs text-center">
-                    Group Theme: <span className="text-black text-sm font-semibold">{msg.content}</span>
+                    Group Theme: <p className="text-black text-sm font-semibold">{msg.content}</p>
                 </p>
             </div>
             <div className="">
@@ -188,7 +188,7 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
                         </div>
                         {invitationStatus && (
                             <div className="action-message">
-                                <p className="text-sm text-gray-600 bg-gray-100 rounded-md p-1 text-center font-semibold mt-1">
+                                <p className="text-sm text-gray-600 bg-slate-200 rounded-md p-1 text-center font-semibold mt-1">
                                     {getActionMessage()}
                                 </p>
                             </div>
@@ -218,7 +218,7 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
                         {/* Display Action Message if InvitationStatus is true */}
                         {invitationStatus && (
                             <div className="action-message">
-                                <p className="text-sm text-gray-600 bg-gray-100 rounded-md p-1 text-center font-semibold mt-1">
+                                <p className="text-sm text-gray-600 bg-slate-200 rounded-md p-1 text-center font-semibold mt-1">
                                     {getActionMessage()}
                                 </p>
                             </div>
@@ -228,13 +228,13 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
                         {!invitationStatus && (
                             <div className="flex justify-center gap-2">
                                 <button
-                                    className="p-2 hover:bg-amber-100 bg-amber-200 rounded-md text-sm font-medium"
+                                    className="p-2 hover:bg-sky-100 border-4 border-sky-300 rounded-md text-sm font-medium"
                                     onClick={onAccept}
                                 >
                                     Accept
                                 </button>
                                 <button
-                                    className="p-2 hover:bg-amber-200 bg-amber-400 rounded-md text-sm font-medium"
+                                    className="p-2 hover:bg-sky-200 bg-sky-400 rounded-md text-sm font-medium"
                                     onClick={onDecline}
                                 >
                                     Decline

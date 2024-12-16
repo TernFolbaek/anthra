@@ -194,7 +194,7 @@ const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurren
                                 )}
                             </div>
                             <div className="">
-                                <p className="text-left font-semibold dark:text-white referral-user-location">{referredUser.institution}</p>
+                                <p className="bg-sky-100 w-fit p-1 rounded-md text-left font-semibold dark:text-white referral-user-location">{referredUser.institution}</p>
                                 {descriptionPreview && (
                                     <p className="font-medium referral-user-about">{descriptionPreview}</p>
                                 )}

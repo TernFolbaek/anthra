@@ -212,7 +212,7 @@ const UserExplorePage: React.FC = () => {
                                         {currentUser.statuses && currentUser.statuses.length > 0 && (
                                             <div className="user-explore-statuses">
                                                 <h3>Status</h3>
-                                                <div className="flex gap-2">
+                                                <div className="flex gap-2 text-xs text-center">
                                                     {currentUser.statuses.map((st, i) => (
                                                         <p
                                                             key={i}

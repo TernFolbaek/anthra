@@ -30,7 +30,7 @@ namespace MyBackendApp.Controllers
 
             // Get IDs of groups the user is already a member of
             var userGroupIds = await _context.GroupMembers
-                .Where(gm => gm.UserId == currentUserId)
+                .Where(gm => gm.UserId == currentUserId && gm.IsAccepted)
                 .Select(gm => gm.GroupId)
                 .ToListAsync();
 

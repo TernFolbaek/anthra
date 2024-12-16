@@ -65,6 +65,7 @@ const CropModal: React.FC<CropModalProps> = ({isOpen, imageSrc, onClose, onCropC
     };
 
     return (
+        // @ts-ignore
         <Modal
             isOpen={isOpen}
             onRequestClose={onClose}

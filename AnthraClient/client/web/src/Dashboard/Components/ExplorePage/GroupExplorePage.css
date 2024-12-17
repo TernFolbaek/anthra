@@ -167,6 +167,7 @@ body {
     justify-content: space-between;
     gap: 40px;
     margin-top: 20px;
+    height: 80%;
 }
 
 .group-explore-chart-wrapper {
@@ -177,7 +178,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 300px;
+    width: 48%;
 }
 
 .group-explore-chart-heading {
@@ -243,10 +244,13 @@ body {
     transform: translateY(-3px);
 }
 
-/* Responsive adjustments (if needed) */
 @media (max-width: 480px) {
     .group-explore-title {
         font-size: 1.5rem;
+    }
+    .group-explore-chart-wrapper {
+        height: 50%;
+        width: 100%;
     }
 
     .group-explore-button-container{

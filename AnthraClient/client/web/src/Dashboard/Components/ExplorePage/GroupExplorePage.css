@@ -1,117 +1,154 @@
-/* GroupExplorePage.css */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
+@import url('https://unpkg.com/leaflet@1.9.3/dist/leaflet.css');
 
-.group-explore-container {
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Container around the entire component */
+.group-explore-wrapper {
     display: flex;
     flex: 1;
     justify-content: center;
     align-items: center;
-    font-family: 'Montserrat', sans-serif;
     width: 100%;
 }
 
-.explore-group-card {
-    background: white;
+/* The card wrapper that holds both pages */
+.group-explore-card-wrapper {
+    background: #fff;
     color: #333;
     border-radius: 16px;
     width: 100%;
     max-width: 1000px;
     height: 700px;
-    text-align: left;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     transition: transform 0.2s ease-in-out;
-    position: relative;
 }
 
-/* Dark mode styles */
-body.dark .explore-group-card {
-    background: #2e2e2e;
-    color: #fff;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+/* Shake animation */
+.group-explore-shake {
+    animation: group-explore-shake 0.5s;
 }
 
-.explore-group-card-content {
+@keyframes group-explore-shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-10px); }
+    40% { transform: translateX(10px); }
+    60% { transform: translateX(-10px); }
+    80% { transform: translateX(10px); }
+    100% { transform: translateX(0); }
+}
+
+/* Page indicators (the two dots at the top) */
+.group-explore-page-indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 10px;
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    z-index: 5;
+}
+
+.group-explore-indicator {
+    width: 45%;
+    height: 6px;
+    background-color: rgb(243,243,243);
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+
+.group-explore-indicator.active {
+    background-color: rgba(167, 199, 250, 0.5);
+}
+
+/* Overlays for navigation */
+.group-explore-click-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 10;
+}
+
+.group-explore-click-area-left,
+.group-explore-click-area-right {
+    width: 50%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.group-explore-click-area-left {
+    left: 0;
+}
+
+.group-explore-click-area-right {
+    right: 0;
+}
+
+/* Page content styling */
+.group-explore-page-content {
+    padding: 50px;
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 15px;
-    height: 100%;
-    width: 100%;
-    padding: 25px;
+    justify-content: flex-start;
+    overflow: auto;
 }
 
-.group-explore-name {
+.group-explore-title {
     font-size: 1.8rem;
     font-weight: 700;
-    margin: 10px 0;
-    text-align: center;
 }
 
-/* Dark mode styles */
-body.dark .group-explore-name {
-    color: #fff;
+.group-explore-section-heading {
+    font-weight: 600;
+    color: #444;
+    margin-top: 20px;
+    margin-bottom: 5px;
 }
 
-.group-explore-description {
-    line-break: normal;
+.group-explore-description,
+.group-explore-member-desire {
     font-size: 1rem;
     color: #666;
 }
 
-/* Dark mode styles */
-body.dark .group-explore-description {
-    color: #ccc;
-}
-
-.group-explore-info h3 {
-    margin: 10px 0 5px;
-    font-weight: 600;
-    color: #444;
-}
-
-/* Dark mode styles */
-body.dark .group-explore-info h3 {
-    color: #ddd;
-}
-
-.group-explore-info p {
-    margin: 0 0 10px;
-    font-size: 0.95rem;
-    line-break: normal;
-    color: #555;
-}
-
-/* Dark mode styles */
-body.dark .group-explore-info p {
-    color: #ccc;
+/* Members section */
+.group-explore-info {
+    margin-top: 20px;
 }
 
 .group-explore-members-list {
     padding: 0;
     list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .group-explore-member-item {
     display: flex;
     align-items: center;
-    width: 50%;
+    width: calc(50% - 10px);
     padding: 5px;
     border-radius: 10px;
-    margin-bottom: 10px;
+    transition: background 0.2s;
+    z-index: 20;
 }
 
 .group-explore-member-item:hover {
     cursor: pointer;
     background: #ebf3fd;
-}
-
-/* Dark mode styles */
-body.dark .group-explore-member-item:hover {
-    background: #3a3a3a;
 }
 
 .group-explore-member-avatar {
@@ -123,6 +160,38 @@ body.dark .group-explore-member-item:hover {
     object-fit: cover;
 }
 
+/* Charts section */
+.group-explore-charts-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.group-explore-chart-wrapper {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 300px;
+}
+
+.group-explore-chart-heading {
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.group-explore-chart-content {
+    flex: 1;
+    position: relative;
+}
+
+/* Buttons */
 .group-explore-button-container {
     position: absolute;
     display: flex;
@@ -134,7 +203,6 @@ body.dark .group-explore-member-item:hover {
     bottom: 25px;
 }
 
-
 .group-explore-apply-button,
 .group-explore-skip-button {
     padding: 0.75rem 1.5rem;
@@ -144,26 +212,23 @@ body.dark .group-explore-member-item:hover {
     flex: 1;
     max-width: 200px;
     transition: all 0.3s ease;
-    display: inline-block;
     text-align: center;
     border: none;
     outline: none;
 }
 
-/* Connect Button */
 .group-explore-apply-button {
-    background-color: #007BFF; /* Modern blue color */
+    background-color: #007BFF;
     color: white;
     box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);
 }
 
 .group-explore-apply-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #0056b3;
     box-shadow: 0 8px 12px rgba(0, 123, 255, 0.2);
     transform: translateY(-3px);
 }
 
-/* Skip Button */
 .group-explore-skip-button {
     background-color: transparent;
     color: #007BFF;
@@ -178,127 +243,30 @@ body.dark .group-explore-member-item:hover {
     transform: translateY(-3px);
 }
 
-/* Dark mode styles */
-body.dark .group-explore-apply-button {
-    background-color: #0056b3;
-    box-shadow: 0 4px 6px rgba(0, 86, 179, 0.1);
-}
-
-body.dark .group-explore-apply-button:hover {
-    background-color: #004085;
-    box-shadow: 0 8px 12px rgba(0, 86, 179, 0.2);
-}
-
-body.dark .group-explore-skip-button {
-    color: #85bff8;
-    border: 2px solid #85bff8;
-    box-shadow: 0 4px 6px rgba(133, 191, 248, 0.1);
-}
-
-body.dark .group-explore-skip-button:hover {
-    background-color: #85bff8;
-    color: white;
-    box-shadow: 0 8px 12px rgba(133, 191, 248, 0.2);
-    transform: translateY(-3px);
-}
-
-.explore-group-card-content h3 {
-    margin: 10px 0 5px;
-    font-weight: 600;
-    color: #444;
-}
-
-/* Dark mode styles */
-body.dark .explore-group-card-content h3 {
-    color: #ddd;
-}
-
-.group-explore-no-more {
-    background: white;
-    padding: 25px;
-    border-radius: 16px;
-    width: 100%;
-    height: 100%;
-    max-width: 1000px;
-    min-height: 700px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    transition: transform 0.2s ease-in-out;
-    position: relative;
-}
-
-/* Dark mode styles */
-body.dark .group-explore-no-more {
-    background: #2e2e2e;
-    color: #fff;
-}
-
-/* For larger screens */
-@media (min-width: 768px) {
-    .explore-group-card {
-        flex-direction: row;
-        align-items: flex-start;
-    }
-
-    .explore-group-card-content {
-        margin-left: 25px;
-    }
-}
-
-/* For medium screens (tablets) */
-@media (max-width: 767px) {
-    .explore-group-card {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .explore-group-card-content {
-        margin-left: 0;
-    }
-
-    .group-explore-button-container {
-        width: 100%;
-    }
-
-    .group-explore-member-item {
-        width: 80%;
-    }
-
-}
-
-/* Adjust font sizes for mobile devices */
+/* Responsive adjustments (if needed) */
 @media (max-width: 480px) {
-    .group-explore-name {
+    .group-explore-title {
         font-size: 1.5rem;
-    }
-
-    .group-explore-skip-button, .group-explore-apply-button {
-        padding: 0.35rem 0.3rem;
-        font-weight: 600;
-    }
-
-    .explore-group-card-content{
-        padding: 15px;
     }
 
     .group-explore-button-container{
         bottom: 55px;
         justify-content: space-around;
         gap: 30px;
-        padding: 0 50px;
+        padding:0 20px;
     }
 
-    .explore-group-card{
-        height: fit-content;
+    .group-explore-apply-button,
+    .group-explore-skip-button {
+        padding: 0.5rem 1rem;
     }
 
-    .group-explore-info h3 {
-        font-size: 1rem;
+    .group-explore-charts-container {
+        flex-direction: column;
+        gap: 20px;
     }
 
-    .group-explore-info p {
-        font-size: 0.9rem;
+    .group-explore-card-wrapper{
+        height: 78vh;
     }
 }

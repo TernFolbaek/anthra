@@ -39,6 +39,7 @@ interface Group {
     name: string;
     groupDescription: string;
     groupMemberDesire: string;
+    groupPurpose: string;
     members: GroupMember[];
 }
 
@@ -249,11 +250,13 @@ const GroupExplorePage: React.FC = () => {
                                 <p className="group-explore-description">{currentGroup.groupDescription}</p>
                                 <h3 className="group-explore-section-heading">What the group is looking for:</h3>
                                 <p className="group-explore-member-desire break-all">{currentGroup.groupMemberDesire}</p>
+                                <h3 className="group-explore-section-heading">Group Purpose:</h3>
+                                <p className="group-explore-member-desire break-all">{currentGroup.groupPurpose}</p>
                                 <div className="group-explore-info">
                                     <h3 className="group-explore-section-heading">Members</h3>
                                     <ul className="group-explore-members-list">
                                         {currentGroup.members.map((member) => (
-                                            <li  onClick={() => handleUserClick(member.userId)} key={member.userId}
+                                            <li onClick={() => handleUserClick(member.userId)} key={member.userId}
                                                 className="group-explore-member-item bg-sky-50">
                                                 <img
                                                     className="group-explore-member-avatar"
@@ -302,7 +305,7 @@ const GroupExplorePage: React.FC = () => {
             {selectedUserId && (
                 <ViewProfile userId={selectedUserId} onClose={handleCloseProfile}/>
             )}
-
+            {currentGroup &&
             <div className="group-explore-button-container">
                 <button className="group-explore-apply-button" onClick={handleApply}>
                     Apply
@@ -311,6 +314,8 @@ const GroupExplorePage: React.FC = () => {
                     Skip
                 </button>
             </div>
+            }
+
         </div>
     );
 };

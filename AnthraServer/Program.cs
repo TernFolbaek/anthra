@@ -351,8 +351,16 @@ if (app.Environment.IsDevelopment())
         // Add the creators as members of their own groups
         db.Set<GroupMember>().AddRange(
             new GroupMember { GroupId = group1.Id, UserId = ternUser.Id, IsAccepted = true },
+            new GroupMember { GroupId = group1.Id, UserId = gabUser.Id, IsAccepted = true },
+            new GroupMember { GroupId = group1.Id, UserId = justinUser.Id, IsAccepted = true },
+
             new GroupMember { GroupId = group2.Id, UserId = gabUser.Id, IsAccepted = true },
-            new GroupMember { GroupId = group3.Id, UserId = justinUser.Id, IsAccepted = true }
+            new GroupMember { GroupId = group2.Id, UserId = gabUser.Id, IsAccepted = true },
+
+            new GroupMember { GroupId = group3.Id, UserId = justinUser.Id, IsAccepted = true },
+            new GroupMember { GroupId = group3.Id, UserId = ternUser.Id, IsAccepted = true },
+            new GroupMember { GroupId = group3.Id, UserId = gabUser.Id, IsAccepted = true }
+
         );
         await db.SaveChangesAsync();
 

@@ -16,10 +16,20 @@
     border-radius: 10px;
     padding: 30px;
     width: 95%;
-    height: fit-content;
     max-width: 600px;
     position: relative;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+#viewprofile .viewprofile-content {
+    text-align: center;
+    overflow-y: auto;
+    max-height: calc(100vh - 100px);
+    padding-right: 10px;
+}
+
+#viewprofile .viewprofile-content::-webkit-scrollbar {
+    display: none;
 }
 
 #viewprofile .viewprofile-connect-button{
@@ -179,6 +189,9 @@ body.dark #viewprofile .viewprofile-list li {
     #viewprofile .viewprofile-name{
         font-size: 1.2rem;
     }
+    #viewprofile .viewprofile-content {
+        height: fit-content;
+    }
 
     #viewprofile .viewprofile-location {
         font-size: 1rem;
@@ -187,4 +200,4 @@ body.dark #viewprofile .viewprofile-list li {
         width: 100px;
         height: 100px;
     }
-    }
+}

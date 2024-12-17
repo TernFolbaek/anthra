@@ -63,6 +63,7 @@ namespace MyBackendApp.Controllers
                             m.User.ProfilePictureUrl,
                             m.User.Institution,
                             m.User.Statuses,
+                            m.User.Location
                         })
                         .ToList()
                 })

@@ -319,7 +319,7 @@ body.dark .user-explore-no-more {
         padding:0 20px;
     }
     .explore-user-card {
-        min-height: fit-content;
+        min-height: 78vh;
         padding: 15px;
         position: relative;
     }

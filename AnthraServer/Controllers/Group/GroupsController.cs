@@ -331,9 +331,24 @@ public async Task<IActionResult> CreateGroup([FromBody] CreateGroupModel model)
 
         _context.GroupMembers.Remove(groupMember);
         await _context.SaveChangesAsync();
+        
+        var remainingMembers = await _context.GroupMembers
+            .Where(gm => gm.GroupId == model.GroupId && gm.IsAccepted)
+            .CountAsync();
+
+        if (remainingMembers == 0)
+        {
+            var group = await _context.Groups.FirstOrDefaultAsync(g => g.Id == model.GroupId);
+            if (group != null)
+            {
+                _context.Groups.Remove(group);
+                await _context.SaveChangesAsync();
+            }
+        }
 
         return Ok();
     }
+
     
     [HttpPost("KickMember")]
     [Authorize]

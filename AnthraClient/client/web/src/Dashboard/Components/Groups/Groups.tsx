@@ -101,7 +101,7 @@ const Groups: React.FC = () => {
 
     return (
         <div className="groups-page">
-            {connections.length > 0 ? (
+            {connections.length > 0 || groups.length > 0? (
                 <>
                     {(isWideScreen || !groupId) && (
                         <GroupsList
@@ -130,7 +130,7 @@ const Groups: React.FC = () => {
                 </>
             ) : (
                 <>
-                    {(isWideScreen ) && (
+                    {(isWideScreen) && (
                         <>
                             <GroupsList
                                 groups={groups}

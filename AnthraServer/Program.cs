@@ -284,10 +284,10 @@ if (app.Environment.IsDevelopment())
                 Work = "Freelance Developer", 
                 Courses = new List<Course> 
                 {
-                    new Course { CourseName = "Mobile App  erfq rfqefrqf rqfDevelopment", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+                    new Course { CourseName = "Mobile App Development", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
                     new Course { CourseName = "Cybersecurity", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
-                    new Course { CourseName = "Mobile App erfqoerinf erfqeDevelopment", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
-                    new Course { CourseName = "Mobileqeo rfnporeinfornf qonrfpoqinrefponreopfinq App Development", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+                    new Course { CourseName = "Mobile App Development", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+                    new Course { CourseName = "App Development", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
                 }, 
                 Subjects = new List<string> { "Mobile Development", "Cybersecurity" },
                 Statuses = new List<string> { "examp prepping", "on exchange", "official exchange" },

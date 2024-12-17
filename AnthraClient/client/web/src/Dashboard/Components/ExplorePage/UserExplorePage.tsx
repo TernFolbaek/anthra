@@ -185,6 +185,9 @@ const UserExplorePage: React.FC = () => {
                                 </div>
                             ) : (
                                 <div className="page-content page-2">
+                                    <h2 className="user-name">
+                                        {currentUser.firstName} {currentUser.lastName}, {currentUser.age}
+                                    </h2>
                                     <div className="user-info">
                                         {currentUser.subjects && currentUser.subjects.length > 0 && (
                                             <div>

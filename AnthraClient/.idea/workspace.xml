@@ -4,12 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Status smaller, refined styling, more modern">
+    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Add charts for status and institution">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/GroupInvitationMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/GroupInvitationMessage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/Messages.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/Messages.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/ReferralCardMessage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/ReferralCardMessage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/ReferralCardMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/ReferralCardMessage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ViewProfile/ViewProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ViewProfile/ViewProfile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/Controllers/Group/GroupsExploreController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Controllers/Group/GroupsExploreController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,110 +213,9 @@
       <workItem from="1734049305262" duration="42832000" />
       <workItem from="1734343781870" duration="1761000" />
       <workItem from="1734346167291" duration="851000" />
-    </task>
-    <task id="LOCAL-00551" summary="Remove useless comment">
-      <option name="closed" value="true" />
-      <created>1734040762729</created>
-      <option name="number" value="00551" />
-      <option name="presentableId" value="LOCAL-00551" />
-      <option name="project" value="LOCAL" />
-      <updated>1734040762729</updated>
-    </task>
-    <task id="LOCAL-00552" summary="Fix margin so it does not create too much space between cards">
-      <option name="closed" value="true" />
-      <created>1734040777160</created>
-      <option name="number" value="00552" />
-      <option name="presentableId" value="LOCAL-00552" />
-      <option name="project" value="LOCAL" />
-      <updated>1734040777160</updated>
-    </task>
-    <task id="LOCAL-00553" summary="Style status tag so it more subtle">
-      <option name="closed" value="true" />
-      <created>1734040795861</created>
-      <option name="number" value="00553" />
-      <option name="presentableId" value="LOCAL-00553" />
-      <option name="project" value="LOCAL" />
-      <updated>1734040795861</updated>
-    </task>
-    <task id="LOCAL-00554" summary="Add View profile to ReferralCardMessage and style the card">
-      <option name="closed" value="true" />
-      <created>1734040814497</created>
-      <option name="number" value="00554" />
-      <option name="presentableId" value="LOCAL-00554" />
-      <option name="project" value="LOCAL" />
-      <updated>1734040814497</updated>
-    </task>
-    <task id="LOCAL-00555" summary="Remove pointless import">
-      <option name="closed" value="true" />
-      <created>1734040820324</created>
-      <option name="number" value="00555" />
-      <option name="presentableId" value="LOCAL-00555" />
-      <option name="project" value="LOCAL" />
-      <updated>1734040820324</updated>
-    </task>
-    <task id="LOCAL-00556" summary="Style snackbar">
-      <option name="closed" value="true" />
-      <created>1734040831956</created>
-      <option name="number" value="00556" />
-      <option name="presentableId" value="LOCAL-00556" />
-      <option name="project" value="LOCAL" />
-      <updated>1734040831956</updated>
-    </task>
-    <task id="LOCAL-00557" summary="Reset animation when new snackbar comes">
-      <option name="closed" value="true" />
-      <created>1734040863605</created>
-      <option name="number" value="00557" />
-      <option name="presentableId" value="LOCAL-00557" />
-      <option name="project" value="LOCAL" />
-      <updated>1734040863605</updated>
-    </task>
-    <task id="LOCAL-00558" summary="Remove excess styling">
-      <option name="closed" value="true" />
-      <created>1734040873533</created>
-      <option name="number" value="00558" />
-      <option name="presentableId" value="LOCAL-00558" />
-      <option name="project" value="LOCAL" />
-      <updated>1734040873533</updated>
-    </task>
-    <task id="LOCAL-00559" summary="Style connect button for view profile">
-      <option name="closed" value="true" />
-      <created>1734040885243</created>
-      <option name="number" value="00559" />
-      <option name="presentableId" value="LOCAL-00559" />
-      <option name="project" value="LOCAL" />
-      <updated>1734040885243</updated>
-    </task>
-    <task id="LOCAL-00560" summary="Add connect, remove connect and status of the current user to the profile they are viewing">
-      <option name="closed" value="true" />
-      <created>1734040903208</created>
-      <option name="number" value="00560" />
-      <option name="presentableId" value="LOCAL-00560" />
-      <option name="project" value="LOCAL" />
-      <updated>1734040903208</updated>
-    </task>
-    <task id="LOCAL-00561" summary="Return user.Id when fetching profile by id">
-      <option name="closed" value="true" />
-      <created>1734041014445</created>
-      <option name="number" value="00561" />
-      <option name="presentableId" value="LOCAL-00561" />
-      <option name="project" value="LOCAL" />
-      <updated>1734041014445</updated>
-    </task>
-    <task id="LOCAL-00562" summary="Add remove connection request and fetch status on connection request endpoints">
-      <option name="closed" value="true" />
-      <created>1734041041038</created>
-      <option name="number" value="00562" />
-      <option name="presentableId" value="LOCAL-00562" />
-      <option name="project" value="LOCAL" />
-      <updated>1734041041038</updated>
-    </task>
-    <task id="LOCAL-00563" summary="Delete cascade message attachments">
-      <option name="closed" value="true" />
-      <created>1734041050061</created>
-      <option name="number" value="00563" />
-      <option name="presentableId" value="LOCAL-00563" />
-      <option name="project" value="LOCAL" />
-      <updated>1734041050061</updated>
+      <workItem from="1734349476468" duration="3984000" />
+      <workItem from="1734357380289" duration="12834000" />
+      <workItem from="1734430162329" duration="888000" />
     </task>
     <task id="LOCAL-00564" summary="Reload page after deletion of account">
       <option name="closed" value="true" />
@@ -601,7 +505,111 @@
       <option name="project" value="LOCAL" />
       <updated>1734345468765</updated>
     </task>
-    <option name="localTasksCounter" value="600" />
+    <task id="LOCAL-00600" summary="Remove invitation styling for dark mode">
+      <option name="closed" value="true" />
+      <created>1734350463486</created>
+      <option name="number" value="00600" />
+      <option name="presentableId" value="LOCAL-00600" />
+      <option name="project" value="LOCAL" />
+      <updated>1734350463487</updated>
+    </task>
+    <task id="LOCAL-00601" summary="Add background color to group name">
+      <option name="closed" value="true" />
+      <created>1734350473088</created>
+      <option name="number" value="00601" />
+      <option name="presentableId" value="LOCAL-00601" />
+      <option name="project" value="LOCAL" />
+      <updated>1734350473088</updated>
+    </task>
+    <task id="LOCAL-00602" summary="Remove unwished styling">
+      <option name="closed" value="true" />
+      <created>1734350483095</created>
+      <option name="number" value="00602" />
+      <option name="presentableId" value="LOCAL-00602" />
+      <option name="project" value="LOCAL" />
+      <updated>1734350483095</updated>
+    </task>
+    <task id="LOCAL-00603" summary="Add background color to institution">
+      <option name="closed" value="true" />
+      <created>1734350503122</created>
+      <option name="number" value="00603" />
+      <option name="presentableId" value="LOCAL-00603" />
+      <option name="project" value="LOCAL" />
+      <updated>1734350503122</updated>
+    </task>
+    <task id="LOCAL-00604" summary="Color white when body is dark status tag explore">
+      <option name="closed" value="true" />
+      <created>1734350516214</created>
+      <option name="number" value="00604" />
+      <option name="presentableId" value="LOCAL-00604" />
+      <option name="project" value="LOCAL" />
+      <updated>1734350516214</updated>
+    </task>
+    <task id="LOCAL-00605" summary="Fix view profile">
+      <option name="closed" value="true" />
+      <created>1734350522004</created>
+      <option name="number" value="00605" />
+      <option name="presentableId" value="LOCAL-00605" />
+      <option name="project" value="LOCAL" />
+      <updated>1734350522004</updated>
+    </task>
+    <task id="LOCAL-00606" summary="Fix styling for edit group modal">
+      <option name="closed" value="true" />
+      <created>1734351291717</created>
+      <option name="number" value="00606" />
+      <option name="presentableId" value="LOCAL-00606" />
+      <option name="project" value="LOCAL" />
+      <updated>1734351291717</updated>
+    </task>
+    <task id="LOCAL-00607" summary="Show groups on explore page that user has been invited to but not accepted">
+      <option name="closed" value="true" />
+      <created>1734351312448</created>
+      <option name="number" value="00607" />
+      <option name="presentableId" value="LOCAL-00607" />
+      <option name="project" value="LOCAL" />
+      <updated>1734351312448</updated>
+    </task>
+    <task id="LOCAL-00608" summary="Return institution and statuses">
+      <option name="closed" value="true" />
+      <created>1734352795570</created>
+      <option name="number" value="00608" />
+      <option name="presentableId" value="LOCAL-00608" />
+      <option name="project" value="LOCAL" />
+      <updated>1734352795570</updated>
+    </task>
+    <task id="LOCAL-00609" summary="Synchronize 150 chars creation of profile">
+      <option name="closed" value="true" />
+      <created>1734353669735</created>
+      <option name="number" value="00609" />
+      <option name="presentableId" value="LOCAL-00609" />
+      <option name="project" value="LOCAL" />
+      <updated>1734353669735</updated>
+    </task>
+    <task id="LOCAL-00610" summary="Add view Profile to Connections.tsx">
+      <option name="closed" value="true" />
+      <created>1734388147129</created>
+      <option name="number" value="00610" />
+      <option name="presentableId" value="LOCAL-00610" />
+      <option name="project" value="LOCAL" />
+      <updated>1734388147129</updated>
+    </task>
+    <task id="LOCAL-00611" summary="Add ignore error">
+      <option name="closed" value="true" />
+      <created>1734388156484</created>
+      <option name="number" value="00611" />
+      <option name="presentableId" value="LOCAL-00611" />
+      <option name="project" value="LOCAL" />
+      <updated>1734388156484</updated>
+    </task>
+    <task id="LOCAL-00612" summary="Add charts for status and institution">
+      <option name="closed" value="true" />
+      <created>1734431420298</created>
+      <option name="number" value="00612" />
+      <option name="presentableId" value="LOCAL-00612" />
+      <option name="project" value="LOCAL" />
+      <updated>1734431420298</updated>
+    </task>
+    <option name="localTasksCounter" value="613" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -619,19 +627,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="overflow hidden for explore page" />
-    <MESSAGE value="Create no more groups to explore for groups explore page" />
-    <MESSAGE value="If menu is in mobile view then no text" />
-    <MESSAGE value="Style invitation button" />
-    <MESSAGE value="Advanced -&gt; filtering settings" />
-    <MESSAGE value="Add crop profile picture to stepOne of creating profile" />
-    <MESSAGE value="Far better styling for mobile view where each card is two pages long" />
-    <MESSAGE value="Change statuses of seed users" />
-    <MESSAGE value="Add invitation status to message model" />
-    <MESSAGE value="Removed shared types and add group themes" />
-    <MESSAGE value="Add invitation status to message model and action types" />
-    <MESSAGE value="Style invitation message" />
-    <MESSAGE value="Removed shared types and updated referral connection events" />
     <MESSAGE value="Delete message and update message endpoints" />
     <MESSAGE value="Style referral card" />
     <MESSAGE value="Immediate feedback of click event for referral connection or skip" />
@@ -644,6 +639,19 @@
     <MESSAGE value="Change color of group name clickable" />
     <MESSAGE value="Style referral card with blue background and fix getActionMessage" />
     <MESSAGE value="Status smaller, refined styling, more modern" />
-    <option name="LAST_COMMIT_MESSAGE" value="Status smaller, refined styling, more modern" />
+    <MESSAGE value="Remove invitation styling for dark mode" />
+    <MESSAGE value="Add background color to group name" />
+    <MESSAGE value="Remove unwished styling" />
+    <MESSAGE value="Add background color to institution" />
+    <MESSAGE value="Color white when body is dark status tag explore" />
+    <MESSAGE value="Fix view profile" />
+    <MESSAGE value="Fix styling for edit group modal" />
+    <MESSAGE value="Show groups on explore page that user has been invited to but not accepted" />
+    <MESSAGE value="Return institution and statuses" />
+    <MESSAGE value="Synchronize 150 chars creation of profile" />
+    <MESSAGE value="Add view Profile to Connections.tsx" />
+    <MESSAGE value="Add ignore error" />
+    <MESSAGE value="Add charts for status and institution" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add charts for status and institution" />
   </component>
 </project>

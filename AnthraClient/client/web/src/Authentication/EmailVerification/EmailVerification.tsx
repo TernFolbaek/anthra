@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import './EmailVerification.css';
-import { useRive, useStateMachineInput } from '@rive-app/react-canvas';
 
 interface EmailVerificationProps {
     userId: string;
@@ -15,13 +14,6 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({ userId, onVerifie
     const [message, setMessage] = useState<string | null>(null);
 
     const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
-
-    const STATE_MACHINE_NAME = 'State Machine 1';
-    const { rive, RiveComponent } = useRive({
-        src: '/rive/520-990-teddy-login-screen.riv',
-        autoplay: true,
-        stateMachines: STATE_MACHINE_NAME,
-    });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
         const value = e.target.value;
@@ -42,6 +34,23 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({ userId, onVerifie
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
         if (e.key === 'Backspace' && verificationCode[index] === '' && index > 0) {
             inputRefs.current[index - 1]?.focus();
+        }
+    };
+
+    const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+        const pasteData = e.clipboardData.getData('Text');
+        if (/^\d{6}$/.test(pasteData)) {
+            const digits = pasteData.split('');
+            setVerificationCode(digits);
+            digits.forEach((digit, idx) => {
+                if (inputRefs.current[idx]) {
+                    inputRefs.current[idx]!.value = digit;
+                }
+            });
+            // Prevent the default paste behavior
+            e.preventDefault();
+            // Move focus to the last input
+            inputRefs.current[5]?.focus();
         }
     };
 
@@ -67,7 +76,6 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({ userId, onVerifie
                     }
                 }
             );
-            const userProfile = profileResponse.data;
             localStorage.setItem('userProfilePicture', `${profileResponse.data.profilePictureUrl}`);
 
             onVerified();
@@ -92,12 +100,9 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({ userId, onVerifie
             <button className="back-button" onClick={onBack}>
                 Back
             </button>
-            <div>
-                <RiveComponent className="teddy-bear-rive" />
-            </div>
             <div className="verification-container">
-                <h2>Verify Email Address</h2>
-                <p>Please enter the verification code sent to your email.</p>
+                <h2>Verify Your Email</h2>
+                <p>Enter the 6-digit code we sent to your email:</p>
                 <div className="otp-container">
                     {verificationCode.map((value, index) => (
                         <input
@@ -107,6 +112,7 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({ userId, onVerifie
                             value={value}
                             onChange={(e) => handleChange(e, index)}
                             onKeyDown={(e) => handleKeyDown(e, index)}
+                            onPaste={index === 0 ? handlePaste : undefined}
                             ref={(el) => (inputRefs.current[index] = el)}
                             autoFocus={index === 0}
                             className="otp-input"
@@ -114,7 +120,7 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({ userId, onVerifie
                     ))}
                 </div>
                 <button onClick={handleVerifyEmail} className="submit-button">Verify</button>
-                <button onClick={handleResendVerificationCode} className="submit-button">Resend Code</button>
+                <button onClick={handleResendVerificationCode} className="resend-button">Resend Code</button>
                 {error && <p className="error-message">{error}</p>}
                 {message && <p className="success-message">{message}</p>}
             </div>

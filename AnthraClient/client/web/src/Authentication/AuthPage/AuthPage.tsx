@@ -1,11 +1,12 @@
+// AuthPage.tsx
 import './AuthPage.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
-import { useRive, useStateMachineInput } from '@rive-app/react-canvas';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
 import ResetPassword from '../ResetPassword/ResetPassword';
 import EmailVerification from '../EmailVerification/EmailVerification';
+import { FaCheck, FaTimes } from 'react-icons/fa'; // Import check and times icons
 
 interface AuthPageProps {
     onBackClick: () => void;
@@ -24,6 +25,13 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
     const [showEmailVerification, setShowEmailVerification] = useState(false);
     const [userId, setUserId] = useState('');
 
+    // New state variables for validation
+    const [isUsernameValid, setIsUsernameValid] = useState(false);
+    const [isPasswordLengthValid, setIsPasswordLengthValid] = useState(false);
+    const [hasUppercase, setHasUppercase] = useState(false);
+    const [hasDigit, setHasDigit] = useState(false);
+    const [hasSpecialChar, setHasSpecialChar] = useState(false);
+
     const switchAuthMode = () => {
         setIsSignUp(!isSignUp);
         setUsername('');
@@ -40,18 +48,17 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
             try {
                 const backendResponse = await axios.post(
                     'http://localhost:5001/api/Auth/GoogleLogin',
-                    {tokenId},
+                    { tokenId },
                     {
                         headers: {
                             'Content-Type': 'application/json',
                         }
                     }
                 );
-                const {token, userId, fullName} = backendResponse.data;
+                const { token, userId, fullName } = backendResponse.data;
                 localStorage.setItem('token', token);
                 localStorage.setItem('userId', userId);
                 localStorage.setItem('fullName', fullName);
-
 
                 const profileResponse = await axios.get(
                     'http://localhost:5001/api/Profile/GetProfile',
@@ -69,7 +76,8 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
             }
         } else {
             setError('Google login failed.');
-        }    };
+        }
+    };
 
     const handleGoogleFailure = () => {
         setError('Google login failed.');
@@ -88,11 +96,30 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
         return username.length >= 5;
     };
 
+    const validatePassword = (password: string): void => {
+        setIsPasswordLengthValid(password.length >= 6);
+        setHasUppercase(/[A-Z]/.test(password));
+        setHasDigit(/\d/.test(password));
+        setHasSpecialChar(/[^A-Za-z0-9]/.test(password));
+    };
+
+    useEffect(() => {
+        if (isSignUp) {
+            setIsUsernameValid(validateUsername(username));
+            validatePassword(password);
+        }
+    }, [username, password, isSignUp]);
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!validateUsername(username)) {
+        if (isSignUp && !isUsernameValid) {
             setError("Username must be at least 5 characters long.");
+            return;
+        }
+
+        if (isSignUp && (!isPasswordLengthValid || !hasUppercase || !hasDigit || !hasSpecialChar)) {
+            setError("Password does not meet the required criteria.");
             return;
         }
 
@@ -128,84 +155,34 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                 );
                 const userProfile = profileResponse.data;
                 localStorage.setItem('userProfilePicture', `${profileResponse.data.profilePictureUrl}`);
-                triggerSuccess();
                 onAuthSuccess(userProfile.createdProfile);
             }
-        }  catch (err: any) {
-        triggerFail();
-        if (axios.isAxiosError(err) && err.response) {
-            const errorData = err.response.data;
+        } catch (err: any) {
+            if (axios.isAxiosError(err) && err.response) {
+                const errorData = err.response.data;
 
-            if (errorData === 'Email not verified.') {
-                setError('Please verify your email before logging in.');
-            } else if (errorData.errors) {
-                setError(errorData.errors[0]);
+                if (errorData === 'Email not verified.') {
+                    setError('Please verify your email before logging in.');
+                } else if (errorData.errors) {
+                    setError(errorData.errors[0]);
+                } else {
+                    setError('An error occurred. Please try again.');
+                }
             } else {
                 setError('An error occurred. Please try again.');
             }
-        } else {
-            setError('An error occurred. Please try again.');
-        }
-        setMessage(null);
-    }
-    };
-
-    const handleEmailVerified = () => {
-        setShowEmailVerification(false);
-        triggerSuccess();
-        onAuthSuccess(false); // Assuming profile is not created yet
-    };
-
-    const STATE_MACHINE_NAME = 'State Machine 1';
-    const { rive, RiveComponent } = useRive({
-        src: '/rive/520-990-teddy-login-screen.riv',
-        autoplay: true,
-        stateMachines: STATE_MACHINE_NAME,
-    });
-    useEffect(() => {
-        setLook();
-    }, [username]);
-
-    const stateSuccess = useStateMachineInput(rive, STATE_MACHINE_NAME, 'success');
-    const stateFail = useStateMachineInput(rive, STATE_MACHINE_NAME, 'fail');
-    const stateHandUp = useStateMachineInput(rive, STATE_MACHINE_NAME, 'hands_up');
-    const stateCheck = useStateMachineInput(rive, STATE_MACHINE_NAME, 'Check');
-    const stateLook = useStateMachineInput(rive, STATE_MACHINE_NAME, 'Look');
-
-    const triggerSuccess = () => {
-        stateSuccess && stateSuccess.fire();
-    };
-    const triggerFail = () => {
-        stateFail && stateFail.fire();
-    };
-
-    const setHangUp = (hangUp: any) => {
-        stateHandUp && (stateHandUp.value = hangUp);
-    };
-
-    const setLook = () => {
-        if (!stateLook || !stateCheck || !setHangUp) {
-            return;
-        }
-        setHangUp(false);
-        setCheck(true);
-        let nbChars = 0;
-        if (username) {
-            nbChars = username.split('').length;
-        }
-        let ratio = nbChars / parseFloat('41');
-        let lookToSet = ratio * 100 - 25;
-        stateLook.value = Math.round(lookToSet);
-    };
-    const setCheck = (check: any) => {
-        if (stateCheck) {
-            stateCheck.value = check;
+            setMessage(null);
         }
     };
-
     const handleForgotPasswordSuccess = () => {
         setShowForgotPassword(false);
         setShowResetPassword(true);
+    };
+
+
+    const handleEmailVerified = () => {
+        setShowEmailVerification(false);
+        onAuthSuccess(false); // Assuming profile is not created yet
     };
 
     if (showForgotPassword) {
@@ -240,74 +217,98 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
             <button className="back-button" onClick={goBack}>
                 Back
             </button>
-            <div>
-                <div>
-                    <RiveComponent className="teddy-bear-rive"/>
+            <div className="auth-container">
+                <h2 className="auth-container-h2">{isSignUp ? 'Sign Up' : 'Log In'}</h2>
+
+                {message && <p className="success-message">{message}</p>}
+                {error && <p className="error-message">{error}</p>}
+
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        placeholder="Username"
+                        required
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        className="auth-input"
+                    />
+                    {isSignUp && (
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            required
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="auth-input"
+                        />
+                    )}
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        required
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="auth-input"
+                    />
+                    <button type="submit" className="submit-button">
+                        {isSignUp ? 'Sign Up' : 'Log In'}
+                    </button>
+                    {!isSignUp && (
+                        <p className="auth-container-p">
+                            <button
+                                type="button"
+                                className="forgot-password-button"
+                                onClick={() => setShowForgotPassword(true)}
+                            >
+                                Forgot Password?
+                            </button>
+                        </p>
+                    )}
+                </form>
+                <div className="social-login">
+                    <GoogleLogin
+                        onSuccess={handleGoogleSuccess}
+                        onError={handleGoogleFailure}
+                    />
                 </div>
-                <div className="auth-container">
-                    <h2 className="auth-container-h2">{isSignUp ? 'Sign Up' : 'Log In'}</h2>
 
-                    {message && <p className="success-message">{message}</p>}
-                    {error && <p className="error-message">{error}</p>}
+                <p className="auth-container-p">
+                    {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
+                    <button className="switch-button" onClick={switchAuthMode}>
+                        {isSignUp ? 'Log In' : 'Sign Up'}
+                    </button>
+                </p>
 
-                    <form onSubmit={handleSubmit}>
-                        <input
-                            type="text"
-                            placeholder="Username"
-                            required
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                        {isSignUp && (
-                            <input
-                                type="email"
-                                placeholder="Email"
-                                required
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                        )}
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            required
-                            value={password}
-                            onChange={(e) => {
-                                setPassword(e.target.value);
-                                setHangUp(true);
-                            }}
-                        />
-                        <button type="submit" className="submit-button">
-                            {isSignUp ? 'Sign Up' : 'Log In'}
-                        </button>
-                        {!isSignUp && (
-                            <p className="auth-container-p">
-                                <button
-                                    className="forgot-password-button"
-                                    onClick={() => setShowForgotPassword(true)}
-                                >
-                                    Forgot Password?
-                                </button>
-                            </p>
-                        )}
-                    </form>
-                    <div className="social-login">
-                        <GoogleLogin
-                            onSuccess={handleGoogleSuccess}
-                            onError={handleGoogleFailure}
-                        />
+                {/* Validation Checkboxes */}
+                {isSignUp && (
+                    <div className="validation-container">
+                        <div className="w-full border-t border-gray-300 mb-2"></div>
+                        <p className={`validation-item font-semibold ${isUsernameValid ? 'text-green-400' : 'text-red-400'}`}>
+                            {isUsernameValid ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
+                            Username is at least 5 characters
+                        </p>
+                        <p className={`validation-item font-semibold ${isPasswordLengthValid ? 'text-green-400' : 'text-red-400'}`}>
+                            {isPasswordLengthValid ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
+                            Password is at least 6 characters
+                        </p>
+                        <p className={`validation-item font-semibold ${hasUppercase ? 'text-green-400' : 'text-red-400'}`}>
+                            {hasUppercase ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
+                            Password has at least one uppercase letter
+                        </p>
+                        <p className={`validation-item font-semibold ${hasDigit ? 'text-green-400' : 'text-red-400'}`}>
+                            {hasDigit ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
+                            Password has at least one digit
+                        </p>
+                        <p className={`validation-item font-semibold ${hasSpecialChar ? 'text-green-400' : 'text-red-400'}`}>
+                            {hasSpecialChar ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
+                            Password has at least one special character
+                        </p>
                     </div>
-
-                    <p className="auth-container-p">
-                        {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
-                        <button className="switch-button" onClick={switchAuthMode}>
-                            {isSignUp ? 'Log In' : 'Sign Up'}
-                        </button>
-                    </p>
-                </div>
+                )}
             </div>
         </div>
     );
+
 };
 
 export default AuthPage;

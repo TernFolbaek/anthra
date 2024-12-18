@@ -32,6 +32,10 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
     const [hasDigit, setHasDigit] = useState(false);
     const [hasSpecialChar, setHasSpecialChar] = useState(false);
 
+    // New state variables for tracking if user has interacted with the inputs
+    const [hasTypedUsername, setHasTypedUsername] = useState(false);
+    const [hasTypedPassword, setHasTypedPassword] = useState(false);
+
     const switchAuthMode = () => {
         setIsSignUp(!isSignUp);
         setUsername('');
@@ -39,6 +43,8 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
         setPassword('');
         setMessage(null);
         setError(null);
+        setHasTypedUsername(false);
+        setHasTypedPassword(false);
     };
 
     const handleGoogleSuccess = async (credentialResponse: CredentialResponse) => {
@@ -229,7 +235,10 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                         placeholder="Username"
                         required
                         value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        onChange={(e) => {
+                            setUsername(e.target.value);
+                            if (!hasTypedUsername) setHasTypedUsername(true);
+                        }}
                         className="auth-input"
                     />
                     {isSignUp && (
@@ -247,7 +256,10 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                         placeholder="Password"
                         required
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => {
+                            setPassword(e.target.value);
+                            if (!hasTypedPassword) setHasTypedPassword(true);
+                        }}
                         className="auth-input"
                     />
                     <button type="submit" className="submit-button">
@@ -283,26 +295,34 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                 {isSignUp && (
                     <div className="validation-container">
                         <div className="w-full border-t border-gray-300 mb-2"></div>
-                        <p className={`validation-item font-semibold ${isUsernameValid ? 'text-green-400' : 'text-red-400'}`}>
-                            {isUsernameValid ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
-                            Username is at least 5 characters
-                        </p>
-                        <p className={`validation-item font-semibold ${isPasswordLengthValid ? 'text-green-400' : 'text-red-400'}`}>
-                            {isPasswordLengthValid ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
-                            Password is at least 6 characters
-                        </p>
-                        <p className={`validation-item font-semibold ${hasUppercase ? 'text-green-400' : 'text-red-400'}`}>
-                            {hasUppercase ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
-                            Password has at least one uppercase letter
-                        </p>
-                        <p className={`validation-item font-semibold ${hasDigit ? 'text-green-400' : 'text-red-400'}`}>
-                            {hasDigit ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
-                            Password has at least one digit
-                        </p>
-                        <p className={`validation-item font-semibold ${hasSpecialChar ? 'text-green-400' : 'text-red-400'}`}>
-                            {hasSpecialChar ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
-                            Password has at least one special character
-                        </p>
+                        {/* Username Validation */}
+                        {hasTypedUsername && (
+                            <p className={`validation-item font-semibold ${isUsernameValid ? 'text-green-400' : 'text-red-400'}`}>
+                                {isUsernameValid ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
+                                Username is at least 5 characters
+                            </p>
+                        )}
+                        {/* Password Validations */}
+                        {hasTypedPassword && (
+                            <>
+                                <p className={`validation-item font-semibold ${isPasswordLengthValid ? 'text-green-400' : 'text-red-400'}`}>
+                                    {isPasswordLengthValid ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
+                                    Password is at least 6 characters
+                                </p>
+                                <p className={`validation-item font-semibold ${hasUppercase ? 'text-green-400' : 'text-red-400'}`}>
+                                    {hasUppercase ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
+                                    Password has at least one uppercase letter
+                                </p>
+                                <p className={`validation-item font-semibold ${hasDigit ? 'text-green-400' : 'text-red-400'}`}>
+                                    {hasDigit ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
+                                    Password has at least one digit
+                                </p>
+                                <p className={`validation-item font-semibold ${hasSpecialChar ? 'text-green-400' : 'text-red-400'}`}>
+                                    {hasSpecialChar ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
+                                    Password has at least one special character
+                                </p>
+                            </>
+                        )}
                     </div>
                 )}
             </div>

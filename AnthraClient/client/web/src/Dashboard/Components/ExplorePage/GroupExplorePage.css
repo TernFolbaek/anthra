@@ -27,10 +27,21 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 1;
+    transform: translateY(0);
 }
 
-/* Shake animation */
+.slide-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide-out {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
 .group-explore-shake {
     animation: group-explore-shake 0.5s;
 }
@@ -63,7 +74,6 @@ body {
     border-radius: 5px;
     transition: background-color 0.3s;
 }
-
 
 .group-explore-indicator.active {
     background-color: rgba(167, 199, 250, 0.5);
@@ -164,21 +174,19 @@ body {
 .group-explore-charts-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    gap: 40px;
-    margin-top: 20px;
-    height: 80%;
+    height: 100%;
+    gap: 10px;
+    width: 100%;
 }
 
 .group-explore-chart-wrapper {
-    flex: 1;
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    width: 48%;
+    width: 50%;
 }
 
 .group-explore-chart-heading {
@@ -244,13 +252,59 @@ body {
     transform: translateY(-3px);
 }
 
+/* Slide Animations */
+.slide-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide-out {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+/* Group Purpose Section */
+.group-explore-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.group-explore-purpose {
+    border: 6px solid rgba(167, 199, 250, 0.5);
+    border-radius: 5px;
+    display: flex;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.group-explore-purpose-label {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+}
+
+/* Responsive Adjustments */
 @media (max-width: 480px) {
-    .group-explore-title {
-        font-size: 1.5rem;
+    .group-explore-page-indicators {
+        margin-top: 0;
     }
-    .group-explore-chart-wrapper {
-        height: 50%;
-        width: 100%;
+    .group-explore-page-content {
+        padding: 15px 10px 10px 10px ;
+    }
+    .group-explore-header {
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .group-explore-card-wrapper{
+        height: 78vh;
+        padding: 15px;
+        position: relative;
     }
 
     .group-explore-button-container{
@@ -260,17 +314,28 @@ body {
         padding:0 20px;
     }
 
-    .group-explore-apply-button,
-    .group-explore-skip-button {
-        padding: 0.5rem 1rem;
+    .group-explore-purpose-label {
+        font-size: 0.8rem;
     }
 
     .group-explore-charts-container {
         flex-direction: column;
-        gap: 20px;
+        justify-content: flex-start;
+        gap: 0;
+    }
+    .group-explore-chart-wrapper {
+        width: 100%;
+        height: 100%;
     }
 
-    .group-explore-card-wrapper{
-        height: 78vh;
+    .group-explore-apply-button,
+    .group-explore-skip-button {
+        padding: 0.35rem 0.3rem;
+        font-weight: 600;
+    }
+
+    .group-explore-title {
+        text-align: center;
+        font-size: 1.2rem;
     }
 }

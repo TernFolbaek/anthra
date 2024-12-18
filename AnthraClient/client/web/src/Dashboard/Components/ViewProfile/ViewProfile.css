@@ -184,7 +184,7 @@ body.dark #viewprofile .viewprofile-list li {
 
 @media(max-width: 480px) {
     #viewprofile.viewprofile-overlay {
-        height: fit-content;
+        height: 100vh;
     }
     #viewprofile .viewprofile-name{
         font-size: 1.2rem;

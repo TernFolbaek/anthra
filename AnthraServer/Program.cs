@@ -317,7 +317,7 @@ if (app.Environment.IsDevelopment())
             adminName = ternUser.UserName,
             GroupDescription = "Discussing advanced quantum physics and related research.",
             GroupMemberDesire = "Open to researchers and students interested in quantum mechanics.",
-            GroupPurpose = "Knowledge exchange and collaboration on quantum projects.",
+            GroupPurpose = "Social",
             isPublic = true,
             CreatorId = ternUser.Id
         };
@@ -328,7 +328,7 @@ if (app.Environment.IsDevelopment())
             adminName = gabUser.UserName,
             GroupDescription = "Exploring cutting-edge data science tools and techniques.",
             GroupMemberDesire = "Open to data enthusiasts and ML engineers.",
-            GroupPurpose = "Networking, idea generation, and solving big data challenges.",
+            GroupPurpose = "General",
             isPublic = true,
             CreatorId = gabUser.Id
         };
@@ -339,7 +339,7 @@ if (app.Environment.IsDevelopment())
             adminName = justinUser.UserName,
             GroupDescription = "Focusing on cloud computing best practices and architecture.",
             GroupMemberDesire = "Cloud developers and architects welcome.",
-            GroupPurpose = "Share knowledge and collaborate on cloud infrastructure.",
+            GroupPurpose = "Exam Preparation",
             isPublic = true,
             CreatorId = justinUser.Id
         };

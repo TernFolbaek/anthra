@@ -11,6 +11,7 @@ interface EditGroupModalProps {
         creatorId: string;
         groupMembersDesired: string;
         isPublic: boolean;
+        groupPurpose: string;
     };
     onClose: () => void;
     onGroupUpdated: () => void;

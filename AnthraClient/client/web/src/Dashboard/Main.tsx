@@ -13,6 +13,7 @@ import MessagesLayout from './Layouts/MessagesLayout/MessagesLayout';
 import GroupsLayout from './Layouts/GroupsLayout/GroupsLayout';
 import MessageOptionalLayout from "./Layouts/MessageOptionalLayout/MessageOptionalLayout";
 import './Main.css';
+import DevelopmentTools from "../DevelopmentTools";
 
 const DashboardContent: React.FC = () => {
     const location = useLocation();
@@ -49,6 +50,8 @@ const DashboardContent: React.FC = () => {
                     </Routes>
                 </div>
             </div>
+            {process.env.NODE_ENV === 'development' && <DevelopmentTools />}
+
             {!shouldHideFooter && <Footer />}
         </div>
     );

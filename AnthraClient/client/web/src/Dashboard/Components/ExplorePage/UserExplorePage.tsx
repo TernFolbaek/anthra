@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import axios from 'axios';
 import './UserExplorePage.css';
 import NoMoreUsersToExplore from '../../Helpers/Animations/NoMoreUsersToExplore';
@@ -90,8 +90,8 @@ const UserExplorePage: React.FC = () => {
             try {
                 await axios.post(
                     'http://localhost:5001/api/Connections/SendRequest',
-                    { targetUserId: currentUser.id },
-                    { headers: { Authorization: `Bearer ${token}` } }
+                    {targetUserId: currentUser.id},
+                    {headers: {Authorization: `Bearer ${token}`}}
                 );
                 setSnackbarTitle('Connection Request Sent');
                 setSnackbarMessage(`You have sent a connection request to ${currentUser.firstName} ${currentUser.lastName}.`);
@@ -112,8 +112,8 @@ const UserExplorePage: React.FC = () => {
             try {
                 await axios.post(
                     'http://localhost:5001/api/Explore/SkipUser',
-                    { UserIdToSkip: currentUser.id },
-                    { headers: { Authorization: `Bearer ${token}` } }
+                    {UserIdToSkip: currentUser.id},
+                    {headers: {Authorization: `Bearer ${token}`}}
                 );
             } catch (error) {
                 console.error('Error skipping user:', error);

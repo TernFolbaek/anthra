@@ -280,7 +280,7 @@
 /* Suggestions List */
 .suggestions-list {
     position: absolute;
-    top: 100%;
+    top: 70%;
     left: 0;
     z-index: 1000;
     background-color: #ffffff;
@@ -294,6 +294,11 @@
     border-radius: 8px;
     scrollbar-color: #e4e4e4 transparent;
 }
+
+.highlighted {
+    background-color: #e2e8f0;
+}
+
 
 .suggestion-item {
     font-size: 0.85rem;

@@ -409,3 +409,22 @@ body.dark .user-explore-no-more {
     }
 
 }
+
+.explore-user-card {
+    position: relative;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide-in {
+    /* Card appearing from below */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide-out {
+    /* Card going out upwards */
+    opacity: 0;
+    transform: translateY(-20px);
+}

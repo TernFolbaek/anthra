@@ -4,7 +4,7 @@ import './UserExplorePage.css';
 import NoMoreUsersToExplore from '../../Helpers/Animations/NoMoreUsersToExplore';
 import Snackbar from "../../Helpers/Snackbar/Snackbar";
 import ReferModal from './ReferModal/ReferModal';
-import useWindowWidth from '../../hooks/useWindowWidth'; // Adjust the import path as needed
+import useWindowWidth from '../../hooks/useWindowWidth';
 
 interface Course {
     courseName: string;
@@ -41,10 +41,12 @@ const UserExplorePage: React.FC = () => {
     const windowWidth = useWindowWidth();
     const isSmallScreen = windowWidth < 480;
 
-    const [currentPage, setCurrentPage] = useState<number>(1); // 1 or 2
+    const [currentPage, setCurrentPage] = useState<number>(1);
     const [shake, setShake] = useState<boolean>(false);
 
-    const cardRef = useRef<HTMLDivElement>(null);
+    // New states for animation
+    const [animating, setAnimating] = useState<boolean>(false);
+    const [slideDirection, setSlideDirection] = useState<'in' | 'out'>('in');
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -70,7 +72,18 @@ const UserExplorePage: React.FC = () => {
         } else {
             setCurrentUser(null);
         }
+        // When we have a new current user, ensure we slide them "in"
+        setSlideDirection('in');
     }, [users, currentIndex]);
+
+    const animateToNextUser = () => {
+        // This function will be called after the "out" animation completes
+        setCurrentIndex(prev => prev + 1);
+        setCurrentPage(1);
+        setAnimating(false); // Animation done
+        // The new card will now appear, and by default have the slide-in class
+        setSlideDirection('in');
+    };
 
     const handleConnect = async () => {
         if (currentUser) {
@@ -78,11 +91,7 @@ const UserExplorePage: React.FC = () => {
                 await axios.post(
                     'http://localhost:5001/api/Connections/SendRequest',
                     { targetUserId: currentUser.id },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }
+                    { headers: { Authorization: `Bearer ${token}` } }
                 );
                 setSnackbarTitle('Connection Request Sent');
                 setSnackbarMessage(`You have sent a connection request to ${currentUser.firstName} ${currentUser.lastName}.`);
@@ -91,8 +100,11 @@ const UserExplorePage: React.FC = () => {
                 console.error('Error sending connection request:', error);
             }
         }
-        setCurrentIndex(currentIndex + 1);
-        setCurrentPage(1); // Reset to first page for next user
+
+        // Trigger slide-out animation before showing next user
+        setSlideDirection('out');
+        setAnimating(true);
+        setTimeout(animateToNextUser, 300); // match animation duration in CSS
     };
 
     const handleSkip = async () => {
@@ -101,18 +113,17 @@ const UserExplorePage: React.FC = () => {
                 await axios.post(
                     'http://localhost:5001/api/Explore/SkipUser',
                     { UserIdToSkip: currentUser.id },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }
+                    { headers: { Authorization: `Bearer ${token}` } }
                 );
             } catch (error) {
                 console.error('Error skipping user:', error);
             }
         }
-        setCurrentIndex(currentIndex + 1);
-        setCurrentPage(1); // Reset to first page for next user
+
+        // Trigger slide-out animation before showing next user
+        setSlideDirection('out');
+        setAnimating(true);
+        setTimeout(animateToNextUser, 300);
     };
 
     const handlePageChange = (direction: 'left' | 'right') => {
@@ -135,7 +146,7 @@ const UserExplorePage: React.FC = () => {
 
     const triggerShake = () => {
         setShake(true);
-        setTimeout(() => setShake(false), 500); // Duration of the shake animation
+        setTimeout(() => setShake(false), 500);
     };
 
     const handleLeftClick = () => handlePageChange('left');
@@ -145,8 +156,7 @@ const UserExplorePage: React.FC = () => {
         <div className="user-explore-container">
             {currentUser ? (
                 <div
-                    className={`explore-user-card ${isSmallScreen ? 'small-screen' : ''} ${shake ? 'shake' : ''}`}
-                    ref={cardRef}
+                    className={`explore-user-card ${isSmallScreen ? 'small-screen' : ''} ${shake ? 'shake' : ''} slide-${slideDirection}`}
                 >
                     {isSmallScreen ? (
                         <div className="small-screen-content">
@@ -344,7 +354,8 @@ const UserExplorePage: React.FC = () => {
                     onClose={() => setShowReferModal(false)}
                 />
             )}
-        </div>)
+        </div>
+    );
 };
 
 export default UserExplorePage;

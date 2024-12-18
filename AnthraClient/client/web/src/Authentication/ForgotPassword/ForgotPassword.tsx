@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import '../AuthPage/AuthPage.css';
-import { useRive, useStateMachineInput } from '@rive-app/react-canvas';
+import './ForgotPassword.css';
 
 interface ForgotPasswordProps {
     onBack: () => void;
@@ -13,43 +12,6 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ onBack, onResetRequeste
     const [message, setMessage] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-    const STATE_MACHINE_NAME = 'State Machine 1';
-    const { rive, RiveComponent } = useRive({
-        src: '/rive/520-990-teddy-login-screen.riv',
-        autoplay: true,
-        stateMachines: STATE_MACHINE_NAME,
-    });
-
-    const stateLook = useStateMachineInput(rive, STATE_MACHINE_NAME, 'Look');
-    const stateCheck = useStateMachineInput(rive, STATE_MACHINE_NAME, 'Check');
-    const stateHandUp = useStateMachineInput(rive, STATE_MACHINE_NAME, 'hands_up');
-
-    useEffect(() => {
-        setLook();
-    }, [email]);
-
-    const setLook = () => {
-        if (!stateLook || !stateCheck || !setHangUp) {
-            return;
-        }
-        setHangUp(false);
-        setCheck(true);
-        let nbChars = email.length;
-        let ratio = nbChars / parseFloat('41');
-        let lookToSet = ratio * 100 - 25;
-        stateLook.value = Math.round(lookToSet);
-    };
-
-    const setHangUp = (hangUp: boolean) => {
-        stateHandUp && (stateHandUp.value = hangUp);
-    };
-
-    const setCheck = (check: boolean) => {
-        if (stateCheck) {
-            stateCheck.value = check;
-        }
-    };
-
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setMessage(null);
@@ -60,20 +22,22 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ onBack, onResetRequeste
             setMessage('Password reset code sent to your email.');
             onResetRequested();
         } catch (err: any) {
-            setError('Error sending password reset email.');
+            if (axios.isAxiosError(err) && err.response) {
+                const errorData = err.response.data;
+                setError(errorData.message || 'Error sending password reset email.');
+            } else {
+                setError('Error sending password reset email.');
+            }
         }
     };
 
     return (
-        <div className="auth-page">
+        <div className="forgot-password-page">
             <button className="back-button" onClick={onBack}>
                 Back
             </button>
-            <div>
-                <RiveComponent className="teddy-bear-rive" />
-            </div>
-            <div className="auth-container">
-                <h2 className="font-bold mb-2">Forgot Password</h2>
+            <div className="forgot-password-container">
+                <h2>Forgotten Password</h2>
                 {message && <p className="success-message">{message}</p>}
                 {error && <p className="error-message">{error}</p>}
                 <form onSubmit={handleSubmit}>

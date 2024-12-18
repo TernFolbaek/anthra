@@ -25,14 +25,12 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
     const [showEmailVerification, setShowEmailVerification] = useState(false);
     const [userId, setUserId] = useState('');
 
-    // New state variables for validation
     const [isUsernameValid, setIsUsernameValid] = useState(false);
     const [isPasswordLengthValid, setIsPasswordLengthValid] = useState(false);
     const [hasUppercase, setHasUppercase] = useState(false);
     const [hasDigit, setHasDigit] = useState(false);
     const [hasSpecialChar, setHasSpecialChar] = useState(false);
 
-    // New state variables for tracking if user has interacted with the inputs
     const [hasTypedUsername, setHasTypedUsername] = useState(false);
     const [hasTypedPassword, setHasTypedPassword] = useState(false);
 

@@ -35,9 +35,15 @@ const StepOne: React.FC<StepOneProps> = ({
     const [countries, setCountries] = useState<string[]>([]);
     const [cities, setCities] = useState<string[]>([]);
     const [citySuggestions, setCitySuggestions] = useState<string[]>([]);
-    const countryInputRef = useRef<HTMLInputElement>(null);
-    const cityInputRef = useRef<HTMLInputElement>(null);
-    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+    const countryInputRef = useRef<HTMLDivElement>(null);
+    const cityInputRef = useRef<HTMLDivElement>(null);
+
+    const [selectedCountryIndex, setSelectedCountryIndex] = useState<number>(-1);
+    const [selectedCityIndex, setSelectedCityIndex] = useState<number>(-1);
+
+    const [previewUrl, setPreviewUrl] = useState<string | null>(
+        profilePictureFile ? URL.createObjectURL(profilePictureFile) : null
+    );
 
     // States for cropping
     const [isCropModalOpen, setIsCropModalOpen] = useState<boolean>(false);
@@ -68,6 +74,8 @@ const StepOne: React.FC<StepOneProps> = ({
             ) {
                 setCountrySuggestions([]);
                 setCitySuggestions([]);
+                setSelectedCountryIndex(-1);
+                setSelectedCityIndex(-1);
             }
         };
 
@@ -84,6 +92,7 @@ const StepOne: React.FC<StepOneProps> = ({
 
         if (value.trim() === '') {
             setCitySuggestions([]);
+            setSelectedCityIndex(-1);
             return;
         }
 
@@ -92,6 +101,7 @@ const StepOne: React.FC<StepOneProps> = ({
             .slice(0, 5);
 
         setCitySuggestions(suggestions);
+        setSelectedCityIndex(suggestions.length > 0 ? 0 : -1);
     };
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -126,6 +136,7 @@ const StepOne: React.FC<StepOneProps> = ({
     const handleCitySelect = (cityName: string) => {
         setCity(cityName);
         setCitySuggestions([]);
+        setSelectedCityIndex(-1);
     };
 
     const handleCountryInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -134,6 +145,7 @@ const StepOne: React.FC<StepOneProps> = ({
 
         if (value.trim() === '') {
             setCountrySuggestions([]);
+            setSelectedCountryIndex(-1);
             return;
         }
 
@@ -142,11 +154,13 @@ const StepOne: React.FC<StepOneProps> = ({
             .slice(0, 5);
 
         setCountrySuggestions(suggestions);
+        setSelectedCountryIndex(suggestions.length > 0 ? 0 : -1);
     };
 
     const handleCountrySelect = (countryName: string) => {
         setCountry(countryName);
         setCountrySuggestions([]);
+        setSelectedCountryIndex(-1);
 
         // Fetch cities for the selected country
         axios
@@ -168,6 +182,61 @@ const StepOne: React.FC<StepOneProps> = ({
             });
     };
 
+    const handleCountryKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (countrySuggestions.length === 0) return;
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            setSelectedCountryIndex((prevIndex) =>
+                prevIndex + 1 < countrySuggestions.length ? prevIndex + 1 : prevIndex
+            );
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            setSelectedCountryIndex((prevIndex) =>
+                prevIndex > 0 ? prevIndex - 1 : 0
+            );
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (selectedCountryIndex >= 0 && selectedCountryIndex < countrySuggestions.length) {
+                handleCountrySelect(countrySuggestions[selectedCountryIndex]);
+            } else if (countrySuggestions.length > 0) {
+                // fallback to first suggestion if none selected
+                handleCountrySelect(countrySuggestions[0]);
+            }
+        }
+    };
+
+    const handleCityKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (citySuggestions.length === 0) return;
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            setSelectedCityIndex((prevIndex) =>
+                prevIndex + 1 < citySuggestions.length ? prevIndex + 1 : prevIndex
+            );
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            setSelectedCityIndex((prevIndex) =>
+                prevIndex > 0 ? prevIndex - 1 : 0
+            );
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (selectedCityIndex >= 0 && selectedCityIndex < citySuggestions.length) {
+                handleCitySelect(citySuggestions[selectedCityIndex]);
+            } else if (citySuggestions.length > 0) {
+                // fallback to first suggestion if none selected
+                handleCitySelect(citySuggestions[0]);
+            }
+        }
+    };
+
+    const handleCountryBlur = () => {
+        // If the entered country isn't a valid one from the list, reset it
+        if (country && !countries.includes(country)) {
+            setCountry('');
+        }
+    };
+
     return (
         <div className="form-step">
             <label htmlFor="firstName" className="input-label">
@@ -177,7 +246,6 @@ const StepOne: React.FC<StepOneProps> = ({
                 id="firstName"
                 type="text"
                 placeholder="First Name"
-                required
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
             />
@@ -189,7 +257,6 @@ const StepOne: React.FC<StepOneProps> = ({
                 id="lastName"
                 type="text"
                 placeholder="Last Name"
-                required
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
             />
@@ -201,14 +268,13 @@ const StepOne: React.FC<StepOneProps> = ({
                 id="age"
                 type="number"
                 placeholder="Age"
-                required
                 value={age === '' ? '' : age}
                 onChange={(e) => setAge(e.target.value === '' ? '' : parseInt(e.target.value))}
             />
 
             {/* Country Input */}
             <div className="autocomplete-container mt-2" ref={countryInputRef}>
-                <div className="autocomplete-input-with-label ">
+                <div className="autocomplete-input-with-label">
                     <label htmlFor="country" className="input-label">
                         Country<span className="required-asterisk">*</span>
                     </label>
@@ -216,27 +282,20 @@ const StepOne: React.FC<StepOneProps> = ({
                         id="country"
                         type="text"
                         placeholder="Country"
-                        required
                         autoComplete="nope"
                         value={country}
                         onChange={handleCountryInputChange}
-                        onKeyDown={(e) => {
-                            if (e.key === 'Enter') {
-                                e.preventDefault();
-                                if (countrySuggestions.length > 0) {
-                                    handleCountrySelect(countrySuggestions[0]);
-                                }
-                            }
-                        }}
+                        onKeyDown={handleCountryKeyDown}
+                        onBlur={handleCountryBlur}
                     />
                 </div>
                 {countrySuggestions.length > 0 && (
                     <ul className="suggestions-list">
                         {countrySuggestions.map((countryName, index) => (
                             <li
-                                className="suggestion-item"
+                                className={`suggestion-item ${index === selectedCountryIndex ? 'highlighted' : ''}`}
                                 key={index}
-                                onClick={() => handleCountrySelect(countryName)}
+                                onMouseDown={() => handleCountrySelect(countryName)}
                             >
                                 {countryName}
                             </li>
@@ -249,33 +308,25 @@ const StepOne: React.FC<StepOneProps> = ({
             <div className="autocomplete-container" ref={cityInputRef}>
                 <div className="autocomplete-input-with-label">
                     <label htmlFor="city" className="input-label">
-                        City<span className="required-asterisk">*</span>
+                        City
                     </label>
                     <input
                         id="city"
                         type="text"
                         placeholder="City"
-                        autoComplete="nope"
-                        required
+                        autoComplete="off"
                         value={city}
                         onChange={handleCityInputChange}
-                        onKeyDown={(e) => {
-                            if (e.key === 'Enter') {
-                                e.preventDefault();
-                                if (citySuggestions.length > 0) {
-                                    handleCitySelect(citySuggestions[0]);
-                                }
-                            }
-                        }}
+                        onKeyDown={handleCityKeyDown}
                     />
                 </div>
                 {citySuggestions.length > 0 && (
                     <ul className="suggestions-list">
                         {citySuggestions.map((cityName, index) => (
                             <li
-                                className="suggestion-item"
+                                className={`suggestion-item ${index === selectedCityIndex ? 'highlighted' : ''}`}
                                 key={index}
-                                onClick={() => handleCitySelect(cityName)}
+                                onMouseDown={() => handleCitySelect(cityName)}
                             >
                                 {cityName}
                             </li>
@@ -292,7 +343,6 @@ const StepOne: React.FC<StepOneProps> = ({
                     id="profilePicture"
                     type="file"
                     accept="image/*"
-                    required
                     onChange={handleFileChange}
                     className="file-input"
                 />

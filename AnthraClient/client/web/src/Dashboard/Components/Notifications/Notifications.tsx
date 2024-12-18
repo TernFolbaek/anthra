@@ -22,12 +22,17 @@ interface Notification {
     messageCount: number;
 }
 
-const Notifications: React.FC = () => {
+interface NotificationsProps {
+    onCountsUpdate?: (messageCount: number, groupCount: number, connectionCount: number) => void;
+}
+
+const Notifications: React.FC<NotificationsProps> = ({ onCountsUpdate }) => {
     const [notifications, setNotifications] = useState<Notification[]>([]);
     const [showDropdown, setShowDropdown] = useState(false);
     const bellRef = useRef<HTMLDivElement>(null);
 
     const token = localStorage.getItem('token');
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchNotifications();
@@ -56,6 +61,10 @@ const Notifications: React.FC = () => {
             connection.stop();
         };
     }, [token]);
+
+    useEffect(() => {
+        updateCounts();
+    }, [notifications]);
 
     const fetchNotifications = async () => {
         try {
@@ -91,10 +100,6 @@ const Notifications: React.FC = () => {
         };
     }, [showDropdown]);
 
-
-// Inside the component
-    const navigate = useNavigate();
-
     const markAsReadAndRedirect = async (notification: Notification) => {
         try {
             await axios.post(
@@ -106,19 +111,16 @@ const Notifications: React.FC = () => {
                     },
                 }
             );
-            // Remove the notification from the list
             setNotifications((prev) =>
                 prev.filter((n) => n.id !== notification.id)
             );
+
             // Redirect based on notification type
             if (notification.type === 'Message') {
-                // Redirect to direct message with SenderId
                 navigate(`/messages/${notification.senderId}`);
             } else if (notification.type === 'GroupMessage') {
-                // Redirect to group chat
-                navigate(`/group-messages/${notification.groupId}`);
+                navigate(`/groups/${notification.groupId}`);
             } else if (notification.type === 'ConnectionRequest') {
-                // Redirect to connection requests page
                 navigate(`/connections`);
             }
             setShowDropdown(false);
@@ -128,6 +130,13 @@ const Notifications: React.FC = () => {
         }
     };
 
+    const updateCounts = () => {
+        // Count unread by type
+        const unreadMessages = notifications.filter(n => !n.isRead && n.type === 'Message').length;
+        const unreadGroups = notifications.filter(n => !n.isRead && n.type === 'GroupMessage').length;
+        const unreadConnections = notifications.filter(n => !n.isRead && n.type === 'ConnectionRequest').length;
+        onCountsUpdate && onCountsUpdate(unreadMessages, unreadGroups, unreadConnections);
+    };
 
     return (
         <div className="notifications" ref={bellRef}>
@@ -137,7 +146,12 @@ const Notifications: React.FC = () => {
             </div>
             {showDropdown && (
                 <div className="notifications-dropdown">
-                    <div className="p-2 border-b border-gray-300 flex justify-between"><p className="flex items-center"><FaRegBell/></p><button className="text-sm flex items-center gap-2 rounded-md bg-slate-100 hover:bg-slate-200 p-1 "><FcCheckmark/> Mark all as read</button></div>
+                    <div className="p-2 border-b border-gray-300 flex justify-between">
+                        <p className="flex items-center"><FaRegBell/></p>
+                        <button className="text-sm flex items-center gap-2 rounded-md bg-slate-100 hover:bg-slate-200 p-1 ">
+                            <FcCheckmark/> Mark all as read
+                        </button>
+                    </div>
                     {notifications.length === 0 ? (
                         <div className="notification-item text-sm text-center font-semibold">No notifications</div>
                     ) : (

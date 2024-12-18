@@ -25,6 +25,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({groupId}) => {
     const [members, setMembers] = useState<GroupMember[]>([]);
     const [groupDescription, setGroupDescription] = useState('');
     const [groupDesiredMembers, setGroupDesiredMembers] = useState('');
+    const [groupPurpose, setGroupPurpose] = useState('');
     const [isPublic, setIsPublic] = useState(false);
     const [attachments, setAttachments] = useState<Attachment[]>([]);
     const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
@@ -41,11 +42,13 @@ const GroupInfo: React.FC<GroupInfoProps> = ({groupId}) => {
                         },
                     }
                 );
+                console.log(response.data)
                 setGroupDescription(response.data.groupDescription);
                 setIsPublic(response.data.isPublic);
                 setGroupDesiredMembers(response.data.groupDesiredMembers);
                 setMembers(response.data.members);
                 setAttachments(response.data.attachments);
+                setGroupPurpose(response.data.groupPurpose);
             } catch (error) {
                 console.error('Error fetching group info:', error);
             }
@@ -71,6 +74,9 @@ const GroupInfo: React.FC<GroupInfoProps> = ({groupId}) => {
 
             <div className="group-section-title">Who Are We Looking For</div>
             <p className="group-desired-members">{groupDesiredMembers}</p>
+            <div className="group-section-title">Group Purpose</div>
+            <p className="group-desired-members">{groupPurpose}</p>
+
             <div className="group-section-title">Group Visibility</div>
             <p className="group-desired-members">{isPublic ?
                 "Group is on the explore page!" :
@@ -80,7 +86,8 @@ const GroupInfo: React.FC<GroupInfoProps> = ({groupId}) => {
             <div className="group-section-title">Members</div>
             <ul className="group-members-list">
                 {members.map((member) => (
-                    <li key={member.userId} onClick={()=>handleUserClick(member.userId)} className="group-member-item">
+                    <li key={member.userId} onClick={() => handleUserClick(member.userId)}
+                        className="group-member-item">
                         <img
                             src={`${member.profilePictureUrl}`}
                             alt={`${member.firstName} ${member.lastName}`}

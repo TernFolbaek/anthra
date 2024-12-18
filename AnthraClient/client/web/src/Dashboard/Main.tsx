@@ -50,7 +50,7 @@ const DashboardContent: React.FC = () => {
                     </Routes>
                 </div>
             </div>
-            {process.env.NODE_ENV === 'development' && <DevelopmentTools />}
+            {/*{process.env.NODE_ENV === 'development' && <DevelopmentTools />}*/}
 
             {!shouldHideFooter && <Footer />}
         </div>

@@ -52,7 +52,8 @@ public class GroupsController : ControllerBase
             CreatorName = group.adminName,
             groupDescription = group.GroupDescription,
             groupMembersDesired = group.GroupMemberDesire,
-            group.isPublic
+            group.isPublic,
+            group.GroupPurpose
         };
 
         return Ok(groupDetails);
@@ -202,7 +203,8 @@ public async Task<IActionResult> CreateGroup([FromBody] CreateGroupModel model)
             attachments,
             groupDescription,
             groupDesiredMembers,
-            isPublic
+            isPublic,
+            group.GroupPurpose
         });
     }
 

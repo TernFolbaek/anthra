@@ -39,6 +39,7 @@ interface GroupInfo {
     groupDescription: string;
     groupMembersDesired: string;
     isPublic: boolean;
+    groupPurpose: string;
 }
 
 const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {

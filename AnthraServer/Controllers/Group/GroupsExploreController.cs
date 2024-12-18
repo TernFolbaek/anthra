@@ -53,6 +53,7 @@ namespace MyBackendApp.Controllers
                     g.Name,
                     g.GroupDescription,
                     g.GroupMemberDesire,
+                    g.GroupPurpose,
                     Members = g.Members
                         .Where(m => m.IsAccepted)
                         .Select(m => new

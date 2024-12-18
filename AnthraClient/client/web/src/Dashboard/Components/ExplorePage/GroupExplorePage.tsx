@@ -11,9 +11,13 @@ import {
     BarElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+
+import { MdGroups } from "react-icons/md";
+import { FaChalkboardTeacher, FaBookReader, FaLaptopCode } from "react-icons/fa";
+import useWindowWidth from "../../hooks/useWindowWidth";
 
 ChartJS.register(
     CategoryScale,
@@ -21,7 +25,7 @@ ChartJS.register(
     BarElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
 );
 
 interface GroupMember {
@@ -51,10 +55,30 @@ const GroupExplorePage: React.FC = () => {
     const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
     // States for page navigation and shake animation
-    const [currentPage, setCurrentPage] = useState<number>(1); // 1 or 2
+    const [currentPage, setCurrentPage] = useState<number>(1);
     const [shake, setShake] = useState<boolean>(false);
+    const windowWidth = useWindowWidth();
+    const isSmallScreen = windowWidth < 480;
+
+    let iconSize;
+    if(isSmallScreen) {
+        iconSize = 40;
+    }else{
+        iconSize = 60
+    }
+    // Animation states
+    const [animating, setAnimating] = useState<boolean>(false);
+    const [slideDirection, setSlideDirection] = useState<'in' | 'out'>('in');
 
     const cardRef = useRef<HTMLDivElement>(null);
+
+    // Define groupPurposes mapping
+    const groupPurposes = [
+        { label: 'Social', value: 'social', icon: <MdGroups size={iconSize} /> },
+        { label: 'General', value: 'general', icon: <FaChalkboardTeacher size={iconSize} /> },
+        { label: 'Exam Preparation', value: 'exam preparation', icon: <FaBookReader size={iconSize} /> },
+        { label: 'Studying', value: 'studying', icon: <FaLaptopCode size={iconSize} /> },
+    ];
 
     useEffect(() => {
         const fetchGroups = async () => {
@@ -65,7 +89,6 @@ const GroupExplorePage: React.FC = () => {
                     },
                 });
                 setGroups(response.data);
-                console.log(response.data);
                 setCurrentIndex(0);
             } catch (error) {
                 console.error('Error fetching groups:', error);
@@ -79,10 +102,18 @@ const GroupExplorePage: React.FC = () => {
         if (groups.length > 0 && currentIndex < groups.length) {
             setCurrentGroup(groups[currentIndex]);
             setCurrentPage(1);
+            // New group appears, slide it in
+            setSlideDirection('in');
         } else {
             setCurrentGroup(null);
         }
     }, [groups, currentIndex]);
+
+    const animateToNextGroup = () => {
+        setCurrentIndex(prev => prev + 1);
+        setCurrentPage(1);
+        setAnimating(false);
+    };
 
     const handleApply = async () => {
         if (currentGroup) {
@@ -104,7 +135,10 @@ const GroupExplorePage: React.FC = () => {
                 }
             }
         }
-        setCurrentIndex(currentIndex + 1);
+        // Trigger out animation before showing next group
+        setSlideDirection('out');
+        setAnimating(true);
+        setTimeout(animateToNextGroup, 300); // match CSS transition duration
     };
 
     const handleSkip = async () => {
@@ -112,18 +146,22 @@ const GroupExplorePage: React.FC = () => {
             try {
                 await axios.post(
                     'http://localhost:5001/api/GroupsExplore/SkipGroup',
-                    {groupIdToSkip: currentGroup.id},
+                    { groupIdToSkip: currentGroup.id },
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
                     }
                 );
+                // Optionally, show a success message or update state
             } catch (error) {
                 console.error('Error skipping group:', error);
             }
         }
-        setCurrentIndex(currentIndex + 1);
+        // Trigger out animation before showing next group
+        setSlideDirection('out');
+        setAnimating(true);
+        setTimeout(animateToNextGroup, 300);
     };
 
     const handleUserClick = (userId: string) => {
@@ -144,7 +182,6 @@ const GroupExplorePage: React.FC = () => {
             if (member.institution) {
                 institutionCounts[member.institution] = (institutionCounts[member.institution] || 0) + 1;
             }
-
             // Count statuses
             member.statuses.forEach(status => {
                 statusCounts[status] = (statusCounts[status] || 0) + 1;
@@ -222,11 +259,17 @@ const GroupExplorePage: React.FC = () => {
     const handleLeftClick = () => handlePageChange('left');
     const handleRightClick = () => handlePageChange('right');
 
+    const getGroupPurposeIcon = (purpose: string) => {
+        const purposeObj = groupPurposes.find(p => p.value === purpose.toLowerCase());
+        return purposeObj ? purposeObj.icon : <MdGroups size={iconSize} />;
+    };
+
+
     return (
         <div className="group-explore-wrapper">
             {currentGroup ? (
                 <div
-                    className={`group-explore-card-wrapper ${shake ? 'group-explore-shake' : ''}`}
+                    className={`group-explore-card-wrapper ${shake ? 'group-explore-shake' : ''} slide-${slideDirection}`}
                     ref={cardRef}
                 >
                     {/* Page Indicators */}
@@ -245,7 +288,15 @@ const GroupExplorePage: React.FC = () => {
                     {currentPage === 1 ? (
                         <div className="group-explore-page-content page-1">
                             <div className="group-explore-card-content">
-                                <h2 className="group-explore-title">{currentGroup.name}</h2>
+                                <div className="group-explore-header">
+                                    <div className="group-explore-purpose">
+                                        {getGroupPurposeIcon(currentGroup.groupPurpose)}
+                                    </div>
+                                    <div className="flex flex-col items-start">
+                                        <h2 className="group-explore-title ">{currentGroup.name}</h2>
+                                        <h2 className="font-semibold text-lg text-gray-600">Group Info</h2>
+                                    </div>
+                                </div>
                                 <h3 className="group-explore-section-heading">About the group:</h3>
                                 <p className="group-explore-description">{currentGroup.groupDescription}</p>
                                 <h3 className="group-explore-section-heading">What the group is looking for:</h3>
@@ -256,8 +307,11 @@ const GroupExplorePage: React.FC = () => {
                                     <h3 className="group-explore-section-heading">Members</h3>
                                     <ul className="group-explore-members-list">
                                         {currentGroup.members.map((member) => (
-                                            <li onClick={() => handleUserClick(member.userId)} key={member.userId}
-                                                className="group-explore-member-item bg-sky-50">
+                                            <li
+                                                onClick={() => handleUserClick(member.userId)}
+                                                key={member.userId}
+                                                className="group-explore-member-item bg-sky-50"
+                                            >
                                                 <img
                                                     className="group-explore-member-avatar"
                                                     src={`${member.profilePictureUrl}`}
@@ -274,7 +328,16 @@ const GroupExplorePage: React.FC = () => {
                         </div>
                     ) : (
                         <div className="group-explore-page-content page-2">
-                            <h2 className="font-semibold text-xl">Group members overview</h2>
+                            <div className="group-explore-header">
+                                <div className="group-explore-purpose">
+                                    {getGroupPurposeIcon(currentGroup.groupPurpose)}
+                                </div>
+                                <div className="flex flex-col items-start">
+                                    <h2 className="group-explore-title">{currentGroup.name}</h2>
+                                    <h2 className="font-semibold text-lg text-gray-600">Group Members Overview</h2>
+                                </div>
+
+                            </div>
                             {(institutionNames.length > 0 || statusNames.length > 0) && (
                                 <div className="group-explore-charts-container">
                                     {institutionNames.length > 0 && (
@@ -305,19 +368,20 @@ const GroupExplorePage: React.FC = () => {
             {selectedUserId && (
                 <ViewProfile userId={selectedUserId} onClose={handleCloseProfile}/>
             )}
-            {currentGroup &&
-            <div className="group-explore-button-container">
-                <button className="group-explore-apply-button" onClick={handleApply}>
-                    Apply
-                </button>
-                <button className="group-explore-skip-button" onClick={handleSkip}>
-                    Skip
-                </button>
-            </div>
-            }
 
+            {currentGroup && (
+                <div className="group-explore-button-container">
+                    <button className="group-explore-apply-button" onClick={handleApply}>
+                        Apply
+                    </button>
+                    <button className="group-explore-skip-button" onClick={handleSkip}>
+                        Skip
+                    </button>
+                </div>
+            )}
         </div>
     );
+
 };
 
 export default GroupExplorePage;

@@ -32,6 +32,7 @@ const UserExplorePage: React.FC = () => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const token = localStorage.getItem('token');
 
+
     const [snackbarVisible, setSnackbarVisible] = useState<boolean>(false);
     const [snackbarTitle, setSnackbarTitle] = useState<string>('');
     const [snackbarMessage, setSnackbarMessage] = useState<string>('');
@@ -160,17 +161,14 @@ const UserExplorePage: React.FC = () => {
                 >
                     {isSmallScreen ? (
                         <div className="small-screen-content">
-                            {/* Horizontal Indicators */}
                             <div className="page-indicators">
                                 <div className={`indicator ${currentPage === 1 ? 'active' : ''}`}></div>
                                 <div className={`indicator ${currentPage === 2 ? 'active' : ''}`}></div>
                             </div>
-                            {/* Click Areas */}
                             <div className="click-overlay">
                                 <div className="click-area left" onClick={handleLeftClick}></div>
                                 <div className="click-area right" onClick={handleRightClick}></div>
                             </div>
-                            {/* Page Content */}
                             {currentPage === 1 ? (
                                 <div className="page-content page-1">
                                     <div className="flex items-center gap-2">
@@ -241,7 +239,6 @@ const UserExplorePage: React.FC = () => {
                             )}
                         </div>
                     ) : (
-                        // Existing layout for larger screens
                         <div className="flex flex-col">
                             <div className="explore-user-card-content">
                                 <div className="flex items-center gap-2">

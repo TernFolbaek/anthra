@@ -6,12 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="100vh to different mobile heights">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Controllers/Group/GroupMessagesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Controllers/Group/GroupMessagesController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Controllers/Group/GroupsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Controllers/Group/GroupsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Folder.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Folder.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/declarations.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/declarations.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/ExplorePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/ExplorePage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/GroupExplorePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/GroupExplorePage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/GroupExplorePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/GroupExplorePage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Profile/Profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Profile/Profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Settings/HelpSettings/HelpSettings.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Settings/HelpSettings/HelpSettings.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Settings/HelpSettings/HelpSettings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Settings/HelpSettings/HelpSettings.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,7 +216,7 @@
       <workItem from="1734349476468" duration="3984000" />
       <workItem from="1734357380289" duration="12834000" />
       <workItem from="1734430162329" duration="1889000" />
-      <workItem from="1734432830757" duration="31320000" />
+      <workItem from="1734432830757" duration="35351000" />
     </task>
     <task id="LOCAL-00593" summary="Add callback for rendering all messages">
       <option name="closed" value="true" />

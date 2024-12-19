@@ -291,6 +291,10 @@ body.dark .user-explore-no-more {
         align-items: center;
     }
 
+    .explore-page{
+        padding: 15px;
+    }
+
     .explore-user-card-content {
         margin-left: 0;
     }
@@ -309,15 +313,16 @@ body.dark .user-explore-no-more {
         width: 100%;
         max-width: none;
     }
-}
-
-@media (max-width: 480px) {
     .user-explore-page-button-container {
-        bottom: 55px;
+        bottom: 45px;
         justify-content: space-around;
         gap: 30px;
         padding:0 20px;
     }
+}
+
+@media (max-width: 480px) {
+
     .explore-user-card {
         min-height: 78vh;
         padding: 15px;

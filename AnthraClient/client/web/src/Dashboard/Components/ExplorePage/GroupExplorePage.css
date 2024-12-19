@@ -272,7 +272,7 @@ body {
 }
 
 .group-explore-purpose {
-    border: 6px solid rgba(167, 199, 250, 0.5);
+    background-color:  rgba(167, 199, 250, 0.5);
     border-radius: 5px;
     display: flex;
     padding: 5px;

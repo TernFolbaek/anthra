@@ -12,9 +12,9 @@ import {
     Title,
     Tooltip,
     Legend,
+    ChartOptions
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-
 import { MdGroups } from "react-icons/md";
 import { FaChalkboardTeacher, FaBookReader, FaLaptopCode } from "react-icons/fa";
 import useWindowWidth from "../../hooks/useWindowWidth";
@@ -54,25 +54,24 @@ const GroupExplorePage: React.FC = () => {
     const token = localStorage.getItem('token');
     const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
-    // States for page navigation and shake animation
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [shake, setShake] = useState<boolean>(false);
     const windowWidth = useWindowWidth();
     const isSmallScreen = windowWidth < 480;
 
-    let iconSize;
+    let iconSize, chartFontSize;
     if(isSmallScreen) {
         iconSize = 40;
-    }else{
-        iconSize = 60
+        chartFontSize = 10;
+    } else {
+        iconSize = 60;
+        chartFontSize = 14;
     }
-    // Animation states
     const [animating, setAnimating] = useState<boolean>(false);
     const [slideDirection, setSlideDirection] = useState<'in' | 'out'>('in');
 
     const cardRef = useRef<HTMLDivElement>(null);
 
-    // Define groupPurposes mapping
     const groupPurposes = [
         { label: 'Social', value: 'social', icon: <MdGroups size={iconSize} /> },
         { label: 'General', value: 'general', icon: <FaChalkboardTeacher size={iconSize} /> },
@@ -216,8 +215,8 @@ const GroupExplorePage: React.FC = () => {
         ],
     };
 
-    const chartOptions = {
-        indexAxis: 'y' as const,
+    const chartOptions: ChartOptions<'bar'> = {
+        indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
@@ -229,15 +228,20 @@ const GroupExplorePage: React.FC = () => {
             },
         },
         scales: {
-            x: {
-                ticks: { precision: 0, beginAtZero: true }
-            }
+            y: {
+                ticks: {
+                    color: 'black',
+                    font: {
+                        size: chartFontSize,
+                    },
+                },
+            },
         }
     };
 
     const triggerShake = () => {
         setShake(true);
-        setTimeout(() => setShake(false), 500); // Duration of the shake animation
+        setTimeout(() => setShake(false), 500);
     };
 
     const handlePageChange = (direction: 'left' | 'right') => {
@@ -263,7 +267,6 @@ const GroupExplorePage: React.FC = () => {
         const purposeObj = groupPurposes.find(p => p.value === purpose.toLowerCase());
         return purposeObj ? purposeObj.icon : <MdGroups size={iconSize} />;
     };
-
 
     return (
         <div className="group-explore-wrapper">

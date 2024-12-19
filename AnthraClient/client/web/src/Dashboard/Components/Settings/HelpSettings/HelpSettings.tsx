@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './HelpSettings.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,7 @@ const HelpSettings: React.FC = () => {
     const [correctAnswer, setCorrectAnswer] = useState(0);
     const [showSupportModal, setShowSupportModal] = useState(false);
     const [supportMessage, setSupportMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState(''); // New state for error messages
     const navigate = useNavigate();
 
     const generateMathQuestion = () => {
@@ -22,7 +23,7 @@ const HelpSettings: React.FC = () => {
     };
 
     const handleLogout = () => {
-        localStorage.clear()
+        localStorage.clear();
         window.location.reload();
     };
 
@@ -34,6 +35,7 @@ const HelpSettings: React.FC = () => {
     const closeDeleteModal = () => {
         setShowDeleteModal(false);
         setAnswerInput('');
+        setErrorMessage(''); // Clear error message when closing modal
     };
 
     const handleContactSupport = async () => {
@@ -44,7 +46,8 @@ const HelpSettings: React.FC = () => {
 
         try {
             const token = localStorage.getItem('token');
-            await axios.post('http://localhost:5001/api/Support/SendSupportEmail',
+            await axios.post(
+                'http://localhost:5001/api/Support/SendSupportEmail',
                 { message: supportMessage },
                 {
                     headers: {
@@ -63,7 +66,7 @@ const HelpSettings: React.FC = () => {
 
     const handleDeleteAccount = async () => {
         if (parseInt(answerInput, 10) !== correctAnswer) {
-            alert('Incorrect answer. Please solve the question correctly.');
+            setErrorMessage('Incorrect answer. Please solve the question correctly.');
             return;
         }
         try {
@@ -78,25 +81,33 @@ const HelpSettings: React.FC = () => {
             window.location.reload();
         } catch (error) {
             console.error('Error deleting account:', error);
-            alert('An error occurred while deleting your account.');
+            setErrorMessage('An error occurred while deleting your account.');
         }
     };
 
     return (
-        <div className="profile-settings">
+        <div className="profile-settings p-6">
             <div className="profile-settings-actions">
                 <div className="flex gap-2 w-full">
                     <button
                         className="help-contact-support-button"
-                        onClick={() => {
-                            setShowSupportModal(true);
-                        }}
+                        onClick={() => setShowSupportModal(true)}
                     >
                         Contact Support
                     </button>
-                    <button className="logout-button" onClick={handleLogout}>Logout</button>
+                    <button
+                        className="logout-button"
+                        onClick={handleLogout}
+                    >
+                        Logout
+                    </button>
                 </div>
-                <button className="delete-button text-gray-500" onClick={openDeleteModal}>Delete Account</button>
+                <button
+                    className={`text-gray-500 delete-button ${answerInput.trim() === '' ? 'delete-button-disabled' : ''}`}
+                    onClick={openDeleteModal}
+                >
+                    Delete Account
+                </button>
             </div>
 
             {/* Support Modal */}
@@ -129,27 +140,41 @@ const HelpSettings: React.FC = () => {
                 </div>
             )}
 
-            {/* Existing Delete Modal */}
+            {/* Delete Account Modal */}
             {showDeleteModal && (
                 <div className="profile-modal-overlay">
                     <div className="modal">
-                        <h3>Confirm Delete Account</h3>
-                        <p>Solve this math question to confirm account deletion:</p>
+                        <h3 className="text-lg font-semibold">Confirm Delete Account</h3>
+                        <p>Solve this math equation to confirm account deletion:</p>
                         <p>{num1} + {num2} = ?</p>
                         <input
                             type="number"
                             value={answerInput}
-                            onChange={(e) => setAnswerInput(e.target.value)}
+                            onChange={(e) => {
+                                setAnswerInput(e.target.value);
+                                if (errorMessage) setErrorMessage(''); // Clear error message on input change
+                            }}
                             placeholder="Your answer"
+                            className="modal-input"
                         />
+                        {/* Display error message if exists */}
+                        {errorMessage && (
+                            <p className="error-message">{errorMessage}</p>
+                        )}
                         <div className="modal-actions">
-                            <button className="delete-account-cancel-button" onClick={closeDeleteModal}>
+                            <button
+                                className="delete-account-cancel-button"
+                                onClick={closeDeleteModal}
+                            >
                                 Cancel
                             </button>
-                            <button className="confirm-delete-button" onClick={handleDeleteAccount}>
+                            <button
+                                className={`confirm-delete-button ${answerInput.trim() === '' ? 'delete-button-disabled' : ''}`}
+                                onClick={handleDeleteAccount}
+                                disabled={answerInput.trim() === ''}
+                            >
                                 Delete
                             </button>
-
                         </div>
                     </div>
                 </div>

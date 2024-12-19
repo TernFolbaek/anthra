@@ -79,9 +79,12 @@ body.dark .profile-settings-save-button:hover {
     font-size: 0.8rem;
     cursor: pointer;
     text-decoration: underline;
+    color: gray;
 }
 
-.delete-button:hover {
+
+
+.delete-button:hover:not(.delete-button-disabled) {
     color: black;
     text-decoration: none;
 }
@@ -114,7 +117,6 @@ body.dark .profile-settings-save-button:hover {
     background-color: #0056b3;
 }
 
-
 body.dark .logout-button:hover {
     background-color: #003f7f;
 }
@@ -122,7 +124,6 @@ body.dark .logout-button:hover {
 body.dark .delete-button {
     color: white;
 }
-
 
 /* Modal Styles */
 .profile-modal-overlay {
@@ -220,7 +221,13 @@ body.dark .modal input {
     background-color: #439ef6;
 }
 
-/* Dark mode styles */
+/* Disabled Confirm Delete Button */
+.confirm-delete-button:disabled {
+    background-color: rgba(0,0,0,0.2);
+    color: white;
+    cursor: not-allowed;
+}
+
 body.dark .confirm-delete-button {
     background-color: #555;
 }
@@ -235,6 +242,13 @@ body.dark .delete-account-cancel-button {
 
 body.dark .delete-account-cancel-button:hover {
     background-color: #003f7f;
+}
+
+/* Error Message Styling */
+.error-message {
+    color: #dc3545; /* Bootstrap's danger color */
+    font-size: 0.875rem;
+    margin-bottom: 15px;
 }
 
 /* Responsive adjustments */

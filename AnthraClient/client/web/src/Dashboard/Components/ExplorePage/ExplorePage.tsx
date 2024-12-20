@@ -10,7 +10,7 @@ const ExplorePage: React.FC = () => {
 
     return (
         <div className="explore-page">
-            <div  className="w-[100%] h-[100%]">
+            <div  className="w-[100%] ">
                 <Menu activePage={activePage} setActivePage={setActivePage} />
                 {activePage === 'individuals' ? <UserExplorePage /> : <GroupExplorePage />}
             </div>

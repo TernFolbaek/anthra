@@ -4,17 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="100vh to different mobile heights">
+    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Styling for mobile view">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/declarations.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/declarations.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/CreateProfile/CreateProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/CreateProfile/CreateProfile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/CreateProfile/CropModal.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/CreateProfile/CropModal.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/ExplorePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/ExplorePage.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/GroupExplorePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/GroupExplorePage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/GroupExplorePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/GroupExplorePage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Profile/Profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Profile/Profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Footer/Footer.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Footer/Footer.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/ReferralCardMessage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Messages/ReferralCardMessage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Settings/HelpSettings/HelpSettings.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Settings/HelpSettings/HelpSettings.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Settings/HelpSettings/HelpSettings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Settings/HelpSettings/HelpSettings.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ViewGroupProfile/ViewGroupProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ViewGroupProfile/ViewGroupProfile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ViewProfile/ViewProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ViewProfile/ViewProfile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Helpers/Snackbar/Snackbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Helpers/Snackbar/Snackbar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -217,46 +222,9 @@
       <workItem from="1734357380289" duration="12834000" />
       <workItem from="1734430162329" duration="1889000" />
       <workItem from="1734432830757" duration="35351000" />
-    </task>
-    <task id="LOCAL-00593" summary="Add callback for rendering all messages">
-      <option name="closed" value="true" />
-      <created>1734302656340</created>
-      <option name="number" value="00593" />
-      <option name="presentableId" value="LOCAL-00593" />
-      <option name="project" value="LOCAL" />
-      <updated>1734302656340</updated>
-    </task>
-    <task id="LOCAL-00594" summary="Only scroll to bottom once all referral messages and group invitations are rendered">
-      <option name="closed" value="true" />
-      <created>1734302675783</created>
-      <option name="number" value="00594" />
-      <option name="presentableId" value="LOCAL-00594" />
-      <option name="project" value="LOCAL" />
-      <updated>1734302675784</updated>
-    </task>
-    <task id="LOCAL-00595" summary="Fix to scrolling to bottom when fetching more messages">
-      <option name="closed" value="true" />
-      <created>1734302974528</created>
-      <option name="number" value="00595" />
-      <option name="presentableId" value="LOCAL-00595" />
-      <option name="project" value="LOCAL" />
-      <updated>1734302974528</updated>
-    </task>
-    <task id="LOCAL-00596" summary="Do not display loading as some groups can be deleted in the future">
-      <option name="closed" value="true" />
-      <created>1734345418744</created>
-      <option name="number" value="00596" />
-      <option name="presentableId" value="LOCAL-00596" />
-      <option name="project" value="LOCAL" />
-      <updated>1734345418744</updated>
-    </task>
-    <task id="LOCAL-00597" summary="Change color of group name clickable">
-      <option name="closed" value="true" />
-      <created>1734345433481</created>
-      <option name="number" value="00597" />
-      <option name="presentableId" value="LOCAL-00597" />
-      <option name="project" value="LOCAL" />
-      <updated>1734345433481</updated>
+      <workItem from="1734601660310" duration="747000" />
+      <workItem from="1734632059719" duration="3385000" />
+      <workItem from="1734706498776" duration="5961000" />
     </task>
     <task id="LOCAL-00598" summary="Style referral card with blue background and fix getActionMessage">
       <option name="closed" value="true" />
@@ -610,7 +578,47 @@
       <option name="project" value="LOCAL" />
       <updated>1734547398598</updated>
     </task>
-    <option name="localTasksCounter" value="642" />
+    <task id="LOCAL-00642" summary="full height for explore page sub container">
+      <option name="closed" value="true" />
+      <created>1734601704778</created>
+      <option name="number" value="00642" />
+      <option name="presentableId" value="LOCAL-00642" />
+      <option name="project" value="LOCAL" />
+      <updated>1734601704778</updated>
+    </task>
+    <task id="LOCAL-00643" summary="Edit data labels for group charts">
+      <option name="closed" value="true" />
+      <created>1734601721235</created>
+      <option name="number" value="00643" />
+      <option name="presentableId" value="LOCAL-00643" />
+      <option name="project" value="LOCAL" />
+      <updated>1734601721235</updated>
+    </task>
+    <task id="LOCAL-00644" summary="Delete button disabled until user inputs a number">
+      <option name="closed" value="true" />
+      <created>1734601733929</created>
+      <option name="number" value="00644" />
+      <option name="presentableId" value="LOCAL-00644" />
+      <option name="project" value="LOCAL" />
+      <updated>1734601733929</updated>
+    </task>
+    <task id="LOCAL-00645" summary="Smaller border radius for profile image">
+      <option name="closed" value="true" />
+      <created>1734601745685</created>
+      <option name="number" value="00645" />
+      <option name="presentableId" value="LOCAL-00645" />
+      <option name="project" value="LOCAL" />
+      <updated>1734601745685</updated>
+    </task>
+    <task id="LOCAL-00646" summary="Styling for mobile view">
+      <option name="closed" value="true" />
+      <created>1734601779472</created>
+      <option name="number" value="00646" />
+      <option name="presentableId" value="LOCAL-00646" />
+      <option name="project" value="LOCAL" />
+      <updated>1734601779472</updated>
+    </task>
+    <option name="localTasksCounter" value="647" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -628,11 +636,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add charts for status and institution" />
-    <MESSAGE value="set height for user card in mobile mode" />
-    <MESSAGE value="Scrollable view profile content in mobile mode as well" />
-    <MESSAGE value="Make background transparent" />
-    <MESSAGE value="Add group purpose in group explore page" />
     <MESSAGE value="Add client placeholder for api calls" />
     <MESSAGE value="More modern &amp; professional auth page" />
     <MESSAGE value="Force users to select country and institution, no pfp image file selection error" />
@@ -653,6 +656,11 @@
     <MESSAGE value="Development tools to main" />
     <MESSAGE value="Refactor" />
     <MESSAGE value="100vh to different mobile heights" />
-    <option name="LAST_COMMIT_MESSAGE" value="100vh to different mobile heights" />
+    <MESSAGE value="full height for explore page sub container" />
+    <MESSAGE value="Edit data labels for group charts" />
+    <MESSAGE value="Delete button disabled until user inputs a number" />
+    <MESSAGE value="Smaller border radius for profile image" />
+    <MESSAGE value="Styling for mobile view" />
+    <option name="LAST_COMMIT_MESSAGE" value="Styling for mobile view" />
   </component>
 </project>

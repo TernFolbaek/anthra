@@ -296,7 +296,33 @@ if (app.Environment.IsDevelopment())
                 ProfileCompleted = true,
                 EmailConfirmed = true,
                 ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/d1ce40a4-fb10-41d7-ae72-0e1addde8756_638696442365304750.avif?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D" 
+            },
+            new ApplicationUser 
+            { 
+                UserName = "thomas", 
+                Email = "test7@example.com", 
+                FirstName = "Thomas", 
+                LastName = "Johansen", 
+                Location = "Rio, Brazil", 
+                Age = 33, 
+                Institution = "KTH Royal Institute of Technology", 
+                Work = "Freelance Developer", 
+                Courses = new List<Course> 
+                {
+                    new Course { CourseName = "Mobile App Development", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+                    new Course { CourseName = "Cybersecurity", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+                    new Course { CourseName = "Mobile App Development", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+                    new Course { CourseName = "App Development", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+                }, 
+                Subjects = new List<string> { "Mobile Development", "Cybersecurity" },
+                Statuses = new List<string> { "examp prepping", "on exchange", "official exchange" },
+                AboutMe = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor",
+                CreatedProfile = true,
+                ProfileCompleted = true,
+                EmailConfirmed = true,
+                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/d1ce40a4-fb10-41d7-ae72-0e1addde8756_638696442365304750.avif?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D" 
             }
+            
         };
 
         // Create the test users
@@ -309,6 +335,12 @@ if (app.Environment.IsDevelopment())
         var ternUser = await userManager.FindByNameAsync("tern");
         var gabUser = await userManager.FindByNameAsync("gab");
         var justinUser = await userManager.FindByNameAsync("justin");
+        var andreasUser = await userManager.FindByNameAsync("andreas");
+        var birkkUser = await userManager.FindByNameAsync("birkk");
+        var carstenUser = await userManager.FindByNameAsync("carsten");
+        var thomasUser = await userManager.FindByNameAsync("thomas");
+
+
 
         // Create 3 seed groups
         var group1 = new Group
@@ -353,6 +385,12 @@ if (app.Environment.IsDevelopment())
             new GroupMember { GroupId = group1.Id, UserId = ternUser.Id, IsAccepted = true },
             new GroupMember { GroupId = group1.Id, UserId = gabUser.Id, IsAccepted = true },
             new GroupMember { GroupId = group1.Id, UserId = justinUser.Id, IsAccepted = true },
+            new GroupMember { GroupId = group1.Id, UserId = carstenUser.Id, IsAccepted = true },
+            new GroupMember { GroupId = group1.Id, UserId = birkkUser.Id, IsAccepted = true },
+            new GroupMember { GroupId = group1.Id, UserId = andreasUser.Id, IsAccepted = true },
+            new GroupMember { GroupId = group1.Id, UserId = thomasUser.Id, IsAccepted = true },
+
+
 
             new GroupMember { GroupId = group2.Id, UserId = gabUser.Id, IsAccepted = true },
             new GroupMember { GroupId = group2.Id, UserId = gabUser.Id, IsAccepted = true },

@@ -1,3 +1,4 @@
+// GroupExplorePage.tsx
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import './GroupExplorePage.css';
@@ -18,6 +19,7 @@ import { Bar } from 'react-chartjs-2';
 import { MdGroups } from "react-icons/md";
 import { FaChalkboardTeacher, FaBookReader, FaLaptopCode } from "react-icons/fa";
 import useWindowWidth from "../../hooks/useWindowWidth";
+import { useSwipeable } from 'react-swipeable'; // Import the swipeable hook
 
 ChartJS.register(
     CategoryScale,
@@ -78,6 +80,8 @@ const GroupExplorePage: React.FC = () => {
         { label: 'Exam Preparation', value: 'exam preparation', icon: <FaBookReader size={iconSize} /> },
         { label: 'Studying', value: 'studying', icon: <FaLaptopCode size={iconSize} /> },
     ];
+
+    const [showMembersModal, setShowMembersModal] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchGroups = async () => {
@@ -268,12 +272,45 @@ const GroupExplorePage: React.FC = () => {
         return purposeObj ? purposeObj.icon : <MdGroups size={iconSize} />;
     };
 
+    // Swipe handlers
+    const swipeHandlers = useSwipeable({
+        onSwipedLeft: () => {
+            if (currentPage === 1) {
+                setCurrentPage(2);
+            } else {
+                triggerShake();
+            }
+        },
+        onSwipedRight: () => {
+            if (currentPage === 2) {
+                setCurrentPage(1);
+            } else {
+                triggerShake();
+            }
+        },
+        // Prevent vertical swipes from triggering horizontal actions
+        delta: 50, // minimum distance(px) before a swipe is detected
+        trackMouse: false,
+    });
+
+    // Determine how many members to show based on screen size
+    const maxMembersToShow = isSmallScreen ? 3 : 6;
+    const membersToShow = currentGroup?.members.slice(0, maxMembersToShow) || [];
+    const extraMembersCount = currentGroup?.members.length
+        ? currentGroup.members.length - maxMembersToShow
+        : 0;
+
+    const closeModal = () => {
+        setShowMembersModal(false);
+    };
+
     return (
         <div className="group-explore-wrapper">
             {currentGroup ? (
+                // Apply swipe handlers only on mobile
                 <div
                     className={`group-explore-card-wrapper ${shake ? 'group-explore-shake' : ''} slide-${slideDirection}`}
-                    ref={cardRef}
+                    {...(isSmallScreen ? swipeHandlers : {})}
                 >
                     {/* Page Indicators */}
                     <div className="group-explore-page-indicators">
@@ -281,15 +318,17 @@ const GroupExplorePage: React.FC = () => {
                         <div className={`group-explore-indicator ${currentPage === 2 ? 'active' : ''}`}></div>
                     </div>
 
-                    {/* Clickable Overlays for navigation */}
-                    <div className="group-explore-click-overlay">
-                        <div className="group-explore-click-area-left" onClick={handleLeftClick}></div>
-                        <div className="group-explore-click-area-right" onClick={handleRightClick}></div>
-                    </div>
+                    {/* Clickable Overlays for navigation (only on desktop) */}
+                    {!isSmallScreen && (
+                        <div className="group-explore-click-overlay">
+                            <div className="group-explore-click-area-left" onClick={handleLeftClick}></div>
+                            <div className="group-explore-click-area-right" onClick={handleRightClick}></div>
+                        </div>
+                    )}
 
                     {/* Page Content */}
                     {currentPage === 1 ? (
-                        <div className="group-explore-page-content page-1">
+                        <div className="group-explore-page-content">
                             <div className="group-explore-card-content">
                                 <div className="group-explore-header">
                                     <div className="group-explore-purpose">
@@ -309,7 +348,7 @@ const GroupExplorePage: React.FC = () => {
                                 <div className="group-explore-info">
                                     <h3 className="group-explore-section-heading">Members</h3>
                                     <ul className="group-explore-members-list">
-                                        {currentGroup.members.map((member) => (
+                                        {membersToShow.map((member) => (
                                             <li
                                                 onClick={() => handleUserClick(member.userId)}
                                                 key={member.userId}
@@ -325,12 +364,20 @@ const GroupExplorePage: React.FC = () => {
                                                 </span>
                                             </li>
                                         ))}
+                                        {extraMembersCount > 0 && (
+                                            <li
+                                                className="group-explore-member-item bg-sky-50 more-members-button"
+                                                onClick={() => setShowMembersModal(true)}
+                                            >
+                                                <span className="font-semibold">+ {extraMembersCount} more</span>
+                                            </li>
+                                        )}
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     ) : (
-                        <div className="group-explore-page-content page-2">
+                        <div className="group-explore-page-content ">
                             <div className="group-explore-header">
                                 <div className="group-explore-purpose">
                                     {getGroupPurposeIcon(currentGroup.groupPurpose)}
@@ -366,6 +413,39 @@ const GroupExplorePage: React.FC = () => {
                 </div>
             ) : (
                 <NoMoreGroupsToExplore/>
+            )}
+
+            {/* Custom Members Modal */}
+            {showMembersModal && currentGroup && (
+                <div className="modal-overlay" onClick={closeModal}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <button className="modal-close-button" onClick={closeModal}>
+                            &times;
+                        </button>
+                        <h2 className="modal-title">Group Members</h2>
+                        <ul className="modal-members-list">
+                            {currentGroup.members.map((member) => (
+                                <li
+                                    onClick={() => {
+                                        handleUserClick(member.userId);
+                                        closeModal();
+                                    }}
+                                    key={member.userId}
+                                    className="modal-member-item"
+                                >
+                                    <img
+                                        className="modal-member-avatar"
+                                        src={`${member.profilePictureUrl}`}
+                                        alt={`${member.firstName} ${member.lastName}`}
+                                    />
+                                    <span className="font-semibold">
+                                        {member.firstName} {member.lastName}
+                                    </span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
             )}
 
             {selectedUserId && (

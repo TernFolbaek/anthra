@@ -8,7 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 20;
 }
 
 #viewprofile .viewprofile-modal {
@@ -178,7 +178,8 @@ body.dark #viewprofile .viewprofile-list li {
 
 @media(max-width: 768px) {
     #viewprofile.viewprofile-overlay{
-        padding: 5px 0 50px 0;
+        padding: 5px 0 5px 0;
+        z-index: 20;
     }
 }
 

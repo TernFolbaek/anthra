@@ -51,7 +51,7 @@ const Footer: React.FC = () => {
         closeMenu();
     }, [location.pathname]);
 
-    // Optional: Mark notifications as read when navigating via footer links
+    // Mark notifications as read when navigating via footer links
     useEffect(() => {
         // Determine the current path and mark relevant notifications as read
         const path = location.pathname;
@@ -73,7 +73,9 @@ const Footer: React.FC = () => {
             connectionNotifications.forEach(n => markAsRead(n.id));
         }
 
-    }, [location.pathname, notifications, markAsRead, markAllAsRead]);
+        // No dependencies on 'notifications', 'markAsRead', 'markAllAsRead' to prevent re-runs
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location.pathname]); // Removed 'notifications', 'markAsRead', 'markAllAsRead' from dependencies
 
     return (
         <div className="footer">

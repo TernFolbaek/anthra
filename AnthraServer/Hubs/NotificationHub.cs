@@ -1,4 +1,6 @@
 // Hubs/NotificationHub.cs
+
+using System.Security.Claims;
 using Microsoft.AspNetCore.SignalR;
 
 public class NotificationHub : Hub
@@ -12,5 +14,16 @@ public class NotificationHub : Hub
         }
 
         await base.OnConnectedAsync();
+        
     }
+    public override async Task OnDisconnectedAsync(Exception exception)
+    {
+        var userId = Context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userId != null)
+        {
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, userId);
+        }
+        await base.OnDisconnectedAsync(exception);
+    }
+    
 }

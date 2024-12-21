@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Linq;
 using System;
 using MyBackendApp.Data;
+using Microsoft.AspNetCore.SignalR;
+using MyBackendApp.Hubs; // Ensure this matches your project's namespace
 
 namespace MyBackendApp.Controllers
 {
@@ -16,10 +18,12 @@ namespace MyBackendApp.Controllers
     public class NotificationsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHubContext<NotificationHub> _hubContext;
 
-        public NotificationsController(ApplicationDbContext context)
+        public NotificationsController(ApplicationDbContext context, IHubContext<NotificationHub> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
         
         [HttpGet("GetNotifications")]
@@ -51,13 +55,43 @@ namespace MyBackendApp.Controllers
         [HttpPost("MarkAsRead/{notificationId}")]
         public async Task<IActionResult> MarkAsRead(int notificationId)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             var notification = await _context.Notifications.FindAsync(notificationId);
 
             if (notification == null)
                 return NotFound();
 
+            if (notification.UserId != userId)
+                return Forbid(); // Ensure users can only mark their own notifications
+
             notification.IsRead = true;
             await _context.SaveChangesAsync();
+
+            // Emit the updated notification to the specific user
+            await _hubContext.Clients.User(userId).SendAsync("UpdateNotification", notification);
+
+            return Ok();
+        }
+
+        [HttpPost("MarkAllAsRead")]
+        public async Task<IActionResult> MarkAllAsRead()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var unreadNotifications = _context.Notifications
+                .Where(n => n.UserId == userId && !n.IsRead)
+                .ToList();
+
+            foreach (var notification in unreadNotifications)
+            {
+                notification.IsRead = true;
+            }
+
+            await _context.SaveChangesAsync();
+
+            // Emit the updated notifications to the specific user
+            await _hubContext.Clients.User(userId).SendAsync("UpdateNotifications", unreadNotifications);
 
             return Ok();
         }

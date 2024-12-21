@@ -1,3 +1,4 @@
+/* GroupInfo.css */
 .group-info {
     padding: 20px;
     overflow-y: auto;
@@ -75,25 +76,10 @@ body.dark .group-desired-members {
     gap: 15px;
 }
 
-.group-member-item-edit{
-    display: flex;
-    align-items: center;
-    padding: 10px 10px 10px 5px;
-    transition: background-color 0.2s;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    gap: 15px;
-    justify-content: space-between;
-}
-
-.group-member-item:hover {
+.group-member-item:hover,
+.group-attachment-item:hover {
     cursor: pointer;
     background-color: #e3e2e2;
-}
-
-.group-member-item-edit:hover{
-   background-color: #e3e2e2;
-    cursor: pointer;
 }
 
 /* Dark mode styles */
@@ -127,4 +113,124 @@ body.dark .group-attachment-link {
 
 .group-attachment-link:hover {
     text-decoration: underline;
+}
+
+/* Additional Styles for "+x more" Button */
+.more-members-button {
+    justify-content: center;
+    background-color: #f0f0f0;
+    color: #007bff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.more-members-button:hover {
+    background-color: #e0e0e0;
+    color: #0056b3;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    padding: 20px;
+    position: relative;
+    overflow-y: auto;
+}
+
+/* Dark mode styles */
+body.dark .modal-content {
+    background-color: #3a3a3a;
+    color: #fff;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #aaa;
+    transition: color 0.2s;
+}
+
+.modal-close-button:hover {
+    color: #000;
+}
+
+/* Dark mode styles */
+body.dark .modal-close-button {
+    color: #fff;
+}
+
+.body.dark .modal-close-button:hover {
+    color: #ddd;
+}
+
+.modal-members-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.modal-member-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.2s;
+    gap: 15px;
+}
+
+.modal-member-item:hover {
+    background-color: #f9fafb;
+    cursor: pointer;
+}
+
+/* Dark mode styles */
+body.dark .modal-member-item:hover {
+    background-color: #4a4a4a;
+}
+
+.modal-member-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.modal-member-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #444;
+}
+
+/* Dark mode styles */
+body.dark .modal-member-name {
+    color: #fff;
 }

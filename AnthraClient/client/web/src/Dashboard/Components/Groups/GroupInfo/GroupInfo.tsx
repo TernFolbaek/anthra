@@ -1,5 +1,5 @@
 // Components/GroupMessage/GroupInfo/GroupInfo.tsx
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './GroupInfo.css';
 import ViewProfile from "../../ViewProfile/ViewProfile";
@@ -9,6 +9,7 @@ interface GroupMember {
     firstName: string;
     lastName: string;
     profilePictureUrl: string;
+    institution: string;
 }
 
 interface Attachment {
@@ -21,7 +22,7 @@ interface GroupInfoProps {
     groupId: number;
 }
 
-const GroupInfo: React.FC<GroupInfoProps> = ({groupId}) => {
+const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
     const [members, setMembers] = useState<GroupMember[]>([]);
     const [groupDescription, setGroupDescription] = useState('');
     const [groupDesiredMembers, setGroupDesiredMembers] = useState('');
@@ -29,6 +30,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({groupId}) => {
     const [isPublic, setIsPublic] = useState(false);
     const [attachments, setAttachments] = useState<Attachment[]>([]);
     const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+    const [showMembersModal, setShowMembersModal] = useState<boolean>(false);
     const token = localStorage.getItem('token');
 
     useEffect(() => {
@@ -46,6 +48,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({groupId}) => {
                 setGroupDescription(response.data.groupDescription);
                 setIsPublic(response.data.isPublic);
                 setGroupDesiredMembers(response.data.groupDesiredMembers);
+                console.log(response.data.members);
                 setMembers(response.data.members);
                 setAttachments(response.data.attachments);
                 setGroupPurpose(response.data.groupPurpose);
@@ -57,13 +60,26 @@ const GroupInfo: React.FC<GroupInfoProps> = ({groupId}) => {
         fetchGroupInfo();
     }, [groupId, token]);
 
-    const handleUserClick = (member: string) => {
-        setSelectedUserId(member);
+    const handleUserClick = (userId: string) => {
+        setSelectedUserId(userId);
     }
 
-    const handleCloseProfile = () =>{
+    const handleCloseProfile = () => {
         setSelectedUserId(null);
     }
+
+    // Determine how many members to show
+    const maxMembersToShow = 5;
+    const membersToShow = members.slice(0, maxMembersToShow);
+    const extraMembersCount = members.length > maxMembersToShow ? members.length - maxMembersToShow : 0;
+
+    const openMembersModal = () => {
+        setShowMembersModal(true);
+    };
+
+    const closeMembersModal = () => {
+        setShowMembersModal(false);
+    };
 
     return (
         <div className="group-info">
@@ -85,7 +101,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({groupId}) => {
 
             <div className="group-section-title">Members</div>
             <ul className="group-members-list">
-                {members.map((member) => (
+                {membersToShow.map((member) => (
                     <li key={member.userId} onClick={() => handleUserClick(member.userId)}
                         className="group-member-item">
                         <img
@@ -93,11 +109,26 @@ const GroupInfo: React.FC<GroupInfoProps> = ({groupId}) => {
                             alt={`${member.firstName} ${member.lastName}`}
                             className="connection-profile-picture"
                         />
-                        <span className="group-member-name">
-                        {member.firstName} {member.lastName}
-                    </span>
+                        <div className="flex w-full justify-between">
+                            <p className="modal-member-name">
+                                {member.firstName} {member.lastName}
+                            </p>
+                            <p className="text-xs font-semibold text-gray-500">
+                                {member.institution}
+                            </p>
+                        </div>
                     </li>
                 ))}
+                {extraMembersCount > 0 && (
+                    <li
+                        className="group-member-item more-members-button"
+                        onClick={openMembersModal}
+                    >
+                        <span className="group-member-name">
+                            + {extraMembersCount} more
+                        </span>
+                    </li>
+                )}
             </ul>
 
             <div className="group-section-title">Attachments</div>
@@ -116,7 +147,46 @@ const GroupInfo: React.FC<GroupInfoProps> = ({groupId}) => {
                 ))}
             </ul>
             {selectedUserId && (
-                <ViewProfile userId={selectedUserId} onClose={handleCloseProfile}/>
+                <ViewProfile userId={selectedUserId} onClose={handleCloseProfile} />
+            )}
+
+            {/* Members Modal */}
+            {showMembersModal && (
+                <div className="modal-overlay" onClick={closeMembersModal}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <button className="modal-close-button" onClick={closeMembersModal}>
+                            &times;
+                        </button>
+                        <h2 className="modal-title">Group Members</h2>
+                        <ul className="modal-members-list">
+                            {members.map((member) => (
+                                <li
+                                    onClick={() => {
+                                        handleUserClick(member.userId);
+                                        closeMembersModal();
+                                    }}
+                                    key={member.userId}
+                                    className="modal-member-item flex"
+                                >
+                                    <img
+                                        src={`${member.profilePictureUrl}`}
+                                        alt={`${member.firstName} ${member.lastName}`}
+                                        className="modal-member-avatar"
+                                    />
+                                    <div className="flex w-full justify-between">
+                                        <p className="modal-member-name">
+                                            {member.firstName} {member.lastName}
+                                        </p>
+                                        <p className="text-xs font-semibold text-gray-500">
+                                            {member.institution}
+                                        </p>
+                                    </div>
+
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
             )}
         </div>
     );

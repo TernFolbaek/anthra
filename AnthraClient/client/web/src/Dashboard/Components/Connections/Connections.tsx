@@ -284,9 +284,10 @@ const Connections: React.FC = () => {
         return <div className="connections-error">{error}</div>;
     }
 
+
     const renderConnections = () => (
         <div className="connections-card-container">
-            <p className="dark:text-white p-1 pb-2 text-xl font-bold">Connections</p>
+            <p className="dark:text-white pl-2 pt-2 pb-2 text-xl font-bold">Connections</p>
             {connections.length === 0 ? (
                 <NoConnectionsRive />
             ) : (
@@ -380,7 +381,7 @@ const Connections: React.FC = () => {
                         </div>
                         <div className="requests-button-container">
                             <button
-                                className="requests-connect-button"
+                                className="message-button"
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     handleAccept(request);
@@ -425,7 +426,7 @@ const Connections: React.FC = () => {
                                 </div>
                                 <div className="requests-button-container">
                                     <button
-                                        className="requests-connect-button"
+                                        className="message-button"
                                         onClick={() => handleGroupApplicationAccept(application.requestId)}
                                     >
                                         Accept
@@ -473,7 +474,7 @@ const Connections: React.FC = () => {
                         renderConnections()
                     ) : (
                         <div className="connections-card-container">
-                            <p className="dark:text-white pl-2 pt-1 pb-1 text-xl font-bold">Requests</p>
+                            <p className="dark:text-white pl-2 pt-2 pb-1 text-xl font-bold">Requests</p>
                             <div className="slide-toggle">
                                 <input
                                     type="checkbox"
@@ -500,7 +501,7 @@ const Connections: React.FC = () => {
                     <div className="connections-columns">
                         {renderConnections()}
                         <div className="connections-card-container">
-                            <p className="dark:text-white pl-2 pt-3 pb-2 text-xl font-bold">Requests</p>
+                            <p className="dark:text-white pl-2 pt-2 pb-2 text-xl font-bold">Requests</p>
 
                             <div className="slide-toggle">
                                 <input

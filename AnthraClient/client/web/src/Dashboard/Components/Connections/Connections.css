@@ -308,8 +308,9 @@ body.dark .requests-user-card:hover {
 }
 
 .requests-skip-button {
-    background-color: #858383;
+    background-color: darkgray;
     border-radius: 5px;
+    border: 2px solid #858383;
     padding: 4px 6px;
     color: white;
     font-weight: 600;
@@ -435,7 +436,8 @@ body.dark .no-group-text {
     display: flex;
     width: 100%;
     position: relative;
-    background-color: #e3e2e2;
+    background-color:  rgba(180, 209, 255, 0.3);
+
 }
 
 .toggle-button {
@@ -459,7 +461,7 @@ body.dark .no-group-text {
     width: 50%;
     border-radius: 25px;
     transition: transform 0.3s ease;
-    background-color: #b8b6b6;
+    background-color: rgba(180, 209, 255, 0.6);
 }
 
 .connections-slider.left {
@@ -476,6 +478,14 @@ body.dark .no-group-text {
         background-color: white;
     }
 
+    .slide-toggle input[type='checkbox']:checked + label .toggle-option.groups {
+        font-size: 14px;
+    }
+
+    .slide-toggle input[type='checkbox']:not(:checked) + label .toggle-option.personal {
+        font-size: 14px;
+    }
+
     .connections-card-container,
     .requests-card-container {
         margin: 0;
@@ -488,6 +498,7 @@ body.dark .no-group-text {
 
     .connections-toggle-slider {
         width: 100%;
+        margin-top: 10px;
     }
 
     .toggle-button {

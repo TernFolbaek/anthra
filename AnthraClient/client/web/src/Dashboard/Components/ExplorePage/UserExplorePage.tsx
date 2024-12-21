@@ -193,9 +193,19 @@ const UserExplorePage: React.FC = () => {
                                 </div>
                             ) : (
                                 <div className="page-content page-2">
-                                    <h2 className="user-name">
-                                        {currentUser.firstName} {currentUser.lastName} {currentUser.age}
-                                    </h2>
+                                    <div className="flex items-center gap-2">
+                                        <img
+                                            className="explore-user-card-img"
+                                            src={`${currentUser.profilePictureUrl}`}
+                                            alt="Profile"
+                                        />
+                                        <div className="flex flex-col">
+                                            <h2 className="user-name">
+                                                {currentUser.firstName} {currentUser.lastName} {currentUser.age}
+                                            </h2>
+                                            <p className="user-location">{currentUser.location}</p>
+                                        </div>
+                                    </div>
                                     <div className="user-info">
                                         {currentUser.subjects && currentUser.subjects.length > 0 && (
                                             <div>

@@ -135,6 +135,7 @@ body.dark .user-info p {
 }
 
 .user-explore-courses-list li {
+    z-index: 20;
     margin: 5px 0;
 }
 
@@ -328,8 +329,16 @@ body.dark .user-explore-no-more {
         padding: 15px;
         position: relative;
     }
+    .explore-user-card-img {
+        width: 120px;
+        height: 120px;
+    }
+        .no-more-users-or-groups {
+        height: 78vh;
+        min-height: 0;
+    }
 
-    .connect-button,
+        .connect-button,
     .refer-button,
     .skip-button {
         padding: 0.35rem 0.3rem;

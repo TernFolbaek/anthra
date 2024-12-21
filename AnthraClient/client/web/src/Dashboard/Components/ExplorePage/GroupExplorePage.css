@@ -177,7 +177,6 @@ body {
     align-items: center;
     background-color: #f0f8ff;
     cursor: pointer;
-    border: 2px dashed #85bff8;
 }
 
 .more-members-button:hover {
@@ -301,6 +300,34 @@ body {
     color: #555;
 }
 
+.modal-members-container {
+    /* Assuming each member item is approximately 60px in height (including padding and borders) */
+    height: 400px; /* 5 members x 60px each */
+    overflow-y: auto;
+    margin-bottom: 20px; /* Space below the list */
+    padding-right: 10px; /* To prevent content from hiding behind the scrollbar */
+}
+
+/* Optional: Customize the scrollbar for better aesthetics */
+.modal-members-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-members-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.modal-members-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.modal-members-container::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+
 /* Responsive Adjustments */
 @media (max-width: 480px) {
     .group-explore-page-indicators {
@@ -369,70 +396,3 @@ body {
         max-width: 400px;
     }
 }
-
-/* Custom Members Modal Styles */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 20;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
-    max-height: 80vh;
-    overflow-y: auto;
-    position: relative;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.modal-close-button {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: transparent;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-.modal-title {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    font-weight: 700;
-}
-
-.modal-members-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.modal-member-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    transition: background 0.2s;
-}
-
-.modal-member-item:last-child {
-    border-bottom: none;
-}
-
-.modal-member-item:hover {
-    background-color: #f9f9f9;
-    cursor: pointer;
-}
-

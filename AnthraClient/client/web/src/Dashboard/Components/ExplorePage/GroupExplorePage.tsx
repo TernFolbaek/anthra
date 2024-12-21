@@ -415,38 +415,42 @@ const GroupExplorePage: React.FC = () => {
                 <NoMoreGroupsToExplore/>
             )}
 
-            {/* Custom Members Modal */}
             {showMembersModal && currentGroup && (
                 <div className="modal-overlay" onClick={closeModal}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                         <button className="modal-close-button" onClick={closeModal}>
                             &times;
                         </button>
-                        <h2 className="modal-title">Group Members</h2>
-                        <ul className="modal-members-list">
-                            {currentGroup.members.map((member) => (
-                                <li
-                                    onClick={() => {
-                                        handleUserClick(member.userId);
-                                        closeModal();
-                                    }}
-                                    key={member.userId}
-                                    className="modal-member-item"
-                                >
-                                    <img
-                                        className="modal-member-avatar"
-                                        src={`${member.profilePictureUrl}`}
-                                        alt={`${member.firstName} ${member.lastName}`}
-                                    />
-                                    <span className="font-semibold">
-                                        {member.firstName} {member.lastName}
-                                    </span>
-                                </li>
-                            ))}
-                        </ul>
+                        <h2 className="modal-title font-medium">Group Members</h2>
+
+                        {/* New Container for Members List */}
+                        <div className="modal-members-container">
+                            <ul className="modal-members-list">
+                                {currentGroup.members.map((member) => (
+                                    <li
+                                        onClick={() => {
+                                            handleUserClick(member.userId);
+                                            closeModal();
+                                        }}
+                                        key={member.userId}
+                                        className="modal-member-item"
+                                    >
+                                        <img
+                                            className="modal-member-avatar"
+                                            src={`${member.profilePictureUrl}`}
+                                            alt={`${member.firstName} ${member.lastName}`}
+                                        />
+                                        <span className="font-semibold">
+                                {member.firstName} {member.lastName}
+                            </span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             )}
+
 
             {selectedUserId && (
                 <ViewProfile userId={selectedUserId} onClose={handleCloseProfile}/>

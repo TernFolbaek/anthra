@@ -1,0 +1,153 @@
+/* src/components/AddMembersModal/AddMembersModal.css */
+
+.add-members-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100; /* Ensure it's on top */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-members-modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.add-members-modal-close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.add-members-modal-title {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.add-members-modal-selected-users {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.add-members-modal-selected-user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.add-members-modal-selected-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.add-members-modal-selected-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.add-members-modal-members-container {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding-right: 10px; /* Prevent content hiding behind scrollbar */
+    height: 300px; /* Adjust based on the height of member items */
+}
+
+.add-members-modal-members-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.add-members-modal-member-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    position: relative;
+}
+
+.add-members-modal-member-item.selected {
+    background-color: #e0f0ff;
+}
+
+.add-members-modal-member-item:hover {
+    background-color: #f5f5f5;
+}
+
+.add-members-modal-member-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.add-members-modal-member-name {
+    flex: 1;
+    font-weight: 500;
+}
+
+.add-members-modal-checkbox {
+    margin-left: auto;
+}
+
+.add-members-modal-add-button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.add-members-modal-add-button:hover {
+    background-color: #0056b3;
+}
+
+/* Scrollbar customization */
+.add-members-modal-members-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.add-members-modal-members-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.add-members-modal-members-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.add-members-modal-members-container::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}

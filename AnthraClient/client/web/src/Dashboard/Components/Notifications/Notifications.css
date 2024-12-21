@@ -50,7 +50,7 @@ body.dark .bell-icon:hover {
     width: 300px;
     max-height: 400px;
     position: absolute;
-    bottom: 100%;
+    bottom: 0;
     right: -300px;
     overflow-y: auto;
     background: white;
@@ -128,10 +128,22 @@ body.dark .notification-timestamp {
 
 @media(max-width: 480px) {
     .bell-icon {
-        width: 25px;
-        height: 25px;
-        font-size: 23px;
-        padding: 0;
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        z-index: 1;
+        background-color: rgba(0,0,0,0.15);
+        padding: 5px;
+        border-radius: 50%;
+    }
+    .notifications-dropdown {
+        right: 40px;
+        position: absolute;
+        top: 35px;
+        bottom: auto;
+
 
     }
 }

@@ -1,13 +1,13 @@
 // Components/GroupsList/GroupsList.tsx
-import React, {useState, useEffect, useRef} from 'react';
-import {FaInfo} from 'react-icons/fa';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import { FaInfo } from 'react-icons/fa';
 import axios from 'axios';
 import NoGroups from '../../../Helpers/Animations/NoGroups';
 import CardContainer from '../../CardContainer/CardContainer';
 import './GroupsList.css';
-import {MdGroupAdd, MdExitToApp} from 'react-icons/md';
+import { MdGroupAdd, MdExitToApp } from 'react-icons/md';
 import ViewGroupProfile from "../../ViewGroupProfile/ViewGroupProfile";
-
+import {NotificationContext} from "../../../context/NotificationsContext";
 interface GroupMember {
     userId: string;
     profilePictureUrl: string;
@@ -40,15 +40,26 @@ const GroupsList: React.FC<GroupsListProps> = ({
     const token = localStorage.getItem('token');
     const menuRef = useRef<HTMLDivElement | null>(null);
 
-    const handleGroupClick = (groupId: number) => {
-        onGroupClick(groupId);
+    // Access NotificationContext
+    const notificationContext = useContext(NotificationContext);
+
+    if (!notificationContext) {
+        throw new Error('GroupsList must be used within a NotificationProvider');
+    }
+
+    const { markGroupNotificationsAsRead } = notificationContext;
+
+    // Updated handleGroupClick to mark notifications as read
+    const handleGroupClick = async (groupId: number) => {
+        await markGroupNotificationsAsRead(groupId); // Mark related notifications as read
+        onGroupClick(groupId); // Proceed with existing group click behavior
     };
 
     const handleLeaveGroup = async (groupId: number) => {
         try {
             await axios.post(
                 'http://localhost:5001/api/Groups/LeaveGroup',
-                {groupId},
+                { groupId },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -57,6 +68,7 @@ const GroupsList: React.FC<GroupsListProps> = ({
             );
             console.log(`Successfully left group ${groupId}`);
             setOpenMenuGroupId(null);
+            // Optionally, you can refresh the groups list or notify the parent component
         } catch (error) {
             console.error('Error leaving group:', error);
             alert('Failed to leave the group. Please try again later.');
@@ -121,9 +133,9 @@ const GroupsList: React.FC<GroupsListProps> = ({
                                 selectedGroupId === group.id ? 'group-card-selected' : ''
                             }`}
                             key={group.id}
-                            onClick={() => handleGroupClick(group.id)}
+                            onClick={() => handleGroupClick(group.id)} // Updated to handleGroupClick
                         >
-                                <div className="group-name">{group.name}</div>
+                            <div className="group-name">{group.name}</div>
 
                             <div className="group-options">
                                 <div className="group-member-images">
@@ -177,6 +189,7 @@ const GroupsList: React.FC<GroupsListProps> = ({
             )}
         </>
     );
+
 };
 
 export default GroupsList;

@@ -8,7 +8,7 @@ import GroupInfo from '../GroupInfo/GroupInfo';
 import GroupMessageInput from "./GroupMessageInput";
 import EditGroupModal from "../EditGroupModal/EditGroupModal";
 import {MdExitToApp} from "react-icons/md";
-
+import ViewProfile from "../../ViewProfile/ViewProfile";
 interface Attachment {
     id: number;
     fileName: string;
@@ -58,7 +58,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
     const [isConnectionStarted, setIsConnectionStarted] = useState(false);
     const [showEditGroupModal, setShowEditGroupModal] = useState(false);
     const isGroupCreator = groupInfo?.creatorId === userId;
-
+    const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
     useEffect(() => {
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 1300);
@@ -244,6 +244,13 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
         }
     };
 
+    const handleUserSelect = (userId: string) => {
+        setSelectedUserId(userId)
+    }
+
+    const handleCloseProfile = () => {
+        setSelectedUserId(null);
+    }
 
     return (
         <div className="group-message-page">
@@ -317,7 +324,8 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                         }`}
                                     >
                                         {showSenderInfo && !isCurrentUser && (
-                                            <div className={`group-message-sender-info`}>
+                                            <div className={`cursor-pointer group-message-sender-info`} onClick={()=>handleUserSelect(message.senderId)}
+                                            >
                                                 <img
                                                     className="group-message-sender-avatar"
                                                     src={`${message.senderProfilePictureUrl}`}
@@ -389,6 +397,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                 )}
             </div>
             {!isMobile && showGroupInfo && <GroupInfo groupId={groupId} />}
+            {selectedUserId && <ViewProfile userId={selectedUserId} onClose={handleCloseProfile}/>}
         </div>
     );
 };

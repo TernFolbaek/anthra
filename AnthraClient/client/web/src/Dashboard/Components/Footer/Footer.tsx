@@ -1,4 +1,3 @@
-// src/Components/Footer/Footer.tsx
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
@@ -8,7 +7,7 @@ import {
     FaCog,
     FaBars,
     FaTimes, FaUser, FaUsers,
-} from 'react-icons/fa'; // Import FaTimes for close icon
+} from 'react-icons/fa';
 import './Footer.css';
 import Notifications from "../Notifications/Notifications";
 const Footer: React.FC = () => {
@@ -22,7 +21,6 @@ const Footer: React.FC = () => {
         setMenuOpen(false);
     };
 
-    // Prevent background scrolling when menu is open
     useEffect(() => {
         if (menuOpen) {
             document.body.style.overflow = 'hidden';
@@ -33,9 +31,9 @@ const Footer: React.FC = () => {
 
     return (
         <div className="footer">
-            <div>
-                <Notifications />
-            </div>
+            <NavLink to="/groups" className="footer-link" onClick={closeMenu}>
+                    <FaUsers/>
+            </NavLink>
             <NavLink to="/connections" className="footer-link">
                 <FaUserFriends />
             </NavLink>
@@ -56,17 +54,13 @@ const Footer: React.FC = () => {
                             <FaTimes size={20}/>
                         </button>
                         <NavLink to="/profile" onClick={closeMenu}>
-                        <div className="flex gap-2 items-center">
+                        <div className="text-base flex gap-2 items-center">
                                 <FaUser/> Profile
                             </div>
                         </NavLink>
-                        <NavLink to="/groups" onClick={closeMenu}>
-                            <div className="flex gap-2 items-center">
-                                <FaUsers/> Groups
-                            </div>
-                        </NavLink>
+
                         <NavLink to="/settings" className="footer-link">
-                            <div className="flex gap-2 items-center">
+                            <div className="text-base flex gap-2 items-center">
                                 <FaCog/> Settings
                             </div>
                         </NavLink>

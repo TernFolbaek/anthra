@@ -5,9 +5,9 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 10px 0;
+    padding: 5px 0;
     z-index: 10;
-    background-color: transparent;
+    background-color: white;
 }
 
 /* Dark mode styles */
@@ -49,11 +49,11 @@ body.dark .footer-link:hover {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.3);
     display: flex;
     justify-content: center;
-    align-items: flex-end; /* Start from bottom */
-    z-index: 10;
+    align-items: flex-end;
+    z-index: 100;
 }
 
 .footer-menu {

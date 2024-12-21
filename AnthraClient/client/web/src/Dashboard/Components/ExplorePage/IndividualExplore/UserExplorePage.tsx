@@ -1,10 +1,10 @@
 import React, {useEffect, useState, useRef} from 'react';
 import axios from 'axios';
 import './UserExplorePage.css';
-import NoMoreUsersToExplore from '../../Helpers/Animations/NoMoreUsersToExplore';
-import Snackbar from "../../Helpers/Snackbar/Snackbar";
-import ReferModal from './ReferModal/ReferModal';
-import useWindowWidth from '../../hooks/useWindowWidth';
+import NoMoreUsersToExplore from '../../../Helpers/Animations/NoMoreUsersToExplore';
+import Snackbar from "../../../Helpers/Snackbar/Snackbar";
+import ReferModal from '../ReferModal/ReferModal';
+import useWindowWidth from '../../../hooks/useWindowWidth';
 
 interface Course {
     courseName: string;

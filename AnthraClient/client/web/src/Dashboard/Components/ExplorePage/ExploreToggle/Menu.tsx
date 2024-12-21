@@ -1,6 +1,6 @@
 import React from 'react';
 import './Menu.css';
-import useWindowWidth from '../../hooks/useWindowWidth';
+import useWindowWidth from '../../../hooks/useWindowWidth';
 
 interface MenuProps {
     activePage: 'individuals' | 'groups';

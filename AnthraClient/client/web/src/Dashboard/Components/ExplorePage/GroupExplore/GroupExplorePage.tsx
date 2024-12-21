@@ -2,8 +2,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import './GroupExplorePage.css';
-import NoMoreGroupsToExplore from '../../Helpers/Animations/NoMoreGroupsToExplore';
-import ViewProfile from "../ViewProfile/ViewProfile";
+import NoMoreGroupsToExplore from '../../../Helpers/Animations/NoMoreGroupsToExplore';
+import ViewProfile from "../../ViewProfile/ViewProfile";
 
 import {
     Chart as ChartJS,
@@ -18,7 +18,7 @@ import {
 import { Bar } from 'react-chartjs-2';
 import { MdGroups } from "react-icons/md";
 import { FaChalkboardTeacher, FaBookReader, FaLaptopCode } from "react-icons/fa";
-import useWindowWidth from "../../hooks/useWindowWidth";
+import useWindowWidth from "../../../hooks/useWindowWidth";
 import { useSwipeable } from 'react-swipeable'; // Import the swipeable hook
 
 ChartJS.register(

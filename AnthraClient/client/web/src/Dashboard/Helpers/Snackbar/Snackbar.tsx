@@ -10,10 +10,9 @@ interface SnackbarProps {
 
 const Snackbar: React.FC<SnackbarProps> = ({ title, message, duration = 3000, onClose }) => {
     const [show, setShow] = useState<boolean>(true);
-    const [animationKey, setAnimationKey] = useState<number>(0); // Added state for animation key
+    const [animationKey, setAnimationKey] = useState<number>(0);
 
     useEffect(() => {
-        // Reset the show state and animation key whenever a new Snackbar is triggered
         setShow(true);
         setAnimationKey(prev => prev + 1);
 
@@ -28,13 +27,12 @@ const Snackbar: React.FC<SnackbarProps> = ({ title, message, duration = 3000, on
     if (!show) return null;
 
     return (
-        <div className="snackbar-container">
+        <div className="snackbar-container" onClick={()=>setShow(false)}>
             <div className="snackbar">
                 <div className="snackbar-content">
                     <div className="snackbar-title">{title}</div>
                     <div className="snackbar-message">{message}</div>
                 </div>
-                {/* Progress Bar */}
                 <div
                     key={animationKey} // Use animationKey to reset animation
                     className="snackbar-progress"

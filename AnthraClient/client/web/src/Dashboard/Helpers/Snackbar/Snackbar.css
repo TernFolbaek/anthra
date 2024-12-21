@@ -8,7 +8,7 @@
 }
 
 .snackbar {
-    background-color: #ebf3fd;
+    background-color: rgba(208, 228, 253,0.6);
     color: black;
     border-radius: 10px;
     min-width: 250px;
@@ -77,5 +77,6 @@ body.dark .snackbar {
     .snackbar-container {
         right: 50%;
         transform: translateX(50%);
+        width: 90vw;
     }
 }

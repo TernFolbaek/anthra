@@ -12,18 +12,6 @@
     z-index: 3;
 }
 
-.modal-content {
-    font-family: 'Montserrat', sans-serif;
-    background-color: white;
-    padding: 30px;
-    width: 500px;
-    max-width: 90%;
-    border-radius: 8px;
-    position: relative;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    max-height: 90vh; /* Ensure modal doesn't exceed viewport height */
-    overflow-y: auto; /* Enable scrolling for the entire modal on smaller screens */
-}
 
 /* Dark mode styles */
 body.dark .modal-content {

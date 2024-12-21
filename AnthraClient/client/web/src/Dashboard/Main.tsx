@@ -14,11 +14,14 @@ import GroupsLayout from './Layouts/GroupsLayout/GroupsLayout';
 import MessageOptionalLayout from "./Layouts/MessageOptionalLayout/MessageOptionalLayout";
 import './Main.css';
 import DevelopmentTools from "../DevelopmentTools";
+import Notifications from "./Components/Notifications/Notifications";
+import { NotificationProvider } from "./context/NotificationsContext";
+import useWindowWidth from "./hooks/useWindowWidth";
 
 const DashboardContent: React.FC = () => {
     const location = useLocation();
-    const isMobile = window.innerWidth <= 480;
-
+    const windowWidth = useWindowWidth();
+    const isMobile = windowWidth < 480;
     // Check if the path matches "/messages/:userId" or "/groups/:groupId"
     const isUserSpecificMessage = /^\/messages\/[^/]+$/.test(location.pathname);
     const isGroupSpecificPage = /^\/groups\/[^/]+$/.test(location.pathname);
@@ -26,34 +29,38 @@ const DashboardContent: React.FC = () => {
     // If on a specific user/group page and on mobile, hide the footer
     const shouldHideFooter = isMobile && (isUserSpecificMessage || isGroupSpecificPage);
 
+    // Removed handleCountsUpdate since it's no longer needed
     return (
-        <div className="dashboard-container">
-            <div className="content-wrapper">
-                <Sidebar />
-                <div className="main-content">
-                    <Routes>
-                        <Route element={<MessagesLayout />}>
-                            <Route path="/messages" element={<Messages />} />
-                            <Route path="/messages/:userId" element={<Messages />} />
-                        </Route>
-                        <Route path="/groups" element={<GroupsLayout />}>
-                            <Route index element={<Groups />} />
-                            <Route path=":groupId" element={<Groups />} />
-                        </Route>
-                        <Route element={<MessageOptionalLayout/>}>
-                            <Route path="/connections" element={<Connections />} />
-                            <Route path="/settings" element={<Settings />} />
-                        </Route>
-                        <Route path="/" element={<ExplorePage />} />
-                        <Route path="/explore" element={<ExplorePage />} />
-                        <Route path="/profile" element={<Profile />} />
-                    </Routes>
+        <NotificationProvider>
+            <div className="dashboard-container">
+                {isMobile && (<Notifications />)}
+                <div className="content-wrapper">
+                    <Sidebar />
+                    <div className="main-content">
+                        <Routes>
+                            <Route element={<MessagesLayout />}>
+                                <Route path="/messages" element={<Messages />} />
+                                <Route path="/messages/:userId" element={<Messages />} />
+                            </Route>
+                            <Route path="/groups" element={<GroupsLayout />}>
+                                <Route index element={<Groups />} />
+                                <Route path=":groupId" element={<Groups />} />
+                            </Route>
+                            <Route element={<MessageOptionalLayout/>}>
+                                <Route path="/connections" element={<Connections />} />
+                                <Route path="/settings" element={<Settings />} />
+                            </Route>
+                            <Route path="/" element={<ExplorePage />} />
+                            <Route path="/explore" element={<ExplorePage />} />
+                            <Route path="/profile" element={<Profile />} />
+                        </Routes>
+                    </div>
                 </div>
-            </div>
-            {/*{process.env.NODE_ENV === 'development' && <DevelopmentTools />}*/}
+                {/*{process.env.NODE_ENV === 'development' && <DevelopmentTools />}*/}
 
-            {!shouldHideFooter && <Footer />}
-        </div>
+                {!shouldHideFooter && <Footer />}
+            </div>
+        </NotificationProvider>
     );
 };
 

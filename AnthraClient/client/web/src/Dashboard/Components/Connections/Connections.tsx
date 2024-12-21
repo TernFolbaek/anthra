@@ -24,6 +24,7 @@ interface ConnectionRequestDTO {
     senderLastName: string;
     senderEmail: string;
     senderProfilePicture?: string;
+    senderInstitution: string;
     receiverId: string;
     status: number;
     requestedAt: string;
@@ -270,7 +271,7 @@ const Connections: React.FC = () => {
 
     const renderConnections = () => (
         <div className="connections-card-container">
-            <p className="dark:text-white p-1 pb-2 mt-2 text-xl font-bold">Connections</p>
+            <p className="dark:text-white p-1 pb-2 text-xl font-bold">Connections</p>
             {connections.length === 0 ? (
                 <NoConnectionsRive/>
             ) : (
@@ -352,11 +353,16 @@ const Connections: React.FC = () => {
                     >
                         <div className="requests-user-info">
                             <img
-                                className="requests-user-card-img"
+                                className="requests-user-card-img "
                                 src={request.senderProfilePicture}
                                 alt="Profile"
                             />
-                            <p className="sm:text-sm">{request.senderFirstName} {request.senderLastName}</p>
+                            <div className="">
+                                <div className="ml-2 flex flex-col justify-items-start">
+                                    <p className="connection-name">{request.senderFirstName} {request.senderLastName}</p>
+                                    <p className="text-gray-500 text-xs font-light">{request.senderInstitution}</p>
+                                </div>
+                            </div>
                         </div>
                         <div className="requests-button-container">
                             <button

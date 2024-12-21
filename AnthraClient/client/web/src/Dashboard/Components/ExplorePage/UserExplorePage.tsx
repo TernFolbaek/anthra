@@ -179,7 +179,7 @@ const UserExplorePage: React.FC = () => {
                                         />
                                         <div className="flex flex-col">
                                             <h2 className="user-name">
-                                                {currentUser.firstName} {currentUser.lastName}, {currentUser.age}
+                                                {currentUser.firstName} {currentUser.lastName} {currentUser.age}
                                             </h2>
                                             <p className="user-location">{currentUser.location}</p>
                                         </div>
@@ -194,7 +194,7 @@ const UserExplorePage: React.FC = () => {
                             ) : (
                                 <div className="page-content page-2">
                                     <h2 className="user-name">
-                                        {currentUser.firstName} {currentUser.lastName}, {currentUser.age}
+                                        {currentUser.firstName} {currentUser.lastName} {currentUser.age}
                                     </h2>
                                     <div className="user-info">
                                         {currentUser.subjects && currentUser.subjects.length > 0 && (
@@ -249,7 +249,7 @@ const UserExplorePage: React.FC = () => {
                                     />
                                     <div className="flex flex-col">
                                         <h2 className="user-name">
-                                            {currentUser.firstName} {currentUser.lastName}, {currentUser.age}
+                                            {currentUser.firstName} {currentUser.lastName} {currentUser.age}
                                         </h2>
                                         <p className="user-location">{currentUser.location}</p>
                                     </div>

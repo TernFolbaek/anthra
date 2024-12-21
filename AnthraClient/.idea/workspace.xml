@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Include snapshot">
+    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Change background color and when you click on snackbar it will disappear">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Notifications/Notifications.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Notifications/Notifications.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ViewGroupProfile/ViewGroupProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ViewGroupProfile/ViewGroupProfile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ViewGroupProfile/ViewGroupProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ViewGroupProfile/ViewGroupProfile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ViewProfile/ViewProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ViewProfile/ViewProfile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -212,127 +217,7 @@
       <workItem from="1734601660310" duration="747000" />
       <workItem from="1734632059719" duration="3385000" />
       <workItem from="1734706498776" duration="13292000" />
-      <workItem from="1734780801082" duration="3665000" />
-    </task>
-    <task id="LOCAL-00614" summary="Scrollable view profile content in mobile mode as well">
-      <option name="closed" value="true" />
-      <created>1734431454338</created>
-      <option name="number" value="00614" />
-      <option name="presentableId" value="LOCAL-00614" />
-      <option name="project" value="LOCAL" />
-      <updated>1734431454338</updated>
-    </task>
-    <task id="LOCAL-00615" summary="Make background transparent">
-      <option name="closed" value="true" />
-      <created>1734474988045</created>
-      <option name="number" value="00615" />
-      <option name="presentableId" value="LOCAL-00615" />
-      <option name="project" value="LOCAL" />
-      <updated>1734474988046</updated>
-    </task>
-    <task id="LOCAL-00616" summary="Add group purpose in group explore page">
-      <option name="closed" value="true" />
-      <created>1734474997597</created>
-      <option name="number" value="00616" />
-      <option name="presentableId" value="LOCAL-00616" />
-      <option name="project" value="LOCAL" />
-      <updated>1734474997597</updated>
-    </task>
-    <task id="LOCAL-00617" summary="Add client placeholder for api calls">
-      <option name="closed" value="true" />
-      <created>1734475495809</created>
-      <option name="number" value="00617" />
-      <option name="presentableId" value="LOCAL-00617" />
-      <option name="project" value="LOCAL" />
-      <updated>1734475495809</updated>
-    </task>
-    <task id="LOCAL-00618" summary="More modern &amp; professional auth page">
-      <option name="closed" value="true" />
-      <created>1734524529089</created>
-      <option name="number" value="00618" />
-      <option name="presentableId" value="LOCAL-00618" />
-      <option name="project" value="LOCAL" />
-      <updated>1734524529089</updated>
-    </task>
-    <task id="LOCAL-00619" summary="Force users to select country and institution, no pfp image file selection error">
-      <option name="closed" value="true" />
-      <created>1734524541649</created>
-      <option name="number" value="00619" />
-      <option name="presentableId" value="LOCAL-00619" />
-      <option name="project" value="LOCAL" />
-      <updated>1734524541649</updated>
-    </task>
-    <task id="LOCAL-00620" summary="Updated styling">
-      <option name="closed" value="true" />
-      <created>1734524548538</created>
-      <option name="number" value="00620" />
-      <option name="presentableId" value="LOCAL-00620" />
-      <option name="project" value="LOCAL" />
-      <updated>1734524548538</updated>
-    </task>
-    <task id="LOCAL-00621" summary="Updated styling">
-      <option name="closed" value="true" />
-      <created>1734524551987</created>
-      <option name="number" value="00621" />
-      <option name="presentableId" value="LOCAL-00621" />
-      <option name="project" value="LOCAL" />
-      <updated>1734524551987</updated>
-    </task>
-    <task id="LOCAL-00622" summary="Updated styling">
-      <option name="closed" value="true" />
-      <created>1734524556984</created>
-      <option name="number" value="00622" />
-      <option name="presentableId" value="LOCAL-00622" />
-      <option name="project" value="LOCAL" />
-      <updated>1734524556984</updated>
-    </task>
-    <task id="LOCAL-00623" summary="Add dev tools to main">
-      <option name="closed" value="true" />
-      <created>1734524569434</created>
-      <option name="number" value="00623" />
-      <option name="presentableId" value="LOCAL-00623" />
-      <option name="project" value="LOCAL" />
-      <updated>1734524569434</updated>
-    </task>
-    <task id="LOCAL-00624" summary="Add props which are passed down from sidebar">
-      <option name="closed" value="true" />
-      <created>1734524590070</created>
-      <option name="number" value="00624" />
-      <option name="presentableId" value="LOCAL-00624" />
-      <option name="project" value="LOCAL" />
-      <updated>1734524590070</updated>
-    </task>
-    <task id="LOCAL-00625" summary="Implement notification system into sidebar, not refined">
-      <option name="closed" value="true" />
-      <created>1734524603476</created>
-      <option name="number" value="00625" />
-      <option name="presentableId" value="LOCAL-00625" />
-      <option name="project" value="LOCAL" />
-      <updated>1734524603476</updated>
-    </task>
-    <task id="LOCAL-00626" summary="Country and city index for down arrow indexing through dropdown">
-      <option name="closed" value="true" />
-      <created>1734524624245</created>
-      <option name="number" value="00626" />
-      <option name="presentableId" value="LOCAL-00626" />
-      <option name="project" value="LOCAL" />
-      <updated>1734524624245</updated>
-    </task>
-    <task id="LOCAL-00627" summary="Separate step two in create profile into separate component">
-      <option name="closed" value="true" />
-      <created>1734524636036</created>
-      <option name="number" value="00627" />
-      <option name="presentableId" value="LOCAL-00627" />
-      <option name="project" value="LOCAL" />
-      <updated>1734524636036</updated>
-    </task>
-    <task id="LOCAL-00628" summary="All universities in the world, add danish ones">
-      <option name="closed" value="true" />
-      <created>1734524650025</created>
-      <option name="number" value="00628" />
-      <option name="presentableId" value="LOCAL-00628" />
-      <option name="project" value="LOCAL" />
-      <updated>1734524650025</updated>
+      <workItem from="1734780801082" duration="16300000" />
     </task>
     <task id="LOCAL-00629" summary="Animation on connect or skip">
       <option name="closed" value="true" />
@@ -606,7 +491,127 @@
       <option name="project" value="LOCAL" />
       <updated>1734786239267</updated>
     </task>
-    <option name="localTasksCounter" value="663" />
+    <task id="LOCAL-00663" summary="Immediate accept of personal request">
+      <option name="closed" value="true" />
+      <created>1734790682256</created>
+      <option name="number" value="00663" />
+      <option name="presentableId" value="LOCAL-00663" />
+      <option name="project" value="LOCAL" />
+      <updated>1734790682256</updated>
+    </task>
+    <task id="LOCAL-00664" summary="Add scrollable group members view">
+      <option name="closed" value="true" />
+      <created>1734799044404</created>
+      <option name="number" value="00664" />
+      <option name="presentableId" value="LOCAL-00664" />
+      <option name="project" value="LOCAL" />
+      <updated>1734799044404</updated>
+    </task>
+    <task id="LOCAL-00665" summary="Remove institution filter">
+      <option name="closed" value="true" />
+      <created>1734799054259</created>
+      <option name="number" value="00665" />
+      <option name="presentableId" value="LOCAL-00665" />
+      <option name="project" value="LOCAL" />
+      <updated>1734799054259</updated>
+    </task>
+    <task id="LOCAL-00666" summary="Convention of padding between connections and requests">
+      <option name="closed" value="true" />
+      <created>1734799073909</created>
+      <option name="number" value="00666" />
+      <option name="presentableId" value="LOCAL-00666" />
+      <option name="project" value="LOCAL" />
+      <updated>1734799073909</updated>
+    </task>
+    <task id="LOCAL-00667" summary="Add comments">
+      <option name="closed" value="true" />
+      <created>1734799083405</created>
+      <option name="number" value="00667" />
+      <option name="presentableId" value="LOCAL-00667" />
+      <option name="project" value="LOCAL" />
+      <updated>1734799083405</updated>
+    </task>
+    <task id="LOCAL-00668" summary="Add view profile to groupMessage component">
+      <option name="closed" value="true" />
+      <created>1734799097330</created>
+      <option name="number" value="00668" />
+      <option name="presentableId" value="LOCAL-00668" />
+      <option name="project" value="LOCAL" />
+      <updated>1734799097330</updated>
+    </task>
+    <task id="LOCAL-00669" summary="Add scrollable connections container">
+      <option name="closed" value="true" />
+      <created>1734799115913</created>
+      <option name="number" value="00669" />
+      <option name="presentableId" value="LOCAL-00669" />
+      <option name="project" value="LOCAL" />
+      <updated>1734799115913</updated>
+    </task>
+    <task id="LOCAL-00670" summary="White background for groups page on mobile view">
+      <option name="closed" value="true" />
+      <created>1734799126566</created>
+      <option name="number" value="00670" />
+      <option name="presentableId" value="LOCAL-00670" />
+      <option name="project" value="LOCAL" />
+      <updated>1734799126566</updated>
+    </task>
+    <task id="LOCAL-00671" summary="Remove reused styling">
+      <option name="closed" value="true" />
+      <created>1734799217959</created>
+      <option name="number" value="00671" />
+      <option name="presentableId" value="LOCAL-00671" />
+      <option name="project" value="LOCAL" />
+      <updated>1734799217959</updated>
+    </task>
+    <task id="LOCAL-00672" summary="Add background color to menu toggle">
+      <option name="closed" value="true" />
+      <created>1734799233416</created>
+      <option name="number" value="00672" />
+      <option name="presentableId" value="LOCAL-00672" />
+      <option name="project" value="LOCAL" />
+      <updated>1734799233416</updated>
+    </task>
+    <task id="LOCAL-00673" summary="Add z index to overflow notifications">
+      <option name="closed" value="true" />
+      <created>1734799245989</created>
+      <option name="number" value="00673" />
+      <option name="presentableId" value="LOCAL-00673" />
+      <option name="project" value="LOCAL" />
+      <updated>1734799245990</updated>
+    </task>
+    <task id="LOCAL-00674" summary="Add background to notification bell background">
+      <option name="closed" value="true" />
+      <created>1734799263063</created>
+      <option name="number" value="00674" />
+      <option name="presentableId" value="LOCAL-00674" />
+      <option name="project" value="LOCAL" />
+      <updated>1734799263063</updated>
+    </task>
+    <task id="LOCAL-00675" summary="Use callback to not constantly call backend">
+      <option name="closed" value="true" />
+      <created>1734799278722</created>
+      <option name="number" value="00675" />
+      <option name="presentableId" value="LOCAL-00675" />
+      <option name="project" value="LOCAL" />
+      <updated>1734799278722</updated>
+    </task>
+    <task id="LOCAL-00676" summary="Container so you can scroll through members">
+      <option name="closed" value="true" />
+      <created>1734801063841</created>
+      <option name="number" value="00676" />
+      <option name="presentableId" value="LOCAL-00676" />
+      <option name="project" value="LOCAL" />
+      <updated>1734801063841</updated>
+    </task>
+    <task id="LOCAL-00677" summary="Change background color and when you click on snackbar it will disappear">
+      <option name="closed" value="true" />
+      <created>1734801085209</created>
+      <option name="number" value="00677" />
+      <option name="presentableId" value="LOCAL-00677" />
+      <option name="project" value="LOCAL" />
+      <updated>1734801085209</updated>
+    </task>
+    <option name="localTasksCounter" value="678" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -624,21 +629,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add group purpose to group info tab" />
-    <MESSAGE value="Add groupPurpose to groupMessage" />
-    <MESSAGE value="Development tools to main" />
-    <MESSAGE value="Refactor" />
-    <MESSAGE value="100vh to different mobile heights" />
-    <MESSAGE value="full height for explore page sub container" />
-    <MESSAGE value="Edit data labels for group charts" />
-    <MESSAGE value="Delete button disabled until user inputs a number" />
-    <MESSAGE value="Smaller border radius for profile image" />
-    <MESSAGE value="Styling for mobile view" />
-    <MESSAGE value="Remove h-[100%] so explore card would not be very high up on large screens" />
-    <MESSAGE value="Add more members button as well as swiping functionality for mobile" />
-    <MESSAGE value="Reduce z index" />
-    <MESSAGE value="Add badges to footer" />
-    <MESSAGE value="z index" />
     <MESSAGE value="Add notifications removal from clicking on groups" />
     <MESSAGE value="Add notifications context to main.tsx" />
     <MESSAGE value="Add notification context and remove api calsl" />
@@ -649,6 +639,21 @@
     <MESSAGE value="Remove comma between name and age" />
     <MESSAGE value="Remove border from member picture" />
     <MESSAGE value="Include snapshot" />
-    <option name="LAST_COMMIT_MESSAGE" value="Include snapshot" />
+    <MESSAGE value="Immediate accept of personal request" />
+    <MESSAGE value="Add scrollable group members view" />
+    <MESSAGE value="Remove institution filter" />
+    <MESSAGE value="Convention of padding between connections and requests" />
+    <MESSAGE value="Add comments" />
+    <MESSAGE value="Add view profile to groupMessage component" />
+    <MESSAGE value="Add scrollable connections container" />
+    <MESSAGE value="White background for groups page on mobile view" />
+    <MESSAGE value="Remove reused styling" />
+    <MESSAGE value="Add background color to menu toggle" />
+    <MESSAGE value="Add z index to overflow notifications" />
+    <MESSAGE value="Add background to notification bell background" />
+    <MESSAGE value="Use callback to not constantly call backend" />
+    <MESSAGE value="Container so you can scroll through members" />
+    <MESSAGE value="Change background color and when you click on snackbar it will disappear" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change background color and when you click on snackbar it will disappear" />
   </component>
 </project>

@@ -1,7 +1,274 @@
-.select-user-item-avatar{
+/* ReferModal.css */
+
+/* Avatar Styling */
+.refer-avatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
     object-fit: cover;
+}
+
+/* Modal Content Styling */
+.refer-modal-content {
+    font-family: 'Montserrat', sans-serif;
+    background-color: white;
+    padding: 30px;
+    width: 500px;
+    max-width: 90%;
+    border-radius: 8px;
+    min-height: 50vh;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Close Button Styling */
+.refer-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    line-height: 28px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.refer-close-button:hover {
+    color: #000;
+}
+
+/* Referral Title Styling */
+.refer-title {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Search Input Styling */
+.refer-search-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Referral Counter Styling */
+.refer-counter {
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: #555;
+    text-align: right;
+}
+
+/* Scrollable Connections Container */
+.refer-connections-container {
+    max-height: calc((2.5rem + 1rem) * 5); /* Height of connection item plus margin * 5 */
+    overflow-y: auto;
+    margin-top: 0.625rem;
+    padding-right: 0.5rem; /* To prevent content hiding behind scrollbar */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+
+
+/* Connections List Styling */
+.refer-connections-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0; /* Remove margin to prevent double spacing */
+}
+
+
+/* Individual Connection Item Styling */
+.refer-connection-item {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.refer-connection-item:last-child {
+    border-bottom: none;
+}
+
+.refer-connection-item:hover {
+    background-color: #ebf3fd;
+}
+
+/* Selected User Styling */
+.refer-connection-item.selected {
+    background-color: #ebf3fd;
+}
+
+/* Referred User Styling */
+.refer-connection-item.referred {
+    background-color: #e3e2e2; /* Light green background */
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Disabled Connection Item Styling */
+.refer-connection-item.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* Modal Buttons Container */
+.refer-modal-buttons {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 20px;
+    width: calc(100% - 60px);
+}
+
+/* Send Referral Button Styling */
+.refer-send-button {
+    font-size: 1rem;
+    background-color: #85bff8;
+    border: 2px solid #85bff8;
+    color: white;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 8px;
+}
+
+.refer-send-button:hover:not(:disabled) {
+    background-color: #2c91f4;
+}
+
+.refer-send-button:disabled {
+    background-color: #ccc;
+    border-color: #ccc;
+    cursor: not-allowed;
+}
+
+.refer-send-button:disabled:hover {
+    background-color: #ccc;
+}
+
+/* Cancel Button Styling */
+.refer-cancel-button {
+    background-color: #6c757d;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.refer-cancel-button:hover {
+    background-color: #5a6268;
+}
+
+/* Dark Mode Styles */
+body.dark .refer-modal-content {
+    background-color: #2e2e2e;
+    color: #fff;
+}
+
+body.dark .refer-connection-item:hover {
+    background-color: #555;
+}
+
+body.dark .refer-connection-item.selected {
+    background-color: #0056b3;
+}
+
+body.dark .refer-connection-item.referred {
+    background-color: #0f5132; /* Dark green background */
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+body.dark .refer-connection-item.disabled {
+    background-color: #444;
+    opacity: 0.6;
+}
+
+body.dark .refer-send-button {
+    background-color: #85bff8;
+    border: 2px solid #85bff8;
+    color: white;
+}
+
+body.dark .refer-send-button:hover:not(:disabled) {
+    background-color: #85bff8;
+    color: white;
+}
+
+/* Referred Connection Item Styling */
+.refer-connection-item.referred .refer-connection-name {
+    text-decoration: line-through;
+    color: #6c757d;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+    .refer-modal-content {
+        width: 90%;
+        height: fit-content;
+        overflow: auto;
+    }
+
+    .refer-modal-content::-webkit-scrollbar{
+        display: none;
+    }
+
+    /* Responsive Adjustments for Connections Container */
+    .refer-connections-container {
+        max-height: calc((2rem + 0.75rem) * 5); /* Adjusted for smaller screens */
+    }
+
+    .refer-avatar {
+        width: 25px;
+        height: 25px;
+    }
+
+    .refer-connection-name {
+        font-size: 0.8rem;
+    }
+
+    .refer-title {
+        font-size: 1rem;
+    }
+
+    .refer-search-input {
+        font-size: 12px;
+    }
+
+    .refer-counter {
+        font-size: 0.8rem;
+    }
+
+    .refer-send-button {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .refer-cancel-button {
+        font-size: 14px;
+        padding: 0.4rem 0.8rem;
+    }
 }

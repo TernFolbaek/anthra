@@ -21,6 +21,8 @@
     max-width: 43.75rem;
     position: relative;
     box-shadow: 0 0.3125rem 0.9375rem rgba(0,0,0,0.3);
+    max-height: 90vh; /* Ensure modal doesn't exceed viewport height */
+    overflow-y: auto; /* Enable scrolling for the entire modal on smaller screens */
 }
 
 /* Dark mode styles */
@@ -35,7 +37,7 @@ body.dark #viewgroupprofile .viewgroupprofile-modal {
     right: 1.25rem;
     background: none;
     border: none;
-    font-size: 1.3125rem;
+    font-size: 2rem;
     cursor: pointer;
     color: #aaa;
 }
@@ -130,12 +132,26 @@ body.dark #viewgroupprofile .viewgroupprofile-members-count {
     color: #aaa;
 }
 
+/* Scrollable Members Container */
+#viewgroupprofile .viewgroupprofile-members-container {
+    max-height: calc((2.8125rem + 0.9375rem) * 5); /* Height of member item plus margin * 5 */
+    overflow-y: auto;
+    margin-top: 0.625rem;
+    padding-right: 0.5rem; /* To prevent content hiding behind scrollbar */
+    scrollbar-color: #b8b6b6 transparent;
+}
+
+#viewgroupprofile .viewgroupprofile-members-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+
 /* Members List */
 #viewgroupprofile .viewgroupprofile-members-list {
     list-style: none;
     padding: 0;
     text-align: left;
-    margin-top: 0.625rem;
+    margin: 0;
 }
 
 #viewgroupprofile .viewgroupprofile-member-item {
@@ -144,11 +160,17 @@ body.dark #viewgroupprofile .viewgroupprofile-members-count {
     margin-bottom: 0.95rem;
     padding: 4px;
     border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
 #viewgroupprofile .viewgroupprofile-member-item:hover{
     background-color: #e3e2e2;
     cursor: pointer;
+}
+
+/* Dark mode styles */
+body.dark #viewgroupprofile .viewgroupprofile-member-item:hover{
+    background-color: #444;
 }
 
 #viewgroupprofile .viewgroupprofile-member-picture {
@@ -179,4 +201,30 @@ body.dark #viewgroupprofile .viewgroupprofile-member-info h5 {
 /* Dark mode styles */
 body.dark #viewgroupprofile .viewgroupprofile-member-info p {
     color: #ccc;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    #viewgroupprofile .viewgroupprofile-modal {
+        width: 95%;
+        padding: 1rem;
+    }
+
+    #viewgroupprofile .viewgroupprofile-members-container {
+        max-height: calc((2.5rem + 0.75rem) * 5); /* Adjusted for smaller screens */
+    }
+
+    #viewgroupprofile .viewgroupprofile-member-picture {
+        width: 2.5rem;
+        height: 2.5rem;
+        margin-right: 0.75rem;
+    }
+
+    #viewgroupprofile .viewgroupprofile-member-info h5 {
+        font-size: 0.8rem;
+    }
+
+    #viewgroupprofile .viewgroupprofile-member-info p {
+        font-size: 0.6rem;
+    }
 }

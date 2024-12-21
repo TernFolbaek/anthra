@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import './ViewGroupProfile.css';
 import ViewProfile from "../ViewProfile/ViewProfile";
+
 interface ViewGroupProfileProps {
     groupId: number;
     onClose: () => void;
@@ -43,6 +44,7 @@ const ViewGroupProfile: React.FC<ViewGroupProfileProps> = ({ groupId, onClose })
     const handleCloseProfile = () => {
         setSelectedUserId(null);
     };
+
     useEffect(() => {
         const fetchGroupProfile = async () => {
             try {
@@ -116,22 +118,25 @@ const ViewGroupProfile: React.FC<ViewGroupProfileProps> = ({ groupId, onClose })
                             ({groupProfile.members.length})
                         </span>
                     </div>
-                    <ul className="viewgroupprofile-members-list">
-                        {groupProfile.members.map((member) => (
-                            <li key={member.userId} onClick={()=>handleUserClick(member.userId)} className="viewgroupprofile-member-item">
-                                <img
-                                    src={`${member.profilePictureUrl}`}
-                                    alt={`${member.firstName} ${member.lastName}`}
-                                    className="viewgroupprofile-member-picture"
-                                />
-                                <div className="viewgroupprofile-member-info">
-                                    <h5>{member.firstName} {member.lastName}</h5>
-                                    <p>{member.institution}</p>
-                                    <p>{member.location}</p>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
+
+                    <div className="viewgroupprofile-members-container">
+                        <ul className="viewgroupprofile-members-list">
+                            {groupProfile.members.map((member) => (
+                                <li key={member.userId} onClick={()=>handleUserClick(member.userId)} className="viewgroupprofile-member-item">
+                                    <img
+                                        src={`${member.profilePictureUrl}`}
+                                        alt={`${member.firstName} ${member.lastName}`}
+                                        className="viewgroupprofile-member-picture"
+                                    />
+                                    <div className="viewgroupprofile-member-info">
+                                        <h5>{member.firstName} {member.lastName}</h5>
+                                        <p>{member.institution}</p>
+                                        <p>{member.location}</p>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
             </div>
             {selectedUserId && (

@@ -135,7 +135,7 @@ body.dark .notification-timestamp {
         right: 15px;
         z-index: 1;
         background-color: rgba(0,0,0,0.15);
-        padding: 5px;
+        padding: 7px;
         border-radius: 50%;
     }
     .notifications-dropdown {

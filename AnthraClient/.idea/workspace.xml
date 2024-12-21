@@ -4,20 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Reduce z index">
-      <change afterPath="$PROJECT_DIR$/client/web/src/Dashboard/context/NotificationsContext.tsx" afterDir="false" />
+    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Include snapshot">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/ReferModal/ReferModal.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/ReferModal/ReferModal.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/UserExplorePage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Footer/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Footer/Footer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Groups/GroupMessages/GroupMessage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Groups/GroupMessages/GroupMessage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Groups/GroupsList/GroupsList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Groups/GroupsList/GroupsList.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Notifications/Notifications.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Notifications/Notifications.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Notifications/Notifications.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Notifications/Notifications.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Profile/Profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Profile/Profile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Sidebar/Sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/Sidebar/Sidebar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ViewGroupProfile/ViewGroupProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Components/ViewGroupProfile/ViewGroupProfile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Main.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,103 +212,7 @@
       <workItem from="1734601660310" duration="747000" />
       <workItem from="1734632059719" duration="3385000" />
       <workItem from="1734706498776" duration="13292000" />
-      <workItem from="1734780801082" duration="2834000" />
-    </task>
-    <task id="LOCAL-00602" summary="Remove unwished styling">
-      <option name="closed" value="true" />
-      <created>1734350483095</created>
-      <option name="number" value="00602" />
-      <option name="presentableId" value="LOCAL-00602" />
-      <option name="project" value="LOCAL" />
-      <updated>1734350483095</updated>
-    </task>
-    <task id="LOCAL-00603" summary="Add background color to institution">
-      <option name="closed" value="true" />
-      <created>1734350503122</created>
-      <option name="number" value="00603" />
-      <option name="presentableId" value="LOCAL-00603" />
-      <option name="project" value="LOCAL" />
-      <updated>1734350503122</updated>
-    </task>
-    <task id="LOCAL-00604" summary="Color white when body is dark status tag explore">
-      <option name="closed" value="true" />
-      <created>1734350516214</created>
-      <option name="number" value="00604" />
-      <option name="presentableId" value="LOCAL-00604" />
-      <option name="project" value="LOCAL" />
-      <updated>1734350516214</updated>
-    </task>
-    <task id="LOCAL-00605" summary="Fix view profile">
-      <option name="closed" value="true" />
-      <created>1734350522004</created>
-      <option name="number" value="00605" />
-      <option name="presentableId" value="LOCAL-00605" />
-      <option name="project" value="LOCAL" />
-      <updated>1734350522004</updated>
-    </task>
-    <task id="LOCAL-00606" summary="Fix styling for edit group modal">
-      <option name="closed" value="true" />
-      <created>1734351291717</created>
-      <option name="number" value="00606" />
-      <option name="presentableId" value="LOCAL-00606" />
-      <option name="project" value="LOCAL" />
-      <updated>1734351291717</updated>
-    </task>
-    <task id="LOCAL-00607" summary="Show groups on explore page that user has been invited to but not accepted">
-      <option name="closed" value="true" />
-      <created>1734351312448</created>
-      <option name="number" value="00607" />
-      <option name="presentableId" value="LOCAL-00607" />
-      <option name="project" value="LOCAL" />
-      <updated>1734351312448</updated>
-    </task>
-    <task id="LOCAL-00608" summary="Return institution and statuses">
-      <option name="closed" value="true" />
-      <created>1734352795570</created>
-      <option name="number" value="00608" />
-      <option name="presentableId" value="LOCAL-00608" />
-      <option name="project" value="LOCAL" />
-      <updated>1734352795570</updated>
-    </task>
-    <task id="LOCAL-00609" summary="Synchronize 150 chars creation of profile">
-      <option name="closed" value="true" />
-      <created>1734353669735</created>
-      <option name="number" value="00609" />
-      <option name="presentableId" value="LOCAL-00609" />
-      <option name="project" value="LOCAL" />
-      <updated>1734353669735</updated>
-    </task>
-    <task id="LOCAL-00610" summary="Add view Profile to Connections.tsx">
-      <option name="closed" value="true" />
-      <created>1734388147129</created>
-      <option name="number" value="00610" />
-      <option name="presentableId" value="LOCAL-00610" />
-      <option name="project" value="LOCAL" />
-      <updated>1734388147129</updated>
-    </task>
-    <task id="LOCAL-00611" summary="Add ignore error">
-      <option name="closed" value="true" />
-      <created>1734388156484</created>
-      <option name="number" value="00611" />
-      <option name="presentableId" value="LOCAL-00611" />
-      <option name="project" value="LOCAL" />
-      <updated>1734388156484</updated>
-    </task>
-    <task id="LOCAL-00612" summary="Add charts for status and institution">
-      <option name="closed" value="true" />
-      <created>1734431420298</created>
-      <option name="number" value="00612" />
-      <option name="presentableId" value="LOCAL-00612" />
-      <option name="project" value="LOCAL" />
-      <updated>1734431420298</updated>
-    </task>
-    <task id="LOCAL-00613" summary="set height for user card in mobile mode">
-      <option name="closed" value="true" />
-      <created>1734431440001</created>
-      <option name="number" value="00613" />
-      <option name="presentableId" value="LOCAL-00613" />
-      <option name="project" value="LOCAL" />
-      <updated>1734431440001</updated>
+      <workItem from="1734780801082" duration="3665000" />
     </task>
     <task id="LOCAL-00614" summary="Scrollable view profile content in mobile mode as well">
       <option name="closed" value="true" />
@@ -617,7 +510,103 @@
       <option name="project" value="LOCAL" />
       <updated>1734733534170</updated>
     </task>
-    <option name="localTasksCounter" value="651" />
+    <task id="LOCAL-00651" summary="Add badges to footer">
+      <option name="closed" value="true" />
+      <created>1734785883843</created>
+      <option name="number" value="00651" />
+      <option name="presentableId" value="LOCAL-00651" />
+      <option name="project" value="LOCAL" />
+      <updated>1734785883843</updated>
+    </task>
+    <task id="LOCAL-00652" summary="z index">
+      <option name="closed" value="true" />
+      <created>1734785890645</created>
+      <option name="number" value="00652" />
+      <option name="presentableId" value="LOCAL-00652" />
+      <option name="project" value="LOCAL" />
+      <updated>1734785890645</updated>
+    </task>
+    <task id="LOCAL-00653" summary="Add notifications removal from clicking on groups">
+      <option name="closed" value="true" />
+      <created>1734785901504</created>
+      <option name="number" value="00653" />
+      <option name="presentableId" value="LOCAL-00653" />
+      <option name="project" value="LOCAL" />
+      <updated>1734785901504</updated>
+    </task>
+    <task id="LOCAL-00654" summary="Add notifications context to main.tsx">
+      <option name="closed" value="true" />
+      <created>1734785911824</created>
+      <option name="number" value="00654" />
+      <option name="presentableId" value="LOCAL-00654" />
+      <option name="project" value="LOCAL" />
+      <updated>1734785911824</updated>
+    </task>
+    <task id="LOCAL-00655" summary="Add notification context and remove api calsl">
+      <option name="closed" value="true" />
+      <created>1734785925544</created>
+      <option name="number" value="00655" />
+      <option name="presentableId" value="LOCAL-00655" />
+      <option name="project" value="LOCAL" />
+      <updated>1734785925544</updated>
+    </task>
+    <task id="LOCAL-00656" summary="Create notification context that can be waterfalled into other components">
+      <option name="closed" value="true" />
+      <created>1734785938516</created>
+      <option name="number" value="00656" />
+      <option name="presentableId" value="LOCAL-00656" />
+      <option name="project" value="LOCAL" />
+      <updated>1734785938516</updated>
+    </task>
+    <task id="LOCAL-00657" summary="Remove padding and margin from profile page in mobile view">
+      <option name="closed" value="true" />
+      <created>1734785950553</created>
+      <option name="number" value="00657" />
+      <option name="presentableId" value="LOCAL-00657" />
+      <option name="project" value="LOCAL" />
+      <updated>1734785950553</updated>
+    </task>
+    <task id="LOCAL-00658" summary="Remove avatar border">
+      <option name="closed" value="true" />
+      <created>1734785956896</created>
+      <option name="number" value="00658" />
+      <option name="presentableId" value="LOCAL-00658" />
+      <option name="project" value="LOCAL" />
+      <updated>1734785956896</updated>
+    </task>
+    <task id="LOCAL-00659" summary="Remove props">
+      <option name="closed" value="true" />
+      <created>1734785966340</created>
+      <option name="number" value="00659" />
+      <option name="presentableId" value="LOCAL-00659" />
+      <option name="project" value="LOCAL" />
+      <updated>1734785966340</updated>
+    </task>
+    <task id="LOCAL-00660" summary="Remove comma between name and age">
+      <option name="closed" value="true" />
+      <created>1734785976150</created>
+      <option name="number" value="00660" />
+      <option name="presentableId" value="LOCAL-00660" />
+      <option name="project" value="LOCAL" />
+      <updated>1734785976150</updated>
+    </task>
+    <task id="LOCAL-00661" summary="Remove border from member picture">
+      <option name="closed" value="true" />
+      <created>1734785983804</created>
+      <option name="number" value="00661" />
+      <option name="presentableId" value="LOCAL-00661" />
+      <option name="project" value="LOCAL" />
+      <updated>1734785983804</updated>
+    </task>
+    <task id="LOCAL-00662" summary="Include snapshot">
+      <option name="closed" value="true" />
+      <created>1734786239267</created>
+      <option name="number" value="00662" />
+      <option name="presentableId" value="LOCAL-00662" />
+      <option name="project" value="LOCAL" />
+      <updated>1734786239267</updated>
+    </task>
+    <option name="localTasksCounter" value="663" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -635,18 +624,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Updated styling" />
-    <MESSAGE value="Add dev tools to main" />
-    <MESSAGE value="Add props which are passed down from sidebar" />
-    <MESSAGE value="Implement notification system into sidebar, not refined" />
-    <MESSAGE value="Country and city index for down arrow indexing through dropdown" />
-    <MESSAGE value="Separate step two in create profile into separate component" />
-    <MESSAGE value="All universities in the world, add danish ones" />
-    <MESSAGE value="Animation on connect or skip" />
-    <MESSAGE value="Return group purpose when getting groups" />
-    <MESSAGE value="Only show criteria text once user beings to text" />
-    <MESSAGE value="Add groupPurpose to edit group modal" />
-    <MESSAGE value="Add animation when user applies or skip group, as well as making stats wrappers be more dynamic to mobile view" />
     <MESSAGE value="Add group purpose to group info tab" />
     <MESSAGE value="Add groupPurpose to groupMessage" />
     <MESSAGE value="Development tools to main" />
@@ -660,6 +637,18 @@
     <MESSAGE value="Remove h-[100%] so explore card would not be very high up on large screens" />
     <MESSAGE value="Add more members button as well as swiping functionality for mobile" />
     <MESSAGE value="Reduce z index" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reduce z index" />
+    <MESSAGE value="Add badges to footer" />
+    <MESSAGE value="z index" />
+    <MESSAGE value="Add notifications removal from clicking on groups" />
+    <MESSAGE value="Add notifications context to main.tsx" />
+    <MESSAGE value="Add notification context and remove api calsl" />
+    <MESSAGE value="Create notification context that can be waterfalled into other components" />
+    <MESSAGE value="Remove padding and margin from profile page in mobile view" />
+    <MESSAGE value="Remove avatar border" />
+    <MESSAGE value="Remove props" />
+    <MESSAGE value="Remove comma between name and age" />
+    <MESSAGE value="Remove border from member picture" />
+    <MESSAGE value="Include snapshot" />
+    <option name="LAST_COMMIT_MESSAGE" value="Include snapshot" />
   </component>
 </project>

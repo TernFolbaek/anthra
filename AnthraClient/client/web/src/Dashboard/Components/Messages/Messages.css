@@ -96,11 +96,17 @@ body.dark .contact-name {
   position: relative;
   cursor: pointer;
   padding: 8px;
-  border-radius: 30%;
+  border-radius: 50%;
+  border: 1px solid transparent;
+}
+
+.contact-header:hover .messages-menu-icon {
+  border: 1px solid #ccc;
+  background-color: #fff;
 }
 
 .messages-menu-icon:hover {
-  background-color: #e3e2e2;
+  background-color: #e3e2e2 !important;
 }
 
 /* Dark mode styles */

@@ -285,7 +285,6 @@ body.dark .requests-user-card:hover {
 }
 
 .requests-user-card-img {
-    border: 2px solid #85bff8;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -474,6 +473,7 @@ body.dark .no-group-text {
 @media (max-width: 480px) {
     .connections-page {
         margin: 0;
+        background-color: white;
     }
 
     .connections-card-container,

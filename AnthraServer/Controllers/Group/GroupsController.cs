@@ -7,6 +7,7 @@ using MyBackendApp.Data;
 using MyBackendApp.Models;
 using MyBackendApp.ViewModels;
 using System.Linq;
+using System.Net.Sockets;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
@@ -59,13 +60,39 @@ public class GroupsController : ControllerBase
         return Ok(groupDetails);
     }
 
-    // Include this method in your controller if not already present
     private string GetChatGroupId(string userA, string userB)
     {
         return string.CompareOrdinal(userA, userB) < 0 ? $"{userA}-{userB}" : $"{userB}-{userA}";
     }
 
-    // Controllers/GroupsController.cs
+    [HttpPost("AddMembers")]
+    public async Task<IActionResult> AddMembers([FromBody] AddMembersModel model)
+    {
+        var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        foreach (var userId in model.InvitedUserIds)
+        {
+            var message = new Message
+            {
+                SenderId = currentUserId,
+                ReceiverId = userId,
+                Content = model.GroupPurpose,
+                Timestamp = DateTime.UtcNow,
+                GroupId = model.GroupId,
+                GroupName = model.GroupName,
+                IsGroupInvitation = true,
+                ActionType = InvitationActionType.None,
+                InvitationStatus = false 
+            };
+            _context.Messages.Add(message);
+
+            // Send the invitation message via SignalR
+            var chatGroupId = GetChatGroupId(currentUserId, userId);
+            await _hubContext.Clients.Group(chatGroupId).SendAsync("ReceiveMessage", message);
+        }
+        await _context.SaveChangesAsync();
+
+        return Ok();
+    }
 
 [HttpPost("CreateGroup")]
 public async Task<IActionResult> CreateGroup([FromBody] CreateGroupModel model)
@@ -209,6 +236,7 @@ public async Task<IActionResult> CreateGroup([FromBody] CreateGroupModel model)
         });
     }
 
+    
     [HttpGet("GetUserGroups")]
     public async Task<IActionResult> GetUserGroups()
     {

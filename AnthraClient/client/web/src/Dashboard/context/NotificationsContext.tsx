@@ -1,5 +1,5 @@
 // src/context/NotificationsContext.tsx
-import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import axios from 'axios';
 import * as signalR from '@microsoft/signalr';
 
@@ -72,11 +72,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
         };
     }, [token]);
 
-    useEffect(() => {
-        // Optional: Implement any side effects based on notification changes here
-    }, [notifications]);
-
-    const fetchNotifications = async () => {
+    const fetchNotifications = useCallback(async () => {
         try {
             const response = await axios.get('http://localhost:5001/api/Notifications/GetNotifications', {
                 headers: {
@@ -87,9 +83,9 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
         } catch (error) {
             console.error('Failed to fetch notifications.', error);
         }
-    };
+    }, [token]);
 
-    const markAsRead = async (notificationId: number) => {
+    const markAsRead = useCallback(async (notificationId: number) => {
         try {
             await axios.post(
                 `http://localhost:5001/api/Notifications/MarkAsRead/${notificationId}`,
@@ -108,9 +104,9 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
         } catch (error) {
             console.error('Failed to mark notification as read.', error);
         }
-    };
+    }, [token]);
 
-    const markGroupNotificationsAsRead = async (groupId: number) => {
+    const markGroupNotificationsAsRead = useCallback(async (groupId: number) => {
         try {
             // Identify all unread notifications related to the group
             const groupNotifications = notifications.filter(
@@ -125,9 +121,9 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
         } catch (error) {
             console.error('Failed to mark group notifications as read.', error);
         }
-    };
+    }, [notifications, markAsRead]);
 
-    const markAllAsRead = async () => {
+    const markAllAsRead = useCallback(async () => {
         try {
             await axios.post(
                 `http://localhost:5001/api/Notifications/MarkAllAsRead`,
@@ -144,7 +140,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
         } catch (error) {
             console.error('Failed to mark all notifications as read.', error);
         }
-    };
+    }, [token]);
 
     return (
         <NotificationContext.Provider

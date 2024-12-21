@@ -157,7 +157,6 @@ body.dark #viewgroupprofile .viewgroupprofile-members-count {
     border-radius: 50%;
     object-fit: cover;
     margin-right: 0.9375rem;
-    border: 2px solid #85bff8;
 }
 
 #viewgroupprofile .viewgroupprofile-member-info h5 {

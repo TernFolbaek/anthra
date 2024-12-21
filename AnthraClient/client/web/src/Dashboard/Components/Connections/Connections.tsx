@@ -1,11 +1,11 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import './Connections.css';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import NoConnectionsRive from "../../Helpers/Animations/NoConnections";
 import ViewProfile from '../ViewProfile/ViewProfile';
-import {FaEllipsisV, FaUserMinus} from 'react-icons/fa';
-import {FaUser, FaUsers} from "react-icons/fa";
+import { FaEllipsisV, FaUserMinus } from 'react-icons/fa';
+import { FaUser, FaUsers } from "react-icons/fa";
 
 interface ApplicationUser {
     id: string;
@@ -71,7 +71,7 @@ const Connections: React.FC = () => {
         try {
             await axios.post(
                 'http://localhost:5001/api/Connections/Remove',
-                {userId: connectionId, currentUserId: userId},
+                { userId: connectionId, currentUserId: userId },
                 {
                     withCredentials: true,
                 }
@@ -86,8 +86,9 @@ const Connections: React.FC = () => {
         }
     };
 
-    const handleAccept = (requestId: number) => {
-        fetch(`http://localhost:5001/api/Request/AcceptRequest?requestId=${requestId}`, {
+    // Updated handleAccept function
+    const handleAccept = (request: ConnectionRequestDTO) => {
+        fetch(`http://localhost:5001/api/Request/AcceptRequest?requestId=${request.id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             },
@@ -95,9 +96,23 @@ const Connections: React.FC = () => {
         })
             .then((response) => {
                 if (response.ok) {
+                    // Remove the request from the connectionRequests state
                     setConnectionRequests((prevRequests) =>
-                        prevRequests.filter((req) => req.id !== requestId)
+                        prevRequests.filter((req) => req.id !== request.id)
                     );
+
+                    // Create a new connection object
+                    const newConnection: ApplicationUser = {
+                        id: request.senderId,
+                        firstName: request.senderFirstName,
+                        lastName: request.senderLastName,
+                        institution: request.senderInstitution,
+                        profilePictureUrl: request.senderProfilePicture || '', // Handle optional profile picture
+                        connectedAt: new Date().toISOString(),
+                    };
+
+                    // Add the new connection to the connections state
+                    setConnections((prevConnections) => [...prevConnections, newConnection]);
                 } else {
                     return response.text().then((text) => {
                         throw new Error(text);
@@ -132,7 +147,7 @@ const Connections: React.FC = () => {
                 'Content-Type': 'application/json',
             },
             method: 'POST',
-            body: JSON.stringify({requestId, accept: true}),
+            body: JSON.stringify({ requestId, accept: true }),
         })
             .then((response) => {
                 if (response.ok) {
@@ -158,7 +173,7 @@ const Connections: React.FC = () => {
                 'Content-Type': 'application/json',
             },
             method: 'POST',
-            body: JSON.stringify({requestId, accept: false}),
+            body: JSON.stringify({ requestId, accept: false }),
         })
             .then((response) => {
                 if (response.ok) {
@@ -273,7 +288,7 @@ const Connections: React.FC = () => {
         <div className="connections-card-container">
             <p className="dark:text-white p-1 pb-2 text-xl font-bold">Connections</p>
             {connections.length === 0 ? (
-                <NoConnectionsRive/>
+                <NoConnectionsRive />
             ) : (
                 <ul className="connections-list">
                     {connections.map((user) => (
@@ -292,7 +307,6 @@ const Connections: React.FC = () => {
                                     <p className="connection-name">{user.firstName} {user.lastName}</p>
                                     <p className="text-gray-500 text-xs font-light">{user.institution}</p>
                                 </div>
-
                             </div>
                             <button
                                 className="message-button"
@@ -313,7 +327,7 @@ const Connections: React.FC = () => {
                                         );
                                     }}
                                 >
-                                    <FaEllipsisV/>
+                                    <FaEllipsisV />
                                 </button>
                                 {openMenuConnectionId === user.id && (
                                     <div
@@ -324,7 +338,7 @@ const Connections: React.FC = () => {
                                         <button
                                             className="flex items-center gap-2 text-sm font-medium text-black dark:text-white"
                                             onClick={() => handleRemoveConnection(user.id)}>
-                                            <FaUserMinus/>
+                                            <FaUserMinus />
                                             <div>
                                                 Remove Connection
                                             </div>
@@ -369,7 +383,7 @@ const Connections: React.FC = () => {
                                 className="requests-connect-button"
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    handleAccept(request.id)
+                                    handleAccept(request);
                                 }}
                             >
                                 Accept
@@ -400,7 +414,7 @@ const Connections: React.FC = () => {
                     <div key={group.groupId} className="requests-group-section rounded-md bg-sky-50 p-2 mb-2">
                         <h3 className="mb-2 flex items-center text-sm font-semibold">Application to: <p className="p-1 m-2 bg-sky-100 w-fit rounded-md">{group.groupName}</p></h3>
                         {group.applications.map((application) => (
-                            <div key={application.requestId} onClick={()=>{handleUserClick(application.applicantId)}} className="requests-user-card bg-white p-1 rounded-md">
+                            <div key={application.requestId} onClick={() => { handleUserClick(application.applicantId) }} className="requests-user-card bg-white p-1 rounded-md">
                                 <div className="requests-user-info">
                                     <img
                                         className="requests-user-card-img"
@@ -435,19 +449,19 @@ const Connections: React.FC = () => {
         <div className="connections-page">
             <>
                 {screenWidth < 768 && (
-                    <div className="connections-toggle-slider" style={{width: '200px'}}>
+                    <div className="connections-toggle-slider" style={{ width: '200px' }}>
                         <div className="slider-background">
                             <button
                                 onClick={() => setSelectedTab('connections')}
-                                className={`flex justify-center toggle-button ${selectedTab === 'connections' ? 'active' : ''}`}
+                                className={`z-10 flex justify-center toggle-button ${selectedTab === 'connections' ? 'active' : ''}`}
                             >
-                                {screenWidth < 768 ? <FaUser/> : 'Connections'}
+                                {screenWidth < 768 ? <FaUser /> : 'Connections'}
                             </button>
                             <button
                                 onClick={() => setSelectedTab('requests')}
-                                className={`flex justify-center toggle-button ${selectedTab === 'requests' ? 'active' : ''}`}
+                                className={`z-10 flex justify-center toggle-button ${selectedTab === 'requests' ? 'active' : ''}`}
                             >
-                                {screenWidth < 768 ? <FaUsers/> : 'Requests'}
+                                {screenWidth < 768 ? <FaUsers /> : 'Requests'}
                             </button>
                         </div>
                         <div className={`connections-slider ${selectedTab === 'connections' ? 'left' : 'right'}`}></div>
@@ -513,7 +527,7 @@ const Connections: React.FC = () => {
                 )}
             </>
             {selectedUserId && (
-                <ViewProfile userId={selectedUserId} onClose={handleCloseProfile}/>
+                <ViewProfile userId={selectedUserId} onClose={handleCloseProfile} />
             )}
         </div>
     );

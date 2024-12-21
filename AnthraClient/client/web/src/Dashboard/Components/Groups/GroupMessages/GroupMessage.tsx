@@ -2,13 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './GroupMessage.css';
 import { useNavigate } from 'react-router-dom';
-import { FaEllipsisV, FaArrowLeft, FaPenSquare, FaInfo } from 'react-icons/fa';
+import {FaEllipsisV, FaArrowLeft, FaPenSquare, FaInfo, FaUserPlus} from 'react-icons/fa';
 import * as signalR from '@microsoft/signalr';
 import GroupInfo from '../GroupInfo/GroupInfo';
 import GroupMessageInput from "./GroupMessageInput";
 import EditGroupModal from "../EditGroupModal/EditGroupModal";
 import {MdExitToApp} from "react-icons/md";
 import ViewProfile from "../../ViewProfile/ViewProfile";
+import AddMembersModal from "../AddMembersModal/AddMembersModal";
+
 interface Attachment {
     id: number;
     fileName: string;
@@ -251,6 +253,15 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
     const handleCloseProfile = () => {
         setSelectedUserId(null);
     }
+    const [showAddMembersModal, setShowAddMembersModal] = useState(false);
+
+    const handleOpenAddMembersModal = () => {
+        setShowAddMembersModal(true);
+    };
+
+    const handleCloseAddMembersModal = () => {
+        setShowAddMembersModal(false);
+    };
 
     return (
         <div className="group-message-page">
@@ -265,44 +276,57 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                     <div className="contact-info">
                         <span className="contact-name">{groupInfo?.groupName}</span>
                     </div>
-                    <div
-                        className="messages-menu-icon"
-                        onClick={(event) => {
-                            event.stopPropagation();
-                            toggleMenu();
-                        }}
-                    >
-                        {showMenu && (
-                            <div className="messages-dropdown-menu"
-                                 ref={dropdownRef}
-                                 onClick={(event) => event.stopPropagation()}>
-                                {isGroupCreator && (
+                    <div  className="flex items-center gap-2">
+                        {isGroupCreator && (
+                            <button className="messages-menu-icon"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleOpenAddMembersModal();
+                                    }}>
+                                <FaUserPlus size={18} />
+                            </button>
+                        )}
+                        <div
+                            className="messages-menu-icon"
+                            onClick={(event) => {
+                                event.stopPropagation();
+                                toggleMenu();
+                            }}
+                        >
+                            {showMenu && (
+                                <div className="messages-dropdown-menu"
+                                     ref={dropdownRef}
+                                     onClick={(event) => event.stopPropagation()}>
+                                    {isGroupCreator && (
+                                        <button className="flex items-center gap-2  text-sm font-medium"
+                                                onClick={handleEditGroup}>
+                                            <FaPenSquare/>
+                                            <div>
+                                                Edit Group
+                                            </div>
+                                        </button>
+
+                                    )}
                                     <button className="flex items-center gap-2  text-sm font-medium"
-                                            onClick={handleEditGroup}>
-                                        <FaPenSquare/>
+                                            onClick={handleToggleGroupInfoVisibility}>
+                                        <FaInfo/>
                                         <div>
-                                            Edit Group
+                                            {showGroupInfo ? 'Hide Info' : 'Show Info'}
                                         </div>
                                     </button>
+                                    <button className="flex items-center gap-2 font-medium text-sm "
+                                            onClick={() => handleLeaveGroup(groupId)}>
+                                        <MdExitToApp/>
+                                        Leave Group
+                                    </button>
 
-                                )}
-                                <button className="flex items-center gap-2  text-sm font-medium"
-                                        onClick={handleToggleGroupInfoVisibility}>
-                                    <FaInfo/>
-                                    <div>
-                                        {showGroupInfo ? 'Hide Info' : 'Show Info'}
-                                    </div>
-                                </button>
-                                <button className="flex items-center gap-2 font-medium text-sm "
-                                        onClick={() => handleLeaveGroup(groupId)}>
-                                    <MdExitToApp/>
-                                    Leave Group
-                                </button>
-
-                            </div>
-                        )}
-                        <FaEllipsisV/>
+                                </div>
+                            )}
+                            <FaEllipsisV/>
+                        </div>
                     </div>
+
+
                 </div>
                 <div className="group-message-list">
                     {isMobile && showGroupInfo ? (
@@ -398,6 +422,13 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
             </div>
             {!isMobile && showGroupInfo && <GroupInfo groupId={groupId} />}
             {selectedUserId && <ViewProfile userId={selectedUserId} onClose={handleCloseProfile}/>}
+            <AddMembersModal
+                show={showAddMembersModal}
+                onClose={handleCloseAddMembersModal}
+                groupId={groupId}
+                groupName={groupInfo?.groupName}
+                groupPurpose={groupInfo?.groupPurpose}
+            />
         </div>
     );
 };

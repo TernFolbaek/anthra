@@ -28,9 +28,6 @@
     padding-right: 10px;
 }
 
-#viewprofile .viewprofile-content::-webkit-scrollbar {
-    display: none;
-}
 
 #viewprofile .viewprofile-connect-button{
     margin-top: 10px;

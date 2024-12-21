@@ -393,7 +393,7 @@ if (app.Environment.IsDevelopment())
 
 
             new GroupMember { GroupId = group2.Id, UserId = gabUser.Id, IsAccepted = true },
-            new GroupMember { GroupId = group2.Id, UserId = gabUser.Id, IsAccepted = true },
+            new GroupMember { GroupId = group2.Id, UserId = ternUser.Id, IsAccepted = true },
 
             new GroupMember { GroupId = group3.Id, UserId = justinUser.Id, IsAccepted = true },
             new GroupMember { GroupId = group3.Id, UserId = ternUser.Id, IsAccepted = true },

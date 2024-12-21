@@ -173,7 +173,7 @@ if (app.Environment.IsDevelopment())
                     new Course { CourseName = "Advanced Algorithms", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
                 }, 
                 Subjects = new List<string> { "Physics", "Mathematics", "Computer Science" },
-                Statuses = new List<string> { "✎ exam preparations", "☺ expanding my network", "☏ looking for collaboration" },
+                Statuses = new List<string> { "✎ exam preparations", "☺ grow network", "☏ looking for collaboration" },
                 AboutMe = "I am a passionate researcher exploring the intersections of quantum mechanics and computational algorithms. Always eager to connect with like-minded peers.",
                 CreatedProfile = true,
                 ProfileCompleted = true,
@@ -196,7 +196,7 @@ if (app.Environment.IsDevelopment())
                     new Course { CourseName = "Machine Learning", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
                 }, 
                 Subjects = new List<string> { "Computer Science", "Data Science" },
-                Statuses = new List<string> { "✎ exam preparations", "☺ expanding my network", "☏ looking for collaboration" },
+                Statuses = new List<string> { "✎ exam preparations", "☺ grow network", "☏ looking for collaboration" },
                 AboutMe = "Mentoring students and pursuing data science passionately. Enjoy solving real-world problems through ML.",
                 CreatedProfile = true,
                 ProfileCompleted = true,
@@ -219,7 +219,7 @@ if (app.Environment.IsDevelopment())
                     new Course { CourseName = "Cloud Computing", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
                 }, 
                 Subjects = new List<string> { "Software Engineering", "Cloud Computing" },
-                Statuses = new List<string> { "✎ exam preparations", "☺ expanding my network", "☏ looking for collaboration" },
+                Statuses = new List<string> { "✎ exam preparations", "☺ grow network", "☏ looking for collaboration" },
                 AboutMe = "Enthusiast for web apps and cloud solutions. Currently gaining hands-on experience.",
                 CreatedProfile = true,
                 ProfileCompleted = true,
@@ -242,7 +242,7 @@ if (app.Environment.IsDevelopment())
                     new Course { CourseName = "Neural Networks", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
                 }, 
                 Subjects = new List<string> { "AI", "Neuroscience", "Computer Science" },
-                Statuses = new List<string> { "✎ exam preparations", "☺ expanding my network", "☏ looking for collaboration" },
+                Statuses = new List<string> { "✎ exam preparations", "☺ grow network", "☏ looking for collaboration" },
                 AboutMe = "Researching AI and neural networks to understand human cognition.",
                 CreatedProfile = true,
                 ProfileCompleted = true,
@@ -265,7 +265,7 @@ if (app.Environment.IsDevelopment())
                     new Course { CourseName = "Cybersecurity", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
                 }, 
                 Subjects = new List<string> { "Mobile Development", "Cybersecurity" },
-                Statuses = new List<string> { "✎ exam preparations", "☺ expanding my network", "☏ looking for collaboration" },
+                Statuses = new List<string> { "✎ exam preparations", "☺ grow network", "☏ looking for collaboration" },
                 AboutMe = "Building secure mobile apps as a freelancer. Always exploring new tech trends.",
                 CreatedProfile = true,
                 ProfileCompleted = true,

@@ -93,6 +93,7 @@ body.dark .explore-button:hover {
 @media(max-width: 480px) {
     .groups-page {
         margin: 0;
+        background-color: white;
     }
 
     .group-message-view {

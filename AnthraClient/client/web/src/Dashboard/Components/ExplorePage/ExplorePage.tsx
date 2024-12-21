@@ -1,9 +1,8 @@
-// ExplorePage.tsx
 import React, { useState } from 'react';
 import './ExplorePage.css';
-import Menu from './Menu';
-import UserExplorePage from './UserExplorePage';
-import GroupExplorePage from './GroupExplorePage';
+import Menu from './ExploreToggle/Menu';
+import UserExplorePage from './IndividualExplore/UserExplorePage';
+import GroupExplorePage from './GroupExplore/GroupExplorePage';
 
 const ExplorePage: React.FC = () => {
     const [activePage, setActivePage] = useState<'individuals' | 'groups'>('individuals');

@@ -102,13 +102,6 @@ const AdvancedSettings: React.FC = () => {
         { label: 'Within 20 km', value: '20km' },
     ];
 
-    const institutionOptions: DropdownOption[] = [
-        { label: 'Any Institution', value: 'any' },
-        { label: 'University A', value: 'university_a' },
-        { label: 'University B', value: 'university_b' },
-        { label: 'Institute C', value: 'institute_c' },
-    ];
-
     const ageGroupOptions: DropdownOption[] = [
         { label: 'No constraint', value: 'any' },
         { label: 'Under 18', value: 'under_18' },
@@ -125,14 +118,6 @@ const AdvancedSettings: React.FC = () => {
                     options={distanceOptions}
                     selectedOption={distanceOption}
                     onSelect={handleDistanceChange}
-                />
-            </div>
-            <div className="advanced-settings-form-group">
-                <CustomDropdown
-                    label="Institution"
-                    options={institutionOptions}
-                    selectedOption={institutionOption}
-                    onSelect={handleInstitutionChange}
                 />
             </div>
             <div className="advanced-settings-form-group">

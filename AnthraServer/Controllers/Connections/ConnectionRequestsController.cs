@@ -39,6 +39,7 @@ namespace AnthraBackend.Controllers.Connections
                         SenderLastName = cr.Sender.LastName,
                         SenderEmail = cr.Sender.Email,
                         SenderProfilePicture = cr.Sender.ProfilePictureUrl, 
+                        SenderInstitution = cr.Sender.Institution,
                         ReceiverId = cr.ReceiverId,
                         Status = cr.Status,
                         RequestedAt = cr.RequestedAt,

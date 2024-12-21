@@ -175,7 +175,8 @@ public async Task<IActionResult> CreateGroup([FromBody] CreateGroupModel model)
                 m.UserId,
                 m.User.FirstName,
                 m.User.LastName,
-                m.User.ProfilePictureUrl
+                m.User.ProfilePictureUrl,
+                m.User.Institution
             })
             .ToList();
 

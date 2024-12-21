@@ -19,6 +19,8 @@ namespace MyBackendApp.Models
         public string SenderLastName { get; set; }
         public string SenderEmail { get; set; }
         public string SenderProfilePicture { get; set; }
+        public string SenderInstitution { get; set; }
+
         public string ReceiverId { get; set; }
         public ConnectionStatus Status { get; set; }
         public DateTime RequestedAt { get; set; }

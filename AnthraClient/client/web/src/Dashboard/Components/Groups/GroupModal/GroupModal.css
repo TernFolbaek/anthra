@@ -21,115 +21,14 @@
     border-radius: 8px;
     position: relative;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    max-height: 90vh; /* Ensure modal doesn't exceed viewport height */
+    overflow-y: auto; /* Enable scrolling for the entire modal on smaller screens */
 }
 
-.purpose-icon-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 15px;
-}
-
-.selected-purpose-icon svg {
-    font-size: 60px;
-}
-
-
-/* Remove purpose-specific background classes */
-
-/* Input, buttons, and other styles remain as before */
-
-.group-name-input {
-    width: 100%;
-    padding: 10px;
-    font-size: 13px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.group-description-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    font-size: 13px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    height: 100px;
-    resize: none;
-}
-
-.group-creation-connections-list {
-    list-style-type: none;
-    padding: 0;
-    max-height: 200px;
-    overflow-y: auto;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.create-group-connection-item {
-    padding: 8px;
-    border-bottom: 1px solid #eee;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.create-group-connection-item:last-child {
-    border-bottom: none;
-}
-
-.create-group-connection-item:hover {
-    background-color: #ebf3fd;
-    cursor: pointer;
-}
-
-.selected-user {
-    background-color: #ebf3fd;
-}
-
-.connection-profile-picture-small {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.modal-buttons {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-}
-
-.create-button,
-.cancel-button {
-    padding: 10px 20px;
-    margin-left: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.create-button {
-    background-color: #85bff8;
-    color: white;
-}
-
-.create-button:hover {
-    background-color: #2c91f4;
-}
-
-.cancel-button {
-    background-color: #6c757d;
-    color: white;
-}
-
-.cancel-button:hover {
-    background-color: #5a6268;
+/* Dark mode styles */
+body.dark .modal-content {
+    background-color: #2e2e2e;
+    color: #fff;
 }
 
 .create-group-close-button {
@@ -148,13 +47,14 @@
     color: #000;
 }
 
-.create-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+/* Dark mode styles */
+body.dark .create-group-close-button:hover {
+    color: #fff;
 }
 
-.create-button:disabled:hover {
-    background-color: #ccc;
+.input-group {
+    margin-bottom: 1rem;
+    text-align: left;
 }
 
 .label-and-counter {
@@ -164,14 +64,40 @@
     margin-bottom: 0.5rem;
 }
 
-.create-group-char-counter {
-    font-size: 0.8rem;
-    color: grey;
+.selected-purpose-icon svg {
+    font-size: 60px;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.text-sm {
+    font-size: 0.875rem;
 }
 
 .required-asterisk {
     color: red;
     margin-left: 2px;
+}
+
+.create-group-char-counter {
+    font-size: 0.8rem;
+    color: grey;
+}
+
+.group-name-input,
+.group-description-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.group-description-input {
+    height: 100px;
+    resize: none;
 }
 
 .group-purpose-container {
@@ -209,6 +135,129 @@
     transform: scale(1.05);
 }
 
+.mt-2 {
+    margin-top: 0.5rem;
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
+.text-xs {
+    font-size: 0.75rem;
+}
+
+/* Scrollable Connections Container */
+.group-creation-connections-container {
+    max-height: calc((2.5rem + 1rem) * 5); /* Height of connection item plus margin * 5 */
+    overflow-y: auto;
+    margin-top: 0.625rem;
+    padding-right: 0.5rem; /* To prevent content hiding behind scrollbar */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Members List */
+.group-creation-connections-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0; /* Remove margin to prevent double spacing */
+    /* Removed max-height and overflow-y to delegate to the container */
+}
+
+.create-group-connection-item {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.create-group-connection-item:last-child {
+    border-bottom: none;
+}
+
+.create-group-connection-item:hover {
+    background-color: #ebf3fd;
+    cursor: pointer;
+}
+
+/* Selected user styling */
+.selected-user {
+    background-color: #ebf3fd;
+}
+
+.select-user-item-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.create-button,
+.cancel-button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.create-button {
+    background-color: #85bff8;
+    color: white;
+}
+
+.create-button:hover {
+    background-color: #2c91f4;
+}
+
+.cancel-button {
+    background-color: #6c757d;
+    color: white;
+}
+
+.cancel-button:hover {
+    background-color: #5a6268;
+}
+
+.create-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.create-button:disabled:hover {
+    background-color: #ccc;
+}
+
+/* Dark mode styles */
+body.dark .group-creation-connections-container {
+    background-color: #3e3e3e;
+    border-color: #555;
+}
+
+body.dark .create-group-connection-item:hover {
+    background-color: #555;
+}
+
+body.dark .selected-user {
+    background-color: #0056b3;
+}
 
 @media (max-width: 480px) {
     .modal-content {
@@ -218,5 +267,32 @@
 
     .modal-content::-webkit-scrollbar{
         display: none;
+    }
+
+    /* Responsive Adjustments for Connections Container */
+    .group-creation-connections-container {
+        max-height: calc((2rem + 0.75rem) * 4); /* Adjusted for smaller screens */
+    }
+
+    .select-user-item-avatar {
+        width: 25px;
+        height: 25px;
+    }
+
+    .text-sm {
+        font-size: 0.8rem;
+    }
+
+    .group-purpose-container {
+        margin-left: 0.5rem;
+    }
+
+    .group-purpose-tag {
+        padding: 8px 10px;
+        font-size: 0.75rem;
+    }
+
+    .selected-purpose-icon {
+        font-size: 1.5rem;
     }
 }

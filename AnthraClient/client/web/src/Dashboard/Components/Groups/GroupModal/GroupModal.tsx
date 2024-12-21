@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './GroupModal.css';
 import Switch from '../../../Helpers/Switch';
 import { MdGroups } from 'react-icons/md';
-import { FaChalkboardTeacher, FaBookReader, FaLaptopCode } from 'react-icons/fa';
-import { FaQuestion } from 'react-icons/fa';
+import { FaChalkboardTeacher, FaBookReader, FaLaptopCode, FaQuestion } from 'react-icons/fa';
 
 interface Props {
     onClose: () => void;
@@ -114,9 +113,25 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
     // Determine icon to show in the container
     const chosenPurpose = groupPurposes.find((p) => p.value === selectedPurpose);
 
+    // Ref for modal to handle click outside
+    const modalRef = useRef<HTMLDivElement>(null);
+
+    const handleClickOutside = (event: MouseEvent) => {
+        if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+            onClose();
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     return (
         <div className="modal-overlay">
-            <div className="modal-content">
+            <div className="modal-content" ref={modalRef}>
                 <button className="create-group-close-button" onClick={onClose}>
                     &times;
                 </button>
@@ -143,8 +158,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                 <div className="input-group">
                     <div className="label-and-counter">
                         <p className="font-bold text-sm">
-                            Description<span className="required-asterisk">*</span> <span
-                            className="font-medium text-xs"> min. 100 chars.</span>
+                            Description<span className="required-asterisk">*</span> <span className="font-medium text-xs"> min. 100 chars.</span>
                         </p>
                         <div className="create-group-char-counter">{groupDescription.length}/150</div>
                     </div>
@@ -162,8 +176,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                 <div className="input-group">
                     <div className="label-and-counter">
                         <p className="font-bold text-sm">
-                            Who are you looking for<span className="required-asterisk">*</span> <span
-                            className="font-medium text-xs"> min. 100 chars.</span>
+                            Who are you looking for<span className="required-asterisk">*</span> <span className="font-medium text-xs"> min. 100 chars.</span>
                         </p>
                         <div className="create-group-char-counter">{groupMemberDesire.length}/150</div>
                     </div>
@@ -225,26 +238,30 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="group-name-input"
                 />
-                <ul className="group-creation-connections-list">
-                    {filteredConnections.map((user) => (
-                        <li
-                            key={user.id}
-                            className={`create-group-connection-item cursor-pointer w-full ${
-                                selectedUserIds.includes(user.id) ? 'selected-user' : ''
-                            }`}
-                            onClick={() => handleUserSelect(user.id)}
-                        >
-                            <div className="flex items-center gap-2">
-                                <img
-                                    src={`${user.profilePictureUrl}`}
-                                    alt={`${user.firstName} ${user.lastName}`}
-                                    className="select-user-item-avatar"
-                                />
-                                <span className="text-sm">{user.firstName} {user.lastName}</span>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
+
+                {/* Scrollable Connections Container */}
+                <div className="group-creation-connections-container">
+                    <ul className="group-creation-connections-list">
+                        {filteredConnections.map((user) => (
+                            <li
+                                key={user.id}
+                                className={`create-group-connection-item cursor-pointer w-full ${
+                                    selectedUserIds.includes(user.id) ? 'selected-user' : ''
+                                }`}
+                                onClick={() => handleUserSelect(user.id)}
+                            >
+                                <div className="flex items-center gap-2">
+                                    <img
+                                        src={`${user.profilePictureUrl}`}
+                                        alt={`${user.firstName} ${user.lastName}`}
+                                        className="select-user-item-avatar"
+                                    />
+                                    <span className="text-sm">{user.firstName} {user.lastName}</span>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
 
                 <div className="modal-buttons">
                     <button className="create-button" onClick={handleCreateGroup} disabled={!isFormValid}>
@@ -256,7 +273,6 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                 </div>
             </div>
         </div>
-    );
-};
+    );}
 
-export default GroupModal;
+    export default GroupModal;

@@ -128,31 +128,25 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
         }
     }
 
-    // Handler for Accept button click
     const onAccept = async () => {
         try {
-            await handleAcceptInvitation(); // Call the handler passed from parent
+            await handleAcceptInvitation();
 
-            // Update local state to reflect acceptance
             setInvitationStatus(true);
             setActionType(InvitationActionType.Accepted);
         } catch (error) {
             console.error('Error accepting invitation:', error);
-            alert('Failed to accept the invitation. Please try again.');
         }
     }
 
-    // Handler for Decline button click
     const onDecline = async () => {
         try {
-            await handleDeclineInvitation(); // Call the handler passed from parent
+            await handleDeclineInvitation();
 
-            // Update local state to reflect declination
             setInvitationStatus(true);
             setActionType(InvitationActionType.Declined);
         } catch (error) {
             console.error('Error declining invitation:', error);
-            alert('Failed to decline the invitation. Please try again.');
         }
     }
 

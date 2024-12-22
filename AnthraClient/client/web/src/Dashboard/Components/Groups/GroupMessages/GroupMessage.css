@@ -24,7 +24,7 @@ body.dark .group-message-page {
     height: 100%;
     border-radius: 10px;
     background-color: white;
-    z-index: 2;
+    z-index: 4;
 }
 
 /* Dark mode styles */

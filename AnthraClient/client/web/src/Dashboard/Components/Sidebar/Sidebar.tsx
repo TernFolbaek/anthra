@@ -1,4 +1,4 @@
-// Sidebar.tsx
+// src/Components/Sidebar/Sidebar.tsx
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
@@ -12,7 +12,11 @@ import './Sidebar.css';
 import Notifications from "../Notifications/Notifications";
 import { NotificationContext } from '../../context/NotificationsContext';
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+    onSettingsClick: () => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ onSettingsClick }) => {
     const userProfilePictureSrc = localStorage.getItem('userProfilePicture') || undefined;
     const notificationContext = useContext(NotificationContext);
 
@@ -84,16 +88,15 @@ const Sidebar: React.FC = () => {
                         <span className="tooltip">Groups</span>
                     </div>
                 </NavLink>
-
-                <NavLink
-                    to="/settings"
-                    className={({ isActive }) => `sidebar-link ${isActive ? 'active-link' : ''}`}
+                <div
+                    className="sidebar-link cursor-pointer"
+                    onClick={onSettingsClick}
                 >
                     <div className="tooltip-container">
                         <FaCog className="sidebar-icon" />
                         <span className="tooltip">Settings</span>
                     </div>
-                </NavLink>
+                </div>
             </div>
             <div className="flex flex-col items-center gap-2">
                 <Notifications />
@@ -107,7 +110,6 @@ const Sidebar: React.FC = () => {
             </div>
         </div>
     );
-
 };
 
 export default Sidebar;

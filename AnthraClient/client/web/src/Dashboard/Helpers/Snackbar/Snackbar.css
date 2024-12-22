@@ -8,7 +8,7 @@
 }
 
 .snackbar {
-    background-color: rgba(208, 228, 253,0.6);
+    background-color: rgba(208, 228, 253);
     color: black;
     border-radius: 10px;
     min-width: 250px;

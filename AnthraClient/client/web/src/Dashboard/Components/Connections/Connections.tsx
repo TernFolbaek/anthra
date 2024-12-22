@@ -74,7 +74,6 @@ const Connections: React.FC = () => {
             setOpenMenuConnectionId(null);
         } catch (error) {
             console.error('Error removing connection:', error);
-            alert('Failed to remove the connection. Please try again later.');
         }
     };
 

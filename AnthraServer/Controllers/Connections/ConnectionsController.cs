@@ -67,6 +67,80 @@ namespace MyBackendApp.Controllers
 
             return Ok(new { isConnected, requestPending, hasUserSentRequest, hasUserAcceptedRequest });
         }
+        
+
+[HttpGet("Statuses")]
+[Authorize]
+public async Task<IActionResult> GetConnectionStatuses([FromQuery] List<string> targetUserIds)
+{
+    var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+    if (string.IsNullOrEmpty(currentUserId))
+        return Unauthorized("User is not authenticated.");
+
+    // Remove current userId from targetUserIds if present
+    targetUserIds = targetUserIds.Where(id => id != currentUserId).ToList();
+
+    if (!targetUserIds.Any())
+        return BadRequest("No valid targetUserIds provided.");
+
+    // Fetch all connections where the current user is involved
+    var connections = await _context.Connections
+        .Where(c => (c.UserId1 == currentUserId && targetUserIds.Contains(c.UserId2)) ||
+                    (c.UserId2 == currentUserId && targetUserIds.Contains(c.UserId1)))
+        .ToListAsync();
+
+    // Fetch all pending sent connection requests
+    var pendingSentRequests = await _context.ConnectionRequests
+        .Where(cr => cr.SenderId == currentUserId &&
+                     targetUserIds.Contains(cr.ReceiverId) &&
+                     cr.Status == ConnectionStatus.Pending)
+        .ToListAsync();
+
+    // Fetch all pending received connection requests
+    var pendingReceivedRequests = await _context.ConnectionRequests
+        .Where(cr => cr.ReceiverId == currentUserId &&
+                     targetUserIds.Contains(cr.SenderId) &&
+                     cr.Status == ConnectionStatus.Pending)
+        .ToListAsync();
+
+    // Fetch all accepted connection requests
+    var acceptedRequests = await _context.ConnectionRequests
+        .Where(cr => (cr.SenderId == currentUserId || cr.ReceiverId == currentUserId) &&
+                     targetUserIds.Contains(cr.SenderId == currentUserId ? cr.ReceiverId : cr.SenderId) &&
+                     cr.Status == ConnectionStatus.Accepted)
+        .ToListAsync();
+
+    // Prepare the status list
+    var statusList = new List<ConnectionStatusDto>();
+
+    foreach (var targetUserId in targetUserIds)
+    {
+        bool isConnected = connections.Any(c => c.UserId1 == targetUserId || c.UserId2 == targetUserId);
+        bool requestPending = pendingSentRequests.Any(cr => cr.ReceiverId == targetUserId) ||
+                               pendingReceivedRequests.Any(cr => cr.SenderId == targetUserId);
+        bool hasUserSentRequest = pendingSentRequests.Any(cr => cr.ReceiverId == targetUserId);
+        bool hasUserAcceptedRequest = acceptedRequests.Any(cr =>
+            (cr.SenderId == currentUserId && cr.ReceiverId == targetUserId) ||
+            (cr.SenderId == targetUserId && cr.ReceiverId == currentUserId));
+
+        statusList.Add(new ConnectionStatusDto
+        {
+            TargetUserId = targetUserId,
+            IsConnected = isConnected,
+            RequestPending = requestPending,
+            HasUserSentRequest = hasUserSentRequest,
+            HasUserAcceptedRequest = hasUserAcceptedRequest
+        });
+    }
+
+    return Ok(statusList);
+}
+
+    
+
+   
+
 
 
         [HttpPost("RevokeRequest")]

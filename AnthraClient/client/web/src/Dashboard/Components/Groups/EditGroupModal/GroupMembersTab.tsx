@@ -106,11 +106,11 @@ const GroupMembersTab: React.FC<GroupMembersTabProps> = ({ groupInfo }) => {
                         <div className="member-actions">
                             {member.userId !== groupInfo.creatorId && (
                                 <button className="edit-member-action-button-kick text-sm" onClick={() => handleKickMember(member)}>
-                                    Kick Member
+                                    Kick
                                 </button>
                             )}
                             <button className="edit-member-action-button-profile text-sm" onClick={() => handleOpenProfile(member.userId)}>
-                                Open Profile
+                                Info
                             </button>
 
                         </div>

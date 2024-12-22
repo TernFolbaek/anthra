@@ -1,34 +1,103 @@
 /* Settings.css */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
 
-.settings-card {
+.settings-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 600px;
-    margin: 100px auto auto auto;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-    font-family: 'Montserrat', sans-serif;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: flex-end;
+    align-items: stretch;
+    z-index: 1000;
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 
-/* Dark mode styles */
-body.dark .settings-card {
-    background-color: #2e2e2e;
-    box-shadow: none;
+.settings-overlay.closing {
+    animation: fadeOut 0.3s forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.settings-card {
+    width: 400px;
+    max-width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    border-radius: 0 0 0 12px;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+    font-family: 'Montserrat', sans-serif;
+    transform: translateX(100%);
+    animation: slideIn 0.3s forwards;
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.settings-card.closing {
+    animation: slideOut 0.3s forwards;
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s;
+}
+
+.close-button:hover {
+    color: #000;
 }
 
 .settings-navbar {
     display: flex;
     flex-wrap: wrap;
     border-bottom: 1px solid #e0e0e0;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-}
-
-/* Dark mode styles */
-body.dark .settings-navbar {
-    border-bottom: 1px solid #444;
 }
 
 .settings-tab {
@@ -40,17 +109,12 @@ body.dark .settings-navbar {
     transition: background-color 0.3s, color 0.3s;
 }
 
-.settings-tab-left{
+.settings-tab-left {
     border-top-left-radius: 12px;
 }
 
-.settings-tab-right{
+.settings-tab-right {
     border-top-right-radius: 12px;
-}
-
-/* Dark mode styles */
-body.dark .settings-tab {
-    color: #ccc;
 }
 
 .settings-tab.active {
@@ -58,19 +122,42 @@ body.dark .settings-tab {
     color: #000;
 }
 
+.settings-tab:hover {
+    background-color: #e3e2e2;
+}
+
+.settings-content {
+    padding: 16px;
+    color: #000;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
 /* Dark mode styles */
+body.dark .settings-card {
+    background-color: #2e2e2e;
+    box-shadow: none;
+}
+
+body.dark .settings-navbar {
+    border-bottom: 1px solid #444;
+}
+
+body.dark .settings-tab {
+    color: #ccc;
+}
+
 body.dark .settings-tab.active {
     background-color: #3a3a3a;
     color: #fff;
 }
 
-.settings-tab:hover {
-    background-color: #e3e2e2;
-}
-
-/* Dark mode styles */
 body.dark .settings-tab:hover {
     background-color: #3a3a3a;
+}
+
+body.dark .settings-content {
+    color: #fff;
 }
 
 .settings-tab span {
@@ -78,23 +165,12 @@ body.dark .settings-tab:hover {
     font-size: 14px;
 }
 
-/* Dark mode styles */
-body.dark .settings-tab span {
-    color: inherit;
-}
-
-.settings-content {
-    padding: 16px;
-    color: #000;
-}
-
-/* Dark mode styles */
-body.dark .settings-content {
-    color: #fff;
-}
-
 /* Media Queries for Mobile Devices */
 @media (max-width: 768px) {
+    .settings-card {
+        width: 80%;
+    }
+
     .settings-navbar {
         flex-direction: column;
     }
@@ -103,11 +179,6 @@ body.dark .settings-content {
         padding: 10px;
         font-size: 16px;
         border-bottom: 1px solid #e0e0e0;
-    }
-
-    /* Dark mode styles */
-    body.dark .settings-tab {
-        border-bottom: 1px solid #444;
     }
 
     .settings-tab span {
@@ -120,14 +191,13 @@ body.dark .settings-content {
 }
 
 @media (max-width: 480px) {
-    .settings-card{
-        margin: 100px 5px auto 5px;
-    }
-    .settings-tab-left{
-        border-top-left-radius: 0;
+    .settings-card {
+        width: 80%;
     }
 
-    .settings-tab-right{
+    .settings-tab-left,
+    .settings-tab-right {
+        border-top-left-radius: 0;
         border-top-right-radius: 0;
     }
 

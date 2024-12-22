@@ -1,4 +1,4 @@
-// Components/Footer/Footer.tsx
+// src/Components/Footer/Footer.tsx
 import React, { useState, useEffect, useContext } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
@@ -12,9 +12,13 @@ import {
     FaUsers,
 } from 'react-icons/fa';
 import './Footer.css';
-import { NotificationContext } from '../../context/NotificationsContext'; // Ensure correct path
+import { NotificationContext } from '../../context/NotificationsContext';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+    onSettingsClick: () => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onSettingsClick }) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const notificationContext = useContext(NotificationContext);
     const location = useLocation(); // To detect route changes
@@ -135,11 +139,19 @@ const Footer: React.FC = () => {
                             </div>
                         </NavLink>
 
-                        <NavLink to="/settings" className="footer-link" onClick={closeMenu}>
+                        {/*
+                            Replace the NavLink to /settings with a clickable div that triggers onSettingsClick.
+                            This avoids navigating to a separate settings page and instead opens the sliding settings card.
+                        */}
+                        <div
+                            className="footer-link"
+                            onClick={onSettingsClick}
+                            style={{ cursor: 'pointer' }} // Ensure the cursor indicates it's clickable
+                        >
                             <div className="text-base flex gap-2 items-center">
                                 <FaCog /> Settings
                             </div>
-                        </NavLink>
+                        </div>
                     </div>
                 </div>
             )}

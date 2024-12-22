@@ -77,7 +77,6 @@ const GroupInfoTab: React.FC<GroupInfoTabProps> = ({
         <div className="edit-group-section z-10">
             {/* Group Name */}
             <div className="flex items-center gap-2">
-                <FaHandPointer size={12}/>
                 <p className="font-bold text-sm">Group Name:</p>
             </div>
             <div className="edit-group-field bg-slate-100 rounded-md p-2">
@@ -99,7 +98,6 @@ const GroupInfoTab: React.FC<GroupInfoTabProps> = ({
 
             {/* Description */}
             <div className="flex items-center gap-2 mt-4">
-                <FaHandPointer size={12}/>
                 <p className="font-bold text-sm">Description:</p>
             </div>
             <div className="edit-group-field bg-slate-100 rounded-md p-2">
@@ -109,7 +107,7 @@ const GroupInfoTab: React.FC<GroupInfoTabProps> = ({
                         onChange={(e) => setGroupDescription(e.target.value)}
                         onBlur={() => setIsEditingDescription(false)}
                         autoFocus
-                        className="w-full p-1 bg-white border border-gray-300 rounded"
+                        className="resize-none w-full p-1 bg-white border border-gray-300 rounded"
                         rows={3}
                     />
                 ) : (
@@ -121,7 +119,6 @@ const GroupInfoTab: React.FC<GroupInfoTabProps> = ({
 
             {/* What the group is looking for */}
             <div className="flex items-center gap-2 mt-4">
-                <FaHandPointer size={12}/>
                 <p className="font-bold text-sm">What the group is looking for:</p>
             </div>
             <div className="edit-group-field bg-slate-100 rounded-md p-2">
@@ -131,7 +128,7 @@ const GroupInfoTab: React.FC<GroupInfoTabProps> = ({
                         onChange={(e) => setGroupMembersDesired(e.target.value)}
                         onBlur={() => setIsEditingGroupMembersDesired(false)}
                         autoFocus
-                        className="w-full p-1 bg-white border border-gray-300 rounded"
+                        className="resize-none w-full p-1 bg-white border border-gray-300 rounded"
                         rows={3}
                     />
                 ) : (
@@ -143,7 +140,6 @@ const GroupInfoTab: React.FC<GroupInfoTabProps> = ({
 
             {/* Group Purpose */}
             <div className="flex items-center gap-2 mt-4">
-                <FaHandPointer size={12}/>
                 <p className="font-bold text-sm">Group Purpose:</p>
             </div>
             <div className="edit-group-field">

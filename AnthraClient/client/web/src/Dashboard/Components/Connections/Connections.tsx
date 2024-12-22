@@ -6,15 +6,7 @@ import NoConnectionsRive from "../../Helpers/Animations/NoConnections";
 import ViewProfile from '../ViewProfile/ViewProfile';
 import { FaEllipsisV, FaUserMinus } from 'react-icons/fa';
 import { FaUser, FaUsers } from "react-icons/fa";
-
-interface ApplicationUser {
-    id: string;
-    firstName: string;
-    lastName: string;
-    institution: string;
-    profilePictureUrl: string;
-    connectedAt: string;
-}
+import {ApplicationUser} from "../types/types";
 
 interface ConnectionRequestDTO {
     id: number;
@@ -220,6 +212,7 @@ const Connections: React.FC = () => {
         if (!userId) {
             return;
         }
+        console.log(userId)
         fetch(`http://localhost:5001/api/Request/Pending?userId=${userId}`)
             .then((response) => {
                 if (!response.ok) {

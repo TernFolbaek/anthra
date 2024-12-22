@@ -101,7 +101,6 @@ const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurren
             onSkip(msg.content);
         } catch (error) {
             console.error('Error updating message:', error);
-            alert('Failed to skip this user. Please try again later.');
         }
     }
 
@@ -136,7 +135,6 @@ const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurren
             onConnect(msg.content);
         } catch (error) {
             console.error('Error updating message:', error);
-            alert('Failed to connect with this user. Please try again later.');
         }
     }
 

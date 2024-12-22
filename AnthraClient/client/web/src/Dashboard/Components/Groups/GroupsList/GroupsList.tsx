@@ -71,7 +71,6 @@ const GroupsList: React.FC<GroupsListProps> = ({
             // Optionally, you can refresh the groups list or notify the parent component
         } catch (error) {
             console.error('Error leaving group:', error);
-            alert('Failed to leave the group. Please try again later.');
         }
     };
 

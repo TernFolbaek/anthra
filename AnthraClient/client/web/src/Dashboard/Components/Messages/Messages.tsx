@@ -322,7 +322,6 @@ const Messages: React.FC = () => {
             );
         } catch (error) {
             console.error('Error accepting group invitation:', error);
-            alert('Failed to accept group invitation. Please try again.');
         }
     };
 
@@ -344,7 +343,6 @@ const Messages: React.FC = () => {
             );
         } catch (error) {
             console.error('Error declining group invitation:', error);
-            alert('Failed to decline group invitation. Please try again.');
         }
     };
 
@@ -420,7 +418,6 @@ const Messages: React.FC = () => {
             );
         } catch (error) {
             console.error(error);
-            alert('Failed to send connection request. Please try again.');
         }
     };
 

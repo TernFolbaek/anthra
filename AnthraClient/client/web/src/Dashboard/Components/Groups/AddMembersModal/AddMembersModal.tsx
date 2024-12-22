@@ -76,7 +76,6 @@ const AddMembersModal: React.FC<AddMembersModalProps> = ({ show, onClose, groupI
             onClose();
         } catch (error) {
             console.error('Error adding members:', error);
-            alert('Failed to add members. Please try again.');
         }
     };
 

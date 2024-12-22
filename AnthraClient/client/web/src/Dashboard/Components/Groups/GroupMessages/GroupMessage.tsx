@@ -242,7 +242,6 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
             // You might consider calling a function passed from the parent to refresh the groups.
         } catch (error) {
             console.error('Error leaving group:', error);
-            alert('Failed to leave the group. Please try again later.');
         }
     };
 

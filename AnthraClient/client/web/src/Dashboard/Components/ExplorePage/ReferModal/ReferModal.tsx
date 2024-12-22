@@ -124,7 +124,6 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
             if (remainingReferrals > 0) {
                 setSelectedConnections([...selectedConnections, connection]);
             } else {
-                // No need for alert as UI indicates the limit
                 return;
             }
         }
@@ -171,7 +170,6 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
             onClose();
         } catch (err) {
             console.error('Error sending referral messages:', err);
-            alert("Failed to send referrals. Please try again.");
         }
     };
 

@@ -8,6 +8,16 @@ export enum InvitationActionType {
     Declined = "Declined"
 }
 
+export interface ApplicationUser {
+    id: string;
+    firstName: string;
+    lastName: string;
+    institution: string;
+    profilePictureUrl: string;
+    connectedAt: string;
+}
+
+
 
 export interface Attachment {
     id: number;

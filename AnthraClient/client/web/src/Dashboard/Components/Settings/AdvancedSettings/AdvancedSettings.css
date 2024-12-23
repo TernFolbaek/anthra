@@ -132,9 +132,6 @@ body.dark .advanced-settings-dropdown-list-item:hover {
     background-color: #555;
 }
 
-body.dark .advanced-settings-apply-button {
-    background-color: #0056b3;
-}
 
 body.dark .advanced-settings-apply-button:hover {
     background-color: #003f7f;

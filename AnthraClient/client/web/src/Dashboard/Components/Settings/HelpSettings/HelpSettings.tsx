@@ -11,7 +11,7 @@ const HelpSettings: React.FC = () => {
     const [correctAnswer, setCorrectAnswer] = useState(0);
     const [showSupportModal, setShowSupportModal] = useState(false);
     const [supportMessage, setSupportMessage] = useState('');
-    const [errorMessage, setErrorMessage] = useState(''); // New state for error messages
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
     const generateMathQuestion = () => {
@@ -40,7 +40,6 @@ const HelpSettings: React.FC = () => {
 
     const handleContactSupport = async () => {
         if (!supportMessage.trim()) {
-            alert('Please enter a support message');
             return;
         }
 
@@ -55,12 +54,10 @@ const HelpSettings: React.FC = () => {
                     },
                 }
             );
-            alert('Support message sent successfully!');
             setShowSupportModal(false);
             setSupportMessage('');
         } catch (error) {
             console.error('Error sending support message:', error);
-            alert('Failed to send support message. Please try again.');
         }
     };
 
@@ -86,17 +83,17 @@ const HelpSettings: React.FC = () => {
     };
 
     return (
-        <div className="profile-settings p-6">
+        <div>
             <div className="profile-settings-actions">
                 <div className="flex gap-2 w-full">
                     <button
-                        className="help-contact-support-button"
+                        className="help-settings-buttons dark:bg-blue-500"
                         onClick={() => setShowSupportModal(true)}
                     >
                         Contact Support
                     </button>
                     <button
-                        className="logout-button"
+                        className="help-settings-buttons dark:bg-blue-500"
                         onClick={handleLogout}
                     >
                         Logout

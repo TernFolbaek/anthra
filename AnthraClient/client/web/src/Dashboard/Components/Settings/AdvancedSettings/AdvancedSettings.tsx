@@ -23,7 +23,7 @@ const AdvancedSettings: React.FC = () => {
 
     return (
         <div className="advanced-settings-container p-3 pt-0">
-            <div className="advanced-settings-form-group">
+            <div className="advanced-settings-form-group dark:text-white">
                 <RangeSlider
                     label="Distance (km)"
                     min={0}
@@ -45,7 +45,7 @@ const AdvancedSettings: React.FC = () => {
                     onChange={handleAgeChange}
                 />
             </div>
-            <button className="advanced-settings-apply-button" onClick={applyFilters}>
+            <button className="advanced-settings-apply-button dark:bg-blue-500" onClick={applyFilters}>
                 Apply
             </button>
         </div>

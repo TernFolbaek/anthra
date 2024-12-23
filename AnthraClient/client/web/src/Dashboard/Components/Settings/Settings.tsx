@@ -78,7 +78,7 @@ const Settings: React.FC<SettingsProps> = ({onClose}) => {
                     className={`settings-card ${isClosing ? 'closing' : ''}`}
                     onClick={(e) => e.stopPropagation()}
                 >
-                    <div className="settings-header">
+                    <div className="settings-header dark:text-white">
                         <p className="text-xl font-semibold items-center gap-2 flex"><FaCog size={17}/>Settings</p>
                         <button className="close-button" onClick={initiateClose} aria-label="Close Settings">
                             <FaTimes size={20}/>

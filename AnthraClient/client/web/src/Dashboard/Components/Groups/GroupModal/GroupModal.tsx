@@ -136,7 +136,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                     &times;
                 </button>
 
-                <div className="input-group">
+                <div className="input-group mt-2">
                     <div className="label-and-counter">
                         <p className="font-bold text-sm">
                             Group Name<span className="required-asterisk">*</span>
@@ -148,7 +148,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                         placeholder="Group name"
                         value={groupName}
                         onChange={(e) => setGroupName(e.target.value)}
-                        className="group-name-input"
+                        className="group-name-input dark:text-black"
                         maxLength={15}
                         minLength={4}
                         required
@@ -163,7 +163,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                         <div className="create-group-char-counter">{groupDescription.length}/150</div>
                     </div>
                     <textarea
-                        className="group-description-input"
+                        className="group-description-input dark:text-black"
                         placeholder="Group description"
                         value={groupDescription}
                         onChange={(e) => setGroupDescription(e.target.value)}
@@ -181,7 +181,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                         <div className="create-group-char-counter">{groupMemberDesire.length}/150</div>
                     </div>
                     <textarea
-                        className="group-description-input"
+                        className="group-description-input dark:text-black"
                         placeholder="Which type of members is this group looking for?"
                         value={groupMemberDesire}
                         onChange={(e) => setGroupMemberDesire(e.target.value)}
@@ -198,7 +198,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                     </p>
                     <div className="flex w-full items-center">
                         {/* Purpose Icon Container */}
-                        <div className="purpose-icon-container">
+                        <div className="purpose-icon-container mr-3">
                             {chosenPurpose ? (
                                 // Render a big version of the selected icon
                                 <div className="selected-purpose-icon">
@@ -213,7 +213,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                             {groupPurposes.map((purpose) => (
                                 <div
                                     key={purpose.value}
-                                    className={`group-purpose-tag ${selectedPurpose === purpose.value ? 'selected' : ''}`}
+                                    className={`dark:text-black group-purpose-tag ${selectedPurpose === purpose.value ? 'selected' : ''}`}
                                     onClick={() => handlePurposeSelect(purpose.value)}
                                 >
                                     {purpose.icon}

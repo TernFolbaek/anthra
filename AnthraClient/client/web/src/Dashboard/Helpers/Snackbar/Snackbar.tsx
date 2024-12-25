@@ -4,7 +4,7 @@ import './Snackbar.css';
 interface SnackbarProps {
     title: string;
     message: string;
-    duration?: number; // Duration in milliseconds
+    duration?: number;
     onClose?: () => void;
 }
 

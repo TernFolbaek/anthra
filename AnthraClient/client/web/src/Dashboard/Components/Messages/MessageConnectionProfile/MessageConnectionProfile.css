@@ -1,5 +1,6 @@
-/* MessageConnectionProfile.css */
-
+/* ----------------------------------------------------
+   FONT & BASE STYLES (as you had them)
+---------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
 
 .message-connection-profile {
@@ -17,6 +18,15 @@
     width: 8px;
 }
 
+/* Dark mode styles */
+body.dark .message-connection-profile {
+    background-color: #2e2e2e;
+    color: #fff;
+}
+
+/* ----------------------------------------------------
+   PROFILE PICTURE
+---------------------------------------------------- */
 .profile-picture {
     text-align: center;
     margin-bottom: 10px;
@@ -29,6 +39,9 @@
     object-fit: cover;
 }
 
+/* ----------------------------------------------------
+   HEADER & BASIC TEXT
+---------------------------------------------------- */
 .profile-info-header {
     font-size: 1.8rem;
     font-weight: 700;
@@ -36,11 +49,6 @@
 }
 
 /* Dark mode styles */
-body.dark .message-connection-profile {
-    background-color: #2e2e2e;
-    color: #fff;
-}
-
 body.dark .profile-info-header {
     color: #fff;
 }
@@ -56,7 +64,9 @@ body.dark .profile-username {
     color: #ccc;
 }
 
-/* Specific property name styling */
+/* ----------------------------------------------------
+   FIELD LABELS (location, work, etc.)
+---------------------------------------------------- */
 .profile-location-label,
 .profile-work-label,
 .profile-institution-label,
@@ -74,11 +84,14 @@ body.dark .profile-age-label {
     color: #ccc;
 }
 
-/* General text and property styling */
+/* ----------------------------------------------------
+   GENERAL TEXT
+---------------------------------------------------- */
 .profile-info-text {
     font-size: 0.85rem;
     line-break: anywhere;
     color: #666;
+    margin-bottom: 6px;
 }
 
 /* Dark mode styles */
@@ -86,9 +99,14 @@ body.dark .profile-info-text {
     color: #ddd;
 }
 
+/* ----------------------------------------------------
+   SECTION TITLES
+---------------------------------------------------- */
 .profile-section-title {
     font-weight: 600;
     color: #555;
+    margin-top: 15px;
+    margin-bottom: 8px;
 }
 
 /* Dark mode styles */
@@ -96,11 +114,14 @@ body.dark .profile-section-title {
     color: #ccc;
 }
 
-/* List styling */
+/* ----------------------------------------------------
+   LIST STYLING
+---------------------------------------------------- */
 .profile-info-list {
     list-style: none;
     padding: 0;
     font-size: 0.85rem;
+    margin-bottom: 10px;
 }
 
 .profile-info-list-item {
@@ -122,8 +143,150 @@ body.dark .profile-info-link {
     color: #85bff8;
 }
 
-@media (max-width: 480px) {
-    .profile-info-header{
-        font-size: 1.4rem;
-    }
+/* ----------------------------------------------------
+   EXAMPLE: STATUSES
+---------------------------------------------------- */
+.user-explore-statuses .profile-section-title {
+    margin-top: 0;
+}
+
+
+/* ----------------------------------------------------
+   MEDIA SECTION
+---------------------------------------------------- */
+.media-section-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    gap: 10px;
+}
+
+/* Each item in the grid (thumbnail container) */
+.media-thumb {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* The thumbnail filename text under the image/icon */
+.thumb-filename {
+    margin-top: 5px;
+    font-size: 0.8rem;
+    color: #555;
+    /* or for dark mode you could dynamically color */
+}
+
+/* Icon container for docs (non-image) */
+.doc-thumb-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+}
+
+.file-icon {
+    font-size: 2.5rem;
+    color: #666;
+}
+
+/* Dark mode styles */
+body.dark .doc-thumb-icon {
+    background-color: #555;
+}
+body.dark .thumb-filename {
+    color: #ccc;
+}
+body.dark .file-icon {
+    color: #ccc;
+}
+
+/* "See More" button styling */
+.see-more-button {
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.see-more-button:hover {
+    background-color: #0056b3;
+}
+
+/* Dark mode */
+body.dark .see-more-button {
+    background-color: #0056b3;
+}
+
+/* ----------------------------------------------------
+   MODAL FOR "SEE MORE"
+---------------------------------------------------- */
+.media-modal-backdrop {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999; /* above other elements */
+}
+
+.media-modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.media-modal-content h3 {
+    margin-top: 0;
+}
+
+/* Dark mode for modal */
+body.dark .media-modal-content {
+    background-color: #2e2e2e;
+    color: #fff;
+}
+
+/* Grid for all attachments in modal */
+.all-attachments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.close-modal-button {
+    margin-top: 10px;
+    padding: 4px 12px;
+    border: none;
+    background-color: #ccc;
+    cursor: pointer;
+    font-weight: 500;
+    border-radius: 4px;
+}
+
+.close-modal-button:hover {
+    background-color: #aaa;
+}
+
+/* Dark mode for close button */
+body.dark .close-modal-button {
+    background-color: #555;
+    color: #fff;
 }

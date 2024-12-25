@@ -157,7 +157,7 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
                             <h2 className="viewprofile-name sm:text-red">
                                 {userProfile.firstName} {userProfile.lastName}{userProfile.age ? ` ${userProfile.age}` : ''}
                             </h2>
-                            <p className="viewprofile-location">{userProfile.location}</p>
+                            <p className="text-left viewprofile-location">{userProfile.location}</p>
                         </div>
                     </div>
                     <p className="viewprofile-institution">{userProfile.institution}</p>

@@ -1,9 +1,33 @@
-import { FaArrowRight, FaPaperclip, FaRegTimesCircle } from "react-icons/fa";
+import { FaArrowRight, FaPaperclip, FaRegTimesCircle, FaFileAlt, FaFilePdf, FaFileWord, FaFileExcel } from "react-icons/fa";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 interface ConnectionUserId {
     userId: string | undefined;
+}
+
+function isImageFile(file: File): boolean {
+    return file.type.startsWith("image/");
+}
+
+function getFileExtension(fileName: string): string {
+    const parts = fileName.split(".");
+    return (parts.pop() || "").toLowerCase();
+}
+
+function getFileIcon(extension: string) {
+    switch (extension) {
+        case "pdf":
+            return <FaFilePdf className="file-icon pdf" />;
+        case "doc":
+        case "docx":
+            return <FaFileWord className="file-icon word" />;
+        case "xls":
+        case "xlsx":
+            return <FaFileExcel className="file-icon excel" />;
+        default:
+            return <FaFileAlt className="file-icon generic" />;
+    }
 }
 
 const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
@@ -44,11 +68,11 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
                 return;
             }
             setMessageInput('');
-            setSelectedFile(null);
             if (selectedImagePreview) {
                 URL.revokeObjectURL(selectedImagePreview);
-                setSelectedImagePreview(null);
             }
+            setSelectedFile(null);
+            setSelectedImagePreview(null);
         } catch (error) {
             console.error('Error sending message:', error);
         }
@@ -56,7 +80,13 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-            if (inputRef.current && document.activeElement !== inputRef.current && document.activeElement !== document.querySelector('.search-input')) {
+            // If focus isn't in the input, focus it
+            if (
+                inputRef.current &&
+                document.activeElement !== inputRef.current &&
+                document.activeElement !== document.querySelector('.search-input') &&
+                document.activeElement !== document.querySelector('.modal-input')
+            ) {
                 inputRef.current.focus();
             }
             if (event.key === 'Enter') {
@@ -69,13 +99,13 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
         };
     }, [messageInput]);
 
-
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
             const file = event.target.files[0];
             setSelectedFile(file);
 
-            if (file.type.startsWith('image/')) {
+            // If it's an image, create an object URL for preview
+            if (isImageFile(file)) {
                 const imageUrl = URL.createObjectURL(file);
                 setSelectedImagePreview(imageUrl);
             } else {
@@ -92,25 +122,40 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
         setSelectedImagePreview(null);
     };
 
+    // For non-image files, optionally render an icon preview
+    const renderFilePreview = (file: File) => {
+        const extension = getFileExtension(file.name);
+        if (isImageFile(file)) {
+            return (
+                <div className="image-preview-container">
+                    <img
+                        src={selectedImagePreview || ""}
+                        alt="Selected"
+                        className="image-preview-attachment"
+                    />
+                    <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
+                </div>
+            );
+        } else {
+            return (
+                <div className="file-preview-container">
+                    {getFileIcon(extension)}
+                    <span className="file-preview-name">
+            {file.name.length > 15
+                ? `${file.name.substring(0, 15)}...`
+                : file.name}
+          </span>
+                    <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
+                </div>
+            );
+        }
+    };
+
     return (
         <>
             {selectedFile && (
                 <div className="selected-file-preview">
-                    {selectedImagePreview ? (
-                        <div className="image-preview-container">
-                            <img
-                                src={selectedImagePreview}
-                                alt="Selected"
-                                className="image-preview-attachment"
-                            />
-                            <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
-                        </div>
-                    ) : (
-                        <div className="file-preview-container">
-                            <span>{selectedFile.name}</span>
-                            <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
-                        </div>
-                    )}
+                    {renderFilePreview(selectedFile)}
                 </div>
             )}
             <div className="message-input-container">

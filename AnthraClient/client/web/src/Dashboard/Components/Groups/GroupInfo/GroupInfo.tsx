@@ -4,7 +4,7 @@ import axios from 'axios';
 import './GroupInfo.css';
 import ViewProfile from "../../ViewProfile/ViewProfile";
 import Snackbar from "../../../Helpers/Snackbar/Snackbar";
-import { FaUserMinus, FaUserPlus } from "react-icons/fa";
+import { FaUserMinus, FaUserPlus, FaFilePdf, FaFileWord, FaFileExcel, FaFileAlt } from "react-icons/fa";
 import qs from 'qs'; // Ensure qs is installed: npm install qs
 
 interface GroupMember {
@@ -33,13 +33,42 @@ interface ConnectionStatusDto {
     hasUserAcceptedRequest: boolean;
 }
 
+// -------------- Helpers to detect file type and get icons --------------
+function isImageFileName(fileName: string) {
+    return /\.(jpeg|jpg|gif|png|bmp|webp)$/i.test(fileName);
+}
+
+function getFileExtension(fileName: string): string {
+    const parts = fileName.split('.');
+    return (parts.pop() || '').toLowerCase();
+}
+
+function getFileIcon(extension: string) {
+    switch (extension) {
+        case 'pdf':
+            return <FaFilePdf className="file-icon pdf" />;
+        case 'doc':
+        case 'docx':
+            return <FaFileWord className="file-icon word" />;
+        case 'xls':
+        case 'xlsx':
+            return <FaFileExcel className="file-icon excel" />;
+        default:
+            return <FaFileAlt className="file-icon generic" />;
+    }
+}
+
 const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
     const [members, setMembers] = useState<GroupMember[]>([]);
     const [groupDescription, setGroupDescription] = useState('');
     const [groupDesiredMembers, setGroupDesiredMembers] = useState('');
     const [groupPurpose, setGroupPurpose] = useState('');
     const [isPublic, setIsPublic] = useState(false);
+
+    // Attachments
     const [attachments, setAttachments] = useState<Attachment[]>([]);
+    const [showModal, setShowModal] = useState(false); // "See More" modal
+
     const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
     const [showMembersModal, setShowMembersModal] = useState<boolean>(false);
 
@@ -93,8 +122,6 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
                 .filter(member => member.userId !== userId)
                 .map(member => member.userId);
 
-            console.log('Target User IDs:', targetUserIds);
-
             if (targetUserIds.length === 0) return;
 
             try {
@@ -134,11 +161,11 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
 
     const handleUserClick = (userId: string) => {
         setSelectedUserId(userId);
-    }
+    };
 
     const handleCloseProfile = () => {
         setSelectedUserId(null);
-    }
+    };
 
     const openMembersModal = () => {
         setShowMembersModal(true);
@@ -149,8 +176,8 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
     };
 
     // Helper function to get user's full name
-    const getUserFullName = (userId: string): string => {
-        const member = members.find(member => member.userId === userId);
+    const getUserFullName = (uid: string): string => {
+        const member = members.find(member => member.userId === uid);
         return member ? `${member.firstName} ${member.lastName}` : "User";
     };
 
@@ -209,7 +236,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
             try {
                 setLoadingActions(prev => ({ ...prev, [targetUserId]: true }));
                 await axios.post(
-                    'http://localhost:5001/api/Connections/RemoveConnection', // Ensure this endpoint exists
+                    'http://localhost:5001/api/Connections/RemoveConnection',
                     { targetUserId: targetUserId },
                     {
                         headers: {
@@ -218,7 +245,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
                     }
                 );
 
-                // Update connectionStatuses state
+                // Update connectionStatuses
                 setConnectionStatuses(prev => ({
                     ...prev,
                     [targetUserId]: {
@@ -236,7 +263,6 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
                 setSnackbarVisible(true);
             } catch (error) {
                 console.error('Error removing connection:', error);
-                // Show error Snackbar
                 setSnackbarTitle("Error");
                 setSnackbarMessage("Failed to remove connection. Please try again.");
                 setSnackbarVisible(true);
@@ -257,7 +283,6 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
                     }
                 );
 
-                // Update connectionStatuses state
                 setConnectionStatuses(prev => ({
                     ...prev,
                     [targetUserId]: {
@@ -275,7 +300,6 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
                 setSnackbarVisible(true);
             } catch (error) {
                 console.error('Error revoking connection request:', error);
-                // Show error Snackbar
                 setSnackbarTitle("Error");
                 setSnackbarMessage("Failed to revoke connection request. Please try again.");
                 setSnackbarVisible(true);
@@ -290,7 +314,6 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
     const membersToShow = members.slice(0, maxMembersToShow);
     const extraMembersCount = members.length > maxMembersToShow ? members.length - maxMembersToShow : 0;
 
-    // Loading and error states
     if (loadingStatuses) {
         return <div>Loading connection statuses...</div>;
     }
@@ -298,6 +321,48 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
     if (errorStatuses) {
         return <div>{errorStatuses}</div>;
     }
+
+    // ---------------- "MEDIA" Section for Attachments ----------------
+
+    // We'll display up to 4 attachments in a grid, then use "See More" if there are extras
+    const renderThumbnail = (att: Attachment, size = 120) => {
+        const ext = getFileExtension(att.fileName);
+        const isImage = isImageFileName(att.fileName);
+
+        return (
+            <div key={att.id} className="media-thumb">
+                {isImage ? (
+                    <a href={att.fileUrl} target="_blank" rel="noopener noreferrer">
+                        <img
+                            src={att.fileUrl}
+                            alt={att.fileName}
+                            style={{ width: size, height: size, objectFit: 'cover', borderRadius: '10%' }}
+                        />
+                    </a>
+                ) : (
+                    <a
+                        href={att.fileUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        download
+                    >
+                        <div className="doc-thumb-icon" style={{ width: size, height: size }}>
+                            {getFileIcon(ext)}
+                        </div>
+                    </a>
+                )}
+                <div className="thumb-filename">
+                    {att.fileName.length > 10
+                        ? `${att.fileName.substring(0, 10)}...`
+                        : att.fileName}
+                </div>
+            </div>
+        );
+    };
+
+    const maxMediaPreview = 4;
+    const attachmentsToShow = attachments.slice(0, maxMediaPreview);
+    const showSeeMoreButton = attachments.length > maxMediaPreview;
 
     return (
         <div className="group-info">
@@ -308,14 +373,13 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
 
             <div className="group-section-title">Who Are We Looking For</div>
             <p className="group-desired-members">{groupDesiredMembers}</p>
+
             <div className="group-section-title">Group Purpose</div>
             <p className="group-desired-members">{groupPurpose}</p>
 
             <div className="group-section-title">Group Visibility</div>
             <p className="group-desired-members">
-                {isPublic ?
-                    "Group is on the explore page!" :
-                    "Group is not on the explore page"}
+                {isPublic ? "Group is on the explore page!" : "Group is not on the explore page"}
             </p>
 
             <div className="group-section-title">Members</div>
@@ -325,8 +389,11 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
                     const isLoading = loadingActions[member.userId] || false;
 
                     return (
-                        <li key={member.userId} onClick={() => handleUserClick(member.userId)}
-                            className="group-member-item">
+                        <li
+                            key={member.userId}
+                            onClick={() => handleUserClick(member.userId)}
+                            className="group-member-item"
+                        >
                             <img
                                 src={`${member.profilePictureUrl}`}
                                 alt={`${member.firstName} ${member.lastName}`}
@@ -344,25 +411,35 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
                                                 e.stopPropagation();
                                                 handleCancelRequest(member.userId);
                                             }}
-                                            title={status.isConnected ? "Remove Connection" : "Revoke Connection Request"}
+                                            title={
+                                                status.isConnected
+                                                    ? "Remove Connection"
+                                                    : "Revoke Connection Request"
+                                            }
                                             disabled={isLoading}
-                                            aria-label={status.isConnected ? `Remove connection with ${member.firstName} ${member.lastName}` : `Revoke connection request to ${member.firstName} ${member.lastName}`}
+                                            aria-label={
+                                                status.isConnected
+                                                    ? `Remove connection with ${member.firstName} ${member.lastName}`
+                                                    : `Revoke connection request to ${member.firstName} ${member.lastName}`
+                                            }
                                         >
-                                            {isLoading ? '...' : <FaUserMinus size={18} />}
+                                            {isLoading ? "..." : <FaUserMinus size={18} />}
                                         </button>
-                                    ) :     member.userId !== userId && (
-                                        <button
-                                            className="connection-button"
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                handleConnect(member.userId);
-                                            }}
-                                            title="Send Friend Request"
-                                            disabled={status?.requestPending || isLoading}
-                                            aria-label={`Send friend request to ${member.firstName} ${member.lastName}`}
-                                        >
-                                            {isLoading ? '...' : <FaUserPlus size={18} />}
-                                        </button>
+                                    ) : (
+                                        member.userId !== userId && (
+                                            <button
+                                                className="connection-button"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleConnect(member.userId);
+                                                }}
+                                                title="Send Friend Request"
+                                                disabled={status?.requestPending || isLoading}
+                                                aria-label={`Send friend request to ${member.firstName} ${member.lastName}`}
+                                            >
+                                                {isLoading ? "..." : <FaUserPlus size={18} />}
+                                            </button>
+                                        )
                                     )}
                                 </div>
                             </div>
@@ -374,28 +451,50 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
                         className="group-member-item more-members-button"
                         onClick={openMembersModal}
                     >
-                        <span className="group-member-name">
-                            + {extraMembersCount} more
-                        </span>
+                        <span className="group-member-name">+ {extraMembersCount} more</span>
                     </li>
                 )}
             </ul>
 
-            <div className="group-section-title">Attachments</div>
-            <ul className="group-attachments-list">
-                {attachments.map((attachment) => (
-                    <li key={attachment.id} className="group-attachment-item">
-                        <a
-                            href={`http://localhost:5001/${attachment.fileUrl}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group-attachment-link"
+            {/* ---------------- MEDIA Section: Attachments in grid ---------------- */}
+            <div className="group-section-title">Media</div>
+            {attachments.length === 0 ? (
+                <p style={{ fontSize: '0.9rem', color: '#666' }}>No media found.</p>
+            ) : (
+                <div className="media-section-grid">
+                    {attachmentsToShow.map((att) => renderThumbnail(att, 120))}
+                </div>
+            )}
+            {showSeeMoreButton && (
+                <button className="see-more-button" onClick={() => setShowModal(true)}>
+                    See More
+                </button>
+            )}
+
+            {/* "See More" Modal */}
+            {showModal && (
+                <div
+                    className="media-modal-backdrop"
+                    onClick={() => setShowModal(false)}
+                >
+                    <div
+                        className="media-modal-content"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <h3>All Attachments</h3>
+                        <div className="all-attachments-grid">
+                            {attachments.map((att) => renderThumbnail(att, 80))}
+                        </div>
+                        <button
+                            className="close-modal-button"
+                            onClick={() => setShowModal(false)}
                         >
-                            {attachment.fileName}
-                        </a>
-                    </li>
-                ))}
-            </ul>
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
+
             {selectedUserId && (
                 <ViewProfile userId={selectedUserId} onClose={handleCloseProfile} />
             )}
@@ -449,7 +548,6 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
             )}
         </div>
     );
-
 };
 
 export default GroupInfo;

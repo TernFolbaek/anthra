@@ -87,13 +87,13 @@ const HelpSettings: React.FC = () => {
             <div className="profile-settings-actions">
                 <div className="flex gap-2 w-full">
                     <button
-                        className="help-settings-buttons dark:bg-blue-500"
+                        className="help-settings-buttons bg-blue-500"
                         onClick={() => setShowSupportModal(true)}
                     >
                         Contact Support
                     </button>
                     <button
-                        className="help-settings-buttons dark:bg-blue-500"
+                        className="help-settings-buttons bg-blue-500"
                         onClick={handleLogout}
                     >
                         Logout

@@ -346,8 +346,9 @@ const UserExplorePage: React.FC = () => {
                 </div>
             )}
 
-            {snackbarVisible && (
+            {snackbarVisible && !isSmallScreen && (
                 <Snackbar
+                    key={snackbarTitle + snackbarMessage}
                     title={snackbarTitle}
                     message={snackbarMessage}
                     duration={4000}

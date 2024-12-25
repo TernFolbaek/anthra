@@ -1,5 +1,5 @@
 // src/Components/Sidebar/Sidebar.tsx
-import React, { useContext } from 'react';
+import React, {useContext, useState} from 'react';
 import { NavLink } from 'react-router-dom';
 import {
     FaSearch,
@@ -17,8 +17,9 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ onSettingsClick }) => {
-    const userProfilePictureSrc = localStorage.getItem('userProfilePicture') || undefined;
+    const userProfilePictureSrc = localStorage.getItem('userProfilePicture') || false;
     const notificationContext = useContext(NotificationContext);
+
 
     if (!notificationContext) {
         throw new Error('Sidebar must be used within a NotificationProvider');
@@ -102,7 +103,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSettingsClick }) => {
                 <Notifications />
                 <NavLink to="/profile">
                     <img
-                        src={userProfilePictureSrc}
+                        src={userProfilePictureSrc ? userProfilePictureSrc: '/user.png'}
                         alt="profile"
                         className="sidebar-profile-picture"
                     />

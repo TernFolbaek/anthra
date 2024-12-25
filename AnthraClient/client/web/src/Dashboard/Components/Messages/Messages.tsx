@@ -1,12 +1,13 @@
-// src/components/Messages/Messages.tsx
-
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Messages.css';
 import * as signalR from '@microsoft/signalr';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import MessageConnectionProfile from './MessageConnectionProfile/MessageConnectionProfile';
-import { FaEllipsisV, FaArrowLeft, FaUserMinus, FaInfo } from 'react-icons/fa';
+import {
+    FaEllipsisV, FaArrowLeft, FaUserMinus, FaInfo,
+    FaFilePdf, FaFileWord, FaFileExcel, FaFileAlt
+} from 'react-icons/fa';
 import MessageInput from "./MessageInput";
 import ViewGroupProfile from "../ViewGroupProfile/ViewGroupProfile";
 import GroupInvitationMessage from "./GroupInvitationMessage";
@@ -19,29 +20,62 @@ interface Attachment {
     fileUrl: string;
 }
 
+function isImageFileName(fileName: string) {
+    return /\.(jpeg|jpg|gif|png|bmp|webp)$/i.test(fileName);
+}
+
+function getFileExtension(fileName: string): string {
+    const parts = fileName.split('.');
+    return (parts.pop() || '').toLowerCase();
+}
+
+function getFileIcon(extension: string) {
+    switch (extension) {
+        case 'pdf':
+            return <FaFilePdf className="file-icon pdf" />;
+        case 'doc':
+        case 'docx':
+            return <FaFileWord className="file-icon word" />;
+        case 'xls':
+        case 'xlsx':
+            return <FaFileExcel className="file-icon excel" />;
+        default:
+            return <FaFileAlt className="file-icon generic" />;
+    }
+}
+
 const Messages: React.FC = () => {
     const { userId } = useParams<{ userId: string }>();
     const navigate = useNavigate();
+
     const currentUserId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+
     const [messages, setMessages] = useState<Message[]>([]);
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
+
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const messagesContainerRef = useRef<HTMLDivElement>(null);
-    const token = localStorage.getItem('token');
+
     const [contactProfile, setContactProfile] = useState<UserProfile | null>(null);
     const [showProfile, setShowProfile] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
+
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 1300);
     const [showBackArrow, setShowBackArrow] = useState(window.innerWidth <= 900);
+
     const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null);
     const [groupInfoCache, setGroupInfoCache] = useState<{ [key: number]: any }>({});
+
     const [isLoadingMore, setIsLoadingMore] = useState(false);
     const [allMessagesLoaded, setAllMessagesLoaded] = useState(false);
     const [nextTokenValue, setNextTokenValue] = useState<string | null>(null);
     const [firstLoad, setFirstLoad] = useState(true);
 
-    // Handle window resize
+    // -------------------------------------------
+    // Resize handling
+    // -------------------------------------------
     useEffect(() => {
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 1300);
@@ -51,9 +85,12 @@ const Messages: React.FC = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    // Fetch initial messages and contact profile
+    // -------------------------------------------
+    // Fetch initial messages & contact
+    // -------------------------------------------
     useEffect(() => {
         if (!userId) {
+            // If no userId in route, fetch conversations
             fetch(`http://localhost:5001/api/Messages/GetConversations?userId=${currentUserId}`)
                 .then((response) => {
                     if (!response.ok) {
@@ -71,10 +108,11 @@ const Messages: React.FC = () => {
                         setMessages([]);
                         console.warn('No conversations found.');
                     }
-                })
+                });
             return;
         }
 
+        // If we have a userId, fetch chat history
         const fetchInitialMessages = async () => {
             if (!currentUserId || !userId) return;
             try {
@@ -92,7 +130,6 @@ const Messages: React.FC = () => {
                 const data = await response.json();
                 setMessages(data.messages);
                 setNextTokenValue(data.nextToken);
-                console.log(`Fetched ${data.messages.length} messages. NextToken: ${data.nextToken}`);
 
                 if (data.messages.length < 30) {
                     setAllMessagesLoaded(true);
@@ -119,9 +156,12 @@ const Messages: React.FC = () => {
         fetchContactProfile();
     }, [currentUserId, userId, token, navigate, isMobile]);
 
-    // Establish SignalR connection
+    // -------------------------------------------
+    // SignalR connection
+    // -------------------------------------------
     useEffect(() => {
         let isMounted = true;
+
         if (userId && token) {
             if (connection) {
                 connection.stop();
@@ -138,11 +178,13 @@ const Messages: React.FC = () => {
                 .start()
                 .then(() => {
                     newConnection.invoke('JoinGroup', getChatGroupId(currentUserId!, userId));
-                    const handleReceiveMessage = (message: Message) => {
+                    const handleReceiveMessage = (incomingMessage: Message) => {
                         if (isMounted) {
-                            setMessages(prevMessages => {
-                                if (prevMessages.some((msg) => msg.id === message.id)) return prevMessages;
-                                return [...prevMessages, message];
+                            setMessages((prev) => {
+                                if (prev.some((msg) => msg.id === incomingMessage.id)) {
+                                    return prev;
+                                }
+                                return [...prev, incomingMessage];
                             });
                         }
                     };
@@ -167,7 +209,9 @@ const Messages: React.FC = () => {
         };
     }, [userId, token, currentUserId]);
 
-    // Handle clicks outside the dropdown menu
+    // -------------------------------------------
+    // Menu click outside
+    // -------------------------------------------
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (showMenu && dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -180,21 +224,27 @@ const Messages: React.FC = () => {
         };
     }, [showMenu]);
 
-    // Update messages based on connection events
+    // -------------------------------------------
+    // Connection events (UpdateMessage, ReceiveMessage)
+    // -------------------------------------------
     useEffect(() => {
         if (connection) {
             connection.on('UpdateMessage', (updatedMessage: Message) => {
                 setMessages(prevMessages =>
                     prevMessages.map(msg =>
                         msg.id === updatedMessage.id
-                            ? { ...msg, invitationStatus: updatedMessage.invitationStatus, actionType: updatedMessage.actionType }
+                            ? {
+                                ...msg,
+                                invitationStatus: updatedMessage.invitationStatus,
+                                actionType: updatedMessage.actionType
+                            }
                             : msg
                     )
                 );
             });
 
-            connection.on('ReceiveMessage', (message: Message) => {
-                setMessages(prevMessages => [...prevMessages, message]);
+            connection.on('ReceiveMessage', (incomingMessage: Message) => {
+                setMessages(prev => [...prev, incomingMessage]);
             });
         }
         return () => {
@@ -205,9 +255,11 @@ const Messages: React.FC = () => {
         };
     }, [connection]);
 
-    // Fetch more messages when scrolling to top
+    // -------------------------------------------
+    // Infinite scroll / fetch more
+    // -------------------------------------------
     const fetchMoreMessages = async () => {
-        setFirstLoad(false)
+        setFirstLoad(false);
         if (!currentUserId || !userId) return;
         if (isLoadingMore || allMessagesLoaded) return;
 
@@ -223,7 +275,6 @@ const Messages: React.FC = () => {
             if (nextTokenValue) url.searchParams.append('nextToken', nextTokenValue);
 
             const response = await fetch(url.toString(), { headers: { Authorization: `Bearer ${token}` } });
-
             if (!response.ok) {
                 const errorText = await response.text();
                 console.error('Error fetching more messages:', errorText);
@@ -238,13 +289,12 @@ const Messages: React.FC = () => {
             if (newMessages.length === 0) {
                 setAllMessagesLoaded(true);
             } else {
-                setMessages(prevMessages => {
-                    const existingIds = new Set(prevMessages.map(msg => msg.id));
-                    const filteredNewMessages = newMessages.filter(msg => !existingIds.has(msg.id));
-                    return [...filteredNewMessages, ...prevMessages];
+                setMessages(prev => {
+                    const existingIds = new Set(prev.map(m => m.id));
+                    const filtered = newMessages.filter(m => !existingIds.has(m.id));
+                    return [...filtered, ...prev];
                 });
                 setNextTokenValue(newNextToken);
-                console.log(`Fetched ${newMessages.length} more messages. NextToken: ${newNextToken}`);
             }
         } catch (error) {
             console.error('Error fetching more messages:', error);
@@ -252,7 +302,7 @@ const Messages: React.FC = () => {
 
         setIsLoadingMore(false);
 
-        // Adjust scroll position after new messages are loaded
+        // Adjust scroll to preserve position
         setTimeout(() => {
             if (container) {
                 const scrollHeightAfter = container.scrollHeight;
@@ -262,7 +312,6 @@ const Messages: React.FC = () => {
         }, 0);
     };
 
-    // Attach scroll listener to fetch more messages
     useEffect(() => {
         const container = messagesContainerRef.current;
         if (!container) return;
@@ -272,14 +321,15 @@ const Messages: React.FC = () => {
                 fetchMoreMessages();
             }
         };
-
         container.addEventListener('scroll', handleScroll);
         return () => {
             container.removeEventListener('scroll', handleScroll);
         };
     }, [isLoadingMore, allMessagesLoaded, nextTokenValue]);
 
-    // Implement ResizeObserver to handle dynamic content changes
+    // -------------------------------------------
+    // Scroll on container resize
+    // -------------------------------------------
     useEffect(() => {
         const container = messagesContainerRef.current;
         if (!container) return;
@@ -287,7 +337,6 @@ const Messages: React.FC = () => {
         const resizeObserver = new ResizeObserver(() => {
             messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
         });
-
         resizeObserver.observe(container);
 
         return () => {
@@ -295,15 +344,16 @@ const Messages: React.FC = () => {
         };
     }, []);
 
-    // Optional: Implement onRenderComplete callbacks
+    // For rendering completion
     const handleMessageRendered = () => {
-        if(firstLoad){
-            console.log("it is the first load")
+        if (firstLoad) {
             messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
         }
     };
 
-    // Handlers for accepting/declining invitations
+    // -------------------------------------------
+    // Group invitation logic
+    // -------------------------------------------
     const handleAcceptInvitation = async (groupId: number, messageId: number) => {
         try {
             const response = await axios.post(
@@ -311,10 +361,9 @@ const Messages: React.FC = () => {
                 { groupId, Accept: true },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-
             const updatedMessage: Message = response.data;
-            setMessages(prevMessages =>
-                prevMessages.map(msg =>
+            setMessages(prev =>
+                prev.map(msg =>
                     msg.id === updatedMessage.id
                         ? { ...msg, invitationStatus: updatedMessage.invitationStatus, actionType: updatedMessage.actionType }
                         : msg
@@ -332,10 +381,9 @@ const Messages: React.FC = () => {
                 { groupId, Accept: false },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-
             const updatedMessage: Message = response.data;
-            setMessages(prevMessages =>
-                prevMessages.map(msg =>
+            setMessages(prev =>
+                prev.map(msg =>
                     msg.id === updatedMessage.id
                         ? { ...msg, invitationStatus: updatedMessage.invitationStatus, actionType: updatedMessage.actionType }
                         : msg
@@ -346,17 +394,20 @@ const Messages: React.FC = () => {
         }
     };
 
-    // Helper to get chat group ID
+    // -------------------------------------------
+    // Helper: Chat group ID
+    // -------------------------------------------
     const getChatGroupId = (userA: string, userB: string) => {
         return userA < userB ? `${userA}-${userB}` : `${userB}-${userA}`;
     };
 
-    // Determine if timestamp should be shown
+    // -------------------------------------------
+    // Show or hide timestamp logic
+    // -------------------------------------------
     const shouldShowTimestamp = (currentIndex: number): boolean => {
         if (currentIndex === messages.length - 1) {
             return true;
         }
-
         const currentMessage = messages[currentIndex];
         const nextMessage = messages[currentIndex + 1];
 
@@ -366,22 +417,20 @@ const Messages: React.FC = () => {
         const currentTime = new Date(currentMessage.timestamp);
         const nextTime = new Date(nextMessage.timestamp);
 
-        const timeDiff = Math.abs(nextTime.getTime() - currentTime.getTime()) / (1000 * 60 * 60);
+        const timeDiffHours = Math.abs(nextTime.getTime() - currentTime.getTime()) / (1000 * 60 * 60);
 
-        if (currentSender !== nextSender || timeDiff >= 2) {
+        if (currentSender !== nextSender || timeDiffHours >= 2) {
             return true;
         }
-
         return false;
     };
 
-    // Menu and profile handlers
-    const toggleMenu = () => {
-        setShowMenu(!showMenu);
-    };
-
+    // -------------------------------------------
+    // Menu & profile
+    // -------------------------------------------
+    const toggleMenu = () => setShowMenu(!showMenu);
     const handleToggleProfileVisibility = () => {
-        setShowProfile((prev) => !prev);
+        setShowProfile(p => !p);
         setShowMenu(false);
     };
 
@@ -399,16 +448,19 @@ const Messages: React.FC = () => {
         setShowMenu(false);
     };
 
-    // Group profile handlers
+    // -------------------------------------------
+    // Group profile
+    // -------------------------------------------
     const handleUserClick = (groupId: number | null) => {
         setSelectedGroupId(groupId);
     };
-
     const handleCloseGroupProfile = () => {
         setSelectedGroupId(null);
     };
 
-    // Referral handlers
+    // -------------------------------------------
+    // Referral
+    // -------------------------------------------
     const handleReferralConnect = async (referredUserId: string) => {
         try {
             await axios.post(
@@ -420,11 +472,13 @@ const Messages: React.FC = () => {
             console.error(error);
         }
     };
-
     const handleReferralSkip = (referredUserId: string) => {
-        // Handle skip action if needed
+        // handle skip if needed
     };
 
+    // -------------------------------------------
+    // Rendering
+    // -------------------------------------------
     return (
         <div className="messages-page">
             <div className="message-page-subset">
@@ -440,14 +494,14 @@ const Messages: React.FC = () => {
                                 className="contact-avatar"
                             />
                             <span className="contact-name">
-                                {contactProfile.firstName} {contactProfile.lastName}
-                            </span>
+                {contactProfile.firstName} {contactProfile.lastName}
+              </span>
                         </div>
                         <div className="menu-container" ref={dropdownRef}>
                             <div
                                 className="messages-menu-icon cursor-pointer"
-                                onClick={(event) => {
-                                    event.stopPropagation();
+                                onClick={(e) => {
+                                    e.stopPropagation();
                                     toggleMenu();
                                 }}
                             >
@@ -474,6 +528,7 @@ const Messages: React.FC = () => {
                         </div>
                     </div>
                 )}
+
                 <div className="messages-container" ref={messagesContainerRef}>
                     {isMobile && showProfile ? (
                         <MessageConnectionProfile userId={userId!} />
@@ -497,7 +552,7 @@ const Messages: React.FC = () => {
                                                         isCurrentUser={isCurrentUser}
                                                         onConnect={handleReferralConnect}
                                                         onSkip={handleReferralSkip}
-                                                        onRenderComplete={handleMessageRendered} // Pass the callback
+                                                        onRenderComplete={handleMessageRendered}
                                                     />
                                                 </div>
                                             ) : msg.isGroupInvitation ? (
@@ -506,7 +561,7 @@ const Messages: React.FC = () => {
                                                         msg={{
                                                             ...msg,
                                                             actionType: msg.actionType ?? InvitationActionType.None,
-                                                            invitationStatus: msg.invitationStatus ?? false
+                                                            invitationStatus: msg.invitationStatus ?? false,
                                                         }}
                                                         isCurrentUser={isCurrentUser}
                                                         contactProfile={contactProfile}
@@ -515,7 +570,7 @@ const Messages: React.FC = () => {
                                                         handleUserClick={handleUserClick}
                                                         groupInfoCache={groupInfoCache}
                                                         setGroupInfoCache={setGroupInfoCache}
-                                                        onRenderComplete={handleMessageRendered} // Pass the callback
+                                                        onRenderComplete={handleMessageRendered}
                                                     />
                                                 </div>
                                             ) : (
@@ -524,39 +579,49 @@ const Messages: React.FC = () => {
                                                         isCurrentUser ? 'received' : 'sent'
                                                     } ${isLastMessage ? 'last-message' : ''}`}
                                                 >
-                                                    {msg.attachments &&
-                                                        msg.attachments.map((attachment) => (
-                                                            <div key={`${attachment.id}-${msg.id}`} className="message-attachment">
-                                                                {attachment.fileName.toLowerCase().match(/\.(jpeg|jpg|gif|png|bmp|webp)$/) ? (
-                                                                    <a
-                                                                        href={`http://localhost:5001/${attachment.fileUrl}`}
-                                                                        target="_blank"
-                                                                        rel="noopener noreferrer"
-                                                                    >
+                                                    {/* Render attachments if present */}
+                                                    {msg.attachments?.map((attachment) => {
+                                                        const ext = getFileExtension(attachment.fileName);
+                                                        const isImage = isImageFileName(attachment.fileName);
+
+                                                        // If your server returns a FULL Azure URL, use "attachment.fileUrl" directly.
+                                                        // If your server returns a relative path, you might do `href={'http://localhost:5001/' + attachment.fileUrl}`
+                                                        const fileHref = attachment.fileUrl;
+
+                                                        return (
+                                                            <div
+                                                                key={`${attachment.id}-${msg.id}`}
+                                                                className="message-attachment"
+                                                            >
+                                                                {isImage ? (
+                                                                    <a href={fileHref} target="_blank" rel="noopener noreferrer">
                                                                         <img
-                                                                            src={`http://localhost:5001/${attachment.fileUrl}`}
+                                                                            src={fileHref}
                                                                             alt={attachment.fileName}
                                                                             className="message-image"
                                                                         />
                                                                     </a>
                                                                 ) : (
                                                                     <a
-                                                                        href={`http://localhost:5001/${attachment.fileUrl}`}
+                                                                        href={fileHref}
                                                                         target="_blank"
                                                                         rel="noopener noreferrer"
+                                                                        download
                                                                     >
                                                                         <div className="attachment-preview">
+                                                                            {getFileIcon(ext)}
                                                                             <span className="attachment-filename">
-                                                                                {attachment.fileName.length > 10
-                                                                                    ? `${attachment.fileName.substring(0,10)}...`
-                                                                                    : attachment.fileName}
-                                                                            </span>
+                                        {attachment.fileName.length > 10
+                                            ? `${attachment.fileName.substring(0, 10)}...`
+                                            : attachment.fileName}
+                                      </span>
                                                                         </div>
                                                                     </a>
                                                                 )}
                                                             </div>
-                                                        ))}
-                                                    <p>{msg.content}</p>
+                                                        );
+                                                    })}
+                                                    <p>{msg.content || ""}</p>
                                                 </div>
                                             )}
                                             {shouldShowTimestamp(index) && (
@@ -574,11 +639,12 @@ const Messages: React.FC = () => {
                             {isLoadingMore && (
                                 <div className="loading-more-messages">Loading more messages...</div>
                             )}
-                            {/* This div ensures the view scrolls to the bottom */}
+                            {/* Scroll anchor */}
                             <div ref={messagesEndRef} />
                         </>
                     )}
                 </div>
+
                 {userId && (!isMobile || !showProfile) && (
                     <MessageInput userId={userId} />
                 )}
@@ -586,6 +652,7 @@ const Messages: React.FC = () => {
                     <ViewGroupProfile groupId={selectedGroupId} onClose={handleCloseGroupProfile} />
                 )}
             </div>
+
             {!isMobile && userId && showProfile && (
                 <MessageConnectionProfile userId={userId} />
             )}

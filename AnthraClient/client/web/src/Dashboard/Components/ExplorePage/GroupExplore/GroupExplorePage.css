@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
-@import url('https://unpkg.com/leaflet@1.9.3/dist/leaflet.css');
 
 body {
     font-family: 'Montserrat', sans-serif;
@@ -265,17 +264,6 @@ body {
     transform: translateY(-3px);
 }
 
-/* Slide Animations */
-.slide-in {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.slide-out {
-    opacity: 0;
-    transform: translateY(-20px);
-}
-
 /* Group Purpose Section */
 .group-explore-header {
     display: flex;
@@ -285,7 +273,7 @@ body {
 }
 
 .group-explore-purpose {
-    background-color:  rgba(167, 199, 250, 0.5);
+    background-color: rgba(167, 199, 250, 0.5);
     border-radius: 5px;
     display: flex;
     padding: 5px;
@@ -328,7 +316,20 @@ body {
 }
 
 
-/* Responsive Adjustments */
+/* Slide Animations */
+.slide-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide-out {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+/* ------------------------------------------- */
+/*            RESPONSIVE ADJUSTMENTS          */
+/* ------------------------------------------- */
 @media (max-width: 480px) {
     .group-explore-page-indicators {
         margin-top: 0;
@@ -395,4 +396,88 @@ body {
         width: 95%;
         max-width: 400px;
     }
+}
+
+/* ------------------------------------------- */
+/*            DARK MODE STYLING ADDED         */
+/* ------------------------------------------- */
+
+/* Dark mode styles for the card wrapper */
+body.dark .group-explore-card-wrapper {
+    background: #2e2e2e; /* Same dark background as your user card */
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* Title, headings, and text */
+body.dark .group-explore-title {
+    color: #fff;
+}
+
+body.dark .group-explore-section-heading {
+    color: #ddd; /* Slightly lighter so it stands out from body text */
+}
+
+body.dark .group-explore-description,
+body.dark .group-explore-member-desire {
+    color: #ccc;
+}
+
+/* Group purpose badge */
+body.dark .group-explore-purpose {
+    background-color: #757474; /* Matching the style used for .status-tag-explore in user page */
+}
+
+body.dark .group-explore-purpose-label {
+    color: #fff;
+}
+
+/* Member items */
+body.dark .group-explore-member-item:hover {
+    background: #444; /* Dark hover background */
+}
+
+/* "More members" button */
+body.dark .more-members-button {
+    background-color: #444;
+    color: #fff;
+}
+
+body.dark .more-members-button:hover {
+    background-color: #555;
+}
+
+/* Chart wrappers */
+body.dark .group-explore-chart-wrapper {
+    background-color: #3a3a3a;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+body.dark .group-explore-chart-heading {
+    color: #ddd;
+}
+
+/* Buttons */
+body.dark .group-explore-apply-button {
+    background-color: #0056b3; /* Similar to .connect-button in user page */
+    box-shadow: 0 4px 6px rgba(0, 86, 179, 0.1);
+}
+
+body.dark .group-explore-apply-button:hover {
+    background-color: #439ef6; /* Hover color from user page */
+    box-shadow: 0 8px 12px rgba(0, 86, 179, 0.2);
+    transform: translateY(-3px);
+}
+
+body.dark .group-explore-skip-button {
+    color: #85bff8; /* Lighter shade of blue for text and border */
+    border: 2px solid #85bff8;
+    box-shadow: 0 4px 6px rgba(133, 191, 248, 0.1);
+}
+
+body.dark .group-explore-skip-button:hover {
+    background-color: #85bff8;
+    color: white;
+    box-shadow: 0 8px 12px rgba(133, 191, 248, 0.2);
+    transform: translateY(-3px);
 }

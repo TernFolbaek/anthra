@@ -335,7 +335,7 @@ const GroupExplorePage: React.FC = () => {
                                     </div>
                                     <div className="flex flex-col items-start">
                                         <h2 className="group-explore-title ">{currentGroup.name}</h2>
-                                        <h2 className="font-semibold text-lg text-gray-600">Group Info</h2>
+                                        <h2 className="font-semibold text-lg text-gray-600 dark:text-gray-400">Group Info</h2>
                                     </div>
                                 </div>
                                 <h3 className="group-explore-section-heading">About the group:</h3>
@@ -358,7 +358,7 @@ const GroupExplorePage: React.FC = () => {
                                                     src={`${member.profilePictureUrl}`}
                                                     alt={`${member.firstName} ${member.lastName}`}
                                                 />
-                                                <span className="font-semibold">
+                                                <span className="font-semibold dark:text-black">
                                                     {member.firstName} {member.lastName}
                                                 </span>
                                             </li>
@@ -383,7 +383,7 @@ const GroupExplorePage: React.FC = () => {
                                 </div>
                                 <div className="flex flex-col items-start">
                                     <h2 className="group-explore-title">{currentGroup.name}</h2>
-                                    <h2 className="font-semibold text-lg text-gray-600">Group Members Overview</h2>
+                                    <h2 className="font-semibold text-lg text-gray-600 dark:text-gray-400">Group Members Overview</h2>
                                 </div>
 
                             </div>

@@ -29,5 +29,6 @@ body.dark .card-title {
     .card-container {
         margin: 0 0 45px 0;
         width: 100%;
+        border-radius: 0;
     }
 }

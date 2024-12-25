@@ -479,7 +479,6 @@ namespace AnthraBackend.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Content")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("GroupId")
@@ -512,7 +511,6 @@ namespace AnthraBackend.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Content")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int?>("GroupId")
@@ -934,7 +932,8 @@ namespace AnthraBackend.Migrations
 
             modelBuilder.Entity("MyBackendApp.Models.Message", b =>
                 {
-                    b.Navigation("Attachment");
+                    b.Navigation("Attachment")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -45,7 +45,7 @@ const AdvancedSettings: React.FC = () => {
                     onChange={handleAgeChange}
                 />
             </div>
-            <button className="advanced-settings-apply-button dark:bg-blue-500" onClick={applyFilters}>
+            <button className="advanced-settings-apply-button bg-blue-500" onClick={applyFilters}>
                 Apply
             </button>
         </div>

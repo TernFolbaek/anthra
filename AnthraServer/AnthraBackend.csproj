@@ -29,11 +29,13 @@
   <ItemGroup>
     <Compile Remove="DTO\**" />
     <Compile Remove="Hubs\NotificationsHub\**" />
+    <Compile Remove="wwwroot\uploads\**" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Remove="DTO\**" />
     <EmbeddedResource Remove="Hubs\NotificationsHub\**" />
+    <EmbeddedResource Remove="wwwroot\uploads\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,11 +53,13 @@
     <Content Remove="wwwroot\uploads\b4c7cc47-e508-4864-a000-bc1e04fbe085.png" />
     <Content Remove="wwwroot\uploads\cf9801be-38d1-41f6-bc24-ec100936d57e.png" />
     <Content Remove="wwwroot\uploads\e6b11497-6323-4ec8-94e9-926a1b94f46a.png" />
+    <Content Remove="wwwroot\uploads\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="DTO\**" />
     <None Remove="Hubs\NotificationsHub\**" />
+    <None Remove="wwwroot\uploads\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -65,10 +69,47 @@
     <_ContentIncludedByDefault Remove="out\appsettings.Development.json" />
     <_ContentIncludedByDefault Remove="out\appsettings.json" />
     <_ContentIncludedByDefault Remove="out\package.json" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\GroupMessages\0ba60ec6-5aef-4e83-88e8-b1cb26542829.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\GroupMessages\11cab3d5-4d82-471e-a149-33f050abd382.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\GroupMessages\15524b0d-a50f-4e82-b01f-67b5af5af2d7.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\GroupMessages\42be23e0-8262-4518-867d-df7d9925f78e.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\GroupMessages\59f3936c-1b40-434d-9bf8-3d8180842e80.jpeg" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\GroupMessages\6564e09a-9b9c-40e0-9a19-f33aa9d64d73.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\GroupMessages\6b85f7c4-d476-4a5c-8520-f7b24ff87501.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\GroupMessages\82068347-706f-4b71-b282-a730feb460f2.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\GroupMessages\865dac45-b366-42ba-8b9c-9c33ac009786.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\GroupMessages\8725809e-650a-42d4-96ea-292b618a0451.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\GroupMessages\a3d43d72-da5d-47f3-8bb7-2dae184ce125.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\GroupMessages\ab673d67-2648-4d6a-8dc2-9dae789a555e.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\GroupMessages\d89d5cfc-f1b5-4d16-850e-cbbac7b2fdb5.xlsx" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\GroupMessages\dfc02a3b-5b7e-49c7-843b-6439d982fff3.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\GroupMessages\e2d3095f-8b0c-4484-8235-b0db23618b42.mov" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\GroupMessages\fb518f03-c5eb-4c87-b1e0-52f266c63d5a.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\GroupMessages\fc035b1a-0fcd-4327-af42-2b8944e24bb0.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\Messages\00248f43-3ad1-4fe7-965a-3604c55705e4.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\Messages\084719da-7d16-405d-8a4b-25ad07cd61cb.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\Messages\0e185a2a-4988-4395-b115-c541b00ad168.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\Messages\138f007b-8a07-4252-9031-0eb69821db16.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\Messages\17f450a1-51f9-475f-8b30-253f504e23e7.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\Messages\23ef5c18-a2d5-434f-8294-cf1f4e22b53c.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\Messages\3d49f6e2-eaba-476d-92e1-29613e8f7b13.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\Messages\40fbeb73-f278-419e-8df9-a33f0b7d61cd.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\Messages\4f76fc6e-08bc-470d-8f8d-be8d449e3ecf.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\Messages\653da640-e8c6-4d20-b271-ced70ddfb689.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\Messages\83ab9649-25b9-4e33-85a5-bd16706babbc.jpeg" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\Messages\8ddb4eba-5d07-40b5-8aa6-ab4ddbf3164f.jpeg" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\Messages\a807c324-2810-4887-8861-e08f2608762f.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\Messages\b3f65f0e-3bc7-432b-af05-782865d84ef3.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\Messages\dcdf3fcb-d238-4c4c-b743-4ec427362f0e.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\Messages\e31c1278-65bb-483c-aeed-695711f4016a.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\Messages\e4770c23-c17a-4ab8-a046-8fe9047819bb.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\Messages\ea499deb-39b9-40a1-8f9d-297a593583ac.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\uploads\Messages\f53b568a-ae0b-4d14-8b38-1e344dd84b83.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Controllers\Support\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

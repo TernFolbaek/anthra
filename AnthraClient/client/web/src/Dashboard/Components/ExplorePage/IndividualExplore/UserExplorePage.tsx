@@ -320,28 +320,28 @@ const UserExplorePage: React.FC = () => {
 
             {!isSmallScreen && currentUser && (
                 <div className="user-explore-page-button-container">
-                    <button className="connect-button" onClick={handleConnect}>
-                        Connect
+                    <button className="skip-button" onClick={handleSkip}>
+                        Skip
                     </button>
                     <button className="refer-button" onClick={() => setShowReferModal(true)}>
                         Refer
                     </button>
-                    <button className="skip-button" onClick={handleSkip}>
-                        Skip
+                    <button className="connect-button" onClick={handleConnect}>
+                        Connect
                     </button>
                 </div>
             )}
 
             {isSmallScreen && currentUser && (
                 <div className="user-explore-page-button-container">
-                    <button className="connect-button" onClick={handleConnect}>
-                        Connect
+                <button className="skip-button" onClick={handleSkip}>
+                        Skip
                     </button>
                     <button className="refer-button" onClick={() => setShowReferModal(true)}>
                         Refer
                     </button>
-                    <button className="skip-button" onClick={handleSkip}>
-                        Skip
+                    <button className="connect-button" onClick={handleConnect}>
+                        Connect
                     </button>
                 </div>
             )}

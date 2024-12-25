@@ -19,7 +19,6 @@
 
 /* Dark mode styles */
 body.dark .menu-toggle {
-    border: 3px solid #444;
 }
 
 .menu-slider {
@@ -31,11 +30,13 @@ body.dark .menu-toggle {
     background-color: rgba(180, 209, 255, 0.5);
     transition: transform 0.3s ease;
     z-index: 0; /* Place behind the buttons */
+    border-radius: 10px;
 }
 
 /* Dark mode styles */
 body.dark .menu-slider {
-    background-color: #444;
+    background-color: #e2f4fb;
+    border-radius: 10px;
 }
 
 .menu-slider.slide-right {
@@ -68,7 +69,7 @@ body.dark .explore-menu-button {
 
 /* Dark mode styles */
 body.dark .explore-menu-button.active {
-    color: #85bff8;
+    color: black;
     z-index: 3;
 }
 
@@ -78,7 +79,7 @@ body.dark .explore-menu-button.active {
 
 /* Dark mode styles */
 body.dark .explore-menu-button:not(.active) {
-    color: #ccc;
+    color: white;
 }
 
 @media(max-width: 480px) {

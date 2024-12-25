@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using MyBackendApp.Attributes; // Import the custom attribute's namespace
 
 namespace MyBackendApp.Models
 {
@@ -32,8 +33,9 @@ namespace MyBackendApp.Models
         [ValidateNever]
         public ApplicationUser Receiver { get; set; }
 
-        [Required]
-        public string Content { get; set; }
+        // Remove [Required] here; instead, apply our custom attribute
+        [RequiredIfNoAttachment(ErrorMessage = "Either provide content or attach a file.")]
+        public string? Content { get; set; }
 
         public DateTime Timestamp { get; set; }
         
@@ -43,7 +45,7 @@ namespace MyBackendApp.Models
         public bool IsGroupInvitation { get; set; }
         public bool IsReferralCard { get; set; }
 
-        public Attachment? Attachment { get; set; }
+        public Attachment Attachment { get; set; }
         
         public bool? InvitationStatus { get; set; }
         

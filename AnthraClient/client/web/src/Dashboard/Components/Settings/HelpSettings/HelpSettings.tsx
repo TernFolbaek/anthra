@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './HelpSettings.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -35,7 +35,16 @@ const HelpSettings: React.FC = () => {
     const closeDeleteModal = () => {
         setShowDeleteModal(false);
         setAnswerInput('');
-        setErrorMessage(''); // Clear error message when closing modal
+        setErrorMessage('');
+    };
+
+    const openSupportModal = () => {
+        setShowSupportModal(true);
+    };
+
+    const closeSupportModal = () => {
+        setShowSupportModal(false);
+        setSupportMessage('');
     };
 
     const handleContactSupport = async () => {
@@ -54,8 +63,7 @@ const HelpSettings: React.FC = () => {
                     },
                 }
             );
-            setShowSupportModal(false);
-            setSupportMessage('');
+            closeSupportModal();
         } catch (error) {
             console.error('Error sending support message:', error);
         }
@@ -117,7 +125,7 @@ const HelpSettings: React.FC = () => {
                             onChange={(e) => setSupportMessage(e.target.value)}
                             placeholder="Describe your issue in detail"
                             rows={4}
-                            className="w-full p-2 border rounded resize-none"
+                            className="w-full p-2 border rounded resize-none modal-input"
                         />
                         <div className="modal-actions">
                             <button
@@ -128,7 +136,7 @@ const HelpSettings: React.FC = () => {
                             </button>
                             <button
                                 className="delete-account-cancel-button"
-                                onClick={() => setShowSupportModal(false)}
+                                onClick={closeSupportModal}
                             >
                                 Cancel
                             </button>

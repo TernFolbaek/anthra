@@ -1,5 +1,5 @@
-import {FaArrowRight, FaPaperclip, FaRegTimesCircle} from "react-icons/fa";
-import React, {useEffect, useRef, useState} from "react";
+import { FaArrowRight, FaPaperclip, FaRegTimesCircle, FaFileAlt, FaFilePdf, FaFileWord, FaFileExcel } from "react-icons/fa";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 interface GroupMessageProps {
@@ -7,41 +7,63 @@ interface GroupMessageProps {
     showModal: boolean;
 }
 
-const GroupMessageInput: React.FC<GroupMessageProps> = ({groupId, showModal}) => {
+function isImageFile(file: File): boolean {
+    return file.type.startsWith("image/");
+}
+function getFileExtension(fileName: string): string {
+    const parts = fileName.split(".");
+    return (parts.pop() || "").toLowerCase();
+}
+function getFileIcon(extension: string) {
+    switch (extension) {
+        case "pdf":
+            return <FaFilePdf className="file-icon pdf" />;
+        case "doc":
+        case "docx":
+            return <FaFileWord className="file-icon word" />;
+        case "xls":
+        case "xlsx":
+            return <FaFileExcel className="file-icon excel" />;
+        default:
+            return <FaFileAlt className="file-icon generic" />;
+    }
+}
+
+const GroupMessageInput: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [selectedImagePreview, setSelectedImagePreview] = useState<string | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
-    const [newMessage, setNewMessage] = useState('');
-    const userId = localStorage.getItem('userId');
-    const token = localStorage.getItem('token');
+    const [newMessage, setNewMessage] = useState("");
+    const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
         if (!showModal) {
             const handleKeyDown = (event: KeyboardEvent) => {
                 const activeElement = document.activeElement as HTMLElement;
-
                 if (
                     activeElement &&
-                    (activeElement.tagName === 'INPUT' ||
-                        activeElement.tagName === 'TEXTAREA' ||
+                    (activeElement.tagName === "INPUT" ||
+                        activeElement.tagName === "TEXTAREA" ||
                         activeElement.isContentEditable)
                 ) {
-                    // Do not shift focus if the active element is an input, textarea, or contentEditable
+                    // Don't shift focus if the user is typing in an input/textarea
                     return;
                 }
 
                 if (inputRef.current && !inputRef.current.contains(activeElement)) {
                     inputRef.current.focus();
                 }
-                if (event.key === 'Enter') {
+                if (event.key === "Enter") {
                     sendMessage();
                 }
             };
-            document.addEventListener('keydown', handleKeyDown);
-            return () => document.removeEventListener('keydown', handleKeyDown);
+            document.addEventListener("keydown", handleKeyDown);
+            return () => document.removeEventListener("keydown", handleKeyDown);
         }
     }, [showModal]);
+
     const handleRemoveSelectedFile = () => {
         if (selectedImagePreview) {
             URL.revokeObjectURL(selectedImagePreview);
@@ -52,36 +74,37 @@ const GroupMessageInput: React.FC<GroupMessageProps> = ({groupId, showModal}) =>
 
     const sendMessage = async () => {
         if (!groupId || !userId) {
-            console.error('Group ID or user ID is undefined');
+            console.error("Group ID or user ID is undefined");
             return;
         }
 
-        if (newMessage.trim() === '' && !selectedFile) return;
+        // If there's no text and no file, do nothing
+        if (newMessage.trim() === "" && !selectedFile) return;
 
         const formData = new FormData();
-        formData.append('SenderId', userId);
-        formData.append('Content', newMessage);
-        formData.append('GroupId', groupId.toString());
+        formData.append("SenderId", userId);
+        formData.append("Content", newMessage);
+        formData.append("GroupId", groupId.toString());
 
         if (selectedFile) {
-            formData.append('File', selectedFile);
+            formData.append("File", selectedFile);
         }
 
         try {
-            await axios.post('http://localhost:5001/api/GroupMessages/SendGroupMessage', formData, {
+            await axios.post("http://localhost:5001/api/GroupMessages/SendGroupMessage", formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    'Content-Type': 'multipart/form-data',
+                    "Content-Type": "multipart/form-data",
                 },
             });
-            setNewMessage('');
-            setSelectedFile(null);
+            setNewMessage("");
             if (selectedImagePreview) {
                 URL.revokeObjectURL(selectedImagePreview);
-                setSelectedImagePreview(null);
             }
+            setSelectedFile(null);
+            setSelectedImagePreview(null);
         } catch (error) {
-            console.error('Error sending message:', error);
+            console.error("Error sending group message:", error);
         }
     };
 
@@ -89,9 +112,8 @@ const GroupMessageInput: React.FC<GroupMessageProps> = ({groupId, showModal}) =>
         if (event.target.files && event.target.files.length > 0) {
             const file = event.target.files[0];
             setSelectedFile(file);
-
-            // Check if the file is an image
-            if (file.type.startsWith('image/')) {
+            // If it's an image, create an object URL for preview
+            if (isImageFile(file)) {
                 const imageUrl = URL.createObjectURL(file);
                 setSelectedImagePreview(imageUrl);
             } else {
@@ -100,26 +122,42 @@ const GroupMessageInput: React.FC<GroupMessageProps> = ({groupId, showModal}) =>
         }
     };
 
+    // For rendering a file preview (image vs. doc icon)
+    const renderFilePreview = () => {
+        if (!selectedFile) return null;
+        if (selectedImagePreview) {
+            // It's an image
+            return (
+                <div className="image-preview-container">
+                    <img
+                        src={selectedImagePreview}
+                        alt="Selected"
+                        className="image-preview-attachment"
+                    />
+                    <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
+                </div>
+            );
+        } else {
+            // It's a doc
+            const ext = getFileExtension(selectedFile.name);
+            return (
+                <div className="file-preview-container">
+                    {getFileIcon(ext)}
+                    <span>{selectedFile.name}</span>
+                    <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
+                </div>
+            );
+        }
+    };
+
     return (
-        <>        {selectedFile && (
-            <div className="selected-file-preview">
-                {selectedImagePreview ? (
-                    <div className="image-preview-container">
-                        <img
-                            src={selectedImagePreview}
-                            alt="Selected"
-                            className="image-preview-attachment"
-                        />
-                        <FaRegTimesCircle onClick={handleRemoveSelectedFile}/>
-                    </div>
-                ) : (
-                    <div className="file-preview-container">
-                        <span>{selectedFile.name}</span>
-                        <FaRegTimesCircle onClick={handleRemoveSelectedFile}/>
-                    </div>
-                )}
-            </div>
-        )}
+        <>
+            {/* Show the preview if file is selected */}
+            {selectedFile && (
+                <div className="selected-file-preview">
+                    {renderFilePreview()}
+                </div>
+            )}
             <div className="group-message-input-container">
                 <FaPaperclip
                     className="paperclip-icon"
@@ -128,7 +166,7 @@ const GroupMessageInput: React.FC<GroupMessageProps> = ({groupId, showModal}) =>
                 <input
                     type="file"
                     ref={fileInputRef}
-                    style={{display: 'none'}}
+                    style={{ display: "none" }}
                     onChange={handleFileChange}
                 />
                 <input
@@ -138,13 +176,12 @@ const GroupMessageInput: React.FC<GroupMessageProps> = ({groupId, showModal}) =>
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
                     placeholder="Aa"
-                    onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+                    onKeyDown={(e) => e.key === "Enter" && sendMessage()}
                 />
-                <FaArrowRight onClick={sendMessage} className="group-message-send-button"/>
+                <FaArrowRight onClick={sendMessage} className="group-message-send-button" />
             </div>
         </>
-
-    )
-}
+    );
+};
 
 export default GroupMessageInput;

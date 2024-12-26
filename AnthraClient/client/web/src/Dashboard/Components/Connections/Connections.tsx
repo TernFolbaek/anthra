@@ -349,7 +349,7 @@ const Connections: React.FC = () => {
     const renderPersonalRequests = () => (
         <div className="requests-content">
             {connectionRequests.length === 0 ? (
-                <h2 className=" w-full text-center text-gray-400 text-base font-semibold">No new connection
+                <h2 className=" w-full text-center text-gray-400 text-base font-medium">No new connection
                     requests</h2>
             ) : (
                 connectionRequests.map((request) => (
@@ -400,7 +400,7 @@ const Connections: React.FC = () => {
     const renderGroupRequests = () => (
         <div className="requests-content">
             {groupApplicationRequests.length === 0 ? (
-                <p className="text-gray-400 w-full text-center text-base font-semibold">No group application
+                <p className="text-gray-400 w-full text-center text-base font-medium">No group application
                     requests</p>
             ) : (
                 groupApplicationRequests.map((group) => (

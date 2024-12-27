@@ -5,21 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Snackbar only visible on larger screens">
-      <change afterPath="$PROJECT_DIR$/../AnthraServer/Attributes/RequiredIfNoAttachmentAttribute.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../AnthraServer/Attributes/RequiredIfNoFile.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/AnthraBackend.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/AnthraBackend.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Controllers/Account/AccountController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Controllers/Account/AccountController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Controllers/Connections/MessagesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Controllers/Connections/MessagesController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Controllers/Group/GroupMessagesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Controllers/Group/GroupMessagesController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Migrations/ApplicationDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Migrations/ApplicationDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Models/Messages/GroupMessage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Models/Messages/GroupMessage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Models/Messages/Message.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Models/Messages/Message.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Models/Messages/SendGroupMessageModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Models/Messages/SendGroupMessageModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/ViewModels/MessageViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/ViewModels/MessageViewModel.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -225,7 +211,7 @@
       <workItem from="1734601660310" duration="747000" />
       <workItem from="1734632059719" duration="3385000" />
       <workItem from="1734706498776" duration="13292000" />
-      <workItem from="1734780801082" duration="57081000" />
+      <workItem from="1734780801082" duration="58436000" />
     </task>
     <task id="LOCAL-00677" summary="Change background color and when you click on snackbar it will disappear">
       <option name="closed" value="true" />

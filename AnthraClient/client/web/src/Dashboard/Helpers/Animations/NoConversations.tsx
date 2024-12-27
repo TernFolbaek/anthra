@@ -5,10 +5,6 @@ import {FaMagnifyingGlass} from "react-icons/fa6";
 
 const NoConversationsRive: React.FC = () => {
     const navigate = useNavigate();
-    const { rive, RiveComponent } = useRive({
-        src: '/rive/juggling_master.riv',
-        autoplay: true,
-    });
 
     return (
         <div className="no-connections-container">

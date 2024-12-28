@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Snackbar only visible on larger screens">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/web/src/Dashboard/Helpers/Animations/NoConversations.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/web/src/Dashboard/Helpers/Animations/NoConversations.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,7 +212,7 @@
       <workItem from="1734601660310" duration="747000" />
       <workItem from="1734632059719" duration="3385000" />
       <workItem from="1734706498776" duration="13292000" />
-      <workItem from="1734780801082" duration="58436000" />
+      <workItem from="1734780801082" duration="61861000" />
     </task>
     <task id="LOCAL-00677" summary="Change background color and when you click on snackbar it will disappear">
       <option name="closed" value="true" />

@@ -1,5 +1,4 @@
 import React from "react";
-import {useRive} from "@rive-app/react-canvas";
 import { useNavigate } from 'react-router-dom';
 import {FaMagnifyingGlass} from "react-icons/fa6";
 

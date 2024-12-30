@@ -402,9 +402,6 @@ body.dark .requests-group-name {
     color: #fff;
 }
 
-body.dark .no-group-text {
-    color: #fff;
-}
 
 @media (max-width: 768px) {
     .connections-columns {

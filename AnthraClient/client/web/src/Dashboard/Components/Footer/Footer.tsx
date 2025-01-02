@@ -50,40 +50,40 @@ const Footer: React.FC<FooterProps> = ({ onSettingsClick }) => {
         }
     }, [menuOpen]);
 
-    // Optional: Close menu on route change
+    // Close menu on route change
     useEffect(() => {
         closeMenu();
     }, [location.pathname]);
 
-    // Mark notifications as read when navigating via footer links
+    // Mark notifications as read based on current path
     useEffect(() => {
-        // Determine the current path and mark relevant notifications as read
         const path = location.pathname;
 
         if (path.startsWith('/messages')) {
-            // Mark all message notifications as read
             const messageNotifications = notifications.filter(n => n.type === 'Message' && !n.isRead);
             messageNotifications.forEach(n => markAsRead(n.id));
         }
 
         if (path.startsWith('/groups')) {
             // Optionally, mark all group notifications as read
-            markAllAsRead(); // Or use markGroupNotificationsAsRead if you want to be specific
+            markAllAsRead();
+            // or use: markGroupNotificationsAsRead();
         }
 
         if (path.startsWith('/connections')) {
-            // Mark all connection request notifications as read
             const connectionNotifications = notifications.filter(n => n.type === 'ConnectionRequest' && !n.isRead);
             connectionNotifications.forEach(n => markAsRead(n.id));
         }
-
-        // No dependencies on 'notifications', 'markAsRead', 'markAllAsRead' to prevent re-runs
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [location.pathname]); // Removed 'notifications', 'markAsRead', 'markAllAsRead' from dependencies
+    }, [location.pathname]);
 
     return (
         <div className="footer">
-            <NavLink to="/groups" className="footer-link" onClick={closeMenu}>
+            {/* Notice the className now includes a function that checks isActive */}
+            <NavLink
+                to="/groups"
+                className={({ isActive }) => `footer-link ${isActive ? 'active-footer-link' : ''}`}
+            >
                 <div className="tooltip-container">
                     <FaUsers className="footer-icon" />
                     {unreadGroups > 0 && (
@@ -94,7 +94,11 @@ const Footer: React.FC<FooterProps> = ({ onSettingsClick }) => {
                     <span className="tooltip">Groups</span>
                 </div>
             </NavLink>
-            <NavLink to="/connections" className="footer-link" onClick={closeMenu}>
+
+            <NavLink
+                to="/connections"
+                className={({ isActive }) => `footer-link ${isActive ? 'active-footer-link' : ''}`}
+            >
                 <div className="tooltip-container" style={{ position: 'relative' }}>
                     <FaUserFriends className="footer-icon" />
                     {unreadConnections > 0 && (
@@ -105,13 +109,21 @@ const Footer: React.FC<FooterProps> = ({ onSettingsClick }) => {
                     <span className="tooltip">Connections</span>
                 </div>
             </NavLink>
-            <NavLink to="/explore" className="footer-link" onClick={closeMenu}>
+
+            <NavLink
+                to="/explore"
+                className={({ isActive }) => `footer-link ${isActive ? 'active-footer-link' : ''}`}
+            >
                 <div className="tooltip-container">
                     <FaHome className="footer-icon" />
                     <span className="tooltip">Explore</span>
                 </div>
             </NavLink>
-            <NavLink to="/messages" className="footer-link" onClick={closeMenu}>
+
+            <NavLink
+                to="/messages"
+                className={({ isActive }) => `footer-link ${isActive ? 'active-footer-link' : ''}`}
+            >
                 <div className="tooltip-container" style={{ position: 'relative' }}>
                     <FaEnvelope className="footer-icon" />
                     {unreadMessages > 0 && (
@@ -122,6 +134,7 @@ const Footer: React.FC<FooterProps> = ({ onSettingsClick }) => {
                     <span className="tooltip">Messages</span>
                 </div>
             </NavLink>
+
             <button className="footer-link" onClick={toggleMenu}>
                 <FaBars className="footer-icon" />
                 <span className="tooltip">Menu</span>
@@ -133,20 +146,24 @@ const Footer: React.FC<FooterProps> = ({ onSettingsClick }) => {
                         <button className="close-button" onClick={closeMenu}>
                             <FaTimes size={20} />
                         </button>
-                        <NavLink to="/profile" onClick={closeMenu}>
+
+                        <NavLink
+                            to="/profile"
+                            className="footer-submenu-link"
+                            onClick={closeMenu}
+                        >
                             <div className="text-base flex gap-2 items-center">
                                 <FaUser /> Profile
                             </div>
                         </NavLink>
 
-                        {/*
-                            Replace the NavLink to /settings with a clickable div that triggers onSettingsClick.
-                            This avoids navigating to a separate settings page and instead opens the sliding settings card.
-                        */}
                         <div
-                            className="footer-link"
-                            onClick={onSettingsClick}
-                            style={{ cursor: 'pointer' }} // Ensure the cursor indicates it's clickable
+                            className="footer-submenu-link"
+                            onClick={() => {
+                                onSettingsClick();
+                                closeMenu();
+                            }}
+                            style={{ cursor: 'pointer' }}
                         >
                             <div className="text-base flex gap-2 items-center">
                                 <FaCog /> Settings
@@ -157,7 +174,6 @@ const Footer: React.FC<FooterProps> = ({ onSettingsClick }) => {
             )}
         </div>
     );
-
 };
 
 export default Footer;

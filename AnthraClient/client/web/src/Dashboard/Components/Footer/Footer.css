@@ -13,7 +13,6 @@
 /* Dark mode styles */
 body.dark .footer {
     background-color: #2e2e2e;
-    box-shadow: 0 -1px 5px rgba(255, 255, 255, 0.1);
 }
 
 .footer-link {
@@ -25,6 +24,12 @@ body.dark .footer {
     display: flex;
     align-items: center;
 }
+
+/* Active styles */
+.active-footer-link .footer-icon {
+    color: #007bff;
+}
+
 
 /* Dark mode styles */
 body.dark .footer-link {

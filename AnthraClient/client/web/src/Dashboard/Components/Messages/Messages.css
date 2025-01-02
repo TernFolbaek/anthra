@@ -518,3 +518,9 @@ body.dark .image-preview-container {
     background-color: white;
   }
 }
+
+@media (max-width: 480px){
+  body.dark .messages-page-container{
+    background-color: #2e2e2e;
+  }
+}

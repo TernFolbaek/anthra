@@ -15,6 +15,7 @@ import {
     ChartOptions
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+
 import { MdGroups } from "react-icons/md";
 import { FaChalkboardTeacher, FaBookReader, FaLaptopCode } from "react-icons/fa";
 import useWindowWidth from "../../../hooks/useWindowWidth";
@@ -49,39 +50,56 @@ interface Group {
 }
 
 const GroupExplorePage: React.FC = () => {
+    // State for groups
     const [groups, setGroups] = useState<Group[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentGroup, setCurrentGroup] = useState<Group | null>(null);
+
+    // Auth token
     const token = localStorage.getItem('token');
+
+    // State for viewing profile
     const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
+    // Pagination and card animation
     const [currentPage, setCurrentPage] = useState<number>(1);
+    const [animating, setAnimating] = useState<boolean>(false);
+    const [slideDirection, setSlideDirection] = useState<'in' | 'out'>('in');
+    const cardRef = useRef<HTMLDivElement>(null);
+
+    // Shake animation
     const [shake, setShake] = useState<boolean>(false);
+
+    // Window size and chart font
     const windowWidth = useWindowWidth();
     const isSmallScreen = windowWidth < 480;
-
     let iconSize, chartFontSize;
-    if(isSmallScreen) {
+    if (isSmallScreen) {
         iconSize = 40;
         chartFontSize = 10;
     } else {
         iconSize = 60;
         chartFontSize = 14;
     }
-    const [animating, setAnimating] = useState<boolean>(false);
-    const [slideDirection, setSlideDirection] = useState<'in' | 'out'>('in');
 
-    const cardRef = useRef<HTMLDivElement>(null);
+    // Dark mode detection
+    const [isDarkMode, setIsDarkMode] = useState(false);
+    useEffect(() => {
+        const flag = localStorage.getItem('isDark');
+        // Ensure the body class reflects the current dark mode setting on load
+        if (flag === "true") {
+            document.body.classList.add('dark');
+            setIsDarkMode(true);
+        } else {
+            document.body.classList.remove('dark');
+            setIsDarkMode(false);
+        }
+    }, []);
 
-    const groupPurposes = [
-        { label: 'Social', value: 'social', icon: <MdGroups size={iconSize} /> },
-        { label: 'General', value: 'general', icon: <FaChalkboardTeacher size={iconSize} /> },
-        { label: 'Exam Preparation', value: 'exam preparation', icon: <FaBookReader size={iconSize} /> },
-        { label: 'Studying', value: 'studying', icon: <FaLaptopCode size={iconSize} /> },
-    ];
-
+    // For the "see more" members modal
     const [showMembersModal, setShowMembersModal] = useState<boolean>(false);
 
+    // This effect fetches groups
     useEffect(() => {
         const fetchGroups = async () => {
             try {
@@ -96,10 +114,10 @@ const GroupExplorePage: React.FC = () => {
                 console.error('Error fetching groups:', error);
             }
         };
-
         fetchGroups();
     }, [token]);
 
+    // Whenever currentIndex changes, set currentGroup and reset page to 1
     useEffect(() => {
         if (groups.length > 0 && currentIndex < groups.length) {
             setCurrentGroup(groups[currentIndex]);
@@ -117,6 +135,7 @@ const GroupExplorePage: React.FC = () => {
         setAnimating(false);
     };
 
+    // Apply to current group
     const handleApply = async () => {
         if (currentGroup) {
             try {
@@ -131,17 +150,19 @@ const GroupExplorePage: React.FC = () => {
                 );
             } catch (error: any) {
                 if (error.response && error.response.data) {
+                    // handle known error
                 } else {
                     console.error('Error applying to group:', error);
                 }
             }
         }
-        // Trigger out animation before showing next group
+        // Trigger out animation then show next group
         setSlideDirection('out');
         setAnimating(true);
         setTimeout(animateToNextGroup, 300); // match CSS transition duration
     };
 
+    // Skip current group
     const handleSkip = async () => {
         if (currentGroup) {
             try {
@@ -154,17 +175,17 @@ const GroupExplorePage: React.FC = () => {
                         },
                     }
                 );
-                // Optionally, show a success message or update state
             } catch (error) {
                 console.error('Error skipping group:', error);
             }
         }
-        // Trigger out animation before showing next group
+        // Trigger out animation then show next group
         setSlideDirection('out');
         setAnimating(true);
         setTimeout(animateToNextGroup, 300);
     };
 
+    // Clicking a user opens their profile
     const handleUserClick = (userId: string) => {
         setSelectedUserId(userId);
     };
@@ -173,7 +194,7 @@ const GroupExplorePage: React.FC = () => {
         setSelectedUserId(null);
     };
 
-    // Compute data for charts if currentGroup is available
+    // Count institutions & statuses in the group
     let institutionCounts: Record<string, number> = {};
     let statusCounts: Record<string, number> = {};
 
@@ -217,6 +238,9 @@ const GroupExplorePage: React.FC = () => {
         ],
     };
 
+    // Determine text color for charts based on dark mode
+    const chartTextColor = isDarkMode ? '#ffffff' : '#000000';
+
     const chartOptions: ChartOptions<'bar'> = {
         indexAxis: 'y',
         responsive: true,
@@ -232,7 +256,15 @@ const GroupExplorePage: React.FC = () => {
         scales: {
             y: {
                 ticks: {
-                    color: 'black',
+                    color: chartTextColor,
+                    font: {
+                        size: chartFontSize,
+                    },
+                },
+            },
+            x: {
+                ticks: {
+                    color: chartTextColor,
                     font: {
                         size: chartFontSize,
                     },
@@ -241,11 +273,13 @@ const GroupExplorePage: React.FC = () => {
         }
     };
 
+    // Shake animation logic
     const triggerShake = () => {
         setShake(true);
         setTimeout(() => setShake(false), 500);
     };
 
+    // Page change logic for the 2-page card
     const handlePageChange = (direction: 'left' | 'right') => {
         if (direction === 'left') {
             if (currentPage === 1) {
@@ -265,12 +299,20 @@ const GroupExplorePage: React.FC = () => {
     const handleLeftClick = () => handlePageChange('left');
     const handleRightClick = () => handlePageChange('right');
 
+    // Icon for group purpose
+    const groupPurposes = [
+        { label: 'Social', value: 'social', icon: <MdGroups size={iconSize} /> },
+        { label: 'General', value: 'general', icon: <FaChalkboardTeacher size={iconSize} /> },
+        { label: 'Exam Preparation', value: 'exam preparation', icon: <FaBookReader size={iconSize} /> },
+        { label: 'Studying', value: 'studying', icon: <FaLaptopCode size={iconSize} /> },
+    ];
+
     const getGroupPurposeIcon = (purpose: string) => {
         const purposeObj = groupPurposes.find(p => p.value === purpose.toLowerCase());
         return purposeObj ? purposeObj.icon : <MdGroups size={iconSize} />;
     };
 
-    // Swipe handlers
+    // Swipe handlers for mobile
     const swipeHandlers = useSwipeable({
         onSwipedLeft: () => {
             if (currentPage === 1) {
@@ -286,18 +328,18 @@ const GroupExplorePage: React.FC = () => {
                 triggerShake();
             }
         },
-        // Prevent vertical swipes from triggering horizontal actions
-        delta: 50, // minimum distance(px) before a swipe is detected
+        delta: 50, // minimum distance(px) for a swipe
         trackMouse: false,
     });
 
-    // Determine how many members to show based on screen size
+    // Determine how many members to show at a glance
     const maxMembersToShow = isSmallScreen ? 3 : 6;
     const membersToShow = currentGroup?.members.slice(0, maxMembersToShow) || [];
     const extraMembersCount = currentGroup?.members.length
         ? currentGroup.members.length - maxMembersToShow
         : 0;
 
+    // Close members modal
     const closeModal = () => {
         setShowMembersModal(false);
     };
@@ -316,7 +358,7 @@ const GroupExplorePage: React.FC = () => {
                         <div className={`group-explore-indicator ${currentPage === 2 ? 'active' : ''}`}></div>
                     </div>
 
-                    {/* Clickable Overlays for navigation (only on desktop) */}
+                    {/* Clickable Overlays for desktop navigation */}
                     {!isSmallScreen && (
                         <div className="group-explore-click-overlay">
                             <div className="group-explore-click-area-left" onClick={handleLeftClick}></div>
@@ -384,7 +426,6 @@ const GroupExplorePage: React.FC = () => {
                                     <h2 className="group-explore-title">{currentGroup.name}</h2>
                                     <h2 className="font-semibold text-lg text-gray-600 dark:text-gray-400">Group Members Overview</h2>
                                 </div>
-
                             </div>
                             {(institutionNames.length > 0 || statusNames.length > 0) && (
                                 <div className="group-explore-charts-container">
@@ -392,7 +433,7 @@ const GroupExplorePage: React.FC = () => {
                                         <div className="group-explore-chart-wrapper">
                                             <h4 className="group-explore-chart-heading">Institutions</h4>
                                             <div className="group-explore-chart-content">
-                                                <Bar data={institutionData} options={chartOptions}/>
+                                                <Bar data={institutionData} options={chartOptions} />
                                             </div>
                                         </div>
                                     )}
@@ -400,7 +441,7 @@ const GroupExplorePage: React.FC = () => {
                                         <div className="group-explore-chart-wrapper">
                                             <h4 className="group-explore-chart-heading">Statuses</h4>
                                             <div className="group-explore-chart-content">
-                                                <Bar data={statusData} options={chartOptions}/>
+                                                <Bar data={statusData} options={chartOptions} />
                                             </div>
                                         </div>
                                     )}
@@ -413,6 +454,7 @@ const GroupExplorePage: React.FC = () => {
                 <NoMoreGroupsToExplore/>
             )}
 
+            {/* Members Modal */}
             {showMembersModal && currentGroup && (
                 <div className="modal-overlay" onClick={closeModal}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -421,7 +463,6 @@ const GroupExplorePage: React.FC = () => {
                         </button>
                         <h2 className="modal-title font-medium">Group Members</h2>
 
-                        {/* New Container for Members List */}
                         <div className="modal-members-container">
                             <ul className="modal-members-list">
                                 {currentGroup.members.map((member) => (
@@ -439,8 +480,8 @@ const GroupExplorePage: React.FC = () => {
                                             alt={`${member.firstName} ${member.lastName}`}
                                         />
                                         <span className="font-semibold">
-                                {member.firstName} {member.lastName}
-                            </span>
+                                            {member.firstName} {member.lastName}
+                                        </span>
                                     </li>
                                 ))}
                             </ul>
@@ -449,11 +490,12 @@ const GroupExplorePage: React.FC = () => {
                 </div>
             )}
 
-
+            {/* Profile View */}
             {selectedUserId && (
                 <ViewProfile userId={selectedUserId} onClose={handleCloseProfile}/>
             )}
 
+            {/* Buttons to Apply/Skip */}
             {currentGroup && (
                 <div className="group-explore-button-container">
                     <button className="group-explore-apply-button" onClick={handleApply}>
@@ -466,7 +508,6 @@ const GroupExplorePage: React.FC = () => {
             )}
         </div>
     );
-
 };
 
 export default GroupExplorePage;

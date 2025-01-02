@@ -121,7 +121,6 @@ const UserExplorePage: React.FC = () => {
             }
         }
 
-        // Trigger slide-out animation before showing next user
         setSlideDirection('out');
         setAnimating(true);
         setTimeout(animateToNextUser, 300);

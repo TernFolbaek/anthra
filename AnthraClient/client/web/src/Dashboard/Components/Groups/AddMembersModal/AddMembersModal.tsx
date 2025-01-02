@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './AddMembersModal.css';
 import axios from 'axios';
-
-interface ApplicationUser {
-    id: string;
-    firstName: string;
-    profilePictureUrl: string;
-}
-
+import {ApplicationUser} from "../../types/types";
+import ViewProfile from "../../ViewProfile/ViewProfile";
 interface AddMembersModalProps {
     show: boolean;
     onClose: () => void;
@@ -21,7 +16,7 @@ const AddMembersModal: React.FC<AddMembersModalProps> = ({ show, onClose, groupI
     const [connections, setConnections] = useState<ApplicationUser[]>([]);
     const [loadingConnections, setLoadingConnections] = useState(true);
     const [errorConnections, setErrorConnections] = useState<string | null>(null);
-
+    const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
 
@@ -37,7 +32,6 @@ const AddMembersModal: React.FC<AddMembersModalProps> = ({ show, onClose, groupI
                     headers: { Authorization: `Bearer ${token}` },
                     withCredentials: true,
                 });
-                console.log(response.data)
                 const connectedUsers: ApplicationUser[] = response.data;
                 setConnections(connectedUsers);
                 setLoadingConnections(false);
@@ -52,7 +46,6 @@ const AddMembersModal: React.FC<AddMembersModalProps> = ({ show, onClose, groupI
     }, [show, userId, token]);
 
     const toggleUserSelection = (userId: string) => {
-        console.log(userId)
         setSelectedUserIds(prevSelected => {
             const newSelected = prevSelected.includes(userId)
                 ? prevSelected.filter(id => id !== userId)
@@ -79,6 +72,14 @@ const AddMembersModal: React.FC<AddMembersModalProps> = ({ show, onClose, groupI
         }
     };
 
+    const handleUserSelect = (userId: string) => {
+        setSelectedUserId(userId)
+    }
+
+    const closeUserProfile = () => {
+        setSelectedUserId(null);
+    }
+
     if (!show) return null;
 
     return (
@@ -91,11 +92,11 @@ const AddMembersModal: React.FC<AddMembersModalProps> = ({ show, onClose, groupI
 
                 {/* Display selected users */}
                 {selectedUserIds.length > 0 && (
-                    <div className="add-members-modal-selected-users">
+                    <div className="add-members-modal-selected-users ">
                         {connections
                             .filter(user => selectedUserIds.includes(user.id))
                             .map(user => (
-                                <div key={user.id} className="add-members-modal-selected-user">
+                                <div key={user.id} className="add-members-modal-selected-user cursor-pointer" onClick={() => handleUserSelect(user.id)}>
                                     <img
                                         src={user.profilePictureUrl}
                                         alt={user.firstName}
@@ -125,7 +126,10 @@ const AddMembersModal: React.FC<AddMembersModalProps> = ({ show, onClose, groupI
                                         alt={user.firstName}
                                         className="add-members-modal-member-avatar"
                                     />
-                                    <span className="add-members-modal-member-name">{user.firstName}</span>
+                                    <div className="flex flex-col">
+                                        <p className="text-sm font-semibold">{user.firstName} {user.lastName}</p>
+                                        <p className="text-gray-500 text-xs font-light">{user.institution}</p>
+                                    </div>
                                     <input
                                         type="checkbox"
                                         checked={selectedUserIds.includes(user.id)}
@@ -138,14 +142,23 @@ const AddMembersModal: React.FC<AddMembersModalProps> = ({ show, onClose, groupI
                         </ul>
                     )}
                 </div>
-                <button
-                    className="add-members-modal-add-button"
-                    onClick={handleAddMembers}
-                    disabled={selectedUserIds.length === 0}
-                >
-                    Add Selected Members
-                </button>
+                {connections.length > 0 && (
+                    <button
+                        className="text-sm add-members-modal-add-button"
+                        onClick={handleAddMembers}
+                        disabled={selectedUserIds.length === 0}
+                    >
+                        Add
+                    </button>
+                )}
+                {connections.length <= 0 && (
+                    <p className="text-gray-500 font-medium text-base text-center">You need connections before you can invite new members</p>
+                )}
+
             </div>
+            {selectedUserId && (
+                <ViewProfile userId={selectedUserId} onClose={closeUserProfile}/>
+            )}
         </div>
     );
 };

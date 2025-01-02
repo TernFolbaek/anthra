@@ -328,6 +328,11 @@ body.dark .requests-user-card:hover {
     background-color: rgb(244,244,244);
 }
 
+body.dark .slide-toggle{
+    background-color: rgb(184, 182, 182);
+;
+}
+
 .slide-toggle input[type='checkbox'] {
     display: none;
 }
@@ -347,7 +352,7 @@ body.dark .requests-user-card:hover {
     text-align: center;
     font-weight: 500;
     line-height: 30px;
-    font-size: 16px;
+    font-size: 14px;
     color: #666;
     z-index: 2;
     position: relative;
@@ -452,7 +457,6 @@ body.dark .connections-slider {
     border: none;
     cursor: pointer;
     text-align: center;
-    font-size: 16px;
     transition: color 0.3s;
 }
 
@@ -488,13 +492,6 @@ body.dark .connections-slider {
         background-color: #2e2e2e;
     }
 
-    .slide-toggle input[type='checkbox']:checked + label .toggle-option.groups {
-        font-size: 14px;
-    }
-
-    .slide-toggle input[type='checkbox']:not(:checked) + label .toggle-option.personal {
-        font-size: 14px;
-    }
 
     .connections-card-container,
     .requests-card-container {

@@ -162,7 +162,7 @@ body.dark .group-attachment-link {
     color: #ef6363;
 }
 
-.connection-button:hover {
+.connection-button:hover, .connection-button-remove:hover {
     background-color: white;
 }
 

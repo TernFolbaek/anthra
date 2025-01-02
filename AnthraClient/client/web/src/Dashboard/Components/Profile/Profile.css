@@ -357,4 +357,14 @@ body.dark .error-message {
     }
 }
 
+@media (max-width: 480px){
+    .profile-card{
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    }
+
+    .profile-page{
+        background-color: white;
+    }
+}
+
 

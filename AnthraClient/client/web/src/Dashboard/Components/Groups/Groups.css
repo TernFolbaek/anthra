@@ -96,6 +96,10 @@ body.dark .explore-button:hover {
         background-color: white;
     }
 
+    body.dark .groups-page {
+        background-color: #2e2e2e;
+    }
+
     .group-message-view {
         margin: 0;
     }

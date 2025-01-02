@@ -32,7 +32,7 @@ public class RequestsController : ControllerBase
         var requests = await _context.GroupApplicationRequests
             .Include(r => r.Applicant)
             .Include(r => r.Group)
-            .Where(r => r.AdminId == adminId && !r.IsAccepted && !r.IsDeclined)
+            .Where(r => r.AdminId == adminId && !r.IsAccepted && !r.IsDeclined)   
             .ToListAsync();
 
         var result = requests.GroupBy(r => r.Group)
@@ -46,7 +46,8 @@ public class RequestsController : ControllerBase
                     ApplicantId = a.ApplicantId,
                     ApplicantName = $"{a.Applicant.FirstName} {a.Applicant.LastName}",
                     ApplicantProfilePictureUrl = a.Applicant.ProfilePictureUrl,
-                    RequestedAt = a.RequestedAt
+                    RequestedAt = a.RequestedAt,
+                    ApplicantInstitution = a.Applicant.Institution,
                 })
             });
 

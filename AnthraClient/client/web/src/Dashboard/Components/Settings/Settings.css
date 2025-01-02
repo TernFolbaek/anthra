@@ -25,7 +25,7 @@
     }
 }
 
-.settings-overlay.closing {
+.settings-overlay.settings-closing {
     animation: fadeOut 0.3s forwards;
 }
 
@@ -61,7 +61,7 @@
     }
 }
 
-.settings-card.closing {
+.settings-card.settings-closing {
     animation: slideOut 0.3s forwards;
 }
 
@@ -82,7 +82,15 @@
     border-bottom: 1px solid #e0e0e0;
 }
 
-.close-button {
+.settings-title {
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    gap: 8px;
+}
+
+.settings-close-button {
     background: none;
     border: none;
     cursor: pointer;
@@ -90,40 +98,8 @@
     transition: color 0.3s;
 }
 
-.close-button:hover {
+.settings-close-button:hover {
     color: #000;
-}
-
-.settings-navbar {
-    display: flex;
-    flex-wrap: wrap;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.settings-tab {
-    flex: 1;
-    text-align: center;
-    padding: 12px;
-    cursor: pointer;
-    color: #666;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.settings-tab-left {
-    border-top-left-radius: 12px;
-}
-
-.settings-tab-right {
-    border-top-right-radius: 12px;
-}
-
-.settings-tab.active {
-    background-color: #e3e2e2;
-    color: #000;
-}
-
-.settings-tab:hover {
-    background-color: #e3e2e2;
 }
 
 .settings-content {
@@ -138,54 +114,118 @@ body.dark .settings-card {
     box-shadow: none;
 }
 
-body.dark .settings-navbar {
+body.dark .settings-header {
     border-bottom: 1px solid #444;
 }
 
-body.dark .settings-tab {
-    color: #ccc;
-}
-
-body.dark .settings-tab.active {
-    background-color: #3a3a3a;
+body.dark .settings-title {
     color: #fff;
 }
 
-body.dark .settings-tab:hover {
-    background-color: #3a3a3a;
+body.dark .settings-close-button {
+    color: #ccc;
+}
+
+body.dark .settings-close-button:hover {
+    color: #fff;
 }
 
 body.dark .settings-content {
     color: #fff;
 }
 
-.settings-tab span {
-    display: block;
-    font-size: 14px;
+/* Dropdown Styles */
+.settings-dropdown-container {
+    display: flex;
+    flex-direction: column;
 }
 
-/* Media Queries for Mobile Devices */
+.settings-dropdown-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px 16px;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
+
+.settings-dropdown-header:hover {
+    background-color: #e3e3e3;
+}
+
+.settings-dropdown-title {
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.settings-dropdown-icon {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    color: #666;
+    transition: transform 0.3s;
+}
+
+.settings-dropdown-content {
+    padding: 10px 16px;
+    margin-top: 8px;
+    background-color: #fafafa;
+    border-radius: 4px;
+    transition: max-height 0.3s ease-out;
+}
+
+.settings-divider {
+    border: none;
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 16px 0;
+}
+
+/* Dark mode adjustments for dropdowns */
+body.dark .settings-dropdown-header {
+    background-color: #3a3a3a;
+}
+
+body.dark .settings-dropdown-header:hover {
+    background-color: #4a4a4a;
+}
+
+body.dark .settings-dropdown-icon {
+    color: #ccc;
+}
+
+body.dark .settings-dropdown-content {
+    background-color: #3a3a3a;
+}
+
+/* Responsive Styles */
 @media (max-width: 768px) {
     .settings-card {
         width: 80%;
     }
 
-    .settings-navbar {
-        flex-direction: column;
+    .settings-dropdown-header {
+        padding: 8px 12px;
     }
 
-    .settings-tab {
-        padding: 10px;
-        font-size: 16px;
-        border-bottom: 1px solid #e0e0e0;
+    .settings-dropdown-title {
+        font-size: 0.95rem;
     }
 
-    .settings-tab span {
-        font-size: 12px;
+    .settings-dropdown-content {
+        padding: 8px 12px;
     }
 
-    .settings-content {
-        padding: 12px;
+    .settings-divider {
+        margin: 12px 0;
     }
 }
 
@@ -194,18 +234,19 @@ body.dark .settings-content {
         width: 90%;
     }
 
-    .settings-tab-left,
-    .settings-tab-right {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
+    .settings-dropdown-header {
+        padding: 6px 10px;
     }
 
-    .settings-tab {
-        flex-direction: row;
-        justify-content: flex-start;
+    .settings-dropdown-title {
+        font-size: 0.9rem;
     }
 
-    .settings-tab span {
-        font-size: 14px;
+    .settings-dropdown-content {
+        padding: 6px 10px;
+    }
+
+    .settings-divider {
+        margin: 10px 0;
     }
 }

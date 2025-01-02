@@ -1,7 +1,7 @@
 /* AuthPage.css */
 
 .auth-page {
-    background: #f0f2f5; /* A modern light gray background */
+    background: rgb(244,244,244); /* A modern light gray background */
     color: #333;
     font-family: 'Montserrat', sans-serif;
     height: 100vh;
@@ -9,18 +9,30 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    padding: 1rem; /* Added padding for better spacing on smaller screens */
+    box-sizing: border-box;
+}
+
+.auth-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem; /* Space between auth-container and the image */
+    width: 100%;
+    max-width: 900px; /* Adjust as needed */
 }
 
 .auth-container {
     background: #fff;
     padding: 2rem;
     border-radius: 8px;
-    width: 90%;
+    width: 100%;
     max-width: 400px;
     text-align: center;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     animation: fade-in 0.5s forwards;
     position: relative;
+    flex: 1; /* Allows the container to take up available space */
 }
 
 .auth-container-h2 {
@@ -125,8 +137,6 @@
     margin-bottom: 0.25rem;
 }
 
-
-
 .valid-icon {
     color: #10b981; /* Green */
     font-size: 0.9rem;
@@ -137,6 +147,28 @@
     font-size: 0.9rem;
 }
 
+.auth-image {
+    width: 400px;
+    max-width: 100%;
+    height: 490px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    animation: fade-in 0.5s forwards;
+    object-fit: cover;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: none;
+    border: none;
+    color: #3b82f6;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
 @keyframes fade-in {
     from {
         opacity: 0;
@@ -145,5 +177,18 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@media(max-width: 900px) {
+    .auth-image {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .auth-content {
+        flex-direction: column;
+        align-items: center;
     }
 }

@@ -221,108 +221,113 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
             <button className="back-button" onClick={goBack}>
                 Back
             </button>
-            <div className="auth-container">
-                <h2 className="auth-container-h2">{isSignUp ? 'Sign Up' : 'Log In'}</h2>
+            <div className="auth-content">
+                <div className="auth-container">
+                    <h2 className="auth-container-h2">{isSignUp ? 'Sign Up' : 'Log In'}</h2>
 
-                {message && <p className="success-message">{message}</p>}
-                {error && <p className="error-message">{error}</p>}
+                    {message && <p className="success-message">{message}</p>}
+                    {error && <p className="error-message">{error}</p>}
 
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        placeholder="Username"
-                        required
-                        value={username}
-                        onChange={(e) => {
-                            setUsername(e.target.value);
-                            if (!hasTypedUsername) setHasTypedUsername(true);
-                        }}
-                        className="auth-input"
-                    />
-                    {isSignUp && (
+                    <form onSubmit={handleSubmit}>
                         <input
-                            type="email"
-                            placeholder="Email"
+                            type="text"
+                            placeholder="Username"
                             required
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={username}
+                            onChange={(e) => {
+                                setUsername(e.target.value);
+                                if (!hasTypedUsername) setHasTypedUsername(true);
+                            }}
                             className="auth-input"
                         />
-                    )}
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        required
-                        value={password}
-                        onChange={(e) => {
-                            setPassword(e.target.value);
-                            if (!hasTypedPassword) setHasTypedPassword(true);
-                        }}
-                        className="auth-input"
-                    />
-                    <button type="submit" className="submit-button">
-                        {isSignUp ? 'Sign Up' : 'Log In'}
-                    </button>
-                    {!isSignUp && (
-                        <p className="auth-container-p">
-                            <button
-                                type="button"
-                                className="forgot-password-button"
-                                onClick={() => setShowForgotPassword(true)}
-                            >
-                                Forgot Password?
-                            </button>
-                        </p>
-                    )}
-                </form>
-                <div className="social-login">
-                    <GoogleLogin
-                        onSuccess={handleGoogleSuccess}
-                        onError={handleGoogleFailure}
-                    />
-                </div>
-
-                <p className="auth-container-p">
-                    {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
-                    <button className="switch-button" onClick={switchAuthMode}>
-                        {isSignUp ? 'Log In' : 'Sign Up'}
-                    </button>
-                </p>
-
-                {/* Validation Checkboxes */}
-                {isSignUp && (
-                    <div className="validation-container">
-                        <div className="w-full border-t border-gray-300 mb-2"></div>
-                        {/* Username Validation */}
-                        {hasTypedUsername && (
-                            <p className={`validation-item font-semibold ${isUsernameValid ? 'text-green-400' : 'text-red-400'}`}>
-                                {isUsernameValid ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
-                                Username is at least 5 characters
+                        {isSignUp && (
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                required
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="auth-input"
+                            />
+                        )}
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            required
+                            value={password}
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                                if (!hasTypedPassword) setHasTypedPassword(true);
+                            }}
+                            className="auth-input"
+                        />
+                        <button type="submit" className="submit-button">
+                            {isSignUp ? 'Sign Up' : 'Log In'}
+                        </button>
+                        {!isSignUp && (
+                            <p className="auth-container-p">
+                                <button
+                                    type="button"
+                                    className="forgot-password-button"
+                                    onClick={() => setShowForgotPassword(true)}
+                                >
+                                    Forgot Password?
+                                </button>
                             </p>
                         )}
-                        {/* Password Validations */}
-                        {hasTypedPassword && (
-                            <>
-                                <p className={`validation-item font-semibold ${isPasswordLengthValid ? 'text-green-400' : 'text-red-400'}`}>
-                                    {isPasswordLengthValid ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
-                                    Password is at least 6 characters
-                                </p>
-                                <p className={`validation-item font-semibold ${hasUppercase ? 'text-green-400' : 'text-red-400'}`}>
-                                    {hasUppercase ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
-                                    Password has at least one uppercase letter
-                                </p>
-                                <p className={`validation-item font-semibold ${hasDigit ? 'text-green-400' : 'text-red-400'}`}>
-                                    {hasDigit ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
-                                    Password has at least one digit
-                                </p>
-                                <p className={`validation-item font-semibold ${hasSpecialChar ? 'text-green-400' : 'text-red-400'}`}>
-                                    {hasSpecialChar ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
-                                    Password has at least one special character
-                                </p>
-                            </>
-                        )}
+                    </form>
+                    <div className="social-login">
+                        <GoogleLogin
+                            onSuccess={handleGoogleSuccess}
+                            onError={handleGoogleFailure}
+                        />
                     </div>
-                )}
+
+                    <p className="auth-container-p">
+                        {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
+                        <button className="switch-button" onClick={switchAuthMode}>
+                            {isSignUp ? 'Log In' : 'Sign Up'}
+                        </button>
+                    </p>
+
+                    {/* Validation Checkboxes */}
+                    {isSignUp && (
+                        <div className="validation-container">
+                            {hasTypedPassword || hasTypedUsername && (
+                                <div className="w-full border-t border-gray-300 mb-2"></div>
+                            )}
+                            {/* Username Validation */}
+                            {hasTypedUsername && (
+                                <p className={`validation-item font-semibold ${isUsernameValid ? 'text-green-400' : 'text-red-400'}`}>
+                                    {isUsernameValid ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
+                                    Username is at least 5 characters
+                                </p>
+                            )}
+                            {/* Password Validations */}
+                            {hasTypedPassword && (
+                                <>
+                                    <p className={`validation-item font-semibold ${isPasswordLengthValid ? 'text-green-400' : 'text-red-400'}`}>
+                                        {isPasswordLengthValid ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
+                                        Password is at least 6 characters
+                                    </p>
+                                    <p className={`validation-item font-semibold ${hasUppercase ? 'text-green-400' : 'text-red-400'}`}>
+                                        {hasUppercase ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
+                                        Password has at least one uppercase letter
+                                    </p>
+                                    <p className={`validation-item font-semibold ${hasDigit ? 'text-green-400' : 'text-red-400'}`}>
+                                        {hasDigit ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
+                                        Password has at least one digit
+                                    </p>
+                                    <p className={`validation-item font-semibold ${hasSpecialChar ? 'text-green-400' : 'text-red-400'}`}>
+                                        {hasSpecialChar ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
+                                        Password has at least one special character
+                                    </p>
+                                </>
+                            )}
+                        </div>
+                    )}
+                </div>
+                <img src="/authimage.png" alt="Authentication Illustration" className="auth-image" />
             </div>
         </div>
     );

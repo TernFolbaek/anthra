@@ -1,3 +1,4 @@
+// Connections.tsx
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import './Connections.css';
@@ -6,7 +7,9 @@ import NoConnectionsRive from "../../Helpers/Animations/NoConnections";
 import ViewProfile from '../ViewProfile/ViewProfile';
 import { FaEllipsisV, FaUserMinus } from 'react-icons/fa';
 import { FaUser, FaUsers } from "react-icons/fa";
-import {ApplicationUser} from "../types/types";
+import { ApplicationUser } from "../types/types";
+import ViewGroupProfile from "../ViewGroupProfile/ViewGroupProfile";
+import Snackbar from "../../Helpers/Snackbar/Snackbar";
 
 interface ConnectionRequestDTO {
     id: number;
@@ -30,6 +33,7 @@ interface GroupApplicationRequestDTO {
         requestId: number;
         applicantId: string;
         applicantName: string;
+        applicantInstitution: string;
         applicantProfilePictureUrl: string;
         requestedAt: string;
     }[];
@@ -46,10 +50,16 @@ const Connections: React.FC = () => {
     const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth);
     const [selectedTab, setSelectedTab] = useState<'connections' | 'requests'>('connections');
     const [selectedRequestTab, setSelectedRequestTab] = useState<'personal' | 'groups'>('personal');
+    const [groupId, setGroupId] = useState<number | null>(null);
     const menuRef = useRef<HTMLDivElement | null>(null);
     const navigate = useNavigate();
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
+
+    // Snackbar state
+    const [snackbarVisible, setSnackbarVisible] = useState<boolean>(false);
+    const [snackbarTitle, setSnackbarTitle] = useState<string>('');
+    const [snackbarMessage, setSnackbarMessage] = useState<string>('');
 
     const handleUserClick = (userId: string) => {
         setSelectedUserId(userId);
@@ -62,18 +72,30 @@ const Connections: React.FC = () => {
     const handleRemoveConnection = async (connectionId: string) => {
         try {
             await axios.post(
-                'http://localhost:5001/api/Connections/Remove',
-                { userId: connectionId, currentUserId: userId },
+                'http://localhost:5001/api/Connections/RemoveConnection',
+                { connectionId: connectionId, userId: userId },
                 {
                     withCredentials: true,
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
                 }
             );
             setConnections(
                 connections.filter((user) => user.id !== connectionId)
             );
             setOpenMenuConnectionId(null);
+
+            // Update Snackbar state to show success message
+            setSnackbarTitle('Connection Removed');
+            setSnackbarMessage('You have successfully removed this connection.');
+            setSnackbarVisible(true);
         } catch (error) {
             console.error('Error removing connection:', error);
+            // Optionally, show an error Snackbar
+            setSnackbarTitle('Error');
+            setSnackbarMessage('Failed to remove the connection. Please try again.');
+            setSnackbarVisible(true);
         }
     };
 
@@ -104,6 +126,11 @@ const Connections: React.FC = () => {
 
                     // Add the new connection to the connections state
                     setConnections((prevConnections) => [...prevConnections, newConnection]);
+
+                    // Optionally, show a success Snackbar
+                    setSnackbarTitle('Request Accepted');
+                    setSnackbarMessage(`You are now connected with ${newConnection.firstName} ${newConnection.lastName}.`);
+                    setSnackbarVisible(true);
                 } else {
                     return response.text().then((text) => {
                         throw new Error(text);
@@ -122,6 +149,11 @@ const Connections: React.FC = () => {
                     setConnectionRequests((prevRequests) =>
                         prevRequests.filter((req) => req.id !== requestId)
                     );
+
+                    // Optionally, show a decline Snackbar
+                    setSnackbarTitle('Request Declined');
+                    setSnackbarMessage('You have declined the connection request.');
+                    setSnackbarVisible(true);
                 } else {
                     return response.text().then((text) => {
                         throw new Error(text);
@@ -148,6 +180,11 @@ const Connections: React.FC = () => {
                             applications: group.applications.filter(app => app.requestId !== requestId)
                         })).filter(group => group.applications.length > 0);
                     });
+
+                    // Optionally, show a success Snackbar
+                    setSnackbarTitle('Group Application Accepted');
+                    setSnackbarMessage('The user has been added to the group.');
+                    setSnackbarVisible(true);
                 } else {
                     return response.text().then((text) => {
                         throw new Error(text);
@@ -174,6 +211,11 @@ const Connections: React.FC = () => {
                             applications: group.applications.filter(app => app.requestId !== requestId)
                         })).filter(group => group.applications.length > 0);
                     });
+
+                    // Optionally, show a decline Snackbar
+                    setSnackbarTitle('Group Application Declined');
+                    setSnackbarMessage('The user has been declined from the group application.');
+                    setSnackbarVisible(true);
                 } else {
                     return response.text().then((text) => {
                         throw new Error(text);
@@ -205,7 +247,7 @@ const Connections: React.FC = () => {
         };
 
         fetchData();
-    }, [userId]);
+    }, [userId, token]);
 
     useEffect(() => {
         if (!userId) {
@@ -276,10 +318,17 @@ const Connections: React.FC = () => {
         return <div className="connections-error">{error}</div>;
     }
 
+    const handleGroupClick = (groupId: number) => {
+        setGroupId(groupId);
+    }
+
+    const closeGroupProfile = () => {
+        setGroupId(null);
+    }
 
     const renderConnections = () => (
         <div className="connections-card-container">
-            <p className="dark:text-white pl-2 pt-2 pb-2 text-xl font-bold">Connections</p>
+            <p className="dark:text-white pl-2 mt-2 pt-1 pb-2 text-xl font-bold">Connections</p>
             {connections.length === 0 ? (
                 <NoConnectionsRive />
             ) : (
@@ -405,7 +454,7 @@ const Connections: React.FC = () => {
             ) : (
                 groupApplicationRequests.map((group) => (
                     <div key={group.groupId} className="requests-group-section rounded-md bg-sky-50 p-2 mb-2">
-                        <h3 className="mb-2 flex items-center text-sm font-semibold">Application to: <p className="p-1 m-2 bg-sky-100 w-fit rounded-md">{group.groupName}</p></h3>
+                        <h3 className="mb-2 flex items-center text-sm font-semibold">Application to: <p onClick={() => handleGroupClick(group.groupId)} className="p-1 m-2 bg-sky-100 w-fit rounded-md cursor-pointer">{group.groupName}</p></h3>
                         {group.applications.map((application) => (
                             <div key={application.requestId} onClick={() => { handleUserClick(application.applicantId) }} className="requests-user-card bg-white p-1 rounded-md">
                                 <div className="requests-user-info">
@@ -414,7 +463,12 @@ const Connections: React.FC = () => {
                                         src={application.applicantProfilePictureUrl}
                                         alt="Profile"
                                     />
-                                    <h2>{application.applicantName}</h2>
+                                    <div className="flex flex-col">
+                                        <p className="text-sm font-semibold">{application.applicantName}</p>
+                                        <p className="text-gray-500 text-xs font-light">{application.applicantInstitution}</p>
+                                    </div>
+
+
                                 </div>
                                 <div className="requests-button-container">
                                     <button
@@ -466,7 +520,7 @@ const Connections: React.FC = () => {
                         renderConnections()
                     ) : (
                         <div className="connections-card-container">
-                            <p className="dark:text-white pl-2 pt-2 pb-1 text-xl font-bold">Requests</p>
+                            <p className="dark:text-white pl-2 pt-1 pb-1 text-xl mt-2 font-bold">Requests</p>
                             <div className="slide-toggle">
                                 <input
                                     type="checkbox"
@@ -493,7 +547,7 @@ const Connections: React.FC = () => {
                     <div className="connections-columns">
                         {renderConnections()}
                         <div className="connections-card-container">
-                            <p className="dark:text-white pl-2 pt-2 pb-2 text-xl font-bold">Requests</p>
+                            <p className="dark:text-white pl-2 pt-1 pb-2 text-xl mt-2 font-bold">Requests</p>
 
                             <div className="slide-toggle">
                                 <input
@@ -522,10 +576,23 @@ const Connections: React.FC = () => {
             {selectedUserId && (
                 <ViewProfile userId={selectedUserId} onClose={handleCloseProfile} />
             )}
+
+            {groupId && (
+                <ViewGroupProfile groupId={groupId} onClose={closeGroupProfile} />
+            )}
+
+            {/* Render Snackbar */}
+            {snackbarVisible && (
+                <Snackbar
+                    key={snackbarTitle + snackbarMessage}
+                    title={snackbarTitle}
+                    message={snackbarMessage}
+                    duration={4000}
+                    onClose={() => setSnackbarVisible(false)}
+                />
+            )}
         </div>
     );
-
-
 };
 
 export default Connections;

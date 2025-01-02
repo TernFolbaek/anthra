@@ -1,3 +1,4 @@
+// ViewGroupProfile.tsx
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import './ViewGroupProfile.css';
@@ -33,7 +34,7 @@ const ViewGroupProfile: React.FC<ViewGroupProfileProps> = ({ groupId, onClose })
     const [groupProfile, setGroupProfile] = useState<Group | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [selectedUserId, setSelectedUserId] = useState<string | null>('');
+    const [selectedUserId, setSelectedUserId] = useState<string | null>(null); // Changed initial state to null
     const modalRef = useRef<HTMLDivElement>(null);
     const token = localStorage.getItem('token');
 
@@ -68,6 +69,9 @@ const ViewGroupProfile: React.FC<ViewGroupProfileProps> = ({ groupId, onClose })
     }, [groupId, token]);
 
     const handleClickOutside = (event: MouseEvent) => {
+        // Prevent closing the group profile if a user profile is open
+        if (selectedUserId) return;
+
         if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
             onClose();
         }
@@ -78,7 +82,7 @@ const ViewGroupProfile: React.FC<ViewGroupProfileProps> = ({ groupId, onClose })
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, []);
+    }, [selectedUserId]); // Added selectedUserId as a dependency
 
     if (loading) {
         return null; // You can return a loading spinner if desired
@@ -122,7 +126,11 @@ const ViewGroupProfile: React.FC<ViewGroupProfileProps> = ({ groupId, onClose })
                     <div className="viewgroupprofile-members-container">
                         <ul className="viewgroupprofile-members-list">
                             {groupProfile.members.map((member) => (
-                                <li key={member.userId} onClick={()=>handleUserClick(member.userId)} className="viewgroupprofile-member-item">
+                                <li
+                                    key={member.userId}
+                                    onClick={() => handleUserClick(member.userId)}
+                                    className="viewgroupprofile-member-item"
+                                >
                                     <img
                                         src={`${member.profilePictureUrl}`}
                                         alt={`${member.firstName} ${member.lastName}`}
@@ -140,7 +148,7 @@ const ViewGroupProfile: React.FC<ViewGroupProfileProps> = ({ groupId, onClose })
                 </div>
             </div>
             {selectedUserId && (
-                <ViewProfile userId={selectedUserId} onClose={handleCloseProfile}/>
+                <ViewProfile userId={selectedUserId} onClose={handleCloseProfile} />
             )}
         </div>
     );

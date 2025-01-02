@@ -87,7 +87,7 @@ const AddMembersModal: React.FC<AddMembersModalProps> = ({ show, onClose, groupI
                 <button className="add-members-modal-close-button" onClick={onClose}>
                     &times;
                 </button>
-                <h2 className="add-members-modal-title">Add Members</h2>
+                <p className="add-members-modal-title">Add Members</p>
 
                 {/* Display selected users */}
                 {selectedUserIds.length > 0 && (

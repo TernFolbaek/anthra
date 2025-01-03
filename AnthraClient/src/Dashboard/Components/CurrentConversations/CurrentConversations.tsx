@@ -62,7 +62,7 @@ const CurrentConversations: React.FC = React.memo(() => {
     });
 
     if (loading) {
-        return <div className="conversations-loading">Loading conversations...</div>;
+        return ;
     }
 
     if (error) {

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { MdGroups } from "react-icons/md";
 import { FaChalkboardTeacher, FaBookReader, FaLaptopCode } from "react-icons/fa";
-import { Message, InvitationActionType, UserProfile } from '../../Components/types/types';
+import { Message, InvitationActionType, UserProfile } from '../types/types';
 
 interface GroupInvitationMessageProps {
     msg: Message;

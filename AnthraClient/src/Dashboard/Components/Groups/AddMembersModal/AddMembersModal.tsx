@@ -110,7 +110,7 @@ const AddMembersModal: React.FC<AddMembersModalProps> = ({ show, onClose, groupI
 
                 <div className="add-members-modal-members-container">
                     {loadingConnections ? (
-                        <p>Loading connections...</p>
+                        <p></p>
                     ) : errorConnections ? (
                         <p className="error-message">{errorConnections}</p>
                     ) : (

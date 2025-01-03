@@ -1,33 +1,97 @@
 {
+  "name": "web",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "@mui/material": "^6.2.0",
-    "axios": "^1.7.7",
-    "chart.js": "^4.4.7",
-    "chartjs-plugin-datalabels": "^2.2.0",
-    "leaflet": "^1.9.4",
-    "qs": "^6.13.0",
-    "rc-slider": "^11.1.7",
-    "react": "^18.3.1",
-    "react-chartjs-2": "^5.2.0",
-    "react-easy-crop": "^5.2.0",
-    "react-google-charts": "^5.2.1",
-    "react-icons": "^5.3.0",
-    "react-leaflet": "^5.0.0",
-    "react-modal": "^3.16.1",
-    "react-scripts": "^5.0.1",
-    "recharts": "^2.15.0",
-    "typescript": "^5.5.4"
-  },
-  "scripts": {
-    "start": "react-scripts start"
-  },
-  "devDependencies": {
+    "@mdi/js": "^7.4.47",
+    "@mdi/react": "^1.6.1",
+    "@microsoft/signalr": "^8.0.7",
+    "@mui/material": "^6.1.7",
+    "@react-google-maps/api": "^2.20.3",
+    "@react-oauth/google": "^0.12.1",
+    "@rive-app/react-canvas": "^4.16.2",
+    "@splinetool/react-spline": "^4.0.0",
+    "@splinetool/runtime": "^1.9.34",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.104",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "@types/react-lottie": "^1.2.10",
+    "@types/react-toastify": "^4.1.0",
+    "animejs": "^3.2.2",
+    "axios": "^1.7.7",
+    "chart.js": "^4.4.7",
+    "cheerio": "^1.0.0",
+    "d3-geo": "^3.1.1",
+    "d3-scale": "^4.0.2",
+    "fs": "^0.0.1-security",
+    "jquery": "^3.7.1",
+    "leaflet": "^1.9.4",
+    "lottie-react": "^2.4.0",
+    "lucide-react": "^0.456.0",
+    "notistack": "^3.0.1",
+    "react": "^18.3.1",
+    "react-chartjs-2": "^5.2.0",
+    "react-code-input": "^3.10.1",
+    "react-dom": "^18.3.1",
+    "react-easy-crop": "^5.2.0",
+    "react-facebook-login": "^4.1.1",
+    "react-google-login": "^5.2.2",
+    "react-icons": "^5.3.0",
+    "react-leaflet": "^5.0.0",
+    "react-lottie": "^1.2.4",
+    "react-modal": "^3.16.3",
+    "react-otp-input": "^3.1.1",
+    "react-router-dom": "^6.28.0",
+    "react-scripts": "^5.0.1",
+    "react-scroll": "^1.9.0",
+    "react-simple-maps": "^3.0.0",
+    "react-swipeable": "^7.0.2",
+    "react-toastify": "^10.0.6",
+    "react-transition-group": "^4.4.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4",
+    "web-vitals": "2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/geojson": "^7946.0.15",
+    "@types/leaflet": "^1.9.15",
+    "@types/react-modal": "^3.16.3",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/react-scroll": "^1.8.10",
+    "@types/react-transition-group": "^4.4.11",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.41",
     "tailwindcss": "^3.4.9"
-  }
+  },
+  "main": "index.js",
+  "license": "MIT"
 }

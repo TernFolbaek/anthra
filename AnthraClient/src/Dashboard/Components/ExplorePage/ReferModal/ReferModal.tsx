@@ -139,7 +139,7 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
                 formData.append('SenderId', userId!);
                 formData.append('ReceiverId', conn.id);
                 formData.append('Content', currentUser.id);
-                formData.append('IsReferralCard', 'true'); // append as string
+                formData.append('IsReferralCard', 'true');
 
                 await axios.post(
                     'http://localhost:5001/api/Messages/SendMessage',

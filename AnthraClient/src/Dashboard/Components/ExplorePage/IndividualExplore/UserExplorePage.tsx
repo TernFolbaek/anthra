@@ -1,10 +1,11 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import './UserExplorePage.css';
 import NoMoreUsersToExplore from '../../../Helpers/Animations/NoMoreUsersToExplore';
 import Snackbar from "../../../Helpers/Snackbar/Snackbar";
 import ReferModal from '../ReferModal/ReferModal';
 import useWindowWidth from '../../../hooks/useWindowWidth';
+import { useSwipeable } from 'react-swipeable'; // Import the swipeable hook
 
 interface Course {
     courseName: string;
@@ -32,7 +33,6 @@ const UserExplorePage: React.FC = () => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const token = localStorage.getItem('token');
 
-
     const [snackbarVisible, setSnackbarVisible] = useState<boolean>(false);
     const [snackbarTitle, setSnackbarTitle] = useState<string>('');
     const [snackbarMessage, setSnackbarMessage] = useState<string>('');
@@ -48,6 +48,9 @@ const UserExplorePage: React.FC = () => {
     // New states for animation
     const [animating, setAnimating] = useState<boolean>(false);
     const [slideDirection, setSlideDirection] = useState<'in' | 'out'>('in');
+
+    // Refs for handling animation end
+    const cardRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -70,11 +73,12 @@ const UserExplorePage: React.FC = () => {
     useEffect(() => {
         if (users.length > 0 && currentIndex < users.length) {
             setCurrentUser(users[currentIndex]);
+            setCurrentPage(1);
+            // When we have a new current user, ensure we slide them "in"
+            setSlideDirection('in');
         } else {
             setCurrentUser(null);
         }
-        // When we have a new current user, ensure we slide them "in"
-        setSlideDirection('in');
     }, [users, currentIndex]);
 
     const animateToNextUser = () => {
@@ -91,8 +95,8 @@ const UserExplorePage: React.FC = () => {
             try {
                 await axios.post(
                     'http://localhost:5001/api/Connections/SendRequest',
-                    {targetUserId: currentUser.id},
-                    {headers: {Authorization: `Bearer ${token}`}}
+                    { targetUserId: currentUser.id },
+                    { headers: { Authorization: `Bearer ${token}` } }
                 );
                 setSnackbarTitle('Connection Request Sent');
                 setSnackbarMessage(`You have sent a connection request to ${currentUser.firstName} ${currentUser.lastName}.`);
@@ -113,8 +117,8 @@ const UserExplorePage: React.FC = () => {
             try {
                 await axios.post(
                     'http://localhost:5001/api/Explore/SkipUser',
-                    {UserIdToSkip: currentUser.id},
-                    {headers: {Authorization: `Bearer ${token}`}}
+                    { UserIdToSkip: currentUser.id },
+                    { headers: { Authorization: `Bearer ${token}` } }
                 );
             } catch (error) {
                 console.error('Error skipping user:', error);
@@ -152,22 +156,45 @@ const UserExplorePage: React.FC = () => {
     const handleLeftClick = () => handlePageChange('left');
     const handleRightClick = () => handlePageChange('right');
 
+    // Swipe handlers for mobile
+    const swipeHandlers = useSwipeable({
+        onSwipedLeft: () => {
+            if (currentPage === 1) {
+                setCurrentPage(2);
+            } else {
+                triggerShake();
+            }
+        },
+        onSwipedRight: () => {
+            if (currentPage === 2) {
+                setCurrentPage(1);
+            } else {
+                triggerShake();
+            }
+        },
+        delta: 50, // minimum distance(px) for a swipe
+        trackMouse: false,
+    });
+
     return (
         <div className="user-explore-container">
             {currentUser ? (
+                // Apply swipe handlers only on small screens
                 <div
                     className={`explore-user-card ${isSmallScreen ? 'small-screen' : ''} ${shake ? 'shake' : ''} slide-${slideDirection}`}
+                    {...(isSmallScreen ? swipeHandlers : {})} // Apply swipe handlers conditionally
                 >
+                    {/* Page Indicators */}
+                    {isSmallScreen && (
+                        <div className="page-indicators">
+                            <div className={`indicator ${currentPage === 1 ? 'active' : ''}`}></div>
+                            <div className={`indicator ${currentPage === 2 ? 'active' : ''}`}></div>
+                        </div>
+                    )}
+
+                    {/* Page Content */}
                     {isSmallScreen ? (
                         <div className="small-screen-content">
-                            <div className="page-indicators">
-                                <div className={`indicator ${currentPage === 1 ? 'active' : ''}`}></div>
-                                <div className={`indicator ${currentPage === 2 ? 'active' : ''}`}></div>
-                            </div>
-                            <div className="click-overlay">
-                                <div className="click-area left" onClick={handleLeftClick}></div>
-                                <div className="click-area right" onClick={handleRightClick}></div>
-                            </div>
                             {currentPage === 1 ? (
                                 <div className="page-content page-1">
                                     <div className="flex items-center gap-2">
@@ -178,7 +205,7 @@ const UserExplorePage: React.FC = () => {
                                         />
                                         <div className="flex flex-col">
                                             <h2 className="user-name">
-                                                {currentUser.firstName} {currentUser.lastName} {currentUser.age}
+                                                {currentUser.firstName} {currentUser.lastName}, {currentUser.age}
                                             </h2>
                                             <p className="user-location">{currentUser.location}</p>
                                         </div>
@@ -200,7 +227,7 @@ const UserExplorePage: React.FC = () => {
                                         />
                                         <div className="flex flex-col">
                                             <h2 className="user-name">
-                                                {currentUser.firstName} {currentUser.lastName} {currentUser.age}
+                                                {currentUser.firstName} {currentUser.lastName}, {currentUser.age}
                                             </h2>
                                             <p className="user-location">{currentUser.location}</p>
                                         </div>
@@ -258,7 +285,7 @@ const UserExplorePage: React.FC = () => {
                                     />
                                     <div className="flex flex-col">
                                         <h2 className="user-name">
-                                            {currentUser.firstName} {currentUser.lastName} {currentUser.age}
+                                            {currentUser.firstName} {currentUser.lastName}, {currentUser.age}
                                         </h2>
                                         <p className="user-location">{currentUser.location}</p>
                                     </div>
@@ -317,7 +344,8 @@ const UserExplorePage: React.FC = () => {
                 <NoMoreUsersToExplore />
             )}
 
-            {!isSmallScreen && currentUser && (
+            {/* Buttons to Connect/Skip/Refer */}
+            {currentUser && (
                 <div className="user-explore-page-button-container">
                     <button className="skip-button" onClick={handleSkip}>
                         Skip
@@ -331,21 +359,8 @@ const UserExplorePage: React.FC = () => {
                 </div>
             )}
 
-            {isSmallScreen && currentUser && (
-                <div className="user-explore-page-button-container">
-                <button className="skip-button" onClick={handleSkip}>
-                        Skip
-                    </button>
-                    <button className="refer-button" onClick={() => setShowReferModal(true)}>
-                        Refer
-                    </button>
-                    <button className="connect-button" onClick={handleConnect}>
-                        Connect
-                    </button>
-                </div>
-            )}
-
-            {snackbarVisible && !isSmallScreen && (
+            {/* Snackbar for notifications */}
+            {snackbarVisible && (
                 <Snackbar
                     key={snackbarTitle + snackbarMessage}
                     title={snackbarTitle}
@@ -355,6 +370,7 @@ const UserExplorePage: React.FC = () => {
                 />
             )}
 
+            {/* Refer Modal */}
             {showReferModal && currentUser && (
                 <ReferModal
                     currentUser={currentUser}

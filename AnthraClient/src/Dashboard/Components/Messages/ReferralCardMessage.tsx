@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './ReferralCardMessage.css';
 import ViewProfile from "../ViewProfile/ViewProfile";
-import { Message, InvitationActionType, UserProfile } from '../../Components/types/types';
+import { Message, InvitationActionType, UserProfile } from '../types/types';
 
 interface ReferralCardMessageProps {
     msg: Message; // Use the shared Message interface

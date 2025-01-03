@@ -311,7 +311,8 @@ const Connections: React.FC = () => {
     }, [openMenuConnectionId]);
 
     if (loading) {
-        return <div className="connections-loading">Loading connections...</div>;
+        return <div className="connections-card-container">
+            </div>;
     }
 
     if (error) {

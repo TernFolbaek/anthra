@@ -12,7 +12,7 @@ import MessageInput from "./MessageInput";
 import ViewGroupProfile from "../ViewGroupProfile/ViewGroupProfile";
 import GroupInvitationMessage from "./GroupInvitationMessage";
 import ReferralCardMessage from "./ReferralCardMessage";
-import { Message, InvitationActionType, UserProfile } from '../../Components/types/types';
+import { Message, InvitationActionType, UserProfile } from '../types/types';
 
 interface Attachment {
     id: number;
@@ -637,9 +637,8 @@ const Messages: React.FC = () => {
                                 })
                             )}
                             {isLoadingMore && (
-                                <div className="loading-more-messages">Loading more messages...</div>
+                                <div className="loading-more-messages"></div>
                             )}
-                            {/* Scroll anchor */}
                             <div ref={messagesEndRef} />
                         </>
                     )}

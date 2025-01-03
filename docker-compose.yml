@@ -7,32 +7,48 @@ services:
       - POSTGRES_PASSWORD=jelkokelkojelkomerlin
       - POSTGRES_DB=anthra
     ports:
-      - "5433:5432"  # Maps port 5432 in the container to 5433 on the host
+      - "5433:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
     restart: unless-stopped
 
   backend:
-    build: ./AnthraServer  # Pointing to the backend Dockerfile
-    image: anthra-backend  # Optional: You can specify a name or leave it to default
+    build: ./AnthraServer
+    image: anthra-backend
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - DB_CONNECTION_STRING=Host=db;Port=5432;Database=anthra;Username=anthra_user;Password=jelkokelkojelkomerlin
       - ASPNETCORE_URLS=http://+:80
     ports:
-      - "8080:80"  # Maps port 80 in the container to 8080 on the host
+      - "8080:80"  # host port 8080 → container port 80
     depends_on:
       - db
     restart: unless-stopped
 
   frontend:
-    build: ./AnthraClient  # Pointing to the frontend Dockerfile
+    build: ./AnthraClient
     image: anthra-frontend
+    # Changed to avoid conflicting with the proxy on port 80
     ports:
-      - "80:80"  # Maps port 80 in the container to port 80 on the host
+      - "8081:80" # or comment this out to keep it internal
     depends_on:
       - backend
     restart: unless-stopped
+
+  proxy:
+    image: jc21/nginx-proxy-manager:latest
+    restart: unless-stopped
+    # The proxy container takes port 80 and 443 on the host
+    ports:
+      - "80:80"   # HTTP
+      - "443:443" # HTTPS
+    # volumes to store NPM config, Let's Encrypt certs, etc.
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+    depends_on:
+      - frontend
+      - backend
 
 volumes:
   db_data:

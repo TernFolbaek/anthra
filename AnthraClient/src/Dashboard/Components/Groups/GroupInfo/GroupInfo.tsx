@@ -92,7 +92,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
         const fetchGroupInfo = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:5001/api/Groups/GetGroupInfo?groupId=${groupId}`,
+                    `http://localhost:8080/api/Groups/GetGroupInfo?groupId=${groupId}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -129,7 +129,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
                 setErrorStatuses(null);
 
                 const response = await axios.get(
-                    'http://localhost:5001/api/Connections/Statuses',
+                    'http://localhost:8080/api/Connections/Statuses',
                     {
                         params: { targetUserIds },
                         paramsSerializer: params => qs.stringify(params, { arrayFormat: 'repeat' }),
@@ -186,7 +186,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
         try {
             setLoadingActions(prev => ({ ...prev, [targetUserId]: true }));
             await axios.post(
-                'http://localhost:5001/api/Connections/SendRequest',
+                'http://localhost:8080/api/Connections/SendRequest',
                 { targetUserId: targetUserId },
                 {
                     headers: {
@@ -236,7 +236,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
             try {
                 setLoadingActions(prev => ({ ...prev, [targetUserId]: true }));
                 await axios.post(
-                    'http://localhost:5001/api/Connections/RemoveConnection',
+                    'http://localhost:8080/api/Connections/RemoveConnection',
                     { targetUserId: targetUserId },
                     {
                         headers: {
@@ -274,7 +274,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
             try {
                 setLoadingActions(prev => ({ ...prev, [targetUserId]: true }));
                 await axios.post(
-                    'http://localhost:5001/api/Connections/RevokeRequest',
+                    'http://localhost:8080/api/Connections/RevokeRequest',
                     { targetUserId: targetUserId },
                     {
                         headers: {

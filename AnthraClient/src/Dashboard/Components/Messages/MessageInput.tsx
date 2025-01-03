@@ -53,7 +53,7 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
 
         try {
             const response = await axios.post(
-                'http://localhost:5001/api/Messages/SendMessage',
+                'http://localhost:8080/api/Messages/SendMessage',
                 formData,
                 {
                     headers: {

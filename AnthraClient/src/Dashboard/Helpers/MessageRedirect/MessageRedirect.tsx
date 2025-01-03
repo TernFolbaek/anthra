@@ -8,7 +8,7 @@ const MessagesRedirect = () => {
     useEffect(() => {
         const fetchLatestConversation = async () => {
             try {
-                const response = await fetch(`http://localhost:5001/api/Messages/GetLatestConversation?userId=${userId}`);
+                const response = await fetch(`http://localhost:8080/api/Messages/GetLatestConversation?userId=${userId}`);
                 if (response.ok) {
                     const latestConversation = await response.json();
                     navigate(`/messages/${latestConversation.userId}`);

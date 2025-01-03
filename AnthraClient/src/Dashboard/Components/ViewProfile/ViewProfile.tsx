@@ -42,7 +42,7 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
-                const response = await axios.get(`http://localhost:5001/api/Profile/GetProfileById?userId=${userId}`, {
+                const response = await axios.get(`http://localhost:8080/api/Profile/GetProfileById?userId=${userId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -58,7 +58,7 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
 
         const fetchConnectionStatus = async () => {
             try {
-                const response = await axios.get(`http://localhost:5001/api/Connections/Status?targetUserId=${userId}`, {
+                const response = await axios.get(`http://localhost:8080/api/Connections/Status?targetUserId=${userId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -95,7 +95,7 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
     const handleConnect = async () => {
         try {
             await axios.post(
-                'http://localhost:5001/api/Connections/SendRequest',
+                'http://localhost:8080/api/Connections/SendRequest',
                 { targetUserId: userId },
                 {
                     headers: {
@@ -113,7 +113,7 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
     const handleCancelRequest = async () => {
         try {
             await axios.post(
-                'http://localhost:5001/api/Connections/RevokeRequest',
+                'http://localhost:8080/api/Connections/RevokeRequest',
                 { targetUserId: userId },
                 {
                     headers: {

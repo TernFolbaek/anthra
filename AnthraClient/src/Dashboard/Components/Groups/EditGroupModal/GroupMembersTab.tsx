@@ -35,7 +35,7 @@ const GroupMembersTab: React.FC<GroupMembersTabProps> = ({ groupInfo }) => {
     const fetchGroupMembers = async () => {
         try {
             const response = await axios.get(
-                `http://localhost:5001/api/Groups/GetGroupInfo`,
+                `http://localhost:8080/api/Groups/GetGroupInfo`,
                 {
                     params: { groupId: groupInfo.groupId },
                     headers: { Authorization: `Bearer ${token}` },
@@ -56,7 +56,7 @@ const GroupMembersTab: React.FC<GroupMembersTabProps> = ({ groupInfo }) => {
         if (selectedMemberToKick) {
             try {
                 await axios.post(
-                    'http://localhost:5001/api/Groups/KickMember',
+                    'http://localhost:8080/api/Groups/KickMember',
                     {
                         groupId: groupInfo.groupId,
                         memberId: selectedMemberToKick.userId,

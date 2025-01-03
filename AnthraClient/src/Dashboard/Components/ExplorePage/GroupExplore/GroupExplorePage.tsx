@@ -103,7 +103,7 @@ const GroupExplorePage: React.FC = () => {
     useEffect(() => {
         const fetchGroups = async () => {
             try {
-                const response = await axios.get('http://localhost:5001/api/GroupsExplore/GetGroups', {
+                const response = await axios.get('http://localhost:8080/api/GroupsExplore/GetGroups', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -140,7 +140,7 @@ const GroupExplorePage: React.FC = () => {
         if (currentGroup) {
             try {
                 await axios.post(
-                    'http://localhost:5001/api/GroupsExplore/ApplyToGroup',
+                    'http://localhost:8080/api/GroupsExplore/ApplyToGroup',
                     { groupId: currentGroup.id },
                     {
                         headers: {
@@ -167,7 +167,7 @@ const GroupExplorePage: React.FC = () => {
         if (currentGroup) {
             try {
                 await axios.post(
-                    'http://localhost:5001/api/GroupsExplore/SkipGroup',
+                    'http://localhost:8080/api/GroupsExplore/SkipGroup',
                     { groupIdToSkip: currentGroup.id },
                     {
                         headers: {

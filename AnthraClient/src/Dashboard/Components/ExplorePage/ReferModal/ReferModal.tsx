@@ -47,7 +47,7 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
             if (!token) return;
             try {
                 // Fetch the user's connections
-                const res = await axios.get('http://localhost:5001/api/Connections/ConnectionsGroupList', {
+                const res = await axios.get('http://localhost:8080/api/Connections/ConnectionsGroupList', {
                     params: { userId },
                     withCredentials: true,
                     headers: { Authorization: `Bearer ${token}` }, // Added Authorization header
@@ -142,7 +142,7 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
                 formData.append('IsReferralCard', 'true');
 
                 await axios.post(
-                    'http://localhost:5001/api/Messages/SendMessage',
+                    'http://localhost:8080/api/Messages/SendMessage',
                     formData,
                     {
                         headers: {

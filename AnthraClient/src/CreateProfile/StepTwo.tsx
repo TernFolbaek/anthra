@@ -188,7 +188,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
         formData.append('ProfilePicture', profilePictureFile);
 
         try {
-            const response = await fetch('http://localhost:5001/api/Profile/UpdateProfile', {
+            const response = await fetch('http://localhost:8080/api/Profile/UpdateProfile', {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${token}`,

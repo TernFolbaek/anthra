@@ -46,7 +46,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
 
     const fetchNotifications = useCallback(async () => {
         try {
-            const response = await axios.get('http://localhost:5001/api/Notifications/GetNotifications', {
+            const response = await axios.get('http://localhost:8080/api/Notifications/GetNotifications', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -71,7 +71,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
         }
 
         const connection = new signalR.HubConnectionBuilder()
-            .withUrl('http://localhost:5001/notificationHub', {
+            .withUrl('http://localhost:8080/notificationHub', {
                 accessTokenFactory: () => token || '',
             })
             .withAutomaticReconnect()
@@ -150,7 +150,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
         async (notificationId: number) => {
             try {
                 await axios.post(
-                    `http://localhost:5001/api/Notifications/MarkAsRead/${notificationId}`,
+                    `http://localhost:8080/api/Notifications/MarkAsRead/${notificationId}`,
                     {},
                     {
                         headers: {
@@ -193,7 +193,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
     const markAllAsRead = useCallback(async () => {
         try {
             await axios.post(
-                `http://localhost:5001/api/Notifications/MarkAllAsRead`,
+                `http://localhost:8080/api/Notifications/MarkAllAsRead`,
                 {},
                 {
                     headers: {

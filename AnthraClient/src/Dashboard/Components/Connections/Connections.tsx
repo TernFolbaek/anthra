@@ -72,7 +72,7 @@ const Connections: React.FC = () => {
     const handleRemoveConnection = async (connectionId: string) => {
         try {
             await axios.post(
-                'http://localhost:5001/api/Connections/RemoveConnection',
+                'http://localhost:8080/api/Connections/RemoveConnection',
                 { connectionId: connectionId, userId: userId },
                 {
                     withCredentials: true,
@@ -101,7 +101,7 @@ const Connections: React.FC = () => {
 
     // Updated handleAccept function
     const handleAccept = (request: ConnectionRequestDTO) => {
-        fetch(`http://localhost:5001/api/Request/AcceptRequest?requestId=${request.id}`, {
+        fetch(`http://localhost:8080/api/Request/AcceptRequest?requestId=${request.id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             },
@@ -141,7 +141,7 @@ const Connections: React.FC = () => {
     };
 
     const handleDecline = (requestId: number) => {
-        fetch(`http://localhost:5001/api/Request/DeclineRequest?requestId=${requestId}`, {
+        fetch(`http://localhost:8080/api/Request/DeclineRequest?requestId=${requestId}`, {
             method: 'POST',
         })
             .then((response) => {
@@ -164,7 +164,7 @@ const Connections: React.FC = () => {
     };
 
     const handleGroupApplicationAccept = (requestId: number) => {
-        fetch(`http://localhost:5001/api/Requests/RespondToGroupApplication`, {
+        fetch(`http://localhost:8080/api/Requests/RespondToGroupApplication`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
@@ -195,7 +195,7 @@ const Connections: React.FC = () => {
     };
 
     const handleGroupApplicationDecline = (requestId: number) => {
-        fetch(`http://localhost:5001/api/Requests/RespondToGroupApplication`, {
+        fetch(`http://localhost:8080/api/Requests/RespondToGroupApplication`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
@@ -228,7 +228,7 @@ const Connections: React.FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5001/api/Connections/List', {
+                const response = await axios.get('http://localhost:8080/api/Connections/List', {
                     params: {
                         userId: userId,
                     },
@@ -254,7 +254,7 @@ const Connections: React.FC = () => {
             return;
         }
         console.log(userId)
-        fetch(`http://localhost:5001/api/Request/Pending?userId=${userId}`)
+        fetch(`http://localhost:8080/api/Request/Pending?userId=${userId}`)
             .then((response) => {
                 if (!response.ok) {
                     return response.text().then(text => {
@@ -266,7 +266,7 @@ const Connections: React.FC = () => {
             .then((data) => setConnectionRequests(data))
             .catch((error) => console.error('Error fetching requests:', error));
 
-        fetch(`http://localhost:5001/api/Requests/GetGroupApplicationRequests`, {
+        fetch(`http://localhost:8080/api/Requests/GetGroupApplicationRequests`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

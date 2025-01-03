@@ -30,7 +30,7 @@ const GroupDetailsModal: React.FC<Props> = ({ groupId, onClose }) => {
 
     const fetchGroupDetails = async () => {
         try {
-            const response = await axios.get(`http://localhost:5001/api/Groups/GetGroupDetails`, {
+            const response = await axios.get(`http://localhost:8080/api/Groups/GetGroupDetails`, {
                 params: { groupId },
                 headers: { Authorization: `Bearer ${token}` },
             });

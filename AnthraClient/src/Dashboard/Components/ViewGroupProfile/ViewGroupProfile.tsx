@@ -50,7 +50,7 @@ const ViewGroupProfile: React.FC<ViewGroupProfileProps> = ({ groupId, onClose })
         const fetchGroupProfile = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:5001/api/Groups/GetGroupInfo`,
+                    `http://localhost:8080/api/Groups/GetGroupInfo`,
                     {
                         params: { groupId: groupId },
                         headers: { Authorization: `Bearer ${token}` },

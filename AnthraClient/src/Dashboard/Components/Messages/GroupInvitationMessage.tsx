@@ -37,7 +37,7 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
     const fetchGroupInfo = async (groupId: number) => {
         try {
             const response = await axios.get(
-                `http://localhost:5001/api/Groups/GetGroupInfo`,
+                `http://localhost:8080/api/Groups/GetGroupInfo`,
                 {
                     params: { groupId },
                     headers: { Authorization: `Bearer ${token}` },

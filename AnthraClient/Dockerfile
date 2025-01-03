@@ -1,29 +1,18 @@
-# Stage 1: Build the frontend
 FROM node:18 AS build
-
-# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Copy package definition files and install dependencies
+COPY package.json yarn.lock ./
+RUN yarn install
 
-# Install dependencies
-RUN npm install
+# Copy all other source files
+COPY . .
 
-# Copy the rest of the frontend source code
-COPY web ./
+# Build your application
+RUN yarn build
 
-# Build the frontend
-RUN npm run build
-
-# Stage 2: Serve the frontend with Nginx
+# Now serve the build output with Nginx
 FROM nginx:stable-alpine
-
-# Copy the build output to Nginx's html directory
 COPY --from=build /app/build /usr/share/nginx/html
-
-# Expose port 80
 EXPOSE 80
-
-# Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]

@@ -55,7 +55,7 @@ const UserExplorePage: React.FC = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axios.get('http://localhost:5001/api/Explore/GetUsers', {
+                const response = await axios.get('http://localhost:8080/api/Explore/GetUsers', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -94,7 +94,7 @@ const UserExplorePage: React.FC = () => {
         if (currentUser) {
             try {
                 await axios.post(
-                    'http://localhost:5001/api/Connections/SendRequest',
+                    'http://localhost:8080/api/Connections/SendRequest',
                     { targetUserId: currentUser.id },
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
@@ -116,7 +116,7 @@ const UserExplorePage: React.FC = () => {
         if (currentUser) {
             try {
                 await axios.post(
-                    'http://localhost:5001/api/Explore/SkipUser',
+                    'http://localhost:8080/api/Explore/SkipUser',
                     { UserIdToSkip: currentUser.id },
                     { headers: { Authorization: `Bearer ${token}` } }
                 );

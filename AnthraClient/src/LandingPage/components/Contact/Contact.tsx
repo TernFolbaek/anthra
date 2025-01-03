@@ -24,7 +24,7 @@ const Contact: React.FC = () => {
             const message = `From: ${email}\n\nSubject: ${subject}\n\nMessage: ${body}`;
 
             // Use a non-authenticated endpoint
-            await axios.post('http://localhost:5001/api/Support/SendSupportEmailGuest',
+            await axios.post('http://localhost:8080/api/Support/SendSupportEmailGuest',
                 {
                     email,
                     subject,

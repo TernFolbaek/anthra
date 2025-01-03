@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {useLocation, useNavigate} from 'react-router-dom';
 import './CurrentConversations.css';
 import CardContainer from '../CardContainer/CardContainer';
 import NoConversationsRive from "../../Helpers/Animations/NoConversations";
@@ -34,7 +34,7 @@ const CurrentConversations: React.FC = React.memo(() => {
             return;
         }
 
-        fetch(`http://localhost:5001/api/Messages/GetConversations?userId=${currentUserId}`)
+        fetch(`http://localhost:8080/api/Messages/GetConversations?userId=${currentUserId}`)
             .then((response) => {
                 if (!response.ok) {
                     return response.text().then((text) => {
@@ -62,11 +62,14 @@ const CurrentConversations: React.FC = React.memo(() => {
     });
 
     if (loading) {
-        return ;
+        return;
     }
 
     if (error) {
-        return <div className="conversations-error">{error}</div>;
+        return <ul className="conversations-list">
+            <div className="conversations-error">{error}</div>
+        </ul>
+            ;
     }
 
     return (
@@ -82,7 +85,7 @@ const CurrentConversations: React.FC = React.memo(() => {
             </div>
 
             {filteredConversations.length === 0 ? (
-                <NoConversationsRive />
+                <NoConversationsRive/>
             ) : (
                 <ul className="conversations-list">
                     {filteredConversations.map((conv) => (

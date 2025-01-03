@@ -29,7 +29,7 @@ const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurren
             if (!msg.content) return;
             try {
                 const response = await axios.get(
-                    `http://localhost:5001/api/Profile/GetProfileById?userId=${msg.content}`,
+                    `http://localhost:8080/api/Profile/GetProfileById?userId=${msg.content}`,
                     {
                         headers: { Authorization: `Bearer ${token}` },
                     }
@@ -80,7 +80,7 @@ const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurren
         try {
             // Call the UpdateMessage API to set InvitationStatus and ActionType
             await axios.patch(
-                `http://localhost:5001/api/Messages/UpdateMessage`,
+                `http://localhost:8080/api/Messages/UpdateMessage`,
                 {
                     messageId: message.id,
                     actionType: InvitationActionType.Skipped
@@ -114,7 +114,7 @@ const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurren
         e.stopPropagation();
         try {
             await axios.patch(
-                `http://localhost:5001/api/Messages/UpdateMessage`,
+                `http://localhost:8080/api/Messages/UpdateMessage`,
                 {
                     messageId: message.id,
                     actionType: InvitationActionType.Connected

@@ -87,7 +87,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowSpecificOrigin",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000", "https://countriesnow.space")
+            policy.WithOrigins("http://localhost:3000", "http://localhost:80", "http://localhost", "https://countriesnow.space")
                   .AllowAnyHeader()
                   .AllowAnyMethod()
                   .AllowCredentials();
@@ -415,9 +415,5 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-
-
-// Run the app on http://localhost:5001
-app.Urls.Add("http://*:5001");
 
 app.Run();

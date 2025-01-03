@@ -51,7 +51,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
 
             try {
                 const backendResponse = await axios.post(
-                    'http://localhost:5001/api/Auth/GoogleLogin',
+                    'http://localhost:8080/api/Auth/GoogleLogin',
                     { tokenId },
                     {
                         headers: {
@@ -65,7 +65,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                 localStorage.setItem('fullName', fullName);
 
                 const profileResponse = await axios.get(
-                    'http://localhost:5001/api/Profile/GetProfile',
+                    'http://localhost:8080/api/Profile/GetProfile',
                     {
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -128,8 +128,8 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
         }
 
         const endpoint = isSignUp
-            ? 'http://localhost:5001/api/Auth/Register'
-            : 'http://localhost:5001/api/Auth/Login';
+            ? 'http://localhost:8080/api/Auth/Register'
+            : 'http://localhost:8080/api/Auth/Login';
 
         const payload = isSignUp
             ? { username, email, password }
@@ -150,7 +150,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                 localStorage.setItem('fullName', fullName);
 
                 const profileResponse = await axios.get(
-                    'http://localhost:5001/api/Profile/GetProfile',
+                    'http://localhost:8080/api/Profile/GetProfile',
                     {
                         headers: {
                             'Authorization': `Bearer ${token}`,

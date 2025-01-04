@@ -14,6 +14,23 @@ using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+// Adjust CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        policy =>
+        {
+            policy.WithOrigins(
+                    "https://anthra.dk", "https://api.anthra.dk", "http://localhost:3000", 
+                    "http://localhost:80", "http://localhost")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+        });
+});
+
+
 builder.WebHost.ConfigureKestrel(options =>
 {
     options.Listen(IPAddress.Any, 5000); 
@@ -139,20 +156,6 @@ app.Use(async (context, next) =>
 app.UseStaticFiles();
 app.UseRouting();
 
-// Adjust CORS policy
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowSpecificOrigin",
-        policy =>
-        {
-            policy.WithOrigins(
-                    "https://anthra.dk", "https://api.anthra.dk", "http://localhost:3000", 
-                    "http://localhost:80", "http://localhost")
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-                .AllowCredentials();
-        });
-});
 
 
 app.UseCors("AllowSpecificOrigin");

@@ -16,11 +16,12 @@ services:
     build: ./AnthraServer
     image: anthra-backend
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - DB_CONNECTION_STRING=Host=db;Port=5432;Database=anthra;Username=anthra_user;Password=jelkokelkojelkomerlin
-      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_ENVIRONMENT=Production
     ports:
-      - "8080:80"  # host port 8080 → container port 80
+      - "443:443" # Expose HTTPS port
+    volumes:
+      - ./AnthraServer/certificate.pem:/certificate.pem
+      - ./AnthraServer/private.key:/private.key
     depends_on:
       - db
     restart: unless-stopped
@@ -28,13 +29,11 @@ services:
   frontend:
     build: ./AnthraClient
     image: anthra-frontend
-    # Changed to avoid conflicting with the proxy on port 80
     ports:
-      - "8081:80" # or comment this out to keep it internal
+      - "80:80" # Expose HTTP port for the frontend
     depends_on:
       - backend
     restart: unless-stopped
-
 
 volumes:
   db_data:

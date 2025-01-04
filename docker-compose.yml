@@ -42,6 +42,7 @@ services:
     ports:
       - "80:80"   # HTTP
       - "443:443" # HTTPS
+      - "81:81"
     # volumes to store NPM config, Let's Encrypt certs, etc.
     volumes:
       - ./data:/data

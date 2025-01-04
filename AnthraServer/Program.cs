@@ -14,20 +14,16 @@ using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var certificate = new X509Certificate2(
-    "/certificate.pem", // Path to your certificate file
-    "/private.key"      // Path to your private key file
-);
-
-// Configure Kestrel for HTTPS
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.Listen(IPAddress.Any, 80); // HTTP
-    options.Listen(IPAddress.Any, 443, listenOptions =>
+    options.ListenAnyIP(5000); // HTTP
+    options.ListenAnyIP(5001, listenOptions =>
     {
-        listenOptions.UseHttps(certificate);
+        listenOptions.UseHttps("/etc/nginx/ssl/certificate.pem", "/etc/nginx/ssl/private.key");
     });
 });
+
+
 // Add services to the container.
 builder.Services.AddControllers();
 
@@ -96,13 +92,14 @@ builder.Services.AddAuthentication(options =>
     options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
 });
 
-// Configure CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000", "http://localhost:80", "http://localhost", "https://countriesnow.space")
+            policy.WithOrigins(
+                    "http://localhost:3000", "https://api.anthra.dk", "http://api.anthra.dk", "http://localhost:80", "http://localhost",
+                    "https://countriesnow.space","http://anthra.dk", "https://anthra.dk")  // Added production origin
                   .AllowAnyHeader()
                   .AllowAnyMethod()
                   .AllowCredentials();
@@ -136,8 +133,6 @@ using (var scope = app.Services.CreateScope())
 // Enforce HTTPS Redirection
 app.UseHttpsRedirection();
 
-// Configure the HTTP request pipeline
-app.UseCors("AllowSpecificOrigin");
 
 app.UseExceptionHandler(a => a.Run(async context =>
 {
@@ -161,9 +156,28 @@ app.Use(async (context, next) =>
 
 app.UseStaticFiles();
 app.UseRouting();
+app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.Use(async (context, next) =>
+{
+    if (context.Request.Method == "OPTIONS")
+    {
+        // Log OPTIONS requests for debugging
+        Console.WriteLine($"OPTIONS request for {context.Request.Path}");
+
+        context.Response.StatusCode = 200;
+        context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+        context.Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+        context.Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        context.Response.Headers.Add("Access-Control-Allow-Credentials", "true");
+        return;
+    }
+    await next();
+});
+
 
 app.MapControllers();
 app.MapHub<ChatHub>("/chatHub");
@@ -433,8 +447,5 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-
-app.Urls.Add("https://anthra.dk:443");
-app.Urls.Add("http://anthra.dk:80");  
 
 app.Run();

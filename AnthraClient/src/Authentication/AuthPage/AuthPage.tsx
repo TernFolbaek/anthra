@@ -136,7 +136,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
             : { username, password };
 
         try {
-            const response = await axios.post(endpoint, payload);
+            const response = await axios.post(endpoint, payload, {withCredentials: true,});
 
             if (isSignUp) {
                 const { userId, Message } = response.data;

@@ -10,30 +10,46 @@ services:
       - "5433:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
+    networks:
+      - anthra-network
     restart: unless-stopped
-
   backend:
     build: ./AnthraServer
     image: anthra-backend
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
-      - "443:443" # Expose HTTPS port
-    volumes:
-      - ./AnthraServer/certificate.pem:/certificate.pem
-      - ./AnthraServer/private.key:/private.key
+      - "5000:5000"
     depends_on:
       - db
+    networks:
+      - anthra-network
     restart: unless-stopped
-
   frontend:
     build: ./AnthraClient
     image: anthra-frontend
     ports:
-      - "80:80" # Expose HTTP port for the frontend
+      - "3000:80"
     depends_on:
       - backend
+    networks:
+      - anthra-network
     restart: unless-stopped
-
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - anthra-network
+    restart: unless-stopped
 volumes:
   db_data:
+networks:
+  anthra-network:

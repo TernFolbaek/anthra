@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import CropModal from './CropModal'; // Import the CropModal component
+import CropModal from './CropModal'; 
 
 interface StepOneProps {
     firstName: string;

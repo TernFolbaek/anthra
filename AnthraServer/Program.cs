@@ -12,6 +12,20 @@ using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var certificate = new X509Certificate2(
+    "/certificate.pem", // Path to your certificate file
+    "/private.key"      // Path to your private key file
+);
+
+// Configure Kestrel for HTTPS
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.Listen(IPAddress.Any, 80); // HTTP
+    options.Listen(IPAddress.Any, 443, listenOptions =>
+    {
+        listenOptions.UseHttps(certificate);
+    });
+});
 // Add services to the container.
 builder.Services.AddControllers();
 
@@ -25,7 +39,7 @@ builder.Services.AddSignalR();
 // Configure Identity with options
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
-    options.User.RequireUniqueEmail = true; 
+    options.User.RequireUniqueEmail = true;
 })
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
@@ -39,10 +53,9 @@ builder.Services.AddAuthentication(options =>
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-// JWT Bearer Authentication
 .AddJwtBearer(options =>
 {
-    options.RequireHttpsMetadata = false; // Set to true in production
+    options.RequireHttpsMetadata = true; // Enforce HTTPS in production
     options.SaveToken = true;
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -117,6 +130,9 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     db.Database.Migrate();
 }
+
+// Enforce HTTPS Redirection
+app.UseHttpsRedirection();
 
 // Configure the HTTP request pipeline
 app.UseCors("AllowSpecificOrigin");
@@ -415,5 +431,11 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+
+
+
+// Configure HTTPS listener
+app.Urls.Add("https://anthra.dk:443"); // Add your domain name and port
+app.Urls.Add("http://anthra.dk:80");  // Add HTTP for local redirection
 
 app.Run();

@@ -128,8 +128,8 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
         }
 
         const endpoint = isSignUp
-            ? 'http://localhost:8080/api/Auth/Register'
-            : 'http://localhost:8080/api/Auth/Login';
+            ? 'https://api.anthra.dk/api/Auth/Register'
+            : 'https://api.anthra.dk/api/Auth/Login';
 
         const payload = isSignUp
             ? { username, email, password }
@@ -150,7 +150,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                 localStorage.setItem('fullName', fullName);
 
                 const profileResponse = await axios.get(
-                    'http://localhost:8080/api/Profile/GetProfile',
+                    'https://api.anthra/api/Profile/GetProfile',
                     {
                         headers: {
                             'Authorization': `Bearer ${token}`,

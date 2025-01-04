@@ -434,10 +434,7 @@ if (app.Environment.IsDevelopment())
 }
 
 
-
-
-// Configure HTTPS listener
-app.Urls.Add("https://anthra.dk:443"); // Add your domain name and port
-app.Urls.Add("http://anthra.dk:80");  // Add HTTP for local redirection
+app.Urls.Add("https://anthra.dk:443");
+app.Urls.Add("http://anthra.dk:80");  
 
 app.Run();

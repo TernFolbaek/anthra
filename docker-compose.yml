@@ -35,21 +35,6 @@ services:
       - backend
     restart: unless-stopped
 
-  proxy:
-    image: jc21/nginx-proxy-manager:latest
-    restart: unless-stopped
-    # The proxy container takes port 80 and 443 on the host
-    ports:
-      - "80:80"   # HTTP
-      - "443:443" # HTTPS
-      - "81:81"
-    # volumes to store NPM config, Let's Encrypt certs, etc.
-    volumes:
-      - ./data:/data
-      - ./letsencrypt:/etc/letsencrypt
-    depends_on:
-      - frontend
-      - backend
 
 volumes:
   db_data:

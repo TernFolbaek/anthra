@@ -97,8 +97,8 @@ builder.Services.AddAuthentication(options =>
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.HttpOnly = true;
-    options.Cookie.SameSite = SameSiteMode.Unspecified; // Allows cross-site cookies over HTTP
-    options.Cookie.SecurePolicy = CookieSecurePolicy.None; // Allow cookies over HTTP
+    options.Cookie.SameSite = SameSiteMode.None; // Allows cross-site cookies over HTTP
+    options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest; // Allow cookies over HTTP
 });
 
 // Configure JSON options

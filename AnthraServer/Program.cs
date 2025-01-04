@@ -92,19 +92,6 @@ builder.Services.AddAuthentication(options =>
     options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
 });
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowSpecificOrigin",
-        policy =>
-        {
-            policy.WithOrigins(
-                    "http://localhost:3000", "https://api.anthra.dk", "http://api.anthra.dk", "http://localhost:80", "http://localhost",
-                    "https://countriesnow.space","http://anthra.dk", "https://anthra.dk")  // Added production origin
-                  .AllowAnyHeader()
-                  .AllowAnyMethod()
-                  .AllowCredentials();
-        });
-});
 
 // Configure Cookie settings
 builder.Services.ConfigureApplicationCookie(options =>
@@ -156,20 +143,32 @@ app.Use(async (context, next) =>
 
 app.UseStaticFiles();
 app.UseRouting();
+
+// Adjust CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        policy =>
+        {
+            policy.WithOrigins(
+                    "https://anthra.dk", "https://api.anthra.dk", "http://localhost:3000", 
+                    "http://localhost:80", "http://localhost")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+        });
+});
+
+
 app.UseCors("AllowSpecificOrigin");
 
-app.UseAuthentication();
-app.UseAuthorization();
 
 app.Use(async (context, next) =>
 {
     if (context.Request.Method == "OPTIONS")
     {
-        // Log OPTIONS requests for debugging
-        Console.WriteLine($"OPTIONS request for {context.Request.Path}");
-
         context.Response.StatusCode = 200;
-        context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+        context.Response.Headers.Add("Access-Control-Allow-Origin", "https://anthra.dk"); 
         context.Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
         context.Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
         context.Response.Headers.Add("Access-Control-Allow-Credentials", "true");
@@ -177,6 +176,11 @@ app.Use(async (context, next) =>
     }
     await next();
 });
+
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 
 
 app.MapControllers();

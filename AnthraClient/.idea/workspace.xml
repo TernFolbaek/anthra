@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Remove propagation when closing user profile from group profile">
+    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="docker setup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -34,6 +34,9 @@
     &quot;accountId&quot;: &quot;e943ea23-8f28-436d-91a4-2bb6444702ef&quot;
   }
 }</component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -224,14 +227,9 @@
       <workItem from="1735821704041" duration="10367000" />
       <workItem from="1735895754189" duration="8070000" />
       <workItem from="1735911929287" duration="599000" />
-    </task>
-    <task id="LOCAL-00694" summary="Add onSettings click functionality">
-      <option name="closed" value="true" />
-      <created>1734887887253</created>
-      <option name="number" value="00694" />
-      <option name="presentableId" value="LOCAL-00694" />
-      <option name="project" value="LOCAL" />
-      <updated>1734887887253</updated>
+      <workItem from="1735980327985" duration="1547000" />
+      <workItem from="1735986236917" duration="832000" />
+      <workItem from="1735993340288" duration="8904000" />
     </task>
     <task id="LOCAL-00695" summary="Background color without opacity to snackbar">
       <option name="closed" value="true" />
@@ -617,7 +615,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735828524627</updated>
     </task>
-    <option name="localTasksCounter" value="743" />
+    <task id="LOCAL-00743" summary="docker setup">
+      <option name="closed" value="true" />
+      <created>1735981310650</created>
+      <option name="number" value="00743" />
+      <option name="presentableId" value="LOCAL-00743" />
+      <option name="project" value="LOCAL" />
+      <updated>1735981310651</updated>
+    </task>
+    <option name="localTasksCounter" value="744" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -635,7 +641,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Make menu slider dark mode friendly" />
     <MESSAGE value="Add media section in connection profile" />
     <MESSAGE value="support more files and render the images through its file url which is via azure container" />
     <MESSAGE value="Add styling for add memberes icon" />
@@ -660,6 +665,7 @@
     <MESSAGE value="Add dropdowns to settings" />
     <MESSAGE value="Make the cards translate on the x axis" />
     <MESSAGE value="Remove propagation when closing user profile from group profile" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove propagation when closing user profile from group profile" />
+    <MESSAGE value="docker setup" />
+    <option name="LAST_COMMIT_MESSAGE" value="docker setup" />
   </component>
 </project>

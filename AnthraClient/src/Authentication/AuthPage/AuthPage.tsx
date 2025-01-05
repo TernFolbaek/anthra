@@ -93,7 +93,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
         if (!isMobile) {
             onBackClick();
         } else {
-            window.history.back(); // Let the browser handle back navigation
+            window.history.back();
         }
     };
 

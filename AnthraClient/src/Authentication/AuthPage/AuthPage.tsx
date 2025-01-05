@@ -90,11 +90,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
     };
 
     const goBack = () => {
-        if (!isMobile) {
             onBackClick();
-        } else {
-            window.history.back();
-        }
     };
 
     const handleResetPasswordSuccess = () => {
@@ -285,11 +281,9 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
 
     return (
         <div className="auth-page">
-            {!isMobile && (
-                <button className="back-button" onClick={goBack}>
-                    Back
-                </button>
-            )}
+            <button className="back-button" onClick={goBack}>
+                Back
+            </button>
             <div className="auth-content">
                 <div className="auth-container">
                     <h2 className="auth-container-h2">{isSignUp ? 'Sign Up' : 'Log In'}</h2>

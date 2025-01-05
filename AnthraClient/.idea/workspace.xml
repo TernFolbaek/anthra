@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Update to make use of privacy policy">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Authentication/AuthPage/AuthPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Authentication/AuthPage/AuthPage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -231,7 +233,7 @@
       <workItem from="1735980327985" duration="1547000" />
       <workItem from="1735986236917" duration="832000" />
       <workItem from="1735993340288" duration="8904000" />
-      <workItem from="1736074838242" duration="8588000" />
+      <workItem from="1736074838242" duration="9220000" />
     </task>
     <task id="LOCAL-00698" summary="Remove alerts">
       <option name="closed" value="true" />

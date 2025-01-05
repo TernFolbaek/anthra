@@ -73,20 +73,6 @@ const App = () => {
         setShowAuthPage(false);
     };
 
-    // Listen to history changes and navigate back to home page if needed
-    useEffect(() => {
-        const handlePopState = () => {
-            if (!isAuthenticated) {
-                navigate('/');  // Redirect to the home page on back button click
-            }
-        };
-
-        window.addEventListener('popstate', handlePopState);
-
-        return () => {
-            window.removeEventListener('popstate', handlePopState);
-        };
-    }, [isAuthenticated, navigate]);
 
     return (
         <LanguageProvider>

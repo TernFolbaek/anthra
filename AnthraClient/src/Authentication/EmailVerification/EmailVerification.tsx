@@ -57,7 +57,7 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({ userId, onVerifie
     const handleVerifyEmail = async () => {
         const code = verificationCode.join('');
         try {
-            const response = await axios.post('http://localhost:8080/api/Auth/VerifyEmail', {
+            const response = await axios.post('https://api.anthra.dk/api/Auth/VerifyEmail', {
                 userId,
                 code
             });
@@ -69,7 +69,7 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({ userId, onVerifie
             localStorage.setItem('fullName', fullName);
 
             const profileResponse = await axios.get(
-                'http://localhost:8080/api/Profile/GetProfile',
+                'https://api.anthra.dk/api/Profile/GetProfile',
                 {
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -86,7 +86,7 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({ userId, onVerifie
 
     const handleResendVerificationCode = async () => {
         try {
-            await axios.post('http://localhost:8080/api/Auth/ResendVerificationCode', {
+            await axios.post('https://api.anthra.dk/api/Auth/ResendVerificationCode', {
                 userId
             });
             setMessage('Verification code resent.');

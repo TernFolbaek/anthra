@@ -53,7 +53,7 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
 
         try {
             const response = await axios.post(
-                'http://localhost:8080/api/Messages/SendMessage',
+                'https://api.anthra.dk/api/Messages/SendMessage',
                 formData,
                 {
                     headers: {

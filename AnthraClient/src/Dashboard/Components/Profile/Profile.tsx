@@ -57,7 +57,7 @@ const Profile: React.FC = () => {
 
     const fetchProfile = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/Profile/GetProfile', {
+            const response = await axios.get('https://api.anthra.dk/api/Profile/GetProfile', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -194,7 +194,7 @@ const Profile: React.FC = () => {
 
         try {
             await axios.post(
-                'http://localhost:8080/api/Profile/UpdateProfile',
+                'https://api.anthra.dk/api/Profile/UpdateProfile',
                 formData,
                 {
                     headers: {

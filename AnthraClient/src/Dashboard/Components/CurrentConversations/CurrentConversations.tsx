@@ -34,7 +34,7 @@ const CurrentConversations: React.FC = React.memo(() => {
             return;
         }
 
-        fetch(`http://localhost:8080/api/Messages/GetConversations?userId=${currentUserId}`)
+        fetch(`https://api.anthra.dk/api/Messages/GetConversations?userId=${currentUserId}`)
             .then((response) => {
                 if (!response.ok) {
                     return response.text().then((text) => {

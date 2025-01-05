@@ -111,7 +111,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
     // SignalR Connection Setup
     useEffect(() => {
         const connection = new signalR.HubConnectionBuilder()
-            .withUrl("http://localhost:8080/chatHub", {
+            .withUrl("https://api.anthra.dk/chatHub", {
                 accessTokenFactory: () => token || "",
             })
             .withAutomaticReconnect()
@@ -193,7 +193,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
 
     const fetchGroupDetails = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/Groups/${groupId}`, {
+            const response = await axios.get(`https://api.anthra.dk/api/Groups/${groupId}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setGroupInfo(response.data);
@@ -205,7 +205,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
     const fetchMessages = async () => {
         try {
             const response = await axios.get(
-                "http://localhost:8080/api/GroupMessages/GetGroupChatHistory",
+                "https://api.anthra.dk/api/GroupMessages/GetGroupChatHistory",
                 {
                     params: { groupId },
                     headers: { Authorization: `Bearer ${token}` },
@@ -253,7 +253,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
     const handleLeaveGroup = async (groupId: number) => {
         try {
             await axios.post(
-                "http://localhost:8080/api/Groups/LeaveGroup",
+                "https://api.anthra.dk/api/Groups/LeaveGroup",
                 { groupId },
                 {
                     headers: {

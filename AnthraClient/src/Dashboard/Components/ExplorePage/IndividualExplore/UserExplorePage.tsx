@@ -55,7 +55,7 @@ const UserExplorePage: React.FC = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/Explore/GetUsers', {
+                const response = await axios.get('https://api.anthra.dk/api/Explore/GetUsers', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -94,7 +94,7 @@ const UserExplorePage: React.FC = () => {
         if (currentUser) {
             try {
                 await axios.post(
-                    'http://localhost:8080/api/Connections/SendRequest',
+                    'https://api.anthra.dk/api/Connections/SendRequest',
                     { targetUserId: currentUser.id },
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
@@ -116,7 +116,7 @@ const UserExplorePage: React.FC = () => {
         if (currentUser) {
             try {
                 await axios.post(
-                    'http://localhost:8080/api/Explore/SkipUser',
+                    'https://api.anthra.dk/api/Explore/SkipUser',
                     { UserIdToSkip: currentUser.id },
                     { headers: { Authorization: `Bearer ${token}` } }
                 );

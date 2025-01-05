@@ -35,7 +35,7 @@ const App = () => {
         if (token && userId) {
             // Optionally, verify token expiration here
             // Fetch the user's profile
-            axios.get('http://localhost:8080/api/Profile/GetProfile', {
+            axios.get('https://api.anthra.dk/api/Profile/GetProfile', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

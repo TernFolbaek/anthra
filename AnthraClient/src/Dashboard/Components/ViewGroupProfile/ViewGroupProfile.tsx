@@ -50,7 +50,7 @@ const ViewGroupProfile: React.FC<ViewGroupProfileProps> = ({ groupId, onClose })
         const fetchGroupProfile = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:8080/api/Groups/GetGroupInfo`,
+                    `https://api.anthra.dk/api/Groups/GetGroupInfo`,
                     {
                         params: { groupId: groupId },
                         headers: { Authorization: `Bearer ${token}` },

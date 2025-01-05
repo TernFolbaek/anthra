@@ -91,7 +91,7 @@ const GroupMessageInput: React.FC<GroupMessageProps> = ({ groupId, showModal }) 
         }
 
         try {
-            await axios.post("http://localhost:8080/api/GroupMessages/SendGroupMessage", formData, {
+            await axios.post("https://api.anthra.dk/api/GroupMessages/SendGroupMessage", formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "multipart/form-data",

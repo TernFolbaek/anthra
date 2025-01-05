@@ -54,7 +54,7 @@ const Groups: React.FC = () => {
 
     const fetchGroups = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/Groups/GetUserGroups', {
+            const response = await axios.get('https://api.anthra.dk/api/Groups/GetUserGroups', {
                 headers: { Authorization: `Bearer ${token}` },
             });
             const groupsWithMembers = response.data.map((group: Group) => ({
@@ -75,7 +75,7 @@ const Groups: React.FC = () => {
 
     const fetchConnections = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/Connections/List', {
+            const response = await axios.get('https://api.anthra.dk/api/Connections/List', {
                 params: { userId },
                 withCredentials: true,
             });

@@ -55,7 +55,7 @@ const HelpSettings: React.FC = () => {
         try {
             const token = localStorage.getItem('token');
             await axios.post(
-                'http://localhost:8080/api/Support/SendSupportEmail',
+                'https://api.anthra.dk/api/Support/SendSupportEmail',
                 { message: supportMessage },
                 {
                     headers: {
@@ -76,7 +76,7 @@ const HelpSettings: React.FC = () => {
         }
         try {
             const token = localStorage.getItem('token');
-            await axios.delete('http://localhost:8080/api/Account/DeleteAccount', {
+            await axios.delete('https://api.anthra.dk/api/Account/DeleteAccount', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

@@ -91,7 +91,7 @@ const Messages: React.FC = () => {
     useEffect(() => {
         if (!userId) {
             // If no userId in route, fetch conversations
-            fetch(`http://localhost:8080/api/Messages/GetConversations?userId=${currentUserId}`)
+            fetch(`https://api.anthra.dk/api/Messages/GetConversations?userId=${currentUserId}`)
                 .then((response) => {
                     if (!response.ok) {
                         return response.text().then((text) => {
@@ -117,7 +117,7 @@ const Messages: React.FC = () => {
             if (!currentUserId || !userId) return;
             try {
                 const response = await fetch(
-                    `http://localhost:8080/api/Messages/GetChatHistory?userId=${currentUserId}&contactId=${userId}&pageSize=30`,
+                    `https://api.anthra.dk/api/Messages/GetChatHistory?userId=${currentUserId}&contactId=${userId}&pageSize=30`,
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
 
@@ -145,7 +145,7 @@ const Messages: React.FC = () => {
         const fetchContactProfile = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:8080/api/Profile/GetProfileById?userId=${userId}`,
+                    `https://api.anthra.dk/api/Profile/GetProfileById?userId=${userId}`,
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
                 setContactProfile(response.data);
@@ -168,7 +168,7 @@ const Messages: React.FC = () => {
             }
 
             const newConnection = new signalR.HubConnectionBuilder()
-                .withUrl('http://localhost:8080/chatHub', {
+                .withUrl('https://api.anthra.dk/chatHub', {
                     accessTokenFactory: () => token || '',
                 })
                 .withAutomaticReconnect()
@@ -268,7 +268,7 @@ const Messages: React.FC = () => {
         const scrollHeightBefore = container?.scrollHeight || 0;
 
         try {
-            const url = new URL('http://localhost:8080/api/Messages/GetChatHistory');
+            const url = new URL('https://api.anthra.dk/api/Messages/GetChatHistory');
             url.searchParams.append('userId', currentUserId);
             url.searchParams.append('contactId', userId);
             url.searchParams.append('pageSize', '20');
@@ -357,7 +357,7 @@ const Messages: React.FC = () => {
     const handleAcceptInvitation = async (groupId: number, messageId: number) => {
         try {
             const response = await axios.post(
-                'http://localhost:8080/api/Groups/RespondToInvitation',
+                'https://api.anthra.dk/api/Groups/RespondToInvitation',
                 { groupId, Accept: true },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -377,7 +377,7 @@ const Messages: React.FC = () => {
     const handleDeclineInvitation = async (groupId: number, messageId: number) => {
         try {
             const response = await axios.post(
-                'http://localhost:8080/api/Groups/RespondToInvitation',
+                'https://api.anthra.dk/api/Groups/RespondToInvitation',
                 { groupId, Accept: false },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -437,7 +437,7 @@ const Messages: React.FC = () => {
     const handleRemoveConnection = async () => {
         try {
             await axios.post(
-                'http://localhost:8080/api/Connections/RemoveConnection',
+                'https://api.anthra.dk/api/Connections/RemoveConnection',
                 { userId: currentUserId, connectionId: userId },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -464,7 +464,7 @@ const Messages: React.FC = () => {
     const handleReferralConnect = async (referredUserId: string) => {
         try {
             await axios.post(
-                'http://localhost:8080/api/Connections/SendRequest',
+                'https://api.anthra.dk/api/Connections/SendRequest',
                 { targetUserId: referredUserId },
                 { headers: { Authorization: `Bearer ${token}` } }
             );

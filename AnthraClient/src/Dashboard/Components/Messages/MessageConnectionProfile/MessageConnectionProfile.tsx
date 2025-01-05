@@ -82,7 +82,7 @@ const MessageConnectionProfile: React.FC<Props> = ({ userId }) => {
     const fetchProfile = async () => {
         try {
             const response = await axios.get(
-                `http://localhost:8080/api/Profile/GetProfileById?userId=${userId}`,
+                `https://api.anthra.dk/api/Profile/GetProfileById?userId=${userId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -100,7 +100,7 @@ const MessageConnectionProfile: React.FC<Props> = ({ userId }) => {
         try {
             // Example endpoint: adjust to match your backend
             const response = await axios.get(
-                `http://localhost:8080/api/Messages/GetAttachmentsForUsers?userA=${currentUserId}&userB=${userId}`,
+                `https://api.anthra.dk/api/Messages/GetAttachmentsForUsers?userA=${currentUserId}&userB=${userId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

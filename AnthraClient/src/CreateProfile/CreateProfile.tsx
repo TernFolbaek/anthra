@@ -1,9 +1,9 @@
 // CreateProfile.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './CreateProfile.css';
 import StepOne from './StepOne';
 import StepTwo from './StepTwo';
-
+import useWindowWidth from "../Dashboard/hooks/useWindowWidth";
 interface CreateProfileProps {
     onProfileCreated: () => void;
     onBackClick: () => void;
@@ -23,6 +23,35 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
     const [error, setError] = useState<string | null>(null);
 
     const token = localStorage.getItem('token');
+    const windowWidth = useWindowWidth();
+    let isMobile = false;
+    useEffect(() => {
+        if(windowWidth > 480){
+            isMobile = true
+        }
+        if (isMobile) {
+            window.history.pushState(null, '', window.location.href);
+        }
+    }, [windowWidth]);
+
+    useEffect(() => {
+        const handlePopState = () => {
+            if (isMobile) {
+                // Refresh the page when the back button is pressed on mobile
+                window.location.reload();
+            }
+        };
+
+        if (isMobile) {
+            window.addEventListener('popstate', handlePopState);
+        }
+
+        return () => {
+            if (isMobile) {
+                window.removeEventListener('popstate', handlePopState);
+            }
+        };
+    }, [isMobile]);
 
     const handleNext = () => {
         if (step === 1) {
@@ -46,9 +75,12 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
 
     return (
         <div className="create-profile-page">
-            <button className="back-button" onClick={onBackClick}>
-                Back
-            </button>
+            {/* Conditionally render the back button only if not on mobile */}
+            {!isMobile && (
+                <button className="back-button" onClick={onBackClick}>
+                    Back
+                </button>
+            )}
             <div className="progress-bar">
                 <div
                     className="progress-bar-fill"
@@ -56,7 +88,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                 ></div>
             </div>
             <div className="create-profile-container">
-                <p className="text-base font-semibold">Create your profile</p>
+                <h2>Create Your Profile</h2>
                 {message && <p className="success-message">{message}</p>}
                 {error && <p className="error-message">{error}</p>}
 

@@ -44,8 +44,8 @@ const HowItWorks: React.FC = () => {
 
     return (
         <div className="how-it-works-container">
-            <video autoPlay loop muted className="background-video">
-                <source src={howItWorksVideo} type="video/mp4" />
+            <video autoPlay loop muted className="background-video" controls={false}>
+                <source src={howItWorksVideo} type="video/mp4"/>
                 Your browser does not support the video tag.
             </video>
 
@@ -56,7 +56,7 @@ const HowItWorks: React.FC = () => {
                         <p className="step-content-title">{t.steps[0].heading}</p> {/* Use translated step 1 heading */}
                         <p className="step-description">{t.steps[0].description}</p> {/* Use translated step 1 description */}
                     </div>
-                    <img src={stepOneImage} className="step-image" alt="profile on explore page" />
+                    <img src={stepOneImage} className="step-image" alt="profile on explore page"/>
                 </div>
 
                 <div ref={step2Ref} className="step step-2">
@@ -64,7 +64,7 @@ const HowItWorks: React.FC = () => {
                         <p className="step-content-title">{t.steps[1].heading}</p> {/* Use translated step 2 heading */}
                         <p className="step-description">{t.steps[1].description}</p> {/* Use translated step 2 description */}
                     </div>
-                    <img src={stepTwoImage} className="step-image" alt="connection requests" />
+                    <img src={stepTwoImage} className="step-image" alt="connection requests"/>
                 </div>
 
                 <div ref={step3Ref} className="step step-3">
@@ -72,7 +72,7 @@ const HowItWorks: React.FC = () => {
                         <p className="step-content-title">{t.steps[2].heading}</p> {/* Use translated step 3 heading */}
                         <p className="step-description">{t.steps[2].description}</p> {/* Use translated step 3 description */}
                     </div>
-                    <img src={stepThreeImage} className="step-image" alt="group chat" />
+                    <img src={stepThreeImage} className="step-image" alt="group chat"/>
                 </div>
             </div>
         </div>

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Navbar.css';
 import './Logo.css';
 import { useLanguage } from '../../../LanguageContext';
 import navbarTranslations from '../../../languages/navbarTranslations.json';
-import Danish from '../../assets/danish.jpg'
-import English from '../../assets/english.jpg'
+import Danish from '../../assets/danish.jpg';
+import English from '../../assets/english.jpg';
 
 interface NavbarProps {
     onGetStartedClick: () => void;
@@ -17,9 +17,14 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
     const { language, switchLanguage } = useLanguage();
     const t = navbarTranslations[language as keyof typeof navbarTranslations];
 
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
     useEffect(() => {
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 1024);
+            if (window.innerWidth > 1024) {
+                setIsMenuOpen(false);
+            }
         };
 
         window.addEventListener('resize', handleResize);
@@ -27,6 +32,27 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
 
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target as Node)
+            ) {
+                setIsDropdownOpen(false);
+            }
+        };
+
+        if (isDropdownOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isDropdownOpen]);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -49,139 +75,93 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
     const handleLanguageChange = (lang: string) => {
         switchLanguage(lang);
         setIsDropdownOpen(false);
+        if (isMenuOpen) {
+            setIsMenuOpen(false);
+        }
     };
 
     return (
-        <nav className="home-navbar flex">
-            <div className="logo flex" onClick={() => scrollToSection('home')}>
-                <h1 id="logo-title" className="animate e">Anthra</h1>
-            </div>
+        <nav className="home-navbar flex items-center">
+            <h1 id="logo-title" className="animate">Anthra</h1>
 
-
-            {isMobile ? (
-                <>
-                    <div className="burger-menu" onClick={toggleMenu}>
-                        <div className={`burger-bar ${isMenuOpen ? 'open' : ''}`}></div>
-                        <div className={`burger-bar ${isMenuOpen ? 'open' : ''}`}></div>
-                        <div className={`burger-bar ${isMenuOpen ? 'open' : ''}`}></div>
-                    </div>
-                    <div className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}>
-                        <div className="language-dropdown  animate " onClick={toggleDropdown}>
-                            <div className="dropdown-header-home-navbar">
-                                {language === 'da' ? (
-                                    <>
-                                        <img src={Danish} alt="Danish" className="flag-icon"/> Dansk
-                                    </>
-                                ) : (
-                                    <>
-                                        <img src={English} alt="English" className="flag-icon"/> English
-                                    </>
-                                )}
-                            </div>
-
-                            {isDropdownOpen && (
-                                <div className="dropdown-menu animate">
-                                    <div className="dropdown-item" onClick={() => handleLanguageChange('da')}>
-                                        <img src={Danish} alt="Danish" className="flag-icon"/> Dansk
-                                    </div>
-                                    <div className="dropdown-item" onClick={() => handleLanguageChange('en')}>
-                                        <img src={English} alt="English" className="flag-icon"/> English
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                        <button
-                            className="nav-button animate"
-                            onClick={() => scrollToSection('how-it-works')}
-                        >
-                            {t.howItWorks}
-                        </button>
-                        <button
-                            className="nav-button animate"
-                            onClick={() => scrollToSection('features')}
-                        >
-                            {t.features}
-                        </button>
-                        <button
-                            className="nav-button animate"
-                            onClick={() => scrollToSection('faq')}
-                        >
-                            {t.faq}
-                        </button>
-                        <button
-                            className="nav-button animate"
-                            onClick={() => scrollToSection('contact')}
-                        >
-                            {t.contact}
-                        </button>
-                        <button
-                            className="nav-button animate"
-                            onClick={onGetStartedClick}
-                        >
-                            {t.getStarted}
-                        </button>
-                    </div>
-                </>
-            ) : (
-                <div className="nav-buttons flex animate-nav-buttons">
-                    <div className="language-dropdown  animate" onClick={toggleDropdown}>
-                        <div className="dropdown-header-home-navbar">
-                            {language === 'da' ? (
-                                <>
-                                    <img src={Danish} alt="Danish" className="flag-icon"/> Dansk
-                                </>
-                            ) : (
-                                <>
-                                    <img src={English} alt="English" className="flag-icon"/> English
-                                </>
-                            )}
-                        </div>
-
-                        {isDropdownOpen && (
-                            <div className="dropdown-menu animate">
-                                <div className="dropdown-item" onClick={() => handleLanguageChange('da')}>
-                                    <img src={Danish} alt="Danish" className="flag-icon"/> Dansk
-                                </div>
-                                <div className="dropdown-item" onClick={() => handleLanguageChange('en')}>
-                                    <img src={English} alt="English" className="flag-icon"/> English
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                    <button
-                        className="nav-button animate"
-                        onClick={() => scrollToSection('features')}
-                    >
-                        {t.features}
-                    </button>
-                    <button
-                        className="nav-button animate"
-                        onClick={() => scrollToSection('how-it-works')}
-                    >
-                        {t.howItWorks}
-                    </button>
-                    <button
-                        className="nav-button animate"
-                        onClick={() => scrollToSection('faq')}
-                    >
-                        {t.faq}
-                    </button>
-                    <button
-                        className="nav-button animate"
-                        onClick={() => scrollToSection('contact')}
-                    >
-                        {t.contact}
-                    </button>
-                    <button
-                        className="nav-button animate"
-                        onClick={onGetStartedClick}
-                    >
-                        {t.getStarted}
-                    </button>
+            {/* Burger Menu Icon */}
+            {isMobile && (
+                <div className={`burger-menu ${isMenuOpen ? 'open' : ''}`} onClick={toggleMenu}>
+                    <div className="burger-bar"></div>
+                    <div className="burger-bar"></div>
+                    <div className="burger-bar"></div>
                 </div>
             )}
+
+            {/* Navigation Buttons */}
+            <div className={`nav-buttons flex animate-nav-buttons ${isMobile ? (isMenuOpen ? 'mobile-open' : 'mobile-closed') : ''}`}>
+                <div
+                    className={`language-dropdown animate ${isDropdownOpen ? 'open' : ''}`}
+                    onClick={toggleDropdown}
+                    ref={dropdownRef} // Assign the ref here
+                    role="button"
+                    aria-haspopup="true"
+                    aria-expanded={isDropdownOpen}
+                >
+                    <div className="dropdown-header-home-navbar">
+                        {language === 'da' ? (
+                            <>
+                                <img src={Danish} alt="Danish" className="flag-icon" /> Dansk
+                            </>
+                        ) : (
+                            <>
+                                <img src={English} alt="English" className="flag-icon" /> English
+                            </>
+                        )}
+                        {/* Arrow Element */}
+                        <span className={`arrow ${isDropdownOpen ? 'open' : ''}`}></span>
+                    </div>
+
+                    {isDropdownOpen && (
+                        <div className="dropdown-menu animate">
+                            <div className="language-dropdown-item" onClick={() => handleLanguageChange('da')}>
+                                <img src={Danish} alt="Danish" className="flag-icon" /> Dansk
+                            </div>
+                            <div className="language-dropdown-item" onClick={() => handleLanguageChange('en')}>
+                                <img src={English} alt="English" className="flag-icon" /> English
+                            </div>
+                        </div>
+                    )}
+                </div>
+                <button
+                    className="nav-button animate"
+                    onClick={() => scrollToSection('features')}
+                >
+                    {t.features}
+                </button>
+                <button
+                    className="nav-button animate"
+                    onClick={() => scrollToSection('how-it-works')}
+                >
+                    {t.howItWorks}
+                </button>
+                <button
+                    className="nav-button animate"
+                    onClick={() => scrollToSection('faq')}
+                >
+                    {t.faq}
+                </button>
+                <button
+                    className="nav-button animate"
+                    onClick={() => scrollToSection('contact')}
+                >
+                    {t.contact}
+                </button>
+                <button
+                    className="nav-button animate"
+                    onClick={onGetStartedClick}
+                >
+                    {t.getStarted}
+                </button>
+            </div>
         </nav>
     );
+
 };
 
 export default Navbar;

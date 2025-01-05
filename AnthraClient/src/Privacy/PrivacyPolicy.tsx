@@ -11,7 +11,7 @@ const PrivacyPolicy = () => {
 
     return (
         <div className="privacy-policy">
-            <button className="back-button" onClick={handleBackClick}>Back</button>
+            <button className="privacy-back-button" onClick={handleBackClick}>Back</button>
             <h1>Privacy Policy</h1>
             <section>
                 <h2>Introduction</h2>
@@ -30,7 +30,7 @@ const PrivacyPolicy = () => {
                     <li><strong>Login Information:</strong> Your password and the token generated for user authentication.</li>
                     <li><strong>Profile Information:</strong> Courses, subjects, and statuses that you provide as part of your profile.</li>
                     <li><strong>Email Verification:</strong> We collect an email verification code and its expiration time.</li>
-                    <li><strong>Profile Picture:</strong> If provided, we store your profile picture URL for display purposes.</li>
+                    <li><strong>Profile Picture:</strong> We store your profile picture URL for display purposes.</li>
                 </ul>
             </section>
             <section>
@@ -81,7 +81,7 @@ const PrivacyPolicy = () => {
             <section>
                 <h2>Contact Us</h2>
                 <p>
-                    If you have any questions or concerns about your privacy or this Privacy Policy, please contact us at support@anthra.dk.
+                    If you have any questions or concerns about your privacy or this Privacy Policy, please contact us at admin@anthra.dk.
                 </p>
             </section>
         </div>

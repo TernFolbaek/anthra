@@ -54,11 +54,6 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
     return (
         <nav className="home-navbar flex">
             <div className="logo flex" onClick={() => scrollToSection('home')}>
-                <ul className="mr-5">
-                    <li className="animate h-1"></li>
-                    <li className="animate h-1"></li>
-                    <li className="animate h-1"></li>
-                </ul>
                 <h1 id="logo-title" className="animate e">Anthra</h1>
             </div>
 

@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="docker setup">
-      <change afterPath="$PROJECT_DIR$/src/Privacy/PrivacyPolicy.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Privacy/PrivacyPolicy.tsx" afterDir="false" />
+    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Update to make use of privacy policy">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LandingPage/components/Contact/Contact.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/LandingPage/components/Contact/Contact.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LandingPage/components/Home/Home.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/LandingPage/components/Home/Home.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/languages/landingPageTranslations.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/languages/landingPageTranslations.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Privacy/PrivacyPolicy.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Privacy/PrivacyPolicy.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -236,23 +231,7 @@
       <workItem from="1735980327985" duration="1547000" />
       <workItem from="1735986236917" duration="832000" />
       <workItem from="1735993340288" duration="8904000" />
-      <workItem from="1736074838242" duration="3170000" />
-    </task>
-    <task id="LOCAL-00696" summary="Add applicationuser to shared types">
-      <option name="closed" value="true" />
-      <created>1734887905417</created>
-      <option name="number" value="00696" />
-      <option name="presentableId" value="LOCAL-00696" />
-      <option name="project" value="LOCAL" />
-      <updated>1734887905417</updated>
-    </task>
-    <task id="LOCAL-00697" summary="Remove comma between full name and age">
-      <option name="closed" value="true" />
-      <created>1734887923799</created>
-      <option name="number" value="00697" />
-      <option name="presentableId" value="LOCAL-00697" />
-      <option name="project" value="LOCAL" />
-      <updated>1734887923799</updated>
+      <workItem from="1736074838242" duration="4721000" />
     </task>
     <task id="LOCAL-00698" summary="Remove alerts">
       <option name="closed" value="true" />
@@ -630,7 +609,23 @@
       <option name="project" value="LOCAL" />
       <updated>1736075444222</updated>
     </task>
-    <option name="localTasksCounter" value="745" />
+    <task id="LOCAL-00745" summary="Create Privacy Policy">
+      <option name="closed" value="true" />
+      <created>1736078088784</created>
+      <option name="number" value="00745" />
+      <option name="presentableId" value="LOCAL-00745" />
+      <option name="project" value="LOCAL" />
+      <updated>1736078088784</updated>
+    </task>
+    <task id="LOCAL-00746" summary="Update to make use of privacy policy">
+      <option name="closed" value="true" />
+      <created>1736078099668</created>
+      <option name="number" value="00746" />
+      <option name="presentableId" value="LOCAL-00746" />
+      <option name="project" value="LOCAL" />
+      <updated>1736078099668</updated>
+    </task>
+    <option name="localTasksCounter" value="747" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -648,8 +643,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add media section in connection profile" />
-    <MESSAGE value="support more files and render the images through its file url which is via azure container" />
     <MESSAGE value="Add styling for add memberes icon" />
     <MESSAGE value="Support more file types, functional send of attachment without message content" />
     <MESSAGE value="Remove rive animation as it became too much" />
@@ -673,6 +666,8 @@
     <MESSAGE value="Make the cards translate on the x axis" />
     <MESSAGE value="Remove propagation when closing user profile from group profile" />
     <MESSAGE value="docker setup" />
-    <option name="LAST_COMMIT_MESSAGE" value="docker setup" />
+    <MESSAGE value="Create Privacy Policy" />
+    <MESSAGE value="Update to make use of privacy policy" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update to make use of privacy policy" />
   </component>
 </project>

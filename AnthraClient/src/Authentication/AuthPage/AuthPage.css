@@ -178,6 +178,45 @@
     }
 }
 
+.mobile-validation {
+    margin-bottom: 4px;
+    padding: 4px 0;
+}
+
+.mobile-validation .validation-item {
+    margin: 2px 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.mobile-validation .valid-icon,
+.mobile-validation .invalid-icon {
+    font-size: 12px;
+}
+
+/* Adjust existing validation styles for desktop */
+.validation-container {
+    margin-top: 16px;
+}
+
+.validation-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 4px 0;
+}
+
+.valid-icon,
+.invalid-icon {
+    margin-right: 4px;
+}
+
+/* Ensure proper spacing for inputs */
+.auth-input {
+    margin: 8px 0;
+}
+
 @media (max-width: 900px) {
     .auth-image {
         display: none;

@@ -8,7 +8,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: center; /* This will be overridden in mobile view */
+    overflow: hidden; /* Prevent entire page from scrolling */
 }
 
 .progress-bar {
@@ -35,6 +36,8 @@
     max-width: 600px;
     text-align: center;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Enable vertical scrolling within the container */
+    max-height: 90vh; /* Set maximum height to prevent overflow */
 }
 
 .create-profile-container h2 {
@@ -168,6 +171,7 @@
     transform: rotate(180deg); /* Rotate arrow when dropdown is open */
 }
 
+/* Dropdown Menu */
 .uni-dropdown-menu {
     position: absolute;
     background-color: white;
@@ -411,7 +415,63 @@
 }
 
 @media (max-width: 480px) {
-    .create-profile-container{
-        width: 97%;
+    /* Adjust container alignment */
+    .create-profile-page {
+        justify-content: flex-start; /* Align content to the top */
     }
+
+    .create-profile-container {
+        width: 95%;
+        padding: 1rem;
+        max-height: 90vh; /* Adjust if necessary */
+        overflow-y: auto; /* Enable internal scrolling */
+    }
+
+    /* Reduce font sizes */
+    .create-profile-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .form-step label {
+        font-size: 0.8rem;
+    }
+
+    .form-step input,
+    .form-step textarea {
+        font-size: 0.75rem;
+        padding: 0.5rem;
+    }
+
+    .create-profile-button-container {
+        flex-direction: column;
+    }
+
+    .create-profile-back-button,
+    .create-profile-next-button {
+        width: 100%;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Adjust dropdown widths and alignment */
+    .custom-dropdown {
+        width: 100%;
+    }
+
+    .dropdown-header-home-navbar {
+        width: 100%;
+    }
+
+    /* Adjust profile picture picker */
+    .profile-picture-picker {
+        width: 120px;
+        height: 120px;
+    }
+
+    /* Adjust buttons and inputs within modals if any */
+}
+
+/* Optional: Smooth scrolling within the container */
+.create-profile-container {
+    scroll-behavior: smooth;
 }

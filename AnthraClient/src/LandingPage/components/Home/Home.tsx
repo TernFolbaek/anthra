@@ -7,7 +7,6 @@ import './Home.css';
 import cbsBanner from '../../assets/cbs-banner.png';
 import dtuBanner from '../../assets/dtu-banner.png';
 import kuBanner from '../../assets/ku-banner.png';
-import homeBackground from '../../assets/home-background.jpg';
 
 interface NavbarProps {
     onGetStartedClick: () => void;
@@ -50,16 +49,13 @@ const Home: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
 
     return (
         <div className="home-container">
-            <div
-                className="home-background"
-                style={{backgroundImage: `url(${homeBackground})`}}
-            />
+            <div className="home-background" />
 
             <div className="home-content items-center flex flex-col gap-5">
                 <div className="mission">
                     <h2>{t.mission}</h2>
                 </div>
-                <div className="home-content-text text-center text-black justify-center">
+                <div className="home-content-text text-center text-white justify-center">
                     <div>
                         {t.description}
                         <span className="dynamic-text">{displayedText}</span>?
@@ -91,8 +87,6 @@ const Home: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                     ))}
                 </div>
             </div>
-
-
         </div>
     );
 };

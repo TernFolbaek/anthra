@@ -184,6 +184,23 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
             setMessage(null);
         }
     };
+    useEffect(() => {
+        const handlePopState = (event: PopStateEvent) => {
+            event.preventDefault();
+            onBackClick();
+        };
+
+        // Only add the event listener on mobile
+        if (isMobile) {
+            window.addEventListener('popstate', handlePopState);
+        }
+
+        return () => {
+            if (isMobile) {
+                window.removeEventListener('popstate', handlePopState);
+            }
+        };
+    }, [isMobile, onBackClick]);
 
     const handleForgotPasswordSuccess = () => {
         setShowForgotPassword(false);

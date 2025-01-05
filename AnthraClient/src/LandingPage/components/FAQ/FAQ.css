@@ -1,39 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap'); /* Ensure Montserrat is imported */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.faq-container{
+.faq-container {
     background-color: rgb(248, 243, 239);
     width: 100%;
     padding: 2rem;
 }
-.faq-section-container{
+
+.faq-section-container {
     display: flex;
     flex-direction: column;
     gap: 50px;
 }
-.faq-title{
+
+.faq-title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: 30px;
 }
+
 .faq-item-content {
     overflow: hidden;
     transition: max-height 0.3s ease-in-out;
     font-size: 20px;
 }
-.faq-question{
+
+.faq-question {
     font-size: 25px;
     font-family: 'Montserrat', sans-serif;
     font-weight: normal;
 }
 
-.faq-answer{
+.faq-answer {
     font-size: 20px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
 }
+
 .faq-item-content.closed {
     max-height: 0;
 }
@@ -48,4 +55,27 @@
 
 .faq-item-icon.open {
     transform: rotate(180deg);
+}
+
+@media (max-width: 480px) {
+    .faq-container {
+        padding: 1rem;
+    }
+
+    .faq-title {
+        font-size: 24px;
+    }
+
+    .faq-question {
+        font-size: 20px;
+    }
+
+    .faq-answer,
+    .faq-item-content {
+        font-size: 16px;
+    }
+
+    .faq-section-container {
+        gap: 30px;
+    }
 }

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './LandingPage/components/Home/Home';
 import HowItWorks from './LandingPage/components/HowItWorks/HowItWorks';
 import Features from './LandingPage/components/Features/Features';
@@ -8,20 +7,22 @@ import FAQ from './LandingPage/components/FAQ/FAQ';
 import Contact from './LandingPage/components/Contact/Contact';
 import AuthPage from './Authentication/AuthPage/AuthPage';
 import CreateProfile from './CreateProfile/CreateProfile';
+import './App.css';
 import Navbar from './LandingPage/components/Navbar/Navbar';
 import Main from './Dashboard/Main';
 import { LanguageProvider } from './LanguageContext';
 import DevelopmentTools from './DevelopmentTools';
+import axios from 'axios'; // Import the LanguageProvider
 import PrivacyPolicy from './Privacy/PrivacyPolicy';
 
 const App = () => {
     const [showAuthPage, setShowAuthPage] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [profileCreated, setProfileCreated] = useState(false);
-    const navigate = useNavigate();
 
     useEffect(() => {
         const flag = localStorage.getItem('isDark');
+        // Ensure the body class reflects the current dark mode setting on load
         if (flag === 'true') {
             document.body.classList.add('dark');
         } else {
@@ -34,17 +35,20 @@ const App = () => {
         const userId = localStorage.getItem('userId');
 
         if (token && userId) {
+            // Optionally, verify token expiration here
+            // Fetch the user's profile
             axios.get('https://api.anthra.dk/api/Profile/GetProfile', {
                 headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
+                    'Authorization': `Bearer ${token}`
+                }
             })
                 .then(response => {
                     const userProfile = response.data;
                     setIsAuthenticated(true);
                     setProfileCreated(userProfile.createdProfile);
                 })
-                .catch(() => {
+                .catch(error => {
+                    // Handle error, possibly invalid token
                     localStorage.removeItem('token');
                     localStorage.removeItem('userId');
                     setIsAuthenticated(false);
@@ -52,17 +56,15 @@ const App = () => {
         }
     }, []);
 
-    const handleAuthSuccess = (userProfileCreated: boolean) => {
-        setIsAuthenticated(true);
-        setProfileCreated(userProfileCreated);
-    };
-
     const handleCreateProfileBackClick = () => {
         setIsAuthenticated(false);
         setShowAuthPage(false);
         setProfileCreated(false);
+        // Optionally, clear user data from localStorage if needed
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
+        localStorage.removeItem('fullName');
+        localStorage.removeItem('userProfilePicture');
     };
 
     const handleGetStartedClick = () => {
@@ -73,9 +75,17 @@ const App = () => {
         setShowAuthPage(false);
     };
 
+    const handleAuthSuccess = (userProfileCreated: boolean) => {
+        setIsAuthenticated(true);
+        setProfileCreated(userProfileCreated);
+    };
+
+    const handleProfileCreated = () => {
+        setProfileCreated(true);
+    };
 
     return (
-        <LanguageProvider>
+        <LanguageProvider> {/* Wrap the app in LanguageProvider */}
             <Router>
                 <div className="App">
                     <Routes>
@@ -88,9 +98,11 @@ const App = () => {
                             element={
                                 isAuthenticated ? (
                                     profileCreated ? (
+                                        // User is authenticated and profile is created
                                         <Main />
                                     ) : (
-                                        <CreateProfile onBackClick={handleCreateProfileBackClick} onProfileCreated={() => setProfileCreated(true)} />
+                                        // User is authenticated but profile is not created
+                                        <CreateProfile onBackClick={handleCreateProfileBackClick} onProfileCreated={handleProfileCreated} />
                                     )
                                 ) : (
                                     showAuthPage ? (

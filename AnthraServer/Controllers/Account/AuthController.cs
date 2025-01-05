@@ -157,7 +157,7 @@ private string MapIdentityErrorCodeToMessage(string errorCode)
         {
             var apiKey = _configuration["SendGrid:ApiKey"];
             var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("admin@anthra.dk", "Anthra");
+            var from = new EmailAddress("anthradk@gmail.com", "Anthra");
             var to = new EmailAddress(email);
             var subject = "Email Verification Code";
             var plainTextContent = $"Your email verification code is: {verificationCode}";

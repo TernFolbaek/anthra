@@ -34,12 +34,6 @@
     margin-top: 13%;
 }
 
-.home-background-image {
-    min-width: 100%;
-    min-height: 100%;
-    object-fit: contain;
-}
-
 /* Mission Text */
 .mission {
     font-family: 'Montserrat', sans-serif;

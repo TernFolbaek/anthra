@@ -71,6 +71,7 @@
       "subjectLabel": "Emne",
       "messageLabel": "Besked",
       "submitButton": "Send Besked",
+      "privacyPolicyButton": "Vores Privatlivspolitik",
       "footer": "Anthra. Alle rettigheder forbeholdes.",
       "submitSuccess": "Besked sendt ",
       "submitError": "Fejl ved afsendelse",
@@ -153,6 +154,7 @@
       "footer": "Anthra. All rights reserved.",
       "submitSuccess": "Successfully sent message",
       "submitError": "Error submitting message",
+      "privacyPolicyButton": "Our Privacy Policy",
       "submitting": "Submitting...",
       "emailLabel": "Your Email"
     }

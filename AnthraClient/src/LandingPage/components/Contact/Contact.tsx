@@ -3,6 +3,7 @@ import axios from 'axios';
 import './Contact.css';
 import { useLanguage } from '../../../LanguageContext';
 import translations from '../../../languages/landingPageTranslations.json';
+import { useNavigate } from 'react-router-dom';
 
 const Contact: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -12,6 +13,8 @@ const Contact: React.FC = () => {
     const [submitMessage, setSubmitMessage] = useState('');
     const { language } = useLanguage();
     const t = translations[language as keyof typeof translations].contact;
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -43,6 +46,11 @@ const Contact: React.FC = () => {
         } finally {
             setIsSubmitting(false);
         }
+    };
+
+    // Function to navigate to the Privacy Policy page
+    const handlePrivacyPolicyClick = () => {
+        navigate('/privacy-policy'); // Navigate to the Privacy Policy page
     };
 
     return (
@@ -101,6 +109,11 @@ const Contact: React.FC = () => {
                         {isSubmitting ? t.submitting || 'Sending...' : t.submitButton}
                     </button>
                 </form>
+
+                {/* Privacy Policy Button */}
+                <button onClick={handlePrivacyPolicyClick} className="privacy-policy-button">
+                    {t.privacyPolicyButton || 'Privacy Policy'}
+                </button>
             </div>
             <footer className="contact-footer">
                 <p>&copy; {new Date().getFullYear()} {t.footer}</p>

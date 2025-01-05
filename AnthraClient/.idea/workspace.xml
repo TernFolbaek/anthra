@@ -5,7 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="docker setup">
+      <change afterPath="$PROJECT_DIR$/src/Privacy/PrivacyPolicy.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Privacy/PrivacyPolicy.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LandingPage/components/Contact/Contact.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/LandingPage/components/Contact/Contact.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LandingPage/components/Home/Home.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/LandingPage/components/Home/Home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/languages/landingPageTranslations.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/languages/landingPageTranslations.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -230,14 +236,7 @@
       <workItem from="1735980327985" duration="1547000" />
       <workItem from="1735986236917" duration="832000" />
       <workItem from="1735993340288" duration="8904000" />
-    </task>
-    <task id="LOCAL-00695" summary="Background color without opacity to snackbar">
-      <option name="closed" value="true" />
-      <created>1734887897468</created>
-      <option name="number" value="00695" />
-      <option name="presentableId" value="LOCAL-00695" />
-      <option name="project" value="LOCAL" />
-      <updated>1734887897468</updated>
+      <workItem from="1736074838242" duration="3170000" />
     </task>
     <task id="LOCAL-00696" summary="Add applicationuser to shared types">
       <option name="closed" value="true" />
@@ -623,7 +622,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735981310651</updated>
     </task>
-    <option name="localTasksCounter" value="744" />
+    <task id="LOCAL-00744" summary="docker setup">
+      <option name="closed" value="true" />
+      <created>1736075444222</created>
+      <option name="number" value="00744" />
+      <option name="presentableId" value="LOCAL-00744" />
+      <option name="project" value="LOCAL" />
+      <updated>1736075444222</updated>
+    </task>
+    <option name="localTasksCounter" value="745" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

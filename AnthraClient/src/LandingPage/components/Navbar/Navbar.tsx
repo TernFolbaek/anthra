@@ -3,8 +3,6 @@ import './Navbar.css';
 import './Logo.css';
 import { useLanguage } from '../../../LanguageContext';
 import navbarTranslations from '../../../languages/navbarTranslations.json';
-import Danish from '../../assets/danish.jpg';
-import English from '../../assets/english.jpg';
 
 interface NavbarProps {
     onGetStartedClick: () => void;
@@ -106,11 +104,11 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                     <div className="dropdown-header-home-navbar">
                         {language === 'da' ? (
                             <>
-                                <img src={Danish} alt="Danish" className="flag-icon" /> Dansk
+                                Dansk
                             </>
                         ) : (
                             <>
-                                <img src={English} alt="English" className="flag-icon" /> English
+                                English
                             </>
                         )}
                         {/* Arrow Element */}
@@ -120,10 +118,10 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                     {isDropdownOpen && (
                         <div className="dropdown-menu animate">
                             <div className="language-dropdown-item" onClick={() => handleLanguageChange('da')}>
-                                <img src={Danish} alt="Danish" className="flag-icon" /> Dansk
+                                 Dansk
                             </div>
                             <div className="language-dropdown-item" onClick={() => handleLanguageChange('en')}>
-                                <img src={English} alt="English" className="flag-icon" /> English
+                                English
                             </div>
                         </div>
                     )}

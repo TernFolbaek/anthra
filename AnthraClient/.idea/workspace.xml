@@ -5,13 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Anthra title">
+      <change afterPath="$PROJECT_DIR$/src/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env.development" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CreateProfile/CreateProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/CreateProfile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CreateProfile/StepOne.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/StepOne.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/Main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Main.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Privacy/PrivacyPolicy.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Privacy/PrivacyPolicy.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/.env.production" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Authentication/AuthPage/AuthPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Authentication/AuthPage/AuthPage.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/appsettings.Development.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +22,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Dockerfile" />
+        <option value="HTTP Public Environment File" />
       </list>
     </option>
   </component>
@@ -72,11 +73,11 @@
       <recent name="$PROJECT_DIR$/client/web/src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/client/web/public" />
       <recent name="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/IndividualExplore" />
       <recent name="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage" />
-      <recent name="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/ExploreToggle" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -239,6 +240,7 @@
       <workItem from="1736074838242" duration="11061000" />
       <workItem from="1736089215495" duration="6574000" />
       <workItem from="1736150108509" duration="6077000" />
+      <workItem from="1736182161684" duration="3907000" />
     </task>
     <task id="LOCAL-00705" summary="Darker background color for apply button">
       <option name="closed" value="true" />

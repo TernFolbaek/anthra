@@ -53,7 +53,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
 
             try {
                 const backendResponse = await axios.post(
-                    'https://api.anthra.dk/api/Auth/GoogleLogin',
+                    '/Auth/GoogleLogin',
                     { tokenId },
                     {
                         headers: {
@@ -67,7 +67,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                 localStorage.setItem('fullName', fullName);
 
                 const profileResponse = await axios.get(
-                    'https://api.anthra.dk/api/Profile/GetProfile',
+                    '/Profile/GetProfile',
                     {
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -152,7 +152,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                 localStorage.setItem('fullName', fullName);
 
                 const profileResponse = await axios.get(
-                    'https://api.anthra.dk/api/Profile/GetProfile',
+                    '/Profile/GetProfile',
                     {
                         headers: {
                             'Authorization': `Bearer ${token}`,

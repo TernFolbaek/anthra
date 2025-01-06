@@ -130,8 +130,8 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
         }
 
         const endpoint = isSignUp
-            ? 'https://api.anthra.dk/api/Auth/Register'
-            : 'https://api.anthra.dk/api/Auth/Login';
+            ? '/Auth/Register'
+            : '/Auth/Login';
 
         const payload = isSignUp
             ? { username, email, password }

@@ -1,6 +1,6 @@
 // src/main.tsx
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import {Route, Routes, useLocation } from 'react-router-dom';
 import Sidebar from './Components/Sidebar/Sidebar';
 import Footer from './Components/Footer/Footer';
 import ExplorePage from './Components/ExplorePage/ExplorePage';
@@ -92,9 +92,7 @@ const DashboardContent: React.FC = () => {
 
 const Dashboard: React.FC = () => {
     return (
-        <Router>
-            <DashboardContent />
-        </Router>
+        <DashboardContent />
     );
 };
 

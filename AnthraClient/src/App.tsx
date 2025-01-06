@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './LandingPage/components/Home/Home';
 import HowItWorks from './LandingPage/components/HowItWorks/HowItWorks';
 import Features from './LandingPage/components/Features/Features';
@@ -20,10 +20,9 @@ const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [profileCreated, setProfileCreated] = useState(false);
 
-    const navigate = useNavigate(); // Initialize useNavigate
-
     useEffect(() => {
         const flag = localStorage.getItem('isDark');
+        // Ensure the body class reflects the current dark mode setting on load
         if (flag === 'true') {
             document.body.classList.add('dark');
         } else {
@@ -36,6 +35,8 @@ const App = () => {
         const userId = localStorage.getItem('userId');
 
         if (token && userId) {
+            // Optionally, verify token expiration here
+            // Fetch the user's profile
             axios.get('https://api.anthra.dk/api/Profile/GetProfile', {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -47,6 +48,7 @@ const App = () => {
                     setProfileCreated(userProfile.createdProfile);
                 })
                 .catch(error => {
+                    // Handle error, possibly invalid token
                     localStorage.removeItem('token');
                     localStorage.removeItem('userId');
                     setIsAuthenticated(false);
@@ -58,7 +60,7 @@ const App = () => {
         setIsAuthenticated(false);
         setShowAuthPage(false);
         setProfileCreated(false);
-        navigate('/')
+        // Optionally, clear user data from localStorage if needed
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
         localStorage.removeItem('fullName');
@@ -76,16 +78,15 @@ const App = () => {
     const handleAuthSuccess = (userProfileCreated: boolean) => {
         setIsAuthenticated(true);
         setProfileCreated(userProfileCreated);
-
-        // Redirect to step-one after successful authentication
-        navigate('/step-one');
     };
 
     const handleProfileCreated = () => {
         setProfileCreated(true);
     };
+
     return (
-        <LanguageProvider>
+        <LanguageProvider> {/* Wrap the app in LanguageProvider */}
+            <Router>
                 <div className="App">
                     <Routes>
                         <Route
@@ -95,8 +96,14 @@ const App = () => {
                         <Route
                             path="/"
                             element={
-                                isAuthenticated  && profileCreated ? (
+                                isAuthenticated ? (
+                                    profileCreated ? (
+                                        // User is authenticated and profile is created
                                         <Main />
+                                    ) : (
+                                        // User is authenticated but profile is not created
+                                        <CreateProfile onBackClick={handleCreateProfileBackClick} onProfileCreated={handleProfileCreated} />
+                                    )
                                 ) : (
                                     showAuthPage ? (
                                         <AuthPage onBackClick={handleBackClick} onAuthSuccess={handleAuthSuccess} />
@@ -124,10 +131,9 @@ const App = () => {
                                 )
                             }
                         />
-                        <Route path="/step-one" element={<CreateProfile onBackClick={handleCreateProfileBackClick} onProfileCreated={handleProfileCreated} />} />
-                        <Route path="/step-two" element={<CreateProfile onBackClick={handleCreateProfileBackClick} onProfileCreated={handleProfileCreated} />} />
                     </Routes>
                 </div>
+            </Router>
         </LanguageProvider>
     );
 };

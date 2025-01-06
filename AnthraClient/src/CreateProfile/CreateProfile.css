@@ -50,6 +50,7 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    overflow-y: auto;
 }
 
 .form-step label {
@@ -78,7 +79,8 @@
 .create-profile-button-container {
     margin-top: 1.5rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 1rem;
 }
 
 .create-profile-back-button,
@@ -90,7 +92,6 @@
     cursor: pointer;
     font-weight: 600;
     transition: background-color 0.3s, color 0.3s;
-    width: 48%;
     border-radius: 8px;
 }
 
@@ -104,7 +105,6 @@
 .autocomplete-input-with-label {
     display: flex;
     align-items: center;
-    margin-bottom: 1rem;
 }
 
 .autocomplete-input-with-label .input-label {
@@ -266,7 +266,7 @@
 }
 
 .course-add-button {
-    background-color: #85bff8;
+    background-color: #2c91f4;
     flex: 1;
     color: #fff;
     border: none;
@@ -277,8 +277,7 @@
 }
 
 .course-add-button:hover {
-    background-color: #439ef6;
-    transform: scale(1.1);
+    background-color: #036dd5;
 }
 
 /* Suggestions List */
@@ -417,14 +416,18 @@
 @media (max-width: 480px) {
     /* Adjust container alignment */
     .create-profile-page {
-        justify-content: flex-start; /* Align content to the top */
+        background-color: white;
+    }
+    .course-tag {
+        font-size: 0.7rem;
     }
 
     .create-profile-container {
-        width: 95%;
+        width: 100%;
         padding: 1rem;
-        max-height: 90vh; /* Adjust if necessary */
-        overflow-y: auto; /* Enable internal scrolling */
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: none;
     }
 
     /* Reduce font sizes */
@@ -442,15 +445,9 @@
         padding: 0.5rem;
     }
 
-    .create-profile-button-container {
-        flex-direction: column;
-    }
-
     .create-profile-back-button,
     .create-profile-next-button {
-        width: 100%;
         padding: 0.5rem;
-        margin-bottom: 0.5rem;
     }
 
     /* Adjust dropdown widths and alignment */

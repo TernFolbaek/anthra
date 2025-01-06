@@ -4,8 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Update to make use of privacy policy">
+    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Anthra title">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CreateProfile/CreateProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/CreateProfile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CreateProfile/StepOne.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/StepOne.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Privacy/PrivacyPolicy.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Privacy/PrivacyPolicy.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -231,62 +237,8 @@
       <workItem from="1735986236917" duration="832000" />
       <workItem from="1735993340288" duration="8904000" />
       <workItem from="1736074838242" duration="11061000" />
-    </task>
-    <task id="LOCAL-00698" summary="Remove alerts">
-      <option name="closed" value="true" />
-      <created>1734891353532</created>
-      <option name="number" value="00698" />
-      <option name="presentableId" value="LOCAL-00698" />
-      <option name="project" value="LOCAL" />
-      <updated>1734891353532</updated>
-    </task>
-    <task id="LOCAL-00699" summary="Restyle settings, removed setting navbar">
-      <option name="closed" value="true" />
-      <created>1734891617545</created>
-      <option name="number" value="00699" />
-      <option name="presentableId" value="LOCAL-00699" />
-      <option name="project" value="LOCAL" />
-      <updated>1734891617545</updated>
-    </task>
-    <task id="LOCAL-00700" summary="Change the settings to sliders">
-      <option name="closed" value="true" />
-      <created>1734891635363</created>
-      <option name="number" value="00700" />
-      <option name="presentableId" value="LOCAL-00700" />
-      <option name="project" value="LOCAL" />
-      <updated>1734891635363</updated>
-    </task>
-    <task id="LOCAL-00701" summary="Icons for dark and light mode">
-      <option name="closed" value="true" />
-      <created>1734891647581</created>
-      <option name="number" value="00701" />
-      <option name="presentableId" value="LOCAL-00701" />
-      <option name="project" value="LOCAL" />
-      <updated>1734891647581</updated>
-    </task>
-    <task id="LOCAL-00702" summary="Remove alert">
-      <option name="closed" value="true" />
-      <created>1734891655543</created>
-      <option name="number" value="00702" />
-      <option name="presentableId" value="LOCAL-00702" />
-      <option name="project" value="LOCAL" />
-      <updated>1734891655543</updated>
-    </task>
-    <task id="LOCAL-00703" summary="Remove alert">
-      <option name="closed" value="true" />
-      <created>1734891664703</created>
-      <option name="number" value="00703" />
-      <option name="presentableId" value="LOCAL-00703" />
-      <option name="project" value="LOCAL" />
-      <updated>1734891664703</updated>
-    </task>
-    <task id="LOCAL-00704" summary="Remove redundant comments">
-      <option name="closed" value="true" />
-      <created>1734891678109</created>
-      <option name="number" value="00704" />
-      <option name="presentableId" value="LOCAL-00704" />
-      <option name="project" value="LOCAL" />
-      <updated>1734891678109</updated>
+      <workItem from="1736089215495" duration="6574000" />
+      <workItem from="1736150108509" duration="6077000" />
     </task>
     <task id="LOCAL-00705" summary="Darker background color for apply button">
       <option name="closed" value="true" />
@@ -624,7 +576,63 @@
       <option name="project" value="LOCAL" />
       <updated>1736078099668</updated>
     </task>
-    <option name="localTasksCounter" value="747" />
+    <task id="LOCAL-00747" summary="Smaller text for mobile view">
+      <option name="closed" value="true" />
+      <created>1736093863246</created>
+      <option name="number" value="00747" />
+      <option name="presentableId" value="LOCAL-00747" />
+      <option name="project" value="LOCAL" />
+      <updated>1736093863246</updated>
+    </task>
+    <task id="LOCAL-00748" summary="Fixed mobile menu dropdown for home component">
+      <option name="closed" value="true" />
+      <created>1736093879218</created>
+      <option name="number" value="00748" />
+      <option name="presentableId" value="LOCAL-00748" />
+      <option name="project" value="LOCAL" />
+      <updated>1736093879218</updated>
+    </task>
+    <task id="LOCAL-00749" summary="Auto margin bottom for logo title to center it vertically">
+      <option name="closed" value="true" />
+      <created>1736093892913</created>
+      <option name="number" value="00749" />
+      <option name="presentableId" value="LOCAL-00749" />
+      <option name="project" value="LOCAL" />
+      <updated>1736093892913</updated>
+    </task>
+    <task id="LOCAL-00750" summary="Close dropdown on click outside of dropdown">
+      <option name="closed" value="true" />
+      <created>1736093924421</created>
+      <option name="number" value="00750" />
+      <option name="presentableId" value="LOCAL-00750" />
+      <option name="project" value="LOCAL" />
+      <updated>1736093924421</updated>
+    </task>
+    <task id="LOCAL-00751" summary="Smaller text for mobile and scrollable content not pages">
+      <option name="closed" value="true" />
+      <created>1736094165829</created>
+      <option name="number" value="00751" />
+      <option name="presentableId" value="LOCAL-00751" />
+      <option name="project" value="LOCAL" />
+      <updated>1736094165829</updated>
+    </task>
+    <task id="LOCAL-00752" summary="profile production">
+      <option name="closed" value="true" />
+      <created>1736157532713</created>
+      <option name="number" value="00752" />
+      <option name="presentableId" value="LOCAL-00752" />
+      <option name="project" value="LOCAL" />
+      <updated>1736157532713</updated>
+    </task>
+    <task id="LOCAL-00753" summary="Anthra title">
+      <option name="closed" value="true" />
+      <created>1736159346573</created>
+      <option name="number" value="00753" />
+      <option name="presentableId" value="LOCAL-00753" />
+      <option name="project" value="LOCAL" />
+      <updated>1736159346573</updated>
+    </task>
+    <option name="localTasksCounter" value="754" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -642,13 +650,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add styling for add memberes icon" />
-    <MESSAGE value="Support more file types, functional send of attachment without message content" />
-    <MESSAGE value="Remove rive animation as it became too much" />
-    <MESSAGE value="removal of comment" />
-    <MESSAGE value="default pfp" />
-    <MESSAGE value="Snackbar only visible on larger screens" />
-    <MESSAGE value="Better background color for dark mode" />
     <MESSAGE value="Show which path we are on through styling" />
     <MESSAGE value="Dynamic text color for charts, depending on dark mode bool" />
     <MESSAGE value="Dark background for groups page on mobile mode" />
@@ -667,6 +668,13 @@
     <MESSAGE value="docker setup" />
     <MESSAGE value="Create Privacy Policy" />
     <MESSAGE value="Update to make use of privacy policy" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update to make use of privacy policy" />
+    <MESSAGE value="Smaller text for mobile view" />
+    <MESSAGE value="Fixed mobile menu dropdown for home component" />
+    <MESSAGE value="Auto margin bottom for logo title to center it vertically" />
+    <MESSAGE value="Close dropdown on click outside of dropdown" />
+    <MESSAGE value="Smaller text for mobile and scrollable content not pages" />
+    <MESSAGE value="profile production" />
+    <MESSAGE value="Anthra title" />
+    <option name="LAST_COMMIT_MESSAGE" value="Anthra title" />
   </component>
 </project>

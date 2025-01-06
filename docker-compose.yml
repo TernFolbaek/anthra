@@ -13,6 +13,7 @@ services:
     networks:
       - anthra-network
     restart: unless-stopped
+
   backend:
     build: ./AnthraServer
     image: anthra-backend
@@ -25,6 +26,7 @@ services:
     networks:
       - anthra-network
     restart: unless-stopped
+
   frontend:
     build: ./AnthraClient
     image: anthra-frontend
@@ -35,6 +37,7 @@ services:
     networks:
       - anthra-network
     restart: unless-stopped
+
   nginx:
     image: nginx:latest
     ports:
@@ -49,7 +52,11 @@ services:
     networks:
       - anthra-network
     restart: unless-stopped
+    profiles:
+      - production  
+
 volumes:
   db_data:
+
 networks:
   anthra-network:

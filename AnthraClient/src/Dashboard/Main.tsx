@@ -1,6 +1,5 @@
-// src/main.tsx
 import React, { useState, useEffect } from 'react';
-import {Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Sidebar from './Components/Sidebar/Sidebar';
 import Footer from './Components/Footer/Footer';
 import ExplorePage from './Components/ExplorePage/ExplorePage';
@@ -11,18 +10,19 @@ import Profile from './Components/Profile/Profile';
 import Groups from './Components/Groups/Groups';
 import MessagesLayout from './Layouts/MessagesLayout/MessagesLayout';
 import GroupsLayout from './Layouts/GroupsLayout/GroupsLayout';
-import MessageOptionalLayout from "./Layouts/MessageOptionalLayout/MessageOptionalLayout";
+import MessageOptionalLayout from './Layouts/MessageOptionalLayout/MessageOptionalLayout';
 import './Main.css';
-import DevelopmentTools from "../DevelopmentTools";
-import Notifications from "./Components/Notifications/Notifications";
-import { NotificationProvider } from "./context/NotificationsContext";
-import useWindowWidth from "./hooks/useWindowWidth";
+import DevelopmentTools from '../DevelopmentTools';
+import Notifications from './Components/Notifications/Notifications';
+import { NotificationProvider } from './context/NotificationsContext';
+import useWindowWidth from './hooks/useWindowWidth';
 
 const DashboardContent: React.FC = () => {
     const location = useLocation();
     const windowWidth = useWindowWidth();
     const isMobile = windowWidth < 480;
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+
     // Check if the path matches "/messages/:userId" or "/groups/:groupId"
     const isUserSpecificMessage = /^\/messages\/[^/]+$/.test(location.pathname);
     const isGroupSpecificPage = /^\/groups\/[^/]+$/.test(location.pathname);
@@ -52,9 +52,8 @@ const DashboardContent: React.FC = () => {
     return (
         <NotificationProvider>
             <div className="dashboard-container">
-                {isMobile && (<Notifications />)}
+                {isMobile && <Notifications />}
                 <div className="content-wrapper">
-                    {/* Pass the toggleSettings function as a prop to Sidebar */}
                     <Sidebar onSettingsClick={toggleSettings} />
                     <div className="main-content">
                         <Routes>
@@ -76,14 +75,13 @@ const DashboardContent: React.FC = () => {
                         </Routes>
                     </div>
                 </div>
+
                 {/*{process.env.NODE_ENV === 'development' && <DevelopmentTools />}*/}
 
                 {!shouldHideFooter && (
-                    // Pass the toggleSettings function as a prop to Footer
                     <Footer onSettingsClick={toggleSettings} />
                 )}
 
-                {/* Render Settings as a sliding card */}
                 {isSettingsOpen && <Settings onClose={toggleSettings} />}
             </div>
         </NotificationProvider>
@@ -91,9 +89,7 @@ const DashboardContent: React.FC = () => {
 };
 
 const Dashboard: React.FC = () => {
-    return (
-        <DashboardContent />
-    );
+    return <DashboardContent />;
 };
 
 export default Dashboard;

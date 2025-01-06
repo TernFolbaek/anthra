@@ -36,7 +36,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSettingsClick }) => {
         <div className="sidebar">
             <div>
                 <NavLink
-                    to="/explore"
+                    to="/dashboard/explore"
                     className={({ isActive }) => `sidebar-link ${isActive ? 'active-link' : ''}`}
                 >
                     <div className="tooltip-container">
@@ -46,7 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSettingsClick }) => {
                 </NavLink>
 
                 <NavLink
-                    to="/messages"
+                    to="/dashboard/messages"
                     className={({ isActive }) => `sidebar-link ${isActive ? 'active-link' : ''}`}
                 >
                     <div className="tooltip-container" style={{ position: 'relative' }}>
@@ -61,7 +61,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSettingsClick }) => {
                 </NavLink>
 
                 <NavLink
-                    to="/connections"
+                    to="/dashboard/connections"
                     className={({ isActive }) => `sidebar-link ${isActive ? 'active-link' : ''}`}
                 >
                     <div className="tooltip-container" style={{ position: 'relative' }}>
@@ -76,7 +76,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSettingsClick }) => {
                 </NavLink>
 
                 <NavLink
-                    to="/groups"
+                    to="/dashboard/groups"
                     className={({ isActive }) => `sidebar-link ${isActive ? 'active-link' : ''}`}
                 >
                     <div className="tooltip-container" style={{ position: 'relative' }}>
@@ -101,7 +101,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSettingsClick }) => {
             </div>
             <div className="flex flex-col items-center gap-2">
                 <Notifications />
-                <NavLink to="/profile">
+                <NavLink to="/dashboard/profile">
                     <img
                         src={userProfilePictureSrc ? userProfilePictureSrc: '/user.png'}
                         alt="profile"

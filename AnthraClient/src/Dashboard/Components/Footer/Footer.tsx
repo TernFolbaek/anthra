@@ -81,7 +81,7 @@ const Footer: React.FC<FooterProps> = ({ onSettingsClick }) => {
         <div className="footer">
             {/* Notice the className now includes a function that checks isActive */}
             <NavLink
-                to="/groups"
+                to="/dashboard/groups"
                 className={({ isActive }) => `footer-link ${isActive ? 'active-footer-link' : ''}`}
             >
                 <div className="tooltip-container">
@@ -96,7 +96,7 @@ const Footer: React.FC<FooterProps> = ({ onSettingsClick }) => {
             </NavLink>
 
             <NavLink
-                to="/connections"
+                to="/dashboard/connections"
                 className={({ isActive }) => `footer-link ${isActive ? 'active-footer-link' : ''}`}
             >
                 <div className="tooltip-container" style={{ position: 'relative' }}>
@@ -111,7 +111,7 @@ const Footer: React.FC<FooterProps> = ({ onSettingsClick }) => {
             </NavLink>
 
             <NavLink
-                to="/explore"
+                to="/dashboard/explore"
                 className={({ isActive }) => `footer-link ${isActive ? 'active-footer-link' : ''}`}
             >
                 <div className="tooltip-container">
@@ -121,7 +121,7 @@ const Footer: React.FC<FooterProps> = ({ onSettingsClick }) => {
             </NavLink>
 
             <NavLink
-                to="/messages"
+                to="/dashboard/messages"
                 className={({ isActive }) => `footer-link ${isActive ? 'active-footer-link' : ''}`}
             >
                 <div className="tooltip-container" style={{ position: 'relative' }}>
@@ -148,7 +148,7 @@ const Footer: React.FC<FooterProps> = ({ onSettingsClick }) => {
                         </button>
 
                         <NavLink
-                            to="/profile"
+                            to="/dashboard/profile"
                             className="footer-submenu-link"
                             onClick={closeMenu}
                         >

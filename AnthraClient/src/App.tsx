@@ -131,6 +131,42 @@ const App = () => {
                                 )
                             }
                         />
+r                        <Route
+                            path="/dashboard/*"
+                            element={
+                                isAuthenticated ? (
+                                    profileCreated ? (
+                                        <Main />
+                                    ) : (
+                                        <CreateProfile onBackClick={handleCreateProfileBackClick} onProfileCreated={handleProfileCreated} />
+                                    )
+                                ) : (
+                                    showAuthPage ? (
+                                        <AuthPage onBackClick={handleBackClick} onAuthSuccess={handleAuthSuccess} />
+                                    ) : (
+                                        <div>
+                                            <Navbar onGetStartedClick={handleGetStartedClick}/>
+                                            <div id="home">
+                                                <Home onGetStartedClick={handleGetStartedClick}/>
+                                            </div>
+                                            <div id="features">
+                                                <Features/>
+                                            </div>
+                                            <div id="how-it-works">
+                                                <HowItWorks/>
+                                            </div>
+                                            <div id="faq">
+                                                <FAQ/>
+                                            </div>
+                                            <div id="contact">
+                                                <Contact/>
+                                            </div>
+                                            {process.env.NODE_ENV === 'development' && <DevelopmentTools/>}
+                                        </div>
+                                    )
+                                )
+                            }
+                    />
                     </Routes>
                 </div>
             </Router>

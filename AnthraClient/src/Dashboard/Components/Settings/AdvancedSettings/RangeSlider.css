@@ -9,6 +9,7 @@
     display: block;
     font-weight: 600;
     color: #000;
+    font-size: 14px;
 }
 
 .range-slider {
@@ -27,8 +28,8 @@
 
 .range-slider input[type="range"]::-webkit-slider-thumb {
     pointer-events: all;
-    width: 16px;
-    height: 16px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background-color: #007bff;
     border: none;
@@ -39,8 +40,8 @@
 
 .range-slider input[type="range"]::-moz-range-thumb {
     pointer-events: all;
-    width: 16px;
-    height: 16px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background-color: #007bff;
     border: none;
@@ -53,7 +54,7 @@
 .slider__range {
     position: absolute;
     border-radius: 3px;
-    height: 5px;
+    height: 3px;
 }
 
 .slider__track {

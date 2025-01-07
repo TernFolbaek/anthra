@@ -1,22 +1,29 @@
 // App.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Home from './LandingPage/components/Home/Home';
-import HowItWorks from './LandingPage/components/HowItWorks/HowItWorks';
-import Features from './LandingPage/components/Features/Features';
-import FAQ from './LandingPage/components/FAQ/FAQ';
-import Contact from './LandingPage/components/Contact/Contact';
-import AuthPage from './Authentication/AuthPage/AuthPage';
-import CreateProfile from './CreateProfile/CreateProfile';
 import './App.css';
 import Navbar from './LandingPage/components/Navbar/Navbar';
-import Main from './Dashboard/Main';
 import { LanguageProvider } from './LanguageContext';
-import DevelopmentTools from './DevelopmentTools';
 import axios from 'axios';
-import PrivacyPolicy from './Privacy/PrivacyPolicy';
+import apiUrl from './config';
+import reportWebVitals from './reportWebVitals';
 
-const App = () => {
+// Lazy load components
+const Home = lazy(() => import('./LandingPage/components/Home/Home'));
+const HowItWorks = lazy(() => import('./LandingPage/components/HowItWorks/HowItWorks'));
+const Features = lazy(() => import('./LandingPage/components/Features/Features'));
+const FAQ = lazy(() => import('./LandingPage/components/FAQ/FAQ'));
+const Contact = lazy(() => import('./LandingPage/components/Contact/Contact'));
+const AuthPage = lazy(() => import('./Authentication/AuthPage/AuthPage'));
+const CreateProfile = lazy(() => import('./CreateProfile/CreateProfile'));
+const Main = lazy(() => import('./Dashboard/Main'));
+const DevelopmentTools = lazy(() => import('./DevelopmentTools'));
+const PrivacyPolicy = lazy(() => import('./Privacy/PrivacyPolicy'));
+
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = apiUrl;
+
+const App: React.FC = () => {
     const [showAuthPage, setShowAuthPage] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [profileCreated, setProfileCreated] = useState(false);
@@ -36,7 +43,7 @@ const App = () => {
 
         if (token && userId) {
             axios
-                .get('https://api.anthra.dk/api/Profile/GetProfile', {
+                .get('/api/Profile/GetProfile', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -46,7 +53,7 @@ const App = () => {
                     setIsAuthenticated(true);
                     setProfileCreated(userProfile.createdProfile);
                 })
-                .catch(error => {
+                .catch(() => {
                     localStorage.removeItem('token');
                     localStorage.removeItem('userId');
                     setIsAuthenticated(false);
@@ -85,101 +92,103 @@ const App = () => {
         <LanguageProvider>
             <Router>
                 <div className="App">
-                    <Routes>
-                        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                        <Route
-                            path="/create-profile/*"
-                            element={
-                                isAuthenticated ? (
-                                    profileCreated ? (
-                                        <Navigate to="/dashboard" replace />
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <Routes>
+                            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                            <Route
+                                path="/create-profile/*"
+                                element={
+                                    isAuthenticated ? (
+                                        profileCreated ? (
+                                            <Navigate to="/dashboard" replace />
+                                        ) : (
+                                            <CreateProfile
+                                                onBackClick={handleCreateProfileBackClick}
+                                                onProfileCreated={handleProfileCreated}
+                                            />
+                                        )
                                     ) : (
-                                        <CreateProfile
-                                            onBackClick={handleCreateProfileBackClick}
-                                            onProfileCreated={handleProfileCreated}
-                                        />
+                                        <Navigate to="/" replace />
                                     )
-                                ) : (
-                                    <Navigate to="/" replace />
-                                )
-                            }
-                        />
-                        <Route
-                            path="/dashboard/*"
-                            element={
-                                isAuthenticated ? (
-                                    profileCreated ? (
-                                        <Main />
+                                }
+                            />
+                            <Route
+                                path="/dashboard/*"
+                                element={
+                                    isAuthenticated ? (
+                                        profileCreated ? (
+                                            <Main />
+                                        ) : (
+                                            <CreateProfile
+                                                onBackClick={handleCreateProfileBackClick}
+                                                onProfileCreated={handleProfileCreated}
+                                            />
+                                        )
                                     ) : (
-                                        <CreateProfile
-                                            onBackClick={handleCreateProfileBackClick}
-                                            onProfileCreated={handleProfileCreated}
-                                        />
+                                        showAuthPage ? (
+                                            <AuthPage onBackClick={handleBackClick} onAuthSuccess={handleAuthSuccess} />
+                                        ) : (
+                                            <div>
+                                                <Navbar onGetStartedClick={handleGetStartedClick} />
+                                                <div id="home">
+                                                    <Home onGetStartedClick={handleGetStartedClick} />
+                                                </div>
+                                                <div id="features">
+                                                    <Features />
+                                                </div>
+                                                <div id="how-it-works">
+                                                    <HowItWorks />
+                                                </div>
+                                                <div id="faq">
+                                                    <FAQ />
+                                                </div>
+                                                <div id="contact">
+                                                    <Contact />
+                                                </div>
+                                                {process.env.NODE_ENV === 'development' && <DevelopmentTools />}
+                                            </div>
+                                        )
                                     )
-                                ) : (
-                                    showAuthPage ? (
-                                        <AuthPage onBackClick={handleBackClick} onAuthSuccess={handleAuthSuccess} />
+                                }
+                            />
+                            <Route
+                                path="/"
+                                element={
+                                    isAuthenticated ? (
+                                        profileCreated ? (
+                                            <Main />
+                                        ) : (
+                                            <Navigate to="/create-profile" replace />
+                                        )
                                     ) : (
-                                        <div>
-                                            <Navbar onGetStartedClick={handleGetStartedClick} />
-                                            <div id="home">
-                                                <Home onGetStartedClick={handleGetStartedClick} />
+                                        showAuthPage ? (
+                                            <AuthPage onBackClick={handleBackClick} onAuthSuccess={handleAuthSuccess} />
+                                        ) : (
+                                            <div>
+                                                <Navbar onGetStartedClick={handleGetStartedClick} />
+                                                <div id="home">
+                                                    <Home onGetStartedClick={handleGetStartedClick} />
+                                                </div>
+                                                <div id="features">
+                                                    <Features />
+                                                </div>
+                                                <div id="how-it-works">
+                                                    <HowItWorks />
+                                                </div>
+                                                <div id="faq">
+                                                    <FAQ />
+                                                </div>
+                                                <div id="contact">
+                                                    <Contact />
+                                                </div>
+                                                {process.env.NODE_ENV === 'development' && <DevelopmentTools />}
                                             </div>
-                                            <div id="features">
-                                                <Features />
-                                            </div>
-                                            <div id="how-it-works">
-                                                <HowItWorks />
-                                            </div>
-                                            <div id="faq">
-                                                <FAQ />
-                                            </div>
-                                            <div id="contact">
-                                                <Contact />
-                                            </div>
-                                            {process.env.NODE_ENV === 'development' && <DevelopmentTools />}
-                                        </div>
+                                        )
                                     )
-                                )
-                            }
-                        />
-                        <Route
-                            path="/"
-                            element={
-                                isAuthenticated ? (
-                                    profileCreated ? (
-                                        <Main />
-                                    ) : (
-                                        <Navigate to="/create-profile" replace />
-                                    )
-                                ) : (
-                                    showAuthPage ? (
-                                        <AuthPage onBackClick={handleBackClick} onAuthSuccess={handleAuthSuccess} />
-                                    ) : (
-                                        <div>
-                                            <Navbar onGetStartedClick={handleGetStartedClick} />
-                                            <div id="home">
-                                                <Home onGetStartedClick={handleGetStartedClick} />
-                                            </div>
-                                            <div id="features">
-                                                <Features />
-                                            </div>
-                                            <div id="how-it-works">
-                                                <HowItWorks />
-                                            </div>
-                                            <div id="faq">
-                                                <FAQ />
-                                            </div>
-                                            <div id="contact">
-                                                <Contact />
-                                            </div>
-                                            {process.env.NODE_ENV === 'development' && <DevelopmentTools />}
-                                        </div>
-                                    )
-                                )
-                            }
-                        />
-                    </Routes>
+                                }
+                            />
+                        </Routes>
+                    </Suspense>
                 </div>
             </Router>
         </LanguageProvider>

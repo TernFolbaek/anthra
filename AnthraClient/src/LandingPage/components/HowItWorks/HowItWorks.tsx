@@ -3,10 +3,9 @@ import './HowItWorks.css';
 import stepOneImage from '../../assets/explore-anthra.png';
 import stepTwoImage from '../../assets/connections-anthra.png';
 import stepThreeImage from '../../assets/group-chat.jpg';
-import howItWorksVideo from '../../assets/air.mp4';
-import { useLanguage } from '../../../LanguageContext'; // Import the useLanguage hook
-import translations from '../../../languages/landingPageTranslations.json'; // Import the combined translations
-
+import { useLanguage } from '../../../LanguageContext';
+import translations from '../../../languages/landingPageTranslations.json';
+import z12 from '../../assets/z12.jpg';
 const HowItWorks: React.FC = () => {
     const step1Ref = useRef<HTMLDivElement>(null);
     const step2Ref = useRef<HTMLDivElement>(null);
@@ -44,10 +43,7 @@ const HowItWorks: React.FC = () => {
 
     return (
         <div className="how-it-works-container">
-            <video autoPlay loop muted className="background-video" controls={false}>
-                <source src={howItWorksVideo} type="video/mp4"/>
-                Your browser does not support the video tag.
-            </video>
+            <img src={z12} className="background-video" alt="group chat"/>
 
             <div className="content">
                 <h1 className="how-it-works-title">{t.title}</h1> {/* Use translated title */}

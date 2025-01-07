@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Anthra title">
-      <change afterPath="$PROJECT_DIR$/src/config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env.development" afterDir="false" />
+    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Remove flags as it was very time heavy">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/.env.production" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Authentication/AuthPage/AuthPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Authentication/AuthPage/AuthPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/appsettings.Development.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LandingPage/components/HowItWorks/HowItWorks.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/LandingPage/components/HowItWorks/HowItWorks.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -240,39 +235,7 @@
       <workItem from="1736074838242" duration="11061000" />
       <workItem from="1736089215495" duration="6574000" />
       <workItem from="1736150108509" duration="6077000" />
-      <workItem from="1736182161684" duration="3907000" />
-    </task>
-    <task id="LOCAL-00705" summary="Darker background color for apply button">
-      <option name="closed" value="true" />
-      <created>1735127080572</created>
-      <option name="number" value="00705" />
-      <option name="presentableId" value="LOCAL-00705" />
-      <option name="project" value="LOCAL" />
-      <updated>1735127080572</updated>
-    </task>
-    <task id="LOCAL-00706" summary="Remove border radius on small screens for card container">
-      <option name="closed" value="true" />
-      <created>1735127090969</created>
-      <option name="number" value="00706" />
-      <option name="presentableId" value="LOCAL-00706" />
-      <option name="project" value="LOCAL" />
-      <updated>1735127090969</updated>
-    </task>
-    <task id="LOCAL-00707" summary="Darker background color for connections page in mobile view">
-      <option name="closed" value="true" />
-      <created>1735127103018</created>
-      <option name="number" value="00707" />
-      <option name="presentableId" value="LOCAL-00707" />
-      <option name="project" value="LOCAL" />
-      <updated>1735127103018</updated>
-    </task>
-    <task id="LOCAL-00708" summary="Darker background color for buttons">
-      <option name="closed" value="true" />
-      <created>1735127111744</created>
-      <option name="number" value="00708" />
-      <option name="presentableId" value="LOCAL-00708" />
-      <option name="project" value="LOCAL" />
-      <updated>1735127111744</updated>
+      <workItem from="1736182161684" duration="16860000" />
     </task>
     <task id="LOCAL-00709" summary="Connect on right side of card and skip on left">
       <option name="closed" value="true" />
@@ -634,7 +597,39 @@
       <option name="project" value="LOCAL" />
       <updated>1736159346573</updated>
     </task>
-    <option name="localTasksCounter" value="754" />
+    <task id="LOCAL-00754" summary="Add env api urls">
+      <option name="closed" value="true" />
+      <created>1736194650421</created>
+      <option name="number" value="00754" />
+      <option name="presentableId" value="LOCAL-00754" />
+      <option name="project" value="LOCAL" />
+      <updated>1736194650421</updated>
+    </task>
+    <task id="LOCAL-00755" summary="Add env api urls">
+      <option name="closed" value="true" />
+      <created>1736194659079</created>
+      <option name="number" value="00755" />
+      <option name="presentableId" value="LOCAL-00755" />
+      <option name="project" value="LOCAL" />
+      <updated>1736194659079</updated>
+    </task>
+    <task id="LOCAL-00756" summary="Base url omitting">
+      <option name="closed" value="true" />
+      <created>1736194708340</created>
+      <option name="number" value="00756" />
+      <option name="presentableId" value="LOCAL-00756" />
+      <option name="project" value="LOCAL" />
+      <updated>1736194708340</updated>
+    </task>
+    <task id="LOCAL-00757" summary="Remove flags as it was very time heavy">
+      <option name="closed" value="true" />
+      <created>1736194721701</created>
+      <option name="number" value="00757" />
+      <option name="presentableId" value="LOCAL-00757" />
+      <option name="project" value="LOCAL" />
+      <updated>1736194721701</updated>
+    </task>
+    <option name="localTasksCounter" value="758" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -652,9 +647,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Show which path we are on through styling" />
-    <MESSAGE value="Dynamic text color for charts, depending on dark mode bool" />
-    <MESSAGE value="Dark background for groups page on mobile mode" />
     <MESSAGE value="Dark background for messages page on mobile mode" />
     <MESSAGE value="Fix overlap of groupmessage container" />
     <MESSAGE value="Reduce font size" />
@@ -677,6 +669,9 @@
     <MESSAGE value="Smaller text for mobile and scrollable content not pages" />
     <MESSAGE value="profile production" />
     <MESSAGE value="Anthra title" />
-    <option name="LAST_COMMIT_MESSAGE" value="Anthra title" />
+    <MESSAGE value="Add env api urls" />
+    <MESSAGE value="Base url omitting" />
+    <MESSAGE value="Remove flags as it was very time heavy" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove flags as it was very time heavy" />
   </component>
 </project>

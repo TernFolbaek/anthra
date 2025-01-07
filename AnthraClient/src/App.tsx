@@ -1,5 +1,6 @@
+// App.tsx
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './LandingPage/components/Home/Home';
 import HowItWorks from './LandingPage/components/HowItWorks/HowItWorks';
 import Features from './LandingPage/components/Features/Features';
@@ -12,7 +13,7 @@ import Navbar from './LandingPage/components/Navbar/Navbar';
 import Main from './Dashboard/Main';
 import { LanguageProvider } from './LanguageContext';
 import DevelopmentTools from './DevelopmentTools';
-import axios from 'axios'; // Import the LanguageProvider
+import axios from 'axios';
 import PrivacyPolicy from './Privacy/PrivacyPolicy';
 
 const App = () => {
@@ -22,7 +23,6 @@ const App = () => {
 
     useEffect(() => {
         const flag = localStorage.getItem('isDark');
-        // Ensure the body class reflects the current dark mode setting on load
         if (flag === 'true') {
             document.body.classList.add('dark');
         } else {
@@ -35,20 +35,18 @@ const App = () => {
         const userId = localStorage.getItem('userId');
 
         if (token && userId) {
-            // Optionally, verify token expiration here
-            // Fetch the user's profile
-            axios.get('https://api.anthra.dk/api/Profile/GetProfile', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
+            axios
+                .get('https://api.anthra.dk/api/Profile/GetProfile', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
                 .then(response => {
                     const userProfile = response.data;
                     setIsAuthenticated(true);
                     setProfileCreated(userProfile.createdProfile);
                 })
                 .catch(error => {
-                    // Handle error, possibly invalid token
                     localStorage.removeItem('token');
                     localStorage.removeItem('userId');
                     setIsAuthenticated(false);
@@ -60,7 +58,6 @@ const App = () => {
         setIsAuthenticated(false);
         setShowAuthPage(false);
         setProfileCreated(false);
-        // Optionally, clear user data from localStorage if needed
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
         localStorage.removeItem('fullName');
@@ -85,24 +82,39 @@ const App = () => {
     };
 
     return (
-        <LanguageProvider> {/* Wrap the app in LanguageProvider */}
+        <LanguageProvider>
             <Router>
                 <div className="App">
                     <Routes>
+                        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                         <Route
-                            path="/privacy-policy"
-                            element={<PrivacyPolicy />}
-                        />
-                        <Route
-                            path="/"
+                            path="/create-profile/*"
                             element={
                                 isAuthenticated ? (
                                     profileCreated ? (
-                                        // User is authenticated and profile is created
+                                        <Navigate to="/dashboard" replace />
+                                    ) : (
+                                        <CreateProfile
+                                            onBackClick={handleCreateProfileBackClick}
+                                            onProfileCreated={handleProfileCreated}
+                                        />
+                                    )
+                                ) : (
+                                    <Navigate to="/" replace />
+                                )
+                            }
+                        />
+                        <Route
+                            path="/dashboard/*"
+                            element={
+                                isAuthenticated ? (
+                                    profileCreated ? (
                                         <Main />
                                     ) : (
-                                        // User is authenticated but profile is not created
-                                        <CreateProfile onBackClick={handleCreateProfileBackClick} onProfileCreated={handleProfileCreated} />
+                                        <CreateProfile
+                                            onBackClick={handleCreateProfileBackClick}
+                                            onProfileCreated={handleProfileCreated}
+                                        />
                                     )
                                 ) : (
                                     showAuthPage ? (
@@ -131,42 +143,42 @@ const App = () => {
                                 )
                             }
                         />
-r                        <Route
-                            path="/dashboard/*"
+                        <Route
+                            path="/"
                             element={
                                 isAuthenticated ? (
                                     profileCreated ? (
                                         <Main />
                                     ) : (
-                                        <CreateProfile onBackClick={handleCreateProfileBackClick} onProfileCreated={handleProfileCreated} />
+                                        <Navigate to="/create-profile" replace />
                                     )
                                 ) : (
                                     showAuthPage ? (
                                         <AuthPage onBackClick={handleBackClick} onAuthSuccess={handleAuthSuccess} />
                                     ) : (
                                         <div>
-                                            <Navbar onGetStartedClick={handleGetStartedClick}/>
+                                            <Navbar onGetStartedClick={handleGetStartedClick} />
                                             <div id="home">
-                                                <Home onGetStartedClick={handleGetStartedClick}/>
+                                                <Home onGetStartedClick={handleGetStartedClick} />
                                             </div>
                                             <div id="features">
-                                                <Features/>
+                                                <Features />
                                             </div>
                                             <div id="how-it-works">
-                                                <HowItWorks/>
+                                                <HowItWorks />
                                             </div>
                                             <div id="faq">
-                                                <FAQ/>
+                                                <FAQ />
                                             </div>
                                             <div id="contact">
-                                                <Contact/>
+                                                <Contact />
                                             </div>
-                                            {process.env.NODE_ENV === 'development' && <DevelopmentTools/>}
+                                            {process.env.NODE_ENV === 'development' && <DevelopmentTools />}
                                         </div>
                                     )
                                 )
                             }
-                    />
+                        />
                     </Routes>
                 </div>
             </Router>

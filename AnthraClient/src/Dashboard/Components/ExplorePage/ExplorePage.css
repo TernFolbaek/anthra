@@ -4,7 +4,6 @@
 .explore-page {
     display: flex;
     justify-content: center;
-    align-items: center;
     flex: 1;
     font-family: 'Montserrat', sans-serif;
     padding: 40px;

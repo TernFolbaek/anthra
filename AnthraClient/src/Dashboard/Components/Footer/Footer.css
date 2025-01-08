@@ -30,6 +30,10 @@ body.dark .footer {
     color: #007bff;
 }
 
+body.dark .active-footer-link .footer-icon{
+    color: #439ef6;
+}
+
 
 /* Dark mode styles */
 body.dark .footer-link {

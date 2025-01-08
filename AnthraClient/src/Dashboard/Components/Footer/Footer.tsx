@@ -1,18 +1,14 @@
-// src/Components/Footer/Footer.tsx
 import React, { useState, useEffect, useContext } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
-    FaHome,
     FaUserFriends,
     FaEnvelope,
-    FaCog,
-    FaBars,
-    FaTimes,
     FaUser,
     FaUsers,
 } from 'react-icons/fa';
 import './Footer.css';
 import { NotificationContext } from '../../context/NotificationsContext';
+import {FaMagnifyingGlass} from "react-icons/fa6";
 
 interface FooterProps {
     onSettingsClick: () => void;
@@ -82,10 +78,10 @@ const Footer: React.FC<FooterProps> = ({ onSettingsClick }) => {
             {/* Notice the className now includes a function that checks isActive */}
             <NavLink
                 to="/dashboard/groups"
-                className={({ isActive }) => `footer-link ${isActive ? 'active-footer-link' : ''}`}
+                className={({isActive}) => `footer-link ${isActive ? 'active-footer-link' : ''}`}
             >
                 <div className="tooltip-container">
-                    <FaUsers className="footer-icon" />
+                    <FaUsers className="footer-icon"/>
                     {unreadGroups > 0 && (
                         <span className="badge-icon">
                             {unreadGroups < 10 ? unreadGroups : '9+'}
@@ -97,10 +93,10 @@ const Footer: React.FC<FooterProps> = ({ onSettingsClick }) => {
 
             <NavLink
                 to="/dashboard/connections"
-                className={({ isActive }) => `footer-link ${isActive ? 'active-footer-link' : ''}`}
+                className={({isActive}) => `footer-link ${isActive ? 'active-footer-link' : ''}`}
             >
-                <div className="tooltip-container" style={{ position: 'relative' }}>
-                    <FaUserFriends className="footer-icon" />
+                <div className="tooltip-container" style={{position: 'relative'}}>
+                    <FaUserFriends className="footer-icon"/>
                     {unreadConnections > 0 && (
                         <span className="badge-icon">
                             {unreadConnections < 10 ? unreadConnections : '9+'}
@@ -112,20 +108,20 @@ const Footer: React.FC<FooterProps> = ({ onSettingsClick }) => {
 
             <NavLink
                 to="/dashboard/explore"
-                className={({ isActive }) => `footer-link ${isActive ? 'active-footer-link' : ''}`}
+                className={({isActive}) => `footer-link ${isActive ? 'active-footer-link' : ''}`}
             >
                 <div className="tooltip-container">
-                    <FaHome className="footer-icon" />
+                    <FaMagnifyingGlass className="footer-icon"/>
                     <span className="tooltip">Explore</span>
                 </div>
             </NavLink>
 
             <NavLink
                 to="/dashboard/messages"
-                className={({ isActive }) => `footer-link ${isActive ? 'active-footer-link' : ''}`}
+                className={({isActive}) => `footer-link ${isActive ? 'active-footer-link' : ''}`}
             >
-                <div className="tooltip-container" style={{ position: 'relative' }}>
-                    <FaEnvelope className="footer-icon" />
+                <div className="tooltip-container" style={{position: 'relative'}}>
+                    <FaEnvelope className="footer-icon"/>
                     {unreadMessages > 0 && (
                         <span className="badge-icon">
                             {unreadMessages < 10 ? unreadMessages : '9+'}
@@ -135,43 +131,17 @@ const Footer: React.FC<FooterProps> = ({ onSettingsClick }) => {
                 </div>
             </NavLink>
 
-            <button className="footer-link" onClick={toggleMenu}>
-                <FaBars className="footer-icon" />
-                <span className="tooltip">Menu</span>
-            </button>
-
-            {menuOpen && (
-                <div className="footer-menu-overlay" onClick={closeMenu}>
-                    <div className="footer-menu" onClick={(e) => e.stopPropagation()}>
-                        <button className="close-button" onClick={closeMenu}>
-                            <FaTimes size={20} />
-                        </button>
-
-                        <NavLink
-                            to="/dashboard/profile"
-                            className="footer-submenu-link"
-                            onClick={closeMenu}
-                        >
-                            <div className="text-base flex gap-2 items-center">
-                                <FaUser /> Profile
-                            </div>
-                        </NavLink>
-
-                        <div
-                            className="footer-submenu-link"
-                            onClick={() => {
-                                onSettingsClick();
-                                closeMenu();
-                            }}
-                            style={{ cursor: 'pointer' }}
-                        >
-                            <div className="text-base flex gap-2 items-center">
-                                <FaCog /> Settings
-                            </div>
-                        </div>
-                    </div>
+            <NavLink
+                to="/dashboard/profile"
+                className={({isActive}) => `footer-link ${isActive ? 'active-footer-link' : ''}`}
+            >
+                <div className="tooltip-container">
+                    <FaUser size={20} className="footer-icon"/>
+                    <span className="tooltip">Profile</span>
                 </div>
-            )}
+            </NavLink>
+
+
         </div>
     );
 };

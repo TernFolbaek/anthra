@@ -221,7 +221,7 @@ const Profile: React.FC = () => {
     };
 
     if (!profileData) {
-        return <div>Loading...</div>;
+        return;
     }
     const handleProfilePictureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {

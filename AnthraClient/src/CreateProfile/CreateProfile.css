@@ -298,6 +298,11 @@
     scrollbar-color: #e4e4e4 transparent;
 }
 
+.required-asterisk {
+    color: red;
+    margin-left: 2px;
+}
+
 .highlighted {
     background-color: #e2e8f0;
 }
@@ -394,10 +399,28 @@
 }
 
 
+.status-tag {
+    font-weight: 600;
+    background-color: rgba(187, 211, 243, 0.4);
+    color: #2c91f4;
+    padding: 0.2rem 0.3rem;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    user-select: none;
+}
+
 .status-tag:hover {
-    background-color: #d6d6d6;
+    background-color: #add3f8;
     transform: scale(1.05);
 }
+
+.status-tag-selected {
+    border: 2px solid #2c91f4;
+    transform: scale(1.03);
+}
+
 
 
 /* Error/Success Messages */

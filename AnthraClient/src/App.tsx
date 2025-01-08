@@ -43,7 +43,7 @@ const App: React.FC = () => {
 
         if (token && userId) {
             axios
-                .get('/api/Profile/GetProfile', {
+                .get('/Profile/GetProfile', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -92,7 +92,7 @@ const App: React.FC = () => {
         <LanguageProvider>
             <Router>
                 <div className="App">
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<div></div>}>
                         <Routes>
                             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                             <Route

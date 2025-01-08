@@ -6,7 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Remove flags as it was very time heavy">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LandingPage/components/HowItWorks/HowItWorks.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/LandingPage/components/HowItWorks/HowItWorks.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CreateProfile/CreateProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/CreateProfile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CreateProfile/StepOne.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/StepOne.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CreateProfile/StepTwo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/StepTwo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Profile/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,11 +73,11 @@
       <recent name="$PROJECT_DIR$/client/web/src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/LandingPage/assets" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/client/web/public" />
       <recent name="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/IndividualExplore" />
-      <recent name="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -235,7 +240,10 @@
       <workItem from="1736074838242" duration="11061000" />
       <workItem from="1736089215495" duration="6574000" />
       <workItem from="1736150108509" duration="6077000" />
-      <workItem from="1736182161684" duration="16860000" />
+      <workItem from="1736182161684" duration="25481000" />
+      <workItem from="1736330684078" duration="3623000" />
+      <workItem from="1736337866312" duration="105000" />
+      <workItem from="1736338146421" duration="989000" />
     </task>
     <task id="LOCAL-00709" summary="Connect on right side of card and skip on left">
       <option name="closed" value="true" />

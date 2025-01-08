@@ -10,6 +10,7 @@ import socialSciencesCourses from './ku/socialSciencesCourses.json';
 import healthAndMedicalCourses from './ku/healthAndMedicalCourses.json';
 import theologyCourses from './ku/theologyCourses.json';
 import universitiesData from './universities.json';
+import axios from "axios";
 
 interface Course {
     courseName: string;
@@ -188,33 +189,33 @@ const StepTwo: React.FC<StepTwoProps> = ({
         formData.append('ProfilePicture', profilePictureFile);
 
         try {
-            const response = await fetch('https://api.anthra.dk/api/Profile/UpdateProfile', {
-                method: 'POST',
+            const response = await axios.post('/Profile/UpdateProfile', formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data',
                 },
-                body: formData,
-                credentials: 'include'
+                withCredentials: true,
             });
-            if (!response.ok) {
-                const errorData = await response.json();
+
+            const data = response.data;
+
+            localStorage.setItem('fullName', `${firstName} ${lastName}`);
+            localStorage.setItem('userProfilePicture', data.profilePictureUrl);
+            onProfileCreated();
+        } catch (err: any) {
+            if (err.response && err.response.data) {
+                const errorData = err.response.data;
                 setError(
                     errorData.Message ||
                     Object.values(errorData.errors || {}).join(' ') ||
                     'An error occurred'
                 );
-                setMessage(null);
-                return;
+            } else {
+                setError('An error occurred. Please try again.');
             }
-
-            const data = await response.json();
-            localStorage.setItem('fullName', `${firstName} ${lastName}`);
-            localStorage.setItem('userProfilePicture', data.profilePictureUrl);
-            onProfileCreated();
-        } catch (err) {
-            setError('An error occurred. Please try again.');
             setMessage(null);
         }
+
     };
 
     const handleCourseInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -17,10 +17,6 @@
     background-color:  rgba(180, 209, 255, 0.2);
 }
 
-/* Dark mode styles */
-body.dark .menu-toggle {
-}
-
 .menu-slider {
     position: absolute;
     top: 0;
@@ -32,11 +28,15 @@ body.dark .menu-toggle {
     z-index: 0; /* Place behind the buttons */
     border-radius: 10px;
 }
+body.dark .menu-toggle {
+    /* Use lighter border for contrast on a darker background */
+    border: 3px solid lightgrey;
+    background-color: darkgrey; /* dark grey background */
+}
 
-/* Dark mode styles */
 body.dark .menu-slider {
-    background-color: #e2f4fb;
-    border-radius: 10px;
+    /* Slightly lighter than dark grey to distinguish the slider */
+    background-color: #5c5c5c;
 }
 
 .menu-slider.slide-right {
@@ -46,7 +46,7 @@ body.dark .menu-slider {
 .explore-menu-button {
     border: none;
     color: #333;
-    padding: 12px 20px;
+    padding: 8px 16px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     cursor: pointer;
@@ -57,9 +57,8 @@ body.dark .menu-slider {
     position: relative;
 }
 
-/* Dark mode styles */
 body.dark .explore-menu-button {
-    color: #ccc;
+    color: #ffffff;
 }
 
 .explore-menu-button.active {
@@ -67,9 +66,8 @@ body.dark .explore-menu-button {
     z-index: 3;
 }
 
-/* Dark mode styles */
 body.dark .explore-menu-button.active {
-    color: black;
+    color: white;
     z-index: 3;
 }
 
@@ -77,9 +75,8 @@ body.dark .explore-menu-button.active {
     color: #333;
 }
 
-/* Dark mode styles */
 body.dark .explore-menu-button:not(.active) {
-    color: white;
+    color: rgba(55, 55, 55, 0.97);
 }
 
 @media(max-width: 480px) {

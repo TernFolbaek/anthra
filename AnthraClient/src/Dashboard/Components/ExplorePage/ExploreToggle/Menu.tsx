@@ -18,7 +18,7 @@ const Menu: React.FC<MenuProps> = ({ activePage, setActivePage }) => {
                     className={`menu-slider ${activePage === 'individuals' ? 'slide-left' : 'slide-right'}`}
                 ></div>
                 <button
-                    className={`explore-menu-button ${activePage === 'individuals' ? 'active' : ''}`}
+                    className={`text-sm explore-menu-button ${activePage === 'individuals' ? 'active' : ''}`}
                     onClick={() => setActivePage('individuals')}
                     aria-label="Individuals"
                 >
@@ -33,7 +33,7 @@ const Menu: React.FC<MenuProps> = ({ activePage, setActivePage }) => {
                     {!isSmallScreen && <span>Individuals</span>}
                 </button>
                 <button
-                    className={`explore-menu-button ${activePage === 'groups' ? 'active' : ''}`}
+                    className={`text-sm explore-menu-button ${activePage === 'groups' ? 'active' : ''}`}
                     onClick={() => setActivePage('groups')}
                     aria-label="Groups"
                 >

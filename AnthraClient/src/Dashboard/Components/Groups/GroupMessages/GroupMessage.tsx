@@ -193,7 +193,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
 
     const fetchGroupDetails = async () => {
         try {
-            const response = await axios.get(`https://api.anthra.dk/api/Groups/${groupId}`, {
+            const response = await axios.get(`/Groups/${groupId}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setGroupInfo(response.data);
@@ -205,7 +205,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
     const fetchMessages = async () => {
         try {
             const response = await axios.get(
-                "https://api.anthra.dk/api/GroupMessages/GetGroupChatHistory",
+                "/GroupMessages/GetGroupChatHistory",
                 {
                     params: { groupId },
                     headers: { Authorization: `Bearer ${token}` },
@@ -253,7 +253,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
     const handleLeaveGroup = async (groupId: number) => {
         try {
             await axios.post(
-                "https://api.anthra.dk/api/Groups/LeaveGroup",
+                "/Groups/LeaveGroup",
                 { groupId },
                 {
                     headers: {
@@ -292,7 +292,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                     {isMobile && (
                         <FaArrowLeft
                             className="back-arrow"
-                            onClick={() => navigate("/groups")}
+                            onClick={() => navigate("/dashboard/groups")}
                         />
                     )}
                     <div className="contact-info">

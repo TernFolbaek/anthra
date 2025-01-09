@@ -35,7 +35,7 @@ const GroupMembersTab: React.FC<GroupMembersTabProps> = ({ groupInfo }) => {
     const fetchGroupMembers = async () => {
         try {
             const response = await axios.get(
-                `https://api.anthra.dk/api/Groups/GetGroupInfo`,
+                `/Groups/GetGroupInfo`,
                 {
                     params: { groupId: groupInfo.groupId },
                     headers: { Authorization: `Bearer ${token}` },
@@ -56,7 +56,7 @@ const GroupMembersTab: React.FC<GroupMembersTabProps> = ({ groupInfo }) => {
         if (selectedMemberToKick) {
             try {
                 await axios.post(
-                    'https://api.anthra.dk/api/Groups/KickMember',
+                    '/Groups/KickMember',
                     {
                         groupId: groupInfo.groupId,
                         memberId: selectedMemberToKick.userId,

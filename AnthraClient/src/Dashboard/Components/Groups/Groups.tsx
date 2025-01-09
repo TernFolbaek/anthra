@@ -54,7 +54,7 @@ const Groups: React.FC = () => {
 
     const fetchGroups = async () => {
         try {
-            const response = await axios.get('https://api.anthra.dk/api/Groups/GetUserGroups', {
+            const response = await axios.get('/Groups/GetUserGroups', {
                 headers: { Authorization: `Bearer ${token}` },
             });
             const groupsWithMembers = response.data.map((group: Group) => ({
@@ -66,7 +66,7 @@ const Groups: React.FC = () => {
 
             if (groupsWithMembers.length > 0 && !groupId && isWideScreen) {
                 // Navigate to the first group
-                navigate(`/groups/${groupsWithMembers[0].id}`);
+                navigate(`/dashboard/groups/${groupsWithMembers[0].id}`);
             }
         } catch (error) {
             console.error('Error fetching groups:', error);
@@ -75,7 +75,7 @@ const Groups: React.FC = () => {
 
     const fetchConnections = async () => {
         try {
-            const response = await axios.get('https://api.anthra.dk/api/Connections/List', {
+            const response = await axios.get('/Connections/List', {
                 params: { userId },
                 withCredentials: true,
             });
@@ -96,7 +96,7 @@ const Groups: React.FC = () => {
 
 
     const handleGroupClick = (groupId: number) => {
-        navigate(`/groups/${groupId}`);
+        navigate(`/dashboard/groups/${groupId}`);
     };
 
     return (
@@ -118,7 +118,7 @@ const Groups: React.FC = () => {
                             ) : (
                                 isWideScreen && (
                                     <div className="no-group-selected">
-                                        <p className="text-base text-gray-500 font-bold">Please select a group to view messages</p>
+                                        <p className="text-sm text-gray-500 font-bold">Please select a group to view messages</p>
                                     </div>
                                 )
                             )}

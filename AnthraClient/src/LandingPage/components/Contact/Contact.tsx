@@ -27,7 +27,7 @@ const Contact: React.FC = () => {
             const message = `From: ${email}\n\nSubject: ${subject}\n\nMessage: ${body}`;
 
             // Use a non-authenticated endpoint
-            await axios.post('https://api.anthra.dk/api/Support/SendSupportEmailGuest',
+            await axios.post('/Support/SendSupportEmailGuest',
                 {
                     email,
                     subject,
@@ -110,12 +110,12 @@ const Contact: React.FC = () => {
                     </button>
                 </form>
 
-                {/* Privacy Policy Button */}
-                <button onClick={handlePrivacyPolicyClick} className="privacy-policy-button">
-                    {t.privacyPolicyButton || 'Privacy Policy'}
-                </button>
+
             </div>
             <footer className="contact-footer">
+                <button onClick={handlePrivacyPolicyClick} className="privacy-policy-button underline">
+                    {t.privacyPolicyButton || 'Privacy Policy'}
+                </button>
                 <p>&copy; {new Date().getFullYear()} {t.footer}</p>
             </footer>
         </div>

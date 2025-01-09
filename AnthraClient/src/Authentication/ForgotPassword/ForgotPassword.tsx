@@ -18,7 +18,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ onBack, onResetRequeste
         setError(null);
 
         try {
-            await axios.post('https://api.anthra.dk/api/Auth/ForgotPassword', { email });
+            await axios.post('/Auth/ForgotPassword', { email });
             setMessage('Password reset code sent to your email.');
             onResetRequested();
         } catch (err: any) {

@@ -30,7 +30,7 @@ const GroupDetailsModal: React.FC<Props> = ({ groupId, onClose }) => {
 
     const fetchGroupDetails = async () => {
         try {
-            const response = await axios.get(`https://api.anthra.dk/api/Groups/GetGroupDetails`, {
+            const response = await axios.get(`/Groups/GetGroupDetails`, {
                 params: { groupId },
                 headers: { Authorization: `Bearer ${token}` },
             });

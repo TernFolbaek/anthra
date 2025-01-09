@@ -85,7 +85,7 @@
 .settings-title {
     display: flex;
     align-items: center;
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 700;
     gap: 8px;
 }
@@ -162,7 +162,7 @@ body.dark .settings-content {
 
 .settings-dropdown-title {
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.85rem;
     text-align: left;
 }
 

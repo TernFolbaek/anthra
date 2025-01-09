@@ -1,4 +1,3 @@
-// CreateProfile.tsx
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, Navigate, useLocation } from 'react-router-dom';
 import './CreateProfile.css';
@@ -11,13 +10,17 @@ interface CreateProfileProps {
     onBackClick: () => void;
 }
 
-const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackClick }) => {
+const CreateProfile: React.FC<CreateProfileProps> = ({
+                                                         onProfileCreated,
+                                                         onBackClick
+                                                     }) => {
     const [step, setStep] = useState(1);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [age, setAge] = useState<number | ''>('');
     const [country, setCountry] = useState('');
     const [city, setCity] = useState('');
+    const [aboutMe, setAboutMe] = useState('');
     const [profilePictureFile, setProfilePictureFile] = useState<File | null>(null);
 
     const [message, setMessage] = useState<string | null>(null);
@@ -28,39 +31,18 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
     const location = useLocation();
     const windowWidth = useWindowWidth();
 
-    let isMobile = false;
+    // Typically, we'd do isMobile = windowWidth <= 480
+    const isMobile = windowWidth <= 480;
 
     useEffect(() => {
-        if (windowWidth > 480) {
-            isMobile = true;
-        }
-        // On mount, if no step is in the URL, default to step-one
-        if (!location.pathname.includes('step-one') && !location.pathname.includes('step-two')) {
+        // On mount: if no step is in the URL, default to step-one
+        if (!location.pathname.includes('step-one') &&
+            !location.pathname.includes('step-two'))
+        {
+            // Use replace: true so we don't add to the history stack
             navigate('step-one', { replace: true });
         }
-        if (isMobile) {
-            window.history.pushState(null, '', window.location.href);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [windowWidth]);
-
-    useEffect(() => {
-        const handlePopState = () => {
-            if (isMobile) {
-                window.location.reload();
-            }
-        };
-
-        if (isMobile) {
-            window.addEventListener('popstate', handlePopState);
-        }
-
-        return () => {
-            if (isMobile) {
-                window.removeEventListener('popstate', handlePopState);
-            }
-        };
-    }, [isMobile]);
+    }, [location, navigate]);
 
     const handleNext = () => {
         if (step === 1) {
@@ -70,7 +52,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
             }
             setError(null);
             setStep(2);
-            navigate('../create-profile/step-two');
+            navigate('step-two'); // you can do replace here too if desired
         }
     };
 
@@ -78,7 +60,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
         if (step > 1) {
             setStep(1);
             setError(null);
-            navigate('../create-profile/step-one');
+            navigate('step-one');
         }
     };
 
@@ -87,15 +69,21 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
     return (
         <div className="create-profile-page">
             {!isMobile && (
-                <button className="back-button" onClick={onBackClick}>
-                    Back
+                <button
+                    className="bg-slate-200 rounded-md py-2 px-3 absolute top-5 left-5  border-0 cursor-pointer text-base font-semibold"
+                    onClick={onBackClick}
+                >
+                    Home
                 </button>
+
             )}
             <div className="progress-bar">
-                <div className="progress-bar-fill" style={{ width: `${progressPercentage}%` }}></div>
+                <div className="progress-bar-fill" style={{width: `${progressPercentage}%`}}></div>
             </div>
             <div className="create-profile-container">
-                <h2>Create Your Profile</h2>
+                {!isMobile && (
+                    <h2>Create Your Profile</h2>
+                )}
                 {message && <p className="success-message">{message}</p>}
                 {error && <p className="error-message">{error}</p>}
 
@@ -118,6 +106,8 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                                     setAge={setAge}
                                     country={country}
                                     setCountry={setCountry}
+                                    aboutMe={aboutMe}
+                                    setAboutMe={setAboutMe}
                                     city={city}
                                     setCity={setCity}
                                     profilePictureFile={profilePictureFile}
@@ -144,6 +134,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                                 lastName={lastName}
                                 age={age}
                                 country={country}
+                                aboutMe={aboutMe}
                                 city={city}
                                 profilePictureFile={profilePictureFile}
                                 onProfileCreated={onProfileCreated}

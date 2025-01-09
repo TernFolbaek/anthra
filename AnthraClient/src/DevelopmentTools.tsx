@@ -4,7 +4,7 @@ import axios from 'axios';
 const DevelopmentTools = () => {
     const createTestUsers = async () => {
         try {
-            await axios.post('https://api.anthra.dk/create-test-users');
+            await axios.post('http://localhost:5000/create-test-users');
         } catch (error) {
             console.error('Error creating test users:', error);
         }
@@ -12,7 +12,7 @@ const DevelopmentTools = () => {
 
     const deleteTestUsers = async () => {
         try {
-            await axios.post('https://api.anthra.dk/delete-test-users');
+            await axios.post('http://localhost:5000/delete-test-users');
         } catch (error) {
             console.error('Error deleting test users:', error);
         }

@@ -92,7 +92,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
         const fetchGroupInfo = async () => {
             try {
                 const response = await axios.get(
-                    `https://api.anthra.dk/api/Groups/GetGroupInfo?groupId=${groupId}`,
+                    `/Groups/GetGroupInfo?groupId=${groupId}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -129,7 +129,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
                 setErrorStatuses(null);
 
                 const response = await axios.get(
-                    'https://api.anthra.dk/api/Connections/Statuses',
+                    '/Connections/Statuses',
                     {
                         params: { targetUserIds },
                         paramsSerializer: params => qs.stringify(params, { arrayFormat: 'repeat' }),
@@ -186,7 +186,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
         try {
             setLoadingActions(prev => ({ ...prev, [targetUserId]: true }));
             await axios.post(
-                'https://api.anthra.dk/api/Connections/SendRequest',
+                '/Connections/SendRequest',
                 { targetUserId: targetUserId },
                 {
                     headers: {
@@ -236,7 +236,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
             try {
                 setLoadingActions(prev => ({ ...prev, [targetUserId]: true }));
                 await axios.post(
-                    'https://api.anthra.dk/api/Connections/RemoveConnection',
+                    '/Connections/RemoveConnection',
                     { targetUserId: targetUserId },
                     {
                         headers: {
@@ -274,7 +274,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
             try {
                 setLoadingActions(prev => ({ ...prev, [targetUserId]: true }));
                 await axios.post(
-                    'https://api.anthra.dk/api/Connections/RevokeRequest',
+                    '/Connections/RevokeRequest',
                     { targetUserId: targetUserId },
                     {
                         headers: {
@@ -459,7 +459,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
             {/* ---------------- MEDIA Section: Attachments in grid ---------------- */}
             <div className="group-section-title">Media</div>
             {attachments.length === 0 ? (
-                <p style={{ fontSize: '0.9rem', color: '#666' }}>No media found.</p>
+                <p style={{ fontSize: '0.9rem', color: '#666' }}>No media found</p>
             ) : (
                 <div className="media-section-grid">
                     {attachmentsToShow.map((att) => renderThumbnail(att, 120))}

@@ -82,7 +82,7 @@ const MessageConnectionProfile: React.FC<Props> = ({ userId }) => {
     const fetchProfile = async () => {
         try {
             const response = await axios.get(
-                `https://api.anthra.dk/api/Profile/GetProfileById?userId=${userId}`,
+                `/Profile/GetProfileById?userId=${userId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -100,7 +100,7 @@ const MessageConnectionProfile: React.FC<Props> = ({ userId }) => {
         try {
             // Example endpoint: adjust to match your backend
             const response = await axios.get(
-                `https://api.anthra.dk/api/Messages/GetAttachmentsForUsers?userA=${currentUserId}&userB=${userId}`,
+                `/Messages/GetAttachmentsForUsers?userA=${currentUserId}&userB=${userId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -232,7 +232,7 @@ const MessageConnectionProfile: React.FC<Props> = ({ userId }) => {
                 {/* 7) MEDIA SECTION */}
                 <div className="profile-section-title">Media</div>
                 {attachments.length === 0 ? (
-                    <p style={{ fontSize: '0.9rem', color: '#666' }}>No media found.</p>
+                    <p style={{ fontSize: '0.9rem', color: '#666' }}>No media found</p>
                 ) : (
                     <div className="media-section-grid">
                         {/* Show up to 4 attachments in a small grid */}

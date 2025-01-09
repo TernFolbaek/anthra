@@ -37,7 +37,7 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
     const fetchGroupInfo = async (groupId: number) => {
         try {
             const response = await axios.get(
-                `https://api.anthra.dk/api/Groups/GetGroupInfo`,
+                `/Groups/GetGroupInfo`,
                 {
                     params: { groupId },
                     headers: { Authorization: `Bearer ${token}` },

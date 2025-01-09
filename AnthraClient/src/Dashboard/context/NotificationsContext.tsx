@@ -46,7 +46,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
 
     const fetchNotifications = useCallback(async () => {
         try {
-            const response = await axios.get('https://api.anthra.dk/api/Notifications/GetNotifications', {
+            const response = await axios.get('/Notifications/GetNotifications', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -150,7 +150,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
         async (notificationId: number) => {
             try {
                 await axios.post(
-                    `https://api.anthra.dk/api/Notifications/MarkAsRead/${notificationId}`,
+                    `/Notifications/MarkAsRead/${notificationId}`,
                     {},
                     {
                         headers: {
@@ -193,7 +193,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
     const markAllAsRead = useCallback(async () => {
         try {
             await axios.post(
-                `https://api.anthra.dk/api/Notifications/MarkAllAsRead`,
+                `/Notifications/MarkAllAsRead`,
                 {},
                 {
                     headers: {

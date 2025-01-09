@@ -32,7 +32,7 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ onBack, onResetSuccess })
         setError(null);
 
         try {
-            await axios.post('https://api.anthra.dk/api/Auth/ResetPassword', {
+            await axios.post('/Auth/ResetPassword', {
                 email,
                 code,
                 newPassword,

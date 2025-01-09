@@ -9,16 +9,13 @@ const ConfigurationSettings: React.FC = () => {
     const toggleDarkMode = () => {
         setDarkMode((prevMode) => {
             const newMode = !prevMode;
-            // Update localStorage
             localStorage.setItem('isDark', newMode.toString());
-            // Toggle the 'dark' class on the body element
             document.body.classList.toggle('dark', newMode);
             return newMode;
         });
     };
 
     useEffect(() => {
-        // Ensure the body class reflects the current dark mode setting on load
         if (darkMode) {
             document.body.classList.add('dark');
         } else {
@@ -31,7 +28,7 @@ const ConfigurationSettings: React.FC = () => {
             <div className="toggle-group">
                 {/* Icon representing the current mode */}
                 <span className="mode-icon">
-                    {darkMode ? <FaMoon size={20} /> : <FaSun size={20} />}
+                    {darkMode ? <FaMoon size={15} /> : <FaSun size={15} />}
                 </span>
                 <div className="toggle-switch" onClick={toggleDarkMode}>
                     <input
@@ -47,7 +44,7 @@ const ConfigurationSettings: React.FC = () => {
                 </div>
                 {/* Optional: Show the opposite mode icon */}
                 <span className="mode-icon">
-                    {darkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
+                    {darkMode ? <FaSun size={15} /> : <FaMoon size={15} />}
                 </span>
             </div>
         </div>

@@ -28,21 +28,17 @@ ul {
 
 
 .privacy-back-button {
-    background-color: #2c91f4;
-    color: white;
-    padding: 5px 10px;
+    color: black;
     font-size: 1rem;
     cursor: pointer;
     position: absolute;
     top: 20px;
-    right: 20px;
-    border-radius: 10px;
-    border: 1px solid black;
-    opacity: 0.6;
+    right: 40px;
+    font-weight: bold;
 }
 
 .privacy-back-button:hover {
-    background-color: #067ef4;
+    transform: scale(1.1);
 }
 
 @media (max-width: 480px){

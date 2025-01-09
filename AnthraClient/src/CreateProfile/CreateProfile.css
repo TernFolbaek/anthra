@@ -64,7 +64,6 @@
 .form-step textarea {
     padding: 0.75rem;
     background-color: #f0f0f0;
-    border: 1px solid #ccc;
     color: #333;
     border-radius: 8px;
     font-size: 0.85rem;
@@ -110,7 +109,6 @@
 .autocomplete-input-with-label .input-label {
     margin-right: 0.5rem;
     flex-shrink: 0;
-    width: 80px;
 }
 
 .autocomplete-input-with-label input {
@@ -135,7 +133,7 @@
     position: absolute;
     top: -20px;
     right: 0;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: grey;
 }
 
@@ -304,7 +302,7 @@
 }
 
 .highlighted {
-    background-color: #e2e8f0;
+    background-color: #d0e4fd;
 }
 
 
@@ -312,7 +310,8 @@
     font-size: 0.85rem;
     padding: 10px;
     cursor: pointer;
-    color: #333;
+    color: rgba(113, 112, 112, 0.97);
+    font-weight: 600;
 }
 
 .suggestion-item:hover {
@@ -440,6 +439,7 @@
     /* Adjust container alignment */
     .create-profile-page {
         background-color: white;
+        justify-content: start;
     }
     .course-tag {
         font-size: 0.7rem;

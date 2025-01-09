@@ -35,6 +35,7 @@ interface StepTwoProps {
     firstName: string;
     lastName: string;
     age: number | '';
+    aboutMe: string;
     country: string;
     city: string;
     profilePictureFile: File | null;
@@ -53,15 +54,15 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                              firstName,
                                              lastName,
                                              age,
+                                             aboutMe,
                                              country,
                                              city,
                                              profilePictureFile,
                                              onProfileCreated,
                                              token,
                                              setMessage,
-                                             setStep
+                                             setStep,
                                          }) => {
-    const [aboutMe, setAboutMe] = useState('');
     const [institution, setInstitution] = useState<string>('');
     const [institutionSearch, setInstitutionSearch] = useState<string>('');
     const [filteredUniversities, setFilteredUniversities] = useState<University[]>([]);
@@ -463,21 +464,6 @@ const StepTwo: React.FC<StepTwoProps> = ({
     return (
         <form onSubmit={onFormSubmit}>
             <div className="form-step">
-                <label htmlFor="aboutMe" className="input-label">
-                    About Me <span className="required-asterisk">*</span>
-                    <span className="font-medium text-xs"> min. 150 chars.</span>
-                </label>
-                <div className="textarea-with-counter">
-                    <div className="char-counter">{aboutMe.length}/300</div>
-                    <textarea
-                        id="aboutMe"
-                        placeholder="About Me"
-                        minLength={150}
-                        maxLength={300}
-                        value={aboutMe}
-                        onChange={(e) => setAboutMe(e.target.value)}
-                    />
-                </div>
 
                 {/* Institution */}
                 <label className="input-label" htmlFor="institutionSearch">

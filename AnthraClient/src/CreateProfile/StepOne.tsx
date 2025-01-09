@@ -6,6 +6,8 @@ import './CreateProfile.css';
 interface StepOneProps {
     firstName: string;
     setFirstName: React.Dispatch<React.SetStateAction<string>>;
+    setAboutMe: React.Dispatch<React.SetStateAction<string>>;
+    aboutMe: string;
     lastName: string;
     setLastName: React.Dispatch<React.SetStateAction<string>>;
     age: number | '';
@@ -31,6 +33,8 @@ const StepOne: React.FC<StepOneProps> = ({
                                              setCity,
                                              profilePictureFile,
                                              setProfilePictureFile,
+                                             setAboutMe,
+                                             aboutMe
                                          }) => {
     const [countrySuggestions, setCountrySuggestions] = useState<string[]>([]);
     const [countries, setCountries] = useState<string[]>([]);
@@ -38,7 +42,6 @@ const StepOne: React.FC<StepOneProps> = ({
     const [citySuggestions, setCitySuggestions] = useState<string[]>([]);
     const countryInputRef = useRef<HTMLDivElement>(null);
     const cityInputRef = useRef<HTMLDivElement>(null);
-
     const [selectedCountryIndex, setSelectedCountryIndex] = useState<number>(-1);
     const [selectedCityIndex, setSelectedCityIndex] = useState<number>(-1);
 
@@ -46,11 +49,9 @@ const StepOne: React.FC<StepOneProps> = ({
         profilePictureFile ? URL.createObjectURL(profilePictureFile) : null
     );
 
-    // States for cropping
     const [isCropModalOpen, setIsCropModalOpen] = useState<boolean>(false);
     const [selectedImage, setSelectedImage] = useState<string>('');
 
-    // Fetch countries on component mount
     useEffect(() => {
         axios
             .get('https://countriesnow.space/api/v0.1/countries/iso', {
@@ -240,43 +241,49 @@ const StepOne: React.FC<StepOneProps> = ({
 
     return (
         <div className="form-step">
-            <label htmlFor="firstName" className="input-label">
-                First Name<span className="required-asterisk">*</span>
-            </label>
-            <input
-                id="firstName"
-                type="text"
-                placeholder="First Name"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-            />
+            <div className="flex items-center mb-2">
+                <label htmlFor="firstName" className="w-1/3">
+                    First Name<span className="required-asterisk">*</span>
+                </label>
+                <input
+                    id="firstName"
+                    type="text"
+                    placeholder="First Name"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                />
+            </div>
 
-            <label htmlFor="lastName" className="input-label">
-                Last Name<span className="required-asterisk">*</span>
-            </label>
-            <input
-                id="lastName"
-                type="text"
-                placeholder="Last Name"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-            />
+            <div className="flex items-center mb-2">
+                <label htmlFor="lastName" className="w-1/3">
+                    Last Name<span className="required-asterisk">*</span>
+                </label>
+                <input
+                    id="lastName"
+                    type="text"
+                    placeholder="Last Name"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                />
+            </div>
 
-            <label htmlFor="age" className="input-label">
-                Age<span className="required-asterisk">*</span>
-            </label>
-            <input
-                id="age"
-                type="number"
-                placeholder="Age"
-                value={age === '' ? '' : age}
-                onChange={(e) => setAge(e.target.value === '' ? '' : parseInt(e.target.value))}
-            />
+            <div className="flex items-center mb-2">
+                <label htmlFor="age" className="w-1/3">
+                    Age<span className="required-asterisk">*</span>
+                </label>
+                <input
+                    id="age"
+                    type="number"
+                    placeholder="Age"
+                    value={age === '' ? '' : age}
+                    onChange={(e) => setAge(e.target.value === '' ? '' : parseInt(e.target.value))}
+                />
+            </div>
 
             {/* Country Input */}
-            <div className="autocomplete-container mt-2" ref={countryInputRef}>
+            <div className="autocomplete-container mb-2" ref={countryInputRef}>
                 <div className="autocomplete-input-with-label">
-                    <label htmlFor="country" className="input-label">
+                    <label htmlFor="country" className="w-1/3">
                         Country<span className="required-asterisk">*</span>
                     </label>
                     <input
@@ -308,14 +315,14 @@ const StepOne: React.FC<StepOneProps> = ({
             {/* City Input */}
             <div className="autocomplete-container" ref={cityInputRef}>
                 <div className="autocomplete-input-with-label">
-                    <label htmlFor="city" className="input-label">
+                    <label htmlFor="city" className="w-1/3">
                         City
                     </label>
                     <input
                         id="city"
                         type="text"
                         placeholder="City"
-                        autoComplete="off"
+                        autoComplete="nope"
                         value={city}
                         onChange={handleCityInputChange}
                         onKeyDown={handleCityKeyDown}
@@ -336,6 +343,23 @@ const StepOne: React.FC<StepOneProps> = ({
                 )}
             </div>
 
+            <label htmlFor="aboutMe" className="input-label">
+                About Me <span className="required-asterisk">*</span>
+                <span className="font-medium text-xs"> min. 150 chars.</span>
+            </label>
+            <div className="textarea-with-counter">
+                <div className="char-counter">{aboutMe.length}/300</div>
+                <textarea
+                    id="aboutMe"
+                    placeholder="About Me"
+                    minLength={150}
+                    maxLength={300}
+                    value={aboutMe}
+                    onChange={(e) => setAboutMe(e.target.value)}
+                />
+            </div>
+
+
             <label htmlFor="profilePicture">
                 Profile Picture<span className="required-asterisk">*</span>
             </label>
@@ -349,7 +373,7 @@ const StepOne: React.FC<StepOneProps> = ({
                 />
                 <label htmlFor="profilePicture" className="file-input-label">
                     {previewUrl ? (
-                        <img src={previewUrl} alt="Profile Preview" className="image-preview" />
+                        <img src={previewUrl} alt="Profile Preview" className="image-preview"/>
                     ) : (
                         <span className="placeholder-text">Click to upload</span>
                     )}

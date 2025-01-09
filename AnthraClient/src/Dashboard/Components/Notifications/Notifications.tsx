@@ -59,11 +59,11 @@ const Notifications: React.FC = () => {
 
         // Redirect based on notification type
         if (notification.type === 'Message') {
-            navigate(`/messages/${notification.senderId}`);
+            navigate(`/dashboard/messages/${notification.senderId}`);
         } else if (notification.type === 'GroupMessage') {
-            navigate(`/groups/${notification.groupId}`);
+            navigate(`/dashboard/groups/${notification.groupId}`);
         } else if (notification.type === 'ConnectionRequest') {
-            navigate(`/connections`);
+            navigate(`/dashboard/connections`);
         }
         setShowDropdown(false);
     };
@@ -81,12 +81,12 @@ const Notifications: React.FC = () => {
             {showDropdown && (
                 <div className="notifications-dropdown">
                     <div className="p-2 border-b border-gray-300 flex justify-between">
-                        <p className="flex items-center"><FaRegBell /></p>
+                        <p className="flex items-center dark:text-white"><FaRegBell /></p>
                         <button
-                            className="text-sm flex items-center gap-2 rounded-md bg-slate-100 hover:bg-slate-200 p-1"
+                            className="font-semibold dark:text-white dark:bg-slate-500 text-sm flex items-center gap-2 rounded-md bg-slate-100 hover:bg-slate-200 p-1"
                             onClick={handleMarkAllAsRead}
                         >
-                            <FcCheckmark /> Mark all as read
+                            <FcCheckmark size={15} /> Mark all as read
                         </button>
                     </div>
                     {notifications.length === 0 ? (

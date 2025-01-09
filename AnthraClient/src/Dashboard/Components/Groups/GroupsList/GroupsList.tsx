@@ -58,7 +58,7 @@ const GroupsList: React.FC<GroupsListProps> = ({
     const handleLeaveGroup = async (groupId: number) => {
         try {
             await axios.post(
-                'https://api.anthra.dk/api/Groups/LeaveGroup',
+                '/Groups/LeaveGroup',
                 { groupId },
                 {
                     headers: {

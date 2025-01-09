@@ -2,10 +2,10 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    justify-content: center;
     align-items: center;
     font-family: 'Montserrat', sans-serif;
     width: 100%;
+    height: 65vh;
 }
 
 .user-name {
@@ -27,7 +27,7 @@ body.dark .user-name {
     width: 100%;
     max-width: 1000px;
     height: 100%;
-    min-height: 700px;
+    min-height: 600px;
     text-align: left;
     display: flex;
     flex-direction: column;
@@ -35,6 +35,22 @@ body.dark .user-name {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     transition: transform 0.2s ease-in-out;
     position: relative;
+    overflow-y: auto;
+}
+
+.explore-user-card::-webkit-scrollbar {
+    display: none;
+}
+
+.explore-user-card::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+    margin-right: 20px;
+}
+
+.explore-user-card::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
 }
 
 /* Dark mode styles */
@@ -150,7 +166,7 @@ body.dark .user-info p {
 
 /* Dark mode styles */
 body.dark .user-explore-courses-list a {
-    color: #439ef6;
+    color: #85bff8;
 }
 
 .user-explore-courses-list a:hover {
@@ -308,11 +324,7 @@ body.dark .user-explore-no-more {
         width: 100%;
     }
 
-    .user-explore-page-button-container {
-        width: 100%;
-    }
-
-    .connect-button,
+        .connect-button,
     .skip-button {
         width: 100%;
         max-width: none;
@@ -322,6 +334,7 @@ body.dark .user-explore-no-more {
         justify-content: space-around;
         gap: 30px;
         padding:0 20px;
+        width: 100%;
     }
 }
 
@@ -329,6 +342,7 @@ body.dark .user-explore-no-more {
 
     .explore-user-card {
         min-height: 78vh;
+        max-height: 78vh;
         padding: 15px;
         position: relative;
     }
@@ -436,15 +450,32 @@ body.dark .user-explore-no-more {
     position: relative;
     transition: transform 0.3s ease, opacity 0.3s ease;
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
+}
+
+.settings-explore-mobile {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.15);
+    padding: 7px;
+    border-radius: 50%;
+}
+
+body.dark .settings-explore-mobile {
+    color: white;
 }
 
 .slide-in {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
 }
 
 .slide-out {
     opacity: 0;
-    transform: translateX(-20px);
+    transform: translateY(-20px);
 }
+

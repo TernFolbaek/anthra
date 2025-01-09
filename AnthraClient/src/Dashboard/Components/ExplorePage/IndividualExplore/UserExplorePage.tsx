@@ -5,7 +5,8 @@ import NoMoreUsersToExplore from '../../../Helpers/Animations/NoMoreUsersToExplo
 import Snackbar from "../../../Helpers/Snackbar/Snackbar";
 import ReferModal from '../ReferModal/ReferModal';
 import useWindowWidth from '../../../hooks/useWindowWidth';
-import { useSwipeable } from 'react-swipeable'; // Import the swipeable hook
+import { useSwipeable } from 'react-swipeable';
+import {FaCog} from "react-icons/fa"; // Import the swipeable hook
 
 interface Course {
     courseName: string;
@@ -26,8 +27,11 @@ interface User {
     age: number;
     profilePictureUrl: string;
 }
+interface UserExplorePageProps {
+    onSettingsClick: () => void;
+}
 
-const UserExplorePage: React.FC = () => {
+const UserExplorePage: React.FC<UserExplorePageProps> = ({onSettingsClick}) => {
     const [users, setUsers] = useState<User[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -55,7 +59,7 @@ const UserExplorePage: React.FC = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axios.get('https://api.anthra.dk/api/Explore/GetUsers', {
+                const response = await axios.get('/Explore/GetUsers', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -82,11 +86,9 @@ const UserExplorePage: React.FC = () => {
     }, [users, currentIndex]);
 
     const animateToNextUser = () => {
-        // This function will be called after the "out" animation completes
         setCurrentIndex(prev => prev + 1);
         setCurrentPage(1);
-        setAnimating(false); // Animation done
-        // The new card will now appear, and by default have the slide-in class
+        setAnimating(false);
         setSlideDirection('in');
     };
 
@@ -94,7 +96,7 @@ const UserExplorePage: React.FC = () => {
         if (currentUser) {
             try {
                 await axios.post(
-                    'https://api.anthra.dk/api/Connections/SendRequest',
+                    '/Connections/SendRequest',
                     { targetUserId: currentUser.id },
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
@@ -116,7 +118,7 @@ const UserExplorePage: React.FC = () => {
         if (currentUser) {
             try {
                 await axios.post(
-                    'https://api.anthra.dk/api/Explore/SkipUser',
+                    '/Explore/SkipUser',
                     { UserIdToSkip: currentUser.id },
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
@@ -130,33 +132,12 @@ const UserExplorePage: React.FC = () => {
         setTimeout(animateToNextUser, 300);
     };
 
-    const handlePageChange = (direction: 'left' | 'right') => {
-        if (!isSmallScreen || !currentUser) return;
-
-        if (direction === 'left') {
-            if (currentPage === 1) {
-                triggerShake();
-            } else {
-                setCurrentPage(1);
-            }
-        } else if (direction === 'right') {
-            if (currentPage === 2) {
-                triggerShake();
-            } else {
-                setCurrentPage(2);
-            }
-        }
-    };
 
     const triggerShake = () => {
         setShake(true);
         setTimeout(() => setShake(false), 500);
     };
 
-    const handleLeftClick = () => handlePageChange('left');
-    const handleRightClick = () => handlePageChange('right');
-
-    // Swipe handlers for mobile
     const swipeHandlers = useSwipeable({
         onSwipedLeft: () => {
             if (currentPage === 1) {
@@ -178,11 +159,16 @@ const UserExplorePage: React.FC = () => {
 
     return (
         <div className="user-explore-container">
+            {isSmallScreen && (
+                <div onClick={onSettingsClick} className="settings-explore-mobile">
+                    <FaCog className="sidebar-icon"/>
+                    <span className="tooltip">Settings</span>
+                </div>
+            )}
             {currentUser ? (
-                // Apply swipe handlers only on small screens
                 <div
                     className={`explore-user-card ${isSmallScreen ? 'small-screen' : ''} ${shake ? 'shake' : ''} slide-${slideDirection}`}
-                    {...(isSmallScreen ? swipeHandlers : {})} // Apply swipe handlers conditionally
+                    {...(isSmallScreen ? swipeHandlers : {})}
                 >
                     {/* Page Indicators */}
                     {isSmallScreen && (
@@ -359,7 +345,6 @@ const UserExplorePage: React.FC = () => {
                 </div>
             )}
 
-            {/* Snackbar for notifications */}
             {snackbarVisible && (
                 <Snackbar
                     key={snackbarTitle + snackbarMessage}
@@ -370,7 +355,6 @@ const UserExplorePage: React.FC = () => {
                 />
             )}
 
-            {/* Refer Modal */}
             {showReferModal && currentUser && (
                 <ReferModal
                     currentUser={currentUser}

@@ -109,7 +109,7 @@ body.dark .profile-card {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     color: #000;
 }
 
@@ -364,6 +364,10 @@ body.dark .error-message {
 
     .profile-page{
         background-color: white;
+    }
+
+    body.dark .profile-page{
+        background-color: #2e2e2e;
     }
 }
 

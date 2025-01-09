@@ -69,8 +69,8 @@ const DashboardContent: React.FC = () => {
                                 <Route path="/connections" element={<Connections />} />
                                 {/* Removed Settings route */}
                             </Route>
-                            <Route path="/" element={<ExplorePage />} />
-                            <Route path="/explore" element={<ExplorePage />} />
+                            <Route path="/" element={<ExplorePage  onSettingsClick={toggleSettings}  />} />
+                            <Route path="/explore" element={<ExplorePage onSettingsClick={toggleSettings} />} />
                             <Route path="/profile" element={<Profile />} />
                         </Routes>
                     </div>

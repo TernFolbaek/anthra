@@ -72,7 +72,7 @@ const Connections: React.FC = () => {
     const handleRemoveConnection = async (connectionId: string) => {
         try {
             await axios.post(
-                'https://api.anthra.dk/api/Connections/RemoveConnection',
+                '/Connections/RemoveConnection',
                 { connectionId: connectionId, userId: userId },
                 {
                     withCredentials: true,
@@ -99,136 +99,147 @@ const Connections: React.FC = () => {
         }
     };
 
-    // Updated handleAccept function
-    const handleAccept = (request: ConnectionRequestDTO) => {
-        fetch(`https://api.anthra.dk/api/Request/AcceptRequest?requestId=${request.id}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            },
-            method: 'POST',
-        })
-            .then((response) => {
-                if (response.ok) {
-                    // Remove the request from the connectionRequests state
-                    setConnectionRequests((prevRequests) =>
-                        prevRequests.filter((req) => req.id !== request.id)
-                    );
-
-                    // Create a new connection object
-                    const newConnection: ApplicationUser = {
-                        id: request.senderId,
-                        firstName: request.senderFirstName,
-                        lastName: request.senderLastName,
-                        institution: request.senderInstitution,
-                        profilePictureUrl: request.senderProfilePicture || '', // Handle optional profile picture
-                        connectedAt: new Date().toISOString(),
-                    };
-
-                    // Add the new connection to the connections state
-                    setConnections((prevConnections) => [...prevConnections, newConnection]);
-
-                    // Optionally, show a success Snackbar
-                    setSnackbarTitle('Request Accepted');
-                    setSnackbarMessage(`You are now connected with ${newConnection.firstName} ${newConnection.lastName}.`);
-                    setSnackbarVisible(true);
-                } else {
-                    return response.text().then((text) => {
-                        throw new Error(text);
-                    });
+    const handleAccept = async (request: ConnectionRequestDTO) => {
+        try {
+            const response = await axios.post(
+                `/Request/AcceptRequest`,
+                null,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                    params: {
+                        requestId: request.id,
+                    },
                 }
-            })
-            .catch((error) => console.error('Error accepting request:', error));
+            );
+
+            if (response.status === 200) {
+                // Remove the request from the connectionRequests state
+                setConnectionRequests((prevRequests) =>
+                    prevRequests.filter((req) => req.id !== request.id)
+                );
+
+                // Create a new connection object
+                const newConnection: ApplicationUser = {
+                    id: request.senderId,
+                    firstName: request.senderFirstName,
+                    lastName: request.senderLastName,
+                    institution: request.senderInstitution,
+                    profilePictureUrl: request.senderProfilePicture || '', // Handle optional profile picture
+                    connectedAt: new Date().toISOString(),
+                };
+
+                // Add the new connection to the connections state
+                setConnections((prevConnections) => [...prevConnections, newConnection]);
+
+                // Optionally, show a success Snackbar
+                setSnackbarTitle('Request Accepted');
+                setSnackbarMessage(`You are now connected with ${newConnection.firstName} ${newConnection.lastName}.`);
+                setSnackbarVisible(true);
+            }
+        } catch (error) {
+            console.error('Error accepting request:', error);
+        }
     };
 
-    const handleDecline = (requestId: number) => {
-        fetch(`https://api.anthra.dk/api/Request/DeclineRequest?requestId=${requestId}`, {
-            method: 'POST',
-        })
-            .then((response) => {
-                if (response.ok) {
-                    setConnectionRequests((prevRequests) =>
-                        prevRequests.filter((req) => req.id !== requestId)
-                    );
 
-                    // Optionally, show a decline Snackbar
-                    setSnackbarTitle('Request Declined');
-                    setSnackbarMessage('You have declined the connection request.');
-                    setSnackbarVisible(true);
-                } else {
-                    return response.text().then((text) => {
-                        throw new Error(text);
-                    });
+    const handleDecline = async (requestId: number) => {
+        try {
+            const response = await axios.post(
+                `/Request/DeclineRequest`,
+                null,
+                {
+                    params: { requestId },
                 }
-            })
-            .catch((error) => console.error('Error declining request:', error));
+            );
+
+            if (response.status === 200) {
+                setConnectionRequests((prevRequests) =>
+                    prevRequests.filter((req) => req.id !== requestId)
+                );
+
+                // Optionally, show a decline Snackbar
+                setSnackbarTitle('Request Declined');
+                setSnackbarMessage('You have declined the connection request.');
+                setSnackbarVisible(true);
+            }
+        } catch (error) {
+            console.error('Error declining request:', error);
+        }
     };
 
-    const handleGroupApplicationAccept = (requestId: number) => {
-        fetch(`https://api.anthra.dk/api/Requests/RespondToGroupApplication`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-            body: JSON.stringify({ requestId, accept: true }),
-        })
-            .then((response) => {
-                if (response.ok) {
-                    setGroupApplicationRequests(prevState => {
-                        return prevState.map(group => ({
+
+    const handleGroupApplicationAccept = async (requestId: number) => {
+        try {
+            const response = await axios.post(
+                '/Requests/RespondToGroupApplication',
+                { requestId, accept: true },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+
+            if (response.status === 200) {
+                setGroupApplicationRequests(prevState => {
+                    return prevState
+                        .map(group => ({
                             ...group,
-                            applications: group.applications.filter(app => app.requestId !== requestId)
-                        })).filter(group => group.applications.length > 0);
-                    });
+                            applications: group.applications.filter(app => app.requestId !== requestId),
+                        }))
+                        .filter(group => group.applications.length > 0);
+                });
 
-                    // Optionally, show a success Snackbar
-                    setSnackbarTitle('Group Application Accepted');
-                    setSnackbarMessage('The user has been added to the group.');
-                    setSnackbarVisible(true);
-                } else {
-                    return response.text().then((text) => {
-                        throw new Error(text);
-                    });
-                }
-            })
-            .catch((error) => console.error('Error accepting group application:', error));
+                // Optionally, show a success Snackbar
+                setSnackbarTitle('Group Application Accepted');
+                setSnackbarMessage('The user has been added to the group.');
+                setSnackbarVisible(true);
+            }
+        } catch (error) {
+            console.error('Error accepting group application:', error);
+        }
     };
 
-    const handleGroupApplicationDecline = (requestId: number) => {
-        fetch(`https://api.anthra.dk/api/Requests/RespondToGroupApplication`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-            body: JSON.stringify({ requestId, accept: false }),
-        })
-            .then((response) => {
-                if (response.ok) {
-                    setGroupApplicationRequests(prevState => {
-                        return prevState.map(group => ({
-                            ...group,
-                            applications: group.applications.filter(app => app.requestId !== requestId)
-                        })).filter(group => group.applications.length > 0);
-                    });
 
-                    // Optionally, show a decline Snackbar
-                    setSnackbarTitle('Group Application Declined');
-                    setSnackbarMessage('The user has been declined from the group application.');
-                    setSnackbarVisible(true);
-                } else {
-                    return response.text().then((text) => {
-                        throw new Error(text);
-                    });
+    const handleGroupApplicationDecline = async (requestId: number) => {
+        try {
+            const response = await axios.post(
+                '/Requests/RespondToGroupApplication',
+                { requestId, accept: false },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
                 }
-            })
-            .catch((error) => console.error('Error declining group application:', error));
+            );
+
+            if (response.status === 200) {
+                setGroupApplicationRequests(prevState => {
+                    return prevState
+                        .map(group => ({
+                            ...group,
+                            applications: group.applications.filter(app => app.requestId !== requestId),
+                        }))
+                        .filter(group => group.applications.length > 0);
+                });
+
+                setSnackbarTitle('Group Application Declined');
+                setSnackbarMessage('The user has been declined from the group application.');
+                setSnackbarVisible(true);
+            }
+        } catch (error) {
+            console.error('Error declining group application:', error);
+        }
     };
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://api.anthra.dk/api/Connections/List', {
+                const response = await axios.get('/Connections/List', {
                     params: {
                         userId: userId,
                     },
@@ -253,34 +264,35 @@ const Connections: React.FC = () => {
         if (!userId) {
             return;
         }
-        console.log(userId)
-        fetch(`https://api.anthra.dk/api/Request/Pending?userId=${userId}`)
-            .then((response) => {
-                if (!response.ok) {
-                    return response.text().then(text => {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    });
-                }
-                return response.json();
-            })
-            .then((data) => setConnectionRequests(data))
-            .catch((error) => console.error('Error fetching requests:', error));
 
-        fetch(`https://api.anthra.dk/api/Requests/GetGroupApplicationRequests`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
+        console.log(userId);
+
+        const fetchPendingRequests = async () => {
+            try {
+                const response = await axios.get(`/Request/Pending`, {
+                    params: { userId }
+                });
+                setConnectionRequests(response.data);
+            } catch (error) {
+                console.error('Error fetching pending requests:', error);
             }
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    return response.text().then(text => {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    });
-                }
-                return response.json();
-            })
-            .then((data) => setGroupApplicationRequests(data))
-            .catch((error) => console.error('Error fetching group application requests:', error));
+        };
+
+        const fetchGroupApplicationRequests = async () => {
+            try {
+                const response = await axios.get(`/Requests/GetGroupApplicationRequests`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                setGroupApplicationRequests(response.data);
+            } catch (error) {
+                console.error('Error fetching group application requests:', error);
+            }
+        };
+
+        fetchPendingRequests();
+        fetchGroupApplicationRequests();
 
     }, [userId, token]);
 
@@ -348,14 +360,14 @@ const Connections: React.FC = () => {
                                 />
                                 <div className="ml-2 flex flex-col justify-items-start">
                                     <p className="connection-name">{user.firstName} {user.lastName}</p>
-                                    <p className="text-gray-500 text-xs font-light">{user.institution}</p>
+                                    <p className="dark:text-gray-200 text-gray-500 text-xs font-light">{user.institution}</p>
                                 </div>
                             </div>
                             <button
                                 className="message-button"
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    navigate(`/messages/${user.id}`);
+                                    navigate(`/dashboard/messages/${user.id}`);
                                 }}
                             >
                                 Message
@@ -399,7 +411,7 @@ const Connections: React.FC = () => {
     const renderPersonalRequests = () => (
         <div className="requests-content">
             {connectionRequests.length === 0 ? (
-                <h2 className=" w-full text-center text-gray-400 text-base font-medium">No new connection
+                <h2 className=" w-full text-center text-gray-400 text-sm font-medium">No new connection
                     requests</h2>
             ) : (
                 connectionRequests.map((request) => (
@@ -450,7 +462,7 @@ const Connections: React.FC = () => {
     const renderGroupRequests = () => (
         <div className="requests-content">
             {groupApplicationRequests.length === 0 ? (
-                <p className="text-gray-400 w-full text-center text-base font-medium">No group application
+                <p className="text-gray-400 w-full text-center text-sm font-medium">No group application
                     requests</p>
             ) : (
                 groupApplicationRequests.map((group) => (

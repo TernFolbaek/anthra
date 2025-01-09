@@ -12,8 +12,8 @@ const NoConnectionsRive: React.FC = () => {
 
     return (
         <div className="no-connections-container">
-            <p className="text-base text-center font-medium text-gray-400 mb-2">No connections, explore new ones</p>
-            <button className="explore-button" onClick={() => navigate('/explore')}> <FaMagnifyingGlass/>Explore</button>
+            <p className="text-sm text-center font-medium text-gray-400 mb-2">No connections, explore new ones</p>
+            <button className="text-sm explore-button" onClick={() => navigate('/dashboard/explore')}> <FaMagnifyingGlass/>Explore</button>
             <RiveComponent className="no-connections-rive"/>
         </div>
     )

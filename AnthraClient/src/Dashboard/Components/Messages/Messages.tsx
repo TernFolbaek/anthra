@@ -73,9 +73,6 @@ const Messages: React.FC = () => {
     const [nextTokenValue, setNextTokenValue] = useState<string | null>(null);
     const [firstLoad, setFirstLoad] = useState(true);
 
-    // -------------------------------------------
-    // Resize handling
-    // -------------------------------------------
     useEffect(() => {
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 1300);
@@ -85,80 +82,75 @@ const Messages: React.FC = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    // -------------------------------------------
-    // Fetch initial messages & contact
-    // -------------------------------------------
+
     useEffect(() => {
         if (!userId) {
-            // If no userId in route, fetch conversations
-            fetch(`https://api.anthra.dk/api/Messages/GetConversations?userId=${currentUserId}`)
-                .then((response) => {
-                    if (!response.ok) {
-                        return response.text().then((text) => {
-                            console.error('Error fetching conversations:', text);
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        });
-                    }
-                    return response.json();
+            axios
+                .get(`/Messages/GetConversations`, {
+                    params: { userId: currentUserId },
                 })
-                .then((data) => {
+                .then((response) => {
+                    const data = response.data;
                     if (data.length > 0) {
-                        navigate(`/messages/${data[0].userId}`);
+                        navigate(`/dashboard/messages/${data[0].userId}`);
                     } else {
                         setMessages([]);
                         console.warn('No conversations found.');
                     }
+                })
+                .catch((error) => {
+                    console.error('Error fetching conversations:', error.response?.data || error.message);
                 });
             return;
         }
 
-        // If we have a userId, fetch chat history
         const fetchInitialMessages = async () => {
             if (!currentUserId || !userId) return;
             try {
-                const response = await fetch(
-                    `https://api.anthra.dk/api/Messages/GetChatHistory?userId=${currentUserId}&contactId=${userId}&pageSize=30`,
-                    { headers: { Authorization: `Bearer ${token}` } }
+                const response = await axios.get(
+                    `/Messages/GetChatHistory`,
+                    {
+                        params: {
+                            userId: currentUserId,
+                            contactId: userId,
+                            pageSize: 30,
+                        },
+                        headers: { Authorization: `Bearer ${token}` },
+                    }
                 );
 
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    console.error('Error fetching messages:', errorText);
-                    return;
-                }
-
-                const data = await response.json();
+                const data = response.data;
                 setMessages(data.messages);
                 setNextTokenValue(data.nextToken);
 
                 if (data.messages.length < 30) {
                     setAllMessagesLoaded(true);
                 }
-            } catch (error) {
-                console.error('Error fetching messages:', error);
+            } catch (error: any) {
+                console.error('Error fetching messages:', error.response?.data || error.message);
+            }
+        };
+
+        const fetchContactProfile = async () => {
+            try {
+                const response = await axios.get(
+                    `/Profile/GetProfileById`,
+                    {
+                        params: { userId },
+                        headers: { Authorization: `Bearer ${token}` },
+                    }
+                );
+                setContactProfile(response.data);
+            } catch (error: any) {
+                console.error('Error fetching contact profile:', error.response?.data || error.message);
             }
         };
 
         setAllMessagesLoaded(false);
         fetchInitialMessages();
-
-        const fetchContactProfile = async () => {
-            try {
-                const response = await axios.get(
-                    `https://api.anthra.dk/api/Profile/GetProfileById?userId=${userId}`,
-                    { headers: { Authorization: `Bearer ${token}` } }
-                );
-                setContactProfile(response.data);
-            } catch (error) {
-                console.error('Error fetching contact profile:', error);
-            }
-        };
         fetchContactProfile();
     }, [currentUserId, userId, token, navigate, isMobile]);
 
-    // -------------------------------------------
-    // SignalR connection
-    // -------------------------------------------
     useEffect(() => {
         let isMounted = true;
 
@@ -209,9 +201,6 @@ const Messages: React.FC = () => {
         };
     }, [userId, token, currentUserId]);
 
-    // -------------------------------------------
-    // Menu click outside
-    // -------------------------------------------
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (showMenu && dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -258,6 +247,7 @@ const Messages: React.FC = () => {
     // -------------------------------------------
     // Infinite scroll / fetch more
     // -------------------------------------------
+
     const fetchMoreMessages = async () => {
         setFirstLoad(false);
         if (!currentUserId || !userId) return;
@@ -268,23 +258,24 @@ const Messages: React.FC = () => {
         const scrollHeightBefore = container?.scrollHeight || 0;
 
         try {
-            const url = new URL('https://api.anthra.dk/api/Messages/GetChatHistory');
-            url.searchParams.append('userId', currentUserId);
-            url.searchParams.append('contactId', userId);
-            url.searchParams.append('pageSize', '20');
-            if (nextTokenValue) url.searchParams.append('nextToken', nextTokenValue);
+            // Use Axios to build query parameters
+            const params: Record<string, string> = {
+                userId: currentUserId,
+                contactId: userId,
+                pageSize: '20'
+            };
+            if (nextTokenValue) params.nextToken = nextTokenValue;
 
-            const response = await fetch(url.toString(), { headers: { Authorization: `Bearer ${token}` } });
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error('Error fetching more messages:', errorText);
-                setIsLoadingMore(false);
-                return;
-            }
+            // Axios will prepend the baseURL automatically
+            const response = await axios.get<{ messages: Message[]; nextToken: string | null }>(
+                '/Messages/GetChatHistory',
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                    params
+                }
+            );
 
-            const data = await response.json();
-            const newMessages: Message[] = data.messages;
-            const newNextToken: string | null = data.nextToken;
+            const { messages: newMessages, nextToken: newNextToken } = response.data;
 
             if (newMessages.length === 0) {
                 setAllMessagesLoaded(true);
@@ -357,7 +348,7 @@ const Messages: React.FC = () => {
     const handleAcceptInvitation = async (groupId: number, messageId: number) => {
         try {
             const response = await axios.post(
-                'https://api.anthra.dk/api/Groups/RespondToInvitation',
+                '/Groups/RespondToInvitation',
                 { groupId, Accept: true },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -377,7 +368,7 @@ const Messages: React.FC = () => {
     const handleDeclineInvitation = async (groupId: number, messageId: number) => {
         try {
             const response = await axios.post(
-                'https://api.anthra.dk/api/Groups/RespondToInvitation',
+                '/Groups/RespondToInvitation',
                 { groupId, Accept: false },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -437,11 +428,11 @@ const Messages: React.FC = () => {
     const handleRemoveConnection = async () => {
         try {
             await axios.post(
-                'https://api.anthra.dk/api/Connections/RemoveConnection',
+                '/Connections/RemoveConnection',
                 { userId: currentUserId, connectionId: userId },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-            navigate('/messages');
+            navigate('/dashboard/messages');
         } catch (error) {
             console.error('Error removing connection:', error);
         }
@@ -464,7 +455,7 @@ const Messages: React.FC = () => {
     const handleReferralConnect = async (referredUserId: string) => {
         try {
             await axios.post(
-                'https://api.anthra.dk/api/Connections/SendRequest',
+                '/Connections/SendRequest',
                 { targetUserId: referredUserId },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -485,7 +476,7 @@ const Messages: React.FC = () => {
                 {contactProfile && (
                     <div className="contact-header" onClick={handleToggleProfileVisibility}>
                         {showBackArrow && (
-                            <FaArrowLeft className="back-arrow" onClick={() => navigate('/messages')} />
+                            <FaArrowLeft className="back-arrow" onClick={() => navigate('/dashboard/messages')} />
                         )}
                         <div className="contact-info">
                             <img
@@ -536,7 +527,7 @@ const Messages: React.FC = () => {
                         <>
                             {!userId ? (
                                 <div className="h-full w-full flex items-center justify-center">
-                                    <p className="dark:text-white text-base font-bold">No Messages</p>
+                                    <p className="dark:text-white text-sm font-bold">No Messages</p>
                                 </div>
                             ) : (
                                 messages.map((msg, index) => {

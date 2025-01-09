@@ -57,7 +57,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
 
     const fetchConnections = async () => {
         try {
-            const response = await axios.get('https://api.anthra.dk/api/Connections/ConnectionsGroupList', {
+            const response = await axios.get('/Connections/ConnectionsGroupList', {
                 params: { userId },
                 withCredentials: true,
             });
@@ -101,7 +101,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                 adminName: fullName,
                 groupPurpose: selectedPurpose,
             };
-            await axios.post('https://api.anthra.dk/api/Groups/CreateGroup', payload, {
+            await axios.post('/Groups/CreateGroup', payload, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             onGroupCreated();
@@ -256,7 +256,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                                         alt={`${user.firstName} ${user.lastName}`}
                                         className="select-user-item-avatar"
                                     />
-                                    <span className="text-sm">{user.firstName} {user.lastName}</span>
+                                    <span className="text-sm dark:text-black">{user.firstName} {user.lastName}</span>
                                 </div>
                             </li>
                         ))}

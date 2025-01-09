@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const MessagesRedirect = () => {
@@ -8,24 +8,24 @@ const MessagesRedirect = () => {
     useEffect(() => {
         const fetchLatestConversation = async () => {
             try {
-                const response = await fetch(`https://api.anthra.dk/api/Messages/GetLatestConversation?userId=${userId}`);
+                const response = await fetch(`/Messages/GetLatestConversation?userId=${userId}`);
                 if (response.ok) {
                     const latestConversation = await response.json();
-                    navigate(`/messages/${latestConversation.userId}`);
+                    navigate(`/dashboard/messages/${latestConversation.userId}`);
                 } else {
                     console.error("No latest conversation found.");
-                    navigate('/messages'); // Navigate to Messages without a userId
+                    navigate('/dashboard/messages');
                 }
             } catch (error) {
                 console.error("Error fetching latest conversation:", error);
-                navigate('/messages'); // Navigate to Messages without a userId
+                navigate('/dashboard/messages');
             }
         };
 
         fetchLatestConversation();
     }, [userId, navigate]);
 
-    return null; // Remove the Loading... text
+    return null;
 };
 
 export default MessagesRedirect;

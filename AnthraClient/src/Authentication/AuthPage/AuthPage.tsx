@@ -5,7 +5,8 @@ import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
 import ResetPassword from '../ResetPassword/ResetPassword';
 import EmailVerification from '../EmailVerification/EmailVerification';
-import { FaCheck, FaTimes } from 'react-icons/fa'; // Import check and times icons
+import { FaCheck, FaTimes } from 'react-icons/fa';
+import {useNavigate} from "react-router-dom";
 
 interface AuthPageProps {
     onBackClick: () => void;
@@ -23,7 +24,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
     const [error, setError] = useState<string | null>(null);
     const [showEmailVerification, setShowEmailVerification] = useState(false);
     const [userId, setUserId] = useState('');
-
+    const navigate = useNavigate();
     const [isUsernameValid, setIsUsernameValid] = useState(false);
     const [isPasswordLengthValid, setIsPasswordLengthValid] = useState(false);
     const [hasUppercase, setHasUppercase] = useState(false);
@@ -77,6 +78,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                 const userProfile = profileResponse.data;
                 localStorage.setItem('userProfilePicture', profileResponse.data.profilePictureUrl);
                 onAuthSuccess(userProfile.createdProfile);
+                navigate('/create-profile');
             } catch (error) {
                 setError('Google login failed.');
             }
@@ -162,6 +164,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                 const userProfile = profileResponse.data;
                 localStorage.setItem('userProfilePicture', profileResponse.data.profilePictureUrl);
                 onAuthSuccess(userProfile.createdProfile);
+                navigate('/create-profile');
             }
         } catch (err: any) {
             if (axios.isAxiosError(err) && err.response) {
@@ -205,7 +208,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
 
     const handleEmailVerified = () => {
         setShowEmailVerification(false);
-        onAuthSuccess(false); // Assuming profile is not created yet
+        onAuthSuccess(false);
     };
 
     // Update isMobile state on window resize

@@ -103,7 +103,7 @@ const GroupExplorePage: React.FC = () => {
     useEffect(() => {
         const fetchGroups = async () => {
             try {
-                const response = await axios.get('https://api.anthra.dk/api/GroupsExplore/GetGroups', {
+                const response = await axios.get('/GroupsExplore/GetGroups', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -140,7 +140,7 @@ const GroupExplorePage: React.FC = () => {
         if (currentGroup) {
             try {
                 await axios.post(
-                    'https://api.anthra.dk/api/GroupsExplore/ApplyToGroup',
+                    '/GroupsExplore/ApplyToGroup',
                     { groupId: currentGroup.id },
                     {
                         headers: {
@@ -167,7 +167,7 @@ const GroupExplorePage: React.FC = () => {
         if (currentGroup) {
             try {
                 await axios.post(
-                    'https://api.anthra.dk/api/GroupsExplore/SkipGroup',
+                    '/GroupsExplore/SkipGroup',
                     { groupIdToSkip: currentGroup.id },
                     {
                         headers: {
@@ -358,12 +358,16 @@ const GroupExplorePage: React.FC = () => {
                         <div className={`group-explore-indicator ${currentPage === 2 ? 'active' : ''}`}></div>
                     </div>
 
-                    {/* Clickable Overlays for desktop navigation */}
+                    {/* Navigation Buttons for desktop */}
                     {!isSmallScreen && (
-                        <div className="group-explore-click-overlay">
-                            <div className="group-explore-click-area-left" onClick={handleLeftClick}></div>
-                            <div className="group-explore-click-area-right" onClick={handleRightClick}></div>
-                        </div>
+                        <>
+                            <button className="navigate-button navigate-button-left" onClick={handleLeftClick}>
+                                &larr;
+                            </button>
+                            <button className="navigate-button navigate-button-right" onClick={handleRightClick}>
+                                &rarr;
+                            </button>
+                        </>
                     )}
 
                     {/* Page Content */}
@@ -376,7 +380,7 @@ const GroupExplorePage: React.FC = () => {
                                     </div>
                                     <div className="flex flex-col items-start">
                                         <h2 className="group-explore-title ">{currentGroup.name}</h2>
-                                        <h2 className="font-semibold text-lg text-gray-600 dark:text-gray-400">Group Info</h2>
+                                        <h2 className="font-semibold text-md text-gray-600 dark:text-gray-400">Group Info</h2>
                                     </div>
                                 </div>
                                 <h3 className="group-explore-section-heading">About the group:</h3>
@@ -399,7 +403,7 @@ const GroupExplorePage: React.FC = () => {
                                                     src={`${member.profilePictureUrl}`}
                                                     alt={`${member.firstName} ${member.lastName}`}
                                                 />
-                                                <span className="font-semibold dark:text-black">
+                                                <span className="font-semibold dark:text-white">
                                                     {member.firstName} {member.lastName}
                                                 </span>
                                             </li>
@@ -424,7 +428,7 @@ const GroupExplorePage: React.FC = () => {
                                 </div>
                                 <div className="flex flex-col items-start">
                                     <h2 className="group-explore-title">{currentGroup.name}</h2>
-                                    <h2 className="font-semibold text-lg text-gray-600 dark:text-gray-400">Group Members Overview</h2>
+                                    <h2 className="font-semibold text-md text-gray-600 dark:text-gray-400">Group Members Overview</h2>
                                 </div>
                             </div>
                             {(institutionNames.length > 0 || statusNames.length > 0) && (

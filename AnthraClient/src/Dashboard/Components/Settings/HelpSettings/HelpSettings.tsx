@@ -25,6 +25,7 @@ const HelpSettings: React.FC = () => {
     const handleLogout = () => {
         localStorage.clear();
         window.location.reload();
+        navigate('/') //make this work
     };
 
     const openDeleteModal = () => {
@@ -36,10 +37,6 @@ const HelpSettings: React.FC = () => {
         setShowDeleteModal(false);
         setAnswerInput('');
         setErrorMessage('');
-    };
-
-    const openSupportModal = () => {
-        setShowSupportModal(true);
     };
 
     const closeSupportModal = () => {

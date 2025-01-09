@@ -12,7 +12,6 @@
     z-index: 5;
 }
 
-
 /* Dark mode styles */
 body.dark .modal-content {
     background-color: #2e2e2e;
@@ -25,7 +24,7 @@ body.dark .modal-content {
     right: 5px;
     background: none;
     border: none;
-    font-size: 38px;
+    font-size: 25px;
     line-height: 28px;
     cursor: pointer;
     color: #aaa;
@@ -83,6 +82,13 @@ body.dark .create-group-close-button:hover {
     border-radius: 5px;
 }
 
+body.dark .group-name-input,
+ .group-description-input{
+    background-color: #3a3a3a;
+    color: #fff;
+    border: 1px solid #555;
+}
+
 .group-description-input {
     height: 100px;
     resize: none;
@@ -135,23 +141,19 @@ body.dark .create-group-close-button:hover {
     font-size: 0.75rem;
 }
 
-/* Scrollable Connections Container */
 .group-creation-connections-container {
-    max-height: calc((2.5rem + 1rem) * 5); /* Height of connection item plus margin * 5 */
+    max-height: calc((2.5rem + 1rem) * 5);
     overflow-y: auto;
     margin-top: 0.625rem;
-    padding-right: 0.5rem; /* To prevent content hiding behind scrollbar */
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
 }
 
-/* Members List */
 .group-creation-connections-list {
     list-style-type: none;
     padding: 0;
-    margin: 0; /* Remove margin to prevent double spacing */
-    /* Removed max-height and overflow-y to delegate to the container */
+    margin: 0;
 }
 
 .create-group-connection-item {
@@ -164,6 +166,14 @@ body.dark .create-group-close-button:hover {
     font-weight: 500;
     transition: background-color 0.3s;
 }
+
+body.dark .create-group-connection-item {
+    background-color: #c3c2c2;
+}
+body.dark .create-group-connection-item:hover {
+    background-color: #ededed;
+}
+
 
 .create-group-connection-item:last-child {
     border-bottom: none;
@@ -198,12 +208,12 @@ body.dark .create-group-close-button:hover {
 
 .create-button,
 .cancel-button {
-    padding: 10px 20px;
+    padding: 5px 10px;
     margin-left: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .create-button {
@@ -233,15 +243,11 @@ body.dark .create-group-close-button:hover {
     background-color: #ccc;
 }
 
-/* Dark mode styles */
 body.dark .group-creation-connections-container {
     background-color: #3e3e3e;
     border-color: #555;
 }
 
-body.dark .create-group-connection-item:hover {
-    background-color: #555;
-}
 
 body.dark .selected-user {
     background-color: #0056b3;

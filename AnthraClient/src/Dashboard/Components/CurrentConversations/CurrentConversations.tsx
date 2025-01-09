@@ -3,6 +3,7 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import './CurrentConversations.css';
 import CardContainer from '../CardContainer/CardContainer';
 import NoConversationsRive from "../../Helpers/Animations/NoConversations";
+import axios from "axios";
 
 interface Conversation {
     userId: string;
@@ -34,26 +35,27 @@ const CurrentConversations: React.FC = React.memo(() => {
             return;
         }
 
-        fetch(`https://api.anthra.dk/api/Messages/GetConversations?userId=${currentUserId}`)
-            .then((response) => {
-                if (!response.ok) {
-                    return response.text().then((text) => {
-                        console.error('Error fetching conversations:', text);
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    });
-                }
-                return response.json();
-            })
-            .then((data) => {
-                setConversations(data);
+        const fetchConversations = async () => {
+            try {
+                const response = await axios.get(
+                    `/Messages/GetConversations`,
+                    {
+                        params: { userId: currentUserId },
+                    }
+                );
+
+                setConversations(response.data);
                 setLoading(false);
-            })
-            .catch((error) => {
+            } catch (error) {
                 console.error('Error fetching conversations:', error);
                 setError('Failed to fetch conversations. Please try again later.');
                 setLoading(false);
-            });
+            }
+        };
+
+        fetchConversations();
     }, [currentUserId]);
+
 
     // Filter conversations based on the search query
     const filteredConversations = conversations.filter((conv) => {
@@ -95,7 +97,7 @@ const CurrentConversations: React.FC = React.memo(() => {
                                 selectedConversationId === conv.userId ? 'selected' : ''
                             }`}
                             onClick={() => {
-                                navigate(`/messages/${conv.userId}`);
+                                navigate(`/dashboard/messages/${conv.userId}`);
                             }}
                         >
                             <img

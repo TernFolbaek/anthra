@@ -25,7 +25,7 @@ const AddMembersModal: React.FC<AddMembersModalProps> = ({ show, onClose, groupI
 
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://api.anthra.dk/api/Connections/List', {
+                const response = await axios.get('/Connections/List', {
                     params: {
                         userId: userId,
                     },
@@ -63,7 +63,7 @@ const AddMembersModal: React.FC<AddMembersModalProps> = ({ show, onClose, groupI
                 groupName,
             };
             console.log(payload);
-            await axios.post('https://api.anthra.dk/api/Groups/AddMembers', payload, {
+            await axios.post('/Groups/AddMembers', payload, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             onClose();

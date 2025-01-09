@@ -47,7 +47,7 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
             if (!token) return;
             try {
                 // Fetch the user's connections
-                const res = await axios.get('https://api.anthra.dk/api/Connections/ConnectionsGroupList', {
+                const res = await axios.get('/Connections/ConnectionsGroupList', {
                     params: { userId },
                     withCredentials: true,
                     headers: { Authorization: `Bearer ${token}` }, // Added Authorization header
@@ -142,7 +142,7 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
                 formData.append('IsReferralCard', 'true');
 
                 await axios.post(
-                    'https://api.anthra.dk/api/Messages/SendMessage',
+                    '/Messages/SendMessage',
                     formData,
                     {
                         headers: {

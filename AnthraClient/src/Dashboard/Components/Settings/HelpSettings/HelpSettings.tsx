@@ -55,7 +55,7 @@ const HelpSettings: React.FC = () => {
         try {
             const token = localStorage.getItem('token');
             await axios.post(
-                'https://api.anthra.dk/api/Support/SendSupportEmail',
+                '/Support/SendSupportEmail',
                 { message: supportMessage },
                 {
                     headers: {
@@ -76,7 +76,7 @@ const HelpSettings: React.FC = () => {
         }
         try {
             const token = localStorage.getItem('token');
-            await axios.delete('https://api.anthra.dk/api/Account/DeleteAccount', {
+            await axios.delete('/Account/DeleteAccount', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -95,13 +95,13 @@ const HelpSettings: React.FC = () => {
             <div className="profile-settings-actions">
                 <div className="flex gap-2 w-full">
                     <button
-                        className="help-settings-buttons bg-blue-500"
+                        className="text-sm help-settings-buttons bg-blue-500"
                         onClick={() => setShowSupportModal(true)}
                     >
                         Contact Support
                     </button>
                     <button
-                        className="help-settings-buttons bg-blue-500"
+                        className="text-sm help-settings-buttons bg-blue-500"
                         onClick={handleLogout}
                     >
                         Logout
@@ -119,7 +119,7 @@ const HelpSettings: React.FC = () => {
             {showSupportModal && (
                 <div className="profile-modal-overlay">
                     <div className="modal">
-                        <h3>Contact Support</h3>
+                        <p>Contact Support</p>
                         <textarea
                             value={supportMessage}
                             onChange={(e) => setSupportMessage(e.target.value)}

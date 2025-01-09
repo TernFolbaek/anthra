@@ -61,7 +61,7 @@ const GroupInfoTab: React.FC<GroupInfoTabProps> = ({
                 groupPurpose: selectedPurpose, // Include groupPurpose
             };
 
-            await axios.post('https://api.anthra.dk/api/Groups/UpdateGroup', payload, {
+            await axios.post('/Groups/UpdateGroup', payload, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 

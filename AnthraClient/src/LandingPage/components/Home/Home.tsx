@@ -85,23 +85,6 @@ const Home: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                 </button>
             </div>
 
-            <div className="image-banner">
-                <div className="image-track">
-                    {[...Array(5)].map((_, i) => (
-                        <React.Fragment key={i}>
-                            <div className="banner-image">
-                                <img src={cbsBanner} alt="banner for university" loading="lazy" />
-                            </div>
-                            <div className="banner-image">
-                                <img src={dtuBanner} alt="banner for university" loading="lazy" />
-                            </div>
-                            <div className="banner-image">
-                                <img src={kuBanner} alt="banner for university" loading="lazy" />
-                            </div>
-                        </React.Fragment>
-                    ))}
-                </div>
-            </div>
         </div>
     );
 };

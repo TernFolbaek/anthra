@@ -106,7 +106,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
     const healthAndMedicalCoursesArray: Course[] = healthAndMedicalCourses as Course[];
 
     const isCBS = institution === 'Copenhagen Business School' || institution === 'CBS';
-    const isKU = institution === 'University of Copenhagen' || institution === 'KU';
+    const isKU = institution === 'University of Copenhagen' || institution === 'KU' || institution === 'Københavns Universitet';
     const isDTU = institution === 'Technical University of Denmark' || institution === 'DTU';
 
     useEffect(() => {
@@ -175,6 +175,8 @@ const StepTwo: React.FC<StepTwoProps> = ({
             setError('Profile picture is required.');
             return;
         }
+
+        console.log("in submit")
 
         const formData = new FormData();
         formData.append('FirstName', firstName);
@@ -491,8 +493,8 @@ const StepTwo: React.FC<StepTwoProps> = ({
                             {filteredUniversities.map((uni, idx) => (
                                 <div
                                     key={idx}
-                                    className={`uni-dropdown-item p-2 hover:bg-gray-200 cursor-pointer ${
-                                        idx === selectedInstitutionIndex ? 'bg-gray-300' : ''
+                                    className={`suggestion-item p-2 hover:bg-gray-200 cursor-pointer ${
+                                        idx === selectedInstitutionIndex ? 'bg-gray-200' : ''
                                     }`}
                                     onClick={() => {
                                         handleInstitutionSelect(uni.name);
@@ -518,7 +520,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                     >
                         <label className="input-label">Faculty</label>
                         <div
-                            className="w-[400px] create-profile-dropdown-header text-sm border p-2 rounded cursor-pointer"
+                            className="create-profile-dropdown-header text-gray-600 font-semibold border p-2 rounded cursor-pointer"
                             onClick={handleFacultyDropdownClick}
                         >
                             {faculty ? faculty : 'Select Faculty'}
@@ -550,7 +552,8 @@ const StepTwo: React.FC<StepTwoProps> = ({
                 <label htmlFor="courseInput" className="input-label">
                     Courses <span className="text-xs font-medium">(online or in school)</span>
                     <span className="required-asterisk">*</span>{' '}
-                    <span className="counter">({courses.length}/4)</span>
+                    <span className="counter">({courses.length}/4)</span> <span
+                    className="font-medium text-xs">min. 2</span>
                 </label>
                 <div className="course-input-container">
                     <div className="flex items-center gap-1 mb-2">
@@ -628,7 +631,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                         rel="noopener noreferrer"
                                     >
                                         {course.courseName}
-                                        <FaExternalLinkAlt className="external-link-icon"/>
+                                        <FaExternalLinkAlt size={16} className="external-link-icon"/>
                                     </a>
                                 ) : (
                                     <span>{course.courseName}</span>
@@ -638,7 +641,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                     onClick={() => handleRemoveCourse(course.courseName)}
                                     className="remove-course-button"
                                 >
-                                    <FaTimes/>
+                                    <FaTimes size={16}/>
                                 </button>
                             </span>
                         ))}
@@ -648,7 +651,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                 {/* Subjects */}
                 <label htmlFor="subjectInput" className="input-label">
                     Subjects of interest<span className="required-asterisk">*</span>{' '}
-                    <span className="counter">({subjects.length}/5)</span>
+                    <span className="counter">({subjects.length}/5)</span> <span className="font-medium text-xs">min. 2</span>
                 </label>
                 <div className="subject-input-container">
                     <div className="flex items-center gap-1 mb-2">

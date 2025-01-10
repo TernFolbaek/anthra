@@ -51,6 +51,7 @@
     flex-direction: column;
     align-items: stretch;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .form-step label {
@@ -87,7 +88,7 @@
     background-color: transparent;
     border: 2px solid #007bff;
     color: #007bff;
-    padding: 0.75rem;
+    padding: 0.4rem;
     cursor: pointer;
     font-weight: 600;
     transition: background-color 0.3s, color 0.3s;
@@ -140,9 +141,7 @@
 /* Custom Dropdown */
 .custom-dropdown {
     display: flex;
-    justify-content: center;
     position: relative;
-    width: 200px;
     cursor: pointer;
     margin: 0 auto;
 }
@@ -153,10 +152,8 @@
     align-items: center;
     padding: 10px;
     background-color: #f0f0f0;
-    border: 1px solid #ccc;
     border-radius: 8px;
-    color: #333;
-    font-weight: 600;
+    font-size: 0.75rem;
 }
 
 .dropdown-arrow {
@@ -206,7 +203,7 @@
     width: 150px;
     height: 150px;
     margin: 1rem auto;
-    border: 4px dashed #ccc;
+    border: 3px dashed #ccc;
     border-radius: 10%;
     cursor: pointer;
     transition: border-color 0.3s ease;
@@ -301,11 +298,6 @@
     margin-left: 2px;
 }
 
-.highlighted {
-    background-color: #d0e4fd;
-}
-
-
 .suggestion-item {
     font-size: 0.85rem;
     padding: 10px;
@@ -326,7 +318,7 @@
 .course-tag {
     display: inline-flex;
     align-items: center;
-    background-color: #e0e0e0;
+    background-color: #f1f1f1;
     color: #333;
     padding: 8px 12px;
     margin: 5px;
@@ -335,9 +327,7 @@
 }
 
 .course-tag button {
-    background: none;
     border: none;
-    color: inherit;
     margin-left: 5px;
     cursor: pointer;
     font-weight: bold;
@@ -372,21 +362,18 @@
 
 .external-link-icon {
     margin-left: 5px;
-    font-size: 0.9rem;
+    color: #2c91f4;
 }
 
 .remove-course-button {
     background: none;
     border: none;
-    color: #333;
+    color: rgba(255, 0, 0, 0.66);
     margin-left: 10px;
     cursor: pointer;
     font-size: 1.2rem;
 }
 
-.remove-course-button:hover {
-    color: #ff0000;
-}
 
 /* Status Tags */
 .status-tags-container {
@@ -457,6 +444,10 @@
     .create-profile-container h2 {
         font-size: 1.5rem;
     }
+    .uni-dropdown-item {
+        font-size: 0.8rem;
+        padding: 10px;
+    }
 
     .form-step label {
         font-size: 0.8rem;
@@ -473,7 +464,6 @@
         padding: 0.5rem;
     }
 
-    /* Adjust dropdown widths and alignment */
     .custom-dropdown {
         width: 100%;
     }

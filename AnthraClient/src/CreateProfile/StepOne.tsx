@@ -298,10 +298,10 @@ const StepOne: React.FC<StepOneProps> = ({
                     />
                 </div>
                 {countrySuggestions.length > 0 && (
-                    <ul className="suggestions-list">
+                    <ul className="uni-dropdown-menu">
                         {countrySuggestions.map((countryName, index) => (
                             <li
-                                className={`suggestion-item ${index === selectedCountryIndex ? 'highlighted' : ''}`}
+                                className={`suggestion-item ${index === selectedCountryIndex ? 'bg-gray-200' : ''}`}
                                 key={index}
                                 onMouseDown={() => handleCountrySelect(countryName)}
                             >
@@ -329,10 +329,10 @@ const StepOne: React.FC<StepOneProps> = ({
                     />
                 </div>
                 {citySuggestions.length > 0 && (
-                    <ul className="suggestions-list">
+                    <ul className="uni-dropdown-menu">
                         {citySuggestions.map((cityName, index) => (
                             <li
-                                className={`suggestion-item ${index === selectedCityIndex ? 'highlighted' : ''}`}
+                                className={`suggestion-item ${index === selectedCityIndex ? 'bg-gray-200' : ''}`}
                                 key={index}
                                 onMouseDown={() => handleCitySelect(cityName)}
                             >

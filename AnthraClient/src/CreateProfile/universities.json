@@ -8,6 +8,30 @@
     "state-province": null
   },
   {
+    "name": "Københavns Universitet",
+    "domains": [""],
+    "web_pages": ["https://www.ku.dk/"],
+    "country": "Denmark",
+    "alpha_two_code": "AU",
+    "state-province": null
+  },
+  {
+    "web_pages": ["http://www.cbs.dk/"],
+    "name": "CBS",
+    "alpha_two_code": "DK",
+    "state-province": null,
+    "domains": ["cbs.dk"],
+    "country": "Denmark"
+  },
+  {
+    "name": "DTU",
+    "domains": ["dtu.dk"],
+    "web_pages": ["https://www.dtu.dk"],
+    "country": "Denmark",
+    "alpha_two_code": "AU",
+    "state-province": null
+  },
+  {
     "name": "Universitas Nusa Putra",
     "domains": ["nusaputra.ac.id"],
     "web_pages": ["https://nusaputra.ac.id"],

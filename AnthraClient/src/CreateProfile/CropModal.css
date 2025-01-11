@@ -43,6 +43,7 @@
 .zoom-slider {
     width: 80%;
     margin-bottom: 1rem;
+    border: none;
 }
 
 .buttons {

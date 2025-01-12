@@ -1,18 +1,24 @@
 .home-navbar {
     padding: 1rem;
     position: fixed;
-    background-color: rgba(0, 0, 0, 0.3); /* Black with 60% opacity */
-    backdrop-filter: blur(10px); /* Blur effect */
-    border-bottom: 0.5px solid white;
+    background-color: transparent; /* Start transparent */
+    backdrop-filter: none; /* No blur initially */
     width: 100%;
-    z-index: 1000; /* Increased z-index to overlay other elements */
+    z-index: 1000;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-style: normal;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
 }
+
+.home-navbar.scrolled {
+    background-color: rgba(0, 0, 0, 0.3); /* Black with 30% opacity */
+    backdrop-filter: blur(10px); /* Blur effect */
+}
+
 
 /* Burger Menu Styles */
 .burger-menu {
@@ -55,7 +61,9 @@
     animation-duration: 1s;
     animation-delay: 0.8s;
     animation-fill-mode: forwards;
-    font-weight: 400;
+    font-weight: 300;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .nav-buttons.animate-nav-buttons {
@@ -63,74 +71,62 @@
 }
 
 .nav-button {
-    font-size: 1rem;
+    font-size: 0.8rem;
     padding: 1rem 1rem;
     background-color: transparent;
     border: none;
     color: white;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 300;
     position: relative;
     overflow: hidden;
 }
 
-.nav-button::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0.5rem;
-    height: 0.5rem;
-    background-color: white;
-    border-radius: 50%;
-    transform: translate(-50%, -850%);
-    transition: transform 0.3s ease-in-out;
-}
-
-.nav-button:hover::before {
-    transform: translate(-50%, -50%);
+.nav-button:hover{
+    font-weight: 800;
 }
 
 .language-dropdown select:focus {
     outline: none;
 }
 
-/* Arrow Styles */
 .arrow {
     display: inline-block;
     width: 0;
     height: 0;
-    margin-left: 8px; /* Space between text and arrow */
+    margin-left: 8px;
     vertical-align: middle;
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
-    border-top: 6px solid white; /* Downward pointing arrow */
+    border-top: 6px solid white;
     transition: transform 0.3s ease;
 }
 
 .arrow.open {
-    transform: rotate(180deg); /* Point upwards when open */
+    transform: rotate(180deg);
 }
 
 .language-dropdown {
     position: relative;
-    margin-left: auto;
     cursor: pointer;
     color: white;
     display: flex;
     justify-content: center;
+    font-weight: 300;
 }
 
 .dropdown-header-home-navbar {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Ensures arrow is next to the text */
+    justify-content: space-between;
     padding: 10px;
     background-color: transparent;
-    border: 1px solid white;
     border-radius: 4px;
     cursor: pointer;
-    position: relative; /* Ensure proper positioning if needed */
+    font-weight: 300;
+    font-size: 0.85rem;
+    position: relative;
+    border: 1px solid white;
 }
 
 .flag-icon {
@@ -143,7 +139,7 @@
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.1);
     border: 1px solid white;
     border-radius: 4px;
     width: 100%;
@@ -159,12 +155,12 @@
 }
 
 .language-dropdown-item {
-    display: flex;
-    align-items: center;
     padding: 10px;
     cursor: pointer;
     color: white;
     border-radius: 2px;
+    font-weight: 300;
+    text-align: center;
 }
 
 .language-dropdown-item:hover {
@@ -219,6 +215,7 @@
     .language-dropdown{
         width: auto; /* Override to auto to prevent full-width stretching */
         margin-right: auto;
+        margin-left: auto;
     }
 
     .dropdown-header-home-navbar {
@@ -226,9 +223,3 @@
     }
 }
 
-@keyframes slide-in {
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}

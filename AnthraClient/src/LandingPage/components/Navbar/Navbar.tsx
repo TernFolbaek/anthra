@@ -17,6 +17,7 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
 
     const dropdownRef = useRef<HTMLDivElement>(null);
 
+
     useEffect(() => {
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 1024);
@@ -80,7 +81,7 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
 
     return (
         <nav className="home-navbar flex items-center">
-            <h1 id="logo-title" className="animate">Anthra</h1>
+            <h1 id="logo-title" className="animate text-gray-200">Anthra</h1>
 
             {/* Burger Menu Icon */}
             {isMobile && (
@@ -91,41 +92,8 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                 </div>
             )}
 
-            {/* Navigation Buttons */}
-            <div className={`nav-buttons flex animate-nav-buttons ${isMobile ? (isMenuOpen ? 'mobile-open' : 'mobile-closed') : ''}`}>
-                <div
-                    className={`language-dropdown animate ${isDropdownOpen ? 'open' : ''}`}
-                    onClick={toggleDropdown}
-                    ref={dropdownRef} // Assign the ref here
-                    role="button"
-                    aria-haspopup="true"
-                    aria-expanded={isDropdownOpen}
-                >
-                    <div className="dropdown-header-home-navbar">
-                        {language === 'da' ? (
-                            <>
-                                Dansk
-                            </>
-                        ) : (
-                            <>
-                                English
-                            </>
-                        )}
-                        {/* Arrow Element */}
-                        <span className={`arrow ${isDropdownOpen ? 'open' : ''}`}></span>
-                    </div>
-
-                    {isDropdownOpen && (
-                        <div className="dropdown-menu animate">
-                            <div className="language-dropdown-item" onClick={() => handleLanguageChange('da')}>
-                                 Dansk
-                            </div>
-                            <div className="language-dropdown-item" onClick={() => handleLanguageChange('en')}>
-                                English
-                            </div>
-                        </div>
-                    )}
-                </div>
+            <div
+                className={`nav-buttons flex animate-nav-buttons ${isMobile ? (isMenuOpen ? 'mobile-open' : 'mobile-closed') : ''}`}>
                 <button
                     className="nav-button animate"
                     onClick={() => scrollToSection('features')}
@@ -156,7 +124,77 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                 >
                     {t.getStarted}
                 </button>
+                {isMobile && (
+                    <div
+                        className={`language-dropdown animate ${isDropdownOpen ? 'open' : ''}`}
+                        onClick={toggleDropdown}
+                        ref={dropdownRef}
+                        role="button"
+                        aria-haspopup="true"
+                        aria-expanded={isDropdownOpen}
+                    >
+                        <div className="dropdown-header-home-navbar">
+                            {language === 'da' ? (
+                                <>
+                                    Dansk
+                                </>
+                            ) : (
+                                <>
+                                    English
+                                </>
+                            )}
+                            {/* Arrow Element */}
+                            <span className={`arrow ${isDropdownOpen ? 'open' : ''}`}></span>
+                        </div>
+
+                        {isDropdownOpen && (
+                            <div className="dropdown-menu animate">
+                                <div className="language-dropdown-item" onClick={() => handleLanguageChange('da')}>
+                                    Dansk
+                                </div>
+                                <div className="language-dropdown-item" onClick={() => handleLanguageChange('en')}>
+                                    English
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
+            {!isMobile && (
+                <div
+                    className={`language-dropdown animate ${isDropdownOpen ? 'open' : ''}`}
+                    onClick={toggleDropdown}
+                    ref={dropdownRef}
+                    role="button"
+                    aria-haspopup="true"
+                    aria-expanded={isDropdownOpen}
+                >
+                    <div className="dropdown-header-home-navbar">
+                        {language === 'da' ? (
+                            <>
+                                Dansk
+                            </>
+                        ) : (
+                            <>
+                                English
+                            </>
+                        )}
+                        {/* Arrow Element */}
+                        <span className={`arrow ${isDropdownOpen ? 'open' : ''}`}></span>
+                    </div>
+
+                    {isDropdownOpen && (
+                        <div className="dropdown-menu animate">
+                            <div className="language-dropdown-item" onClick={() => handleLanguageChange('da')}>
+                                Dansk
+                            </div>
+                            <div className="language-dropdown-item" onClick={() => handleLanguageChange('en')}>
+                                English
+                            </div>
+                        </div>
+                    )}
+                </div>
+            )}
         </nav>
     );
 

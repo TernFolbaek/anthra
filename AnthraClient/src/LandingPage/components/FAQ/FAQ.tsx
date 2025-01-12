@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronDown } from 'lucide-react';
 import './FAQ.css';
-import { useLanguage } from '../../../LanguageContext'; // Import useLanguage
-import translations from '../../../languages/landingPageTranslations.json'; // Import combined translations
+import { useLanguage } from '../../../LanguageContext';
+import translations from '../../../languages/landingPageTranslations.json';
 
 interface FAQItem {
     question: string;
@@ -11,6 +11,7 @@ interface FAQItem {
 
 const FAQItemComponent: React.FC<{ item: FAQItem }> = ({ item }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [borderRounded, setBorderRounded] = useState(false);
     const contentRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -19,21 +20,39 @@ const FAQItemComponent: React.FC<{ item: FAQItem }> = ({ item }) => {
         }
     }, [isOpen]);
 
+    useEffect(() => {
+        if (isOpen) {
+            setBorderRounded(true);
+        } else {
+            const timer = setTimeout(() => setBorderRounded(false), 300);
+            return () => clearTimeout(timer);
+        }
+    }, [isOpen]);
+
     return (
-        <div className="border-b border-gray-200">
+        <div>
             <button
-                className="flex justify-between items-center w-full py-4 text-left"
+                className={` hover:bg-gray-700/50 bg-gray-800/80 border px-6 py-4 border-gray-700/50 flex justify-between items-center w-full text-left ${
+                    borderRounded ? 'rounded-t-xl' : 'rounded-xl'
+                }`}
                 onClick={() => setIsOpen(!isOpen)}
             >
-                <span className="faq-question">{item.question}</span>
-                <ChevronDown className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                <span className="text-lg font-medium text-gray-200 faq-question">{item.question}</span>
+                <ChevronDown
+                    className={`text-emerald-400 transition-transform duration-300 ${
+                        isOpen ? 'rotate-180' : ''
+                    }`}
+                />
             </button>
+
             <div
                 ref={contentRef}
-                className="overflow-hidden transition-[max-height] duration-300 ease-in-out"
+                className="rounded-b-xl bg-gray-800/80 overflow-hidden transition-[max-height] duration-300 ease-in-out"
                 style={{ maxHeight: '0' }}
             >
-                <p className="py-4 text-gray-600 faq-answer">{item.answer}</p>
+                <p className="tracking-wide font-light px-6 py-6 text-gray-300 border-t border-gray-700/50">
+                    {item.answer}
+                </p>
             </div>
         </div>
     );
@@ -78,7 +97,7 @@ const FAQ: React.FC = () => {
                 } max-w-2xl mx-auto mt-8`}
             >
                 <div>
-                    <p className="faq-section text-2xl font-bold mb-6 faq-title">{t.commonTitle}</p> {/* Translated title */}
+                    <p className="faq-section text-2xl font-bold mb-6 text-gray-300 faq-title">{t.commonTitle}</p>
                     <div className="space-y-2">
                         {t.commonQuestions.map((item: FAQItem, index: number) => (
                             <FAQItemComponent key={index} item={item} />
@@ -87,7 +106,7 @@ const FAQ: React.FC = () => {
                 </div>
 
                 <div>
-                    <p className="faq-section text-2xl font-bold mb-6 faq-title">{t.pricingTitle}</p> {/* Translated title */}
+                    <p className="faq-section text-2xl font-bold mb-6 text-gray-300 faq-title">{t.pricingTitle}</p>
                     <div className="space-y-2">
                         {t.pricingQuestions.map((item: FAQItem, index: number) => (
                             <FAQItemComponent key={index} item={item} />

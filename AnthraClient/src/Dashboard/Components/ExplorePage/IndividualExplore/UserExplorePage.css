@@ -164,9 +164,10 @@ body.dark .user-info p {
     font-weight: 500;
 }
 
-/* Dark mode styles */
 body.dark .user-explore-courses-list a {
-    color: #85bff8;
+    color: #059669;
+    text-decoration: underline;
+    text-decoration-color: #046346;
 }
 
 .user-explore-courses-list a:hover {
@@ -236,7 +237,6 @@ body.dark .status-tag-explore {
     transform: translateY(-3px);
 }
 
-/* Skip Button */
 .skip-button {
     background-color: transparent;
     color: #007BFF;
@@ -258,29 +258,12 @@ body.dark .status-tag-explore {
     transform: translateY(-3px);
 }
 
-/* Dark mode styles */
 body.dark .connect-button {
-    background-color: #0056b3;
     box-shadow: 0 4px 6px rgba(0, 86, 179, 0.1);
 }
 
-body.dark .connect-button:hover {
-    background-color: #439ef6;
-    box-shadow: 0 8px 12px rgba(0, 86, 179, 0.2);
-}
 
-body.dark .skip-button {
-    color: #85bff8;
-    border: 2px solid #85bff8;
-    box-shadow: 0 4px 6px rgba(133, 191, 248, 0.1);
-}
 
-body.dark .skip-button:hover {
-    background-color: #85bff8;
-    color: white;
-    box-shadow: 0 8px 12px rgba(133, 191, 248, 0.2);
-    transform: translateY(-3px);
-}
 
 .user-explore-no-more {
     text-align: center;

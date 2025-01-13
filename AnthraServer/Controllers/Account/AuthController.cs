@@ -142,7 +142,7 @@ private string MapIdentityErrorCodeToMessage(string errorCode)
         case "DuplicateUserName":
             return "Username is already taken.";
         case "InvalidUserName":
-            return "Username is invalid.";
+            return "Username is invalid. Make sure there are no spaces";
         case "DuplicateEmail":
             return "Email is already taken. Try logging in.";
         case "InvalidEmail":

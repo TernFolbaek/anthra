@@ -165,7 +165,7 @@ const HelpSettings: React.FC = () => {
                         )}
                         <div className="modal-actions">
                             <button
-                                className="delete-account-cancel-button"
+                                className="delete-account-cancel-button dark:bg-emerald-500 dark:hover:bg-emerald-400 transform hover:scale-105 dark:text-white"
                                 onClick={closeDeleteModal}
                             >
                                 Cancel

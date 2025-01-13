@@ -15,9 +15,10 @@ body.dark .card-container {
 .card-title {
     font-size: 22px;
     padding: 0 0 10px 0;
-    font-weight: bold;
+    font-weight: 700;
     margin: 0 0 0 10px;
     color: #000;
+    letter-spacing: .06rem;
 }
 
 /* Dark mode styles */

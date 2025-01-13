@@ -84,11 +84,11 @@ const AddMembersModal: React.FC<AddMembersModalProps> = ({ show, onClose, groupI
 
     return (
         <div className="add-members-modal-overlay" onClick={onClose}>
-            <div className="add-members-modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="add-members-modal-content " onClick={(e) => e.stopPropagation()}>
                 <button className="add-members-modal-close-button" onClick={onClose}>
                     &times;
                 </button>
-                <p className="add-members-modal-title">Add Members</p>
+                <p className="dark:text-gray-300 add-members-modal-title">Add Members</p>
 
                 {/* Display selected users */}
                 {selectedUserIds.length > 0 && (
@@ -152,7 +152,7 @@ const AddMembersModal: React.FC<AddMembersModalProps> = ({ show, onClose, groupI
                     </button>
                 )}
                 {connections.length <= 0 && (
-                    <p className="text-gray-500 font-medium text-base text-center">You need connections before you can invite new members</p>
+                    <p className="text-gray-500 font-medium text-sm text-center">You need connections before you can invite new members</p>
                 )}
 
             </div>

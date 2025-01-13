@@ -4,15 +4,14 @@
 
 #logo-title {
     font-family: 'Montserrat', sans-serif;
-    font-weight: lighter;
+    font-weight: 400;
     font-size: 2rem;
-    letter-spacing: .15rem;
+    letter-spacing: .1rem;
     position: relative;
     opacity: 0;
     animation-duration: 1s;
     animation-delay: 0.5s;
     animation-fill-mode: forwards;
-    color: white;
     cursor: pointer;
     margin-bottom: auto;
 }

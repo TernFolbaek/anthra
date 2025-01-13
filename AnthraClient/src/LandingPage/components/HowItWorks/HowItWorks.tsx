@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import './HowItWorks.css';
-import stepOneImage from '../../assets/explore-anthra.png';
-import stepTwoImage from '../../assets/connections-anthra.png';
-import stepThreeImage from '../../assets/group-chat.jpg';
+import stepOneImage from '../../assets/lol.png';
+import stepTwoImage from '../../assets/lol.png';
+import stepThreeImage from '../../assets/lol.png';
 import { useLanguage } from '../../../LanguageContext';
 import translations from '../../../languages/landingPageTranslations.json';
-import z12 from '../../assets/z12.jpg';
+import {faMagnifyingGlass,faUsersRays, faUserAstronaut} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const HowItWorks: React.FC = () => {
     const step1Ref = useRef<HTMLDivElement>(null);
     const step2Ref = useRef<HTMLDivElement>(null);
@@ -43,32 +44,60 @@ const HowItWorks: React.FC = () => {
 
     return (
         <div className="how-it-works-container">
-            <img src={z12} className="background-video" alt="group chat"/>
-
+            <div className="background-video"></div>
             <div className="content">
-                <h1 className="how-it-works-title">{t.title}</h1> {/* Use translated title */}
+                <p className="how-it-works-title text-center mb-4 text-4xl font-bold">{t.title}</p>
+                <p className="how-it-works-subtitle text-center mb-16  text-sm ">{t.subtitle}</p>
+
                 <div ref={step1Ref} className="step step-1">
-                    <div className="step-content">
-                        <p className="step-content-title">{t.steps[0].heading}</p> {/* Use translated step 1 heading */}
-                        <p className="step-description">{t.steps[0].description}</p> {/* Use translated step 1 description */}
+                    <div className="step-content ">
+                        <div className="flex items-center gap-2 mb-4">
+                            <FontAwesomeIcon className="text-2xl text-gray-300" icon={faUserAstronaut}/>
+                            <p className="text-white text-2xl font-semibold">{t.steps[0].heading}</p>
+                        </div>
+                        <p className="step-description text-lg text-gray-400 leading-relaxed mb-6">{t.steps[0].description}</p>
+                        <div className="bg-gray-800/50 rounded-lg p-4 mb-6 border border-gray-700/50">
+                            <p className="text-emerald-400 font-medium text-sm">{t.step1}</p>
+                        </div>
                     </div>
                     <img src={stepOneImage} className="step-image" alt="profile on explore page"/>
                 </div>
 
                 <div ref={step2Ref} className="step step-2">
-                    <div className="step-content">
-                        <p className="step-content-title">{t.steps[1].heading}</p> {/* Use translated step 2 heading */}
-                        <p className="step-description">{t.steps[1].description}</p> {/* Use translated step 2 description */}
+                    <div className="step-content ">
+                        <div className="flex items-center gap-2 mb-4">
+                            <FontAwesomeIcon className="text-2xl text-gray-300" icon={faMagnifyingGlass}/>
+                            <p className="text-white text-2xl font-semibold">{t.steps[1].heading}</p>
+                        </div>
+                        <p className="step-description text-lg text-gray-400 leading-relaxed mb-6">{t.steps[1].description}</p>
+                        <div className="bg-gray-800/50 rounded-lg p-4 mb-6 border border-gray-700/50">
+                            <p className="text-emerald-400 font-medium text-sm">{t.step2}</p>
+                        </div>
                     </div>
                     <img src={stepTwoImage} className="step-image" alt="connection requests"/>
                 </div>
-
                 <div ref={step3Ref} className="step step-3">
-                    <div className="step-content">
-                        <p className="step-content-title">{t.steps[2].heading}</p> {/* Use translated step 3 heading */}
-                        <p className="step-description">{t.steps[2].description}</p> {/* Use translated step 3 description */}
+                    <div className="step-content ">
+                        <div className="flex items-center gap-2 mb-4">
+                            <FontAwesomeIcon className="text-2xl text-gray-300" icon={faUsersRays}/>
+                            <p className="text-white text-2xl font-semibold">{t.steps[2].heading}</p>
+                        </div>
+                        <p className="step-description text-lg text-gray-400 leading-relaxed mb-6">{t.steps[2].description}</p>
+                        <div className="bg-gray-800/50 rounded-lg p-4 mb-6 border border-gray-700/50">
+                            <p className="text-emerald-400 font-medium text-sm">{t.step3}</p>
+                        </div>
                     </div>
                     <img src={stepThreeImage} className="step-image" alt="group chat"/>
+                </div>
+                <div className="demo-video-container ml-auto mr-auto mb-16">
+                    <iframe
+                        className="demo-video-iframe"
+                        src="https://www.youtube.com/watch?v=GC7JJbYmGNg"
+                        title="Demo Video"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                    ></iframe>
                 </div>
             </div>
         </div>

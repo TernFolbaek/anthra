@@ -301,7 +301,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                     <div className="flex items-center gap-2">
                         {isGroupCreator && (
                             <button
-                                className="add-members-icon"
+                                className="add-members-icon dark:text-white"
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     handleOpenAddMembersModal();

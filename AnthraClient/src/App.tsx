@@ -28,7 +28,7 @@ const App: React.FC = () => {
     const [profileCreated, setProfileCreated] = useState(false);
 
     const [loading, setLoading] = useState(true);
-
+    localStorage.setItem('isDark', 'true')
     useEffect(() => {
         const flag = localStorage.getItem('isDark');
         if (flag === 'true') {
@@ -145,9 +145,6 @@ const App: React.FC = () => {
                                             <div id="home">
                                                 <Home onGetStartedClick={handleGetStartedClick} />
                                             </div>
-                                            <div id="features">
-                                                <Features />
-                                            </div>
                                             <div id="how-it-works">
                                                 <HowItWorks />
                                             </div>
@@ -186,7 +183,7 @@ const App: React.FC = () => {
                                             <div id="contact">
                                                 <Contact />
                                             </div>
-                                            {process.env.NODE_ENV === 'development' && <DevelopmentTools />}
+                                            {/*{process.env.NODE_ENV === 'development' && <DevelopmentTools />}*/}
                                         </div>
                                     )
                                 }

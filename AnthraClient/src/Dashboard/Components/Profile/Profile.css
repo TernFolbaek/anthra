@@ -166,8 +166,8 @@ body.dark .profile-field p {
     width: 100%;
     padding: 12px 15px;
     font-size: 0.8rem;
-    border: 1px solid #ccc;
     border-radius: 8px;
+    background-color: #efefef;
 }
 
 /* Dark mode styles */
@@ -205,15 +205,6 @@ body.dark .profile-field textarea {
 
 .save-button:hover {
     background-color: #4883f3;
-}
-
-/* Dark mode styles */
-body.dark .save-button {
-    background-color: #007bff;
-}
-
-body.dark .save-button:hover {
-    background-color: #0056b3;
 }
 
 .profile-icon-button {
@@ -301,8 +292,9 @@ body.dark .save-button:hover {
 
 .error-message {
     color: #ef6060;
-    font-weight: bold;
     margin-top: 10px;
+    font-weight: 600;
+    font-size: 0.85rem;
 }
 
 /* Dark mode styles */

@@ -1,8 +1,7 @@
-// Profile.tsx
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import axios from 'axios';
-import {FaRegHandPointer, FaPlus, FaTrash} from "react-icons/fa";
+import { FaRegHandPointer, FaPlus, FaTrash } from "react-icons/fa";
 
 interface Course {
     courseName: string;
@@ -17,7 +16,11 @@ interface ProfileData {
     firstName: string;
     institution: string;
     lastName: string;
-    location: string;
+    // Replace string location with an object for Country & City
+    location: {
+        country: string;
+        city: string;
+    };
     profilePictureUrl: string;
     subjects: string[];
     userName: string;
@@ -29,6 +32,10 @@ const Profile: React.FC = () => {
     const [profileData, setProfileData] = useState<ProfileData | null>(null);
     const [editMode, setEditMode] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    // Field-level errors so we can highlight the specific fields in red
+    const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
+
     const [profilePictureFile, setProfilePictureFile] = useState<File | null>(null);
 
     const token = localStorage.getItem('token');
@@ -62,20 +69,50 @@ const Profile: React.FC = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            localStorage.setItem('userProfilePicture', `${response.data.profilePictureUrl}`);
-            setProfileData(response.data);
+
+            const [country, city] = response.data.location
+                ? response.data.location.split(',')
+                : ['', ''];
+
+            localStorage.setItem('userProfilePicture', response.data.profilePictureUrl);
+
+            setProfileData({
+                ...response.data,
+                location: {
+                    country: country.trim(),
+                    city: city.trim(),
+                }
+            });
+
             setSelectedStatuses(response.data.statuses || []);
         } catch (err) {
-            setError('Failed to fetch profile data.');
+            setError('Failed to fetch profile data');
         }
     };
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+
+    const handleInputChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
         if (profileData) {
-            const {name, value} = e.target;
+            const { name, value } = e.target;
             setProfileData({
                 ...profileData,
                 [name]: value,
+            });
+        }
+    };
+
+    // Separate handler for location (because it's now an object)
+    const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (profileData) {
+            const { name, value } = e.target;
+            setProfileData({
+                ...profileData,
+                location: {
+                    ...profileData.location,
+                    [name]: value,
+                },
             });
         }
     };
@@ -97,10 +134,16 @@ const Profile: React.FC = () => {
 
     const addCourse = () => {
         if (profileData) {
-            setProfileData({
-                ...profileData,
-                courses: [...profileData.courses, {courseName: '', courseLink: ''}],
-            });
+            // Only add if we don't exceed 4 courses
+            if (profileData.courses.length < 4) {
+                setProfileData({
+                    ...profileData,
+                    courses: [
+                        ...profileData.courses,
+                        { courseName: '', courseLink: '' }
+                    ],
+                });
+            }
         }
     };
 
@@ -129,10 +172,13 @@ const Profile: React.FC = () => {
 
     const addSubject = () => {
         if (profileData) {
-            setProfileData({
-                ...profileData,
-                subjects: [...profileData.subjects, ''],
-            });
+            // Only add if we don't exceed 5 subjects
+            if (profileData.subjects.length < 5) {
+                setProfileData({
+                    ...profileData,
+                    subjects: [...profileData.subjects, ''],
+                });
+            }
         }
     };
 
@@ -152,10 +198,11 @@ const Profile: React.FC = () => {
         if (selectedStatuses.includes(st)) {
             setSelectedStatuses(selectedStatuses.filter(status => status !== st));
         } else {
+            // Example logic: enforce a maximum of 3
             if (selectedStatuses.length < 3) {
                 setSelectedStatuses([...selectedStatuses, st]);
             } else {
-                setError('');
+                setError('You can only select up to 3 statuses.');
             }
         }
     };
@@ -163,36 +210,107 @@ const Profile: React.FC = () => {
     const handleSave = async () => {
         if (!profileData) return;
 
-        // Validate selected statuses: must have 2-3
+        // Clear previous errors
+        setError(null);
+        const newFieldErrors: { [key: string]: string } = {};
+        let hasError = false;
+
+        // Validate About Me (150-300 chars)
+        if (profileData.aboutMe.length < 150 || profileData.aboutMe.length > 300) {
+            newFieldErrors.aboutMe = 'About Me must be between 150 and 300 characters';
+            hasError = true;
+        }
+
+        // Validate First Name (no spaces, max 15 chars)
+        if (profileData.firstName.includes(' ')) {
+            newFieldErrors.firstName = 'First Name must be one word without spaces';
+            hasError = true;
+        }
+        if (profileData.firstName.length > 15) {
+            newFieldErrors.firstName = 'First Name cannot exceed 15 characters';
+            hasError = true;
+        }
+
+        // Validate Last Name (no spaces, max 15 chars)
+        if (profileData.lastName.includes(' ')) {
+            newFieldErrors.lastName = 'Last Name must be one word without spaces';
+            hasError = true;
+        }
+        if (profileData.lastName.length > 15) {
+            newFieldErrors.lastName = 'Last Name cannot exceed 15 characters';
+            hasError = true;
+        }
+
+        // Validate Courses (2 - 4)
+        if (profileData.courses.length < 2) {
+            newFieldErrors.courses = 'Please add at least 2 courses'
+            hasError = true;
+        }
+        if (profileData.courses.length > 4) {
+            newFieldErrors.courses = 'You cannot add more than 4 courses';
+            hasError = true;
+        }
+
+        // Validate Subjects (2 - 5)
+        if (profileData.subjects.length < 2) {
+            newFieldErrors.subjects = 'Please add at least 2 subjects';
+            hasError = true;
+        }
+        if (profileData.subjects.length > 5) {
+            newFieldErrors.subjects = 'You cannot add more than 5 subjects';
+            hasError = true;
+        }
+
+        // Validate location fields
+        if (!profileData.location.country) {
+            newFieldErrors.country = 'Country is required';
+            hasError = true;
+        }
+        if (!profileData.location.city) {
+            newFieldErrors.city = 'City is required';
+            hasError = true;
+        }
+
+        // Validate statuses (example: must select between 2 and 3)
         if (selectedStatuses.length < 2 || selectedStatuses.length > 3) {
-            setError('Please select between 2 and 3 statuses.');
+            newFieldErrors.statuses = 'Please select between 2 and 3 statuses.';
+            hasError = true;
+        }
+
+        if (hasError) {
+            setFieldErrors(newFieldErrors);
             return;
+        } else {
+            // Clear field-specific errors if all good
+            setFieldErrors({});
         }
 
-        const formData = new FormData();
-
-        // Append scalar fields
-        formData.append('FirstName', profileData.firstName);
-        formData.append('LastName', profileData.lastName);
-        formData.append('Location', profileData.location);
-        formData.append('Institution', profileData.institution);
-        formData.append('Work', profileData.work);
-        formData.append('AboutMe', profileData.aboutMe);
-        formData.append('Age', profileData.age.toString());
-
-        // Append array fields
-        profileData.subjects.forEach((subject) => formData.append('Subjects', subject));
-        formData.append('Courses', JSON.stringify(profileData.courses));
-
-        // Append statuses
-        selectedStatuses.forEach(status => formData.append('Statuses', status));
-
-        // Append profile picture if updated
-        if (profilePictureFile) {
-            formData.append('ProfilePicture', profilePictureFile);
-        }
-
+        // If we pass all validations, proceed with sending the data
         try {
+            const formData = new FormData();
+
+            // Scalar fields
+            formData.append('FirstName', profileData.firstName);
+            formData.append('LastName', profileData.lastName);
+            // Combine or handle country/city in whatever way your backend expects
+            formData.append('Location', `${profileData.location.country},${profileData.location.city}`);
+            formData.append('Institution', profileData.institution);
+            formData.append('Work', profileData.work);
+            formData.append('AboutMe', profileData.aboutMe);
+            formData.append('Age', profileData.age.toString());
+
+            // Arrays
+            profileData.subjects.forEach((subject) => formData.append('Subjects', subject));
+            formData.append('Courses', JSON.stringify(profileData.courses));
+
+            // Statuses
+            selectedStatuses.forEach(status => formData.append('Statuses', status));
+
+            // Profile picture
+            if (profilePictureFile) {
+                formData.append('ProfilePicture', profilePictureFile);
+            }
+
             await axios.post(
                 '/Profile/UpdateProfile',
                 formData,
@@ -203,9 +321,9 @@ const Profile: React.FC = () => {
                     },
                 }
             );
+
             setEditMode(false);
-            // Refresh the profile data to reflect changes
-            fetchProfile();
+            fetchProfile(); // Refresh
         } catch (err: any) {
             if (err.response && err.response.data) {
                 const errorData = err.response.data;
@@ -221,8 +339,9 @@ const Profile: React.FC = () => {
     };
 
     if (!profileData) {
-        return;
+        return null;
     }
+
     const handleProfilePictureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             setProfilePictureFile(e.target.files[0]);
@@ -254,19 +373,26 @@ const Profile: React.FC = () => {
                                             className="hidden-file-input"
                                         />
                                         <div className="overlay-content">
-                                            <FaRegHandPointer className="cursor-icon"/>
+                                            <FaRegHandPointer className="cursor-icon" />
                                             <span>Change Profile Picture</span>
                                         </div>
-                                    </div>)}
+                                    </div>
+                                )}
                             </div>
-                            <button className="save-button" onClick={() => {
-                                setError(null);
-                                setEditMode(!editMode);
-                            }}>
+                            <button
+                                className="save-button dark:hover:bg-emerald-400 transform hover:scale-105 dark:text-white dark:bg-emerald-500"
+                                onClick={() => {
+                                    setError(null);
+                                    setFieldErrors({});
+                                    setEditMode(!editMode);
+                                }}
+                            >
                                 {editMode ? 'Cancel' : 'Edit'}
                             </button>
                         </div>
+
                         <div className="profile-info">
+
                             {/* Username */}
                             <div className="profile-row">
                                 <div className="profile-field full-width">
@@ -280,32 +406,49 @@ const Profile: React.FC = () => {
                                 <div className="profile-field half-width">
                                     <label className="profile-label">First Name:</label>
                                     {editMode ? (
-                                        <input
-                                            type="text"
-                                            name="firstName"
-                                            value={profileData.firstName}
-                                            onChange={handleInputChange}
-                                        />
+                                        <>
+                                            <input
+                                                type="text"
+                                                name="firstName"
+                                                value={profileData.firstName}
+                                                onChange={handleInputChange}
+                                                className={`${
+                                                    fieldErrors.firstName ? 'border border-red-500' : ''
+                                                }`}
+                                            />
+                                            {fieldErrors.firstName && (
+                                                <p className="text-red-500 text-sm">{fieldErrors.firstName}</p>
+                                            )}
+                                        </>
                                     ) : (
                                         <span>{profileData.firstName}</span>
                                     )}
                                 </div>
+
                                 <div className="profile-field half-width">
                                     <label className="profile-label">Last Name:</label>
                                     {editMode ? (
-                                        <input
-                                            type="text"
-                                            name="lastName"
-                                            value={profileData.lastName}
-                                            onChange={handleInputChange}
-                                        />
+                                        <>
+                                            <input
+                                                type="text"
+                                                name="lastName"
+                                                value={profileData.lastName}
+                                                onChange={handleInputChange}
+                                                className={`${
+                                                    fieldErrors.lastName ? 'border border-red-500' : ''
+                                                }`}
+                                            />
+                                            {fieldErrors.lastName && (
+                                                <p className="text-red-500 text-sm">{fieldErrors.lastName}</p>
+                                            )}
+                                        </>
                                     ) : (
                                         <span>{profileData.lastName}</span>
                                     )}
                                 </div>
                             </div>
 
-                            {/* Age and Location */}
+                            {/* Age */}
                             <div className="profile-row">
                                 <div className="profile-field half-width">
                                     <label className="profile-label">Age:</label>
@@ -320,23 +463,56 @@ const Profile: React.FC = () => {
                                         <span>{profileData.age}</span>
                                     )}
                                 </div>
+
                                 <div className="profile-field half-width">
-                                    <label className="profile-label">Location:</label>
+                                    <label className="profile-label">Country:</label>
                                     {editMode ? (
-                                        <input
-                                            type="text"
-                                            name="location"
-                                            value={profileData.location}
-                                            onChange={handleInputChange}
-                                        />
+                                        <>
+                                            <input
+                                                type="text"
+                                                name="country"
+                                                autoComplete="nope"
+                                                value={profileData.location.country}
+                                                onChange={handleLocationChange}
+                                                className={`${
+                                                    fieldErrors.country ? 'border border-red-500' : ''
+                                                }`}
+                                            />
+                                            {fieldErrors.country && (
+                                                <p className="text-red-500 text-sm">{fieldErrors.country}</p>
+                                            )}
+                                        </>
                                     ) : (
-                                        <span>{profileData.location}</span>
+                                        <span>{profileData.location.country}</span>
                                     )}
                                 </div>
                             </div>
 
-                            {/* Institution and Work */}
                             <div className="profile-row">
+                                <div className="profile-field half-width">
+                                    <label className="profile-label">City:</label>
+                                    {editMode ? (
+                                        <>
+                                            <input
+                                                type="text"
+                                                name="city"
+                                                autoComplete="nope"
+                                                value={profileData.location.city}
+                                                onChange={handleLocationChange}
+                                                className={`${
+                                                    fieldErrors.city ? 'border border-red-500' : ''
+                                                }`}
+                                            />
+                                            {fieldErrors.city && (
+                                                <p className="text-red-500 text-sm">{fieldErrors.city}</p>
+                                            )}
+                                        </>
+                                    ) : (
+                                        <span>{profileData.location.city}</span>
+                                    )}
+                                </div>
+
+                                {/* Institution */}
                                 <div className="profile-field half-width">
                                     <label className="profile-label">Institution:</label>
                                     {editMode ? (
@@ -350,6 +526,10 @@ const Profile: React.FC = () => {
                                         <span>{profileData.institution}</span>
                                     )}
                                 </div>
+                            </div>
+
+                            {/* Work */}
+                            <div className="profile-row">
                                 <div className="profile-field half-width">
                                     <label className="profile-label">Work:</label>
                                     {editMode ? (
@@ -370,12 +550,22 @@ const Profile: React.FC = () => {
                                 <div className="profile-field full-width">
                                     <label className="profile-label">About Me:</label>
                                     {editMode ? (
-                                        <textarea
-                                            name="aboutMe"
-                                            value={profileData.aboutMe}
-                                            onChange={handleInputChange}
-                                            rows={5}
-                                        />
+                                        <>
+                              <textarea
+                                  name="aboutMe"
+                                  value={profileData.aboutMe}
+                                  onChange={handleInputChange}
+                                  rows={5}
+                                  minLength={150}
+                                  maxLength={300}
+                                  className={`${
+                                      fieldErrors.aboutMe ? 'border border-red-500' : ''
+                                  }`}
+                              />
+                                {fieldErrors.aboutMe && (
+                                    <p className="text-red-500 text-sm">{fieldErrors.aboutMe}</p>
+                                )}
+                                        </>
                                     ) : (
                                         <p className="about-me-text">{profileData.aboutMe}</p>
                                     )}
@@ -387,26 +577,38 @@ const Profile: React.FC = () => {
                                 <div className="profile-field full-width">
                                     <label className="profile-label">Subjects:</label>
                                     {editMode ? (
-                                        <div className="subjects-list">
+                                        <div className="flex flex-col gap-2">
                                             {profileData.subjects.map((subject, index) => (
                                                 <div key={index} className="subject-item flex">
                                                     <input
                                                         type="text"
                                                         value={subject}
                                                         onChange={(e) => handleSubjectChange(index, e.target.value)}
+                                                        className={`${
+                                                            fieldErrors.subjects ? 'border border-red-500' : ''
+                                                        }`}
                                                     />
-                                                    <button type="button" onClick={() => removeSubject(index)}
-                                                            className="profile-edit-trash">
-                                                        <FaTrash/>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => removeSubject(index)}
+                                                        className="profile-edit-trash"
+                                                    >
+                                                        <FaTrash />
                                                     </button>
                                                 </div>
                                             ))}
+                                            {fieldErrors.subjects && (
+                                                <p className="text-red-500 text-sm">{fieldErrors.subjects}</p>
+                                            )}
                                             <div className="flex items-center">
-                                                <button type="button" onClick={addSubject}
-                                                        className="profile-icon-button">
-                                                    <FaPlus/>
+                                                <button
+                                                    type="button"
+                                                    onClick={addSubject}
+                                                    className="profile-icon-button"
+                                                >
+                                                    <FaPlus />
                                                 </button>
-                                                <p className="text-gray-500 text-xs font-bold ">New Subject</p>
+                                                <p className="text-gray-500 text-xs font-bold">New Subject</p>
                                             </div>
                                         </div>
                                     ) : (
@@ -426,42 +628,60 @@ const Profile: React.FC = () => {
                                     {editMode ? (
                                         <div className="courses-list">
                                             {profileData.courses.map((course, index) => (
-                                                <div key={index} className="course-item flex items-center">
-                                                    <div>
+                                                <div key={index} className="course-item dark:text-emerald-400 flex items-center">
+                                                    <div className="w-full flex flex-col gap-2">
                                                         <input
                                                             type="text"
                                                             placeholder="Course Name"
                                                             value={course.courseName}
                                                             onChange={(e) => handleCourseChange(index, 'courseName', e.target.value)}
+                                                            className={`${
+                                                                fieldErrors.courses ? 'border border-red-500' : ''
+                                                            }`}
                                                         />
                                                         <input
                                                             type="text"
                                                             placeholder="Course Link"
                                                             value={course.courseLink}
                                                             onChange={(e) => handleCourseChange(index, 'courseLink', e.target.value)}
+                                                            className={`${
+                                                                fieldErrors.courses ? 'border border-red-500' : ''
+                                                            }`}
                                                         />
                                                     </div>
-                                                    <button type="button" onClick={() => removeCourse(index)}
-                                                            className="profile-edit-trash">
-                                                        <FaTrash/>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => removeCourse(index)}
+                                                        className="profile-edit-trash"
+                                                    >
+                                                        <FaTrash />
                                                     </button>
                                                 </div>
                                             ))}
+                                            {fieldErrors.courses && (
+                                                <p className="text-red-500 text-sm">{fieldErrors.courses}</p>
+                                            )}
                                             <div className="flex items-center">
-                                                <button type="button" onClick={addCourse}
-                                                        className="profile-icon-button">
-                                                    <FaPlus/>
+                                                <button
+                                                    type="button"
+                                                    onClick={addCourse}
+                                                    className="profile-icon-button"
+                                                >
+                                                    <FaPlus />
                                                 </button>
-                                                <p className="text-gray-500 text-xs font-bold ">New Course</p>
+                                                <p className="text-gray-500 text-xs font-bold">New Course</p>
                                             </div>
                                         </div>
                                     ) : (
                                         <ul className="courses-list">
                                             {profileData.courses.map((course, index) => (
                                                 <li key={index}>
-                                                    <a href={course.courseLink}
-                                                       className="text-blue-400 hover:font-semibold"
-                                                       target="_blank" rel="noopener noreferrer">
+                                                    <a
+                                                        href={course.courseLink}
+                                                        className="text-blue-400 dark:text-emerald-400 hover:font-semibold"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                    >
                                                         {course.courseName}
                                                     </a>
                                                 </li>
@@ -480,14 +700,14 @@ const Profile: React.FC = () => {
                                             {allStatuses.map((st, i) => (
                                                 <span
                                                     key={i}
-                                                    className={`status-tag ${selectedStatuses.includes(st) ? 'status-tag-selected' : ''}`}
+                                                    className={`status-tag dark:hover:bg-gray-700 dark:bg-gray-700/50 dark:border-emerald-500 ${selectedStatuses.includes(st) ? 'status-tag-selected' : ''}`}
                                                     onClick={() => {
                                                         setError(null);
                                                         handleStatusSelect(st);
                                                     }}
                                                 >
-                                                    {st}
-                                                </span>
+                          {st}
+                        </span>
                                             ))}
                                         </div>
                                     ) : (
@@ -495,12 +715,15 @@ const Profile: React.FC = () => {
                                             {selectedStatuses.map((st, i) => (
                                                 <span
                                                     key={i}
-                                                    className={`status-tag ${selectedStatuses.includes(st) ? 'status-tag-selected' : ''}`}
+                                                    className={`status-tag dark:hover:bg-gray-700 dark:bg-gray-700/50 dark:border-emerald-500 ${selectedStatuses.includes(st) ? 'status-tag-selected' : ''}`}
                                                 >
-                                                    {st}
-                                                </span>
+                          {st}
+                        </span>
                                             ))}
                                         </div>
+                                    )}
+                                    {fieldErrors.statuses && (
+                                        <p className="text-red-500 text-sm">{fieldErrors.statuses}</p>
                                     )}
                                 </div>
                             </div>
@@ -510,13 +733,12 @@ const Profile: React.FC = () => {
                                     Save
                                 </button>
                             )}
-                            {error && <p className="error-message">{error}</p>}
+                            {error && <p className="error-message text-center">{error}</p>}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     );
 };
 

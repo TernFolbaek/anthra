@@ -120,7 +120,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
             const filtered = universitiesData.filter((uni) =>
                 uni.name.toLowerCase().includes(institutionSearch.toLowerCase())
             );
-            setFilteredUniversities(filtered.slice(0,5));
+            setFilteredUniversities(filtered.slice(0, 5));
         }
         setSelectedInstitutionIndex(-1);
     }, [institutionSearch]);
@@ -161,7 +161,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
             return;
         }
         if (subjects.length === 0) {
-            setError('Please add at least one subject.');
+            setError('Please add at least 2 subjects.');
             return;
         }
         if (selectedStatuses.length < 2 || selectedStatuses.length > 3) {
@@ -194,7 +194,6 @@ const StepTwo: React.FC<StepTwoProps> = ({
             });
 
             const data = response.data;
-
             localStorage.setItem('fullName', `${firstName} ${lastName}`);
             localStorage.setItem('userProfilePicture', data.profilePictureUrl);
             onProfileCreated();
@@ -211,7 +210,6 @@ const StepTwo: React.FC<StepTwoProps> = ({
             }
             setMessage(null);
         }
-
     };
 
     const handleCourseInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -360,7 +358,6 @@ const StepTwo: React.FC<StepTwoProps> = ({
         }
     };
 
-
     const handleInstitutionBlur = () => {
         // If no institution was selected from the dropdown, reset the field
         if (!institution) {
@@ -405,12 +402,13 @@ const StepTwo: React.FC<StepTwoProps> = ({
         setError(null);
     };
 
-
     // Handle keydown events for course input
     const handleCourseKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            handleAddCourse()
+            e.preventDefault(); // <-- This line prevents form submission
+            handleAddCourse();
         }
+
         if (courseSuggestions.length === 0) return;
 
         if (e.key === 'ArrowDown') {
@@ -420,7 +418,6 @@ const StepTwo: React.FC<StepTwoProps> = ({
             e.preventDefault();
             setSelectedCourseIndex((prev) => (prev - 1 >= 0 ? prev - 1 : prev));
         } else if (e.key === 'Enter') {
-            e.preventDefault();
             if (selectedCourseIndex >= 0 && selectedCourseIndex < courseSuggestions.length) {
                 handleCourseSelect(courseSuggestions[selectedCourseIndex]);
             } else {
@@ -433,7 +430,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
 
     const handleStatusSelect = (st: string) => {
         if (selectedStatuses.includes(st)) {
-            setSelectedStatuses(selectedStatuses.filter(status => status !== st));
+            setSelectedStatuses(selectedStatuses.filter((status) => status !== st));
             setError(null);
         } else {
             if (selectedStatuses.length < 3) {
@@ -533,7 +530,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                 {faculties.map((fac) => (
                                     <div
                                         key={fac}
-                                        className="uni-dropdown-item p-2 hover:bg-gray-200 cursor-pointer"
+                                        className="suggestion-item font-semibold  p-2 hover:bg-gray-200 cursor-pointer"
                                         onClick={() => handleFacultyOptionClick(fac)}
                                     >
                                         {fac}
@@ -566,13 +563,11 @@ const StepTwo: React.FC<StepTwoProps> = ({
                         />
                         <button
                             type="button"
-                            onClick={() => {
-                               handleAddCourse()
-                            }}
+                            onClick={handleAddCourse}
                             className="course-add-button"
                             disabled={courses.length >= 4}
                         >
-                            <FaPlusCircle/>
+                            <FaPlusCircle />
                         </button>
                     </div>
 
@@ -582,7 +577,8 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                 <li
                                     className={`suggestion-item p-2 cursor-pointer ${
                                         index === selectedCourseIndex ? 'bg-gray-300' : 'hover:bg-gray-200'
-                                    }`}                                    key={index}
+                                    }`}
+                                    key={index}
                                     onClick={() => handleCourseSelect(course)}
                                 >
                                     {course.courseName}
@@ -599,7 +595,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                 onChange={(e) => setCourseLinkInput(e.target.value)}
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter') {
-                                        e.preventDefault();
+                                        e.preventDefault(); // Prevent form submit on Enter in link input too
                                         handleAddCourse();
                                     }
                                 }}
@@ -625,7 +621,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                         rel="noopener noreferrer"
                                     >
                                         {course.courseName}
-                                        <FaExternalLinkAlt size={16} className="external-link-icon"/>
+                                        <FaExternalLinkAlt size={16} className="external-link-icon" />
                                     </a>
                                 ) : (
                                     <span>{course.courseName}</span>
@@ -635,7 +631,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                     onClick={() => handleRemoveCourse(course.courseName)}
                                     className="remove-course-button"
                                 >
-                                    <FaTimes size={16}/>
+                                    <FaTimes size={16} />
                                 </button>
                             </span>
                         ))}
@@ -657,7 +653,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                             onChange={(e) => setSubjectInput(e.target.value)}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
-                                    e.preventDefault();
+                                    e.preventDefault(); // Also prevent form submit on Enter for subjects
                                     handleAddSubject();
                                 }
                             }}
@@ -671,7 +667,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                             className="course-add-button"
                             disabled={subjects.length >= 5}
                         >
-                            <FaPlusCircle/>
+                            <FaPlusCircle />
                         </button>
                     </div>
                 </div>
@@ -689,7 +685,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                     onClick={() => handleRemoveSubject(subject)}
                                     className="remove-course-button"
                                 >
-                                    <FaTimes size={16}/>
+                                    <FaTimes size={16} />
                                 </button>
                             </span>
                         ))}

@@ -93,7 +93,6 @@ body.dark .profile-settings-save-button:hover {
     width: 50%;
     padding: 5px 15px;
     border-radius: 4px;
-    font-weight: 400;
     cursor: pointer;
     color: #fff;
     border: none;
@@ -222,14 +221,6 @@ body.dark .confirm-delete-button {
 
 body.dark .confirm-delete-button:hover {
     background-color: #444;
-}
-
-body.dark .delete-account-cancel-button {
-    background-color: #0056b3;
-}
-
-body.dark .delete-account-cancel-button:hover {
-    background-color: #003f7f;
 }
 
 /* Error Message Styling */

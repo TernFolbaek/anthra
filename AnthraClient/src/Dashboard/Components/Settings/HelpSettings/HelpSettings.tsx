@@ -92,20 +92,20 @@ const HelpSettings: React.FC = () => {
             <div className="profile-settings-actions">
                 <div className="flex gap-2 w-full">
                     <button
-                        className="text-sm help-settings-buttons bg-blue-500"
+                        className="text-sm font-semibold dark:text-white dark:bg-emerald-500 dark:hover:bg-emerald-400 transform hover:scale-105 help-settings-buttons bg-blue-500"
                         onClick={() => setShowSupportModal(true)}
                     >
                         Contact Support
                     </button>
                     <button
-                        className="text-sm help-settings-buttons bg-blue-500"
+                        className="text-sm help-settings-buttons font-semibold dark:text-white dark:bg-emerald-500 dark:hover:bg-emerald-400 transform hover:scale-105 bg-blue-500"
                         onClick={handleLogout}
                     >
                         Logout
                     </button>
                 </div>
                 <button
-                    className={`text-gray-500 delete-button ${answerInput.trim() === '' ? 'delete-button-disabled' : ''}`}
+                    className={`text-gray-500  delete-button ${answerInput.trim() === '' ? 'delete-button-disabled' : ''}`}
                     onClick={openDeleteModal}
                 >
                     Delete Account
@@ -122,17 +122,17 @@ const HelpSettings: React.FC = () => {
                             onChange={(e) => setSupportMessage(e.target.value)}
                             placeholder="Describe your issue in detail"
                             rows={4}
-                            className="w-full p-2 border rounded resize-none modal-input"
+                            className="w-full dark:bg-stone-800/50 p-2 border rounded resize-none modal-input"
                         />
                         <div className="modal-actions">
                             <button
-                                className="confirm-delete-button"
+                                className="text-sm confirm-delete-button"
                                 onClick={handleContactSupport}
                             >
                                 Send Message
                             </button>
                             <button
-                                className="delete-account-cancel-button"
+                                className="text-sm dark:bg-emerald-500 dark:hover:bg-emerald-400  delete-account-cancel-button"
                                 onClick={closeSupportModal}
                             >
                                 Cancel

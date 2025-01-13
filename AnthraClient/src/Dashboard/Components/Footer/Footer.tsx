@@ -25,7 +25,6 @@ const Footer: React.FC<FooterProps> = ({ onSettingsClick }) => {
 
     const { notifications, markAllAsRead, markGroupNotificationsAsRead, markAsRead } = notificationContext;
 
-    // Calculate unread counts
     const unreadMessages = notifications.filter(n => !n.isRead && n.type === 'Message').length;
     const unreadGroups = notifications.filter(n => !n.isRead && n.type === 'GroupMessage').length;
     const unreadConnections = notifications.filter(n => !n.isRead && n.type === 'ConnectionRequest').length;

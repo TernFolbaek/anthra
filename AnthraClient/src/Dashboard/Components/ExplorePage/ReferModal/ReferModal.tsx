@@ -182,10 +182,10 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
                 <p className="refer-title">Refer {currentUser?.firstName} {currentUser?.lastName}</p>
                 <input
                     type="text"
-                    placeholder="Search your connections..."
+                    placeholder="Search your connections"
                     value={searchQuery}
                     onChange={handleSearchChange}
-                    className="refer-search-input"
+                    className="refer-search-input dark:bg-gray-100"
                 />
 
                 {/* Referral Counter */}

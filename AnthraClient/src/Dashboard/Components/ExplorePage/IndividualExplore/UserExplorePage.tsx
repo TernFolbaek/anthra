@@ -229,9 +229,9 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({onSettingsClick}) => {
                                         {currentUser.courses && currentUser.courses.length > 0 && (
                                             <div>
                                                 <h3>Courses</h3>
-                                                <ul className="user-explore-courses-list">
+                                                <ul  className="dark:text-emerald-400">
                                                     {currentUser.courses.map((course, index) => (
-                                                        <li key={index}>
+                                                        <li key={index} >
                                                             <a href={course.courseLink} target="_blank"
                                                                rel="noopener noreferrer">
                                                                 {course.courseName}
@@ -333,19 +333,19 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({onSettingsClick}) => {
             {/* Buttons to Connect/Skip/Refer */}
             {currentUser && (
                 <div className="user-explore-page-button-container">
-                    <button className="skip-button" onClick={handleSkip}>
+                    <button className="skip-button dark:hover:bg-emerald-400 border transform dark:hover:scale-105 dark:hover:border-emerald-400 dark:border-emerald-500 dark:text-emerald-400" onClick={handleSkip}>
                         Skip
                     </button>
-                    <button className="refer-button" onClick={() => setShowReferModal(true)}>
+                    <button className="refer-button dark:hover:bg-emerald-400  transform dark:hover:scale-105 dark:bg-emerald-300 dark:text-gray-900" onClick={() => setShowReferModal(true)}>
                         Refer
                     </button>
-                    <button className="connect-button" onClick={handleConnect}>
+                    <button className="connect-button dark:hover:bg-emerald-400 dark:hover:text-white  transform dark:hover:scale-105 dark:bg-emerald-500 dark:text-gray-900" onClick={handleConnect}>
                         Connect
                     </button>
                 </div>
             )}
 
-            {snackbarVisible && (
+            {snackbarVisible && !isSmallScreen && (
                 <Snackbar
                     key={snackbarTitle + snackbarMessage}
                     title={snackbarTitle}

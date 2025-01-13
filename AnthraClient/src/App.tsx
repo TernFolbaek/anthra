@@ -183,7 +183,7 @@ const App: React.FC = () => {
                                             <div id="contact">
                                                 <Contact />
                                             </div>
-                                            {/*{process.env.NODE_ENV === 'development' && <DevelopmentTools />}*/}
+                                            {process.env.NODE_ENV === 'development' && <DevelopmentTools />}
                                         </div>
                                     )
                                 }

@@ -191,15 +191,18 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({onSettingsClick}) => {
                                         />
                                         <div className="flex flex-col">
                                             <h2 className="user-name">
-                                                {currentUser.firstName} {currentUser.lastName}, {currentUser.age}
+                                                {currentUser.firstName} {currentUser.lastName} {currentUser.age}
                                             </h2>
-                                            <p className="user-location">{currentUser.location}</p>
+                                            <p className="user-location font-semibold dark:text-emerald-400">{currentUser.location}</p>
+
                                         </div>
                                     </div>
                                     <div className="user-info">
-                                        <h3>Institution</h3>
+                                        <h3 className="dark:text-emerald-400">Institution</h3>
                                         <p>{currentUser.institution}</p>
-                                        <h3>About Me</h3>
+                                        <h3 className="dark:text-emerald-400">Work</h3>
+                                        <p>{currentUser.work}</p>
+                                        <h3 className="dark:text-emerald-400">About Me</h3>
                                         <p>{currentUser.aboutMe}</p>
                                     </div>
                                 </div>
@@ -215,20 +218,20 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({onSettingsClick}) => {
                                             <h2 className="user-name">
                                                 {currentUser.firstName} {currentUser.lastName}, {currentUser.age}
                                             </h2>
-                                            <p className="user-location">{currentUser.location}</p>
+                                            <p className="user-location font-semibold dark:text-emerald-400">{currentUser.location}</p>
                                         </div>
                                     </div>
                                     <div className="user-info">
                                         {currentUser.subjects && currentUser.subjects.length > 0 && (
                                             <div>
-                                                <h3>Subjects</h3>
+                                                <h3 className="dark:text-emerald-400">Subjects</h3>
                                                 <p>{currentUser.subjects.join(', ')}</p>
                                             </div>
                                         )}
 
                                         {currentUser.courses && currentUser.courses.length > 0 && (
                                             <div>
-                                                <h3>Courses</h3>
+                                                <h3 className="dark:text-emerald-400">Courses</h3>
                                                 <ul  className="dark:text-emerald-400">
                                                     {currentUser.courses.map((course, index) => (
                                                         <li key={index} >
@@ -244,7 +247,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({onSettingsClick}) => {
 
                                         {currentUser.statuses && currentUser.statuses.length > 0 && (
                                             <div className="user-explore-statuses">
-                                                <h3>Status</h3>
+                                                <h3 className="dark:text-emerald-400">Status</h3>
                                                 <div className="flex gap-2 text-xs text-center">
                                                     {currentUser.statuses.map((st, i) => (
                                                         <p
@@ -273,64 +276,73 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({onSettingsClick}) => {
                                         <h2 className="user-name">
                                             {currentUser.firstName} {currentUser.lastName}, {currentUser.age}
                                         </h2>
-                                        <p className="user-location">{currentUser.location}</p>
+                                        <p className="user-location font-semibold dark:text-emerald-400">{currentUser.location}</p>
                                     </div>
                                 </div>
                                 <div className="user-info">
-                                    <h3>Institution</h3>
-                                    <p>{currentUser.institution}</p>
-                                    <h3>Work</h3>
-                                    <p>{currentUser.work}</p>
-                                    <h3>About Me</h3>
+                                    <div
+                                        className="flex px-5 py-2 gap-10 dark:bg-emerald-500/10 bg-sky-50  w-fit rounded-xl backdrop-blur-sm  dark:border-gray-600 items-center">
+                                        <div className="flex flex-col">
+                                            <h3 className="dark:text-emerald-400">Institution</h3>
+                                            <p className="font-medium dark:text-gray-300 ">{currentUser.institution}</p>
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <h3 className="dark:text-emerald-400">Work</h3>
+                                            <p className="font-medium dark:text-gray-300 ">{currentUser.work}</p>
+                                        </div>
+                                    </div>
+                                    <h3 className="dark:text-emerald-400">About Me</h3>
                                     <p>{currentUser.aboutMe}</p>
+                                    <div
+                                        className="flex px-5 py-2 gap-10 dark:bg-emerald-500/10 bg-sky-50  w-fit rounded-xl backdrop-blur-sm  dark:border-gray-600 items-center">
 
-                                    {currentUser.subjects && currentUser.subjects.length > 0 && (
-                                        <div>
-                                            <h3>Subjects</h3>
-                                            <p>{currentUser.subjects.join(', ')}</p>
-                                        </div>
-                                    )}
-
-                                    {currentUser.courses && currentUser.courses.length > 0 && (
-                                        <div>
-                                            <h3>Courses</h3>
-                                            <ul className="user-explore-courses-list">
-                                                {currentUser.courses.map((course, index) => (
-                                                    <li key={index}>
-                                                        <a href={course.courseLink} target="_blank"
-                                                           rel="noopener noreferrer">
-                                                            {course.courseName}
-                                                        </a>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    )}
-
-                                    {currentUser.statuses && currentUser.statuses.length > 0 && (
-                                        <div className="user-explore-statuses">
-                                            <h3>Status</h3>
-                                            <div className="flex gap-2">
-                                                {currentUser.statuses.map((st, i) => (
-                                                    <p
-                                                        key={i}
-                                                        className="status-tag-explore"
-                                                    >{st}
-                                                    </p>
-                                                ))}
+                                        {currentUser.subjects && currentUser.subjects.length > 0 && (
+                                            <div>
+                                                <h3 className="dark:text-emerald-400">Subjects</h3>
+                                                <p>{currentUser.subjects.join(', ')}</p>
                                             </div>
-                                        </div>
-                                    )}
+                                        )}
+
+                                        {currentUser.courses && currentUser.courses.length > 0 && (
+                                            <div>
+                                                <h3 className="dark:text-emerald-400">Courses</h3>
+                                                <ul className="user-explore-courses-list">
+                                                    {currentUser.courses.map((course, index) => (
+                                                        <li key={index}>
+                                                            <a href={course.courseLink} target="_blank"
+                                                               rel="noopener noreferrer">
+                                                                {course.courseName}
+                                                            </a>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        )}
+                                    </div>
+                                        {currentUser.statuses && currentUser.statuses.length > 0 && (
+                                            <div className="user-explore-statuses">
+                                                <h3 className="dark:text-emerald-400">Status</h3>
+                                                <div className="flex gap-2">
+                                                    {currentUser.statuses.map((st, i) => (
+                                                        <p
+                                                            key={i}
+                                                            className="status-tag-explore"
+                                                        >{st}
+                                                        </p>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
+                            )}
                         </div>
-                    )}
-                </div>
-            ) : (
-                <NoMoreUsersToExplore />
-            )}
+                    ) : (
+                        <NoMoreUsersToExplore />
+                        )}
 
-            {/* Buttons to Connect/Skip/Refer */}
+                    {/* Buttons to Connect/Skip/Refer */}
             {currentUser && (
                 <div className="user-explore-page-button-container">
                     <button className="skip-button dark:hover:bg-emerald-400 border transform dark:hover:scale-105 dark:hover:border-emerald-400 dark:border-emerald-500 dark:text-emerald-400" onClick={handleSkip}>

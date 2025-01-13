@@ -25,7 +25,7 @@ body.dark .user-name {
     padding: 25px;
     border-radius: 16px;
     width: 100%;
-    max-width: 1000px;
+    max-width: 900px;
     height: 100%;
     min-height: 600px;
     text-align: left;
@@ -125,25 +125,12 @@ body.dark .user-explore-location {
     color: #444;
 }
 
-/* Dark mode styles */
-body.dark .user-info h3 {
-    color: #ddd;
-}
-
-body.dark .user-location {
-    color: #ddd;
-}
-
 .user-info p {
     margin: 0 0 10px;
     line-break: normal;
     font-size: 0.9rem;
 }
 
-/* Dark mode styles */
-body.dark .user-info p {
-    color: white;
-}
 
 .user-explore-courses-list {
     padding: 0;
@@ -157,6 +144,7 @@ body.dark .user-info p {
     display: block;
 }
 
+
 .user-explore-courses-list a {
     z-index: 20;
     color: #2c91f4;
@@ -165,9 +153,9 @@ body.dark .user-info p {
 }
 
 body.dark .user-explore-courses-list a {
-    color: #059669;
+    color: white;
     text-decoration: underline;
-    text-decoration-color: #046346;
+    text-decoration-color: #0dba85;
 }
 
 .user-explore-courses-list a:hover {
@@ -188,7 +176,7 @@ body.dark .user-explore-courses-list a {
 .connect-button,
 .refer-button,
 .skip-button {
-    padding: 0.75rem 1.5rem;
+    padding: 0.5rem 1rem;
     cursor: pointer;
     font-weight: 600;
     border-radius: 8px;
@@ -378,13 +366,13 @@ body.dark .user-explore-no-more {
     .indicator {
         width: 150px;
         height: 6px;
-        background-color: rgb(243,243,243);
+        background-color: rgb(126, 126, 126);
         border-radius: 5px;
         transition: background-color 0.3s;
     }
 
     .indicator.active {
-        background-color: rgba(180, 209, 255, 0.5);
+        background-color: white;
     }
 
     .page-content {

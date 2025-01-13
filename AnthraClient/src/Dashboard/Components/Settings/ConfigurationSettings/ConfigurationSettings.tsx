@@ -26,7 +26,6 @@ const ConfigurationSettings: React.FC = () => {
     return (
         <div className="configuration-settings">
             <div className="toggle-group">
-                {/* Icon representing the current mode */}
                 <span className="mode-icon">
                     {darkMode ? <FaMoon size={15} /> : <FaSun size={15} />}
                 </span>
@@ -36,13 +35,12 @@ const ConfigurationSettings: React.FC = () => {
                         id="darkModeToggle"
                         checked={darkMode}
                         onChange={toggleDarkMode}
-                        style={{ display: 'none' }} // Hide the default checkbox
+                        style={{ display: 'none' }}
                     />
                     <label htmlFor="darkModeToggle" className="toggle-label">
                         <span className={`toggle-thumb ${darkMode ? 'dark' : 'light'}`}></span>
                     </label>
                 </div>
-                {/* Optional: Show the opposite mode icon */}
                 <span className="mode-icon">
                     {darkMode ? <FaSun size={15} /> : <FaMoon size={15} />}
                 </span>

@@ -331,11 +331,6 @@ body.dark .message-input-container input {
   cursor: pointer;
 }
 
-/* Dark mode styles */
-body.dark .group-name-clickable {
-  color: #439ef6;
-}
-
 .group-name-clickable:hover {
   text-decoration: none;
 }

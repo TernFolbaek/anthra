@@ -21,8 +21,8 @@ body.dark .sidebar {
 }
 
 .sidebar-profile-picture {
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     margin: 8px;
     object-fit: cover;
@@ -52,7 +52,7 @@ body.dark .sidebar-link {
 }
 
 .sidebar-link .sidebar-icon {
-    font-size: 22px;
+    font-size: 18px;
     transition: transform 0.3s ease;
 }
 
@@ -74,7 +74,7 @@ body.dark .sidebar-link {
 
 /* Dark mode styles */
 body.dark .sidebar-link::before {
-    background-color: #85bff8;
+    background-color: rgb(85,182,133);
 }
 
 .sidebar-link:hover::before,
@@ -90,7 +90,7 @@ body.dark .sidebar-link::before {
 /* Dark mode styles */
 body.dark .sidebar-link:hover {
     background-color: #2e2e2e;
-    color: #85bff8;
+    color: rgb(85,182,133);
 }
 
 .sidebar-link.active-link {
@@ -101,7 +101,7 @@ body.dark .sidebar-link:hover {
 /* Dark mode styles */
 body.dark .sidebar-link.active-link {
     background-color: #2e2e2e;
-    color: #85bff8;
+    color: rgb(85,182,133);
 }
 
 .tooltip-container {

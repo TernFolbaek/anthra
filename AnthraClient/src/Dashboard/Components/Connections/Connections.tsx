@@ -364,7 +364,7 @@ const Connections: React.FC = () => {
                                 </div>
                             </div>
                             <button
-                                className="message-button"
+                                className="message-button dark:text-emerald-400 transform dark:border-emerald-500 hover:scale-105 dark:hover:border-emerald-400 dark:hover:bg-transparent"
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     navigate(`/dashboard/messages/${user.id}`);
@@ -435,7 +435,7 @@ const Connections: React.FC = () => {
                         </div>
                         <div className="requests-button-container">
                             <button
-                                className="message-button"
+                                className="message-button dark:hover:bg-transparent dark:border-emerald-500 dark:text-emerald-400 dark:hover:scale-105 transform dark:hover:border-emerald-400"
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     handleAccept(request);
@@ -485,7 +485,7 @@ const Connections: React.FC = () => {
                                 </div>
                                 <div className="requests-button-container">
                                     <button
-                                        className="message-button"
+                                        className="message-button dark:border-emerald-500 dark:text-emerald-400 dark:hover:scale-105 transform dark:hover:border-emerald-400"
                                         onClick={() => handleGroupApplicationAccept(application.requestId)}
                                     >
                                         Accept
@@ -534,7 +534,7 @@ const Connections: React.FC = () => {
                     ) : (
                         <div className="connections-card-container">
                             <p className="dark:text-white pl-2 pt-1 pb-1 text-xl mt-2 font-bold">Requests</p>
-                            <div className="slide-toggle">
+                            <div className="slide-toggle dark:text-white dark:bg-emerald-500">
                                 <input
                                     type="checkbox"
                                     id="toggle"
@@ -548,7 +548,7 @@ const Connections: React.FC = () => {
                                 <label htmlFor="toggle">
                                     <span className="toggle-option personal">Personal</span>
                                     <span className="toggle-option groups">Groups</span>
-                                    <span className="toggle-slider"></span>
+                                    <span className="toggle-slider dark:bg-emerald-400"></span>
                                 </label>
                             </div>
                             {selectedRequestTab === 'personal'
@@ -562,7 +562,7 @@ const Connections: React.FC = () => {
                         <div className="connections-card-container">
                             <p className="dark:text-white pl-2 pt-1 pb-2 text-xl mt-2 font-bold">Requests</p>
 
-                            <div className="slide-toggle">
+                            <div className="slide-toggle dark:text-white dark:bg-emerald-500">
                                 <input
                                     type="checkbox"
                                     id="toggle"
@@ -574,9 +574,9 @@ const Connections: React.FC = () => {
                                     }
                                 />
                                 <label htmlFor="toggle">
-                                    <span className="toggle-option personal">Personal</span>
-                                    <span className="toggle-option groups">Groups</span>
-                                    <span className="toggle-slider"></span>
+                                    <span className="toggle-option  personal">Personal</span>
+                                    <span className="toggle-option  groups">Groups</span>
+                                    <span className="toggle-slider dark:bg-emerald-400"></span>
                                 </label>
                             </div>
                             {selectedRequestTab === 'personal'

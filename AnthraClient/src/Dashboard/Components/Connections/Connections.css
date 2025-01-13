@@ -212,16 +212,6 @@ body.dark .connections-menu-button:hover {
     background-color: #abddfb;
 }
 
-body.dark .message-button {
-    border: 2px solid #85bff8;
-    color: #85bff8;
-}
-
-body.dark .message-button:hover {
-    background-color: #85bff8;
-    color: #fff;
-}
-
 .connections-tabs,
 .requests-tabs {
     display: flex;
@@ -325,13 +315,9 @@ body.dark .requests-user-card:hover {
     height: 30px;
     margin: 20px auto;
     border-radius: 25px;
-    background-color: rgb(244,244,244);
+    background-color: rgb(223, 236, 253);
 }
 
-body.dark .slide-toggle{
-    background-color: rgb(184, 182, 182);
-;
-}
 
 .slide-toggle input[type='checkbox'] {
     display: none;
@@ -350,21 +336,21 @@ body.dark .slide-toggle{
 .slide-toggle .toggle-option {
     flex: 1;
     text-align: center;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 30px;
     font-size: 14px;
-    color: #666;
     z-index: 2;
+    color: #2e2e2e;
     position: relative;
     transition: color 0.3s ease;
 }
 
 .slide-toggle input[type='checkbox']:checked + label .toggle-option.groups {
-    color: black;
+    color: white;
 }
 
 .slide-toggle input[type='checkbox']:not(:checked) + label .toggle-option.personal {
-    color: black;
+    color: white;
 }
 
 .slide-toggle input[type='checkbox']:checked + label .toggle-option.personal:hover,
@@ -372,11 +358,11 @@ body.dark .slide-toggle{
     cursor: pointer;
 }
 
-.slide-toggle .toggle-slider {
+.toggle-slider {
     position: absolute;
     width: 50%;
     height: 100%;
-    background: #e3e2e2;
+    background: #85bff8;
     border-radius: 25px;
     left: 0;
     top: 0;
@@ -481,6 +467,7 @@ body.dark .connections-slider {
 .connections-slider.right {
     transform: translateX(100%);
 }
+
 
 @media (max-width: 480px) {
     .connections-page {

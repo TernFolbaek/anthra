@@ -2,20 +2,25 @@
   "da": {
     "howItWorks": {
       "title": "Hvordan det virker",
-      "steps": [
+      "subtitle": "At forbinde med ligesindede har aldrig været nemmere",
+      "step1": "Visse universiteter understøttes, hvor dit specifikke kursus kan hentes løbende.",
+      "step2": "Du kan henvise brugere på udforskningssiden til din forbindelse, som du finder passende.",
+      "step3": "Filer og medier, der deles, bliver gemt inden for gruppeprofilen.",
+    "steps": [
         {
-          "heading": "Opret din profil og udforsk",
-          "description": "Opret din egen profil og dyk ned på udforskningssiden, hvor du kan sende forbindelsesanmodninger til andre, der fanger din interesse"
+          "heading": "Opret dig og udforsk",
+          "description": "Opret din egen profil og dyk ned på udforskningssiden, hvor du kan sende forbindelsesanmodninger til andre, der fanger din interesse. Dette giver dig mulighed for at udvide dit netværk hurtigt og nemt."
         },
         {
           "heading": "Tjek din indbakke",
-          "description": "Tjek din indbakke for anmodninger fra andre brugere, og beslut, om du vil starte relationen"
+          "description": "Tjek din indbakke for anmodninger fra andre brugere, og beslut, om du vil starte relationen. Hurtig respons kan føre til stærkere og mere meningsfulde forbindelser."
         },
         {
           "heading": "Opret fora",
-          "description": "Hvis du mener, at dit partnerskab vil blive styrket med flere brugere, har du altid mulighed for at oprette fora med dine forbindelser og deres forbindelser"
+          "description": "Hvis du mener, at dit partnerskab vil blive styrket med flere brugere, har du altid mulighed for at oprette fora med dine forbindelser og deres forbindelser. Dette skaber et dynamisk miljø, hvor idéer og erfaringer kan deles frit."
         }
       ]
+
     },
     "features": {
       "title": "Forbinde mellem universiteter og kurser",
@@ -82,20 +87,25 @@
   "en": {
     "howItWorks": {
       "title": "How It Works",
+      "subtitle": "Connecting with like minded individuals has never been easier",
+      "step1": "Certain universities are supported where your specific course can be fetched on the fly",
+      "step2": "You can refer users on the explore page to your connection that you find to be a good fit",
+      "step3": "Sharing files and media will be saved within the group profile",
       "steps": [
         {
           "heading": "Create your profile and explore",
-          "description": "Create your own profile and dive into the explore page where you can send connection requests to others who pique your interest"
+          "description": "Create your own profile and dive into the explore page where you can send connection requests to others who pique your interest. This allows you to expand your network quickly and easily."
         },
         {
           "heading": "Check your inbox",
-          "description": "Check your inbox for requests from other users, and decide whether or not you want to commence the relationship"
+          "description": "Check your inbox for requests from other users, and decide whether or not you want to commence the relationship. A quick response can lead to stronger and more meaningful connections."
         },
         {
           "heading": "Create forums",
-          "description": "If you believe your partnership would be strengthened with more users, you always have the opportunity to create forums with your connections and their connections"
+          "description": "If you believe your partnership would be strengthened with more users, you always have the opportunity to create forums with your connections and their connections. This creates a dynamic environment where ideas and experiences can be shared freely."
         }
       ]
+
     },
     "features": {
       "title": "Connect across universities and courses",

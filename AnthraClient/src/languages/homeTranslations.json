@@ -2,11 +2,17 @@
   "da": {
     "mission": "Vores Mission",
     "description": "Leder du efter en studie",
-    "getStarted": "Kom i gang"
+    "getStarted": "Kom i gang",
+    "block1" : "Understøttede universiteter",
+    "block2" : "Matcher tilgængelighed",
+    "block3" : "Øget ydeevne"
   },
   "en": {
     "mission": "Our Mission",
     "description": "Are you looking for a study",
-    "getStarted": "Get Started"
+    "getStarted": "Get Started",
+    "block1" : "Supported Universities",
+    "block2" : "Matching availability",
+    "block3" : "Increased performance"
   }
 }

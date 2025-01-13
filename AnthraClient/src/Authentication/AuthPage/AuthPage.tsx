@@ -284,12 +284,12 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
 
     return (
         <div className="auth-page">
-            <button className="back-button" onClick={goBack}>
+            <button className="bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 font-semibold text-sm text-gray-300 absolute top-4 left-4" onClick={goBack}>
                 Back
             </button>
             <div className="auth-content">
                 <div className="auth-container">
-                    <h2 className="auth-container-h2">{isSignUp ? 'Sign Up' : 'Log In'}</h2>
+                    <h2 className="auth-container-h2 text-gray-100">{isSignUp ? 'Sign Up' : 'Log In'}</h2>
 
                     {message && <p className="success-message">{message}</p>}
                     {error && <p className="error-message">{error}</p>}
@@ -305,7 +305,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                                 setUsername(e.target.value);
                                 if (!hasTypedUsername) setHasTypedUsername(true);
                             }}
-                            className="auth-input"
+                            className="text-white auth-input px-3 py-2 focus:ring-emerald-50 border border-gray-600 focus:ring-2 rounded-lg bg-gray-700/50"
                         />
 
                         {isSignUp && (
@@ -315,7 +315,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                                 required
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="auth-input"
+                                className="text-white auth-input px-3 py-2 focus:ring-emerald-50 border border-gray-600 focus:ring-2 rounded-lg bg-gray-700/50"
                             />
                         )}
 
@@ -329,10 +329,10 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                                 setPassword(e.target.value);
                                 if (!hasTypedPassword) setHasTypedPassword(true);
                             }}
-                            className="auth-input"
+                            className="text-white auth-input px-3 py-2 focus:ring-emerald-50 border border-gray-600 focus:ring-2 rounded-lg bg-gray-700/50"
                         />
 
-                        <button type="submit" className="submit-button">
+                        <button type="submit" className="text-gray-900 bg-emerald-500 w-full px-3 py-2 rounded-lg font-semibold hover:bg-emerald-400 transform hover:scale-105">
                             {isSignUp ? 'Sign Up' : 'Log In'}
                         </button>
 
@@ -340,7 +340,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                             <p className="auth-container-p">
                                 <button
                                     type="button"
-                                    className="forgot-password-button"
+                                    className="forgot-password-button hover:underline text-gray-400"
                                     onClick={() => setShowForgotPassword(true)}
                                 >
                                     Forgot Password?
@@ -356,9 +356,9 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                         />
                     </div>
 
-                    <p className="auth-container-p">
+                    <p className="auth-container-p text-gray-400">
                         {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
-                        <button className="switch-button" onClick={switchAuthMode}>
+                        <button className="switch-button hover:underline text-emerald-400" onClick={switchAuthMode}>
                             {isSignUp ? 'Log In' : 'Sign Up'}
                         </button>
                     </p>

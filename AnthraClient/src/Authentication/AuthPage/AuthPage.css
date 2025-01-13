@@ -1,6 +1,15 @@
 .auth-page {
-    background: rgb(244, 244, 244);
-    color: #333;
+    background: radial-gradient(
+            ellipse at top,
+            #0c6e56 0%,
+            #0b4e3e 20%,
+             #0c2e37 40%,
+            #081924 70%,
+            #000 100%
+    );
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     font-family: 'Montserrat', sans-serif;
     height: 100vh;
     display: flex;
@@ -10,6 +19,7 @@
     padding: 1rem;
     box-sizing: border-box;
     overflow: hidden; /* Prevent scrolling */
+    background-color: rgba(0,0,0,0.3);
 }
 
 .auth-content {
@@ -22,7 +32,7 @@
 }
 
 .auth-container {
-    background: #fff;
+    background: rgba(0,0,0,0.3);
     padding: 2rem;
     border-radius: 8px;
     width: 100%;
@@ -38,7 +48,6 @@
     margin-bottom: 1.5rem;
     font-weight: 600;
     font-size: 1.8rem;
-    color: #333;
 }
 
 .auth-container form {
@@ -47,17 +56,9 @@
     gap: 0.75rem;
 }
 
-.auth-input {
-    padding: 0.75rem;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    color: #333;
-    border-radius: 4px;
-    font-size: 1rem;
-}
 
 .auth-input::placeholder {
-    color: #999;
+    color: white;
 }
 
 .social-login {
@@ -83,37 +84,20 @@
     background-color: #2563eb;
 }
 
-.switch-button {
-    background: none;
-    border: none;
-    color: #3b82f6;
-    text-decoration: underline;
-    cursor: pointer;
-    font-weight: 600;
-    margin-left: 0.25rem;
-    font-size: 0.9rem;
-}
+
 
 .auth-container-p {
     margin-top: 1rem;
     font-size: 0.9rem;
     font-weight: 400;
-    color: #555;
 }
 
 .forgot-password-button {
     background: none;
     border: none;
-    color: #3b82f6;
-    text-decoration: underline;
     cursor: pointer;
     font-weight: 600;
     font-size: 0.9rem;
-}
-
-.error-message {
-    color: #e11d48;
-    margin-bottom: 1rem;
 }
 
 .success-message {
@@ -125,7 +109,6 @@
     margin-top: 1rem;
     text-align: left;
     font-size: 0.85rem;
-    color: #555;
 }
 
 .validation-item {
@@ -237,18 +220,9 @@
         font-size: 1rem;
     }
 
-    .auth-input {
-        font-size: 0.8rem;
-        padding: 0.6rem;
-    }
-
     .submit-button {
         font-size: 0.9rem;
         padding: 0.6rem;
-    }
-
-    .switch-button {
-        font-size: 0.8rem;
     }
 
     .auth-container-p,

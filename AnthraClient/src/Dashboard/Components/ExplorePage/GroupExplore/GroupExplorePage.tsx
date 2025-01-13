@@ -19,7 +19,8 @@ import { Bar } from 'react-chartjs-2';
 import { MdGroups } from "react-icons/md";
 import { FaChalkboardTeacher, FaBookReader, FaLaptopCode } from "react-icons/fa";
 import useWindowWidth from "../../../hooks/useWindowWidth";
-import { useSwipeable } from 'react-swipeable'; // Import the swipeable hook
+import { useSwipeable } from 'react-swipeable';
+import Snackbar from "../../../Helpers/Snackbar/Snackbar"; // Import the swipeable hook
 
 ChartJS.register(
     CategoryScale,
@@ -60,7 +61,9 @@ const GroupExplorePage: React.FC = () => {
 
     // State for viewing profile
     const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
-
+    const [snackbarVisible, setSnackbarVisible] = useState<boolean>(false);
+    const [snackbarTitle, setSnackbarTitle] = useState<string>('');
+    const [snackbarMessage, setSnackbarMessage] = useState<string>('');
     // Pagination and card animation
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [animating, setAnimating] = useState<boolean>(false);
@@ -148,6 +151,9 @@ const GroupExplorePage: React.FC = () => {
                         },
                     }
                 );
+                setSnackbarTitle('Application Request Sent');
+                setSnackbarMessage(`You have sent a connection request to ${currentGroup.name}`);
+                setSnackbarVisible(true);
             } catch (error: any) {
                 if (error.response && error.response.data) {
                     // handle known error
@@ -157,6 +163,7 @@ const GroupExplorePage: React.FC = () => {
             }
         }
         // Trigger out animation then show next group
+
         setSlideDirection('out');
         setAnimating(true);
         setTimeout(animateToNextGroup, 300); // match CSS transition duration
@@ -222,7 +229,7 @@ const GroupExplorePage: React.FC = () => {
             {
                 label: 'Count',
                 data: institutionValues,
-                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                backgroundColor: 'rgba(54, 162, 235)',
             },
         ],
     };
@@ -233,7 +240,7 @@ const GroupExplorePage: React.FC = () => {
             {
                 label: 'Count',
                 data: statusValues,
-                backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                backgroundColor: 'rgba(75, 192, 192)',
             },
         ],
     };
@@ -347,7 +354,6 @@ const GroupExplorePage: React.FC = () => {
     return (
         <div className="group-explore-wrapper">
             {currentGroup ? (
-                // Apply swipe handlers only on mobile
                 <div
                     className={`group-explore-card-wrapper ${shake ? 'group-explore-shake' : ''} slide-${slideDirection}`}
                     {...(isSmallScreen ? swipeHandlers : {})}
@@ -375,12 +381,12 @@ const GroupExplorePage: React.FC = () => {
                         <div className="group-explore-page-content">
                             <div className="group-explore-card-content">
                                 <div className="group-explore-header">
-                                    <div className="group-explore-purpose">
+                                    <div className="group-explore-purpose dark:bg-emerald-500">
                                         {getGroupPurposeIcon(currentGroup.groupPurpose)}
                                     </div>
                                     <div className="flex flex-col items-start">
                                         <h2 className="group-explore-title ">{currentGroup.name}</h2>
-                                        <h2 className="font-semibold text-md text-gray-600 dark:text-gray-400">Group Info</h2>
+                                        <h2 className="font-semibold text-md text-gray-600 dark:text-emerald-500">Group Info</h2>
                                     </div>
                                 </div>
                                 <h3 className="group-explore-section-heading">About the group:</h3>
@@ -396,7 +402,7 @@ const GroupExplorePage: React.FC = () => {
                                             <li
                                                 onClick={() => handleUserClick(member.userId)}
                                                 key={member.userId}
-                                                className="group-explore-member-item bg-sky-50"
+                                                className="group-explore-member-item dark:border-emerald-600 border dark:hover:bg-gray-800/50 dark:bg-gray-700/50 bg-sky-50"
                                             >
                                                 <img
                                                     className="group-explore-member-avatar"
@@ -410,7 +416,7 @@ const GroupExplorePage: React.FC = () => {
                                         ))}
                                         {extraMembersCount > 0 && (
                                             <li
-                                                className="group-explore-member-item bg-sky-50 more-members-button"
+                                                className="group-explore-member-item dark:border-emerald-600 border dark:hover:bg-gray-800/50 dark:bg-gray-700/50 bg-sky-50 more-members-button"
                                                 onClick={() => setShowMembersModal(true)}
                                             >
                                                 <span className="font-semibold">+ {extraMembersCount} more</span>
@@ -423,12 +429,12 @@ const GroupExplorePage: React.FC = () => {
                     ) : (
                         <div className="group-explore-page-content ">
                             <div className="group-explore-header">
-                                <div className="group-explore-purpose">
+                                <div className="group-explore-purpose dark:bg-emerald-500">
                                     {getGroupPurposeIcon(currentGroup.groupPurpose)}
                                 </div>
                                 <div className="flex flex-col items-start">
                                     <h2 className="group-explore-title">{currentGroup.name}</h2>
-                                    <h2 className="font-semibold text-md text-gray-600 dark:text-gray-400">Group Members Overview</h2>
+                                    <h2 className="font-semibold text-md text-gray-600 dark:text-emerald-500">Group Members Overview</h2>
                                 </div>
                             </div>
                             {(institutionNames.length > 0 || statusNames.length > 0) && (
@@ -494,21 +500,28 @@ const GroupExplorePage: React.FC = () => {
                 </div>
             )}
 
-            {/* Profile View */}
             {selectedUserId && (
                 <ViewProfile userId={selectedUserId} onClose={handleCloseProfile}/>
             )}
 
-            {/* Buttons to Apply/Skip */}
             {currentGroup && (
                 <div className="group-explore-button-container">
-                    <button className="group-explore-apply-button" onClick={handleApply}>
+                    <button className="group-explore-apply-button dark:bg-emerald-500 dark:hover:bg-emerald-400 dark:hover:text-white dark:text-gray-900 trasnform hover:scale-105" onClick={handleApply}>
                         Apply
                     </button>
-                    <button className="group-explore-skip-button" onClick={handleSkip}>
+                    <button className="group-explore-skip-button border dark:border-emerald-500 dark:text-emerald-400 dark:hover:border-emerald-400 dark:hover:bg-emerald-400 dark:hover:text-white  trasnform hover:scale-105" onClick={handleSkip}>
                         Skip
                     </button>
                 </div>
+            )}
+            {snackbarVisible && !isSmallScreen && (
+                <Snackbar
+                    key={snackbarTitle + snackbarMessage}
+                    title={snackbarTitle}
+                    message={snackbarMessage}
+                    duration={4000}
+                    onClose={() => setSnackbarVisible(false)}
+                />
             )}
         </div>
     );

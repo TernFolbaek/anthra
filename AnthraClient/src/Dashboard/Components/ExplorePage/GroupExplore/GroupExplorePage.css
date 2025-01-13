@@ -16,7 +16,7 @@
     padding: 25px;
     border-radius: 16px;
     width: 100%;
-    max-width: 1000px;
+    max-width: 900px;
     height: 100%;
     min-height: 600px;
     text-align: left;
@@ -198,10 +198,6 @@ body.dark .group-explore-indicator.active{
     background: #ebf3fd;
 }
 
-body.dark .group-explore-member-item{
-    background-color: rgb(117, 116, 116);
-    border: 1px solid white;
-}
 
 .group-explore-member-avatar {
     min-width: 40px;
@@ -268,7 +264,7 @@ body.dark .group-explore-member-item{
 
 .group-explore-apply-button,
 .group-explore-skip-button {
-    padding: 0.75rem 1.5rem;
+    padding: 0.5rem 1rem;
     cursor: pointer;
     font-weight: 600;
     border-radius: 8px;
@@ -518,19 +514,10 @@ body.dark .group-explore-member-desire {
     color: #ccc;
 }
 
-/* Group purpose badge */
-body.dark .group-explore-purpose {
-    background-color: #757474; /* Matching the style used for .status-tag-explore in user page */
-}
-
 body.dark .group-explore-purpose-label {
     color: #fff;
 }
 
-/* Member items */
-body.dark .group-explore-member-item:hover {
-    background: #b8b6b6; /* Dark hover background */
-}
 
 /* "More members" button */
 body.dark .more-members-button {
@@ -552,27 +539,4 @@ body.dark .group-explore-chart-heading {
     color: #ddd;
 }
 
-/* Buttons */
-body.dark .group-explore-apply-button {
-    background-color: #0056b3; /* Similar to .connect-button in user page */
-    box-shadow: 0 4px 6px rgba(0, 86, 179, 0.1);
-}
 
-body.dark .group-explore-apply-button:hover {
-    background-color: #439ef6; /* Hover color from user page */
-    box-shadow: 0 8px 12px rgba(0, 86, 179, 0.2);
-    transform: translateY(-3px);
-}
-
-body.dark .group-explore-skip-button {
-    color: #85bff8; /* Lighter shade of blue for text and border */
-    border: 2px solid #85bff8;
-    box-shadow: 0 4px 6px rgba(133, 191, 248, 0.1);
-}
-
-body.dark .group-explore-skip-button:hover {
-    background-color: #85bff8;
-    color: white;
-    box-shadow: 0 8px 12px rgba(133, 191, 248, 0.2);
-    transform: translateY(-3px);
-}

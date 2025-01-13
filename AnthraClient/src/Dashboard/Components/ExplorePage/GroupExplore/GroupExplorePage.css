@@ -35,7 +35,7 @@
 .group-explore-click-overlay .group-explore-click-area-left,
 .group-explore-click-overlay .group-explore-click-area-right {
     pointer-events: auto !important;
-    width: 50%; /* Narrow width instead of 50% to minimize interference */
+    width: 50%;
     height: 100%;
 }
 

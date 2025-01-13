@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="New dependencies">
+    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="snackbar bar on light mode wil be sky 300">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/ExplorePage/GroupExplore/GroupExplorePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/ExplorePage/GroupExplore/GroupExplorePage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Groups/GroupsList/GroupsList.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Groups/GroupsList/GroupsList.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/ViewProfile/ViewProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/ViewProfile/ViewProfile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/ViewProfile/ViewProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/ViewProfile/ViewProfile.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -240,39 +243,7 @@
       <workItem from="1736337866312" duration="105000" />
       <workItem from="1736338146421" duration="1291000" />
       <workItem from="1736374857152" duration="50997000" />
-      <workItem from="1736770012008" duration="10082000" />
-    </task>
-    <task id="LOCAL-00788" summary="Style with smaller text">
-      <option name="closed" value="true" />
-      <created>1736421000795</created>
-      <option name="number" value="00788" />
-      <option name="presentableId" value="LOCAL-00788" />
-      <option name="project" value="LOCAL" />
-      <updated>1736421000795</updated>
-    </task>
-    <task id="LOCAL-00789" summary="Remove rive component">
-      <option name="closed" value="true" />
-      <created>1736421013272</created>
-      <option name="number" value="00789" />
-      <option name="presentableId" value="LOCAL-00789" />
-      <option name="project" value="LOCAL" />
-      <updated>1736421013272</updated>
-    </task>
-    <task id="LOCAL-00790" summary="Add dashboard prefix">
-      <option name="closed" value="true" />
-      <created>1736421024417</created>
-      <option name="number" value="00790" />
-      <option name="presentableId" value="LOCAL-00790" />
-      <option name="project" value="LOCAL" />
-      <updated>1736421024417</updated>
-    </task>
-    <task id="LOCAL-00791" summary="Style with smaller text">
-      <option name="closed" value="true" />
-      <created>1736421032150</created>
-      <option name="number" value="00791" />
-      <option name="presentableId" value="LOCAL-00791" />
-      <option name="project" value="LOCAL" />
-      <updated>1736421032150</updated>
+      <workItem from="1736770012008" duration="18614000" />
     </task>
     <task id="LOCAL-00792" summary="Remove axios prefix">
       <option name="closed" value="true" />
@@ -634,7 +605,39 @@
       <option name="project" value="LOCAL" />
       <updated>1736780255311</updated>
     </task>
-    <option name="localTasksCounter" value="837" />
+    <task id="LOCAL-00837" summary="Add dark mode for adding members">
+      <option name="closed" value="true" />
+      <created>1736781167748</created>
+      <option name="number" value="00837" />
+      <option name="presentableId" value="LOCAL-00837" />
+      <option name="project" value="LOCAL" />
+      <updated>1736781167748</updated>
+    </task>
+    <task id="LOCAL-00838" summary="White add members icon in dark mode">
+      <option name="closed" value="true" />
+      <created>1736790558474</created>
+      <option name="number" value="00838" />
+      <option name="presentableId" value="LOCAL-00838" />
+      <option name="project" value="LOCAL" />
+      <updated>1736790558474</updated>
+    </task>
+    <task id="LOCAL-00839" summary="emerald on add members icon hover in dark mode">
+      <option name="closed" value="true" />
+      <created>1736790573703</created>
+      <option name="number" value="00839" />
+      <option name="presentableId" value="LOCAL-00839" />
+      <option name="project" value="LOCAL" />
+      <updated>1736790573703</updated>
+    </task>
+    <task id="LOCAL-00840" summary="snackbar bar on light mode wil be sky 300">
+      <option name="closed" value="true" />
+      <created>1736790592205</created>
+      <option name="number" value="00840" />
+      <option name="presentableId" value="LOCAL-00840" />
+      <option name="project" value="LOCAL" />
+      <updated>1736790592205</updated>
+    </task>
+    <option name="localTasksCounter" value="841" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -663,10 +666,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Style connections with emerald color scheme" />
-    <MESSAGE value="Style contact" />
-    <MESSAGE value="Style edit group modal" />
-    <MESSAGE value="navigate on email verified to step one in create profile" />
     <MESSAGE value="Style footer with emerald color scheme" />
     <MESSAGE value="Style group explore page" />
     <MESSAGE value="Style group modal with emerald color scheme" />
@@ -688,6 +687,10 @@
     <MESSAGE value="Remove background color on submit button" />
     <MESSAGE value="Style for dark mode" />
     <MESSAGE value="New dependencies" />
-    <option name="LAST_COMMIT_MESSAGE" value="New dependencies" />
+    <MESSAGE value="Add dark mode for adding members" />
+    <MESSAGE value="White add members icon in dark mode" />
+    <MESSAGE value="emerald on add members icon hover in dark mode" />
+    <MESSAGE value="snackbar bar on light mode wil be sky 300" />
+    <option name="LAST_COMMIT_MESSAGE" value="snackbar bar on light mode wil be sky 300" />
   </component>
 </project>

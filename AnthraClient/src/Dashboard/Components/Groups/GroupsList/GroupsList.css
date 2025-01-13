@@ -91,12 +91,32 @@ body.dark .group-name {
 .group-card:hover .group-options-button {
     cursor: pointer;
     font-weight: bold;
-    background-color: white;
+    border: 1px solid darkgray;
+}
+
+body.dark .group-card-selected:hover .group-options-button {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: transparent;
+    border: 1px solid lightgray;
+}
+
+body.dark .group-options-button:hover{
+    background-color: #555;
+}
+
+.group-options-button:hover{
+    background-color: #e3e2e2;
+}
+
+body.dark .group-card:hover .group-options-button {
+    cursor: pointer;
+    font-weight: bold;
     border: 1px solid lightgray;
 }
 
 .group-options-button:hover {
-    background-color: #e3e2e2 !important;
+    background-color: #e3e2e2;
 }
 
 /* Dark mode styles */

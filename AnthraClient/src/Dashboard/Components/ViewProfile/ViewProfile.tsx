@@ -168,7 +168,7 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
                     <ul className="viewprofile-list">
                         {userProfile.courses.map((course, index) => (
                             <li key={index}>
-                                <a href={course.courseLink} className="text-blue-400 hover:font-semibold" target="_blank"
+                                <a href={course.courseLink} className="dark:text-emerald-400 text-blue-400 hover:font-semibold" target="_blank"
                                    rel="noopener noreferrer">
                                     {course.courseName}
                                 </a>
@@ -199,21 +199,21 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
                                 <p className="bg-slate-100 p-1 rounded-md text-sm font-semibold mt-2">You have removed or been removed from this profile</p>
                             ) : hasUserSentRequest && requestPending ? (
                                 <button
-                                    className="viewprofile-connect-button"
+                                    className="viewprofile-connect-button dark:bg-emerald-500 dark:text-white dark:hover:bg-emerald-400"
                                     onClick={handleCancelRequest}
                                 >
                                     Cancel Request
                                 </button>
                             ) : !requestPending ? (
                                 <button
-                                    className="viewprofile-connect-button"
+                                    className="viewprofile-connect-button dark:bg-emerald-500 dark:text-white dark:hover:bg-emerald-400"
                                     onClick={handleConnect}
                                 >
                                 Connect
                                 </button>
                             ) : (
                                 <button
-                                    className="viewprofile-connect-button"
+                                    className="viewprofile-connect-button dark:bg-emerald-500 dark:text-white dark:hover:bg-emerald-400 "
                                     onClick={handleCancelRequest}
                                 >
                                     Cancel Request

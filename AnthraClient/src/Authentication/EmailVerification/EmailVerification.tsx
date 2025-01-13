@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import './EmailVerification.css';
+import {useNavigate} from "react-router-dom";
 
 interface EmailVerificationProps {
     userId: string;
@@ -12,7 +13,7 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({ userId, onVerifie
     const [verificationCode, setVerificationCode] = useState<string[]>(['', '', '', '', '', '']);
     const [error, setError] = useState<string | null>(null);
     const [message, setMessage] = useState<string | null>(null);
-
+    const navigate = useNavigate();
     const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
@@ -77,7 +78,7 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({ userId, onVerifie
                 }
             );
             localStorage.setItem('userProfilePicture', `${profileResponse.data.profilePictureUrl}`);
-
+            navigate('/create-profile/step-one');
             onVerified();
         } catch (err: any) {
             setError('Verification failed. Please try again.');

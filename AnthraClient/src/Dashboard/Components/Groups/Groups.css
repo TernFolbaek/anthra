@@ -72,14 +72,6 @@ body.dark .no-groups-container {
     background-color: #0056b3;
 }
 
-/* Dark mode styles */
-body.dark .explore-button {
-    background-color: #007bff;
-}
-
-body.dark .explore-button:hover {
-    background-color: #0056b3;
-}
 
 @media(max-width: 768px) {
     .no-groups-container {

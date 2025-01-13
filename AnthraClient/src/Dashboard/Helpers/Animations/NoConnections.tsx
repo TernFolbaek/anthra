@@ -1,20 +1,14 @@
 import React from "react";
-import {useRive} from "@rive-app/react-canvas";
 import { useNavigate } from 'react-router-dom';
 import {FaMagnifyingGlass} from "react-icons/fa6";
 
 const NoConnectionsRive: React.FC = () => {
     const navigate = useNavigate();
-    const { RiveComponent } = useRive({
-        src: '/rive/no_conversations.riv',
-        autoplay: true,
-    });
 
     return (
         <div className="no-connections-container">
             <p className="text-sm text-center font-medium text-gray-400 mb-2">No connections, explore new ones</p>
-            <button className="text-sm explore-button" onClick={() => navigate('/dashboard/explore')}> <FaMagnifyingGlass/>Explore</button>
-            <RiveComponent className="no-connections-rive"/>
+            <button className="text-sm dark:bg-emerald-500 dark:hover:bg-emerald-400 explore-button" onClick={() => navigate('/dashboard/explore')}> <FaMagnifyingGlass/>Explore</button>
         </div>
     )
 }

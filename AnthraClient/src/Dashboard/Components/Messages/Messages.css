@@ -110,15 +110,18 @@ body.dark .contact-name {
 
 .add-members-icon:hover {
   color: blue;
-  cursor: pointer !important;
+  cursor: pointer ;
+}
+
+body.dark .add-members-icon:hover {
+  color: #0dba85;
 }
 .contact-header:hover .messages-menu-icon {
   border: 1px solid #ccc;
-  background-color: #fff;
 }
 
 .messages-menu-icon:hover {
-  background-color: #e3e2e2 !important;
+  background-color: #e3e2e2 ;
 }
 
 /* Dark mode styles */
@@ -240,6 +243,11 @@ body.dark .messages-container {
   margin-left: auto;
 }
 
+body.dark .message-bubble.sent {
+  background-color: #e0e0e0;
+  color: black;
+}
+
 .message-bubble.received {
   background-color: #e0e0e0;
   color: #000;
@@ -252,9 +260,6 @@ body.dark .message-bubble.received {
   color: #fff;
 }
 
-body.dark .message-bubble.sent {
-  background-color: #0056b3;
-}
 
 .message-timestamp {
   text-align: center;

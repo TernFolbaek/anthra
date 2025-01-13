@@ -138,10 +138,6 @@ body.dark .profile-section-title {
     text-decoration: underline;
 }
 
-/* Dark mode styles */
-body.dark .profile-info-link {
-    color: #85bff8;
-}
 
 /* ----------------------------------------------------
    EXAMPLE: STATUSES

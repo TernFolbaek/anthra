@@ -205,7 +205,7 @@ const MessageConnectionProfile: React.FC<Props> = ({ userId }) => {
                                 href={course.courseLink}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="profile-info-link"
+                                className="profile-info-link dark:text-emerald-400"
                             >
                                 {course.courseName}
                             </a>

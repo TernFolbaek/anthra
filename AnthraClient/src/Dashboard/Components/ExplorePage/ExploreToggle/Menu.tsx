@@ -13,7 +13,7 @@ const Menu: React.FC<MenuProps> = ({ activePage, setActivePage }) => {
 
     return (
         <div className="explore-menu-container">
-            <div className="menu-toggle">
+            <div className="menu-toggle dark:bg-gray-700/50">
                 <div
                     className={`menu-slider ${activePage === 'individuals' ? 'slide-left' : 'slide-right'}`}
                 ></div>

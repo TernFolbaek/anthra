@@ -35,14 +35,6 @@ body.dark .search-input-groups {
     background-color: #0056b3;
 }
 
-/* Dark mode styles */
-body.dark .create-group-button {
-    background-color: #007bff;
-}
-
-body.dark .create-group-button:hover {
-    background-color: #0056b3;
-}
 
 .group-card {
     display: flex;

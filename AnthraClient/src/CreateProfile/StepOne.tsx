@@ -316,7 +316,7 @@ const StepOne: React.FC<StepOneProps> = ({
             <div className="autocomplete-container" ref={cityInputRef}>
                 <div className="autocomplete-input-with-label">
                     <label htmlFor="city" className="w-1/3">
-                        City
+                        City<span className="required-asterisk">*</span>
                     </label>
                     <input
                         id="city"

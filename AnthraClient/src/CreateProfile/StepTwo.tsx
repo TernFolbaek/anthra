@@ -156,7 +156,6 @@ const StepTwo: React.FC<StepTwoProps> = ({
             setError('Please select an institution from the dropdown.');
             return;
         }
-
         if (courses.length < 2) {
             setError('Please add at least 2 courses.');
             return;
@@ -165,19 +164,14 @@ const StepTwo: React.FC<StepTwoProps> = ({
             setError('Please add at least one subject.');
             return;
         }
-
         if (selectedStatuses.length < 2 || selectedStatuses.length > 3) {
             setError('Please select between 2 and 3 statuses.');
             return;
         }
-
         if (!profilePictureFile) {
             setError('Profile picture is required.');
             return;
         }
-
-        console.log("in submit")
-
         const formData = new FormData();
         formData.append('FirstName', firstName);
         formData.append('LastName', lastName);
@@ -190,7 +184,6 @@ const StepTwo: React.FC<StepTwoProps> = ({
         subjects.forEach((subject) => formData.append('Subjects', subject));
         selectedStatuses.forEach((status) => formData.append('Statuses', status));
         formData.append('ProfilePicture', profilePictureFile);
-
         try {
             const response = await axios.post('/Profile/UpdateProfile', formData, {
                 headers: {
@@ -415,6 +408,9 @@ const StepTwo: React.FC<StepTwoProps> = ({
 
     // Handle keydown events for course input
     const handleCourseKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleAddCourse()
+        }
         if (courseSuggestions.length === 0) return;
 
         if (e.key === 'ArrowDown') {
@@ -571,9 +567,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                         <button
                             type="button"
                             onClick={() => {
-                                if (courseLinkInputRef.current) {
-                                    courseLinkInputRef.current.focus();
-                                }
+                               handleAddCourse()
                             }}
                             className="course-add-button"
                             disabled={courses.length >= 4}
@@ -693,9 +687,9 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                 <button
                                     type="button"
                                     onClick={() => handleRemoveSubject(subject)}
-                                    className="remove-subject-button"
+                                    className="remove-course-button"
                                 >
-                                    <FaTimes/>
+                                    <FaTimes size={16}/>
                                 </button>
                             </span>
                         ))}

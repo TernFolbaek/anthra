@@ -193,11 +193,6 @@ body.dark .group-explore-indicator.active{
     z-index: 20;
 }
 
-.group-explore-member-item:hover {
-    cursor: pointer;
-    background: #ebf3fd;
-}
-
 
 .group-explore-member-avatar {
     min-width: 40px;
@@ -272,34 +267,7 @@ body.dark .group-explore-indicator.active{
     max-width: 200px;
     transition: all 0.3s ease;
     text-align: center;
-    border: none;
     outline: none;
-}
-
-.group-explore-apply-button {
-    background-color: #007BFF;
-    color: white;
-    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);
-}
-
-.group-explore-apply-button:hover {
-    background-color: #0056b3;
-    box-shadow: 0 8px 12px rgba(0, 123, 255, 0.2);
-    transform: translateY(-3px);
-}
-
-.group-explore-skip-button {
-    background-color: transparent;
-    color: #007BFF;
-    border: 2px solid #007BFF;
-    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);
-}
-
-.group-explore-skip-button:hover {
-    background-color: #007BFF;
-    color: white;
-    box-shadow: 0 8px 12px rgba(0, 123, 255, 0.2);
-    transform: translateY(-3px);
 }
 
 /* Group Purpose Section */

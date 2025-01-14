@@ -386,7 +386,7 @@ const GroupExplorePage: React.FC = () => {
                                     </div>
                                     <div className="flex flex-col items-start">
                                         <h2 className="group-explore-title ">{currentGroup.name}</h2>
-                                        <h2 className="font-semibold text-md text-gray-600 dark:text-emerald-500">Group Info</h2>
+                                        <h2 className="font-semibold text-md text-emerald-500">Group Info</h2>
                                     </div>
                                 </div>
                                 <h3 className="group-explore-section-heading">About the group:</h3>
@@ -402,7 +402,7 @@ const GroupExplorePage: React.FC = () => {
                                             <li
                                                 onClick={() => handleUserClick(member.userId)}
                                                 key={member.userId}
-                                                className="group-explore-member-item dark:border-emerald-600 border dark:hover:bg-gray-800/50 dark:bg-gray-700/50 bg-sky-50"
+                                                className="group-explore-member-item hover:cursor-pointer bg-emerald-50 hover:bg-emerald-100  border-emerald-200 dark:border-emerald-600 border dark:hover:bg-gray-800/50 dark:bg-gray-700/50 "
                                             >
                                                 <img
                                                     className="group-explore-member-avatar"
@@ -416,10 +416,10 @@ const GroupExplorePage: React.FC = () => {
                                         ))}
                                         {extraMembersCount > 0 && (
                                             <li
-                                                className="group-explore-member-item dark:border-emerald-600 border dark:hover:bg-gray-800/50 dark:bg-gray-700/50 bg-sky-50 more-members-button"
+                                                className="group-explore-member-item dark:border-emerald-600 border dark:hover:bg-gray-800/50 dark:bg-gray-700/50 more-members-button"
                                                 onClick={() => setShowMembersModal(true)}
                                             >
-                                                <span className="font-semibold">+ {extraMembersCount} more</span>
+                                                <span className="font-semibold text-emerald-400 underline">+ {extraMembersCount} more</span>
                                             </li>
                                         )}
                                     </ul>
@@ -434,7 +434,7 @@ const GroupExplorePage: React.FC = () => {
                                 </div>
                                 <div className="flex flex-col items-start">
                                     <h2 className="group-explore-title">{currentGroup.name}</h2>
-                                    <h2 className="font-semibold text-md text-gray-600 dark:text-emerald-500">Group Members Overview</h2>
+                                    <h2 className="font-semibold text-md text-emerald-500">Group Members Overview</h2>
                                 </div>
                             </div>
                             {(institutionNames.length > 0 || statusNames.length > 0) && (
@@ -506,10 +506,10 @@ const GroupExplorePage: React.FC = () => {
 
             {currentGroup && (
                 <div className="group-explore-button-container">
-                    <button className="group-explore-apply-button dark:bg-emerald-500 dark:hover:bg-emerald-400 dark:hover:text-white dark:text-gray-900 trasnform hover:scale-105" onClick={handleApply}>
+                    <button className="text-white hover:bg-emerald-300 group-explore-apply-button bg-emerald-400 dark:bg-emerald-500 dark:hover:bg-emerald-400 dark:hover:text-white dark:text-gray-900 trasnform hover:scale-105" onClick={handleApply}>
                         Apply
                     </button>
-                    <button className="group-explore-skip-button border dark:border-emerald-500 dark:text-emerald-400 dark:hover:border-emerald-400 dark:hover:bg-emerald-400 dark:hover:text-white  trasnform hover:scale-105" onClick={handleSkip}>
+                    <button className="text-emerald-400 hover:bg-emerald-300 hover:text-white hover:border-emerald-300 group-explore-skip-button border-2 border-emerald-400 dark:border-emerald-500 dark:text-emerald-400 dark:hover:border-emerald-400 dark:hover:bg-emerald-400 dark:hover:text-white  transform hover:scale-105" onClick={handleSkip}>
                         Skip
                     </button>
                 </div>

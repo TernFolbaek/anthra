@@ -6,7 +6,7 @@ import Snackbar from "../../../Helpers/Snackbar/Snackbar";
 import ReferModal from '../ReferModal/ReferModal';
 import useWindowWidth from '../../../hooks/useWindowWidth';
 import { useSwipeable } from 'react-swipeable';
-import {FaCog} from "react-icons/fa"; // Import the swipeable hook
+import {FaCog, FaBookOpen, FaPencilAlt} from "react-icons/fa"; // Import the swipeable hook
 
 interface Course {
     courseName: string;
@@ -198,11 +198,11 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({onSettingsClick}) => {
                                         </div>
                                     </div>
                                     <div className="user-info">
-                                        <div className="flex flex-col bg-emerald-100 rounded-lg p-1">
+                                        <div className="flex flex-col bg-emerald-100 dark:bg-emerald-500/10 rounded-lg p-1">
                                             <h3 className="dark:text-emerald-400 text-emerald-500">Institution</h3>
-                                            <p>{currentUser.institution}</p>
+                                            <div className="flex gap-1 items-center"><FaBookOpen size={12} color={"#6AD09D"}/><p className="font-medium dark:text-gray-300">{currentUser.institution}</p></div>
                                             <h3 className="dark:text-emerald-400 text-emerald-500">Work</h3>
-                                            <p>{currentUser.work}</p>
+                                            <div className="flex gap-1 items-center"><FaPencilAlt size={12} color={"#6AD09D"}/><p className="font-medium dark:text-gray-300">{currentUser.work}</p></div>
                                         </div>
                                         <h3 className="dark:text-emerald-400 text-emerald-500">About Me</h3>
                                         <p>{currentUser.aboutMe}</p>
@@ -224,7 +224,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({onSettingsClick}) => {
                                         </div>
                                     </div>
                                     <div className="user-info">
-                                        <div className="flex flex-col bg-emerald-100 rounded-lg p-1">
+                                        <div className="flex flex-col bg-emerald-100 dark:bg-emerald-500/10 rounded-lg p-1">
                                             {currentUser.subjects && currentUser.subjects.length > 0 && (
                                                 <div>
                                                     <h3 className="dark:text-emerald-400 text-emerald-500">Subjects</h3>
@@ -256,7 +256,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({onSettingsClick}) => {
                                                     {currentUser.statuses.map((st, i) => (
                                                         <p
                                                             key={i}
-                                                            className="status-tag-explore p-1 bg-emerald-100"
+                                                            className="status-tag-explore p-1 dark:bg-emerald-400 bg-emerald-100"
                                                         >{st}
                                                         </p>
                                                     ))}
@@ -287,14 +287,20 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({onSettingsClick}) => {
                                     <div className="flex gap-5">
                                         <div className="flex flex-col flex-1">
                                             <div
-                                                className="flex px-5 py-2 gap-10 dark:bg-emerald-500/10 bg-emerald-100  w-fit rounded-xl backdrop-blur-sm  dark:border-gray-600 items-center">
+                                                className="flex px-5 py-2 gap-5 dark:bg-emerald-500/10 bg-emerald-100  w-fit rounded-xl backdrop-blur-sm  dark:border-gray-600 items-center">
                                                 <div className="flex flex-col">
                                                     <h3 className="dark:text-emerald-400 text-emerald-500">Institution</h3>
-                                                    <p className="font-medium dark:text-gray-300 ">{currentUser.institution}</p>
+                                                    <div className="flex gap-1 items-center"><FaBookOpen size={14}
+                                                                                                         color={"#6AD09D"}/>
+                                                        <p className="font-medium dark:text-gray-300">{currentUser.institution}</p>
+                                                    </div>
                                                 </div>
                                                 <div className="flex flex-col">
                                                     <h3 className="dark:text-emerald-400 text-emerald-500">Work</h3>
-                                                    <p className="font-medium dark:text-gray-300 ">{currentUser.work}</p>
+                                                    <div className="flex gap-1 items-center"><FaPencilAlt size={14}
+                                                                                                          color={"#6AD09D"}/>
+                                                        <p className="font-medium dark:text-gray-300">{currentUser.work}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="flex flex-col items-start">
@@ -308,7 +314,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({onSettingsClick}) => {
                                                         {currentUser.statuses.map((st, i) => (
                                                             <p
                                                                 key={i}
-                                                                className="status-tag-explore bg-emerald-100"
+                                                                className="status-tag-explore dark:bg-emerald-400 bg-emerald-100"
                                                             >{st}
                                                             </p>
                                                         ))}

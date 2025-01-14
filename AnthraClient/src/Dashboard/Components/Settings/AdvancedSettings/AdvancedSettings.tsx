@@ -7,7 +7,6 @@ const AdvancedSettings: React.FC = () => {
     // Define the ranges
     const [distanceRange, setDistanceRange] = useState({ min: 0, max: 20 });
     const [ageRange, setAgeRange] = useState({ min: 0, max: 100 });
-    const [institutionOption, setInstitutionOption] = useState('any');
 
     const handleDistanceChange = (min: number, max: number) => {
         setDistanceRange({ min, max });
@@ -45,7 +44,7 @@ const AdvancedSettings: React.FC = () => {
                     onChange={handleAgeChange}
                 />
             </div>
-            <button className="text-sm advanced-settings-apply-button bg-blue-500" onClick={applyFilters}>
+            <button className="text-sm advanced-settings-apply-button bg-emerald-400" onClick={applyFilters}>
                 Apply
             </button>
         </div>

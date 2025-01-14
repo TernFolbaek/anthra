@@ -92,13 +92,13 @@ const HelpSettings: React.FC = () => {
             <div className="profile-settings-actions">
                 <div className="flex gap-2 w-full">
                     <button
-                        className="text-sm font-semibold dark:text-white dark:bg-emerald-500 dark:hover:bg-emerald-400 transform hover:scale-105 help-settings-buttons bg-blue-500"
+                        className="text-sm font-semibold dark:text-white bg-emerald-400 hover:bg-emerald-300 text-white  dark:bg-emerald-500 dark:hover:bg-emerald-400 transform hover:scale-105 help-settings-buttons "
                         onClick={() => setShowSupportModal(true)}
                     >
                         Contact Support
                     </button>
                     <button
-                        className="text-sm help-settings-buttons font-semibold dark:text-white dark:bg-emerald-500 dark:hover:bg-emerald-400 transform hover:scale-105 bg-blue-500"
+                        className="text-sm help-settings-buttons  bg-emerald-400 hover:bg-emerald-300 font-semibold text-white dark:text-white dark:bg-emerald-500 dark:hover:bg-emerald-400 transform hover:scale-105 "
                         onClick={handleLogout}
                     >
                         Logout
@@ -126,13 +126,13 @@ const HelpSettings: React.FC = () => {
                         />
                         <div className="modal-actions">
                             <button
-                                className="text-sm confirm-delete-button"
+                                className="text-sm confirm-delete-button bg-emerald-400 font-medium text-white"
                                 onClick={handleContactSupport}
                             >
                                 Send Message
                             </button>
                             <button
-                                className="text-sm dark:bg-emerald-500 dark:hover:bg-emerald-400  delete-account-cancel-button"
+                                className="text-sm dark:bg-emerald-500 bg-gray-300 text-black font-medium dark:hover:bg-emerald-400  delete-account-cancel-button"
                                 onClick={closeSupportModal}
                             >
                                 Cancel
@@ -165,13 +165,13 @@ const HelpSettings: React.FC = () => {
                         )}
                         <div className="modal-actions">
                             <button
-                                className="delete-account-cancel-button dark:bg-emerald-500 dark:hover:bg-emerald-400 transform hover:scale-105 dark:text-white"
+                                className="delete-account-cancel-button text-white font-medium bg-emerald-400 hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 transform hover:scale-105 dark:text-white"
                                 onClick={closeDeleteModal}
                             >
                                 Cancel
                             </button>
                             <button
-                                className={`confirm-delete-button ${answerInput.trim() === '' ? 'delete-button-disabled' : ''}`}
+                                className={`confirm-delete-button font-medium bg-gray-300 ${answerInput.trim() === '' ? 'delete-button-disabled' : ''}`}
                                 onClick={handleDeleteAccount}
                                 disabled={answerInput.trim() === ''}
                             >

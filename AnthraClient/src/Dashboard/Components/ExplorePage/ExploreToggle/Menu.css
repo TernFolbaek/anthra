@@ -14,7 +14,6 @@
     display: flex;
     border-radius: 12px;
     width: 350px;
-    background-color:  rgba(180, 209, 255, 0.2);
 }
 
 .menu-slider {
@@ -23,7 +22,6 @@
     left: 0;
     width: 50%;
     height: 100%;
-    background-color: rgba(180, 209, 255, 0.5);
     transition: transform 0.3s ease;
     z-index: 0; /* Place behind the buttons */
     border-radius: 12px;
@@ -55,7 +53,7 @@ body.dark .explore-menu-button {
 }
 
 .explore-menu-button.active {
-    color: #3366cc;
+    color: black;
     z-index: 3;
 }
 

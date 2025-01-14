@@ -13,9 +13,9 @@ const Menu: React.FC<MenuProps> = ({ activePage, setActivePage }) => {
 
     return (
         <div className="explore-menu-container">
-            <div className="menu-toggle dark:bg-gray-700/50">
+            <div className="menu-toggle bg-emerald-300  dark:bg-gray-700/50">
                 <div
-                    className={`menu-slider ${activePage === 'individuals' ? 'slide-left' : 'slide-right'}`}
+                    className={`menu-slider bg-emerald-100  ${activePage === 'individuals' ? 'slide-left' : 'slide-right'}`}
                 ></div>
                 <button
                     className={`text-sm explore-menu-button ${activePage === 'individuals' ? 'active' : ''}`}

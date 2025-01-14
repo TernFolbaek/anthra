@@ -190,8 +190,6 @@ body.dark .profile-field textarea {
 }
 
 .save-button {
-    background-color: rgb(67, 158, 246);
-    color: #fff;
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
@@ -203,14 +201,8 @@ body.dark .profile-field textarea {
     margin: 0 auto;
 }
 
-.save-button:hover {
-    background-color: #4883f3;
-}
-
 .profile-icon-button {
     font-size: 1.5rem;
-    color: #ffffff;
-    background-color: #85bff8;
     border-radius: 50%;
     padding: 8px;
     width: 30px;
@@ -255,8 +247,6 @@ body.dark .profile-field textarea {
 
 .status-tag {
     font-weight: 600;
-    background-color: rgba(187, 211, 243, 0.4);
-    color: #2c91f4;
     padding: 0.2rem 0.3rem;
     border-radius: 5px;
     font-size: 0.85rem;
@@ -265,21 +255,6 @@ body.dark .profile-field textarea {
     user-select: none;
 }
 
-.status-tag:hover {
-    background-color: #d6d6d6;
-    transform: scale(1.05);
-}
-
-.status-tag-selected {
-    border: 2px solid #2c91f4;
-    transform: scale(1.03);
-}
-
-
-.profile-icon-button:hover {
-    transform: scale(1.1);
-    background-color: #0056b3;
-}
 
 .profile-edit-trash:hover {
     transform: scale(1.1);

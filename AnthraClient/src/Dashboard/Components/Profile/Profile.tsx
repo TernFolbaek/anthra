@@ -380,7 +380,7 @@ const Profile: React.FC = () => {
                                 )}
                             </div>
                             <button
-                                className="save-button dark:hover:bg-emerald-400 transform hover:scale-105 dark:text-white dark:bg-emerald-500"
+                                className="save-button bg-emerald-400 hover:bg-emerald-300 text-white dark:hover:bg-emerald-400 transform hover:scale-105 dark:text-white dark:bg-emerald-500"
                                 onClick={() => {
                                     setError(null);
                                     setFieldErrors({});
@@ -678,7 +678,7 @@ const Profile: React.FC = () => {
                                                 <li key={index}>
                                                     <a
                                                         href={course.courseLink}
-                                                        className="text-blue-400 dark:text-emerald-400 hover:font-semibold"
+                                                        className="text-emerald-400 dark:text-emerald-400 hover:font-semibold"
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                     >
@@ -700,7 +700,7 @@ const Profile: React.FC = () => {
                                             {allStatuses.map((st, i) => (
                                                 <span
                                                     key={i}
-                                                    className={`status-tag dark:hover:bg-gray-700 dark:bg-gray-700/50 dark:border-emerald-500 ${selectedStatuses.includes(st) ? 'status-tag-selected' : ''}`}
+                                                    className={`status-tag hover:scale-105 transform  dark:hover:bg-gray-700 dark:bg-gray-700/50 dark:border-emerald-500 ${selectedStatuses.includes(st) ? 'text-white bg-emerald-500' : ' bg-emerald-400/80 text-white'}`}
                                                     onClick={() => {
                                                         setError(null);
                                                         handleStatusSelect(st);
@@ -715,7 +715,7 @@ const Profile: React.FC = () => {
                                             {selectedStatuses.map((st, i) => (
                                                 <span
                                                     key={i}
-                                                    className={`status-tag dark:hover:bg-gray-700 dark:bg-gray-700/50 dark:border-emerald-500 ${selectedStatuses.includes(st) ? 'status-tag-selected' : ''}`}
+                                                    className={`status-tag bg-emerald-400 text-white dark:hover:bg-gray-700 dark:bg-gray-700/50 dark:border-emerald-500 ${selectedStatuses.includes(st) ? 'status-tag-selected ' : ''}`}
                                                 >
                           {st}
                         </span>
@@ -729,7 +729,7 @@ const Profile: React.FC = () => {
                             </div>
 
                             {editMode && (
-                                <button className="save-button text-sm" onClick={handleSave}>
+                                <button className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm" onClick={handleSave}>
                                     Save
                                 </button>
                             )}

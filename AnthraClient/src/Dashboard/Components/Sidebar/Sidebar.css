@@ -67,7 +67,7 @@ body.dark .sidebar-link {
     top: 0;
     height: 100%;
     width: 4px;
-    background-color: #007bff;
+    background-color: rgb(64, 202, 132);
     transform: scaleY(0);
     transition: transform 0.3s ease-in-out;
 }
@@ -84,7 +84,7 @@ body.dark .sidebar-link::before {
 
 .sidebar-link:hover {
     background-color: #f0f0f0;
-    color: #007bff;
+    color: rgb(1, 197, 98);
 }
 
 /* Dark mode styles */
@@ -95,13 +95,14 @@ body.dark .sidebar-link:hover {
 
 .sidebar-link.active-link {
     background-color: #e0e0e0;
-    color: #007bff;
+    color: rgb(66, 198, 132);
+
 }
 
 /* Dark mode styles */
 body.dark .sidebar-link.active-link {
     background-color: #2e2e2e;
-    color: rgb(85,182,133);
+    color: rgb(1, 197, 98);
 }
 
 .tooltip-container {

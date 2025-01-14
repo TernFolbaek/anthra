@@ -27,7 +27,7 @@ body.dark .footer {
 
 /* Active styles */
 .active-footer-link .footer-icon {
-    color: #007bff;
+    color: #99edac;
 }
 
 body.dark .active-footer-link .footer-icon{
@@ -119,12 +119,12 @@ body.dark .footer-menu a {
 }
 
 .footer-menu a:hover {
-    color: #007bff;
+    color: #99edac;
 }
 
 /* Dark mode styles */
 body.dark .footer-menu a:hover {
-    color: #66b3ff;
+    color: #99edac;
 }
 
 /* Slide-up animation */

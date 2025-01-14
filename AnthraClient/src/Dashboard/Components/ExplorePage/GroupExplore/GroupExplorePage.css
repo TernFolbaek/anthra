@@ -102,7 +102,7 @@ body.dark .group-explore-indicator.active{
 }
 
 .group-explore-indicator.active {
-    background-color: rgba(167, 199, 250, 0.5);
+    background-color: rgb(192, 251, 206);
 }
 
 /* Overlays for navigation */
@@ -360,7 +360,6 @@ body.dark .navigate-button:hover {
 
 
 .group-explore-purpose {
-    background-color: rgba(167, 199, 250, 0.5);
     border-radius: 5px;
     display: flex;
     padding: 5px;

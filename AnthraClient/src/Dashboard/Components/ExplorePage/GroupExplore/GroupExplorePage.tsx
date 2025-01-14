@@ -381,7 +381,7 @@ const GroupExplorePage: React.FC = () => {
                         <div className="group-explore-page-content">
                             <div className="group-explore-card-content">
                                 <div className="group-explore-header">
-                                    <div className="group-explore-purpose dark:bg-emerald-500">
+                                    <div className="group-explore-purpose bg-emerald-200 dark:bg-emerald-500">
                                         {getGroupPurposeIcon(currentGroup.groupPurpose)}
                                     </div>
                                     <div className="flex flex-col items-start">
@@ -429,7 +429,7 @@ const GroupExplorePage: React.FC = () => {
                     ) : (
                         <div className="group-explore-page-content ">
                             <div className="group-explore-header">
-                                <div className="group-explore-purpose dark:bg-emerald-500">
+                                <div className="group-explore-purpose bg-emerald-200 dark:bg-emerald-500">
                                     {getGroupPurposeIcon(currentGroup.groupPurpose)}
                                 </div>
                                 <div className="flex flex-col items-start">

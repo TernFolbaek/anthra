@@ -111,7 +111,7 @@ const GroupsList: React.FC<GroupsListProps> = ({
             <CardContainer title="Groups">
                 {/* Search Input */}
                 <div className="ml-[10px] search-container-groups flex gap-2">
-                    <div className="create-group-button dark:bg-emerald-500 dark:hover:bg-emerald-400 flex items-center justify-center gap-2" onClick={onCreateGroup}>
+                    <div className="create-group-button bg-emerald-400 hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 flex items-center justify-center gap-2" onClick={onCreateGroup}>
                         <MdGroupAdd/>
                     </div>
                     <input

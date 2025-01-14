@@ -1,7 +1,6 @@
 /* GroupsList.css */
 .create-group-button {
     padding: 5px 8px;
-    background-color: #439ef6;
     color: white;
     border: none;
     border-radius: 5px;
@@ -29,10 +28,6 @@ body.dark .search-input-groups {
     background-color: #333;
     color: #fff;
     border-color: #555;
-}
-
-.create-group-button:hover {
-    background-color: #0056b3;
 }
 
 

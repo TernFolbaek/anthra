@@ -292,7 +292,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                     <h2 className="auth-container-h2 text-gray-100">{isSignUp ? 'Sign Up' : 'Log In'}</h2>
 
                     {message && <p className="success-message">{message}</p>}
-                    {error && <p className="error-message">{error}</p>}
+                    {error && <p className="text-sm font-medium text-white">{error}</p>}
 
                     <form onSubmit={handleSubmit}>
                         {isMobile && isSignUp && <UsernameValidation isMobile={isMobile} />}

@@ -37,7 +37,7 @@ const ConfigurationSettings: React.FC = () => {
                         onChange={toggleDarkMode}
                         style={{ display: 'none' }}
                     />
-                    <label htmlFor="darkModeToggle" className="toggle-label">
+                    <label htmlFor="darkModeToggle" className="bg-emerald-400 toggle-label">
                         <span className={`toggle-thumb ${darkMode ? 'dark' : 'light'}`}></span>
                     </label>
                 </div>

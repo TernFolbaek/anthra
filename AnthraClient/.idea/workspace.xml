@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Update buttons to emerald color scheme">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CreateProfile/CreateProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/CreateProfile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Profile/Profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Profile/Profile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Profile/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Connections/Connections.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Connections/Connections.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Connections/Connections.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Connections/Connections.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -243,7 +241,7 @@
       <workItem from="1736338146421" duration="1291000" />
       <workItem from="1736374857152" duration="50997000" />
       <workItem from="1736770012008" duration="37111000" />
-      <workItem from="1736877061723" duration="574000" />
+      <workItem from="1736877061723" duration="875000" />
     </task>
     <task id="LOCAL-00804" summary="Add KU CBS and DTU to universities.json">
       <option name="closed" value="true" />

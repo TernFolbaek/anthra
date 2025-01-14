@@ -198,8 +198,6 @@ body.dark .connections-menu-button:hover {
 .message-button {
     font-size: 0.8rem;
     background-color: transparent;
-    border: 2px solid #007bff;
-    color: #007bff;
     padding: 0.2rem 0.5rem;
     cursor: pointer;
     font-weight: 600;
@@ -208,9 +206,6 @@ body.dark .connections-menu-button:hover {
     margin-right: 10px;
 }
 
-.message-button:hover {
-    background-color: #abddfb;
-}
 
 .connections-tabs,
 .requests-tabs {
@@ -236,7 +231,6 @@ body.dark .requests-tabs button {
 
 .connections-tabs button.active,
 .requests-tabs button.active {
-    border-bottom: 2px solid #85bff8;
     color: #85bff8;
 }
 
@@ -291,7 +285,6 @@ body.dark .requests-user-card:hover {
 }
 
 .requests-connect-button {
-    background-color: #85bff8;
     border-radius: 5px;
     padding: 4px 6px;
     color: white;
@@ -315,7 +308,6 @@ body.dark .requests-user-card:hover {
     height: 30px;
     margin: 20px auto;
     border-radius: 25px;
-    background-color: rgb(223, 236, 253);
 }
 
 
@@ -362,7 +354,6 @@ body.dark .requests-user-card:hover {
     position: absolute;
     width: 50%;
     height: 100%;
-    background: #85bff8;
     border-radius: 25px;
     left: 0;
     top: 0;

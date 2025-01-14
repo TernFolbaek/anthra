@@ -62,14 +62,9 @@ body.dark .no-groups-container {
     align-items: center;
     gap: 4px;
     padding: 5px 10px;
-    background-color: #439ef6;
     font-weight: bold;
     border-radius: 5px;
     cursor: pointer;
-}
-
-.explore-button:hover {
-    background-color: #0056b3;
 }
 
 

@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="snackbar bar on light mode wil be sky 300">
+    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Update color scheming">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/ExplorePage/GroupExplore/GroupExplorePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/ExplorePage/GroupExplore/GroupExplorePage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Groups/GroupsList/GroupsList.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Groups/GroupsList/GroupsList.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/ViewProfile/ViewProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/ViewProfile/ViewProfile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/ViewProfile/ViewProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/ViewProfile/ViewProfile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/ExplorePage/GroupExplore/GroupExplorePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/ExplorePage/GroupExplore/GroupExplorePage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Settings/ConfigurationSettings/ConfigurationSettings.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Settings/ConfigurationSettings/ConfigurationSettings.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Settings/ConfigurationSettings/ConfigurationSettings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Settings/ConfigurationSettings/ConfigurationSettings.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -243,71 +243,7 @@
       <workItem from="1736337866312" duration="105000" />
       <workItem from="1736338146421" duration="1291000" />
       <workItem from="1736374857152" duration="50997000" />
-      <workItem from="1736770012008" duration="18614000" />
-    </task>
-    <task id="LOCAL-00792" summary="Remove axios prefix">
-      <option name="closed" value="true" />
-      <created>1736421039112</created>
-      <option name="number" value="00792" />
-      <option name="presentableId" value="LOCAL-00792" />
-      <option name="project" value="LOCAL" />
-      <updated>1736421039112</updated>
-    </task>
-    <task id="LOCAL-00793" summary="Remove axios prefix">
-      <option name="closed" value="true" />
-      <created>1736421042226</created>
-      <option name="number" value="00793" />
-      <option name="presentableId" value="LOCAL-00793" />
-      <option name="project" value="LOCAL" />
-      <updated>1736421042226</updated>
-    </task>
-    <task id="LOCAL-00794" summary="Remove axios prefix">
-      <option name="closed" value="true" />
-      <created>1736421045270</created>
-      <option name="number" value="00794" />
-      <option name="presentableId" value="LOCAL-00794" />
-      <option name="project" value="LOCAL" />
-      <updated>1736421045270</updated>
-    </task>
-    <task id="LOCAL-00795" summary="Remove axios prefix">
-      <option name="closed" value="true" />
-      <created>1736421048023</created>
-      <option name="number" value="00795" />
-      <option name="presentableId" value="LOCAL-00795" />
-      <option name="project" value="LOCAL" />
-      <updated>1736421048023</updated>
-    </task>
-    <task id="LOCAL-00796" summary="Remove axios prefix">
-      <option name="closed" value="true" />
-      <created>1736421050784</created>
-      <option name="number" value="00796" />
-      <option name="presentableId" value="LOCAL-00796" />
-      <option name="project" value="LOCAL" />
-      <updated>1736421050784</updated>
-    </task>
-    <task id="LOCAL-00797" summary="Fix handling of reroute">
-      <option name="closed" value="true" />
-      <created>1736459812609</created>
-      <option name="number" value="00797" />
-      <option name="presentableId" value="LOCAL-00797" />
-      <option name="project" value="LOCAL" />
-      <updated>1736459812609</updated>
-    </task>
-    <task id="LOCAL-00798" summary="navigate to create profile on auth success">
-      <option name="closed" value="true" />
-      <created>1736459830682</created>
-      <option name="number" value="00798" />
-      <option name="presentableId" value="LOCAL-00798" />
-      <option name="project" value="LOCAL" />
-      <updated>1736459830682</updated>
-    </task>
-    <task id="LOCAL-00799" summary="Remove border from inputs">
-      <option name="closed" value="true" />
-      <created>1736459850429</created>
-      <option name="number" value="00799" />
-      <option name="presentableId" value="LOCAL-00799" />
-      <option name="project" value="LOCAL" />
-      <updated>1736459850429</updated>
+      <workItem from="1736770012008" duration="25557000" />
     </task>
     <task id="LOCAL-00800" summary="Move about me to step one">
       <option name="closed" value="true" />
@@ -637,7 +573,71 @@
       <option name="project" value="LOCAL" />
       <updated>1736790592205</updated>
     </task>
-    <option name="localTasksCounter" value="841" />
+    <task id="LOCAL-00841" summary="Cancel button follows emerald color scheme">
+      <option name="closed" value="true" />
+      <created>1736812568526</created>
+      <option name="number" value="00841" />
+      <option name="presentableId" value="LOCAL-00841" />
+      <option name="project" value="LOCAL" />
+      <updated>1736812568526</updated>
+    </task>
+    <task id="LOCAL-00842" summary="Prevent propagation on course addition">
+      <option name="closed" value="true" />
+      <created>1736812581790</created>
+      <option name="number" value="00842" />
+      <option name="presentableId" value="LOCAL-00842" />
+      <option name="project" value="LOCAL" />
+      <updated>1736812581790</updated>
+    </task>
+    <task id="LOCAL-00843" summary="Update color scheming in footer">
+      <option name="closed" value="true" />
+      <created>1736815196034</created>
+      <option name="number" value="00843" />
+      <option name="presentableId" value="LOCAL-00843" />
+      <option name="project" value="LOCAL" />
+      <updated>1736815196035</updated>
+    </task>
+    <task id="LOCAL-00844" summary="Update color scheming in Menu">
+      <option name="closed" value="true" />
+      <created>1736815202650</created>
+      <option name="number" value="00844" />
+      <option name="presentableId" value="LOCAL-00844" />
+      <option name="project" value="LOCAL" />
+      <updated>1736815202650</updated>
+    </task>
+    <task id="LOCAL-00845" summary="Emerald color scheme instead of blue">
+      <option name="closed" value="true" />
+      <created>1736815212870</created>
+      <option name="number" value="00845" />
+      <option name="presentableId" value="LOCAL-00845" />
+      <option name="project" value="LOCAL" />
+      <updated>1736815212870</updated>
+    </task>
+    <task id="LOCAL-00846" summary="Containerize different user information in user card">
+      <option name="closed" value="true" />
+      <created>1736815226599</created>
+      <option name="number" value="00846" />
+      <option name="presentableId" value="LOCAL-00846" />
+      <option name="project" value="LOCAL" />
+      <updated>1736815226599</updated>
+    </task>
+    <task id="LOCAL-00847" summary="Update color scheming">
+      <option name="closed" value="true" />
+      <created>1736815323592</created>
+      <option name="number" value="00847" />
+      <option name="presentableId" value="LOCAL-00847" />
+      <option name="project" value="LOCAL" />
+      <updated>1736815323592</updated>
+    </task>
+    <task id="LOCAL-00848" summary="Update color scheming">
+      <option name="closed" value="true" />
+      <created>1736815369543</created>
+      <option name="number" value="00848" />
+      <option name="presentableId" value="LOCAL-00848" />
+      <option name="project" value="LOCAL" />
+      <updated>1736815369544</updated>
+    </task>
+    <option name="localTasksCounter" value="849" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -666,13 +666,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Style footer with emerald color scheme" />
-    <MESSAGE value="Style group explore page" />
-    <MESSAGE value="Style group modal with emerald color scheme" />
-    <MESSAGE value="Remove dark styling from css" />
-    <MESSAGE value="Add emerald color scheme" />
-    <MESSAGE value="Remove console logs" />
-    <MESSAGE value="Smaller sidebar icons" />
     <MESSAGE value="Style user explore page with new containers and emerald color scheme" />
     <MESSAGE value="Style Help settings with emerald color scheme" />
     <MESSAGE value="Create radial gradient background" />
@@ -691,6 +684,13 @@
     <MESSAGE value="White add members icon in dark mode" />
     <MESSAGE value="emerald on add members icon hover in dark mode" />
     <MESSAGE value="snackbar bar on light mode wil be sky 300" />
-    <option name="LAST_COMMIT_MESSAGE" value="snackbar bar on light mode wil be sky 300" />
+    <MESSAGE value="Cancel button follows emerald color scheme" />
+    <MESSAGE value="Prevent propagation on course addition" />
+    <MESSAGE value="Update color scheming in footer" />
+    <MESSAGE value="Update color scheming in Menu" />
+    <MESSAGE value="Emerald color scheme instead of blue" />
+    <MESSAGE value="Containerize different user information in user card" />
+    <MESSAGE value="Update color scheming" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update color scheming" />
   </component>
 </project>

@@ -122,7 +122,6 @@ body.dark .user-explore-location {
 .user-info h3 {
     margin: 10px 0 5px;
     font-weight: 600;
-    color: #444;
 }
 
 .user-info p {
@@ -147,7 +146,6 @@ body.dark .user-explore-location {
 
 .user-explore-courses-list a {
     z-index: 20;
-    color: #2c91f4;
     text-decoration: none;
     font-weight: 500;
 }
@@ -185,73 +183,24 @@ body.dark .user-explore-courses-list a {
     transition: all 0.3s ease;
     display: inline-block;
     text-align: center;
-    border: none;
     outline: none;
 }
 
 .status-tag-explore {
     font-weight: 600;
-    background-color: rgba(187, 211, 243, 0.5);
-    color: #2c91f4;
-    padding: 0.2rem 0.3rem;
+    padding: 0.4rem 0.4rem;
     border-radius: 5px;
     font-size: 0.85rem;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    user-select: none;
 }
 
 body.dark .status-tag-explore {
-    background-color: #757474;
-    color: white;
 }
 
-.refer-button {
-    background-color: rgba(0, 123, 255, 0.2);
-    color: #007BFF;
-    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);
-}
-
-/* Connect Button */
-.connect-button {
-    background-color: #007BFF;
-    color: white;
-    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);
-}
-
-.connect-button:hover {
-    background-color: #0056b3;
-    box-shadow: 0 8px 12px rgba(0, 123, 255, 0.2);
-    transform: translateY(-3px);
-}
 
 .skip-button {
     background-color: transparent;
-    color: #007BFF;
-    border: 2px solid #007BFF;
-    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);
 }
-
-.skip-button:hover {
-    background-color: #007BFF;
-    color: white;
-    box-shadow: 0 8px 12px rgba(0, 123, 255, 0.2);
-    transform: translateY(-3px);
-}
-
-.refer-button:hover {
-    background-color: #007BFF;
-    color: white;
-    box-shadow: 0 8px 12px rgba(0, 123, 255, 0.2);
-    transform: translateY(-3px);
-}
-
-body.dark .connect-button {
-    box-shadow: 0 4px 6px rgba(0, 86, 179, 0.1);
-}
-
-
-
 
 .user-explore-no-more {
     text-align: center;
@@ -372,7 +321,7 @@ body.dark .user-explore-no-more {
     }
 
     .indicator.active {
-        background-color: white;
+        background-color: #acf3bb;
     }
 
     .page-content {

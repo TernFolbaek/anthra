@@ -526,7 +526,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
                                         <p className="modal-member-name">
                                             {member.firstName} {member.lastName}
                                         </p>
-                                        <p className="text-xs font-semibold text-gray-500">
+                                        <p className="text-xs font-semibold text-gray-500 dark:text-gray-300">
                                             {member.institution}
                                         </p>
                                     </div>

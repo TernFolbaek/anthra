@@ -85,7 +85,8 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
                 inputRef.current &&
                 document.activeElement !== inputRef.current &&
                 document.activeElement !== document.querySelector('.search-input') &&
-                document.activeElement !== document.querySelector('.modal-input')
+                document.activeElement !== document.querySelector('.modal-input') &&
+                document.activeElement !== document.querySelector('.report-textarea')
             ) {
                 inputRef.current.focus();
             }

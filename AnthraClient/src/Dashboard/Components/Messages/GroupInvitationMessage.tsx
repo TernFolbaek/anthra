@@ -222,13 +222,13 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
                         {!invitationStatus && (
                             <div className="flex justify-center gap-2">
                                 <button
-                                    className="p-1 border-4 text-emerald-400 rounded-md text-sm font-semibold"
+                                    className="p-1 bg-emerald-400 rounded-md px-1 text-white text-sm font-semibold"
                                     onClick={onAccept}
                                 >
                                     Accept
                                 </button>
                                 <button
-                                    className="p-1 hover:bg-sky-200 bg-sky-400 rounded-md text-sm font-semibold"
+                                    className="text-black rounded-md text-sm font-semibold"
                                     onClick={onDecline}
                                 >
                                     Decline

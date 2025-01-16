@@ -28,14 +28,14 @@ const Snackbar: React.FC<SnackbarProps> = ({ title, message, duration = 3000, on
 
     return (
         <div className="snackbar-container" onClick={()=>setShow(false)}>
-            <div className="snackbar">
+            <div className="snackbar bg-white border-1 border-gray-300">
                 <div className="snackbar-content">
                     <div className="snackbar-title">{title}</div>
                     <div className="snackbar-message">{message}</div>
                 </div>
                 <div
                     key={animationKey} // Use animationKey to reset animation
-                    className="snackbar-progress bg-sky-300 dark:bg-emerald-400"
+                    className="snackbar-progress bg-emerald-400 dark:bg-emerald-400"
                     style={{ animationDuration: `${duration}ms` }}
                 ></div>
             </div>

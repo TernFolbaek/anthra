@@ -6,18 +6,18 @@
 }
 
 .snackbar {
-    background-color: rgba(208, 228, 253);
     color: black;
     border-radius: 10px;
     min-width: 250px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
+    box-shadow: 2px 2px 8px rgba(153, 237, 172, 0.5),
+    4px 4px 12px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
 }
 
 body.dark .snackbar {
     background-color: #757474;
+    box-shadow:none;
     color: white;
 }
 

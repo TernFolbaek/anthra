@@ -24,8 +24,8 @@ const DashboardContent: React.FC = () => {
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
     // Check if the path matches "/messages/:userId" or "/groups/:groupId"
-    const isUserSpecificMessage = /^\/messages\/[^/]+$/.test(location.pathname);
-    const isGroupSpecificPage = /^\/groups\/[^/]+$/.test(location.pathname);
+    const isUserSpecificMessage = /^\/dashboard\/messages\/[^/]+$/.test(location.pathname);
+    const isGroupSpecificPage = /^\/dashboard\/groups\/[^/]+$/.test(location.pathname);
 
     // If on a specific user/group page and on mobile, hide the footer
     const shouldHideFooter = isMobile && (isUserSpecificMessage || isGroupSpecificPage);

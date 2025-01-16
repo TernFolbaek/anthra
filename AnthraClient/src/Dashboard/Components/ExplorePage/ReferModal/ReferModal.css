@@ -72,8 +72,6 @@
     max-height: calc((2.5rem + 1rem) * 5); /* Height of connection item plus margin * 5 */
     overflow-y: auto;
     margin-top: 0.625rem;
-    padding-right: 0.5rem; /* To prevent content hiding behind scrollbar */
-    border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
 }
@@ -91,8 +89,6 @@
 /* Individual Connection Item Styling */
 .refer-connection-item {
     padding: 8px;
-    border-bottom: 1px solid #eee;
-    background-color: white;
     display: flex;
     align-items: center;
     font-size: 14px;
@@ -101,33 +97,21 @@
     cursor: pointer;
 }
 
-.refer-connection-item:last-child {
-    border-bottom: none;
-}
-
-.refer-connection-item:hover {
-    background-color: #ebf3fd;
-}
-
-/* Selected User Styling */
 .refer-connection-item.selected {
-    background-color: #ebf3fd;
+    background-color: #ccfdda;
 }
 
-/* Referred User Styling */
 .refer-connection-item.referred {
     background-color: #e3e2e2; /* Light green background */
     cursor: not-allowed;
     opacity: 0.6;
 }
 
-/* Disabled Connection Item Styling */
 .refer-connection-item.disabled {
     pointer-events: none;
     opacity: 0.6;
 }
 
-/* Modal Buttons Container */
 .refer-modal-buttons {
     position: absolute;
     bottom: 20px;
@@ -141,8 +125,6 @@
 /* Send Referral Button Styling */
 .refer-send-button {
     font-size: 1rem;
-    background-color: #85bff8;
-    border: 2px solid #85bff8;
     color: white;
     padding: 0.5rem 1rem;
     cursor: pointer;
@@ -151,9 +133,6 @@
     border-radius: 8px;
 }
 
-.refer-send-button:hover:not(:disabled) {
-    background-color: #2c91f4;
-}
 
 .refer-send-button:disabled {
     background-color: #ccc;
@@ -188,12 +167,8 @@ body.dark .refer-modal-content {
     color: #fff;
 }
 
-body.dark .refer-connection-item:hover {
-    background-color: #555;
-}
-
 body.dark .refer-connection-item.selected {
-    background-color: #0056b3;
+    background-color: rgba(113, 112, 112, 0.97);
 }
 
 body.dark .refer-connection-item.referred {
@@ -207,16 +182,6 @@ body.dark .refer-connection-item.disabled {
     opacity: 0.6;
 }
 
-body.dark .refer-send-button {
-    background-color: #85bff8;
-    border: 2px solid #85bff8;
-    color: white;
-}
-
-body.dark .refer-send-button:hover:not(:disabled) {
-    background-color: #85bff8;
-    color: white;
-}
 
 /* Referred Connection Item Styling */
 .refer-connection-item.referred .refer-connection-name {

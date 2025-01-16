@@ -195,34 +195,40 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
 
                 {/* Scrollable Connections Container */}
                 <div className="refer-connections-container">
-                    <ul className="refer-connections-list">
-                        {filteredConnections.map((conn) => {
-                            const isReferred = referredConnections.includes(conn.id);
-                            const isSelected = selectedConnections.some(s => s.id === conn.id);
-                            const isDisabled = (referralCount + selectedConnections.length >= 3) && !isSelected;
+                    {filteredConnections.length > 0 ? (
+                        <ul className="refer-connections-list">
+                            {filteredConnections.map((conn) => {
+                                const isReferred = referredConnections.includes(conn.id);
+                                const isSelected = selectedConnections.some(s => s.id === conn.id);
+                                const isDisabled = (referralCount + selectedConnections.length >= 3) && !isSelected;
 
-                            return (
-                                <li
-                                    key={conn.id}
-                                    onClick={() => !isReferred && !isDisabled && toggleSelectConnection(conn)}
-                                    className={`refer-connection-item ${isSelected ? 'selected' : ''} ${isReferred ? 'referred' : ''} ${isDisabled ? 'disabled' : ''}`}
-                                >
-                                    <img
-                                        src={conn.profilePictureUrl}
-                                        alt={`${conn.firstName} ${conn.lastName}`}
-                                        className="refer-avatar"
-                                    />
-                                    <span className="refer-connection-name">{conn.firstName} {conn.lastName}</span>
-                                </li>
-                            )
-                        })}
-                    </ul>
+                                return (
+                                    <li
+                                        key={conn.id}
+                                        onClick={() => !isReferred && !isDisabled && toggleSelectConnection(conn)}
+                                        className={`refer-connection-item hover:bg-emerald-100 bg-slate-100 ${isSelected ? 'selected' : ''} ${isReferred ? 'referred' : ''} ${isDisabled ? 'disabled' : ''}`}
+                                    >
+                                        <img
+                                            src={conn.profilePictureUrl}
+                                            alt={`${conn.firstName} ${conn.lastName}`}
+                                            className="refer-avatar"
+                                        />
+                                        <span className="refer-connection-name">{conn.firstName} {conn.lastName}</span>
+                                    </li>
+                                )
+                            })}
+                        </ul>
+                    ) : (
+                        <p className="font-semibold text-center text-base text-gray-500 dark:text-gray-300">No connections to refer to</p>
+                        )}
+
+
                 </div>
 
                 {/* Modal Buttons */}
                 <div className="refer-modal-buttons">
                     <button
-                        className="refer-send-button"
+                        className="refer-send-button bg-emerald-400 text-white"
                         onClick={handleSendReferral}
                         disabled={selectedConnections.length === 0}
                     >

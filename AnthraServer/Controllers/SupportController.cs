@@ -61,9 +61,9 @@ public async Task<IActionResult> SendSupportEmail([FromBody] SupportEmailRequest
         }
 
         var client = new SendGridClient(apiKey);
-        var fromEmail = "anthradk@gmail.com";
+        var fromEmail = "admin@anthra.dk";
         var from = new EmailAddress(fromEmail, "Support Request");
-        var to = new EmailAddress("anthradk@gmail.com"); 
+        var to = new EmailAddress("admin@anthra.dk"); 
         var subject = "Support Request from User";
         
         var plainTextContent = $"Support Request from: {userEmail}\n\nMessage:\n{model.Message}";
@@ -113,9 +113,9 @@ public async Task<IActionResult> SendSupportEmailGuest([FromBody] GuestSupportEm
         }
 
         var client = new SendGridClient(apiKey);
-        var fromEmail = "anthradk@gmail.com";
+        var fromEmail = "admin@anthra.dk";
         var from = new EmailAddress(fromEmail, "Guest Support Request");
-        var to = new EmailAddress("anthradk@gmail.com"); 
+        var to = new EmailAddress("admin@anthra.dk"); 
         var subject = "Guest Support Request";
         
         var plainTextContent = $"From: {model.Email}\n\nSubject: {model.Subject}\n\nMessage:\n{model.Message}";

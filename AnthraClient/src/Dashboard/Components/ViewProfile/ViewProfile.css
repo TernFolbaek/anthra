@@ -31,9 +31,6 @@
 
  .viewprofile-connect-button{
     margin-top: 10px;
-    background-color: rgba(0, 123, 255, 0.2);
-    color: #007BFF;
-    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);
     padding: 0.5rem 1.2rem;
     cursor: pointer;
     font-weight: 600;
@@ -45,11 +42,6 @@
     text-align: center;
     outline: none;
 }
-
- .viewprofile-connect-button:hover {
-    background-color: rgba(0, 123, 255, 0.4);
-}
-
 
 /* Dark mode styles */
 body.dark #viewprofile .viewprofile-modal {

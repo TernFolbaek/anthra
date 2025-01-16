@@ -4,7 +4,7 @@ import './GroupMessage.css';
 import { useNavigate } from 'react-router-dom';
 import {
     FaEllipsisV, FaArrowLeft, FaPenSquare, FaInfo, FaUserPlus,
-    FaFileAlt, FaFilePdf, FaFileWord, FaFileExcel
+    FaFileAlt, FaFilePdf, FaFileWord, FaFileExcel, FaFlag
 } from 'react-icons/fa';
 import * as signalR from '@microsoft/signalr';
 import GroupInfo from '../GroupInfo/GroupInfo';
@@ -13,6 +13,8 @@ import EditGroupModal from "../EditGroupModal/EditGroupModal";
 import { MdExitToApp } from "react-icons/md";
 import ViewProfile from "../../ViewProfile/ViewProfile";
 import AddMembersModal from "../AddMembersModal/AddMembersModal";
+import Snackbar from "../../../Helpers/Snackbar/Snackbar";
+import useWindowWidth from "../../../hooks/useWindowWidth";
 
 interface Attachment {
     id: number;
@@ -87,10 +89,15 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
     const navigate = useNavigate();
     const [isConnectionStarted, setIsConnectionStarted] = useState(false);
     const [showEditGroupModal, setShowEditGroupModal] = useState(false);
-
-    // If the current user is the group creator
+    const [showReportPopup, setShowReportPopup] = useState(false);
+    const [reportDescription, setReportDescription] = useState('');
+    const [reportFiles, setReportFiles] = useState<File[]>([]);
+    const windowWidth = useWindowWidth();
+    const isSmallScreen = windowWidth < 480;
     const isGroupCreator = groupInfo?.creatorId === userId;
-
+    const [snackbarVisible, setSnackbarVisible] = useState<boolean>(false);
+    const [snackbarTitle, setSnackbarTitle] = useState<string>('');
+    const [snackbarMessage, setSnackbarMessage] = useState<string>('');
     const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
     const [showAddMembersModal, setShowAddMembersModal] = useState(false);
 
@@ -102,7 +109,6 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    // Fetch group details + messages
     useEffect(() => {
         fetchGroupDetails();
         fetchMessages();
@@ -190,6 +196,41 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
             messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
         }
     }, [messages]);
+
+    const handleSendReport = async () => {
+        // Extra safety
+        if (!reportDescription.trim()) return;
+
+        try {
+            const formData = new FormData();
+            formData.append('ReportedUserId', userId || '');
+            formData.append('Description', reportDescription);
+
+            reportFiles.forEach((file) => {
+                formData.append('Screenshots', file);
+            });
+
+            // Adjust base URL / path as necessary to match your server
+            await axios.post('/Report/SendReport', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            setSnackbarTitle('Report Sent');
+            setSnackbarMessage(`You have sent a report revolving: ${groupInfo?.groupName}`);
+            setSnackbarVisible(true);
+
+            setReportDescription('');
+            setReportFiles([]);
+            setShowReportPopup(false);
+        } catch (error) {
+            console.error('Error sending report: ', error);
+            alert('Failed to send report. Please try again later.');
+        }
+    };
+
 
     const fetchGroupDetails = async () => {
         try {
@@ -285,6 +326,17 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
         setShowAddMembersModal(false);
     };
 
+    const handleReportUser = () => {
+        setShowReportPopup(true);
+        setShowMenu(false);
+    };
+
+    const handleCloseReportPopup = () => {
+        setShowReportPopup(false);
+        setReportDescription('');
+        setReportFiles([]);
+    };
+
     return (
         <div className="group-message-page">
             <div className="group-message-container">
@@ -328,34 +380,44 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                             className="flex items-center gap-2 text-sm font-medium"
                                             onClick={handleEditGroup}
                                         >
-                                            <FaPenSquare />
+                                            <FaPenSquare/>
                                             <div>Edit Group</div>
                                         </button>
                                     )}
+                                    {isGroupCreator && (
+                                        <button
+                                        className="flex gap-2 items-center font-medium text-black dark:text-white text-sm"
+                                        onClick={handleReportUser}
+                                    >
+                                        <FaFlag/>
+                                        <div>Report Group</div>
+                                    </button>
+                                    )}
+
                                     <button
                                         className="flex items-center gap-2 text-sm font-medium"
                                         onClick={handleToggleGroupInfoVisibility}
                                     >
-                                        <FaInfo />
+                                        <FaInfo/>
                                         <div>{showGroupInfo ? "Hide Info" : "Show Info"}</div>
                                     </button>
                                     <button
                                         className="flex items-center gap-2 font-medium text-sm"
                                         onClick={() => handleLeaveGroup(groupId)}
                                     >
-                                        <MdExitToApp />
+                                        <MdExitToApp/>
                                         Leave Group
                                     </button>
                                 </div>
                             )}
-                            <FaEllipsisV />
+                            <FaEllipsisV/>
                         </div>
                     </div>
                 </div>
 
                 <div className="group-message-list">
                     {isMobile && showGroupInfo ? (
-                        <GroupInfo groupId={groupId} />
+                        <GroupInfo groupId={groupId}/>
                     ) : (
                         <>
                             {messages.map((message, index) => {
@@ -476,6 +538,59 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                 groupName={groupInfo?.groupName}
                 groupPurpose={groupInfo?.groupPurpose}
             />
+            {showReportPopup && (
+                <div className="report-popup-overlay" onClick={handleCloseReportPopup}>
+                    <div className="report-popup-content dark:bg-emerald-50" onClick={(e) => e.stopPropagation()}>
+                        <h2 className="report-popup-title">Report User</h2>
+                        <textarea
+                            className="report-textarea"
+                            rows={4}
+                            value={reportDescription}
+                            onChange={(e) => setReportDescription(e.target.value)}
+                            placeholder="Describe the issue..."
+                        />
+                        <label className="screenshot-label">
+                            Attach Screenshots (optional)
+                            <input
+                                className="report-file-input"
+                                type="file"
+                                multiple
+                                accept="image/*"
+                                onChange={(e) => {
+                                    if(e.target.files){
+                                        setReportFiles(Array.from(e.target.files));
+                                    }
+                                }}
+                            />
+                        </label>
+
+                        <div className="report-btn-group">
+                            <button
+                                className="report-cancel-btn rounded-lg"
+                                onClick={handleCloseReportPopup}
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                className={`bg-emerald-400 text-white font-medium px-3 rounded-lg py-2 ${!reportDescription.trim() ? 'disabled-btn' : ''}`}
+                                onClick={handleSendReport}
+                                disabled={!reportDescription.trim()}
+                            >
+                                Send Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {snackbarVisible && !isSmallScreen && (
+                <Snackbar
+                    key={snackbarTitle + snackbarMessage}
+                    title={snackbarTitle}
+                    message={snackbarMessage}
+                    duration={4000}
+                    onClose={() => setSnackbarVisible(false)}
+                />
+            )}
         </div>
     );
 };

@@ -1,5 +1,5 @@
 // Connections.tsx
-import React, { useEffect, useState, useRef } from 'react';
+import React, {useEffect, useState, useRef, useContext} from 'react';
 import axios from 'axios';
 import './Connections.css';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ import { FaUser, FaUsers } from "react-icons/fa";
 import { ApplicationUser } from "../types/types";
 import ViewGroupProfile from "../ViewGroupProfile/ViewGroupProfile";
 import Snackbar from "../../Helpers/Snackbar/Snackbar";
+import {NotificationContext} from "../../context/NotificationsContext";
 
 interface ConnectionRequestDTO {
     id: number;
@@ -55,6 +56,11 @@ const Connections: React.FC = () => {
     const navigate = useNavigate();
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
+    const notificationContext = useContext(NotificationContext);
+    if (!notificationContext) {
+        throw new Error("NotificationContext is undefined. Make sure you're inside a NotificationProvider.");
+    }
+    const { removeNotificationsBySenderId } = notificationContext;
 
     // Snackbar state
     const [snackbarVisible, setSnackbarVisible] = useState<boolean>(false);
@@ -85,7 +91,7 @@ const Connections: React.FC = () => {
                 connections.filter((user) => user.id !== connectionId)
             );
             setOpenMenuConnectionId(null);
-
+            removeNotificationsBySenderId(connectionId);
             // Update Snackbar state to show success message
             setSnackbarTitle('Connection Removed');
             setSnackbarMessage('You have successfully removed this connection.');
@@ -435,7 +441,7 @@ const Connections: React.FC = () => {
                         </div>
                         <div className="requests-button-container">
                             <button
-                                className="message-button dark:hover:bg-transparent dark:border-emerald-500 dark:text-emerald-400 dark:hover:scale-105 transform dark:hover:border-emerald-400"
+                                className="message-button text-emerald-400 dark:hover:bg-transparent dark:border-emerald-500 transform dark:hover:border-emerald-400 hover:scale-105"
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     handleAccept(request);
@@ -444,7 +450,7 @@ const Connections: React.FC = () => {
                                 Accept
                             </button>
                             <button
-                                className="requests-skip-button"
+                                className="requests-skip-button dark:text-gray-300 text-gray-700 hover:scale-105"
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     handleDecline(request.id)

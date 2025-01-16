@@ -1,11 +1,11 @@
-// Components/GroupMessage/GroupInfo/GroupInfo.tsx
-import React, { useEffect, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import axios from 'axios';
 import './GroupInfo.css';
 import ViewProfile from "../../ViewProfile/ViewProfile";
 import Snackbar from "../../../Helpers/Snackbar/Snackbar";
 import { FaUserMinus, FaUserPlus, FaFilePdf, FaFileWord, FaFileExcel, FaFileAlt } from "react-icons/fa";
 import qs from 'qs'; // Ensure qs is installed: npm install qs
+import {NotificationContext} from "../../../context/NotificationsContext";
 
 interface GroupMember {
     userId: string;
@@ -64,7 +64,11 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
     const [groupDesiredMembers, setGroupDesiredMembers] = useState('');
     const [groupPurpose, setGroupPurpose] = useState('');
     const [isPublic, setIsPublic] = useState(false);
-
+    const notificationContext = useContext(NotificationContext);
+    if (!notificationContext) {
+        throw new Error("NotificationContext is undefined. Make sure you're inside a NotificationProvider.");
+    }
+    const { removeNotificationsBySenderId } = notificationContext;
     // Attachments
     const [attachments, setAttachments] = useState<Attachment[]>([]);
     const [showModal, setShowModal] = useState(false); // "See More" modal
@@ -245,6 +249,8 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
                     }
                 );
 
+                removeNotificationsBySenderId(targetUserId);
+
                 // Update connectionStatuses
                 setConnectionStatuses(prev => ({
                     ...prev,
@@ -270,7 +276,6 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
                 setLoadingActions(prev => ({ ...prev, [targetUserId]: false }));
             }
         } else if (status.hasUserSentRequest) {
-            // Revoke sent connection request
             try {
                 setLoadingActions(prev => ({ ...prev, [targetUserId]: true }));
                 await axios.post(

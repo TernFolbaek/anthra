@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import './Messages.css';
 import * as signalR from '@microsoft/signalr';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -13,6 +13,7 @@ import ViewGroupProfile from "../ViewGroupProfile/ViewGroupProfile";
 import GroupInvitationMessage from "./GroupInvitationMessage";
 import ReferralCardMessage from "./ReferralCardMessage";
 import { Message, InvitationActionType, UserProfile } from '../types/types';
+import {NotificationContext} from "../../context/NotificationsContext";
 
 interface Attachment {
     id: number;
@@ -72,6 +73,11 @@ const Messages: React.FC = () => {
     const [allMessagesLoaded, setAllMessagesLoaded] = useState(false);
     const [nextTokenValue, setNextTokenValue] = useState<string | null>(null);
     const [firstLoad, setFirstLoad] = useState(true);
+    const notificationContext = useContext(NotificationContext);
+    if (!notificationContext) {
+        throw new Error("NotificationContext is undefined. Make sure you're inside a NotificationProvider.");
+    }
+    const { removeNotificationsBySenderId } = notificationContext;
 
     useEffect(() => {
         const handleResize = () => {
@@ -432,6 +438,9 @@ const Messages: React.FC = () => {
                 { userId: currentUserId, connectionId: userId },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
+            if(userId){
+                removeNotificationsBySenderId(userId);
+            }
             navigate('/dashboard/messages');
         } catch (error) {
             console.error('Error removing connection:', error);

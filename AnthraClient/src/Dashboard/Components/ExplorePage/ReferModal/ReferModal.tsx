@@ -27,7 +27,7 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
     const [referralCount, setReferralCount] = useState<number>(0);
     const [referredConnections, setReferredConnections] = useState<string[]>([]); // Stores IDs of referred users
 
-    // Load referral count and referred connections from localStorage based on currentUser
+    // Load referral count and referred connections from localStorage
     useEffect(() => {
         if (currentUser) {
             const storedCount = localStorage.getItem(`referralCount-${currentUser.id}`);
@@ -41,7 +41,7 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
         }
     }, [currentUser]);
 
-    // Fetch connections when component mounts or token changes
+    // Fetch connections
     useEffect(() => {
         const fetchConnections = async () => {
             if (!token) return;
@@ -50,7 +50,7 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
                 const res = await axios.get('/Connections/ConnectionsGroupList', {
                     params: { userId },
                     withCredentials: true,
-                    headers: { Authorization: `Bearer ${token}` }, // Added Authorization header
+                    headers: { Authorization: `Bearer ${token}` },
                 });
                 setConnections(res.data);
                 setFilteredConnections(res.data);
@@ -62,13 +62,15 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
         fetchConnections();
     }, [token, userId]);
 
-    // Load selected connections from localStorage based on currentUser
+    // Load selected connections from localStorage
     useEffect(() => {
         if (currentUser) {
             const storedSelections = localStorage.getItem(`referralsSelected-${currentUser.id}`);
             if (storedSelections) {
                 const selectedIds: string[] = JSON.parse(storedSelections);
-                const selectedUsers = connections.filter(user => selectedIds.includes(user.id) && !referredConnections.includes(user.id));
+                const selectedUsers = connections.filter(
+                    (user) => selectedIds.includes(user.id) && !referredConnections.includes(user.id)
+                );
                 setSelectedConnections(selectedUsers);
             } else {
                 setSelectedConnections([]);
@@ -81,12 +83,12 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
     // Save selected connections to localStorage whenever they change
     useEffect(() => {
         if (currentUser) {
-            const selectedIds = selectedConnections.map(user => user.id);
+            const selectedIds = selectedConnections.map((user) => user.id);
             localStorage.setItem(`referralsSelected-${currentUser.id}`, JSON.stringify(selectedIds));
         }
     }, [selectedConnections, currentUser]);
 
-    // Handle clicks outside the modal to close it
+    // Close modal on click outside
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
@@ -110,16 +112,18 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
     };
 
     const toggleSelectConnection = (connection: User) => {
-        // Prevent selecting referred connections
+        // Prevent selecting already referred connections
         if (referredConnections.includes(connection.id)) {
             return;
         }
 
         const isSelected = selectedConnections.some((sel) => sel.id === connection.id);
         if (isSelected) {
-            setSelectedConnections(selectedConnections.filter((sel) => sel.id !== connection.id));
+            setSelectedConnections(
+                selectedConnections.filter((sel) => sel.id !== connection.id)
+            );
         } else {
-            // Calculate remaining referrals
+            // Check referral limit
             const remainingReferrals = 3 - referralCount - selectedConnections.length;
             if (remainingReferrals > 0) {
                 setSelectedConnections([...selectedConnections, connection]);
@@ -132,7 +136,6 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
     const handleSendReferral = async () => {
         if (!currentUser || !token || selectedConnections.length === 0) return;
 
-
         try {
             for (const conn of selectedConnections) {
                 const formData = new FormData();
@@ -141,29 +144,30 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
                 formData.append('Content', currentUser.id);
                 formData.append('IsReferralCard', 'true');
 
-                await axios.post(
-                    '/Messages/SendMessage',
-                    formData,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                            'Content-Type': 'multipart/form-data',
-                        },
-                    }
-                );
-
+                await axios.post('/Messages/SendMessage', formData, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
             }
 
-            // After sending, update the referral count and mark connections as referred
+            // Update referral count & referred connections
             const newReferralCount = referralCount + selectedConnections.length;
             setReferralCount(newReferralCount);
             localStorage.setItem(`referralCount-${currentUser.id}`, newReferralCount.toString());
 
-            const updatedReferred = [...referredConnections, ...selectedConnections.map(user => user.id)];
+            const updatedReferred = [
+                ...referredConnections,
+                ...selectedConnections.map((user) => user.id),
+            ];
             setReferredConnections(updatedReferred);
-            localStorage.setItem(`referredConnections-${currentUser.id}`, JSON.stringify(updatedReferred));
+            localStorage.setItem(
+                `referredConnections-${currentUser.id}`,
+                JSON.stringify(updatedReferred)
+            );
 
-            // Clear selected connections and remove from localStorage
+            // Clear selected
             setSelectedConnections([]);
             localStorage.removeItem(`referralsSelected-${currentUser.id}`);
 
@@ -179,7 +183,10 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
                 <button className="refer-close-button" onClick={onClose}>
                     &times;
                 </button>
-                <p className="refer-title">Refer {currentUser?.firstName} {currentUser?.lastName}</p>
+                <p className="refer-title">
+                    Refer {currentUser?.firstName} {currentUser?.lastName}
+                </p>
+
                 <input
                     type="text"
                     placeholder="Search your connections"
@@ -187,6 +194,24 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
                     onChange={handleSearchChange}
                     className="refer-search-input dark:bg-gray-100"
                 />
+
+                {/* Show selected connections (similar to AddMembersModal) */}
+                {selectedConnections.length > 0 && (
+                    <div className="refer-selected-users">
+                        {selectedConnections.map((user) => (
+                            <div key={user.id} className="refer-selected-user">
+                                <img
+                                    src={user.profilePictureUrl}
+                                    alt={user.firstName}
+                                    className="refer-selected-avatar"
+                                />
+                                <span className="refer-selected-name">
+                                    {user.firstName} {user.lastName}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                )}
 
                 {/* Referral Counter */}
                 <div className="refer-counter">
@@ -199,30 +224,41 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
                         <ul className="refer-connections-list">
                             {filteredConnections.map((conn) => {
                                 const isReferred = referredConnections.includes(conn.id);
-                                const isSelected = selectedConnections.some(s => s.id === conn.id);
-                                const isDisabled = (referralCount + selectedConnections.length >= 3) && !isSelected;
+                                const isSelected = selectedConnections.some(
+                                    (s) => s.id === conn.id
+                                );
+                                const isDisabled =
+                                    referralCount + selectedConnections.length >= 3 &&
+                                    !isSelected;
 
                                 return (
                                     <li
                                         key={conn.id}
-                                        onClick={() => !isReferred && !isDisabled && toggleSelectConnection(conn)}
-                                        className={`refer-connection-item hover:bg-emerald-100 bg-slate-100 ${isSelected ? 'selected' : ''} ${isReferred ? 'referred' : ''} ${isDisabled ? 'disabled' : ''}`}
+                                        onClick={() =>
+                                            !isReferred && !isDisabled && toggleSelectConnection(conn)
+                                        }
+                                        className={`refer-connection-item dark:hover:bg-black/30 dark:bg-black/50 hover:bg-emerald-100 bg-slate-100 
+                                            ${isSelected ? 'selected' : ''} 
+                                            ${isReferred ? 'referred' : ''} 
+                                            ${isDisabled ? 'disabled' : ''}`}
                                     >
                                         <img
                                             src={conn.profilePictureUrl}
                                             alt={`${conn.firstName} ${conn.lastName}`}
                                             className="refer-avatar"
                                         />
-                                        <span className="refer-connection-name">{conn.firstName} {conn.lastName}</span>
+                                        <span className=" refer-connection-name">
+                                            {conn.firstName} {conn.lastName}
+                                        </span>
                                     </li>
-                                )
+                                );
                             })}
                         </ul>
                     ) : (
-                        <p className="font-semibold text-center text-base text-gray-500 dark:text-gray-300">No connections to refer to</p>
-                        )}
-
-
+                        <p className="font-semibold text-center text-base text-gray-500 dark:text-gray-300">
+                            No connections to refer to
+                        </p>
+                    )}
                 </div>
 
                 {/* Modal Buttons */}
@@ -234,17 +270,13 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
                     >
                         Send
                     </button>
-                    <button
-                        className="refer-cancel-button"
-                        onClick={onClose}
-                    >
+                    <button className="refer-cancel-button" onClick={onClose}>
                         Cancel
                     </button>
                 </div>
             </div>
         </div>
     );
-
 };
 
 export default ReferModal;

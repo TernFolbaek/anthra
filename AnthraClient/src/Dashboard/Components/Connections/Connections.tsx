@@ -516,7 +516,7 @@ const Connections: React.FC = () => {
             <>
                 {screenWidth < 768 && (
                     <div className="connections-toggle-slider" style={{ width: '200px' }}>
-                        <div className="slider-background">
+                        <div className="slider-background bg-emerald-100 dark:bg-emerald-200">
                             <button
                                 onClick={() => setSelectedTab('connections')}
                                 className={`z-10 flex justify-center toggle-button ${selectedTab === 'connections' ? 'active' : ''}`}
@@ -540,7 +540,7 @@ const Connections: React.FC = () => {
                     ) : (
                         <div className="connections-card-container">
                             <p className="dark:text-white pl-2 pt-1 pb-1 text-xl mt-2 font-bold">Requests</p>
-                            <div className="slide-toggle dark:text-white bg-emerald-500">
+                            <div className="slide-toggle dark:text-white bg-emerald-100 dark:bg-emerald-200">
                                 <input
                                     type="checkbox"
                                     id="toggle"
@@ -554,7 +554,7 @@ const Connections: React.FC = () => {
                                 <label htmlFor="toggle">
                                     <span className="toggle-option personal">Personal</span>
                                     <span className="toggle-option groups">Groups</span>
-                                    <span className="toggle-slider dark:bg-emerald-400"></span>
+                                    <span className="toggle-slider bg-emerald-400 dark:bg-emerald-400"></span>
                                 </label>
                             </div>
                             {selectedRequestTab === 'personal'

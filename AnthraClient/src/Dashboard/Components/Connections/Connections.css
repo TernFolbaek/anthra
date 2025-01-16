@@ -229,16 +229,6 @@ body.dark .requests-tabs button {
     color: #fff;
 }
 
-.connections-tabs button.active,
-.requests-tabs button.active {
-    color: #85bff8;
-}
-
-.connections-tabs button:hover,
-.requests-tabs button:hover {
-    color: #85bff8;
-}
-
 body.dark .connections-tabs button:hover,
 body.dark .requests-tabs button:hover {
     background-color: #3a3a3a;
@@ -293,11 +283,8 @@ body.dark .requests-user-card:hover {
 }
 
 .requests-skip-button {
-    background-color: darkgray;
     border-radius: 5px;
-    border: 2px solid #858383;
     padding: 4px 6px;
-    color: white;
     font-weight: 600;
     font-size: 14px;
 }
@@ -370,10 +357,6 @@ body.dark .requests-user-card:hover {
     opacity: 0.8;
 }
 
-body.dark .requests-connect-button {
-    background-color: #007bff;
-    border: 2px solid #0056b3;
-}
 
 body.dark .requests-skip-button {
     background-color: #555;
@@ -417,16 +400,8 @@ body.dark .requests-group-name {
     display: flex;
     width: 100%;
     position: relative;
-    background-color:  rgba(180, 209, 255, 0.3);
 }
 
-body.dark .slider-background {
-    background-color: rgb(133, 191, 248);
-}
-
-body.dark .connections-slider {
-    background-color: rgb(81, 163, 244);
-}
 
 .toggle-button {
     flex: 1;
@@ -448,7 +423,11 @@ body.dark .connections-slider {
     width: 50%;
     border-radius: 25px;
     transition: transform 0.3s ease;
-    background-color: rgba(180, 209, 255, 0.6);
+    background-color: rgb(109, 221, 167);
+}
+
+body.dark .connections-slider {
+    background-color: #0dba85;
 }
 
 .connections-slider.left {

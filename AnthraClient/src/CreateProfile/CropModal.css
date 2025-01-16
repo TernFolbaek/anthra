@@ -44,6 +44,7 @@
     width: 80%;
     margin-bottom: 1rem;
     border: none;
+    color: red;
 }
 
 .buttons {
@@ -67,7 +68,7 @@
 }
 
 .crop-button {
-    background-color: #007bff;
+    background-color: #7de397;
     color: #fff;
 }
 
@@ -76,5 +77,5 @@
 }
 
 .crop-button:hover {
-    background-color: #0056b3;
+    background-color: #99edac;
 }

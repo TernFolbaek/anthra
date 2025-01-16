@@ -428,7 +428,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
                                     ) : (
                                         member.userId !== userId && (
                                             <button
-                                                className="connection-button"
+                                                className="connection-button text-emerald-400"
                                                 onClick={(e) => {
                                                     e.stopPropagation();
                                                     handleConnect(member.userId);
@@ -506,7 +506,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
                         <button className="modal-close-button" onClick={closeMembersModal}>
                             &times;
                         </button>
-                        <h2 className="modal-title">Group Members</h2>
+                        <h2 className="modal-title font-semibold">Group Members</h2>
                         <ul className="modal-members-list">
                             {members.map((member) => (
                                 <li

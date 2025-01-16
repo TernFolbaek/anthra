@@ -218,9 +218,9 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
                     Referrals Sent: {referralCount}/3
                 </div>
 
-                {/* Scrollable Connections Container */}
-                <div className="refer-connections-container">
+
                     {filteredConnections.length > 0 ? (
+                        <div className="refer-connections-container">
                         <ul className="refer-connections-list">
                             {filteredConnections.map((conn) => {
                                 const isReferred = referredConnections.includes(conn.id);
@@ -254,12 +254,12 @@ const ReferModal: React.FC<ReferModalProps> = ({ currentUser, onClose }) => {
                                 );
                             })}
                         </ul>
-                    ) : (
-                        <p className="font-semibold text-center text-base text-gray-500 dark:text-gray-300">
+                        </div>
+                        ) : (
+                        <p className="font-semibold bg-transparent text-center text-base text-gray-500 dark:text-gray-300">
                             No connections to refer to
                         </p>
                     )}
-                </div>
 
                 {/* Modal Buttons */}
                 <div className="refer-modal-buttons">

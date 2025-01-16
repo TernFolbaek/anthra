@@ -64,7 +64,6 @@ const Home: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
 
     const handleScroll = () => {
         const nav = document.querySelector('.home-navbar');
-        console.log("Scroll detected", window.scrollY); // Log scroll detection
         if (window.scrollY > 0) {
             console.log("here");
             nav?.classList.add('scrolled');

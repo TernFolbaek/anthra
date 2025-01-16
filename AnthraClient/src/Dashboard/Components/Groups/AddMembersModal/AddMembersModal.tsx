@@ -102,7 +102,7 @@ const AddMembersModal: React.FC<AddMembersModalProps> = ({ show, onClose, groupI
                                         alt={user.firstName}
                                         className="add-members-modal-selected-avatar"
                                     />
-                                    <span className="add-members-modal-selected-name">{user.firstName}</span>
+                                    <span className="add-members-modal-selected-name dark:text-white">{user.firstName} {user.lastName}</span>
                                 </div>
                             ))}
                     </div>
@@ -118,7 +118,7 @@ const AddMembersModal: React.FC<AddMembersModalProps> = ({ show, onClose, groupI
                             {connections.map(user => (
                                 <li
                                     key={user.id}
-                                    className={`add-members-modal-member-item ${selectedUserIds.includes(user.id) ? 'selected' : ''}`}
+                                    className={`add-members-modal-member-item dark:hover:bg-black/30 dark:bg-black/20 hover:bg-emerald-100 bg-slate-100  ${selectedUserIds.includes(user.id) ? 'selected' : ''}`}
                                     onClick={() => toggleUserSelection(user.id)}
                                 >
                                     <img
@@ -127,7 +127,7 @@ const AddMembersModal: React.FC<AddMembersModalProps> = ({ show, onClose, groupI
                                         className="add-members-modal-member-avatar"
                                     />
                                     <div className="flex flex-col">
-                                        <p className="text-sm font-semibold">{user.firstName} {user.lastName}</p>
+                                        <p className="text-sm dark:text-white font-semibold">{user.firstName} {user.lastName}</p>
                                         <p className="text-gray-500 text-xs font-light">{user.institution}</p>
                                     </div>
                                     <input
@@ -144,7 +144,7 @@ const AddMembersModal: React.FC<AddMembersModalProps> = ({ show, onClose, groupI
                 </div>
                 {connections.length > 0 && (
                     <button
-                        className="text-sm add-members-modal-add-button"
+                        className="text-sm bg-emerald-400 text-white transform hover:scale-105 add-members-modal-add-button"
                         onClick={handleAddMembers}
                         disabled={selectedUserIds.length === 0}
                     >

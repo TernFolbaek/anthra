@@ -402,14 +402,14 @@ const GroupExplorePage: React.FC = () => {
                                             <li
                                                 onClick={() => handleUserClick(member.userId)}
                                                 key={member.userId}
-                                                className="group-explore-member-item hover:cursor-pointer bg-emerald-50 hover:bg-emerald-100  border-emerald-200 dark:border-emerald-600 border dark:hover:bg-gray-800/50 dark:bg-gray-700/50 "
+                                                className="group-explore-member-item hover:cursor-pointer bg-emerald-100 hover:bg-emerald-100 dark:bg-black/30 dark:hover:bg-black/10"
                                             >
                                                 <img
                                                     className="group-explore-member-avatar"
                                                     src={`${member.profilePictureUrl}`}
                                                     alt={`${member.firstName} ${member.lastName}`}
                                                 />
-                                                <span className="font-semibold dark:text-white">
+                                                <span className="font-semibold dark:text-gray-200">
                                                     {member.firstName} {member.lastName}
                                                 </span>
                                             </li>

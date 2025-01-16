@@ -201,10 +201,10 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                 {/* GROUP NAME */}
                 <div className="input-group mt-2">
                     <div className="label-and-counter">
-                        <p className="font-bold dark:text-emerald-400 text-sm">
+                        <p className="font-bold dark:text-white text-sm">
                             Group Name
                             <span className="dark:text-white required-asterisk">*</span> <span
-                            className="font-medium text-xs"> min. 4 chars, max. 15.</span>
+                            className="font-medium text-xs dark:text-emerald-400"> min. 4 chars, max. 15.</span>
 
                         </p>
                         <div className="create-group-char-counter">
@@ -235,10 +235,10 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                 {/* DESCRIPTION */}
                 <div className="input-group">
                     <div className="label-and-counter">
-                        <p className="font-bold text-sm dark:text-emerald-400">
+                        <p className="font-bold text-sm dark:text-white">
                             Description
                             <span className="dark:text-white required-asterisk">*</span>
-                            <span className="font-medium text-xs"> min. 80 chars, max. 150.</span>
+                            <span className="font-medium text-xs dark:text-emerald-400"> min. 80 chars, max. 150.</span>
                         </p>
                         <div className="create-group-char-counter">
                             {groupDescription.length}/150
@@ -264,10 +264,10 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                 {/* GROUP MEMBER DESIRE */}
                 <div className="input-group">
                     <div className="label-and-counter">
-                        <p className="font-bold text-sm dark:text-emerald-400 ">
+                        <p className="font-bold text-sm dark:text-white ">
                             Who are you looking for
                             <span className="dark:text-white required-asterisk">*</span>
-                            <span className="font-medium text-xs"> min. 80 chars, max. 150.</span>
+                            <span className="font-medium text-xs dark:text-emerald-400"> min. 80 chars, max. 150.</span>
                         </p>
                         <div className="create-group-char-counter">
                             {groupMemberDesire.length}/150
@@ -292,7 +292,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
 
                 {/* GROUP PURPOSE */}
                 <div className="input-group">
-                    <p className="font-bold text-sm dark:text-emerald-400 ">
+                    <p className="font-bold text-sm dark:text-white ">
                         Group Purpose
                         <span className="dark:text-white required-asterisk">*</span> (Select exactly one)
                     </p>
@@ -311,7 +311,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                             {groupPurposes.map((purpose) => (
                                 <div
                                     key={purpose.value}
-                                    className={`bg-sky-100 dark:text-gray-700 dark:bg-emerald-300 dark:hover:bg-emerald-400 group-purpose-tag ${
+                                    className={`bg-sky-100 dark:text-white dark:bg-emerald-500 dark:hover:bg-emerald-400 group-purpose-tag ${
                                         selectedPurpose === purpose.value ? 'selected' : ''
                                     }`}
                                     onClick={() => handlePurposeSelect(purpose.value)}
@@ -334,7 +334,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                 </div>
 
                 {/* SELECT USERS */}
-                <h3 className="font-bold text-sm mt-3 dark:text-emerald-400 ">
+                <h3 className="font-bold text-sm mt-3 dark:text-white ">
                     Select Users to Invite
                     <span className="dark:text-white required-asterisk">*</span>
                 </h3>

@@ -220,7 +220,7 @@ const MessageConnectionProfile: React.FC<Props> = ({ userId }) => {
                             {profileData.statuses.map((st, i) => (
                                 <p
                                     key={i}
-                                    className="status-tag-explore mr-1"
+                                    className="status-tag-explore text-white text-center bg-emerald-400 mr-1"
                                 >
                                     {st}
                                 </p>

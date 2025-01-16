@@ -461,20 +461,7 @@ body.dark .attachment-filename {
 .send-icon {
   font-size: 1rem;
   cursor: pointer;
-  color: #007bff;
-}
-
-.send-icon:hover {
-  color: #0056b3;
-}
-
-/* Dark mode styles */
-body.dark .send-icon {
-  color: #85bff8;
-}
-
-body.dark .send-icon:hover {
-  color: #439ef6;
+  color: #99edac;
 }
 
 .image-preview-container {

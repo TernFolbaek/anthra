@@ -35,14 +35,21 @@ const CreateProfile: React.FC<CreateProfileProps> = ({
     const isMobile = windowWidth <= 480;
 
     useEffect(() => {
-        // On mount: if no step is in the URL, default to step-one
-        if (!location.pathname.includes('step-one') &&
-            !location.pathname.includes('step-two'))
-        {
-            // Use replace: true so we don't add to the history stack
+        if (
+            !location.pathname.includes('step-one') &&
+            !location.pathname.includes('step-two')
+        ) {
             navigate('step-one', { replace: true });
         }
     }, [location, navigate]);
+
+    useEffect(() => {
+        if (location.pathname.includes('step-two')) {
+            setStep(2);
+        } else {
+            setStep(1);
+        }
+    }, [location.pathname]);
 
     const handleNext = () => {
         if (step === 1) {
@@ -52,7 +59,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({
             }
             setError(null);
             setStep(2);
-            navigate('step-two'); // you can do replace here too if desired
+            navigate('step-two');
         }
     };
 
@@ -70,20 +77,23 @@ const CreateProfile: React.FC<CreateProfileProps> = ({
         <div className="create-profile-page">
             {!isMobile && (
                 <button
-                    className="bg-slate-200 rounded-md py-2 px-3 absolute top-5 left-5  border-0 cursor-pointer text-base font-semibold"
+                    className="bg-slate-200 rounded-md py-2 px-3 absolute top-5 left-5 border-0 cursor-pointer text-base font-semibold"
                     onClick={onBackClick}
                 >
                     Home
                 </button>
-
             )}
+
             <div className="progress-bar">
-                <div className="progress-bar-fill" style={{width: `${progressPercentage}%`}}></div>
+                <div
+                    className="progress-bar-fill"
+                    style={{ width: `${progressPercentage}%` }}
+                ></div>
             </div>
+
             <div className="create-profile-container">
-                {!isMobile && (
-                    <h2>Create Your Profile</h2>
-                )}
+                {!isMobile && <h2>Create Your Profile</h2>}
+
                 {message && <p className="success-message">{message}</p>}
                 {error && <p className="error-message">{error}</p>}
 
@@ -114,7 +124,10 @@ const CreateProfile: React.FC<CreateProfileProps> = ({
                                     setProfilePictureFile={setProfilePictureFile}
                                 />
                                 <div className="create-profile-button-container">
-                                    <button type="submit" className="create-profile-next-button">
+                                    <button
+                                        type="submit"
+                                        className="create-profile-next-button border-2 border-emerald-400 transform hover:scale-105 text-emerald-400"
+                                    >
                                         Next
                                     </button>
                                 </div>

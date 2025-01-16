@@ -24,7 +24,7 @@
 
 .progress-bar-fill {
     height: 100%;
-    background-color: #007bff;
+    background-color: #99edac;
     transition: width 0.3s ease-in-out;
 }
 
@@ -85,9 +85,6 @@
 
 .create-profile-back-button,
 .create-profile-next-button {
-    background-color: transparent;
-    border: 2px solid #007bff;
-    color: #007bff;
     padding: 0.4rem;
     cursor: pointer;
     font-weight: 600;
@@ -95,11 +92,6 @@
     border-radius: 8px;
 }
 
-.create-profile-back-button:hover,
-.create-profile-next-button:hover {
-    background-color: #007bff;
-    color: #fff;
-}
 
 /* Autocomplete Input with Label */
 .autocomplete-input-with-label {
@@ -210,7 +202,7 @@
 }
 
 .profile-picture-picker:hover {
-    border-color: #007bff;
+    border-color: #99edac;
     cursor: pointer;
 }
 
@@ -261,7 +253,6 @@
 }
 
 .course-add-button {
-    background-color: #2c91f4;
     flex: 1;
     color: #fff;
     border: none;
@@ -271,9 +262,6 @@
     transition: transform 0.8s;
 }
 
-.course-add-button:hover {
-    background-color: #036dd5;
-}
 
 /* Suggestions List */
 .suggestions-list {
@@ -362,7 +350,7 @@
 
 .external-link-icon {
     margin-left: 5px;
-    color: #2c91f4;
+    color: #99edac;
 }
 
 .remove-course-button {
@@ -387,8 +375,7 @@
 
 .status-tag {
     font-weight: 600;
-    background-color: rgba(187, 211, 243, 0.4);
-    color: #2c91f4;
+    color: white;
     padding: 0.2rem 0.3rem;
     border-radius: 5px;
     font-size: 0.85rem;

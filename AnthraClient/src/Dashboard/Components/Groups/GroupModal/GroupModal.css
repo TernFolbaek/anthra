@@ -119,13 +119,13 @@ body.dark .group-name-input,
 }
 
 .group-purpose-tag.selected{
-    background-color: #439ef6;
-    color: white;
+    background-color: #99edac;
+    color: black;
 }
 
 body.dark .group-purpose-tag.selected {
-    border: 2px solid white;
-    background-color: transparent;
+    background-color: #99edac;
+    color: black;
 }
 
 .group-purpose-tag:hover {

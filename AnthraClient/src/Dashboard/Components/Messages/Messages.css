@@ -507,7 +507,6 @@ body.dark .image-preview-container {
 
 .report-popup-content {
   background-color: #ECFDF5; /* Light emerald background */
-  border: 2px solid #10B981; /* Emerald border */
   border-radius: 8px;
   width: 90%;
   max-width: 480px;

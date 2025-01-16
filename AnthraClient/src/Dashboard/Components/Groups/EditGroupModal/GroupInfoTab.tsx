@@ -87,11 +87,11 @@ const GroupInfoTab: React.FC<GroupInfoTabProps> = ({
                         onChange={(e) => setGroupName(e.target.value)}
                         onBlur={() => setIsEditingName(false)}
                         autoFocus
-                        className="w-full p-1 bg-white border border-gray-300 rounded"
+                        className="w-full text-xs p-1 bg-white border border-gray-300 rounded"
                     />
                 ) : (
                     <div className="flex justify-between">
-                        <p className="w-full" onClick={() => setIsEditingName(true)}>{groupName}</p>
+                        <p className="w-full text-xs" onClick={() => setIsEditingName(true)}>{groupName}</p>
                     </div>
                 )}
             </div>
@@ -107,12 +107,12 @@ const GroupInfoTab: React.FC<GroupInfoTabProps> = ({
                         onChange={(e) => setGroupDescription(e.target.value)}
                         onBlur={() => setIsEditingDescription(false)}
                         autoFocus
-                        className="resize-none w-full p-1 bg-white border border-gray-300 rounded"
+                        className="resize-none text-xs w-full p-1 bg-white border border-gray-300 rounded"
                         rows={3}
                     />
                 ) : (
                     <div className="flex justify-between">
-                        <p className="w-full" onClick={() => setIsEditingDescription(true)}>{groupDescription}</p>
+                        <p className="w-full text-xs" onClick={() => setIsEditingDescription(true)}>{groupDescription}</p>
                     </div>
                 )}
             </div>
@@ -128,12 +128,12 @@ const GroupInfoTab: React.FC<GroupInfoTabProps> = ({
                         onChange={(e) => setGroupMembersDesired(e.target.value)}
                         onBlur={() => setIsEditingGroupMembersDesired(false)}
                         autoFocus
-                        className="resize-none w-full p-1 bg-white border border-gray-300 rounded"
+                        className="resize-none  text-xs w-full p-1 bg-white border border-gray-300 rounded"
                         rows={3}
                     />
                 ) : (
                     <div className="flex justify-between">
-                        <p className="w-full" onClick={() => setIsEditingGroupMembersDesired(true)}>{groupMembersDesired}</p>
+                        <p className="w-full text-xs" onClick={() => setIsEditingGroupMembersDesired(true)}>{groupMembersDesired}</p>
                     </div>
                 )}
             </div>
@@ -160,7 +160,7 @@ const GroupInfoTab: React.FC<GroupInfoTabProps> = ({
                         {groupPurposes.map((purpose) => (
                             <div
                                 key={purpose.value}
-                                className={`group-purpose-tag ${selectedPurpose === purpose.value ? 'selected' : ''}`}
+                                className={`group-purpose-tag bg-emerald-400 text-white ${selectedPurpose === purpose.value ? 'selected' : ''}`}
                                 onClick={() => handlePurposeSelect(purpose.value)}
                             >
                                 {purpose.icon}
@@ -184,7 +184,7 @@ const GroupInfoTab: React.FC<GroupInfoTabProps> = ({
             {/* Buttons */}
             <div className="edit-group-buttons flex gap-4 mt-6">
                 <button
-                    className="bg-sky-100 text-emerald-400 font-semibold hover:bg-sky-50 text-sm rounded-md px-4 py-2"
+                    className="bg-emerald-100  text-emerald-500 font-semibold hover:bg-emerald-50 text-sm rounded-md px-4 py-2"
                     onClick={handleSaveChanges}
                     disabled={!selectedPurpose}
                 >

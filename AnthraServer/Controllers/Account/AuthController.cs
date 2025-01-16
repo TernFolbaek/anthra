@@ -157,7 +157,7 @@ private string MapIdentityErrorCodeToMessage(string errorCode)
         {
             var apiKey = _configuration["SendGrid:ApiKey"];
             var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("anthradk@gmail.com", "Anthra");
+            var from = new EmailAddress("admin@anthra.dk", "Anthra");
             var to = new EmailAddress(email);
             var subject = "Email Verification Code";
             var plainTextContent = $"Your email verification code is: {verificationCode}";
@@ -358,8 +358,8 @@ public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordViewMod
         }
 
         var client = new SendGridClient(apiKey);
-        var fromEmail = "anthradk@gmail.com";
-        var from = new EmailAddress(fromEmail, "anthradk@gmail.com");
+        var fromEmail = "admin@anthra.dk";
+        var from = new EmailAddress(fromEmail, "admin@anthra.dk");
         var to = new EmailAddress(model.Email);
         var subject = "Password Reset Code";
         var plainTextContent = $"Your password reset code is: {resetCode}";

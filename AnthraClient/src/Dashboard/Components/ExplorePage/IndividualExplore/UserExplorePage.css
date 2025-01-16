@@ -86,7 +86,7 @@ body.dark .no-more-users-or-groups {
     width: 160px;
     height: 160px;
     object-fit: cover;
-    border-radius: 10%;
+    border-radius: 50%;
     flex-shrink: 0;
     margin: 10px 10px 10px 0;
 }
@@ -308,7 +308,6 @@ body.dark .user-explore-no-more {
     .page-indicators {
         display: flex;
         gap: 10px;
-        margin-bottom: 15px;
     }
 
     .indicator {

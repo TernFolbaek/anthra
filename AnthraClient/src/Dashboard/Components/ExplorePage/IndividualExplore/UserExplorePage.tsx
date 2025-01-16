@@ -270,7 +270,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({onSettingsClick}) => {
                     ) : (
                         <div className="flex flex-col">
                             <div className="explore-user-card-content">
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-2 mb-10">
                                     <img
                                         className="explore-user-card-img"
                                         src={`${currentUser.profilePictureUrl}`}
@@ -285,7 +285,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({onSettingsClick}) => {
                                 </div>
                                 <div className="user-info">
                                     <div className="flex gap-5">
-                                        <div className="flex flex-col flex-1">
+                                        <div className="flex flex-col flex-1 gap-4">
                                             <div
                                                 className="flex px-5 py-2 gap-5 dark:bg-emerald-500/10 bg-emerald-100  w-fit rounded-xl backdrop-blur-sm  dark:border-gray-600 items-center">
                                                 <div className="flex flex-col">

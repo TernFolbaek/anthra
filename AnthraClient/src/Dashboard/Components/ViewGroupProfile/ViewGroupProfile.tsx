@@ -117,7 +117,7 @@ const ViewGroupProfile: React.FC<ViewGroupProfileProps> = ({ groupId, onClose })
 
                     {/* Group Members */}
                     <div className="viewgroupprofile-members-header">
-                        <h4 className="viewgroupprofile-section-title">Group Members</h4>
+                        <h4 className="viewgroupprofile-section-title font">Group Members</h4>
                         <span className="viewgroupprofile-members-count">
                             ({groupProfile.members.length})
                         </span>

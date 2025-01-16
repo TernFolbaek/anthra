@@ -564,7 +564,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                         <button
                             type="button"
                             onClick={handleAddCourse}
-                            className="course-add-button"
+                            className="course-add-button bg-emerald-400 hover:bg-emerald-300"
                             disabled={courses.length >= 4}
                         >
                             <FaPlusCircle />
@@ -664,7 +664,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                         <button
                             type="button"
                             onClick={handleAddSubject}
-                            className="course-add-button"
+                            className="course-add-button bg-emerald-400 hover:bg-emerald-300"
                             disabled={subjects.length >= 5}
                         >
                             <FaPlusCircle />
@@ -712,7 +712,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                     {statuses.map((st, i) => (
                         <span
                             key={i}
-                            className={`status-tag ${selectedStatuses.includes(st) ? 'status-tag-selected' : ''}`}
+                            className={`status-tag ${selectedStatuses.includes(st) ? 'status-tag-selected bg-emerald-500' : 'bg-emerald-300'}`}
                             onClick={() => handleStatusSelect(st)}
                         >
                             {st}
@@ -724,14 +724,14 @@ const StepTwo: React.FC<StepTwoProps> = ({
             <div className="create-profile-button-container">
                 <button
                     type="button"
-                    className="create-profile-back-button"
+                    className="create-profile-back-button text-white transform hover:scale-105 bg-emerald-400"
                     onClick={handleBack}
                 >
                     Back
                 </button>
                 <button
                     type="submit"
-                    className="create-profile-next-button"
+                    className="create-profile-next-button text-white transform hover:scale-105 bg-emerald-400"
                 >
                     Submit
                 </button>

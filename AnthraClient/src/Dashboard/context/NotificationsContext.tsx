@@ -27,6 +27,7 @@ interface NotificationContextProps {
     markAsRead: (notificationId: number) => Promise<void>;
     markGroupNotificationsAsRead: (groupId: number) => Promise<void>;
     markAllAsRead: () => Promise<void>;
+    removeNotificationsBySenderId: (senderId: string) => void;
 }
 
 export const NotificationContext = createContext<NotificationContextProps | undefined>(
@@ -43,6 +44,10 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
     const connectionRef = useRef<signalR.HubConnection | null>(null);
     const [isConnected, setIsConnected] = useState<boolean>(false);
     const isConnectionSetup = useRef<boolean>(false); // Ref to track if connection setup is done
+
+    const removeNotificationsBySenderId = React.useCallback((senderId: string) => {
+        setNotifications((prev) => prev.filter((n) => n.senderId !== senderId));
+    }, []);
 
     const fetchNotifications = useCallback(async () => {
         try {
@@ -214,6 +219,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
                 markAsRead,
                 markGroupNotificationsAsRead,
                 markAllAsRead,
+                removeNotificationsBySenderId,
             }}
         >
             {children}

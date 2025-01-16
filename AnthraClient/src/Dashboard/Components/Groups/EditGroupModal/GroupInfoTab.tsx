@@ -184,7 +184,7 @@ const GroupInfoTab: React.FC<GroupInfoTabProps> = ({
             {/* Buttons */}
             <div className="edit-group-buttons flex gap-4 mt-6">
                 <button
-                    className="bg-sky-100 text-blue-500 font-semibold hover:bg-sky-50 text-sm rounded-md px-4 py-2"
+                    className="bg-sky-100 text-emerald-400 font-semibold hover:bg-sky-50 text-sm rounded-md px-4 py-2"
                     onClick={handleSaveChanges}
                     disabled={!selectedPurpose}
                 >

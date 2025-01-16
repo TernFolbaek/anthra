@@ -21,6 +21,8 @@ const DashboardContent: React.FC = () => {
     const location = useLocation();
     const windowWidth = useWindowWidth();
     const isMobile = windowWidth < 480;
+    const isTablet = windowWidth < 768;
+
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
     // Check if the path matches "/messages/:userId" or "/groups/:groupId"
@@ -28,7 +30,7 @@ const DashboardContent: React.FC = () => {
     const isGroupSpecificPage = /^\/dashboard\/groups\/[^/]+$/.test(location.pathname);
 
     // If on a specific user/group page and on mobile, hide the footer
-    const shouldHideFooter = isMobile && (isUserSpecificMessage || isGroupSpecificPage);
+    const shouldHideFooter = isTablet && (isUserSpecificMessage || isGroupSpecificPage);
 
     // Function to toggle Settings
     const toggleSettings = () => {

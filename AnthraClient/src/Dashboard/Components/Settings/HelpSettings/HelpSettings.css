@@ -77,7 +77,6 @@ body.dark .profile-settings-save-button:hover {
     font-weight: 700;
     font-size: 0.8rem;
     cursor: pointer;
-    text-decoration: underline;
     color: gray;
 }
 

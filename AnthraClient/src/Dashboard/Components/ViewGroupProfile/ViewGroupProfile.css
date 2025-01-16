@@ -137,7 +137,6 @@ body.dark #viewgroupprofile .viewgroupprofile-members-count {
     max-height: calc((2.8125rem + 0.9375rem) * 5); /* Height of member item plus margin * 5 */
     overflow-y: auto;
     margin-top: 0.625rem;
-    padding-right: 0.5rem; /* To prevent content hiding behind scrollbar */
     scrollbar-color: #b8b6b6 transparent;
 }
 

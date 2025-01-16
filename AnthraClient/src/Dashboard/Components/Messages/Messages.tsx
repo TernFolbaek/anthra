@@ -6,7 +6,7 @@ import axios from 'axios';
 import MessageConnectionProfile from './MessageConnectionProfile/MessageConnectionProfile';
 import {
     FaEllipsisV, FaArrowLeft, FaUserMinus, FaInfo,
-    FaFilePdf, FaFileWord, FaFileExcel, FaFileAlt
+    FaFilePdf, FaFileWord, FaFileExcel, FaFileAlt, FaFlag
 } from 'react-icons/fa';
 import MessageInput from "./MessageInput";
 import ViewGroupProfile from "../ViewGroupProfile/ViewGroupProfile";
@@ -14,6 +14,12 @@ import GroupInvitationMessage from "./GroupInvitationMessage";
 import ReferralCardMessage from "./ReferralCardMessage";
 import { Message, InvitationActionType, UserProfile } from '../types/types';
 import {NotificationContext} from "../../context/NotificationsContext";
+
+/**
+ * Telegram Bot Info:
+ *   token:  7954138299:AAGPne8Z1-KpG9LpHCFD9FoEMtXItCOMUPc
+ *   chatId: 7731233891
+ */
 
 interface Attachment {
     id: number;
@@ -73,12 +79,22 @@ const Messages: React.FC = () => {
     const [allMessagesLoaded, setAllMessagesLoaded] = useState(false);
     const [nextTokenValue, setNextTokenValue] = useState<string | null>(null);
     const [firstLoad, setFirstLoad] = useState(true);
+
+    // Notification context
     const notificationContext = useContext(NotificationContext);
     if (!notificationContext) {
         throw new Error("NotificationContext is undefined. Make sure you're inside a NotificationProvider.");
     }
     const { removeNotificationsBySenderId } = notificationContext;
 
+    // For reporting user
+    const [showReportPopup, setShowReportPopup] = useState(false);
+    const [reportDescription, setReportDescription] = useState('');
+    const [reportFiles, setReportFiles] = useState<File[]>([]);
+
+    /**
+     * Resize listeners
+     */
     useEffect(() => {
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 1300);
@@ -88,7 +104,9 @@ const Messages: React.FC = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-
+    /**
+     * Load initial conversation or redirect to first conversation
+     */
     useEffect(() => {
         if (!userId) {
             axios
@@ -157,6 +175,9 @@ const Messages: React.FC = () => {
         fetchContactProfile();
     }, [currentUserId, userId, token, navigate, isMobile]);
 
+    /**
+     * SignalR Connection setup
+     */
     useEffect(() => {
         let isMounted = true;
 
@@ -207,6 +228,9 @@ const Messages: React.FC = () => {
         };
     }, [userId, token, currentUserId]);
 
+    /**
+     * Close dropdown on outside click
+     */
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (showMenu && dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -219,9 +243,9 @@ const Messages: React.FC = () => {
         };
     }, [showMenu]);
 
-    // -------------------------------------------
-    // Connection events (UpdateMessage, ReceiveMessage)
-    // -------------------------------------------
+    /**
+     * Listen for updated messages or new messages
+     */
     useEffect(() => {
         if (connection) {
             connection.on('UpdateMessage', (updatedMessage: Message) => {
@@ -250,10 +274,9 @@ const Messages: React.FC = () => {
         };
     }, [connection]);
 
-    // -------------------------------------------
-    // Infinite scroll / fetch more
-    // -------------------------------------------
-
+    /**
+     * Infinite scroll - load older messages
+     */
     const fetchMoreMessages = async () => {
         setFirstLoad(false);
         if (!currentUserId || !userId) return;
@@ -264,7 +287,6 @@ const Messages: React.FC = () => {
         const scrollHeightBefore = container?.scrollHeight || 0;
 
         try {
-            // Use Axios to build query parameters
             const params: Record<string, string> = {
                 userId: currentUserId,
                 contactId: userId,
@@ -272,7 +294,6 @@ const Messages: React.FC = () => {
             };
             if (nextTokenValue) params.nextToken = nextTokenValue;
 
-            // Axios will prepend the baseURL automatically
             const response = await axios.get<{ messages: Message[]; nextToken: string | null }>(
                 '/Messages/GetChatHistory',
                 {
@@ -324,9 +345,9 @@ const Messages: React.FC = () => {
         };
     }, [isLoadingMore, allMessagesLoaded, nextTokenValue]);
 
-    // -------------------------------------------
-    // Scroll on container resize
-    // -------------------------------------------
+    /**
+     * Scroll whenever container resizes (images, etc.)
+     */
     useEffect(() => {
         const container = messagesContainerRef.current;
         if (!container) return;
@@ -341,16 +362,15 @@ const Messages: React.FC = () => {
         };
     }, []);
 
-    // For rendering completion
     const handleMessageRendered = () => {
         if (firstLoad) {
             messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
         }
     };
 
-    // -------------------------------------------
-    // Group invitation logic
-    // -------------------------------------------
+    /**
+     * Group invitation
+     */
     const handleAcceptInvitation = async (groupId: number, messageId: number) => {
         try {
             const response = await axios.post(
@@ -391,16 +411,16 @@ const Messages: React.FC = () => {
         }
     };
 
-    // -------------------------------------------
-    // Helper: Chat group ID
-    // -------------------------------------------
+    /**
+     * Identify chat group ID
+     */
     const getChatGroupId = (userA: string, userB: string) => {
         return userA < userB ? `${userA}-${userB}` : `${userB}-${userA}`;
     };
 
-    // -------------------------------------------
-    // Show or hide timestamp logic
-    // -------------------------------------------
+    /**
+     * Show or hide timestamps
+     */
     const shouldShowTimestamp = (currentIndex: number): boolean => {
         if (currentIndex === messages.length - 1) {
             return true;
@@ -422,9 +442,9 @@ const Messages: React.FC = () => {
         return false;
     };
 
-    // -------------------------------------------
-    // Menu & profile
-    // -------------------------------------------
+    /**
+     * Dropdown menu & profile toggles
+     */
     const toggleMenu = () => setShowMenu(!showMenu);
     const handleToggleProfileVisibility = () => {
         setShowProfile(p => !p);
@@ -438,7 +458,7 @@ const Messages: React.FC = () => {
                 { userId: currentUserId, connectionId: userId },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-            if(userId){
+            if (userId) {
                 removeNotificationsBySenderId(userId);
             }
             navigate('/dashboard/messages');
@@ -448,9 +468,55 @@ const Messages: React.FC = () => {
         setShowMenu(false);
     };
 
-    // -------------------------------------------
-    // Group profile
-    // -------------------------------------------
+    /**
+     * Reporting a user
+     */
+    const handleReportUser = () => {
+        setShowReportPopup(true);
+        setShowMenu(false);
+    };
+
+    const handleSendReport = async () => {
+        // Extra safety
+        if (!reportDescription.trim()) return;
+
+        try {
+            const formData = new FormData();
+            formData.append('ReportedUserId', userId || '');
+            formData.append('Description', reportDescription);
+
+            reportFiles.forEach((file) => {
+                formData.append('Screenshots', file);
+            });
+
+            // Adjust base URL / path as necessary to match your server
+            await axios.post('/Report/SendReport', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            alert('Your report has been sent successfully. Thank you!');
+            setReportDescription('');
+            setReportFiles([]);
+            setShowReportPopup(false);
+        } catch (error) {
+            console.error('Error sending report: ', error);
+            alert('Failed to send report. Please try again later.');
+        }
+    };
+
+
+    const handleCloseReportPopup = () => {
+        setShowReportPopup(false);
+        setReportDescription('');
+        setReportFiles([]);
+    };
+
+    /**
+     * Group profile
+     */
     const handleUserClick = (groupId: number | null) => {
         setSelectedGroupId(groupId);
     };
@@ -458,9 +524,9 @@ const Messages: React.FC = () => {
         setSelectedGroupId(null);
     };
 
-    // -------------------------------------------
-    // Referral
-    // -------------------------------------------
+    /**
+     * Referral
+     */
     const handleReferralConnect = async (referredUserId: string) => {
         try {
             await axios.post(
@@ -476,9 +542,9 @@ const Messages: React.FC = () => {
         // handle skip if needed
     };
 
-    // -------------------------------------------
-    // Rendering
-    // -------------------------------------------
+    /**
+     * Rendering
+     */
     return (
         <div className="messages-page">
             <div className="message-page-subset">
@@ -494,8 +560,8 @@ const Messages: React.FC = () => {
                                 className="contact-avatar"
                             />
                             <span className="contact-name">
-                {contactProfile.firstName} {contactProfile.lastName}
-              </span>
+                                {contactProfile.firstName} {contactProfile.lastName}
+                            </span>
                         </div>
                         <div className="menu-container" ref={dropdownRef}>
                             <div
@@ -520,6 +586,13 @@ const Messages: React.FC = () => {
                                         >
                                             <FaInfo />
                                             <div>{showProfile ? 'Hide Profile' : 'Show Profile'}</div>
+                                        </button>
+                                        <button
+                                            className="flex gap-2 items-center font-medium text-black dark:text-white text-sm"
+                                            onClick={handleReportUser}
+                                        >
+                                            <FaFlag />
+                                            <div>Report User</div>
                                         </button>
                                     </div>
                                 )}
@@ -579,13 +652,9 @@ const Messages: React.FC = () => {
                                                         isCurrentUser ? 'received' : 'sent'
                                                     } ${isLastMessage ? 'last-message' : ''}`}
                                                 >
-                                                    {/* Render attachments if present */}
                                                     {msg.attachments?.map((attachment) => {
                                                         const ext = getFileExtension(attachment.fileName);
                                                         const isImage = isImageFileName(attachment.fileName);
-
-                                                        // If your server returns a FULL Azure URL, use "attachment.fileUrl" directly.
-                                                        // If your server returns a relative path, you might do `href={'http://localhost:8080/' + attachment.fileUrl}`
                                                         const fileHref = attachment.fileUrl;
 
                                                         return (
@@ -594,7 +663,11 @@ const Messages: React.FC = () => {
                                                                 className="message-attachment"
                                                             >
                                                                 {isImage ? (
-                                                                    <a href={fileHref} target="_blank" rel="noopener noreferrer">
+                                                                    <a
+                                                                        href={fileHref}
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                    >
                                                                         <img
                                                                             src={fileHref}
                                                                             alt={attachment.fileName}
@@ -611,10 +684,10 @@ const Messages: React.FC = () => {
                                                                         <div className="attachment-preview">
                                                                             {getFileIcon(ext)}
                                                                             <span className="attachment-filename">
-                                        {attachment.fileName.length > 10
-                                            ? `${attachment.fileName.substring(0, 10)}...`
-                                            : attachment.fileName}
-                                      </span>
+                                                                                {attachment.fileName.length > 10
+                                                                                    ? `${attachment.fileName.substring(0, 10)}...`
+                                                                                    : attachment.fileName}
+                                                                            </span>
                                                                         </div>
                                                                     </a>
                                                                 )}
@@ -655,8 +728,56 @@ const Messages: React.FC = () => {
             {!isMobile && userId && showProfile && (
                 <MessageConnectionProfile userId={userId} />
             )}
+
+            {/* Report Popup Modal */}
+            {showReportPopup && (
+                <div className="report-popup-overlay" onClick={handleCloseReportPopup}>
+                    <div className="report-popup-content" onClick={(e) => e.stopPropagation()}>
+                        <h2 className="report-popup-title">Report User</h2>
+                        <textarea
+                            className="report-textarea"
+                            rows={4}
+                            value={reportDescription}
+                            onChange={(e) => setReportDescription(e.target.value)}
+                            placeholder="Describe the issue..."
+                        />
+                        <label className="screenshot-label">
+                            Attach Screenshots (optional)
+                            <input
+                                className="report-file-input"
+                                type="file"
+                                multiple
+                                accept="image/*"
+                                onChange={(e) => {
+                                    if(e.target.files){
+                                        setReportFiles(Array.from(e.target.files));
+                                    }
+                                }}
+                            />
+                        </label>
+
+                        <div className="report-btn-group">
+                            <button
+                                className="report-cancel-btn rounded-lg"
+                                onClick={handleCloseReportPopup}
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                className={`bg-emerald-400 text-white font-medium px-3 rounded-lg py-2 ${!reportDescription.trim() ? 'disabled-btn' : ''}`}
+                                onClick={handleSendReport}
+                                disabled={!reportDescription.trim()}
+                            >
+                                Send Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
 
 export default Messages;
+
+

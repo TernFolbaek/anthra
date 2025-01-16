@@ -26,20 +26,20 @@ const EditGroupModal: React.FC<EditGroupModalProps> = ({
 
     return (
         <div className="edit-group-modal-overlay">
-            <div className="edit-group-modal-content">
+            <div className="edit-group-modal-content ">
                 <button className="edit-group-close-button" onClick={onClose}>
                     &times;
                 </button>
 
                 <div className="edit-group-tabs">
                     <button
-                        className={`edit-group-tab ${activeTab === 'info' ? 'active' : ''}`}
+                        className={`text-sm edit-group-tab ${activeTab === 'info' ? 'active' : ''}`}
                         onClick={() => setActiveTab('info')}
                     >
                         Info
                     </button>
                     <button
-                        className={`edit-group-tab ${activeTab === 'members' ? 'active' : ''}`}
+                        className={`text-sm edit-group-tab ${activeTab === 'members' ? 'active' : ''}`}
                         onClick={() => setActiveTab('members')}
                     >
                         Members

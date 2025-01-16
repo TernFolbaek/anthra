@@ -23,6 +23,8 @@
     height: fit-content;
 }
 
+
+
 .edit-group-close-button {
     position: absolute;
     color: darkgray;
@@ -40,7 +42,6 @@
 
 .edit-group-tabs {
     display: flex;
-    border-bottom: 1px solid #ccc;
     margin-bottom: 15px;
     margin-top: 10px;
 }
@@ -50,14 +51,13 @@
     padding: 10px;
     text-align: center;
     cursor: pointer;
-    background-color: #f9f9f9;
     border: none;
     outline: none;
 }
 
 .edit-group-tab.active {
     background-color: #fff;
-    border-bottom: 2px solid #007bff;
+    border-bottom: 2px solid #99edac;
     font-weight: bold;
 }
 
@@ -128,6 +128,7 @@
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
+    object-fit: cover;
 }
 
 .edit-member-action-button-profile{
@@ -145,7 +146,6 @@
     font-weight: 500;
 }
 
-/* Kick Confirmation Modal */
 .kick-confirmation-overlay {
     position: fixed;
     top: 0;
@@ -171,32 +171,16 @@
 }
 
 .kick-confirmation-buttons-continue {
-    font-size: 14px;
-    background-color: rgba(255, 180, 180, 0.5);
     padding: 5px;
     border-radius: 5px;
 }
 
 .kick-confirmation-buttons-cancel {
-    font-size: 14px;
-    background-color: rgba(180, 209, 255, 0.5);
     padding: 5px;
     border-radius: 5px;
     margin-left: 5px;
 }
 
-.kick-confirmation-buttons-cancel:hover,
-.edit-member-action-button-profile:hover{
-    background-color: #85bff8;
-}
-
-.kick-confirmation-buttons-continue:hover,
-.edit-member-action-button-kick:hover{
-    background-color: #f18a8a;
-}
-
-
-/* Responsive Design */
 @media (max-width: 768px) {
     .edit-group-modal-content {
         width: 90%;

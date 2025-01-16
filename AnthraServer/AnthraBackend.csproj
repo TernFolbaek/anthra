@@ -30,12 +30,14 @@
     <Compile Remove="DTO\**" />
     <Compile Remove="Hubs\NotificationsHub\**" />
     <Compile Remove="wwwroot\uploads\**" />
+    <Compile Remove="Controllers\Support\**" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Remove="DTO\**" />
     <EmbeddedResource Remove="Hubs\NotificationsHub\**" />
     <EmbeddedResource Remove="wwwroot\uploads\**" />
+    <EmbeddedResource Remove="Controllers\Support\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,12 +56,14 @@
     <Content Remove="wwwroot\uploads\cf9801be-38d1-41f6-bc24-ec100936d57e.png" />
     <Content Remove="wwwroot\uploads\e6b11497-6323-4ec8-94e9-926a1b94f46a.png" />
     <Content Remove="wwwroot\uploads\**" />
+    <Content Remove="Controllers\Support\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="DTO\**" />
     <None Remove="Hubs\NotificationsHub\**" />
     <None Remove="wwwroot\uploads\**" />
+    <None Remove="Controllers\Support\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -108,7 +112,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Support\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

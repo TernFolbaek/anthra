@@ -48,7 +48,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ onBack, onResetRequeste
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
-                    <button type="submit" className="submit-button">Send Reset Code</button>
+                    <button type="submit" className="text-center text-emerald-400 text-base font-semibold">Send Reset Code</button>
                 </form>
             </div>
         </div>

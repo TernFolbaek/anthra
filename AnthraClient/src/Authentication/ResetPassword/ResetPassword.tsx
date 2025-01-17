@@ -91,7 +91,7 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ onBack, onResetSuccess })
                     />
                     <button
                         type="submit"
-                        className="submit-button"
+                        className="disabled:text-gray-500 text-emerald-400 font-semibold"
                         disabled={!formValid}
                     >
                         Reset Password

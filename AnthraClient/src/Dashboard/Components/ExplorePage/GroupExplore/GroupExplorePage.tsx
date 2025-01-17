@@ -492,7 +492,7 @@ const GroupExplorePage: React.FC = () => {
                                                <p className="font-semibold">
                                             {member.firstName} {member.lastName}
                                         </p>
-                                            <p className="text-xs text-gray-300 font-medium">
+                                            <p className="text-xs dark:text-gray-300 text-gray-500 font-medium">
                                             {member.institution}
                                         </p>
                                         </div>

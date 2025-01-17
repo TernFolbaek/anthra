@@ -256,7 +256,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({onSettingsClick}) => {
                                                     {currentUser.statuses.map((st, i) => (
                                                         <p
                                                             key={i}
-                                                            className="status-tag-explore p-1 dark:bg-emerald-400 bg-emerald-100"
+                                                            className="status-tag-explore text-center p-1 text-white bg-emerald-400"
                                                         >{st}
                                                         </p>
                                                     ))}
@@ -314,7 +314,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({onSettingsClick}) => {
                                                         {currentUser.statuses.map((st, i) => (
                                                             <p
                                                                 key={i}
-                                                                className="status-tag-explore dark:bg-emerald-400 bg-emerald-100"
+                                                                className="status-tag-explore text-center text-white bg-emerald-400"
                                                             >{st}
                                                             </p>
                                                         ))}

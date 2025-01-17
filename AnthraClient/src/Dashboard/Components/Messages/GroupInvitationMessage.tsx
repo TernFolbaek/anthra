@@ -167,7 +167,7 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
                             group:{' '}
                             <span
                                 onClick={() => handleUserClick(msg.groupId)}
-                                className="p-1 bg-emerald-400 dark:text-white underline  rounded-md font-semibold cursor-pointer group-name-clickable"
+                                className="font-bold cursor-pointer underline group-name-clickable"
                             >
                                 {groupInfo.name}
                             </span>
@@ -195,7 +195,7 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
                             invited you to join group:{' '}
                             <span
                                 onClick={() => handleUserClick(msg.groupId)}
-                                className="font-bold cursor-pointer group-name-clickable"
+                                className="font-bold cursor-pointer underline group-name-clickable"
                             >
                                 {groupInfo.name}
                             </span>

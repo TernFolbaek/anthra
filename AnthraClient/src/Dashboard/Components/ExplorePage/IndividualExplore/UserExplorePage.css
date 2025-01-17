@@ -313,13 +313,21 @@ body.dark .user-explore-no-more {
     .indicator {
         width: 150px;
         height: 6px;
-        background-color: rgb(126, 126, 126);
+        background-color: rgb(243,243,243);
         border-radius: 5px;
         transition: background-color 0.3s;
     }
 
     .indicator.active {
         background-color: #acf3bb;
+    }
+
+    body.dark .indicator {
+        background-color: rgb(126, 126, 126);
+    }
+
+    body.dark .indicator.active {
+        background-color: white;
     }
 
     .page-content {

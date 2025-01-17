@@ -479,7 +479,6 @@ const GroupExplorePage: React.FC = () => {
                                     <li
                                         onClick={() => {
                                             handleUserClick(member.userId);
-                                            closeModal();
                                         }}
                                         key={member.userId}
                                         className="modal-member-item"
@@ -489,9 +488,15 @@ const GroupExplorePage: React.FC = () => {
                                             src={`${member.profilePictureUrl}`}
                                             alt={`${member.firstName} ${member.lastName}`}
                                         />
-                                        <span className="font-semibold">
+                                        <div className="flex flex-col items-start">
+                                               <p className="font-semibold">
                                             {member.firstName} {member.lastName}
-                                        </span>
+                                        </p>
+                                            <p className="text-xs text-gray-300 font-medium">
+                                            {member.institution}
+                                        </p>
+                                        </div>
+
                                     </li>
                                 ))}
                             </ul>

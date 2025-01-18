@@ -152,7 +152,7 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
 
     return (
         <div className="invitation-message bg-emerald-100 ">
-            <div className="dark:bg-emerald-200 bg-sky-100 min-w-[150px] rounded-md flex flex-col items-center justify-center" title={msg.content}>
+            <div className="bg-emerald-200  min-w-[150px] rounded-md flex flex-col items-center justify-center" title={msg.content}>
                 {ThemeIcon}
                 <p className="text-xs text-center">
                     Group Theme: <p className="text-black text-sm font-semibold">{msg.content}</p>

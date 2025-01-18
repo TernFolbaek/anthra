@@ -141,9 +141,11 @@ const GroupMessageInput: React.FC<GroupMessageProps> = ({ groupId, showModal }) 
             // It's a doc
             const ext = getFileExtension(selectedFile.name);
             return (
-                <div className="file-preview-container">
-                    {getFileIcon(ext)}
-                    <span>{selectedFile.name}</span>
+                <div className="flex items-center justify-around w-full">
+                    <div className="flex flex-col items-center">
+                        {getFileIcon(ext)}
+                        <span className="text-sm">{selectedFile.name}</span>
+                    </div>
                     <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
                 </div>
             );

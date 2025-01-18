@@ -139,13 +139,13 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
             );
         } else {
             return (
-                <div className="file-preview-container">
-                    {getFileIcon(extension)}
-                    <span className="file-preview-name">
-            {file.name.length > 15
-                ? `${file.name.substring(0, 15)}...`
-                : file.name}
-          </span>
+                <div className="flex items-center p-2 w-full justify-around">
+                    <div className="flex flex-col">
+                        {getFileIcon(extension)}
+                        <span className="file-preview-name">
+                        {file.name.length > 15 ? `${file.name.substring(0, 15)}...` : file.name}
+                    </span>
+                    </div>
                     <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
                 </div>
             );

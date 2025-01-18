@@ -170,7 +170,9 @@ body.dark .group-purpose-tag.selected {
     transition: background-color 0.3s;
 }
 
-
+body.dark .create-group-connection-item {
+        background-color: #474646;
+}
 
 .create-group-connection-item:last-child {
     border-bottom: none;
@@ -186,6 +188,9 @@ body.dark .group-purpose-tag.selected {
     background-color: #ebf3fd;
 }
 
+body.dark .selected-user {
+    background-color: rgba(0, 0, 0, 0.5);
+}
 .select-user-item-avatar {
     width: 30px;
     height: 30px;
@@ -260,11 +265,6 @@ body.dark .error-border {
 body.dark .group-creation-connections-container {
     background-color: #3e3e3e;
     border-color: #555;
-}
-
-
-body.dark .selected-user {
-    background-color: #5a5959;
 }
 
 @media (max-width: 480px) {

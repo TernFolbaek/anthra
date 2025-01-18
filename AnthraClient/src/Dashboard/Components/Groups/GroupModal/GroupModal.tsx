@@ -203,8 +203,8 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                     <div className="label-and-counter">
                         <p className="font-bold dark:text-white text-sm">
                             Group Name
-                            <span className="dark:text-white required-asterisk">*</span> <span
-                            className="font-medium text-xs dark:text-emerald-400"> min. 4 chars, max. 15.</span>
+                             <span
+                            className="font-medium text-xs dark:text-emerald-400"> (min. 4 chars)</span>
 
                         </p>
                         <div className="create-group-char-counter">
@@ -237,8 +237,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                     <div className="label-and-counter">
                         <p className="font-bold text-sm dark:text-white">
                             Description
-                            <span className="dark:text-white required-asterisk">*</span>
-                            <span className="font-medium text-xs dark:text-emerald-400"> min. 80 chars, max. 150.</span>
+                            <span className="font-medium text-xs dark:text-emerald-400"> (min. 80 chars)</span>
                         </p>
                         <div className="create-group-char-counter">
                             {groupDescription.length}/150
@@ -266,8 +265,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                     <div className="label-and-counter">
                         <p className="font-bold text-sm dark:text-white ">
                             Who are you looking for
-                            <span className="dark:text-white required-asterisk">*</span>
-                            <span className="font-medium text-xs dark:text-emerald-400"> min. 80 chars, max. 150.</span>
+                            <span className="font-medium text-xs dark:text-emerald-400"> (min. 80 chars)</span>
                         </p>
                         <div className="create-group-char-counter">
                             {groupMemberDesire.length}/150
@@ -294,7 +292,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                 <div className="input-group">
                     <p className="font-bold text-sm dark:text-white ">
                         Group Purpose
-                        <span className="dark:text-white required-asterisk">*</span> (Select exactly one)
+                        (Select exactly one)
                     </p>
                     <div className="flex w-full items-center">
                         <div className="purpose-icon-container mr-3">
@@ -336,7 +334,6 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                 {/* SELECT USERS */}
                 <h3 className="font-bold text-sm mt-3 dark:text-white ">
                     Select Users to Invite
-                    <span className="dark:text-white required-asterisk">*</span>
                 </h3>
                 <input
                     type="text"
@@ -352,11 +349,10 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                             <li
                                 key={user.id}
                                 className={`
-                                    dark:bg-gray-700/50
-                                    dark:hover:bg-gray-600/50
                                     create-group-connection-item
+                                    hover:bg-emerald-50
+                                    font-medium
                                     cursor-pointer
-                                    mb-1
                                     w-full
                                     ${selectedUserIds.includes(user.id) ? 'selected-user' : ''}
                                 `}

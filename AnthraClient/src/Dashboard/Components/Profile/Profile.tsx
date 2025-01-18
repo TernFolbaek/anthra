@@ -896,7 +896,7 @@ const Profile: React.FC = () => {
                                                 type="text"
                                                 value={subject}
                                                 onChange={(e) => handleSubjectChange(index, e.target.value)}
-                                                className={fieldErrors.subjects ? 'border border-red-500 w-full' : 'w-full'}
+                                                className={fieldErrors.subjects ? 'border border-red-500 w-full bg-slate-100 text-sm' : 'w-full bg-slate-100 text-sm'}
                                             />
                                             <button
                                                 type="button"
@@ -948,22 +948,27 @@ const Profile: React.FC = () => {
                         {coursesPanelOpen && (
                             <div className="panel-body">
                                 {profileData.courses.map((course, index) => (
-                                    <div key={index} className="course-item dark:text-emerald-400 flex items-center">
-                                        <div className="w-full flex flex-col gap-2">
-                                            <input
+                                    <div key={index} className="course-item dark:text-emerald-400 gap-2 flex items-center">
+                                        <div className="w-full flex flex-col gap-1">
+                                            <div className="flex gap-2 items-center w-full">
+                                                <p className="w-[100px] text-sm text-gray-500 dark:text-gray-200 font-medium">Name</p> <input
                                                 type="text"
                                                 placeholder="Course Name"
                                                 value={course.courseName}
                                                 onChange={(e) => handleCourseChange(index, 'courseName', e.target.value)}
-                                                className={fieldErrors.courses ? 'border border-red-500' : ''}
+                                                className={fieldErrors.courses ? 'border border-red-500 flex-1 text-sm' : 'bg-slate-100 flex-1 text-sm'}
                                             />
-                                            <input
+                                            </div>
+                                            <div className="flex items-center gap-2 w-full">
+                                                <p className="w-[100px] text-sm text-gray-500 dark:text-gray-200 font-medium">Link</p>
+                                                <input
                                                 type="text"
                                                 placeholder="Course Link"
                                                 value={course.courseLink}
                                                 onChange={(e) => handleCourseChange(index, 'courseLink', e.target.value)}
-                                                className={fieldErrors.courses ? 'border border-red-500' : ''}
+                                                className={fieldErrors.courses ? 'border border-red-500 flex-1 text-sm' : ' text-sm bg-slate-100 flex-1'}
                                             />
+                                            </div>
                                         </div>
                                         <button
                                             type="button"
@@ -1009,7 +1014,7 @@ const Profile: React.FC = () => {
                     {/* Statuses Panel */}
                     <div className="panel-container">
                         <div className="panel-header bg-emerald-50" onClick={toggleStatusesPanel}>
-                            <h3 className="panel-title">Status (2-3)</h3>
+                            <h3 className="panel-title">Status</h3>
                         </div>
                         {statusesPanelOpen && (
                             <div className="panel-body">

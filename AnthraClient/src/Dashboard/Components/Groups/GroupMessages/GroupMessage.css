@@ -82,15 +82,21 @@ body.dark .group-message-content-other {
     color: white;
 }
 
-/* Dark mode styles */
-body.dark .group-message-content-own {
-    background-color: #0056b3;
+body.dark .group-message-content-own{
+    background-color: #e0e0e0;
+    color: black;
 }
 
 .group-message-content-other {
     background-color: #e0e0e0;
     color: black;
 }
+
+body.dark .group-message-content-other {
+    background-color: #3a3a3a;
+    color: #fff;
+}
+
 
 .group-message-timestamp {
     font-size: 0.75rem;

@@ -706,7 +706,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
 
                 {/* Status selection */}
                 <label className="mt-2 input-label status-label" htmlFor="status">
-                    Current Status (Select 2-3)<span className="required-asterisk">*</span>
+                    Status (Select 2-3)<span className="required-asterisk">*</span>
                 </label>
                 <div className="status-tags-container">
                     {statuses.map((st, i) => (

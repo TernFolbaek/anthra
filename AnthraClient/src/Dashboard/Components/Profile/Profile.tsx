@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import './Profile.css';
 import axios from 'axios';
-import { FaRegHandPointer, FaPlus, FaTrash } from "react-icons/fa";
+import './Profile.css';
+import { FaRegHandPointer, FaPlus, FaTrash, FaArrowLeft } from "react-icons/fa";
+import ViewProfile from "../ViewProfile/ViewProfile";
 
 interface Course {
     courseName: string;
@@ -16,7 +17,6 @@ interface ProfileData {
     firstName: string;
     institution: string;
     lastName: string;
-    // Replace string location with an object for Country & City
     location: {
         country: string;
         city: string;
@@ -28,39 +28,72 @@ interface ProfileData {
     statuses: string[];
 }
 
+// Predefined statuses
+const allStatuses: string[] = [
+    "✎ exam preparations",
+    "☺ expanding my network",
+    "☏ looking for collaboration",
+    "❊ general studies",
+    "❀ on exchange",
+    "☂ seeking mentorship"
+];
+
 const Profile: React.FC = () => {
     const [profileData, setProfileData] = useState<ProfileData | null>(null);
-    const [editMode, setEditMode] = useState(false);
     const [error, setError] = useState<string | null>(null);
-
-    // Field-level errors so we can highlight the specific fields in red
     const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
-
     const [profilePictureFile, setProfilePictureFile] = useState<File | null>(null);
-
-    const token = localStorage.getItem('token');
-
-    // Predefined statuses
-    const allStatuses: string[] = [
-        "✎ exam preparations",
-        "☺ expanding my network",
-        "☏ looking for collaboration",
-        "❊ general studies",
-        "❀ on exchange",
-        "☂ seeking mentorship"
-    ];
     const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
+
+    // Each section can have its own open/close toggle
+    const [editPicturePanelOpen, setEditPicturePanelOpen] = useState(false);
+    const [personalPanelOpen, setPersonalPanelOpen] = useState(false);
+    const [locationPanelOpen, setLocationPanelOpen] = useState(false);
+    const [aboutPanelOpen, setAboutPanelOpen] = useState(false);
+    const [subjectsPanelOpen, setSubjectsPanelOpen] = useState(false);
+    const [coursesPanelOpen, setCoursesPanelOpen] = useState(false);
+    const [statusesPanelOpen, setStatusesPanelOpen] = useState(false);
+
+    // -------------------
+    //  Backup States
+    // -------------------
+    const [personalBackup, setPersonalBackup] = useState({
+        firstName: "",
+        lastName: "",
+        age: 0,
+        institution: "",
+        work: ""
+    });
+    const [locationBackup, setLocationBackup] = useState({
+        country: "",
+        city: ""
+    });
+    const [aboutBackup, setAboutBackup] = useState("");
+    const [subjectsBackup, setSubjectsBackup] = useState<string[]>([]);
+    const [coursesBackup, setCoursesBackup] = useState<Course[]>([]);
+    const [statusesBackup, setStatusesBackup] = useState<string[]>([]);
+    const [profilePictureBackup, setProfilePictureBackup] = useState<File | null>(null);
+    const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+    const currentUserId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
         fetchProfile();
     }, []);
 
     useEffect(() => {
-        if (profileData && !editMode) {
-            // Whenever we exit edit mode or first load, ensure selectedStatuses matches profileData
+        if (profileData) {
             setSelectedStatuses(profileData.statuses || []);
         }
-    }, [profileData, editMode]);
+    }, [profileData]);
+
+    const handleUserSelect = () => {
+        setSelectedUserId(currentUserId);
+    }
+
+    const handleCloseProfile = () => {
+        setSelectedUserId(null);
+    }
 
     const fetchProfile = async () => {
         try {
@@ -70,6 +103,7 @@ const Profile: React.FC = () => {
                 },
             });
 
+            // Split location into country/city
             const [country, city] = response.data.location
                 ? response.data.location.split(',')
                 : ['', ''];
@@ -83,14 +117,15 @@ const Profile: React.FC = () => {
                     city: city.trim(),
                 }
             });
-
             setSelectedStatuses(response.data.statuses || []);
         } catch (err) {
             setError('Failed to fetch profile data');
         }
     };
 
-
+    // -----------------------------------
+    //    Input Change Handlers
+    // -----------------------------------
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
@@ -103,7 +138,6 @@ const Profile: React.FC = () => {
         }
     };
 
-    // Separate handler for location (because it's now an object)
     const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (profileData) {
             const { name, value } = e.target;
@@ -117,7 +151,16 @@ const Profile: React.FC = () => {
         }
     };
 
-    // Handle array inputs for courses
+    const handleProfilePictureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setProfilePictureFile(e.target.files[0]);
+        }
+    };
+
+    // -----------------------------------
+    //    Array Fields (Courses/Subjects)
+    // -----------------------------------
+    // Courses
     const handleCourseChange = (index: number, field: keyof Course, value: string) => {
         if (profileData) {
             const updatedCourses = [...profileData.courses];
@@ -133,17 +176,14 @@ const Profile: React.FC = () => {
     };
 
     const addCourse = () => {
-        if (profileData) {
-            // Only add if we don't exceed 4 courses
-            if (profileData.courses.length < 4) {
-                setProfileData({
-                    ...profileData,
-                    courses: [
-                        ...profileData.courses,
-                        { courseName: '', courseLink: '' }
-                    ],
-                });
-            }
+        if (profileData && profileData.courses.length < 4) {
+            setProfileData({
+                ...profileData,
+                courses: [
+                    ...profileData.courses,
+                    { courseName: '', courseLink: '' }
+                ],
+            });
         }
     };
 
@@ -158,7 +198,7 @@ const Profile: React.FC = () => {
         }
     };
 
-    // Handle array inputs for subjects
+    // Subjects
     const handleSubjectChange = (index: number, value: string) => {
         if (profileData) {
             const updatedSubjects = [...profileData.subjects];
@@ -171,14 +211,11 @@ const Profile: React.FC = () => {
     };
 
     const addSubject = () => {
-        if (profileData) {
-            // Only add if we don't exceed 5 subjects
-            if (profileData.subjects.length < 5) {
-                setProfileData({
-                    ...profileData,
-                    subjects: [...profileData.subjects, ''],
-                });
-            }
+        if (profileData && profileData.subjects.length < 5) {
+            setProfileData({
+                ...profileData,
+                subjects: [...profileData.subjects, ''],
+            });
         }
     };
 
@@ -193,7 +230,7 @@ const Profile: React.FC = () => {
         }
     };
 
-    // Handle selecting/deselecting statuses
+    // Status selection
     const handleStatusSelect = (st: string) => {
         if (selectedStatuses.includes(st)) {
             setSelectedStatuses(selectedStatuses.filter(status => status !== st));
@@ -207,21 +244,81 @@ const Profile: React.FC = () => {
         }
     };
 
-    const handleSave = async () => {
-        if (!profileData) return;
+    // -----------------------------------
+    //    FormData Helper
+    // -----------------------------------
+    function buildFormData(
+        profileData: ProfileData,
+        selectedStatuses: string[],
+        profilePictureFile: File | null
+    ): FormData {
+        const formData = new FormData();
 
-        // Clear previous errors
+        // Scalar fields
+        formData.append('FirstName', profileData.firstName);
+        formData.append('LastName', profileData.lastName);
+        formData.append('Location', `${profileData.location.country},${profileData.location.city}`);
+        formData.append('Institution', profileData.institution);
+        formData.append('Work', profileData.work);
+        formData.append('AboutMe', profileData.aboutMe);
+        formData.append('Age', profileData.age.toString());
+
+        // Convert courses to JSON
+        formData.append('Courses', JSON.stringify(profileData.courses ?? []));
+
+        // The backend expects repeated "Subjects" for each subject in the array
+        profileData.subjects?.forEach((subject) => {
+            formData.append('Subjects', subject);
+        });
+
+        // Statuses (2-3)
+        selectedStatuses.forEach((status) => {
+            formData.append('Statuses', status);
+        });
+
+        // Profile picture (if changed)
+        if (profilePictureFile) {
+            formData.append('ProfilePicture', profilePictureFile);
+        }
+
+        return formData;
+    }
+
+    // -----------------------------------
+    //    Save Handlers (Panels)
+    // -----------------------------------
+
+    // 1) Save Picture
+    const handleSavePicture = async () => {
+        if (!profileData) return;
         setError(null);
+        setFieldErrors({});
+
+        try {
+            const formData = buildFormData(profileData, selectedStatuses, profilePictureFile);
+            await axios.post('/Profile/UpdateProfile', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setEditPicturePanelOpen(false);
+            fetchProfile();
+        } catch (err) {
+            setError('An error occurred. Please try again.');
+        }
+    };
+
+    // 2) Save Personal Info
+    const handleSavePersonal = async () => {
+        if (!profileData) return;
+        setError(null);
+        setFieldErrors({});
+
+        // Minimal example validations
         const newFieldErrors: { [key: string]: string } = {};
         let hasError = false;
 
-        // Validate About Me (150-300 chars)
-        if (profileData.aboutMe.length < 150 || profileData.aboutMe.length > 300) {
-            newFieldErrors.aboutMe = 'About Me must be between 150 and 300 characters';
-            hasError = true;
-        }
-
-        // Validate First Name (no spaces, max 15 chars)
         if (profileData.firstName.includes(' ')) {
             newFieldErrors.firstName = 'First Name must be one word without spaces';
             hasError = true;
@@ -231,7 +328,6 @@ const Profile: React.FC = () => {
             hasError = true;
         }
 
-        // Validate Last Name (no spaces, max 15 chars)
         if (profileData.lastName.includes(' ')) {
             newFieldErrors.lastName = 'Last Name must be one word without spaces';
             hasError = true;
@@ -241,130 +337,323 @@ const Profile: React.FC = () => {
             hasError = true;
         }
 
-        // Validate Courses (2 - 4)
-        if (profileData.courses.length < 2) {
-            newFieldErrors.courses = 'Please add at least 2 courses'
-            hasError = true;
-        }
-        if (profileData.courses.length > 4) {
-            newFieldErrors.courses = 'You cannot add more than 4 courses';
-            hasError = true;
-        }
-
-        // Validate Subjects (2 - 5)
-        if (profileData.subjects.length < 2) {
-            newFieldErrors.subjects = 'Please add at least 2 subjects';
-            hasError = true;
-        }
-        if (profileData.subjects.length > 5) {
-            newFieldErrors.subjects = 'You cannot add more than 5 subjects';
-            hasError = true;
-        }
-
-        // Validate location fields
-        if (!profileData.location.country) {
-            newFieldErrors.country = 'Country is required';
-            hasError = true;
-        }
-        if (!profileData.location.city) {
-            newFieldErrors.city = 'City is required';
-            hasError = true;
-        }
-
-        // Validate statuses (example: must select between 2 and 3)
-        if (selectedStatuses.length < 2 || selectedStatuses.length > 3) {
-            newFieldErrors.statuses = 'Please select between 2 and 3 statuses.';
-            hasError = true;
-        }
-
         if (hasError) {
             setFieldErrors(newFieldErrors);
             return;
-        } else {
-            // Clear field-specific errors if all good
-            setFieldErrors({});
         }
 
-        // If we pass all validations, proceed with sending the data
         try {
-            const formData = new FormData();
-
-            // Scalar fields
-            formData.append('FirstName', profileData.firstName);
-            formData.append('LastName', profileData.lastName);
-            // Combine or handle country/city in whatever way your backend expects
-            formData.append('Location', `${profileData.location.country},${profileData.location.city}`);
-            formData.append('Institution', profileData.institution);
-            formData.append('Work', profileData.work);
-            formData.append('AboutMe', profileData.aboutMe);
-            formData.append('Age', profileData.age.toString());
-
-            // Arrays
-            profileData.subjects.forEach((subject) => formData.append('Subjects', subject));
-            formData.append('Courses', JSON.stringify(profileData.courses));
-
-            // Statuses
-            selectedStatuses.forEach(status => formData.append('Statuses', status));
-
-            // Profile picture
-            if (profilePictureFile) {
-                formData.append('ProfilePicture', profilePictureFile);
-            }
-
-            await axios.post(
-                '/Profile/UpdateProfile',
-                formData,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-
-            setEditMode(false);
-            fetchProfile(); // Refresh
-        } catch (err: any) {
-            if (err.response && err.response.data) {
-                const errorData = err.response.data;
-                setError(
-                    errorData.Message ||
-                    Object.values(errorData.errors || {}).join(' ') ||
-                    'An error occurred'
-                );
-            } else {
-                setError('An error occurred. Please try again.');
-            }
+            const formData = buildFormData(profileData, selectedStatuses, profilePictureFile);
+            await axios.post('/Profile/UpdateProfile', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setPersonalPanelOpen(false);
+            fetchProfile();
+        } catch (err) {
+            setError('An error occurred while saving personal info.');
         }
     };
 
+    // 3) Save Location
+    const handleSaveLocation = async () => {
+        if (!profileData) return;
+        setError(null);
+        setFieldErrors({});
+
+        // Example check: Make sure country and city exist
+        if (!profileData.location.country || !profileData.location.city) {
+            setFieldErrors({
+                country: !profileData.location.country ? 'Country is required' : '',
+                city: !profileData.location.city ? 'City is required' : ''
+            });
+            return;
+        }
+
+        try {
+            const formData = buildFormData(profileData, selectedStatuses, profilePictureFile);
+            await axios.post('/Profile/UpdateProfile', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setLocationPanelOpen(false);
+            fetchProfile();
+        } catch (err) {
+            setError('An error occurred while saving location info.');
+        }
+    };
+
+    // 4) Save About Me
+    const handleSaveAbout = async () => {
+        if (!profileData) return;
+        setError(null);
+        setFieldErrors({});
+
+        // Example check: AboutMe length
+        if (profileData.aboutMe.length < 150 || profileData.aboutMe.length > 300) {
+            setFieldErrors({
+                aboutMe: 'About Me must be between 150 and 300 characters',
+            });
+            return;
+        }
+
+        try {
+            const formData = buildFormData(profileData, selectedStatuses, profilePictureFile);
+            await axios.post('/Profile/UpdateProfile', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setAboutPanelOpen(false);
+            fetchProfile();
+        } catch (err) {
+            setError('An error occurred while saving About Me.');
+        }
+    };
+
+    // 5) Save Subjects
+    const handleSaveSubjects = async () => {
+        if (!profileData) return;
+        setError(null);
+        setFieldErrors({});
+
+        // Must have 2-5 subjects
+        if (profileData.subjects.length < 2 || profileData.subjects.length > 5) {
+            setFieldErrors({
+                subjects: 'Please add between 2 and 5 subjects.'
+            });
+            return;
+        }
+
+        try {
+            const formData = buildFormData(profileData, selectedStatuses, profilePictureFile);
+            await axios.post('/Profile/UpdateProfile', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setSubjectsPanelOpen(false);
+            fetchProfile();
+        } catch (err) {
+            setError('An error occurred while saving subjects.');
+        }
+    };
+
+    // 6) Save Courses
+    const handleSaveCourses = async () => {
+        if (!profileData) return;
+        setError(null);
+        setFieldErrors({});
+
+        // Must have 2-4 courses
+        if (profileData.courses.length < 2 || profileData.courses.length > 4) {
+            setFieldErrors({
+                courses: 'Please have between 2 and 4 courses.'
+            });
+            return;
+        }
+
+        try {
+            const formData = buildFormData(profileData, selectedStatuses, profilePictureFile);
+            await axios.post('/Profile/UpdateProfile', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setCoursesPanelOpen(false);
+            fetchProfile();
+        } catch (err) {
+            setError('An error occurred while saving courses.');
+        }
+    };
+
+    // 7) Save Statuses
+    const handleSaveStatuses = async () => {
+        if (!profileData) return;
+        setError(null);
+        setFieldErrors({});
+
+        // 2-3 statuses
+        if (selectedStatuses.length < 2 || selectedStatuses.length > 3) {
+            setFieldErrors({
+                statuses: 'Please select between 2 and 3 statuses.'
+            });
+            return;
+        }
+
+        try {
+            const formData = buildFormData(profileData, selectedStatuses, profilePictureFile);
+            await axios.post('/Profile/UpdateProfile', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setStatusesPanelOpen(false);
+            fetchProfile();
+        } catch (err) {
+            setError('An error occurred while saving statuses.');
+        }
+    };
+
+    // -------------------------------------------------------
+    //  Revert Handlers (one for each panel)
+    // -------------------------------------------------------
+    // Called when user clicks "Revert" inside a panel
+
+    const handleRevertPicture = () => {
+        // Revert the file
+        setProfilePictureFile(profilePictureBackup);
+    };
+
+    const handleRevertPersonal = () => {
+        if (!profileData) return;
+        // Revert the personal fields
+        setProfileData({
+            ...profileData,
+            firstName: personalBackup.firstName,
+            lastName: personalBackup.lastName,
+            age: personalBackup.age,
+            institution: personalBackup.institution,
+            work: personalBackup.work
+        });
+    };
+
+    const handleRevertLocation = () => {
+        if (!profileData) return;
+        setProfileData({
+            ...profileData,
+            location: {
+                country: locationBackup.country,
+                city: locationBackup.city
+            }
+        });
+    };
+
+    const handleRevertAbout = () => {
+        if (!profileData) return;
+        setProfileData({
+            ...profileData,
+            aboutMe: aboutBackup
+        });
+    };
+
+    const handleRevertSubjects = () => {
+        if (!profileData) return;
+        setProfileData({
+            ...profileData,
+            subjects: [...subjectsBackup]
+        });
+    };
+
+    const handleRevertCourses = () => {
+        if (!profileData) return;
+        setProfileData({
+            ...profileData,
+            courses: [...coursesBackup]
+        });
+    };
+
+    const handleRevertStatuses = () => {
+        // This reverts the "selectedStatuses" array
+        setSelectedStatuses([...statusesBackup]);
+    };
+
+    // -------------------------------------------------------
+    //  Toggle Panel Handlers
+    //  (When opening a panel, store backup)
+    // -------------------------------------------------------
+    const toggleEditPicturePanel = () => {
+        // If we are about to OPEN the picture panel, store the backup
+        if (!editPicturePanelOpen && profileData) {
+            setProfilePictureBackup(profilePictureFile);
+        }
+        setEditPicturePanelOpen(!editPicturePanelOpen);
+    };
+
+    const togglePersonalPanel = () => {
+        if (!personalPanelOpen && profileData) {
+            setPersonalBackup({
+                firstName: profileData.firstName,
+                lastName: profileData.lastName,
+                age: profileData.age,
+                institution: profileData.institution,
+                work: profileData.work
+            });
+        }
+        setPersonalPanelOpen(!personalPanelOpen);
+    };
+
+    const toggleLocationPanel = () => {
+        if (!locationPanelOpen && profileData) {
+            setLocationBackup({
+                country: profileData.location.country,
+                city: profileData.location.city
+            });
+        }
+        setLocationPanelOpen(!locationPanelOpen);
+    };
+
+    const toggleAboutPanel = () => {
+        if (!aboutPanelOpen && profileData) {
+            setAboutBackup(profileData.aboutMe);
+        }
+        setAboutPanelOpen(!aboutPanelOpen);
+    };
+
+    const toggleSubjectsPanel = () => {
+        if (!subjectsPanelOpen && profileData) {
+            setSubjectsBackup([...profileData.subjects]);
+        }
+        setSubjectsPanelOpen(!subjectsPanelOpen);
+    };
+
+    const toggleCoursesPanel = () => {
+        if (!coursesPanelOpen && profileData) {
+            setCoursesBackup([...profileData.courses]);
+        }
+        setCoursesPanelOpen(!coursesPanelOpen);
+    };
+
+    const toggleStatusesPanel = () => {
+        if (!statusesPanelOpen) {
+            setStatusesBackup([...selectedStatuses]);
+        }
+        setStatusesPanelOpen(!statusesPanelOpen);
+    };
+
+    // -----------------------------------
+    //    Render
+    // -----------------------------------
     if (!profileData) {
-        return null;
+        return null; // or a loading state
     }
-
-    const handleProfilePictureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
-            setProfilePictureFile(e.target.files[0]);
-        }
-    };
 
     return (
         <div className="overflow-auto h-[100vh]">
-            <div className={`profile-page ${!editMode ? 'h-[100%]' : ''}`}>
+            <div className="profile-page">
                 <div className="profile-card">
-                    <div className="profile-content">
-                        <div className="flex flex-col justify-between">
-                            <div className="profile-picture">
+                    {/* Top section: Profile Picture & Username */}
+                    <div className="flex flex-col gap-8 sm:items-center">
+                        <div className="relative flex flex-col items-center ">
+                            <div className="profile-picture mr-auto ml-auto">
                                 <img
                                     src={
                                         profilePictureFile
                                             ? URL.createObjectURL(profilePictureFile)
-                                            : `${profileData.profilePictureUrl}`
+                                            : profileData.profilePictureUrl
                                     }
                                     alt="Profile"
                                 />
-                                {editMode && (
-                                    <div className="profile-picture-overlay">
+                                {editPicturePanelOpen && (
+                                    <div className="profile-picture-overlay flex justify-center">
                                         <input
                                             type="file"
                                             name="profileImage"
@@ -374,370 +663,402 @@ const Profile: React.FC = () => {
                                         />
                                         <div className="overlay-content">
                                             <FaRegHandPointer className="cursor-icon" />
-                                            <span>Change Profile Picture</span>
+                                            <span>Change Picture</span>
                                         </div>
                                     </div>
                                 )}
                             </div>
                             <button
-                                className="save-button bg-emerald-400 hover:bg-emerald-300 text-white dark:hover:bg-emerald-400 transform hover:scale-105 dark:text-white dark:bg-emerald-500"
+                                className="save-button bg-emerald-400 hover:bg-emerald-300 text-white dark:hover:bg-emerald-400 dark:text-white dark:bg-emerald-500 mt-2"
                                 onClick={() => {
                                     setError(null);
                                     setFieldErrors({});
-                                    setEditMode(!editMode);
+                                    toggleEditPicturePanel();
                                 }}
                             >
-                                {editMode ? 'Cancel' : 'Edit'}
+                                {editPicturePanelOpen ? 'Cancel' : 'Edit Picture'}
+                            </button>
+                            {editPicturePanelOpen && (
+                                <div className="flex gap-2 mt-2">
+                                    <button
+                                        className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
+                                        onClick={handleSavePicture}
+                                    >
+                                        Save Picture
+                                    </button>
+                                    <button
+                                        className="save-button bg-gray-400 text-white hover:bg-gray-500 text-sm flex items-center gap-1"
+                                        onClick={handleRevertPicture}
+                                    >
+                                        <FaArrowLeft />
+                                        Revert
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                        <div className="flex flex-col gap-4 items-center">
+                            <p className="font-bold text-xl dark:text-white">@{profileData.userName}</p>
+                            <button className="text-center text-sm font-semibold hover:underline dark:text-gray-200" onClick={()=>handleUserSelect()}>
+                                Preview Profile
                             </button>
                         </div>
+                    </div>
 
-                        <div className="profile-info">
 
-                            {/* Username */}
-                            <div className="profile-row">
-                                <div className="profile-field full-width">
-                                    <label>Username:</label>
-                                    <span>@{profileData.userName}</span>
+                    {/* Personal Info Panel */}
+                    <div className="panel-container mt-6">
+                        <div className="panel-header bg-emerald-50" onClick={togglePersonalPanel}>
+                            <h3 className="panel-title">Personal Info</h3>
+                        </div>
+                        {personalPanelOpen && (
+                            <div className="panel-body">
+                                <div className="profile-row">
+                                    <div className="profile-field half-width">
+                                        <label>First Name</label>
+                                        <input
+                                            type="text"
+                                            name="firstName"
+                                            value={profileData.firstName}
+                                            onChange={handleInputChange}
+                                            className={fieldErrors.firstName ? 'border border-red-500' : ''}
+                                        />
+                                        {fieldErrors.firstName && (
+                                            <p className="text-red-500 text-sm">{fieldErrors.firstName}</p>
+                                        )}
+                                    </div>
+                                    <div className="profile-field half-width">
+                                        <label>Last Name</label>
+                                        <input
+                                            type="text"
+                                            name="lastName"
+                                            value={profileData.lastName}
+                                            onChange={handleInputChange}
+                                            className={fieldErrors.lastName ? 'border border-red-500' : ''}
+                                        />
+                                        {fieldErrors.lastName && (
+                                            <p className="text-red-500 text-sm">{fieldErrors.lastName}</p>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-
-                            {/* First Name and Last Name */}
-                            <div className="profile-row">
-                                <div className="profile-field half-width">
-                                    <label className="profile-label">First Name:</label>
-                                    {editMode ? (
-                                        <>
-                                            <input
-                                                type="text"
-                                                name="firstName"
-                                                value={profileData.firstName}
-                                                onChange={handleInputChange}
-                                                className={`${
-                                                    fieldErrors.firstName ? 'border border-red-500' : ''
-                                                }`}
-                                            />
-                                            {fieldErrors.firstName && (
-                                                <p className="text-red-500 text-sm">{fieldErrors.firstName}</p>
-                                            )}
-                                        </>
-                                    ) : (
-                                        <span>{profileData.firstName}</span>
-                                    )}
-                                </div>
-
-                                <div className="profile-field half-width">
-                                    <label className="profile-label">Last Name:</label>
-                                    {editMode ? (
-                                        <>
-                                            <input
-                                                type="text"
-                                                name="lastName"
-                                                value={profileData.lastName}
-                                                onChange={handleInputChange}
-                                                className={`${
-                                                    fieldErrors.lastName ? 'border border-red-500' : ''
-                                                }`}
-                                            />
-                                            {fieldErrors.lastName && (
-                                                <p className="text-red-500 text-sm">{fieldErrors.lastName}</p>
-                                            )}
-                                        </>
-                                    ) : (
-                                        <span>{profileData.lastName}</span>
-                                    )}
-                                </div>
-                            </div>
-
-                            {/* Age */}
-                            <div className="profile-row">
-                                <div className="profile-field half-width">
-                                    <label className="profile-label">Age:</label>
-                                    {editMode ? (
+                                <div className="profile-row">
+                                    <div className="profile-field half-width">
+                                        <label>Age</label>
                                         <input
                                             type="number"
                                             name="age"
                                             value={profileData.age}
                                             onChange={handleInputChange}
                                         />
-                                    ) : (
-                                        <span>{profileData.age}</span>
-                                    )}
-                                </div>
-
-                                <div className="profile-field half-width">
-                                    <label className="profile-label">Country:</label>
-                                    {editMode ? (
-                                        <>
-                                            <input
-                                                type="text"
-                                                name="country"
-                                                autoComplete="nope"
-                                                value={profileData.location.country}
-                                                onChange={handleLocationChange}
-                                                className={`${
-                                                    fieldErrors.country ? 'border border-red-500' : ''
-                                                }`}
-                                            />
-                                            {fieldErrors.country && (
-                                                <p className="text-red-500 text-sm">{fieldErrors.country}</p>
-                                            )}
-                                        </>
-                                    ) : (
-                                        <span>{profileData.location.country}</span>
-                                    )}
-                                </div>
-                            </div>
-
-                            <div className="profile-row">
-                                <div className="profile-field half-width">
-                                    <label className="profile-label">City:</label>
-                                    {editMode ? (
-                                        <>
-                                            <input
-                                                type="text"
-                                                name="city"
-                                                autoComplete="nope"
-                                                value={profileData.location.city}
-                                                onChange={handleLocationChange}
-                                                className={`${
-                                                    fieldErrors.city ? 'border border-red-500' : ''
-                                                }`}
-                                            />
-                                            {fieldErrors.city && (
-                                                <p className="text-red-500 text-sm">{fieldErrors.city}</p>
-                                            )}
-                                        </>
-                                    ) : (
-                                        <span>{profileData.location.city}</span>
-                                    )}
-                                </div>
-
-                                {/* Institution */}
-                                <div className="profile-field half-width">
-                                    <label className="profile-label">Institution:</label>
-                                    {editMode ? (
+                                    </div>
+                                    <div className="profile-field half-width">
+                                        <label>Institution</label>
                                         <input
                                             type="text"
                                             name="institution"
                                             value={profileData.institution}
                                             onChange={handleInputChange}
                                         />
-                                    ) : (
-                                        <span>{profileData.institution}</span>
-                                    )}
+                                    </div>
                                 </div>
-                            </div>
-
-                            {/* Work */}
-                            <div className="profile-row">
-                                <div className="profile-field half-width">
-                                    <label className="profile-label">Work:</label>
-                                    {editMode ? (
+                                <div className="profile-row">
+                                    <div className="profile-field half-width">
+                                        <label>Work</label>
                                         <input
                                             type="text"
                                             name="work"
                                             value={profileData.work}
                                             onChange={handleInputChange}
                                         />
-                                    ) : (
-                                        <span>{profileData.work}</span>
-                                    )}
+                                    </div>
+                                </div>
+                                <div className="flex gap-2 mt-3">
+                                    <button
+                                        className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
+                                        onClick={handleSavePersonal}
+                                    >
+                                        Save
+                                    </button>
+                                    <button
+                                        className="save-button text-gray-500 dark:text-gray-300 text-sm flex items-center gap-1"
+                                        onClick={handleRevertPersonal}
+                                    >
+                                        <FaArrowLeft size={12}/>
+                                        Revert Back
+                                    </button>
                                 </div>
                             </div>
+                        )}
+                    </div>
 
-                            {/* About Me */}
-                            <div className="profile-row">
-                                <div className="profile-field full-width">
-                                    <label className="profile-label">About Me:</label>
-                                    {editMode ? (
-                                        <>
-                              <textarea
-                                  name="aboutMe"
-                                  value={profileData.aboutMe}
-                                  onChange={handleInputChange}
-                                  rows={5}
-                                  minLength={150}
-                                  maxLength={300}
-                                  className={`${
-                                      fieldErrors.aboutMe ? 'border border-red-500' : ''
-                                  }`}
-                              />
+                    {/* Location Panel */}
+                    <div className="panel-container">
+                        <div className="panel-header bg-emerald-50" onClick={toggleLocationPanel}>
+                            <h3 className="panel-title">Location</h3>
+                        </div>
+                        {locationPanelOpen && (
+                            <div className="panel-body">
+                                <div className="profile-row">
+                                    <div className="profile-field half-width">
+                                        <label>Country</label>
+                                        <input
+                                            type="text"
+                                            name="country"
+                                            value={profileData.location.country}
+                                            onChange={handleLocationChange}
+                                            className={fieldErrors.country ? 'border border-red-500' : ''}
+                                        />
+                                        {fieldErrors.country && (
+                                            <p className="text-red-500 text-sm">{fieldErrors.country}</p>
+                                        )}
+                                    </div>
+                                    <div className="profile-field half-width">
+                                        <label>City</label>
+                                        <input
+                                            type="text"
+                                            name="city"
+                                            value={profileData.location.city}
+                                            onChange={handleLocationChange}
+                                            className={fieldErrors.city ? 'border border-red-500' : ''}
+                                        />
+                                        {fieldErrors.city && (
+                                            <p className="text-red-500 text-sm">{fieldErrors.city}</p>
+                                        )}
+                                    </div>
+                                </div>
+                                <div className="flex gap-2 mt-3">
+                                    <button
+                                        className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
+                                        onClick={handleSaveLocation}
+                                    >
+                                        Save
+                                    </button>
+                                    <button
+                                        className="save-button text-gray-500 dark:text-gray-300 text-sm flex items-center gap-1"
+                                        onClick={handleRevertLocation}
+                                    >
+                                        <FaArrowLeft size={12}/>
+                                        Revert Back
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* About Me Panel */}
+                    <div className="panel-container">
+                        <div className="panel-header bg-emerald-50" onClick={toggleAboutPanel}>
+                            <h3 className="panel-title">About Me</h3>
+                        </div>
+                        {aboutPanelOpen && (
+                            <div className="panel-body">
+                                <textarea
+                                    name="aboutMe"
+                                    value={profileData.aboutMe}
+                                    onChange={handleInputChange}
+                                    rows={5}
+                                    minLength={150}
+                                    maxLength={300}
+                                    className={`w-full text-sm rounded-md h-[200px] ${fieldErrors.aboutMe ? 'border border-red-500' : ''}`}
+                                />
                                 {fieldErrors.aboutMe && (
                                     <p className="text-red-500 text-sm">{fieldErrors.aboutMe}</p>
                                 )}
-                                        </>
-                                    ) : (
-                                        <p className="about-me-text">{profileData.aboutMe}</p>
-                                    )}
+                                <div className="flex gap-2 mt-3">
+                                    <button
+                                        className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
+                                        onClick={handleSaveAbout}
+                                    >
+                                        Save
+                                    </button>
+                                    <button
+                                        className="save-button text-gray-500 dark:text-gray-300 text-sm flex items-center gap-1"
+                                        onClick={handleRevertAbout}
+                                    >
+                                        <FaArrowLeft size={12} />
+                                        Revert Back
+                                    </button>
                                 </div>
                             </div>
-
-                            {/* Subjects */}
-                            <div className="profile-row">
-                                <div className="profile-field full-width">
-                                    <label className="profile-label">Subjects:</label>
-                                    {editMode ? (
-                                        <div className="flex flex-col gap-2">
-                                            {profileData.subjects.map((subject, index) => (
-                                                <div key={index} className="subject-item flex">
-                                                    <input
-                                                        type="text"
-                                                        value={subject}
-                                                        onChange={(e) => handleSubjectChange(index, e.target.value)}
-                                                        className={`${
-                                                            fieldErrors.subjects ? 'border border-red-500' : ''
-                                                        }`}
-                                                    />
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => removeSubject(index)}
-                                                        className="profile-edit-trash"
-                                                    >
-                                                        <FaTrash />
-                                                    </button>
-                                                </div>
-                                            ))}
-                                            {fieldErrors.subjects && (
-                                                <p className="text-red-500 text-sm">{fieldErrors.subjects}</p>
-                                            )}
-                                            <div className="flex items-center">
-                                                <button
-                                                    type="button"
-                                                    onClick={addSubject}
-                                                    className="profile-icon-button"
-                                                >
-                                                    <FaPlus />
-                                                </button>
-                                                <p className="text-gray-500 text-xs font-bold">New Subject</p>
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <ul className="subjects-list">
-                                            {profileData.subjects.map((subject, index) => (
-                                                <li key={index}>{subject}</li>
-                                            ))}
-                                        </ul>
-                                    )}
-                                </div>
-                            </div>
-
-                            {/* Courses */}
-                            <div className="profile-row">
-                                <div className="profile-field full-width">
-                                    <label className="profile-label">Courses:</label>
-                                    {editMode ? (
-                                        <div className="courses-list">
-                                            {profileData.courses.map((course, index) => (
-                                                <div key={index} className="course-item dark:text-emerald-400 flex items-center">
-                                                    <div className="w-full flex flex-col gap-2">
-                                                        <input
-                                                            type="text"
-                                                            placeholder="Course Name"
-                                                            value={course.courseName}
-                                                            onChange={(e) => handleCourseChange(index, 'courseName', e.target.value)}
-                                                            className={`${
-                                                                fieldErrors.courses ? 'border border-red-500' : ''
-                                                            }`}
-                                                        />
-                                                        <input
-                                                            type="text"
-                                                            placeholder="Course Link"
-                                                            value={course.courseLink}
-                                                            onChange={(e) => handleCourseChange(index, 'courseLink', e.target.value)}
-                                                            className={`${
-                                                                fieldErrors.courses ? 'border border-red-500' : ''
-                                                            }`}
-                                                        />
-                                                    </div>
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => removeCourse(index)}
-                                                        className="profile-edit-trash"
-                                                    >
-                                                        <FaTrash />
-                                                    </button>
-                                                </div>
-                                            ))}
-                                            {fieldErrors.courses && (
-                                                <p className="text-red-500 text-sm">{fieldErrors.courses}</p>
-                                            )}
-                                            <div className="flex items-center">
-                                                <button
-                                                    type="button"
-                                                    onClick={addCourse}
-                                                    className="profile-icon-button"
-                                                >
-                                                    <FaPlus />
-                                                </button>
-                                                <p className="text-gray-500 text-xs font-bold">New Course</p>
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <ul className="courses-list">
-                                            {profileData.courses.map((course, index) => (
-                                                <li key={index}>
-                                                    <a
-                                                        href={course.courseLink}
-                                                        className="text-emerald-400 dark:text-emerald-400 hover:font-semibold"
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                    >
-                                                        {course.courseName}
-                                                    </a>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    )}
-                                </div>
-                            </div>
-
-                            {/* Statuses */}
-                            <div className="profile-row">
-                                <div className="profile-field full-width">
-                                    <label className="profile-label">Current Statuses (2-3):</label>
-                                    {editMode ? (
-                                        <div className="status-tags-container-profile">
-                                            {allStatuses.map((st, i) => (
-                                                <span
-                                                    key={i}
-                                                    className={`status-tag hover:scale-105 transform  dark:hover:bg-gray-700 dark:bg-gray-700/50 dark:border-emerald-500 ${selectedStatuses.includes(st) ? 'text-white bg-emerald-500' : ' bg-emerald-400/80 text-white'}`}
-                                                    onClick={() => {
-                                                        setError(null);
-                                                        handleStatusSelect(st);
-                                                    }}
-                                                >
-                          {st}
-                        </span>
-                                            ))}
-                                        </div>
-                                    ) : (
-                                        <div className="status-tags-container-profile">
-                                            {selectedStatuses.map((st, i) => (
-                                                <span
-                                                    key={i}
-                                                    className={`status-tag bg-emerald-400 text-white dark:hover:bg-gray-700 dark:bg-gray-700/50 dark:border-emerald-500 ${selectedStatuses.includes(st) ? 'status-tag-selected ' : ''}`}
-                                                >
-                          {st}
-                        </span>
-                                            ))}
-                                        </div>
-                                    )}
-                                    {fieldErrors.statuses && (
-                                        <p className="text-red-500 text-sm">{fieldErrors.statuses}</p>
-                                    )}
-                                </div>
-                            </div>
-
-                            {editMode && (
-                                <button className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm" onClick={handleSave}>
-                                    Save
-                                </button>
-                            )}
-                            {error && <p className="error-message text-center">{error}</p>}
-                        </div>
+                        )}
                     </div>
+
+                    {/* Subjects Panel */}
+                    <div className="panel-container">
+                        <div className="panel-header bg-emerald-50" onClick={toggleSubjectsPanel}>
+                            <h3 className="panel-title">Subjects</h3>
+                        </div>
+                        {subjectsPanelOpen && (
+                            <div className="panel-body">
+                                <div className="flex flex-col gap-2">
+                                    {profileData.subjects.map((subject, index) => (
+                                        <div key={index} className="subject-item flex">
+                                            <input
+                                                type="text"
+                                                value={subject}
+                                                onChange={(e) => handleSubjectChange(index, e.target.value)}
+                                                className={fieldErrors.subjects ? 'border border-red-500 w-full' : 'w-full'}
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => removeSubject(index)}
+                                                className="profile-edit-trash"
+                                            >
+                                                <FaTrash />
+                                            </button>
+                                        </div>
+                                    ))}
+                                    <div className="flex items-center">
+                                        <button
+                                            type="button"
+                                            onClick={addSubject}
+                                            className="profile-icon-button bg-emerald-200"
+                                        >
+                                            <FaPlus />
+                                        </button>
+                                        <p className="text-gray-500 dark:text-gray-200 text-xs font-semibold">New Subject</p>
+                                    </div>
+                                </div>
+                                {fieldErrors.subjects && (
+                                    <p className="text-red-500 text-sm">{fieldErrors.subjects}</p>
+                                )}
+                                <div className="flex gap-2 mt-3">
+                                    <button
+                                        className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
+                                        onClick={handleSaveSubjects}
+                                    >
+                                        Save
+                                    </button>
+                                    <button
+                                        className="save-button text-gray-500 dark:text-gray-300 text-sm flex items-center gap-1"
+                                        onClick={handleRevertSubjects}
+                                    >
+                                        <FaArrowLeft size={12}/>
+                                        Revert Back
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Courses Panel */}
+                    <div className="panel-container">
+                        <div className="panel-header bg-emerald-50" onClick={toggleCoursesPanel}>
+                            <h3 className="panel-title">Courses</h3>
+                        </div>
+                        {coursesPanelOpen && (
+                            <div className="panel-body">
+                                {profileData.courses.map((course, index) => (
+                                    <div key={index} className="course-item dark:text-emerald-400 flex items-center">
+                                        <div className="w-full flex flex-col gap-2">
+                                            <input
+                                                type="text"
+                                                placeholder="Course Name"
+                                                value={course.courseName}
+                                                onChange={(e) => handleCourseChange(index, 'courseName', e.target.value)}
+                                                className={fieldErrors.courses ? 'border border-red-500' : ''}
+                                            />
+                                            <input
+                                                type="text"
+                                                placeholder="Course Link"
+                                                value={course.courseLink}
+                                                onChange={(e) => handleCourseChange(index, 'courseLink', e.target.value)}
+                                                className={fieldErrors.courses ? 'border border-red-500' : ''}
+                                            />
+                                        </div>
+                                        <button
+                                            type="button"
+                                            onClick={() => removeCourse(index)}
+                                            className="profile-edit-trash"
+                                        >
+                                            <FaTrash />
+                                        </button>
+                                    </div>
+                                ))}
+                                {fieldErrors.courses && (
+                                    <p className="text-red-500 text-sm">{fieldErrors.courses}</p>
+                                )}
+                                <div className="flex items-center">
+                                    <button
+                                        type="button"
+                                        onClick={addCourse}
+                                        className="profile-icon-button bg-emerald-200"
+                                    >
+                                        <FaPlus />
+                                    </button>
+                                    <p className="text-gray-500 dark:text-gray-200 text-xs font-semibold">New Course</p>
+                                </div>
+                                <div className="flex gap-2 mt-3">
+                                    <button
+                                        className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
+                                        onClick={handleSaveCourses}
+                                    >
+                                        Save
+                                    </button>
+                                    <button
+                                        className="save-button text-gray-500 dark:text-gray-300 text-sm flex items-center gap-1"
+                                        onClick={handleRevertCourses}
+                                    >
+                                        <FaArrowLeft size={12}/>
+                                        Revert Back
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Statuses Panel */}
+                    <div className="panel-container">
+                        <div className="panel-header bg-emerald-50" onClick={toggleStatusesPanel}>
+                            <h3 className="panel-title">Status (2-3)</h3>
+                        </div>
+                        {statusesPanelOpen && (
+                            <div className="panel-body">
+                                <div className="status-tags-container-profile">
+                                    {allStatuses.map((st, i) => (
+                                        <span
+                                            key={i}
+                                            className={`status-tag hover:scale-105 transform  ${
+                                                selectedStatuses.includes(st)
+                                                    ? 'text-white bg-emerald-500 dark:bg-emerald-900'
+                                                    : 'bg-emerald-400/80 text-white'
+                                            }`}
+                                            onClick={() => {
+                                                setError(null);
+                                                handleStatusSelect(st);
+                                            }}
+                                        >
+                                            {st}
+                                        </span>
+                                    ))}
+                                </div>
+                                {fieldErrors.statuses && (
+                                    <p className="text-red-500 text-sm">{fieldErrors.statuses}</p>
+                                )}
+                                <div className="flex gap-2 mt-3">
+                                    <button
+                                        className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
+                                        onClick={handleSaveStatuses}
+                                    >
+                                        Save
+                                    </button>
+                                    <button
+                                        className="save-button text-gray-500 dark:text-gray-300 text-sm flex items-center gap-1"
+                                        onClick={handleRevertStatuses}
+                                    >
+                                        <FaArrowLeft size={12}/>
+                                        Revert Back
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {error && <p className="error-message text-center">{error}</p>}
                 </div>
             </div>
+            {selectedUserId && (
+                <ViewProfile userId={selectedUserId} onClose={handleCloseProfile} />
+            )}
         </div>
     );
 };

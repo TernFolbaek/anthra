@@ -164,18 +164,5 @@ body.dark .group-message-input {
 .group-message-send-button {
     font-size: 1rem;
     cursor: pointer;
-    color: #007bff;
 }
 
-.group-message-send-button:hover {
-    color: #0056b3;
-}
-
-/* Dark mode styles */
-body.dark .group-message-send-button {
-    color: #85bff8;
-}
-
-body.dark .group-message-send-button:hover {
-    color: #439ef6;
-}

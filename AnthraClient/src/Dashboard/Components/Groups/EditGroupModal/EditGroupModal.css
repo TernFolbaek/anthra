@@ -27,8 +27,6 @@ body.dark .edit-group-modal-content {
     background-color: #3a3a3a;
 }
 
-
-
 .edit-group-close-button {
     position: absolute;
     color: darkgray;
@@ -90,6 +88,10 @@ body.dark .dark-background-input{
 
 body.dark .dark-background-input{
     border: 1px solid #555;
+}
+
+body.dark .dark-background-item-color{
+    background-color: #474646;
 }
 
 .edit-group-field label {

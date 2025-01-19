@@ -320,7 +320,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
     const extraMembersCount = members.length > maxMembersToShow ? members.length - maxMembersToShow : 0;
 
     if (loadingStatuses) {
-        return <div>Loading connection statuses...</div>;
+        return <></>;
     }
 
     if (errorStatuses) {
@@ -411,7 +411,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
                                 <div className="connection-action">
                                     {status && (status.isConnected || status.requestPending) && member.userId !== userId ? (
                                         <button
-                                            className="connection-button-remove"
+                                            className="connection-button-remove transform hover:scale-110"
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 handleCancelRequest(member.userId);
@@ -433,7 +433,7 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
                                     ) : (
                                         member.userId !== userId && (
                                             <button
-                                                className="connection-button text-emerald-400"
+                                                className="connection-button hover:text-emerald-300 transform hover:scale-110 text-emerald-400"
                                                 onClick={(e) => {
                                                     e.stopPropagation();
                                                     handleConnect(member.userId);

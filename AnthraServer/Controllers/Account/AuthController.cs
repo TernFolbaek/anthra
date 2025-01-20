@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Mime;
 using System.Security.Claims;
 using System.Text;
 using Google.Apis.Auth;
@@ -196,17 +197,22 @@ private string MapIdentityErrorCodeToMessage(string errorCode)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+            var user = await _userManager.FindByNameAsync(model.Username) ?? await _userManager.FindByEmailAsync(model.Username);
+            
+            if (user == null)
+            {
+                return Unauthorized("Invalid username/email or password.");
+            }
 
             var result = await _signInManager.PasswordSignInAsync(
-                userName: model.Username,
+                userName: user.UserName,
                 password: model.Password,
                 isPersistent: false,
                 lockoutOnFailure: false);
 
             if (result.Succeeded)
             {
-                var user = await _userManager.FindByNameAsync(model.Username);
-
+                
                 if (!user.EmailConfirmed)
                 {
                     return BadRequest("Email not verified.");

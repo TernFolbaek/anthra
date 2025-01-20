@@ -67,7 +67,7 @@ const GroupDetailsModal: React.FC<Props> = ({ groupId, onClose }) => {
                         </ul>
                     </>
                 ) : (
-                    <p>Loading group details...</p>
+                    <></>
                 )}
             </div>
         </div>

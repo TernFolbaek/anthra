@@ -93,7 +93,7 @@ const GroupMembersTab: React.FC<GroupMembersTabProps> = ({ groupInfo }) => {
         <div className="edit-group-members-section">
             <ul className="group-members-list">
                 {groupMembers.map((member) => (
-                    <li key={member.userId} className="group-member-item-edit">
+                    <li key={member.userId} className="group-member-item-edit dark:text-white">
                         <div className="member-info">
                             <img
                                 src={`${member.profilePictureUrl}`}
@@ -109,7 +109,7 @@ const GroupMembersTab: React.FC<GroupMembersTabProps> = ({ groupInfo }) => {
                                     Kick
                                 </button>
                             )}
-                            <button className="edit-member-action-button-profile text-sm" onClick={() => handleOpenProfile(member.userId)}>
+                            <button className="dark:bg-transparent edit-member-action-button-profile text-sm" onClick={() => handleOpenProfile(member.userId)}>
                                 Info
                             </button>
 

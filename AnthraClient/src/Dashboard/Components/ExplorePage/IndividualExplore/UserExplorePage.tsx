@@ -323,7 +323,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({onSettingsClick}) => {
                                             )}
                                         </div>
                                         <div
-                                            className="flex  flex-col px-5 py-2 gap-10 dark:bg-emerald-500/10 bg-emerald-100  w-fit rounded-xl backdrop-blur-sm  dark:border-gray-600">
+                                            className="flex max-w-[35%] flex-col px-5 py-2 gap-10 dark:bg-emerald-500/10 bg-emerald-100  w-fit rounded-xl backdrop-blur-sm  dark:border-gray-600">
                                             {currentUser.subjects && currentUser.subjects.length > 0 && (
                                                 <div>
                                                     <h3 className="dark:text-emerald-400 text-emerald-500">Subjects</h3>

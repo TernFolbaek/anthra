@@ -35,7 +35,7 @@ const Snackbar: React.FC<SnackbarProps> = ({ title, message, duration = 3000, on
                 </div>
                 <div
                     key={animationKey} // Use animationKey to reset animation
-                    className="snackbar-progress bg-emerald-400 dark:bg-emerald-400"
+                    className="snackbar-progress rounded-xl bg-emerald-400 dark:bg-emerald-400"
                     style={{ animationDuration: `${duration}ms` }}
                 ></div>
             </div>

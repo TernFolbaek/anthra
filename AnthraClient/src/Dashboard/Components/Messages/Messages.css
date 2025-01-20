@@ -237,7 +237,7 @@ body.dark .messages-container {
 }
 
 .message-bubble.sent {
-  background-color: #007bff;
+  background-color: #5ab5ff;
   color: white;
   align-self: flex-end;
   margin-left: auto;

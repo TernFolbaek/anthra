@@ -180,7 +180,7 @@ const GroupMessageInput: React.FC<GroupMessageProps> = ({ groupId, showModal }) 
                     placeholder="Aa"
                     onKeyDown={(e) => e.key === "Enter" && sendMessage()}
                 />
-                <FaArrowRight onClick={sendMessage} className="group-message-send-button" />
+                <FaArrowRight onClick={sendMessage} className="group-message-send-button text-emerald-400" />
             </div>
         </>
     );

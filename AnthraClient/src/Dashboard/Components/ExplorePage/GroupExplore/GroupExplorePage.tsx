@@ -416,7 +416,7 @@ const GroupExplorePage: React.FC = () => {
                                         ))}
                                         {extraMembersCount > 0 && (
                                             <li
-                                                className="dark:border-emerald-600 border dark:hover:bg-gray-800/50 dark:bg-gray-700/50 more-members-button"
+                                                className="dark:hover:bg-gray-800/50  more-members-button"
                                                 onClick={() => setShowMembersModal(true)}
                                             >
                                                 <span className="font-semibold text-emerald-400 underline">+ {extraMembersCount} more</span>

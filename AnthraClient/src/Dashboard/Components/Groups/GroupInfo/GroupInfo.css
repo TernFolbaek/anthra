@@ -118,7 +118,6 @@ body.dark .group-attachment-link {
 /* Additional Styles for "+x more" Button */
 .more-members-button {
     justify-content: center;
-    background-color: #f0f0f0;
     color: #007bff;
     font-weight: 600;
     cursor: pointer;

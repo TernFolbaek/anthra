@@ -323,6 +323,12 @@ body.dark .navigate-button:hover {
     .navigate-button {
         display: none;
     }
+
+    .group-explore-description, .group-explore-member-desire, .group-member-name {
+        font-size: 0.8rem;
+    }
+
+
 }
 
 

@@ -409,7 +409,7 @@ const GroupExplorePage: React.FC = () => {
                                                     src={`${member.profilePictureUrl}`}
                                                     alt={`${member.firstName} ${member.lastName}`}
                                                 />
-                                                <span className="font-semibold dark:text-gray-200">
+                                                <span className="group-member-name font-semibold dark:text-gray-200">
                                                     {member.firstName} {member.lastName}
                                                 </span>
                                             </li>

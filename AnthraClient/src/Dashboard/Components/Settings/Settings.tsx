@@ -1,7 +1,6 @@
-// src/Components/Settings/Settings.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import './Settings.css';
-import { FaUser, FaCog, FaSlidersH, FaTimes, FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaCog, FaTimes,FaLink, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import ProfileSettings from './HelpSettings/HelpSettings';
 import AdvancedSettings from './AdvancedSettings/AdvancedSettings';
 import ConfigurationSettings from './ConfigurationSettings/ConfigurationSettings';
@@ -63,6 +62,34 @@ const Settings: React.FC<SettingsProps> = ({ onClose }) => {
 
     const toggleProfile = () => {
         setProfileExpanded(prev => !prev);
+    };
+
+    // 1) Define your invite link (with "decorations" or query params if you wish)
+    const inviteLink = 'https://anthra.com';
+
+    // 2) Function to share or copy to clipboard
+    const handleShare = async () => {
+        try {
+            // If the Web Share API is available (mobile, some desktops)
+            if (navigator.share) {
+                await navigator.share({
+                    title: 'Anthra :D',
+                    text: 'A new platform for students and self taught individuals to connect and collaborate on courses and topics of interests: ',
+                    url: inviteLink,
+                });
+            } else {
+                // Fallback: Copy link to clipboard
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(inviteLink);
+                    alert('Link copied to clipboard!');
+                } else {
+                    // If clipboard API not available
+                    prompt('Copy this link:', inviteLink);
+                }
+            }
+        } catch (error) {
+            console.error('Sharing failed', error);
+        }
     };
 
     const renderContent = () => {
@@ -135,13 +162,28 @@ const Settings: React.FC<SettingsProps> = ({ onClose }) => {
                     <p className="settings-title">
                         <FaCog size={17} /> Settings
                     </p>
-                    <button className="settings-close-button" onClick={initiateClose} aria-label="Close Settings">
+                    <button
+                        className="settings-close-button flex items-center gap-2"
+                        onClick={initiateClose}
+                        aria-label="Close Settings"
+                    >
+                        <p className="text-sm dark:text-gray-300 text-gray-500">(Esc)</p>
                         <FaTimes size={20} />
                     </button>
                 </div>
 
                 <div className="settings-content p-2">
                     {renderContent()}
+                </div>
+
+                <div className="p-2 flex justify-center">
+                    <button
+                        className="text-base font-semibold dark:text-white text-black flex items-center gap-2"
+                        onClick={handleShare}
+                    >
+                        Share Anthra   <FaLink size={15} />
+
+                    </button>
                 </div>
             </div>
         </div>

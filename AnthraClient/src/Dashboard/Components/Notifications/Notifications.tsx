@@ -68,8 +68,11 @@ const Notifications: React.FC = () => {
         setShowDropdown(false);
     };
 
+    // UPDATED: close the dropdown after marking all as read
     const handleMarkAllAsRead = async () => {
         await markAllAsRead();
+        // Once done, close the dropdown so user sees the UI update
+        setShowDropdown(false);
     };
 
     return (
@@ -81,7 +84,9 @@ const Notifications: React.FC = () => {
             {showDropdown && (
                 <div className="notifications-dropdown">
                     <div className="p-2 border-b border-gray-300 flex justify-between">
-                        <p className="flex items-center dark:text-white"><FaRegBell /></p>
+                        <p className="flex items-center dark:text-white">
+                            <FaRegBell />
+                        </p>
                         <button
                             className="font-semibold dark:text-white dark:bg-slate-500 text-sm flex items-center gap-2 rounded-md bg-slate-100 hover:bg-slate-200 p-1"
                             onClick={handleMarkAllAsRead}
@@ -90,7 +95,9 @@ const Notifications: React.FC = () => {
                         </button>
                     </div>
                     {notifications.length === 0 ? (
-                        <div className="notification-item text-sm text-center font-semibold">No notifications</div>
+                        <div className="notification-item text-sm text-center font-semibold">
+                            No notifications
+                        </div>
                     ) : (
                         notifications.map((notification) => (
                             <div
@@ -98,21 +105,23 @@ const Notifications: React.FC = () => {
                                 className={`notification-item ${notification.isRead ? '' : 'unread'}`}
                                 onClick={() => markAsReadAndRedirect(notification)}
                             >
-                                {notification.type === "Message" &&
+                                {notification.type === "Message" && (
                                     <div className="notification-content">
                                         <p>{notification.content}</p>
-                                        {notification.messageCount < 10 ?
-                                            <p className="notification-message-count">{notification.messageCount}</p>
-                                            :
+                                        {notification.messageCount < 10 ? (
+                                            <p className="notification-message-count">
+                                                {notification.messageCount}
+                                            </p>
+                                        ) : (
                                             <p className="notification-message-count">9+</p>
-                                        }
+                                        )}
                                     </div>
-                                }
-                                {notification.type !== "Message" &&
+                                )}
+                                {notification.type !== "Message" && (
                                     <div className="notification-content">
                                         {notification.content}
                                     </div>
-                                }
+                                )}
                                 <div className="notification-timestamp">
                                     {new Date(notification.timestamp).toLocaleString()}
                                 </div>

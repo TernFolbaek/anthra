@@ -88,6 +88,10 @@ body.dark .dark-background-input{
     background-color: #474646;
 }
 
+body.dark .dark-background-input{
+    border: 1px solid #555;
+}
+
 .edit-group-field label {
     display: block;
     font-weight: bold;

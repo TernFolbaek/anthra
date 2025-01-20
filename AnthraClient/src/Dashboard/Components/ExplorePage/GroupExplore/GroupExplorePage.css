@@ -207,7 +207,6 @@ body.dark .group-explore-indicator.active{
 .more-members-button {
     justify-content: center;
     align-items: center;
-    background-color: #f0f8ff;
     cursor: pointer;
 }
 
@@ -488,7 +487,6 @@ body.dark .group-explore-purpose-label {
 
 /* "More members" button */
 body.dark .more-members-button {
-    background-color: #444;
     color: #fff;
 }
 

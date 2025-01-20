@@ -441,7 +441,7 @@ const Connections: React.FC = () => {
                         </div>
                         <div className="requests-button-container">
                             <button
-                                className="message-button text-emerald-400 dark:hover:bg-transparent dark:border-emerald-500 transform dark:hover:border-emerald-400 hover:scale-105"
+                                className="text-sm font-semibold mr-2 text-emerald-400 dark:hover:bg-transparent dark:border-emerald-500 transform dark:hover:border-emerald-400 hover:scale-105"
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     handleAccept(request);
@@ -472,11 +472,11 @@ const Connections: React.FC = () => {
                     requests</p>
             ) : (
                 groupApplicationRequests.map((group) => (
-                    <div key={group.groupId} className="requests-group-section rounded-md bg-sky-50 p-2 mb-2">
-                        <h3 className="mb-2 flex items-center text-sm font-semibold">Application to: <p onClick={() => handleGroupClick(group.groupId)} className="p-1 m-2 bg-sky-100 w-fit rounded-md cursor-pointer">{group.groupName}</p></h3>
+                    <div key={group.groupId} className="requests-group-section rounded-md dark-background-input bg-sky-50 p-2 mb-2">
+                        <h3 className="mb-2 flex items-center text-sm dark:text-white font-semibold">Application to: <p onClick={() => handleGroupClick(group.groupId)} className="p-1 m-2 dark:bg-emerald-200 dark:text-black bg-sky-100 w-fit rounded-md cursor-pointer">{group.groupName}</p></h3>
                         {group.applications.map((application) => (
-                            <div key={application.requestId} onClick={() => { handleUserClick(application.applicantId) }} className="requests-user-card bg-white p-1 rounded-md">
-                                <div className="requests-user-info">
+                            <div key={application.requestId} onClick={() => { handleUserClick(application.applicantId) }} className="requests-user-card dark:hover:bg-black/50 dark-background-border dark-background-input bg-white p-1 rounded-md">
+                                <div className="requests-user-info dark:text-white">
                                     <img
                                         className="requests-user-card-img"
                                         src={application.applicantProfilePictureUrl}
@@ -484,20 +484,20 @@ const Connections: React.FC = () => {
                                     />
                                     <div className="flex flex-col">
                                         <p className="text-sm font-semibold">{application.applicantName}</p>
-                                        <p className="text-gray-500 text-xs font-light">{application.applicantInstitution}</p>
+                                        <p className="text-gray-500 dark:text-gray-200 text-xs font-light">{application.applicantInstitution}</p>
                                     </div>
 
 
                                 </div>
                                 <div className="requests-button-container">
                                     <button
-                                        className="message-button dark:border-emerald-500 dark:text-emerald-400 dark:hover:scale-105 transform dark:hover:border-emerald-400"
-                                        onClick={() => handleGroupApplicationAccept(application.requestId)}
+                                        className="text-sm font-semibold mr-2 dark:border-emerald-500 dark:text-emerald-400 dark:hover:scale-105 transform dark:hover:border-emerald-400"
+                                        onClick={(e) => {e.stopPropagation(); handleGroupApplicationAccept(application.requestId)}}
                                     >
                                         Accept
                                     </button>
                                     <button
-                                        className="requests-skip-button"
+                                        className="text-sm font-semibold dark:text-gray-300 text-gray-500 transform hover:scale-105"
                                         onClick={() => handleGroupApplicationDecline(application.requestId)}
                                     >
                                         Decline

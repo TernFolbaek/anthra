@@ -20,7 +20,11 @@
     border-radius: 8px;
     position: relative;
     width: 500px;
-    height: fit-content;
+    height: 70%;
+}
+
+body.dark .edit-group-modal-content {
+    background-color: #3a3a3a;
 }
 
 
@@ -61,12 +65,27 @@
     font-weight: bold;
 }
 
+body.dark .edit-group-tab.active {
+    background-color: transparent;
+
+}
+
 .edit-group-section {
     margin-top: 20px;
 }
 
 .edit-group-field {
     margin-bottom: 15px;
+}
+
+body.dark .edit-group-field {
+    border: 1px solid #555;
+    background-color: #474646;
+    color: white;
+}
+
+body.dark .dark-background-input{
+    background-color: #474646;
 }
 
 .edit-group-field label {
@@ -132,9 +151,6 @@
 }
 
 .edit-member-action-button-profile{
-    background-color: rgba(180, 209, 255, 0.5);
-    padding: 5px;
-    border-radius: 5px;
     margin-left: 5px;
     font-weight: 500;
 }
@@ -190,7 +206,7 @@
 @media (max-width: 480px) {
     .edit-group-modal-content {
         width: 95%;
-        max-height: 90vh;
+        height: 90vh;
         overflow-y: auto;
         padding: 15px;
     }
@@ -198,9 +214,9 @@
     .edit-group-close-button {
         top: -5px;
         right: -5px;
-        font-size: 20px;
-        width: 25px;
-        height: 25px;
+        font-size: 25px;
+        width: 35px;
+        height: 35px;
     }
 
     .purpose-icon-container {

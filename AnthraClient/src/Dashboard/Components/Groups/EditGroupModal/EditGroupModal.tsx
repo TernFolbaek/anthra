@@ -25,47 +25,51 @@ const EditGroupModal: React.FC<EditGroupModalProps> = ({
     const [activeTab, setActiveTab] = useState<'info' | 'members'>('info');
 
     return (
-        <div className="edit-group-modal-overlay">
-            <div className="edit-group-modal-content ">
-                <button className="edit-group-close-button" onClick={onClose}>
-                    &times;
+    <div className="edit-group-modal-overlay" onClick={onClose}>
+        <div className="edit-group-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="edit-group-close-button" onClick={onClose}>
+                &times;
+            </button>
+
+            <div className="edit-group-tabs">
+                <button
+                    className={`text-sm edit-group-tab dark:text-white ${
+                        activeTab === 'info' ? 'active' : ''
+                    }`}
+                    onClick={() => setActiveTab('info')}
+                >
+                    Info
                 </button>
-
-                <div className="edit-group-tabs">
-                    <button
-                        className={`text-sm edit-group-tab ${activeTab === 'info' ? 'active' : ''}`}
-                        onClick={() => setActiveTab('info')}
-                    >
-                        Info
-                    </button>
-                    <button
-                        className={`text-sm edit-group-tab ${activeTab === 'members' ? 'active' : ''}`}
-                        onClick={() => setActiveTab('members')}
-                    >
-                        Members
-                    </button>
-                </div>
-
-                {activeTab === 'info' && (
-                    <GroupInfoTab
-                        groupInfo={groupInfo}
-                        onClose={onClose}
-                        onGroupUpdated={onGroupUpdated}
-                    />
-                )}
-
-                {activeTab === 'members' && (
-                    <GroupMembersTab
-                        groupInfo={{
-                            groupId: groupInfo.groupId,
-                            groupName: groupInfo.groupName,
-                            creatorId: groupInfo.creatorId,
-                        }}
-                    />
-                )}
+                <button
+                    className={`text-sm edit-group-tab dark:text-white ${
+                        activeTab === 'members' ? 'active' : ''
+                    }`}
+                    onClick={() => setActiveTab('members')}
+                >
+                    Members
+                </button>
             </div>
+
+            {activeTab === 'info' && (
+                <GroupInfoTab
+                    groupInfo={groupInfo}
+                    onClose={onClose}
+                    onGroupUpdated={onGroupUpdated}
+                />
+            )}
+
+            {activeTab === 'members' && (
+                <GroupMembersTab
+                    groupInfo={{
+                        groupId: groupInfo.groupId,
+                        groupName: groupInfo.groupName,
+                        creatorId: groupInfo.creatorId,
+                    }}
+                />
+            )}
         </div>
-    );
+    </div>
+);
 };
 
 export default EditGroupModal;

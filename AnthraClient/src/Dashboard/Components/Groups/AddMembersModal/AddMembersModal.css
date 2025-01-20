@@ -94,6 +94,7 @@ body.dark .add-members-modal-content{
     padding: 10px;
     cursor: pointer;
     position: relative;
+    border-radius: 4px;
 }
 
 .add-members-modal-member-item.selected {
@@ -101,7 +102,7 @@ body.dark .add-members-modal-content{
 }
 
 body.dark .add-members-modal-member-item.selected {
-    background-color: rgba(182, 182, 182, 0.97);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 

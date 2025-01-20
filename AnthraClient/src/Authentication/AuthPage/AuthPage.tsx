@@ -295,10 +295,10 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                     {error && <p className="text-sm font-medium text-white">{error}</p>}
 
                     <form onSubmit={handleSubmit}>
-                        {isMobile && isSignUp && <UsernameValidation isMobile={isMobile} />}
-                        <input
+                        {isMobile && isSignUp && <UsernameValidation isMobile={isMobile}/>}
+                        {!isSignUp && (<input
                             type="text"
-                            placeholder="E-mail"
+                            placeholder="Username or Email"
                             required
                             value={username}
                             onChange={(e) => {
@@ -306,7 +306,19 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                                 if (!hasTypedUsername) setHasTypedUsername(true);
                             }}
                             className="text-white auth-input px-3 py-2 focus:ring-emerald-50 border border-gray-600 focus:ring-2 rounded-lg bg-gray-700/50"
-                        />
+                        />)}
+
+                        {isSignUp && (<input
+                            type="text"
+                            placeholder="Username"
+                            required
+                            value={username}
+                            onChange={(e) => {
+                                setUsername(e.target.value);
+                                if (!hasTypedUsername) setHasTypedUsername(true);
+                            }}
+                            className="text-white auth-input px-3 py-2 focus:ring-emerald-50 border border-gray-600 focus:ring-2 rounded-lg bg-gray-700/50"
+                        />)}
 
                         {isSignUp && (
                             <input
@@ -319,7 +331,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                             />
                         )}
 
-                        {isMobile && isSignUp && <PasswordValidation isMobile={isMobile} />}
+                        {isMobile && isSignUp && <PasswordValidation isMobile={isMobile}/>}
                         <input
                             type="password"
                             placeholder="Password"
@@ -332,7 +344,8 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                             className="text-white auth-input px-3 py-2 focus:ring-emerald-50 border border-gray-600 focus:ring-2 rounded-lg bg-gray-700/50"
                         />
 
-                        <button type="submit" className="text-gray-900 bg-emerald-500 w-full px-3 py-2 rounded-lg font-semibold hover:bg-emerald-400 transform hover:scale-105">
+                        <button type="submit"
+                                className="text-gray-900 bg-emerald-500 w-full px-3 py-2 rounded-lg font-semibold hover:bg-emerald-400 transform hover:scale-105">
                             {isSignUp ? 'Sign Up' : 'Log In'}
                         </button>
 

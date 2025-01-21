@@ -615,3 +615,25 @@ body.dark .image-preview-container {
     background-color: #2e2e2e;
   }
 }
+
+.delete-message-btn{
+  position: absolute;
+  width: 160px;
+  height: 30px;
+  background-color: #439ef6;
+  right: calc(120%);
+  font-weight: 600;
+  color: white;
+  font-size: 13px;
+  padding: 3px 5px;
+  border-radius: 5px;
+  top: 2px;
+}
+body.dark .delete-message-btn{
+  background-color: #3a3a3a;
+  border: 1px solid #555;
+}
+
+body.dark .delete-message-btn:hover{
+  background-color: #555;
+}

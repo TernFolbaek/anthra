@@ -1,4 +1,10 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, {
+    useContext,
+    useEffect,
+    useRef,
+    useState,
+    MouseEvent,
+} from 'react';
 import './Messages.css';
 import * as signalR from '@microsoft/signalr';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -6,26 +12,14 @@ import axios from 'axios';
 import MessageConnectionProfile from './MessageConnectionProfile/MessageConnectionProfile';
 import {
     FaEllipsisV, FaArrowLeft, FaUserMinus, FaInfo,
-    FaFilePdf, FaFileWord, FaFileExcel, FaFileAlt, FaFlag
+    FaFilePdf, FaFileWord, FaFileExcel, FaFileAlt, FaFlag, FaTrash
 } from 'react-icons/fa';
 import MessageInput from "./MessageInput";
 import ViewGroupProfile from "../ViewGroupProfile/ViewGroupProfile";
 import GroupInvitationMessage from "./GroupInvitationMessage";
 import ReferralCardMessage from "./ReferralCardMessage";
 import { Message, InvitationActionType, UserProfile } from '../types/types';
-import {NotificationContext} from "../../context/NotificationsContext";
-
-/**
- * Telegram Bot Info:
- *   token:  7954138299:AAGPne8Z1-KpG9LpHCFD9FoEMtXItCOMUPc
- *   chatId: 7731233891
- */
-
-interface Attachment {
-    id: number;
-    fileName: string;
-    fileUrl: string;
-}
+import { NotificationContext } from "../../context/NotificationsContext";
 
 function isImageFileName(fileName: string) {
     return /\.(jpeg|jpg|gif|png|bmp|webp)$/i.test(fileName);
@@ -81,7 +75,6 @@ const Messages: React.FC = () => {
     const [nextTokenValue, setNextTokenValue] = useState<string | null>(null);
     const [firstLoad, setFirstLoad] = useState(true);
 
-    // Notification context
     const notificationContext = useContext(NotificationContext);
     if (!notificationContext) {
         throw new Error("NotificationContext is undefined. Make sure you're inside a NotificationProvider.");
@@ -93,9 +86,13 @@ const Messages: React.FC = () => {
     const [reportDescription, setReportDescription] = useState('');
     const [reportFiles, setReportFiles] = useState<File[]>([]);
 
-    /**
-     * Resize listeners
-     */
+    // Which message is selected for deletion
+    const [selectedMessageForDelete, setSelectedMessageForDelete] = useState<number | null>(null);
+
+    // For mobile long-press
+    const longPressTimerRef = useRef<NodeJS.Timeout | null>(null);
+    const LONG_PRESS_DELAY = 600; // ms (adjust to taste)
+
     useEffect(() => {
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 1300);
@@ -105,13 +102,10 @@ const Messages: React.FC = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    /**
-     * Load initial conversation or redirect to first conversation
-     */
     useEffect(() => {
         if (!userId) {
             axios
-                .get(`/Messages/GetConversations`, {
+                .get('/Messages/GetConversations', {
                     params: { userId: currentUserId },
                 })
                 .then((response) => {
@@ -136,7 +130,7 @@ const Messages: React.FC = () => {
             if (!currentUserId || !userId) return;
             try {
                 const response = await axios.get(
-                    `/Messages/GetChatHistory`,
+                    '/Messages/GetChatHistory',
                     {
                         params: {
                             userId: currentUserId,
@@ -156,7 +150,7 @@ const Messages: React.FC = () => {
                 }
             } catch (error: any) {
                 console.error('Error fetching messages:', error.response?.data || error.message);
-            } finally{
+            } finally {
                 setIsLoading(false);
             }
         };
@@ -164,7 +158,7 @@ const Messages: React.FC = () => {
         const fetchContactProfile = async () => {
             try {
                 const response = await axios.get(
-                    `/Profile/GetProfileById`,
+                    '/Profile/GetProfileById',
                     {
                         params: { userId },
                         headers: { Authorization: `Bearer ${token}` },
@@ -182,7 +176,7 @@ const Messages: React.FC = () => {
     }, [currentUserId, userId, token, navigate, isMobile]);
 
     /**
-     * SignalR Connection setup
+     * SignalR setup
      */
     useEffect(() => {
         let isMounted = true;
@@ -193,7 +187,7 @@ const Messages: React.FC = () => {
             }
 
             const newConnection = new signalR.HubConnectionBuilder()
-                .withUrl('https://api.anthra.dk/chatHub', {
+                .withUrl('http://localhost:5000/chatHub', {
                     accessTokenFactory: () => token || '',
                 })
                 .withAutomaticReconnect()
@@ -236,10 +230,10 @@ const Messages: React.FC = () => {
     }, [userId, token, currentUserId]);
 
     /**
-     * Close dropdown on outside click
+     * Close top-right menu if user clicks outside
      */
     useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
+        const handleClickOutside = (event: globalThis.MouseEvent) => {
             if (showMenu && dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
                 setShowMenu(false);
             }
@@ -251,7 +245,7 @@ const Messages: React.FC = () => {
     }, [showMenu]);
 
     /**
-     * Listen for updated messages or new messages
+     * Listen for updated messages or new messages from SignalR
      */
     useEffect(() => {
         if (connection) {
@@ -272,17 +266,22 @@ const Messages: React.FC = () => {
             connection.on('ReceiveMessage', (incomingMessage: Message) => {
                 setMessages(prev => [...prev, incomingMessage]);
             });
+
+            connection.on('MessageDeleted', (data) => {
+                setMessages(prevMessages => prevMessages.filter((m) => m.id !== data.messageId));
+            });
         }
         return () => {
             if (connection) {
                 connection.off('UpdateMessage');
                 connection.off('ReceiveMessage');
+                connection.off('MessageDeleted');
             }
         };
     }, [connection]);
 
     /**
-     * Infinite scroll - load older messages
+     * Infinite scroll to load more messages
      */
     const fetchMoreMessages = async () => {
         setFirstLoad(false);
@@ -353,22 +352,8 @@ const Messages: React.FC = () => {
     }, [isLoadingMore, allMessagesLoaded, nextTokenValue]);
 
     /**
-     * Scroll whenever container resizes (images, etc.)
+     * Auto-scroll to bottom on first load
      */
-    useEffect(() => {
-        const container = messagesContainerRef.current;
-        if (!container) return;
-
-        const resizeObserver = new ResizeObserver(() => {
-            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-        });
-        resizeObserver.observe(container);
-
-        return () => {
-            resizeObserver.disconnect();
-        };
-    }, []);
-
     const handleMessageRendered = () => {
         if (firstLoad) {
             messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -376,7 +361,7 @@ const Messages: React.FC = () => {
     };
 
     /**
-     * Group invitation
+     * Group invitation acceptance/decline
      */
     const handleAcceptInvitation = async (groupId: number, messageId: number) => {
         try {
@@ -419,14 +404,14 @@ const Messages: React.FC = () => {
     };
 
     /**
-     * Identify chat group ID
+     * Helper to determine chat group name
      */
     const getChatGroupId = (userA: string, userB: string) => {
         return userA < userB ? `${userA}-${userB}` : `${userB}-${userA}`;
     };
 
     /**
-     * Show or hide timestamps
+     * Decide when to show timestamps
      */
     const shouldShowTimestamp = (currentIndex: number): boolean => {
         if (currentIndex === messages.length - 1) {
@@ -443,14 +428,11 @@ const Messages: React.FC = () => {
 
         const timeDiffHours = Math.abs(nextTime.getTime() - currentTime.getTime()) / (1000 * 60 * 60);
 
-        if (currentSender !== nextSender || timeDiffHours >= 2) {
-            return true;
-        }
-        return false;
+        return (currentSender !== nextSender || timeDiffHours >= 2);
     };
 
     /**
-     * Dropdown menu & profile toggles
+     * Toggle or hide top-right menu
      */
     const toggleMenu = () => setShowMenu(!showMenu);
     const handleToggleProfileVisibility = () => {
@@ -458,6 +440,9 @@ const Messages: React.FC = () => {
         setShowMenu(false);
     };
 
+    /**
+     * Remove connection
+     */
     const handleRemoveConnection = async () => {
         try {
             await axios.post(
@@ -476,7 +461,7 @@ const Messages: React.FC = () => {
     };
 
     /**
-     * Reporting a user
+     * Report user
      */
     const handleReportUser = () => {
         setShowReportPopup(true);
@@ -484,9 +469,7 @@ const Messages: React.FC = () => {
     };
 
     const handleSendReport = async () => {
-        // Extra safety
         if (!reportDescription.trim()) return;
-
         try {
             const formData = new FormData();
             formData.append('ReportedUserId', userId || '');
@@ -520,7 +503,7 @@ const Messages: React.FC = () => {
     };
 
     /**
-     * Group profile
+     * View group profile if user clicks a group link
      */
     const handleUserClick = (groupId: number | null) => {
         setSelectedGroupId(groupId);
@@ -548,8 +531,80 @@ const Messages: React.FC = () => {
     };
 
     /**
-     * Rendering
+     * Desktop: right-click => show delete
      */
+    const handleMessageContextMenu = (e: MouseEvent<HTMLDivElement>, messageId: number) => {
+        if (isMobile) return; // skip on mobile
+        e.preventDefault();
+        setSelectedMessageForDelete(prev => (prev === messageId ? null : messageId));
+    };
+
+    /**
+     * Mobile: press & hold to show delete
+     */
+    const handleTouchStart = (msgId: number) => {
+        if (!isMobile) return;
+
+        // Clear any prior timers
+        if (longPressTimerRef.current) {
+            clearTimeout(longPressTimerRef.current);
+        }
+        // Start a new timer
+        longPressTimerRef.current = setTimeout(() => {
+            setSelectedMessageForDelete(msgId);
+        }, LONG_PRESS_DELAY);
+    };
+
+    const handleTouchEnd = () => {
+        if (!isMobile) return;
+
+        // If the user lifts their finger before the LONG_PRESS_DELAY,
+        // clear the timer => no delete button
+        if (longPressTimerRef.current) {
+            clearTimeout(longPressTimerRef.current);
+            longPressTimerRef.current = null;
+        }
+    };
+
+    /**
+     * Delete message
+     */
+    const handleDeleteMessage = async (messageId: number) => {
+        if (!window.confirm('Are you sure you want to delete this message?')) return;
+
+        try {
+            await axios.delete('/Messages/DeleteMessage', {
+                data: { messageId },
+                headers: { Authorization: `Bearer ${token}` },
+            });
+
+            setMessages(prev => prev.filter(m => m.id !== messageId));
+            setSelectedMessageForDelete(null);
+        } catch (error) {
+            console.error("Error deleting message: ", error);
+        }
+    };
+
+    /**
+     * Hide the delete button if user clicks anywhere outside it
+     */
+    useEffect(() => {
+        const handleGlobalClick = (e: globalThis.MouseEvent) => {
+            if (selectedMessageForDelete === null) return;
+
+            const target = e.target as HTMLElement;
+            if (target.closest('.delete-message-btn')) {
+                return;
+            }
+            setSelectedMessageForDelete(null);
+        };
+
+        document.addEventListener('click', handleGlobalClick);
+        return () => {
+            document.removeEventListener('click', handleGlobalClick);
+        };
+    }, [selectedMessageForDelete]);
+
     return (
         <div className="messages-page">
             <div className="message-page-subset">
@@ -565,8 +620,8 @@ const Messages: React.FC = () => {
                                 className="contact-avatar"
                             />
                             <span className="contact-name">
-                                {contactProfile.firstName} {contactProfile.lastName}
-                            </span>
+                {contactProfile.firstName} {contactProfile.lastName}
+              </span>
                         </div>
                         <div className="menu-container" ref={dropdownRef}>
                             <div
@@ -613,109 +668,126 @@ const Messages: React.FC = () => {
                     ) : (
                         <>
                             {!userId ? (
-                                    <div className="h-full w-full flex items-center justify-center">
-                                        <p className="dark:text-white text-sm font-bold">No Messages</p>
-                                    </div>
-                                ) : (
-                                    messages.map((msg, index) => {
-                                        const isLastMessage = index === messages.length - 1;
-                                        const isCurrentUser = msg.receiverId === currentUserId;
+                                <div className="h-full w-full flex items-center justify-center">
+                                    <p className="dark:text-white text-sm font-bold">No Messages</p>
+                                </div>
+                            ) : (
+                                messages.map((msg, index) => {
+                                    const isLastMessage = index === messages.length - 1;
+                                    const isCurrentUser = msg.receiverId === currentUserId;
 
-                                        return (
-                                            <React.Fragment key={msg.id}>
-                                                {msg.isReferralCard ? (
-                                                    <div className="message-wrapper">
-                                                        <ReferralCardMessage
-                                                            msg={msg}
-                                                            isCurrentUser={isCurrentUser}
-                                                            onConnect={handleReferralConnect}
-                                                            onSkip={handleReferralSkip}
-                                                            onRenderComplete={handleMessageRendered}
-                                                        />
-                                                    </div>
-                                                ) : msg.isGroupInvitation ? (
-                                                    <div className="message-wrapper">
-                                                        <GroupInvitationMessage
-                                                            msg={{
-                                                                ...msg,
-                                                                actionType: msg.actionType ?? InvitationActionType.None,
-                                                                invitationStatus: msg.invitationStatus ?? false,
-                                                            }}
-                                                            isCurrentUser={isCurrentUser}
-                                                            contactProfile={contactProfile}
-                                                            handleAcceptInvitation={() => handleAcceptInvitation(msg.groupId!, msg.id)}
-                                                            handleDeclineInvitation={() => handleDeclineInvitation(msg.groupId!, msg.id)}
-                                                            handleUserClick={handleUserClick}
-                                                            groupInfoCache={groupInfoCache}
-                                                            setGroupInfoCache={setGroupInfoCache}
-                                                            onRenderComplete={handleMessageRendered}
-                                                        />
-                                                    </div>
-                                                ) : (
-                                                    <div
-                                                        className={`message-bubble ${
-                                                            isCurrentUser ? 'received' : 'sent'
-                                                        } ${isLastMessage ? 'last-message' : ''}`}
-                                                    >
-                                                        {msg.attachments?.map((attachment) => {
-                                                            const ext = getFileExtension(attachment.fileName);
-                                                            const isImage = isImageFileName(attachment.fileName);
-                                                            const fileHref = attachment.fileUrl;
+                                    return (
+                                        <React.Fragment key={msg.id}>
+                                            {msg.isReferralCard ? (
+                                                <div className="message-wrapper">
+                                                    <ReferralCardMessage
+                                                        msg={msg}
+                                                        isCurrentUser={isCurrentUser}
+                                                        onConnect={handleReferralConnect}
+                                                        onSkip={handleReferralSkip}
+                                                        onRenderComplete={handleMessageRendered}
+                                                    />
+                                                </div>
+                                            ) : msg.isGroupInvitation ? (
+                                                <div className="message-wrapper">
+                                                    <GroupInvitationMessage
+                                                        msg={{
+                                                            ...msg,
+                                                            actionType: msg.actionType ?? InvitationActionType.None,
+                                                            invitationStatus: msg.invitationStatus ?? false,
+                                                        }}
+                                                        isCurrentUser={isCurrentUser}
+                                                        contactProfile={contactProfile}
+                                                        handleAcceptInvitation={() => handleAcceptInvitation(msg.groupId!, msg.id)}
+                                                        handleDeclineInvitation={() => handleDeclineInvitation(msg.groupId!, msg.id)}
+                                                        handleUserClick={handleUserClick}
+                                                        groupInfoCache={groupInfoCache}
+                                                        setGroupInfoCache={setGroupInfoCache}
+                                                        onRenderComplete={handleMessageRendered}
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <div
+                                                    className={`message-bubble ${
+                                                        isCurrentUser ? 'received' : 'sent'
+                                                    } ${isLastMessage ? 'last-message' : ''}`}
+                                                    // Desktop: right-click to toggle
+                                                    onContextMenu={(e) => handleMessageContextMenu(e, msg.id)}
+                                                    // Mobile: hold down to reveal delete
+                                                    onTouchStart={() => handleTouchStart(msg.id)}
+                                                    onTouchEnd={handleTouchEnd}
+                                                >
+                                                    {/* Show delete button if selected */}
+                                                    {selectedMessageForDelete === msg.id && (
+                                                        <button
+                                                            className="delete-message-btn p-2 flex items-center gap-2"
+                                                            onClick={() => handleDeleteMessage(msg.id)}
+                                                        >
+                                                            <FaTrash size={17} /> Delete Message
+                                                        </button>
+                                                    )}
 
-                                                            return (
-                                                                <div
-                                                                    key={`${attachment.id}-${msg.id}`}
-                                                                    className="message-attachment"
-                                                                >
-                                                                    {isImage ? (
-                                                                        <a
-                                                                            href={fileHref}
-                                                                            target="_blank"
-                                                                            rel="noopener noreferrer"
-                                                                        >
-                                                                            <img
-                                                                                src={fileHref}
-                                                                                alt={attachment.fileName}
-                                                                                className="message-image"
-                                                                            />
-                                                                        </a>
-                                                                    ) : (
-                                                                        <a
-                                                                            href={fileHref}
-                                                                            target="_blank"
-                                                                            rel="noopener noreferrer"
-                                                                            download
-                                                                        >
-                                                                            <div className="attachment-preview">
-                                                                                {getFileIcon(ext)}
-                                                                                <span className="attachment-filename">
-                                                                                    {attachment.fileName.length > 10
-                                                                                        ? `${attachment.fileName.substring(0, 10)}...`
-                                                                                        : attachment.fileName}
-                                                                                </span>
-                                                                            </div>
-                                                                        </a>
-                                                                    )}
-                                                                </div>
-                                                            );
-                                                        })}
-                                                        <p>{msg.content || ""}</p>
-                                                    </div>
-                                                )}
-                                                {shouldShowTimestamp(index) && (
-                                                    <div className="message-timestamp">
-                                                        {new Date(msg.timestamp).toLocaleTimeString([], {
-                                                            hour: '2-digit',
-                                                            minute: '2-digit',
-                                                        })}
-                                                    </div>
-                                                )}
-                                            </React.Fragment>
-                                        );
-                                    })
+                                                    {/* Attachments */}
+                                                    {msg.attachments?.map((attachment) => {
+                                                        const ext = getFileExtension(attachment.fileName);
+                                                        const isImage = isImageFileName(attachment.fileName);
+                                                        const fileHref = attachment.fileUrl;
+
+                                                        return (
+                                                            <div
+                                                                key={`${attachment.id}-${msg.id}`}
+                                                                className="message-attachment"
+                                                            >
+                                                                {isImage ? (
+                                                                    <a
+                                                                        href={fileHref}
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                    >
+                                                                        <img
+                                                                            src={fileHref}
+                                                                            alt={attachment.fileName}
+                                                                            className="message-image"
+                                                                        />
+                                                                    </a>
+                                                                ) : (
+                                                                    <a
+                                                                        href={fileHref}
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                        download
+                                                                    >
+                                                                        <div className="attachment-preview">
+                                                                            {getFileIcon(ext)}
+                                                                            <span className="attachment-filename">
+                                        {attachment.fileName.length > 10
+                                            ? `${attachment.fileName.substring(0, 10)}...`
+                                            : attachment.fileName}
+                                      </span>
+                                                                        </div>
+                                                                    </a>
+                                                                )}
+                                                            </div>
+                                                        );
+                                                    })}
+                                                    <p>{msg.content || ""}</p>
+                                                </div>
+                                            )}
+                                            {shouldShowTimestamp(index) && (
+                                                <div className="message-timestamp">
+                                                    {new Date(msg.timestamp).toLocaleTimeString([], {
+                                                        hour: '2-digit',
+                                                        minute: '2-digit',
+                                                    })}
+                                                </div>
+                                            )}
+                                        </React.Fragment>
+                                    );
+                                })
                             )}
                             {isLoadingMore && (
                                 <div className="loading-more-messages">
+                                    {/* You can show a spinner or 'Loading...' */}
                                 </div>
                             )}
                             <div ref={messagesEndRef} />
@@ -723,23 +795,19 @@ const Messages: React.FC = () => {
                     )}
                 </div>
 
-                {/* Show input if we have a userId and either we're on desktop or the profile isn't open */}
                 {userId && (!isMobile || !showProfile) && (
                     <MessageInput userId={userId} />
                 )}
 
-                {/* Show group info if selected */}
                 {selectedGroupId && (
                     <ViewGroupProfile groupId={selectedGroupId} onClose={handleCloseGroupProfile} />
                 )}
             </div>
 
-            {/* Show side-by-side profile if not mobile */}
             {!isMobile && userId && showProfile && (
                 <MessageConnectionProfile userId={userId} />
             )}
 
-            {/* Report Popup Modal */}
             {showReportPopup && (
                 <div className="report-popup-overlay" onClick={handleCloseReportPopup}>
                     <div className="report-popup-content" onClick={(e) => e.stopPropagation()}>
@@ -774,7 +842,9 @@ const Messages: React.FC = () => {
                                 Cancel
                             </button>
                             <button
-                                className={`bg-emerald-400 text-white font-medium px-3 rounded-lg py-2 ${!reportDescription.trim() ? 'disabled-btn' : ''}`}
+                                className={`bg-emerald-400 text-white font-medium px-3 rounded-lg py-2 ${
+                                    !reportDescription.trim() ? 'disabled-btn' : ''
+                                }`}
                                 onClick={handleSendReport}
                                 disabled={!reportDescription.trim()}
                             >

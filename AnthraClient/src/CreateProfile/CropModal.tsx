@@ -99,7 +99,7 @@ const CropModal: React.FC<CropModalProps> = ({isOpen, imageSrc, onClose, onCropC
                     <button onClick={onClose} className="cancel-button">
                         Cancel
                     </button>
-                    <button onClick={handleCrop} className="crop-button">
+                    <button onClick={handleCrop} className="crop-button bg-emerald-400">
                         Crop
                     </button>
                 </div>

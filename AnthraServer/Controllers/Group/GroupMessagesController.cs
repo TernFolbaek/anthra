@@ -10,9 +10,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using System.Text;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models; 
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace MyBackendApp.Controllers
 {
@@ -44,33 +46,100 @@ namespace MyBackendApp.Controllers
         }
         
         [HttpGet("GetGroupChatHistory")]
-        public async Task<IActionResult> GetGroupChatHistory(int groupId)
-        {
-            var messages = await _context.GroupMessages
-                .Include(m => m.Sender)
-                .Include(m => m.Attachment)
-                .Where(m => m.GroupId == groupId)
-                .OrderBy(m => m.Timestamp)
-                .Select(m => new
-                {
-                    m.Id,
-                    m.Content,
-                    m.Timestamp,
-                    SenderId = m.SenderId,
-                    SenderFirstName = m.Sender != null ? m.Sender.FirstName : "Deleted User",
-                    SenderProfilePictureUrl = m.Sender != null ? m.Sender.ProfilePictureUrl : null,
-                    Attachments = m.Attachment != null ? new[] {
-                        new {
-                            m.Attachment.Id,
-                            m.Attachment.FileName,
-                            m.Attachment.FileUrl
-                        }
-                    } : null
-                })
-                .ToListAsync();
+public async Task<IActionResult> GetGroupChatHistory(int groupId, int pageSize = 30, string nextToken = null)
+{
+    var query = _context.GroupMessages
+        .Include(m => m.Sender)
+        .Include(m => m.Attachment)
+        .Where(m => m.GroupId == groupId);
 
-            return Ok(messages);
+    // If nextToken is provided, decode it to know what "page" to fetch:
+    if (!string.IsNullOrEmpty(nextToken))
+    {
+        try
+        {
+            var decodedBytes = Convert.FromBase64String(nextToken);
+            var decodedString = Encoding.UTF8.GetString(decodedBytes);
+            var token = JsonConvert.DeserializeObject<MessagesController.NextToken>(decodedString);
+
+            if (token != null)
+            {
+                // Return messages strictly older than the last one we had
+                query = query.Where(m => 
+                    m.Timestamp < token.Timestamp ||
+                    (m.Timestamp == token.Timestamp && m.Id < token.Id));
+            }
+            else
+            {
+                return BadRequest("Invalid nextToken.");
+            }
         }
+        catch (FormatException)
+        {
+            return BadRequest("Invalid nextToken format.");
+        }
+        catch (JsonException)
+        {
+            return BadRequest("Invalid nextToken content.");
+        }
+    }
+    
+    query = query.OrderByDescending(m => m.Timestamp)
+                 .ThenByDescending(m => m.Id);
+
+    var fetchedMessages = await query
+        .Take(pageSize)
+        .Select(m => new
+        {
+            m.Id,
+            m.Content,
+            m.Timestamp,
+            SenderId = m.SenderId,
+            SenderFirstName = m.Sender != null ? m.Sender.FirstName : "Deleted User",
+            SenderProfilePictureUrl = m.Sender != null ? m.Sender.ProfilePictureUrl : null,
+            GroupId = m.GroupId,
+            Attachments = m.Attachment != null
+                ? new[]
+                {
+                    new
+                    {
+                        m.Attachment.Id,
+                        m.Attachment.FileName,
+                        m.Attachment.FileUrl
+                    }
+                }
+                : null
+        })
+        .ToListAsync();
+
+    // Determine if more data might remain
+    string newNextToken = null;
+    if (fetchedMessages.Count == pageSize)
+    {
+        // The last fetched message (which is oldest in this chunk)
+        var lastMessage = fetchedMessages.Last();
+        var tokenObject = new MessagesController.NextToken
+        {
+            Timestamp = lastMessage.Timestamp,
+            Id = lastMessage.Id
+        };
+        var tokenJson = JsonConvert.SerializeObject(tokenObject);
+        newNextToken = Convert.ToBase64String(Encoding.UTF8.GetBytes(tokenJson));
+    }
+
+    // Reverse back to chronological order
+    var messages = fetchedMessages
+        .OrderBy(m => m.Timestamp)
+        .ThenBy(m => m.Id)
+        .ToList();
+
+    return Ok(new
+    {
+        messages,
+        nextToken = newNextToken
+    });
+}
+
 
         [HttpPost("SendGroupMessage")]
         public async Task<IActionResult> SendGroupMessage([FromForm] SendGroupMessageModel model)

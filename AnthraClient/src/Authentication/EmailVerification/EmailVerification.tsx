@@ -120,8 +120,8 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({ userId, onVerifie
                         />
                     ))}
                 </div>
-                <button onClick={handleVerifyEmail} className="submit-button">Verify</button>
-                <button onClick={handleResendVerificationCode} className="resend-button">Resend Code</button>
+                <button onClick={handleVerifyEmail} className="px-4 rounded-lg w-full text-white h-[35px] font-semibold bg-emerald-400">Verify</button>
+                <button onClick={handleResendVerificationCode} className="resend-button text-emerald-400">Resend Code</button>
                 {error && <p className="error-message">{error}</p>}
                 {message && <p className="success-message">{message}</p>}
             </div>

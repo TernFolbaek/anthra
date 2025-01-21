@@ -612,15 +612,7 @@ const Messages: React.FC = () => {
                         <MessageConnectionProfile userId={userId!} />
                     ) : (
                         <>
-                            {isLoading ? (
-                                <div className="">
-                                    <div className="card-container"></div>
-                                    <div className="message-page-subset">
-                                    </div>
-                                </div>
-
-                            ) : (
-                                !userId ? (
+                            {!userId ? (
                                     <div className="h-full w-full flex items-center justify-center">
                                         <p className="dark:text-white text-sm font-bold">No Messages</p>
                                     </div>
@@ -721,7 +713,6 @@ const Messages: React.FC = () => {
                                             </React.Fragment>
                                         );
                                     })
-                                )
                             )}
                             {isLoadingMore && (
                                 <div className="loading-more-messages">

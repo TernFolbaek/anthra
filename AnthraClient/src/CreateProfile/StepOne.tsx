@@ -320,12 +320,14 @@ const StepOne: React.FC<StepOneProps> = ({
                     </label>
                     <input
                         id="city"
+                        className="disabled:bg-gray-200 disabled:cursor-not-allowed"
                         type="text"
                         placeholder="City"
                         autoComplete="nope"
                         value={city}
                         onChange={handleCityInputChange}
                         onKeyDown={handleCityKeyDown}
+                        disabled={!country}
                     />
                 </div>
                 {citySuggestions.length > 0 && (

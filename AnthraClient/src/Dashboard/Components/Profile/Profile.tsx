@@ -53,7 +53,7 @@ const Profile: React.FC = () => {
     const [subjectsPanelOpen, setSubjectsPanelOpen] = useState(false);
     const [coursesPanelOpen, setCoursesPanelOpen] = useState(false);
     const [statusesPanelOpen, setStatusesPanelOpen] = useState(false);
-
+    const [aboutMeCharCount, setAboutMeCharCount] = useState(profileData?.aboutMe.length);
     // -------------------
     //  Backup States
     // -------------------
@@ -117,6 +117,8 @@ const Profile: React.FC = () => {
                     city: city.trim(),
                 }
             });
+            setAboutMeCharCount(response.data.aboutMe.length)
+
             setSelectedStatuses(response.data.statuses || []);
         } catch (err) {
             setError('Failed to fetch profile data');
@@ -131,6 +133,7 @@ const Profile: React.FC = () => {
     ) => {
         if (profileData) {
             const { name, value } = e.target;
+            setAboutMeCharCount(value.length)
             setProfileData({
                 ...profileData,
                 [name]: value,
@@ -851,6 +854,7 @@ const Profile: React.FC = () => {
                         </div>
                         {aboutPanelOpen && (
                             <div className="panel-body">
+                                <p className="dark:text-white font-medium  text-sm mb-1 flex items-center gap-1 text-gray-700">Characters: {aboutMeCharCount} <p className="text-xs text-gray-500 dark:text-gray-200">(min. 150, max. 300)</p></p>
                                 <textarea
                                     name="aboutMe"
                                     value={profileData.aboutMe}
@@ -858,7 +862,7 @@ const Profile: React.FC = () => {
                                     rows={5}
                                     minLength={150}
                                     maxLength={300}
-                                    className={`w-full text-sm rounded-md h-[200px] ${fieldErrors.aboutMe ? 'border border-red-500' : ''}`}
+                                    className={`w-full text-sm rounded-md h-[200px] border border-gray-300 ${fieldErrors.aboutMe ? 'border border-red-500' : ''}`}
                                 />
                                 {fieldErrors.aboutMe && (
                                     <p className="text-red-500 text-sm">{fieldErrors.aboutMe}</p>

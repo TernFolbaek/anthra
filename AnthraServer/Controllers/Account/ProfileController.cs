@@ -56,6 +56,7 @@ namespace AnthraBackend.Controllers.Account
             user.Age = model.Age;
             user.CreatedProfile = true;
             user.ProfileCompleted = true;
+            user.AllowEmailUpdates = model.AllowEmailUpdates;
 
             // Update statuses if provided
             if (model.Statuses != null && model.Statuses.Count > 0)

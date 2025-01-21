@@ -69,7 +69,6 @@
 }
 
 .submit-button {
-    background-color: #3b82f6;
     border: none;
     color: #fff;
     padding: 0.75rem;
@@ -79,12 +78,6 @@
     font-size: 1rem;
     transition: background-color 0.3s;
 }
-
-.submit-button:hover {
-    background-color: #2563eb;
-}
-
-
 
 .auth-container-p {
     margin-top: 1rem;

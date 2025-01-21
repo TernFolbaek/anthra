@@ -210,10 +210,7 @@ namespace MyBackendApp.Controllers
             public DateTime Timestamp { get; set; }
             public int Id { get; set; }
         }
-
-        // ------------------------------------------
-        // SEND MESSAGE
-        // ------------------------------------------
+        
         [HttpPost("SendMessage")]
         public async Task<IActionResult> SendMessage([FromForm] SendMessageModel model)
         {

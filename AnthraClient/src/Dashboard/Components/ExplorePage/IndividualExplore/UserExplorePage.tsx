@@ -204,8 +204,8 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({onSettingsClick}) => {
                                             <h3 className="dark:text-emerald-400 text-emerald-500">Work</h3>
                                             <div className="flex gap-1 items-center"><FaPencilAlt size={12} color={"#6AD09D"}/><p className="font-medium dark:text-gray-300">{currentUser.work}</p></div>
                                         </div>
-                                        <h3 className="dark:text-emerald-400 text-emerald-500">About Me</h3>
-                                        <p>{currentUser.aboutMe}</p>
+                                        <h3 className="dark:text-emerald-400 text-emerald-500 break-all">About Me</h3>
+                                        <p className="break-all">{currentUser.aboutMe}</p>
                                     </div>
                                 </div>
                             ) : (
@@ -305,7 +305,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({onSettingsClick}) => {
                                             </div>
                                             <div className="flex flex-col items-start">
                                                 <h3 className="dark:text-emerald-400 text-emerald-500">About Me</h3>
-                                                <p>{currentUser.aboutMe}</p>
+                                                <p className="break-all">{currentUser.aboutMe}</p>
                                             </div>
                                             {currentUser.statuses && currentUser.statuses.length > 0 && (
                                                 <div className="user-explore-statuses">
@@ -323,7 +323,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({onSettingsClick}) => {
                                             )}
                                         </div>
                                         <div
-                                            className="flex max-w-[35%] flex-col px-5 py-2 gap-10 dark:bg-emerald-500/10 bg-emerald-100  w-fit rounded-xl backdrop-blur-sm  dark:border-gray-600">
+                                            className="flex max-w-[35%] min-w-[25%] flex-col px-5 py-2 gap-10 dark:bg-emerald-500/10 bg-emerald-100  w-fit rounded-xl backdrop-blur-sm  dark:border-gray-600">
                                             {currentUser.subjects && currentUser.subjects.length > 0 && (
                                                 <div>
                                                     <h3 className="dark:text-emerald-400 text-emerald-500">Subjects</h3>

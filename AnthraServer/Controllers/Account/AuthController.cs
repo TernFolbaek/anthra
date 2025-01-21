@@ -161,7 +161,7 @@ private string MapIdentityErrorCodeToMessage(string errorCode)
             var from = new EmailAddress("admin@anthra.dk", "Anthra");
             var to = new EmailAddress(email);
             var subject = "Email Verification Code";
-            var plainTextContent = $"Your email verification code is: {verificationCode}";
+            var plainTextContent = $"Welcome to Anthra! Your email verification code is: {verificationCode}";
             var htmlContent = $"<p>Your email verification code is: <strong>{verificationCode}</strong></p>";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             await client.SendEmailAsync(msg);

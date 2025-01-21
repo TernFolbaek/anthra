@@ -63,7 +63,7 @@ public async Task<IActionResult> SendSupportEmail([FromBody] SupportEmailRequest
         var client = new SendGridClient(apiKey);
         var fromEmail = "admin@anthra.dk";
         var from = new EmailAddress(fromEmail, "Support Request");
-        var to = new EmailAddress("admin@anthra.dk"); 
+        var to = new EmailAddress("anthradk@gmail.com"); 
         var subject = "Support Request from User";
         
         var plainTextContent = $"Support Request from: {userEmail}\n\nMessage:\n{model.Message}";

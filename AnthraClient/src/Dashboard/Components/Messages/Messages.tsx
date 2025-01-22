@@ -20,7 +20,7 @@ import GroupInvitationMessage from "./GroupInvitationMessage";
 import ReferralCardMessage from "./ReferralCardMessage";
 import { Message, InvitationActionType, UserProfile } from '../types/types';
 import { NotificationContext } from "../../context/NotificationsContext";
-
+import ConfirmationDialog from "../../Helpers/Dialogs/ConfirmationDialog/ConfirmationDialog";
 function isImageFileName(fileName: string) {
     return /\.(jpeg|jpg|gif|png|bmp|webp)$/i.test(fileName);
 }
@@ -63,8 +63,10 @@ const Messages: React.FC = () => {
     const [showProfile, setShowProfile] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 1300);
+    const [isMobileDeleteMessage, setIsMobileDeleteMessage] = useState(window.innerWidth <= 500);
     const [showBackArrow, setShowBackArrow] = useState(window.innerWidth <= 900);
 
     const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null);
@@ -534,7 +536,7 @@ const Messages: React.FC = () => {
      * Desktop: right-click => show delete
      */
     const handleMessageContextMenu = (e: MouseEvent<HTMLDivElement>, messageId: number) => {
-        if (isMobile) return; // skip on mobile
+        if (isMobileDeleteMessage) return; // skip on mobile
         e.preventDefault();
         setSelectedMessageForDelete(prev => (prev === messageId ? null : messageId));
     };
@@ -566,11 +568,21 @@ const Messages: React.FC = () => {
         }
     };
 
+    const openDeleteConfirmation = (messageId: number) => {
+        setSelectedMessageForDelete(messageId);
+        setIsDialogOpen(true);
+    };
+
+    const closeDialog = () => {
+        setIsDialogOpen(false);
+        setSelectedMessageForDelete(null);
+    };
     /**
      * Delete message
      */
-    const handleDeleteMessage = async (messageId: number) => {
-        if (!window.confirm('Are you sure you want to delete this message?')) return;
+    const handleDeleteMessage = async (messageId: number | null) => {
+        if (selectedMessageForDelete === null) return;
+        closeDialog()
 
         try {
             await axios.delete('/Messages/DeleteMessage', {
@@ -712,16 +724,26 @@ const Messages: React.FC = () => {
                                                         isCurrentUser ? 'received' : 'sent'
                                                     } ${isLastMessage ? 'last-message' : ''}`}
                                                     // Desktop: right-click to toggle
-                                                    onContextMenu={(e) => handleMessageContextMenu(e, msg.id)}
-                                                    // Mobile: hold down to reveal delete
+                                                    onContextMenu={
+                                                        !isCurrentUser ? (e) => handleMessageContextMenu(e, msg.id) : undefined
+                                                    }                                                       // Mobile: hold down to reveal delete
                                                     onTouchStart={() => handleTouchStart(msg.id)}
                                                     onTouchEnd={handleTouchEnd}
                                                 >
+                                                    {isDialogOpen && (
+                                                        <ConfirmationDialog
+                                                            message="Are you sure you want to delete this message?"
+                                                            onConfirm={() => {
+                                                                void handleDeleteMessage(selectedMessageForDelete);
+                                                            }}
+                                                            onCancel={closeDialog}
+                                                        />
+                                                    )}
                                                     {/* Show delete button if selected */}
                                                     {selectedMessageForDelete === msg.id && (
                                                         <button
                                                             className="delete-message-btn p-2 flex items-center gap-2"
-                                                            onClick={() => handleDeleteMessage(msg.id)}
+                                                            onClick={() => openDeleteConfirmation(msg.id)}
                                                         >
                                                             <FaTrash size={17} /> Delete Message
                                                         </button>
@@ -854,6 +876,8 @@ const Messages: React.FC = () => {
                     </div>
                 </div>
             )}
+
+
         </div>
     );
 };

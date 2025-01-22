@@ -1,0 +1,33 @@
+.confirmation-dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirmation-dialog {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.confirmation-dialog-buttons {
+    margin-top: 20px;
+}
+
+.confirm-button {
+    margin-right: 10px;
+    color: white;
+    padding: 5px 10px;
+}
+
+.cancel-button {
+    color: white;
+    padding: 5px 10px;
+}

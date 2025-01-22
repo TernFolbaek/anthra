@@ -98,7 +98,7 @@ const Settings: React.FC<SettingsProps> = ({ onClose }) => {
                 {/* Filters Section */}
                 <div className="settings-dropdown-section">
                     <div className="settings-dropdown-header" onClick={toggleFilters}>
-                        <p className="settings-dropdown-title">Filters:</p>
+                        <p className="settings-dropdown-title">Filters</p>
                         <span className="settings-dropdown-icon">
                             {filtersExpanded ? <FaChevronUp /> : <FaChevronDown />}
                         </span>
@@ -114,7 +114,7 @@ const Settings: React.FC<SettingsProps> = ({ onClose }) => {
                 {/* Configuration Section */}
                 <div className="settings-dropdown-section">
                     <div className="settings-dropdown-header" onClick={toggleConfiguration}>
-                        <p className="settings-dropdown-title">Configuration:</p>
+                        <p className="settings-dropdown-title">Configuration</p>
                         <span className="settings-dropdown-icon">
                             {configExpanded ? <FaChevronUp /> : <FaChevronDown />}
                         </span>
@@ -130,7 +130,7 @@ const Settings: React.FC<SettingsProps> = ({ onClose }) => {
                 {/* Profile Section */}
                 <div className="settings-dropdown-section">
                     <div className="settings-dropdown-header" onClick={toggleProfile}>
-                        <p className="settings-dropdown-title">Profile:</p>
+                        <p className="settings-dropdown-title">Account</p>
                         <span className="settings-dropdown-icon">
                             {profileExpanded ? <FaChevronUp /> : <FaChevronDown />}
                         </span>

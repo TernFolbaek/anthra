@@ -118,7 +118,7 @@ const MessageConnectionProfile: React.FC<Props> = ({ userId }) => {
     }
 
     if (!profileData) {
-        return <div className="profile-loading">Loading profile...</div>;
+        return;
     }
 
     const renderThumbnail = (attachment: Attachment, size = 120) => {

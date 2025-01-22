@@ -1,8 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
 
 .create-profile-page {
-    background-color: #f9f9f9;
-    color: #333;
+    background: radial-gradient(
+            ellipse at top,
+            #0c6e56 0%,
+            #0b4e3e 20%,
+            #0c2e37 40%,
+            #081924 70%,
+            #000 100%
+    );    color: #333;
     font-family: 'Montserrat', sans-serif;
     min-height: 100vh;
     display: flex;

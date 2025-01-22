@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, MouseEvent } from 'react';
 import axios from 'axios';
 import './GroupMessage.css';
 import { useNavigate } from 'react-router-dom';
 import {
     FaEllipsisV, FaArrowLeft, FaPenSquare, FaInfo, FaUserPlus,
-    FaFileAlt, FaFilePdf, FaFileWord, FaFileExcel, FaFlag
+    FaFileAlt, FaFilePdf, FaFileWord, FaFileExcel, FaFlag, FaTrash
 } from 'react-icons/fa';
 import * as signalR from '@microsoft/signalr';
 import { MdExitToApp } from "react-icons/md";
@@ -15,6 +15,7 @@ import ViewProfile from "../../ViewProfile/ViewProfile";
 import AddMembersModal from "../AddMembersModal/AddMembersModal";
 import Snackbar from "../../../Helpers/Snackbar/Snackbar";
 import useWindowWidth from "../../../hooks/useWindowWidth";
+import ConfirmationDialog from "../../../Helpers/Dialogs/ConfirmationDialog/ConfirmationDialog";
 
 interface Attachment {
     id: number;
@@ -80,8 +81,12 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
     const [groupInfo, setGroupInfo] = useState<GroupInfo | null>(null);
     const isGroupCreator = groupInfo?.creatorId === localStorage.getItem("userId");
 
-    // For mobile vs desktop layout
+    // For general “mobile layout” usage
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 1300);
+
+    // IMPORTANT: For toggling delete behavior on truly small screens
+    // (Just like in your Messages.tsx where you used isMobileDeleteMessage.)
+    const [isMobileDeleteMessage, setIsMobileDeleteMessage] = useState(window.innerWidth <= 500);
 
     // UI toggles
     const [showMenu, setShowMenu] = useState(false);
@@ -120,10 +125,108 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
 
-    /** Handle resize to set isMobile */
+    // ----- Deletion-related state -----
+    const [selectedMessageForDelete, setSelectedMessageForDelete] = useState<number | null>(null);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const longPressTimerRef = useRef<NodeJS.Timeout | null>(null);
+    const LONG_PRESS_DELAY = 600; // ms
+
+    /**
+     * DESKTOP: Right-click => show delete button
+     */
+    const handleMessageContextMenu = (e: MouseEvent<HTMLDivElement>, messageId: number) => {
+        // Only do context menu if NOT in small-screen “long-press” mode:
+        if (isMobileDeleteMessage) return;
+
+        e.preventDefault();
+        setSelectedMessageForDelete((prev) => (prev === messageId ? null : messageId));
+    };
+
+    useEffect(() => {
+        console.log(selectedMessageForDelete)
+    }, [selectedMessageForDelete]);
+
+
+
+    /**
+     * MOBILE: long-press to show delete
+     */
+    const handleTouchStart = (messageId: number) => {
+        // Only do long-press if we actually want mobile delete:
+        if (!isMobileDeleteMessage) return;
+
+        if (longPressTimerRef.current) {
+            clearTimeout(longPressTimerRef.current);
+        }
+        longPressTimerRef.current = setTimeout(() => {
+            setSelectedMessageForDelete(messageId);
+        }, LONG_PRESS_DELAY);
+    };
+
+    const handleTouchEnd = () => {
+        if (!isMobileDeleteMessage) return;
+
+        if (longPressTimerRef.current) {
+            clearTimeout(longPressTimerRef.current);
+            longPressTimerRef.current = null;
+        }
+    };
+
+    /**
+     * When user clicks "Delete Message" => open confirmation dialog
+     */
+    const openDeleteConfirmation = (messageId: number) => {
+        console.log(messageId)
+        setSelectedMessageForDelete(messageId);
+        setIsDialogOpen(true);
+    };
+
+    const closeDialog = () => {
+        setIsDialogOpen(false);
+        setSelectedMessageForDelete(null);
+    };
+
+    const handleDeleteMessage = async (messageId: number | null) => {
+        console.log(messageId)
+        try {
+            // Example endpoint for group messages
+            await axios.delete('/GroupMessages/DeleteMessage', {
+                data: { messageId },
+                headers: { Authorization: `Bearer ${token}` },
+            });
+
+            setMessages((prev) => prev.filter((m) => m.id !== messageId));
+            setSelectedMessageForDelete(null);
+            setIsDialogOpen(false);
+        } catch (error) {
+            console.error("Error deleting message:", error);
+        }
+    };
+
+
+    useEffect(() => {
+        const handleGlobalClick = (e: globalThis.MouseEvent) => {
+            if (selectedMessageForDelete === null) return;
+            const target = e.target as HTMLElement;
+            // If the user clicked the "delete-message-btn" itself, do nothing
+            if (target.closest('.delete-message-btn-group')) {
+                return;
+            }
+            setSelectedMessageForDelete(null);
+        };
+
+        document.addEventListener('click', handleGlobalClick);
+        return () => {
+            document.removeEventListener('click', handleGlobalClick);
+        };
+    }, [selectedMessageForDelete]);
+    // ---------------------------------
+
+    /** Handle resize to set isMobile + isMobileDeleteMessage */
     useEffect(() => {
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 1300);
+            setIsMobileDeleteMessage(window.innerWidth <= 500);
         };
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
@@ -157,9 +260,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
         connectionRef.current = connection;
         connection
             .start()
-            .then(() => {
-                setIsConnectionStarted(true);
-            })
+            .then(() => setIsConnectionStarted(true))
             .catch((error) => console.error("SignalR Connection failed:", error));
 
         return () => {
@@ -168,7 +269,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
     }, [token]);
 
     /**
-     * 3) Once the SignalR connection is started, join the current group
+     * 3) Once the SignalR connection is started, join the current group & listen for new messages
      */
     useEffect(() => {
         if (isConnectionStarted && connectionRef.current) {
@@ -192,12 +293,19 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
             connection.on("ReceiveGroupMessage", (message: Message) => {
                 // Only add if it belongs to the current group
                 if (message.groupId === groupId) {
-                    setMessages(prev => [...prev, message]);
+                    setMessages((prev) => [...prev, message]);
                 }
             });
 
+            // If your backend supports a "GroupMessageDeleted" event:
+            // connection.off("GroupMessageDeleted");
+            // connection.on("GroupMessageDeleted", (data) => {
+            //     setMessages(prev => prev.filter(m => m.id !== data.messageId));
+            // });
+
             return () => {
                 connection.off("ReceiveGroupMessage");
+                // connection.off("GroupMessageDeleted");
             };
         }
     }, [groupId, isConnectionStarted]);
@@ -211,7 +319,6 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
 
         const handleScroll = () => {
             if (container.scrollTop === 0 && !isLoadingMore && !allMessagesLoaded) {
-                console.log("fetching more")
                 fetchMoreMessages();
             }
         };
@@ -231,7 +338,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
         }
     }, [messages, firstLoad]);
 
-    // ------------------ API CALLS ------------------
+    // ---------- API CALLS ----------
 
     /** Fetch group info */
     const fetchGroupDetails = async () => {
@@ -245,7 +352,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
         }
     };
 
-    /** Initial fetch of the newest chunk (pageSize=30) */
+    /** Initial fetch of the newest chunk (pageSize=20) */
     const fetchInitialMessages = async () => {
         try {
             const response = await axios.get(`/GroupMessages/GetGroupChatHistory`, {
@@ -256,7 +363,6 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
-            // The endpoint returns { messages, nextToken }
             const data = response.data;
             setMessages(data.messages);
             setNextTokenValue(data.nextToken);
@@ -269,24 +375,23 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
         }
     };
 
+    /**
+     * Load older messages (paging)
+     */
     const fetchMoreMessages = async () => {
         if (!groupId || isLoadingMore || allMessagesLoaded) return;
-        console.log("fetching more");
         setFirstLoad(false);
         setIsLoadingMore(true);
 
         const container = messagesContainerRef.current;
         if (!container) return;
 
-        // Capture scroll positions before fetching
+        // capture scroll positions
         const scrollHeightBefore = container.scrollHeight;
         const scrollTopBefore = container.scrollTop;
 
         try {
-            const params: Record<string, any> = {
-                groupId,
-                pageSize: 30,
-            };
+            const params: Record<string, any> = { groupId, pageSize: 30 };
             if (nextTokenValue) {
                 params.nextToken = nextTokenValue;
             }
@@ -297,14 +402,12 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
             });
 
             const { messages: newMessages, nextToken: newNextToken } = response.data;
-            console.log('newMessages IDs:', newMessages.map((msg: { id: any; }) => msg.id));
-
             if (newMessages.length === 0) {
                 setAllMessagesLoaded(true);
             } else {
                 setMessages((prev: Message[]) => {
-                    const existingIds = new Set(prev.map((m: Message) => m.id));
-                    const filtered = newMessages.filter((m: Message) => !existingIds.has(m.id));
+                    const existingIds = new Set(prev.map((m : Message) => m.id));
+                    const filtered = newMessages.filter((m : Message) => !existingIds.has(m.id));
                     return [...filtered, ...prev];
                 });
                 setNextTokenValue(newNextToken);
@@ -312,37 +415,29 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
         } catch (error) {
             console.error("Error fetching more messages:", error);
         } finally {
-
             setIsLoadingMore(false);
         }
 
-        // Use requestAnimationFrame to ensure the DOM updates are done
         requestAnimationFrame(() => {
             if (!container) return;
-
             const scrollHeightAfter = container.scrollHeight;
-            // Calculate how much the container grew after adding older messages
             const scrollDifference = scrollHeightAfter - scrollHeightBefore;
-
-            // Keep the user visually at the same place they were before loading
             container.scrollTop = scrollTopBefore + scrollDifference;
         });
     };
 
+    // ---------- UI UTILITIES ----------
 
-    // ------------------ UI UTILITIES ------------------
-
-    /** Show a timestamp if it's the last message, or user/time changed significantly */
     const shouldShowTimestamp = (currentIndex: number): boolean => {
         if (currentIndex === messages.length - 1) return true;
         const currentMessage = messages[currentIndex];
         const nextMessage = messages[currentIndex + 1];
 
-        // if next message is by a different user, or if time gap >= 2 hours
         if (
             currentMessage.senderId !== nextMessage.senderId ||
             Math.abs(
-                new Date(nextMessage.timestamp).getTime() - new Date(currentMessage.timestamp).getTime()
+                new Date(nextMessage.timestamp).getTime() -
+                new Date(currentMessage.timestamp).getTime()
             ) >= 2 * 60 * 60 * 1000
         ) {
             return true;
@@ -350,23 +445,19 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
         return false;
     };
 
-    /** Toggle the top-right menu */
     const toggleMenu = () => setShowMenu(!showMenu);
 
-    /** Show/hide group info side panel */
     const handleToggleGroupInfoVisibility = () => {
         setShowGroupInfo((prev) => !prev);
         setShowMenu(false);
     };
 
-    /** Open the Edit Group modal (creator-only) */
     const handleEditGroup = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
         setShowEditGroupModal(true);
         setShowMenu(false);
     };
 
-    /** Leave the group and possibly navigate away */
     const handleLeaveGroup = async (groupIdToLeave: number) => {
         try {
             await axios.post(
@@ -376,14 +467,14 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
             );
             console.log(`Successfully left group ${groupIdToLeave}`);
             setShowMenu(false);
-            // Possibly navigate away or refresh the groups list
-            // Example: navigate("/dashboard/groups");
+            // Possibly navigate away:
+            // navigate("/dashboard/groups");
         } catch (error) {
             console.error("Error leaving group:", error);
         }
     };
 
-    // ------------------ REPORTING ------------------
+    // -------- REPORTING ----------
     const handleReportUser = () => {
         setShowReportPopup(true);
         setShowMenu(false);
@@ -423,15 +514,11 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
         setReportFiles([]);
     };
 
-    // ------------------ ADD/VIEW MEMBERS ------------------
-    const handleOpenAddMembersModal = () => {
-        setShowAddMembersModal(true);
-    };
-    const handleCloseAddMembersModal = () => {
-        setShowAddMembersModal(false);
-    };
+    // -------- ADD MEMBERS ----------
+    const handleOpenAddMembersModal = () => setShowAddMembersModal(true);
+    const handleCloseAddMembersModal = () => setShowAddMembersModal(false);
 
-    // ------------------ VIEW PROFILE ------------------
+    // -------- VIEW PROFILE ----------
     const handleUserSelect = (clickedUserId: string) => {
         setSelectedUserId(clickedUserId);
     };
@@ -439,10 +526,9 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
         setSelectedUserId(null);
     };
 
-    // ------------------ MENU OUTSIDE CLICK ------------------
     const dropdownRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
+        const handleClickOutside = (event: globalThis.MouseEvent) => {
             if (
                 showMenu &&
                 dropdownRef.current &&
@@ -457,12 +543,11 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
         };
     }, [showMenu]);
 
-    // --------------------------------------------------------
-
     return (
         <div className="group-message-page">
             <div className="group-message-container">
-                {/* Header with group name, menu, etc. */}
+
+                {/* HEADER */}
                 <div className="contact-header" onClick={handleToggleGroupInfoVisibility}>
                     {isMobile && (
                         <FaArrowLeft
@@ -504,7 +589,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                             className="flex items-center gap-2 text-sm font-medium"
                                             onClick={handleEditGroup}
                                         >
-                                            <FaPenSquare/>
+                                            <FaPenSquare />
                                             <div>Edit Group</div>
                                         </button>
                                     )}
@@ -513,7 +598,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                             className="flex gap-2 items-center font-medium text-black dark:text-white text-sm"
                                             onClick={handleReportUser}
                                         >
-                                            <FaFlag/>
+                                            <FaFlag />
                                             <div>Report Group</div>
                                         </button>
                                     )}
@@ -521,14 +606,14 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                         className="flex items-center gap-2 text-sm font-medium"
                                         onClick={handleToggleGroupInfoVisibility}
                                     >
-                                        <FaInfo/>
+                                        <FaInfo />
                                         <div>{showGroupInfo ? "Hide Info" : "Show Info"}</div>
                                     </button>
                                     <button
                                         className="flex items-center gap-2 font-medium text-sm"
                                         onClick={() => handleLeaveGroup(groupId)}
                                     >
-                                        <MdExitToApp/>
+                                        <MdExitToApp />
                                         Leave Group
                                     </button>
                                 </div>
@@ -538,15 +623,13 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                     </div>
                 </div>
 
-                {/* The scrollable messages container */}
+                {/* MESSAGE LIST */}
                 <div className="group-message-list" ref={messagesContainerRef}>
                     {isMobile && showGroupInfo ? (
-                        /* If on mobile and user toggled group info, show it full-screen */
                         <GroupInfo groupId={groupId} />
                     ) : (
                         <>
                             {messages.map((message, index) => {
-                                // If previous message is from a different sender, we show the sender info
                                 const previousMessage = messages[index - 1];
                                 const showSenderInfo =
                                     !previousMessage || previousMessage.senderId !== message.senderId;
@@ -556,9 +639,15 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                 return (
                                     <div
                                         key={message.id}
-                                        className={`group-message-item ${isCurrentUser ? "group-message-own" : ""}`}
+                                        className={`group-message-item relative ${
+                                            isCurrentUser ? "group-message-own" : ""
+                                        }`}
+                                        onContextMenu={
+                                            isCurrentUser ? (e) => handleMessageContextMenu(e, message.id) : undefined
+                                        }                                        onTouchStart={() => handleTouchStart(message.id)}
+                                        onTouchEnd={handleTouchEnd}
                                     >
-                                        {/* Show sender's name/pic if it's a different user than previous message */}
+                                        {/* If different user, show their info */}
                                         {showSenderInfo && !isCurrentUser && (
                                             <div
                                                 className="cursor-pointer group-message-sender-info"
@@ -575,6 +664,28 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                             </div>
                                         )}
 
+                                        {/* Confirmation dialog (only if this msg is selected) */}
+                                        {isDialogOpen  && (
+                                            <ConfirmationDialog
+                                                message="Are you sure you want to delete this message?"
+                                                onConfirm={() => {
+                                                    void handleDeleteMessage(selectedMessageForDelete);
+                                                }}
+                                                onCancel={closeDialog}
+                                            />
+                                        )}
+
+                                        {/* Show a "Delete" button if this msg is selected */}
+                                        {selectedMessageForDelete === message.id && (
+                                            <button
+                                                className="delete-message-btn-group right-10 p-2 flex items-center gap-2"
+                                                onClick={() => openDeleteConfirmation(message.id)}
+                                            >
+                                                <FaTrash size={17} />
+                                                Delete Message
+                                            </button>
+                                        )}
+
                                         <div
                                             className={
                                                 isCurrentUser
@@ -584,7 +695,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                         >
                                             <p>{message.content}</p>
 
-                                            {/* Display attachments if any */}
+                                            {/* Attachments */}
                                             {message.attachments?.map((attachment) => {
                                                 const isImage = isImageFileName(attachment.fileName);
                                                 if (isImage) {
@@ -635,20 +746,17 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                 );
                             })}
 
-                            {/* Show a 'loading' indicator if we are fetching more */}
                             {isLoadingMore && (
                                 <div className="loading-more-messages">
-                                    {/* e.g. a spinner or 'Loading older messages...' */}
+                                    {/* e.g. "Loading older messages..." */}
                                 </div>
                             )}
-
-                            {/* Anchor to scroll to the latest message */}
                             <div ref={messagesEndRef} />
                         </>
                     )}
                 </div>
 
-                {/* The input box, if not hidden by mobile groupInfo toggle */}
+                {/* INPUT BOX (unless user is viewing group info on mobile) */}
                 {(!isMobile || !showGroupInfo) && (
                     <GroupMessageInput groupId={groupId} showModal={showModal} />
                 )}

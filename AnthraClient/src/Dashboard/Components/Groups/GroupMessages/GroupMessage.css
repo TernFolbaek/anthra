@@ -166,3 +166,26 @@ body.dark .group-message-input {
     cursor: pointer;
 }
 
+.delete-message-btn-group{
+    position: absolute;
+    width: 160px;
+    height: 30px;
+    background-color: #439ef6;
+    right: 20%;
+    z-index: 10;
+    font-weight: 600;
+    color: white;
+    font-size: 13px;
+    padding: 3px 5px;
+    border-radius: 5px;
+    top: 2px;
+}
+body.dark .delete-message-btn-group{
+    background-color: #3a3a3a;
+    border: 1px solid #555;
+}
+
+body.dark .delete-message-btn-group:hover{
+    background-color: #555;
+}
+

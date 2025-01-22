@@ -775,7 +775,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                     onChange={(e) => setAllowEmailUpdates(e.target.checked)}
                     className="mr-2 cursor-pointer"
                 />
-                <label htmlFor="allowEmails" className="text-sm cursor-pointer text-center text-gray-500">
+                <label htmlFor="allowEmails" className="font-medium bg-slate-100 p-1 rounded-md text-sm cursor-pointer text-center text-gray-500">
                     Allow email updates about new features and new user sign-ups?
                 </label>
             </div>

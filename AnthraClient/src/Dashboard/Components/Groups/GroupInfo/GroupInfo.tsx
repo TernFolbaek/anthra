@@ -471,7 +471,8 @@ const GroupInfo: React.FC<GroupInfoProps> = ({ groupId }) => {
                 </div>
             )}
             {showSeeMoreButton && (
-                <button className="see-more-button" onClick={() => setShowModal(true)}>
+                <button                         className="text-sm text-center text-emerald-400 font-medium hover:font-semibold transform hover:scale-105"
+                                                onClick={() => setShowModal(true)}>
                     See More
                 </button>
             )}

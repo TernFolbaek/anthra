@@ -241,7 +241,7 @@ const MessageConnectionProfile: React.FC<Props> = ({ userId }) => {
                 )}
                 {attachments.length > 4 && (
                     <button
-                        className="see-more-button"
+                        className="text-sm text-center text-emerald-400 font-medium hover:font-semibold transform hover:scale-105"
                         onClick={() => setShowModal(true)}
                     >
                         See More

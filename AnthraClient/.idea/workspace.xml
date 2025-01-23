@@ -4,9 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Less rem on status tag explore">
+    <list default="true" id="53fdd3bd-319e-4504-a172-47bcd89add3f" name="Changes" comment="Fix keydown enter">
+      <change afterPath="$PROJECT_DIR$/src/LandingPage/assets/connectionpagedemo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LandingPage/assets/grouppagedemo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LandingPage/assets/userexplorepage.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CreateProfile/CreateProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/CreateProfile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CreateProfile/StepTwo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/StepTwo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Connections/Connections.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Connections/Connections.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/ExplorePage/IndividualExplore/UserExplorePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/ExplorePage/IndividualExplore/UserExplorePage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Groups/GroupMessages/GroupMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Groups/GroupMessages/GroupMessage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Messages/MessageInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Messages/MessageInput.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Messages/Messages.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Messages/Messages.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Messages/Messages.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Messages/Messages.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Profile/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/ViewProfile/ViewProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/ViewProfile/ViewProfile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LandingPage/components/HowItWorks/HowItWorks.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/LandingPage/components/HowItWorks/HowItWorks.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LandingPage/components/HowItWorks/HowItWorks.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/LandingPage/components/HowItWorks/HowItWorks.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/languages/homeTranslations.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/languages/homeTranslations.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/languages/landingPageTranslations.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/languages/landingPageTranslations.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AnthraServer/Folder.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Folder.DotSettings.user" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,10 +86,10 @@
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/LandingPage/assets" />
+      <recent name="$PROJECT_DIR$/src/Dashboard/Helpers/Dialogs/ConfirmationDialog" />
+      <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/client/web/public" />
-      <recent name="$PROJECT_DIR$/client/web/src/Dashboard/Components/ExplorePage/IndividualExplore" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -247,400 +263,407 @@
       <workItem from="1736974318418" duration="1545000" />
       <workItem from="1737021553778" duration="2381000" />
       <workItem from="1737024146657" duration="4169000" />
+      <workItem from="1737039094437" duration="18257000" />
+      <workItem from="1737110254642" duration="16708000" />
+      <workItem from="1737361388775" duration="1815000" />
+      <workItem from="1737376306722" duration="606000" />
+      <workItem from="1737381481969" duration="18581000" />
+      <workItem from="1737456265754" duration="29525000" />
+      <workItem from="1737669312727" duration="4224000" />
     </task>
-    <task id="LOCAL-00816" summary="Style footer with emerald color scheme">
+    <task id="LOCAL-00881" summary="Follow emerald color scheme">
       <option name="closed" value="true" />
-      <created>1736779975351</created>
-      <option name="number" value="00816" />
-      <option name="presentableId" value="LOCAL-00816" />
+      <created>1737104277013</created>
+      <option name="number" value="00881" />
+      <option name="presentableId" value="LOCAL-00881" />
       <option name="project" value="LOCAL" />
-      <updated>1736779975351</updated>
+      <updated>1737104277013</updated>
     </task>
-    <task id="LOCAL-00817" summary="Style group explore page">
+    <task id="LOCAL-00882" summary="Users sign in with their email, therefore i will have email as the placeholder">
       <option name="closed" value="true" />
-      <created>1736779988929</created>
-      <option name="number" value="00817" />
-      <option name="presentableId" value="LOCAL-00817" />
+      <created>1737104289485</created>
+      <option name="number" value="00882" />
+      <option name="presentableId" value="LOCAL-00882" />
       <option name="project" value="LOCAL" />
-      <updated>1736779988929</updated>
+      <updated>1737104289485</updated>
     </task>
-    <task id="LOCAL-00818" summary="Style group modal with emerald color scheme">
+    <task id="LOCAL-00883" summary="Include institution in group members modal">
       <option name="closed" value="true" />
-      <created>1736780000719</created>
-      <option name="number" value="00818" />
-      <option name="presentableId" value="LOCAL-00818" />
+      <created>1737104303751</created>
+      <option name="number" value="00883" />
+      <option name="presentableId" value="LOCAL-00883" />
       <option name="project" value="LOCAL" />
-      <updated>1736780000719</updated>
+      <updated>1737104303751</updated>
     </task>
-    <task id="LOCAL-00819" summary="Remove dark styling from css">
+    <task id="LOCAL-00884" summary="Darker gray text in light mode">
       <option name="closed" value="true" />
-      <created>1736780014908</created>
-      <option name="number" value="00819" />
-      <option name="presentableId" value="LOCAL-00819" />
+      <created>1737104362156</created>
+      <option name="number" value="00884" />
+      <option name="presentableId" value="LOCAL-00884" />
       <option name="project" value="LOCAL" />
-      <updated>1736780014908</updated>
+      <updated>1737104362156</updated>
     </task>
-    <task id="LOCAL-00820" summary="Add emerald color scheme">
+    <task id="LOCAL-00885" summary="Current statuses -&gt; Status">
       <option name="closed" value="true" />
-      <created>1736780026308</created>
-      <option name="number" value="00820" />
-      <option name="presentableId" value="LOCAL-00820" />
+      <created>1737196878830</created>
+      <option name="number" value="00885" />
+      <option name="presentableId" value="LOCAL-00885" />
       <option name="project" value="LOCAL" />
-      <updated>1736780026308</updated>
+      <updated>1737196878830</updated>
     </task>
-    <task id="LOCAL-00821" summary="Remove console logs">
+    <task id="LOCAL-00886" summary="Style file input">
       <option name="closed" value="true" />
-      <created>1736780035615</created>
-      <option name="number" value="00821" />
-      <option name="presentableId" value="LOCAL-00821" />
+      <created>1737197932749</created>
+      <option name="number" value="00886" />
+      <option name="presentableId" value="LOCAL-00886" />
       <option name="project" value="LOCAL" />
-      <updated>1736780035615</updated>
+      <updated>1737197932750</updated>
     </task>
-    <task id="LOCAL-00822" summary="Smaller sidebar icons">
+    <task id="LOCAL-00887" summary="Style file input">
       <option name="closed" value="true" />
-      <created>1736780044347</created>
-      <option name="number" value="00822" />
-      <option name="presentableId" value="LOCAL-00822" />
+      <created>1737197935568</created>
+      <option name="number" value="00887" />
+      <option name="presentableId" value="LOCAL-00887" />
       <option name="project" value="LOCAL" />
-      <updated>1736780044347</updated>
+      <updated>1737197935568</updated>
     </task>
-    <task id="LOCAL-00823" summary="Style user explore page with new containers and emerald color scheme">
+    <task id="LOCAL-00888" summary="Style input for subjects and courses">
       <option name="closed" value="true" />
-      <created>1736780055990</created>
-      <option name="number" value="00823" />
-      <option name="presentableId" value="LOCAL-00823" />
+      <created>1737197943930</created>
+      <option name="number" value="00888" />
+      <option name="presentableId" value="LOCAL-00888" />
       <option name="project" value="LOCAL" />
-      <updated>1736780055990</updated>
+      <updated>1737197943930</updated>
     </task>
-    <task id="LOCAL-00824" summary="Style Help settings with emerald color scheme">
+    <task id="LOCAL-00889" summary="Follow emerald color scheme">
       <option name="closed" value="true" />
-      <created>1736780068757</created>
-      <option name="number" value="00824" />
-      <option name="presentableId" value="LOCAL-00824" />
+      <created>1737197953715</created>
+      <option name="number" value="00889" />
+      <option name="presentableId" value="LOCAL-00889" />
       <option name="project" value="LOCAL" />
-      <updated>1736780068757</updated>
+      <updated>1737197953715</updated>
     </task>
-    <task id="LOCAL-00825" summary="Create radial gradient background">
+    <task id="LOCAL-00890" summary="Follow emerald color scheme">
       <option name="closed" value="true" />
-      <created>1736780083913</created>
-      <option name="number" value="00825" />
-      <option name="presentableId" value="LOCAL-00825" />
+      <created>1737197956921</created>
+      <option name="number" value="00890" />
+      <option name="presentableId" value="LOCAL-00890" />
       <option name="project" value="LOCAL" />
-      <updated>1736780083913</updated>
+      <updated>1737197956921</updated>
     </task>
-    <task id="LOCAL-00826" summary="Remove comment out development tools">
+    <task id="LOCAL-00891" summary="Follow emerald color scheme">
       <option name="closed" value="true" />
-      <created>1736780096582</created>
-      <option name="number" value="00826" />
-      <option name="presentableId" value="LOCAL-00826" />
+      <created>1737197960014</created>
+      <option name="number" value="00891" />
+      <option name="presentableId" value="LOCAL-00891" />
       <option name="project" value="LOCAL" />
-      <updated>1736780096582</updated>
+      <updated>1737197960014</updated>
     </task>
-    <task id="LOCAL-00827" summary="remove overflow x hidden from body so scroll detection for navbar works">
+    <task id="LOCAL-00892" summary="Follow emerald color scheme">
       <option name="closed" value="true" />
-      <created>1736780111838</created>
-      <option name="number" value="00827" />
-      <option name="presentableId" value="LOCAL-00827" />
+      <created>1737197966543</created>
+      <option name="number" value="00892" />
+      <option name="presentableId" value="LOCAL-00892" />
       <option name="project" value="LOCAL" />
-      <updated>1736780111838</updated>
+      <updated>1737197966543</updated>
     </task>
-    <task id="LOCAL-00828" summary="Heavier fontweight for logo title and more narrow letter spacing">
+    <task id="LOCAL-00893" summary="Stop propagation">
       <option name="closed" value="true" />
-      <created>1736780130520</created>
-      <option name="number" value="00828" />
-      <option name="presentableId" value="LOCAL-00828" />
+      <created>1737358559779</created>
+      <option name="number" value="00893" />
+      <option name="presentableId" value="LOCAL-00893" />
       <option name="project" value="LOCAL" />
-      <updated>1736780130520</updated>
+      <updated>1737358559779</updated>
     </task>
-    <task id="LOCAL-00829" summary="change styling for dark mode">
+    <task id="LOCAL-00894" summary="Allow username or email on login">
       <option name="closed" value="true" />
-      <created>1736780148064</created>
-      <option name="number" value="00829" />
-      <option name="presentableId" value="LOCAL-00829" />
+      <created>1737358571889</created>
+      <option name="number" value="00894" />
+      <option name="presentableId" value="LOCAL-00894" />
       <option name="project" value="LOCAL" />
-      <updated>1736780148064</updated>
+      <updated>1737358571889</updated>
     </task>
-    <task id="LOCAL-00830" summary="add emerald scheme">
+    <task id="LOCAL-00895" summary="stop propagation">
       <option name="closed" value="true" />
-      <created>1736780162803</created>
-      <option name="number" value="00830" />
-      <option name="presentableId" value="LOCAL-00830" />
+      <created>1737384071342</created>
+      <option name="number" value="00895" />
+      <option name="presentableId" value="LOCAL-00895" />
       <option name="project" value="LOCAL" />
-      <updated>1736780162803</updated>
+      <updated>1737384071342</updated>
     </task>
-    <task id="LOCAL-00831" summary="Add new translations for landing page">
+    <task id="LOCAL-00896" summary="Remove background on more users">
       <option name="closed" value="true" />
-      <created>1736780188616</created>
-      <option name="number" value="00831" />
-      <option name="presentableId" value="LOCAL-00831" />
+      <created>1737384085736</created>
+      <option name="number" value="00896" />
+      <option name="presentableId" value="LOCAL-00896" />
       <option name="project" value="LOCAL" />
-      <updated>1736780188616</updated>
+      <updated>1737384085736</updated>
     </task>
-    <task id="LOCAL-00832" summary="Style new color scheme into snackbar">
+    <task id="LOCAL-00897" summary="Follow emerald color scheme">
       <option name="closed" value="true" />
-      <created>1736780200251</created>
-      <option name="number" value="00832" />
-      <option name="presentableId" value="LOCAL-00832" />
+      <created>1737384106889</created>
+      <option name="number" value="00897" />
+      <option name="presentableId" value="LOCAL-00897" />
       <option name="project" value="LOCAL" />
-      <updated>1736780200251</updated>
+      <updated>1737384106890</updated>
     </task>
-    <task id="LOCAL-00833" summary="Follow new emerald color scheme and add error message">
+    <task id="LOCAL-00898" summary="Follow emerald color scheme">
       <option name="closed" value="true" />
-      <created>1736780221825</created>
-      <option name="number" value="00833" />
-      <option name="presentableId" value="LOCAL-00833" />
+      <created>1737384113514</created>
+      <option name="number" value="00898" />
+      <option name="presentableId" value="LOCAL-00898" />
       <option name="project" value="LOCAL" />
-      <updated>1736780221825</updated>
+      <updated>1737384113514</updated>
     </task>
-    <task id="LOCAL-00834" summary="Remove background color on submit button">
+    <task id="LOCAL-00899" summary="Follow emerald color scheme">
       <option name="closed" value="true" />
-      <created>1736780230986</created>
-      <option name="number" value="00834" />
-      <option name="presentableId" value="LOCAL-00834" />
+      <created>1737384116025</created>
+      <option name="number" value="00899" />
+      <option name="presentableId" value="LOCAL-00899" />
       <option name="project" value="LOCAL" />
-      <updated>1736780230986</updated>
+      <updated>1737384116025</updated>
     </task>
-    <task id="LOCAL-00835" summary="Style for dark mode">
+    <task id="LOCAL-00900" summary="Consensus on message bubble styling">
       <option name="closed" value="true" />
-      <created>1736780238485</created>
-      <option name="number" value="00835" />
-      <option name="presentableId" value="LOCAL-00835" />
+      <created>1737384129168</created>
+      <option name="number" value="00900" />
+      <option name="presentableId" value="LOCAL-00900" />
       <option name="project" value="LOCAL" />
-      <updated>1736780238485</updated>
+      <updated>1737384129168</updated>
     </task>
-    <task id="LOCAL-00836" summary="New dependencies">
+    <task id="LOCAL-00901" summary="Share link to friends">
       <option name="closed" value="true" />
-      <created>1736780255311</created>
-      <option name="number" value="00836" />
-      <option name="presentableId" value="LOCAL-00836" />
+      <created>1737384260125</created>
+      <option name="number" value="00901" />
+      <option name="presentableId" value="LOCAL-00901" />
       <option name="project" value="LOCAL" />
-      <updated>1736780255311</updated>
+      <updated>1737384260125</updated>
     </task>
-    <task id="LOCAL-00837" summary="Add dark mode for adding members">
+    <task id="LOCAL-00902" summary="New favicon">
       <option name="closed" value="true" />
-      <created>1736781167748</created>
-      <option name="number" value="00837" />
-      <option name="presentableId" value="LOCAL-00837" />
+      <created>1737407538497</created>
+      <option name="number" value="00902" />
+      <option name="presentableId" value="LOCAL-00902" />
       <option name="project" value="LOCAL" />
-      <updated>1736781167748</updated>
+      <updated>1737407538497</updated>
     </task>
-    <task id="LOCAL-00838" summary="White add members icon in dark mode">
+    <task id="LOCAL-00903" summary="New background to selected member item">
       <option name="closed" value="true" />
-      <created>1736790558474</created>
-      <option name="number" value="00838" />
-      <option name="presentableId" value="LOCAL-00838" />
+      <created>1737407568446</created>
+      <option name="number" value="00903" />
+      <option name="presentableId" value="LOCAL-00903" />
       <option name="project" value="LOCAL" />
-      <updated>1736790558474</updated>
+      <updated>1737407568446</updated>
     </task>
-    <task id="LOCAL-00839" summary="emerald on add members icon hover in dark mode">
+    <task id="LOCAL-00904" summary="Smaller font size for texts in group explore page for mobile view">
       <option name="closed" value="true" />
-      <created>1736790573703</created>
-      <option name="number" value="00839" />
-      <option name="presentableId" value="LOCAL-00839" />
+      <created>1737407591037</created>
+      <option name="number" value="00904" />
+      <option name="presentableId" value="LOCAL-00904" />
       <option name="project" value="LOCAL" />
-      <updated>1736790573703</updated>
+      <updated>1737407591037</updated>
     </task>
-    <task id="LOCAL-00840" summary="snackbar bar on light mode wil be sky 300">
+    <task id="LOCAL-00905" summary="Follow emerald color scheme">
       <option name="closed" value="true" />
-      <created>1736790592205</created>
-      <option name="number" value="00840" />
-      <option name="presentableId" value="LOCAL-00840" />
+      <created>1737407626246</created>
+      <option name="number" value="00905" />
+      <option name="presentableId" value="LOCAL-00905" />
       <option name="project" value="LOCAL" />
-      <updated>1736790592205</updated>
+      <updated>1737407626247</updated>
     </task>
-    <task id="LOCAL-00841" summary="Cancel button follows emerald color scheme">
+    <task id="LOCAL-00906" summary="Add mark all as read functionality">
       <option name="closed" value="true" />
-      <created>1736812568526</created>
-      <option name="number" value="00841" />
-      <option name="presentableId" value="LOCAL-00841" />
+      <created>1737407651599</created>
+      <option name="number" value="00906" />
+      <option name="presentableId" value="LOCAL-00906" />
       <option name="project" value="LOCAL" />
-      <updated>1736812568526</updated>
+      <updated>1737407651599</updated>
     </task>
-    <task id="LOCAL-00842" summary="Prevent propagation on course addition">
+    <task id="LOCAL-00907" summary="Rounded border for snackbar progress">
       <option name="closed" value="true" />
-      <created>1736812581790</created>
-      <option name="number" value="00842" />
-      <option name="presentableId" value="LOCAL-00842" />
+      <created>1737407663882</created>
+      <option name="number" value="00907" />
+      <option name="presentableId" value="LOCAL-00907" />
       <option name="project" value="LOCAL" />
-      <updated>1736812581790</updated>
+      <updated>1737407663882</updated>
     </task>
-    <task id="LOCAL-00843" summary="Update color scheming in footer">
+    <task id="LOCAL-00908" summary="Max 35% width for the subjects and courses container in user explore page">
       <option name="closed" value="true" />
-      <created>1736815196034</created>
-      <option name="number" value="00843" />
-      <option name="presentableId" value="LOCAL-00843" />
+      <created>1737407681496</created>
+      <option name="number" value="00908" />
+      <option name="presentableId" value="LOCAL-00908" />
       <option name="project" value="LOCAL" />
-      <updated>1736815196035</updated>
+      <updated>1737407681496</updated>
     </task>
-    <task id="LOCAL-00844" summary="Update color scheming in Menu">
+    <task id="LOCAL-00909" summary="Skeleton layout">
       <option name="closed" value="true" />
-      <created>1736815202650</created>
-      <option name="number" value="00844" />
-      <option name="presentableId" value="LOCAL-00844" />
+      <created>1737417284293</created>
+      <option name="number" value="00909" />
+      <option name="presentableId" value="LOCAL-00909" />
       <option name="project" value="LOCAL" />
-      <updated>1736815202650</updated>
+      <updated>1737417284293</updated>
     </task>
-    <task id="LOCAL-00845" summary="Emerald color scheme instead of blue">
+    <task id="LOCAL-00910" summary="Disabled city and disabled subjects and courses input if country or institution is not filled in respectively">
       <option name="closed" value="true" />
-      <created>1736815212870</created>
-      <option name="number" value="00845" />
-      <option name="presentableId" value="LOCAL-00845" />
+      <created>1737449734620</created>
+      <option name="number" value="00910" />
+      <option name="presentableId" value="LOCAL-00910" />
       <option name="project" value="LOCAL" />
-      <updated>1736815212870</updated>
+      <updated>1737449734620</updated>
     </task>
-    <task id="LOCAL-00846" summary="Containerize different user information in user card">
+    <task id="LOCAL-00911" summary="Break about me">
       <option name="closed" value="true" />
-      <created>1736815226599</created>
-      <option name="number" value="00846" />
-      <option name="presentableId" value="LOCAL-00846" />
+      <created>1737456844609</created>
+      <option name="number" value="00911" />
+      <option name="presentableId" value="LOCAL-00911" />
       <option name="project" value="LOCAL" />
-      <updated>1736815226599</updated>
+      <updated>1737456844609</updated>
     </task>
-    <task id="LOCAL-00847" summary="Update color scheming">
+    <task id="LOCAL-00912" summary="Char count on about me textarea">
       <option name="closed" value="true" />
-      <created>1736815323592</created>
-      <option name="number" value="00847" />
-      <option name="presentableId" value="LOCAL-00847" />
+      <created>1737456855254</created>
+      <option name="number" value="00912" />
+      <option name="presentableId" value="LOCAL-00912" />
       <option name="project" value="LOCAL" />
-      <updated>1736815323592</updated>
+      <updated>1737456855254</updated>
     </task>
-    <task id="LOCAL-00848" summary="Update color scheming">
+    <task id="LOCAL-00913" summary="remove skeleton layout for now on messages load">
       <option name="closed" value="true" />
-      <created>1736815369543</created>
-      <option name="number" value="00848" />
-      <option name="presentableId" value="LOCAL-00848" />
+      <created>1737456891099</created>
+      <option name="number" value="00913" />
+      <option name="presentableId" value="LOCAL-00913" />
       <option name="project" value="LOCAL" />
-      <updated>1736815369544</updated>
+      <updated>1737456891099</updated>
     </task>
-    <task id="LOCAL-00849" summary="Emerald color scheme">
+    <task id="LOCAL-00914" summary="Awaiting more users to make filtering available message">
       <option name="closed" value="true" />
-      <created>1736847361007</created>
-      <option name="number" value="00849" />
-      <option name="presentableId" value="LOCAL-00849" />
+      <created>1737485298843</created>
+      <option name="number" value="00914" />
+      <option name="presentableId" value="LOCAL-00914" />
       <option name="project" value="LOCAL" />
-      <updated>1736847361007</updated>
+      <updated>1737485298843</updated>
     </task>
-    <task id="LOCAL-00850" summary="Emerald color scheme">
+    <task id="LOCAL-00915" summary="Follow emerald scheme">
       <option name="closed" value="true" />
-      <created>1736847365270</created>
-      <option name="number" value="00850" />
-      <option name="presentableId" value="LOCAL-00850" />
+      <created>1737485306330</created>
+      <option name="number" value="00915" />
+      <option name="presentableId" value="LOCAL-00915" />
       <option name="project" value="LOCAL" />
-      <updated>1736847365270</updated>
+      <updated>1737485306330</updated>
     </task>
-    <task id="LOCAL-00851" summary="New formatting of profile card">
+    <task id="LOCAL-00916" summary="Follow emerald scheme">
       <option name="closed" value="true" />
-      <created>1736847374630</created>
-      <option name="number" value="00851" />
-      <option name="presentableId" value="LOCAL-00851" />
+      <created>1737485312416</created>
+      <option name="number" value="00916" />
+      <option name="presentableId" value="LOCAL-00916" />
       <option name="project" value="LOCAL" />
-      <updated>1736847374630</updated>
+      <updated>1737485312416</updated>
     </task>
-    <task id="LOCAL-00852" summary="Update buttons to emerald color scheme">
+    <task id="LOCAL-00917" summary="Follow emerald scheme">
       <option name="closed" value="true" />
-      <created>1736856029621</created>
-      <option name="number" value="00852" />
-      <option name="presentableId" value="LOCAL-00852" />
+      <created>1737485318648</created>
+      <option name="number" value="00917" />
+      <option name="presentableId" value="LOCAL-00917" />
       <option name="project" value="LOCAL" />
-      <updated>1736856029624</updated>
+      <updated>1737485318648</updated>
     </task>
-    <task id="LOCAL-00853" summary="Update create profile color scheme and fix back redirection">
+    <task id="LOCAL-00918" summary="Follow emerald scheme">
       <option name="closed" value="true" />
-      <created>1737022550883</created>
-      <option name="number" value="00853" />
-      <option name="presentableId" value="LOCAL-00853" />
+      <created>1737485323070</created>
+      <option name="number" value="00918" />
+      <option name="presentableId" value="LOCAL-00918" />
       <option name="project" value="LOCAL" />
-      <updated>1737022550883</updated>
+      <updated>1737485323070</updated>
     </task>
-    <task id="LOCAL-00854" summary="Follow emerald color scheme">
+    <task id="LOCAL-00919" summary="Delete message functionality">
       <option name="closed" value="true" />
-      <created>1737022566604</created>
-      <option name="number" value="00854" />
-      <option name="presentableId" value="LOCAL-00854" />
+      <created>1737485373193</created>
+      <option name="number" value="00919" />
+      <option name="presentableId" value="LOCAL-00919" />
       <option name="project" value="LOCAL" />
-      <updated>1737022566604</updated>
+      <updated>1737485373193</updated>
     </task>
-    <task id="LOCAL-00855" summary="Follow emerald color scheme">
+    <task id="LOCAL-00920" summary="Create confirmation Dialog">
       <option name="closed" value="true" />
-      <created>1737022572525</created>
-      <option name="number" value="00855" />
-      <option name="presentableId" value="LOCAL-00855" />
+      <created>1737576176416</created>
+      <option name="number" value="00920" />
+      <option name="presentableId" value="LOCAL-00920" />
       <option name="project" value="LOCAL" />
-      <updated>1737022572525</updated>
+      <updated>1737576176417</updated>
     </task>
-    <task id="LOCAL-00856" summary="Follow emerald color scheme">
+    <task id="LOCAL-00921" summary="Delete message button group styling and functionality">
       <option name="closed" value="true" />
-      <created>1737022580346</created>
-      <option name="number" value="00856" />
-      <option name="presentableId" value="LOCAL-00856" />
+      <created>1737576251114</created>
+      <option name="number" value="00921" />
+      <option name="presentableId" value="LOCAL-00921" />
       <option name="project" value="LOCAL" />
-      <updated>1737022580346</updated>
+      <updated>1737576251114</updated>
     </task>
-    <task id="LOCAL-00857" summary="Follow emerald color scheme">
+    <task id="LOCAL-00922" summary="Follow emerald scheme">
       <option name="closed" value="true" />
-      <created>1737022758538</created>
-      <option name="number" value="00857" />
-      <option name="presentableId" value="LOCAL-00857" />
+      <created>1737576397500</created>
+      <option name="number" value="00922" />
+      <option name="presentableId" value="LOCAL-00922" />
       <option name="project" value="LOCAL" />
-      <updated>1737022758538</updated>
+      <updated>1737576397500</updated>
     </task>
-    <task id="LOCAL-00858" summary="Remove connection will remove notifications with associated user">
+    <task id="LOCAL-00923" summary="Remove : from settings titles">
       <option name="closed" value="true" />
-      <created>1737028152051</created>
-      <option name="number" value="00858" />
-      <option name="presentableId" value="LOCAL-00858" />
+      <created>1737576409125</created>
+      <option name="number" value="00923" />
+      <option name="presentableId" value="LOCAL-00923" />
       <option name="project" value="LOCAL" />
-      <updated>1737028152052</updated>
+      <updated>1737576409125</updated>
     </task>
-    <task id="LOCAL-00859" summary="Follow emerald color scheme">
+    <task id="LOCAL-00924" summary="Style allow emails text">
       <option name="closed" value="true" />
-      <created>1737029677456</created>
-      <option name="number" value="00859" />
-      <option name="presentableId" value="LOCAL-00859" />
+      <created>1737576427351</created>
+      <option name="number" value="00924" />
+      <option name="presentableId" value="LOCAL-00924" />
       <option name="project" value="LOCAL" />
-      <updated>1737029677456</updated>
+      <updated>1737576427351</updated>
     </task>
-    <task id="LOCAL-00860" summary="Don't display footer on personal and group messages">
+    <task id="LOCAL-00925" summary="Radial background for create profile page">
       <option name="closed" value="true" />
-      <created>1737029742485</created>
-      <option name="number" value="00860" />
-      <option name="presentableId" value="LOCAL-00860" />
+      <created>1737576443627</created>
+      <option name="number" value="00925" />
+      <option name="presentableId" value="LOCAL-00925" />
       <option name="project" value="LOCAL" />
-      <updated>1737029742485</updated>
+      <updated>1737576443627</updated>
     </task>
-    <task id="LOCAL-00861" summary="Follow emerald color scheme">
+    <task id="LOCAL-00926" summary="Delete message styling and functionality for DMs">
       <option name="closed" value="true" />
-      <created>1737029854825</created>
-      <option name="number" value="00861" />
-      <option name="presentableId" value="LOCAL-00861" />
+      <created>1737576477106</created>
+      <option name="number" value="00926" />
+      <option name="presentableId" value="LOCAL-00926" />
       <option name="project" value="LOCAL" />
-      <updated>1737029854825</updated>
+      <updated>1737576477106</updated>
     </task>
-    <task id="LOCAL-00862" summary="Remove notifications by sender id">
+    <task id="LOCAL-00927" summary="Remove loading glitch">
       <option name="closed" value="true" />
-      <created>1737029863086</created>
-      <option name="number" value="00862" />
-      <option name="presentableId" value="LOCAL-00862" />
+      <created>1737576539052</created>
+      <option name="number" value="00927" />
+      <option name="presentableId" value="LOCAL-00927" />
       <option name="project" value="LOCAL" />
-      <updated>1737029863086</updated>
+      <updated>1737576539052</updated>
     </task>
-    <task id="LOCAL-00863" summary="Follow emerald color scheme">
+    <task id="LOCAL-00928" summary="Style see more button">
       <option name="closed" value="true" />
-      <created>1737029869912</created>
-      <option name="number" value="00863" />
-      <option name="presentableId" value="LOCAL-00863" />
+      <created>1737576748722</created>
+      <option name="number" value="00928" />
+      <option name="presentableId" value="LOCAL-00928" />
       <option name="project" value="LOCAL" />
-      <updated>1737029869912</updated>
+      <updated>1737576748722</updated>
     </task>
-    <task id="LOCAL-00864" summary="Less rem on status tag explore">
+    <task id="LOCAL-00929" summary="Fix keydown enter">
       <option name="closed" value="true" />
-      <created>1737029877903</created>
-      <option name="number" value="00864" />
-      <option name="presentableId" value="LOCAL-00864" />
+      <created>1737577461013</created>
+      <option name="number" value="00929" />
+      <option name="presentableId" value="LOCAL-00929" />
       <option name="project" value="LOCAL" />
-      <updated>1737029877903</updated>
+      <updated>1737577461013</updated>
     </task>
-    <option name="localTasksCounter" value="865" />
+    <option name="localTasksCounter" value="930" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -669,31 +692,31 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Style new color scheme into snackbar" />
-    <MESSAGE value="Follow new emerald color scheme and add error message" />
-    <MESSAGE value="Remove background color on submit button" />
-    <MESSAGE value="Style for dark mode" />
-    <MESSAGE value="New dependencies" />
-    <MESSAGE value="Add dark mode for adding members" />
-    <MESSAGE value="White add members icon in dark mode" />
-    <MESSAGE value="emerald on add members icon hover in dark mode" />
-    <MESSAGE value="snackbar bar on light mode wil be sky 300" />
-    <MESSAGE value="Cancel button follows emerald color scheme" />
-    <MESSAGE value="Prevent propagation on course addition" />
-    <MESSAGE value="Update color scheming in footer" />
-    <MESSAGE value="Update color scheming in Menu" />
-    <MESSAGE value="Emerald color scheme instead of blue" />
-    <MESSAGE value="Containerize different user information in user card" />
-    <MESSAGE value="Update color scheming" />
-    <MESSAGE value="Emerald color scheme" />
-    <MESSAGE value="New formatting of profile card" />
-    <MESSAGE value="Update buttons to emerald color scheme" />
-    <MESSAGE value="Update create profile color scheme and fix back redirection" />
-    <MESSAGE value="Remove connection will remove notifications with associated user" />
-    <MESSAGE value="Don't display footer on personal and group messages" />
-    <MESSAGE value="Remove notifications by sender id" />
+    <MESSAGE value="Share link to friends" />
+    <MESSAGE value="New favicon" />
+    <MESSAGE value="New background to selected member item" />
+    <MESSAGE value="Smaller font size for texts in group explore page for mobile view" />
     <MESSAGE value="Follow emerald color scheme" />
-    <MESSAGE value="Less rem on status tag explore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Less rem on status tag explore" />
+    <MESSAGE value="Add mark all as read functionality" />
+    <MESSAGE value="Rounded border for snackbar progress" />
+    <MESSAGE value="Max 35% width for the subjects and courses container in user explore page" />
+    <MESSAGE value="Skeleton layout" />
+    <MESSAGE value="Disabled city and disabled subjects and courses input if country or institution is not filled in respectively" />
+    <MESSAGE value="Break about me" />
+    <MESSAGE value="Char count on about me textarea" />
+    <MESSAGE value="remove skeleton layout for now on messages load" />
+    <MESSAGE value="Awaiting more users to make filtering available message" />
+    <MESSAGE value="Delete message functionality" />
+    <MESSAGE value="Create confirmation Dialog" />
+    <MESSAGE value="Delete message button group styling and functionality" />
+    <MESSAGE value="Follow emerald scheme" />
+    <MESSAGE value="Remove : from settings titles" />
+    <MESSAGE value="Style allow emails text" />
+    <MESSAGE value="Radial background for create profile page" />
+    <MESSAGE value="Delete message styling and functionality for DMs" />
+    <MESSAGE value="Remove loading glitch" />
+    <MESSAGE value="Style see more button" />
+    <MESSAGE value="Fix keydown enter" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix keydown enter" />
   </component>
 </project>

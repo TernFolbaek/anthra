@@ -395,13 +395,5 @@ body.dark .settings-explore-mobile {
     color: white;
 }
 
-.slide-in {
-    opacity: 1;
-    transform: translateY(0);
-}
 
-.slide-out {
-    opacity: 0;
-    transform: translateY(-20px);
-}
 

@@ -17,6 +17,7 @@ import Snackbar from "../../../Helpers/Snackbar/Snackbar";
 import useWindowWidth from "../../../hooks/useWindowWidth";
 import ConfirmationDialog from "../../../Helpers/Dialogs/ConfirmationDialog/ConfirmationDialog";
 
+/** ---- TYPES ---- **/
 interface Attachment {
     id: number;
     fileName: string;
@@ -39,7 +40,7 @@ interface GroupMessageProps {
     showModal: boolean;
 }
 
-interface GroupInfo {
+interface GroupDetails {
     adminName: string;
     groupName: string;
     creatorId: string;
@@ -50,14 +51,16 @@ interface GroupInfo {
     groupPurpose: string;
 }
 
-// Helpers to identify images / get file icon
+/** ---- FILE ICON HELPERS ---- **/
 function isImageFileName(fileName: string) {
     return /\.(jpeg|jpg|gif|png|bmp|webp)$/i.test(fileName);
 }
+
 function getFileExtension(fileName: string): string {
     const parts = fileName.split(".");
     return (parts.pop() || "").toLowerCase();
 }
+
 function getFileIcon(extension: string) {
     switch (extension) {
         case "pdf":
@@ -74,29 +77,38 @@ function getFileIcon(extension: string) {
 }
 
 const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
-    // Main state for messages (in chronological order)
+    /** ---- STATE ---- **/
+        // Main state for messages (in chronological order)
     const [messages, setMessages] = useState<Message[]>([]);
 
     // Group info details (fetched once per groupId)
-    const [groupInfo, setGroupInfo] = useState<GroupInfo | null>(null);
+    const [groupInfo, setGroupInfo] = useState<GroupDetails | null>(null);
     const isGroupCreator = groupInfo?.creatorId === localStorage.getItem("userId");
+
+    // Connection to SignalR (mirroring Messages.tsx)
+    const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
 
     // For general “mobile layout” usage
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 1300);
-
-    // IMPORTANT: For toggling delete behavior on truly small screens
-    // (Just like in your Messages.tsx where you used isMobileDeleteMessage.)
     const [isMobileDeleteMessage, setIsMobileDeleteMessage] = useState(window.innerWidth <= 500);
 
     // UI toggles
     const [showMenu, setShowMenu] = useState(false);
     const [showGroupInfo, setShowGroupInfo] = useState(false);
     const [showEditGroupModal, setShowEditGroupModal] = useState(false);
+
+    // Reporting
     const [showReportPopup, setShowReportPopup] = useState(false);
     const [reportDescription, setReportDescription] = useState('');
     const [reportFiles, setReportFiles] = useState<File[]>([]);
+
+    // For viewing another user's profile
     const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+
+    // Add members
     const [showAddMembersModal, setShowAddMembersModal] = useState(false);
+
+    // Context menu
     const [contextMenuPosition, setContextMenuPosition] = useState<{ x: number; y: number } | null>(null);
 
     // Infinite scroll & paging states
@@ -112,12 +124,12 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
     const windowWidth = useWindowWidth();
     const isSmallScreen = windowWidth < 480;
 
-    // SignalR connection
-    const connectionRef = useRef<signalR.HubConnection | null>(null);
-    const [isConnectionStarted, setIsConnectionStarted] = useState(false);
-    const previousGroupIdRef = useRef<number | undefined>(undefined);
+    // Deletion-related state
+    const [selectedMessageForDelete, setSelectedMessageForDelete] = useState<number | null>(null);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    // Refs for the messages container & “end” anchor
+    // Refs
+    const longPressTimerRef = useRef<NodeJS.Timeout | null>(null);
     const messagesContainerRef = useRef<HTMLDivElement | null>(null);
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
@@ -126,105 +138,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
 
-    // ----- Deletion-related state -----
-    const [selectedMessageForDelete, setSelectedMessageForDelete] = useState<number | null>(null);
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const longPressTimerRef = useRef<NodeJS.Timeout | null>(null);
-    const LONG_PRESS_DELAY = 600; // ms
-
-    /**
-     * DESKTOP: Right-click => show delete button
-     */
-    const handleMessageContextMenu = (e: MouseEvent<HTMLDivElement>, messageId: number) => {
-        // Only do context menu if NOT in small-screen “long-press” mode:
-        if (isMobileDeleteMessage) return;
-
-        e.preventDefault();
-        setSelectedMessageForDelete((prev) => (prev === messageId ? null : messageId));
-        setContextMenuPosition({ x: e.clientX, y: e.clientY });
-    };
-
-    useEffect(() => {
-        console.log(selectedMessageForDelete)
-    }, [selectedMessageForDelete]);
-
-
-
-    /**
-     * MOBILE: long-press to show delete
-     */
-    const handleTouchStart = (messageId: number) => {
-        // Only do long-press if we actually want mobile delete:
-        if (!isMobileDeleteMessage) return;
-
-        if (longPressTimerRef.current) {
-            clearTimeout(longPressTimerRef.current);
-        }
-        longPressTimerRef.current = setTimeout(() => {
-            setSelectedMessageForDelete(messageId);
-        }, LONG_PRESS_DELAY);
-    };
-
-    const handleTouchEnd = () => {
-        if (!isMobileDeleteMessage) return;
-
-        if (longPressTimerRef.current) {
-            clearTimeout(longPressTimerRef.current);
-            longPressTimerRef.current = null;
-        }
-    };
-
-    /**
-     * When user clicks "Delete Message" => open confirmation dialog
-     */
-    const openDeleteConfirmation = (messageId: number) => {
-        console.log(messageId)
-        setSelectedMessageForDelete(messageId);
-        setIsDialogOpen(true);
-    };
-
-    const closeDialog = () => {
-        setIsDialogOpen(false);
-        setSelectedMessageForDelete(null);
-    };
-
-    const handleDeleteMessage = async (messageId: number | null) => {
-        console.log(messageId)
-        try {
-            // Example endpoint for group messages
-            await axios.delete('/GroupMessages/DeleteMessage', {
-                data: { messageId },
-                headers: { Authorization: `Bearer ${token}` },
-            });
-
-            setMessages((prev) => prev.filter((m) => m.id !== messageId));
-            setSelectedMessageForDelete(null);
-            setIsDialogOpen(false);
-        } catch (error) {
-            console.error("Error deleting message:", error);
-        }
-    };
-
-
-    useEffect(() => {
-        const handleGlobalClick = (e: globalThis.MouseEvent) => {
-            if (selectedMessageForDelete === null) return;
-            const target = e.target as HTMLElement;
-            // If the user clicked the "delete-message-btn" itself, do nothing
-            if (target.closest('.delete-message-btn-group')) {
-                return;
-            }
-            setSelectedMessageForDelete(null);
-        };
-
-        document.addEventListener('click', handleGlobalClick);
-        return () => {
-            document.removeEventListener('click', handleGlobalClick);
-        };
-    }, [selectedMessageForDelete]);
-    // ---------------------------------
-
-    /** Handle resize to set isMobile + isMobileDeleteMessage */
+    /** ---- EFFECT: Resize => update isMobile ---- **/
     useEffect(() => {
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 1300);
@@ -235,7 +149,8 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
     }, []);
 
     /**
-     * 1) Whenever groupId changes, reset states & fetch initial data
+     * 1) Whenever groupId changes, fetch the group info & initial messages.
+     *    (Like your existing logic in Messages.tsx that fetches user profile + messages.)
      */
     useEffect(() => {
         if (!groupId) return;
@@ -244,76 +159,69 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
         setNextTokenValue(null);
         setFirstLoad(true);
 
-        fetchGroupDetails();
-        fetchInitialMessages();
+        void fetchGroupDetails();
+        void fetchInitialMessages();
     }, [groupId]);
 
     /**
-     * 2) Build SignalR connection once
+     * 2) Build the SignalR connection or rebuild it
+     *    every time groupId/token changes (mirror of Messages.tsx).
      */
     useEffect(() => {
-        const connection = new signalR.HubConnectionBuilder()
+        // If either is missing, no connection
+        if (!groupId || !token) return;
+
+        // If we already have a connection, stop it before building a new one
+        if (connection) {
+            connection.stop();
+        }
+
+        // Build a new connection
+        const newConnection = new signalR.HubConnectionBuilder()
             .withUrl("http://localhost:5000/chatHub", {
                 accessTokenFactory: () => token || "",
             })
             .withAutomaticReconnect()
             .build();
 
-        connectionRef.current = connection;
-        connection
+        // Start the connection, then join the group & set up event listeners
+        newConnection
             .start()
-            .then(() => setIsConnectionStarted(true))
-            .catch((error) => console.error("SignalR Connection failed:", error));
+            .then(() => {
+                // Join the group
+                newConnection.invoke("JoinGroup", `Group_${groupId}`);
 
-        return () => {
-            connectionRef.current?.stop();
-        };
-    }, [token]);
+                // Listen for new messages in this group
+                newConnection.on("ReceiveGroupMessage", (message: Message) => {
+                    // Only append if it belongs to the current group
+                    if (message.groupId === groupId) {
+                        setMessages((prev) => [...prev, message]);
+                    }
+                });
 
-    /**
-     * 3) Once the SignalR connection is started, join the current group & listen for new messages
-     */
-    useEffect(() => {
-        if (isConnectionStarted && connectionRef.current) {
-            const connection = connectionRef.current;
-
-            // If we were in a previous group, leave it
-            if (previousGroupIdRef.current && previousGroupIdRef.current !== groupId) {
-                connection.invoke("LeaveGroup", `Group_${previousGroupIdRef.current}`);
-            }
-
-            // Join the new group
-            if (groupId) {
-                connection.invoke("JoinGroup", `Group_${groupId}`);
-                previousGroupIdRef.current = groupId;
-            }
-
-            // Remove any existing handlers to avoid duplication
-            connection.off("ReceiveGroupMessage");
-
-            // Listen for new messages from the hub
-            connection.on("ReceiveGroupMessage", (message: Message) => {
-                // Only add if it belongs to the current group
-                if (message.groupId === groupId) {
-                    setMessages((prev) => [...prev, message]);
-                }
+                // If your backend emits "GroupMessageDeleted"
+                newConnection.on("GroupMessageDeleted", (data) => {setMessages(prev => prev.filter(m => m.id !== data.messageId));
+                });
+            })
+            .catch((error) => {
+                console.error("SignalR Connection failed:", error);
             });
 
-            // If your backend supports a "GroupMessageDeleted" event:
-            // connection.off("GroupMessageDeleted");
-            // connection.on("GroupMessageDeleted", (data) => {
-            //     setMessages(prev => prev.filter(m => m.id !== data.messageId));
-            // });
+        // Store the connection instance in state
+        setConnection(newConnection);
 
-            return () => {
-                connection.off("ReceiveGroupMessage");
-                // connection.off("GroupMessageDeleted");
-            };
-        }
-    }, [groupId, isConnectionStarted]);
+        // Cleanup
+        return () => {
+            // Remove listeners
+            newConnection.off("ReceiveGroupMessage");
+            // newConnection.off("GroupMessageDeleted");
+            // Stop the connection
+            newConnection.stop();
+        };
+    }, [groupId, token]);
 
     /**
-     * 4) Infinite scrolling: if user scrolls to top, fetch older messages
+     * 3) Infinite scrolling: if user scrolls to top, fetch older messages
      */
     useEffect(() => {
         const container = messagesContainerRef.current;
@@ -321,10 +229,9 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
 
         const handleScroll = () => {
             if (container.scrollTop === 0 && !isLoadingMore && !allMessagesLoaded) {
-                fetchMoreMessages();
+                void fetchMoreMessages();
             }
         };
-
         container.addEventListener("scroll", handleScroll);
         return () => {
             container.removeEventListener("scroll", handleScroll);
@@ -332,7 +239,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
     }, [isLoadingMore, allMessagesLoaded]);
 
     /**
-     * 5) Auto-scroll to the bottom on first load
+     * 4) Auto-scroll to bottom on first load if you want
      */
     useEffect(() => {
         if (firstLoad && messages.length > 0) {
@@ -340,9 +247,8 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
         }
     }, [messages, firstLoad]);
 
-    // ---------- API CALLS ----------
+    /** ---- API CALLS ---- **/
 
-    /** Fetch group info */
     const fetchGroupDetails = async () => {
         try {
             const response = await axios.get(`/Groups/${groupId}`, {
@@ -354,14 +260,10 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
         }
     };
 
-    /** Initial fetch of the newest chunk (pageSize=20) */
     const fetchInitialMessages = async () => {
         try {
             const response = await axios.get(`/GroupMessages/GetGroupChatHistory`, {
-                params: {
-                    groupId,
-                    pageSize: 30
-                },
+                params: { groupId, pageSize: 30 },
                 headers: { Authorization: `Bearer ${token}` },
             });
 
@@ -377,16 +279,12 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
         }
     };
 
-    /**
-     * Load older messages (paging)
-     */
     const fetchMoreMessages = async () => {
         setFirstLoad(false);
         if (!groupId || isLoadingMore || allMessagesLoaded) return;
         setIsLoadingMore(true);
 
         const container = messagesContainerRef.current;
-
         const scrollHeightBefore = container?.scrollHeight || 0;
 
         try {
@@ -404,7 +302,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
             if (newMessages.length === 0) {
                 setAllMessagesLoaded(true);
             } else {
-                setMessages((prev: Message[]) => {
+                setMessages((prev : Message[]) => {
                     const existingIds = new Set(prev.map((m : Message) => m.id));
                     const filtered = newMessages.filter((m : Message) => !existingIds.has(m.id));
                     return [...filtered, ...prev];
@@ -417,6 +315,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
             setIsLoadingMore(false);
         }
 
+        // Preserve scroll position
         requestAnimationFrame(() => {
             if (container) {
                 const scrollHeightAfter = container.scrollHeight;
@@ -426,27 +325,24 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
         });
     };
 
-    // ---------- UI UTILITIES ----------
-
+    /** ---- TIMESTAMP UTILITY (similar to Messages.tsx) ---- **/
     const shouldShowTimestamp = (currentIndex: number): boolean => {
         if (currentIndex === messages.length - 1) return true;
         const currentMessage = messages[currentIndex];
         const nextMessage = messages[currentIndex + 1];
 
+        // If different sender or >=2hr gap => show timestamp
         if (
             currentMessage.senderId !== nextMessage.senderId ||
-            Math.abs(
-                new Date(nextMessage.timestamp).getTime() -
-                new Date(currentMessage.timestamp).getTime()
-            ) >= 2 * 60 * 60 * 1000
+            Math.abs(new Date(nextMessage.timestamp).getTime() - new Date(currentMessage.timestamp).getTime()) >= 2 * 60 * 60 * 1000
         ) {
             return true;
         }
         return false;
     };
 
+    /** ---- MENU & INFO PANEL ---- **/
     const toggleMenu = () => setShowMenu(!showMenu);
-
     const handleToggleGroupInfoVisibility = () => {
         setShowGroupInfo((prev) => !prev);
         setShowMenu(false);
@@ -466,15 +362,15 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             console.log(`Successfully left group ${groupIdToLeave}`);
-            setShowMenu(false);
-            // Possibly navigate away:
+            // Possibly navigate away from the group
             // navigate("/dashboard/groups");
+            setShowMenu(false);
         } catch (error) {
             console.error("Error leaving group:", error);
         }
     };
 
-    // -------- REPORTING ----------
+    /** ---- REPORTING ---- **/
     const handleReportUser = () => {
         setShowReportPopup(true);
         setShowMenu(false);
@@ -514,26 +410,99 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
         setReportFiles([]);
     };
 
-    // -------- ADD MEMBERS ----------
+    /** ---- ADD MEMBERS ---- **/
     const handleOpenAddMembersModal = () => setShowAddMembersModal(true);
     const handleCloseAddMembersModal = () => setShowAddMembersModal(false);
 
-    // -------- VIEW PROFILE ----------
-    const handleUserSelect = (clickedUserId: string) => {
-        setSelectedUserId(clickedUserId);
-    };
-    const handleCloseProfile = () => {
-        setSelectedUserId(null);
+    /** ---- VIEW PROFILE ---- **/
+    const handleUserSelect = (clickedUserId: string) => setSelectedUserId(clickedUserId);
+    const handleCloseProfile = () => setSelectedUserId(null);
+
+    /**
+     * ---- MESSAGE DELETION (Desktop + Mobile) ----
+     * (Mirrors the approach in Messages.tsx)
+     */
+    const LONG_PRESS_DELAY = 600; // ms
+
+    // Desktop: Right-click => show delete
+    const handleMessageContextMenu = (e: MouseEvent<HTMLDivElement>, messageId: number) => {
+        // If we're in mobile mode that uses long-press, skip
+        if (isMobileDeleteMessage) return;
+        e.preventDefault();
+
+        setSelectedMessageForDelete((prev) => (prev === messageId ? null : messageId));
+        setContextMenuPosition({ x: e.clientX, y: e.clientY });
     };
 
+    // Mobile: Press & hold => show delete
+    const handleTouchStart = (messageId: number) => {
+        if (!isMobileDeleteMessage) return;
+        console.log(messageId)
+        if (longPressTimerRef.current) {
+            clearTimeout(longPressTimerRef.current);
+        }
+        longPressTimerRef.current = setTimeout(() => {
+            setSelectedMessageForDelete(messageId);
+        }, LONG_PRESS_DELAY);
+    };
+
+    const handleTouchEnd = () => {
+        if (!isMobileDeleteMessage) return;
+        if (longPressTimerRef.current) {
+            clearTimeout(longPressTimerRef.current);
+            longPressTimerRef.current = null;
+        }
+    };
+
+    // Confirm deletion
+    const openDeleteConfirmation = (messageId: number) => {
+        console.log(messageId);
+        setSelectedMessageForDelete(messageId);
+        setIsDialogOpen(true);
+    };
+    const closeDialog = () => {
+        setIsDialogOpen(false);
+        setSelectedMessageForDelete(null);
+    };
+
+    const handleDeleteMessage = async (messageId: number | null) => {
+        if (selectedMessageForDelete === null) return;
+        closeDialog()
+        try {
+            // Example endpoint for group messages
+            await axios.delete('/GroupMessages/DeleteMessage', {
+                data: { messageId },
+                headers: { Authorization: `Bearer ${token}` },
+            });
+
+            setMessages((prev) => prev.filter((m) => m.id !== messageId));
+            setSelectedMessageForDelete(null);
+            setIsDialogOpen(false);
+        } catch (error) {
+            console.error("Error deleting message:", error);
+        }
+    };
+
+    // Hide the delete context menu if clicked outside
+    useEffect(() => {
+        const handleGlobalClick = (e: globalThis.MouseEvent) => {
+            if (selectedMessageForDelete === null) return;
+            const target = e.target as HTMLElement;
+            // If clicked on the button itself, do nothing
+            if (target.closest('.delete-message-btn-group')) return;
+            setSelectedMessageForDelete(null);
+        };
+        document.addEventListener('click', handleGlobalClick);
+        return () => {
+            document.removeEventListener('click', handleGlobalClick);
+        };
+    }, [selectedMessageForDelete]);
+
+    // Close top-right menu if user clicks outside
     const dropdownRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         const handleClickOutside = (event: globalThis.MouseEvent) => {
-            if (
-                showMenu &&
-                dropdownRef.current &&
-                !dropdownRef.current.contains(event.target as Node)
-            ) {
+            if (showMenu && dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
                 setShowMenu(false);
             }
         };
@@ -560,17 +529,16 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                     </div>
 
                     <div className="flex items-center gap-2">
-                        { (
-                            <button
-                                className="add-members-icon dark:text-white"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleOpenAddMembersModal();
-                                }}
-                            >
-                                <FaUserPlus size={18} />
-                            </button>
-                        )}
+                        <button
+                            className="add-members-icon dark:text-white"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleOpenAddMembersModal();
+                            }}
+                        >
+                            <FaUserPlus size={18} />
+                        </button>
+
                         <div
                             className="messages-menu-icon"
                             onClick={(event) => {
@@ -643,8 +611,12 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                             isCurrentUser ? "group-message-own" : ""
                                         }`}
                                         onContextMenu={
-                                            isCurrentUser ? (e) => handleMessageContextMenu(e, message.id) : undefined
-                                        }                                        onTouchStart={() => handleTouchStart(message.id)}
+                                            // Only attach context menu if it's the user's own message
+                                            isCurrentUser
+                                                ? (e) => handleMessageContextMenu(e, message.id)
+                                                : undefined
+                                        }
+                                        onTouchStart={() => handleTouchStart(message.id)}
                                         onTouchEnd={handleTouchEnd}
                                     >
                                         {/* If different user, show their info */}
@@ -664,7 +636,6 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                             </div>
                                         )}
 
-
                                         <div
                                             className={
                                                 isCurrentUser
@@ -673,7 +644,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                             }
                                         >
                                             {/* Confirmation dialog (only if this msg is selected) */}
-                                            {isDialogOpen  && (
+                                            {isDialogOpen && (
                                                 <ConfirmationDialog
                                                     message="Are you sure you want to delete this message?"
                                                     onConfirm={() => {
@@ -683,19 +654,38 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                                 />
                                             )}
 
-                                            {selectedMessageForDelete === message.id && contextMenuPosition && (
-                                                <button
-                                                    className="delete-message-btn-group right-10 p-2 flex items-center gap-2"
-                                                    style={{
-                                                        left: contextMenuPosition.x - 170,
-                                                        top: contextMenuPosition.y - 10
-                                                    }}
-                                                    onClick={() => openDeleteConfirmation(message.id)}
-                                                >
-                                                    <FaTrash size={17} />
-                                                    Delete Message
-                                                </button>
+                                            {/* Desktop right-click or mobile long-press delete button */}
+                                            {selectedMessageForDelete === message.id && (
+                                                isMobileDeleteMessage ? (
+                                                        <button
+                                                            className="delete-message-btn-group p-2 flex items-center gap-2"
+                                                            style={{
+                                                                position: 'absolute',
+                                                                right: 0,
+                                                                bottom: '-2rem',
+                                                                zIndex: 2
+                                                            }}
+                                                            onClick={() => openDeleteConfirmation(message.id)}
+                                                        >
+                                                            <FaTrash size={17}/> Delete
+                                                        </button>
+                                                    ):(
+                                                        contextMenuPosition && (
+                                                            < button
+                                                                className = "delete-message-btn-group p-2 flex items-center gap-2"
+                                                                style={{
+                                                                    left: contextMenuPosition.x - 174,
+                                                                    top: contextMenuPosition.y - 10,
+                                                                }}
+                                                                onClick={() => openDeleteConfirmation(message.id)}
+                                                            >
+                                                                <FaTrash size={17} />
+                                                                Delete Message
+                                                            </button>
+                                                        )
+                                                    )
                                             )}
+
                                             <p>{message.content}</p>
 
                                             {/* Attachments */}
@@ -769,7 +759,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                     <EditGroupModal
                         groupInfo={groupInfo}
                         onClose={() => setShowEditGroupModal(false)}
-                        onGroupUpdated={fetchGroupDetails}
+                        onGroupUpdated={() => void fetchGroupDetails()}
                     />
                 )}
             </div>

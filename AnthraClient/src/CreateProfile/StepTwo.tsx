@@ -396,8 +396,8 @@ const StepTwo: React.FC<StepTwoProps> = ({
             setError('Subject cannot be empty.');
             return;
         }
-        if (trimmedInput.length > 10) {
-            setError('Subject cannot be longer than 10 characters.');
+        if (trimmedInput.length < 3) {
+            setError('Subject should be atleast 3 characters long.');
             return;
         }
         if (subjects.length >= 5) {
@@ -507,12 +507,12 @@ const StepTwo: React.FC<StepTwoProps> = ({
                         className="w-full border p-2 rounded"
                     />
                     {isInstitutionDropdownOpen && filteredUniversities.length > 0 && (
-                        <div className="uni-dropdown-menu absolute z-10 bg-white border shadow-md w-full max-h-60 overflow-auto">
+                        <div className="uni-dropdown-menu absolute z-10 border shadow-md w-full max-h-60 overflow-auto">
                             {filteredUniversities.map((uni, idx) => (
                                 <div
                                     key={idx}
-                                    className={`suggestion-item p-2 hover:bg-gray-200 cursor-pointer ${
-                                        idx === selectedInstitutionIndex ? 'bg-gray-200' : ''
+                                    className={`suggestion-item p-2 hover:bg-gray-600/50 cursor-pointer ${
+                                        idx === selectedInstitutionIndex ? 'bg-gray-600/50' : ''
                                     }`}
                                     onClick={() => {
                                         handleInstitutionSelect(uni.name);
@@ -525,7 +525,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                         </div>
                     )}
                     {isInstitutionDropdownOpen && filteredUniversities.length === 0 && (
-                        <div className="uni-dropdown-menu absolute z-10 bg-white border shadow-md w-full max-h-60 overflow-auto p-2">
+                        <div className="uni-dropdown-menu absolute z-10 border shadow-md w-full max-h-60 overflow-auto p-2">
                             No institutions found.
                         </div>
                     )}
@@ -606,8 +606,8 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                 <li
                                     className={`suggestion-item p-2 cursor-pointer ${
                                         index === selectedCourseIndex
-                                            ? 'bg-gray-300'
-                                            : 'hover:bg-gray-200'
+                                            ? 'bg-gray-600/50'
+                                            : ''
                                     }`}
                                     key={index}
                                     onClick={() => handleCourseSelect(course)}
@@ -755,8 +755,8 @@ const StepTwo: React.FC<StepTwoProps> = ({
                             key={i}
                             className={`status-tag ${
                                 selectedStatuses.includes(st)
-                                    ? 'status-tag-selected bg-emerald-500'
-                                    : 'bg-emerald-300'
+                                    ? 'status-tag-selected bg-emerald-700'
+                                    : 'bg-emerald-400'
                             }`}
                             onClick={() => handleStatusSelect(st)}
                         >
@@ -775,7 +775,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                     onChange={(e) => setAllowEmailUpdates(e.target.checked)}
                     className="mr-2 cursor-pointer"
                 />
-                <label htmlFor="allowEmails" className="font-medium bg-white p-1 rounded-md text-sm cursor-pointer text-center text-gray-500">
+                <label htmlFor="allowEmails" className="font-medium bg-black/30 p-2 rounded-md text-sm cursor-pointer text-center text-gray-200">
                     Allow email updates about new features and new user sign-ups?
                 </label>
             </div>

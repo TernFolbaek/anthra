@@ -77,7 +77,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({
         <div className="create-profile-page">
             {!isMobile && (
                 <button
-                    className="bg-slate-200 rounded-md py-2 px-3 absolute top-5 left-5 border-0 cursor-pointer text-base font-semibold"
+                    className="bg-black/100 text-gray-200 rounded-md py-2 px-3 absolute top-5 left-5 border-0 cursor-pointer text-base font-medium"
                     onClick={onBackClick}
                 >
                     Home
@@ -92,7 +92,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({
             </div>
 
             <div className="create-profile-container">
-                {!isMobile && <h2>Create Your Profile</h2>}
+                {!isMobile && <h2 className="text-white">Create Your Profile</h2>}
 
                 {message && <p className="success-message">{message}</p>}
                 {error && <p className="error-message">{error}</p>}

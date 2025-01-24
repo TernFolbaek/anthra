@@ -35,7 +35,7 @@
 }
 
 .create-profile-container {
-    background-color: #f0f0f0;
+    background-color: #2e2e2e;
     padding: 2rem;
     border-radius: 12px;
     width: 90%;
@@ -63,15 +63,16 @@
 .form-step label {
     text-align: left;
     font-weight: bold;
-    color: #535252;
+    color: oklch(0.928 0.006 264.531);
     font-size: 0.9rem;
 }
 
 .form-step input,
 .form-step textarea {
     padding: 0.75rem;
-    background-color: white;
-    color: #333;
+    background-color: #3a3a3a;
+    border: 1px solid #555;
+    color: oklch(0.928 0.006 264.531);
     border-radius: 8px;
     font-size: 0.85rem;
     width: 100%;
@@ -149,7 +150,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background-color: white;
+    background-color: #3a3a3a;
+    color: oklch(0.928 0.006 264.531);
     border-radius: 8px;
     font-size: 0.75rem;
 }
@@ -167,7 +169,7 @@
 /* Dropdown Menu */
 .uni-dropdown-menu {
     position: absolute;
-    background-color: white;
+    background-color: #3a3a3a;
     top: 100%;
     left: 0;
     color: black;
@@ -182,10 +184,6 @@
     cursor: pointer;
     color: black;
     border-bottom: 1px solid #eee;
-}
-
-.uni-dropdown-item:hover {
-    background-color: #f0f0f0;
 }
 
 .uni-dropdown-item:last-child {
@@ -275,7 +273,7 @@
     top: 70%;
     left: 0;
     z-index: 20;
-    background-color: #ffffff;
+    background-color: #3a3a3a;
     border: 1px solid #ccc;
     overflow-y: auto;
     width: 100%;
@@ -296,12 +294,12 @@
     font-size: 0.85rem;
     padding: 10px;
     cursor: pointer;
-    color: rgba(113, 112, 112, 0.97);
+    color: oklch(0.928 0.006 264.531);
     font-weight: 600;
 }
 
 .suggestion-item:hover {
-    background-color: #f0f0f0;
+    background-color: #555;
 }
 
 /* Selected Courses */
@@ -312,8 +310,9 @@
 .course-tag {
     display: inline-flex;
     align-items: center;
-    background-color: white;
-    color: #333;
+    background-color: #3a3a3a;
+    border: 2px solid #555;
+    color: oklch(0.928 0.006 264.531);
     padding: 8px 12px;
     margin: 5px;
     border-radius: 20px;

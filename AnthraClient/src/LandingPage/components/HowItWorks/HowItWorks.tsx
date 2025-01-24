@@ -1,12 +1,16 @@
+// HowItWorks.tsx
+
 import React, { useEffect, useRef } from 'react';
 import './HowItWorks.css';
+import '../Features/Features.css'
 import stepOneImage from '../../assets/userexplorepage.png';
 import stepTwoImage from '../../assets/connectionpagedemo.png';
 import stepThreeImage from '../../assets/grouppagedemo.png';
 import { useLanguage } from '../../../LanguageContext';
 import translations from '../../../languages/landingPageTranslations.json';
-import {faMagnifyingGlass,faUsersRays, faUserAstronaut} from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faUsersRays, faUserAstronaut } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 const HowItWorks: React.FC = () => {
     const step1Ref = useRef<HTMLDivElement>(null);
     const step2Ref = useRef<HTMLDivElement>(null);
@@ -47,12 +51,13 @@ const HowItWorks: React.FC = () => {
             <div className="background-video"></div>
             <div className="content">
                 <p className="how-it-works-title text-center mb-4 text-4xl font-bold">{t.title}</p>
-                <p className="how-it-works-subtitle text-center mb-16  text-sm ">{t.subtitle}</p>
+                <p className="how-it-works-subtitle text-center mb-16 text-sm">{t.subtitle}</p>
 
+                {/* Step 1 */}
                 <div ref={step1Ref} className="step step-1">
-                    <div className="step-content ">
+                    <div className="step-content">
                         <div className="flex items-center gap-2 mb-4">
-                            <FontAwesomeIcon className="text-2xl text-gray-300" icon={faUserAstronaut}/>
+                            <FontAwesomeIcon className="text-2xl text-gray-300" icon={faUserAstronaut} />
                             <p className="text-white text-2xl font-semibold">{t.steps[0].heading}</p>
                         </div>
                         <p className="step-description text-lg text-gray-400 leading-relaxed mb-6">{t.steps[0].description}</p>
@@ -60,13 +65,14 @@ const HowItWorks: React.FC = () => {
                             <p className="text-emerald-400 font-medium text-sm">{t.step1}</p>
                         </div>
                     </div>
-                    <img src={stepOneImage} className="step-image" alt="profile on explore page"/>
+                    <img src={stepOneImage} className="step-image" alt="profile on explore page" />
                 </div>
 
+                {/* Step 2 */}
                 <div ref={step2Ref} className="step step-2">
-                    <div className="step-content ">
+                    <div className="step-content">
                         <div className="flex items-center gap-2 mb-4">
-                            <FontAwesomeIcon className="text-2xl text-gray-300" icon={faMagnifyingGlass}/>
+                            <FontAwesomeIcon className="text-2xl text-gray-300" icon={faMagnifyingGlass} />
                             <p className="text-white text-2xl font-semibold">{t.steps[1].heading}</p>
                         </div>
                         <p className="step-description text-lg text-gray-400 leading-relaxed mb-6">{t.steps[1].description}</p>
@@ -74,12 +80,14 @@ const HowItWorks: React.FC = () => {
                             <p className="text-emerald-400 font-medium text-sm">{t.step2}</p>
                         </div>
                     </div>
-                    <img src={stepTwoImage} className="step-image" alt="connection requests"/>
+                    <img src={stepTwoImage} className="step-image" alt="connection requests" />
                 </div>
+
+                {/* Step 3 */}
                 <div ref={step3Ref} className="step step-3">
-                    <div className="step-content ">
+                    <div className="step-content">
                         <div className="flex items-center gap-2 mb-4">
-                            <FontAwesomeIcon className="text-2xl text-gray-300" icon={faUsersRays}/>
+                            <FontAwesomeIcon className="text-2xl text-gray-300" icon={faUsersRays} />
                             <p className="text-white text-2xl font-semibold">{t.steps[2].heading}</p>
                         </div>
                         <p className="step-description text-lg text-gray-400 leading-relaxed mb-6">{t.steps[2].description}</p>
@@ -87,17 +95,20 @@ const HowItWorks: React.FC = () => {
                             <p className="text-emerald-400 font-medium text-sm">{t.step3}</p>
                         </div>
                     </div>
-                    <img src={stepThreeImage} className="step-image" alt="group chat"/>
+                    <img src={stepThreeImage} className="step-image" alt="group chat" />
                 </div>
-                <div className="demo-video-container ml-auto mr-auto mb-16">
-                    <iframe
-                        className="demo-video-iframe"
-                        src="https://www.youtube.com/watch?v=GC7JJbYmGNg"
-                        title="Demo Video"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                    ></iframe>
+
+                {/* Demo Video */}
+                <div className="demo-video-container mb-16">
+                    <div className="demo-video-iframe">
+                        <iframe
+                            src="https://www.youtube.com/embed/_HYSb0Z-owk"
+                            title="Demo Video"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                        ></iframe>
+                    </div>
                 </div>
             </div>
         </div>

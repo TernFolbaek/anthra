@@ -27,23 +27,36 @@ namespace MyBackendApp.Controllers
         public async Task<IActionResult> GetGroups()
         {
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            // Get IDs of groups the user is already a member of
+// 1) Groups user is a member of
             var userGroupIds = await _context.GroupMembers
                 .Where(gm => gm.UserId == currentUserId && gm.IsAccepted)
                 .Select(gm => gm.GroupId)
                 .ToListAsync();
 
-            // Get IDs of groups the user has skipped
+// 2) Groups user has skipped
             var skippedGroupIds = await _context.SkippedGroups
                 .Where(sg => sg.UserId == currentUserId)
                 .Select(sg => sg.GroupId)
                 .ToListAsync();
 
-            // Combine IDs to exclude
-            var excludedGroupIds = userGroupIds.Concat(skippedGroupIds).ToList();
+// 3) Groups user has already applied to (pending)
+            var appliedGroupIds = await _context.GroupApplicationRequests
+                .Where(gar =>
+                        gar.ApplicantId == currentUserId
+                        && !gar.IsDeclined  // if you want to exclude only those NOT declined
+                        && !gar.IsAccepted  // if you want to exclude only those not accepted yet
+                )
+                .Select(gar => gar.GroupId)
+                .ToListAsync();
 
-            // Fetch public groups excluding the ones in excludedGroupIds
+// 4) Combine all groups to exclude
+            var excludedGroupIds = userGroupIds
+                .Concat(skippedGroupIds)
+                .Concat(appliedGroupIds)
+                .Distinct()
+                .ToList();
+
+
             var groups = await _context.Groups
                 .AsNoTracking()
                 .Where(g => g.isPublic && !excludedGroupIds.Contains(g.Id))
@@ -68,7 +81,9 @@ namespace MyBackendApp.Controllers
                         })
                         .ToList()
                 })
+                .Take(8)
                 .ToListAsync();
+
 
             return Ok(groups);
         }

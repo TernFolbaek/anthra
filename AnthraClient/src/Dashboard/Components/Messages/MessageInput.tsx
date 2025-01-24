@@ -40,7 +40,8 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
     const token = localStorage.getItem('token');
 
     const sendMessage = async () => {
-        if ((!messageInput.trim() && !selectedFile) || !userId) return;
+        if (!userId) return;
+        if (messageInput.trim() === "" && !selectedFile) return;
 
         const formData = new FormData();
         formData.append('SenderId', currentUserId!);
@@ -89,9 +90,6 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
                 document.activeElement !== document.querySelector('.report-textarea')
             ) {
                 inputRef.current.focus();
-            }
-            if (event.key === 'Enter') {
-                sendMessage();
             }
         };
         document.addEventListener('keydown', handleKeyDown);
@@ -177,6 +175,7 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
                     onChange={(e) => setMessageInput(e.target.value)}
                     placeholder="Aa"
                     disabled={!userId}
+                    onKeyDown={(e) => e.key === "Enter" && sendMessage()}
                 />
                 <FaArrowRight onClick={sendMessage} className="send-icon" />
             </div>

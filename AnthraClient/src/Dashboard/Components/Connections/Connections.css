@@ -121,7 +121,7 @@ body.dark .connection-item:hover {
     min-height: 50px;
     width: 50px;
     height: 50px;
-    border-radius: 10%;
+    border-radius: 50%;
     object-fit: cover;
 }
 

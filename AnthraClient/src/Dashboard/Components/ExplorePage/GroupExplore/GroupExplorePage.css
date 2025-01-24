@@ -40,16 +40,6 @@
 }
 
 
-.slide-in {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.slide-out {
-    opacity: 0;
-    transform: translateX(-20px);
-}
-
 .group-explore-shake {
     animation: group-explore-shake 0.5s;
 }
@@ -62,17 +52,6 @@
     80% { transform: translateX(10px); }
     100% { transform: translateX(0); }
 }
-
-.slide-in {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.slide-out {
-    opacity: 0;
-    transform: translateY(-20px);
-}
-
 
 .group-explore-page-indicators {
     display: flex;
@@ -374,7 +353,6 @@ body.dark .navigate-button:hover {
 }
 
 
-/* Slide Animations */
 .slide-in {
     opacity: 1;
     transform: translateX(0);

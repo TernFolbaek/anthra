@@ -690,7 +690,7 @@ const Profile: React.FC = () => {
                                         Save Picture
                                     </button>
                                     <button
-                                        className="save-button transform hover:scale-105 text-white  text-sm flex items-center gap-1"
+                                        className="save-button transform hover:scale-105 dark:text-white text-gray-500 text-sm flex items-center gap-1"
                                         onClick={handleRevertPicture}
                                     >
                                         <FaArrowLeft />

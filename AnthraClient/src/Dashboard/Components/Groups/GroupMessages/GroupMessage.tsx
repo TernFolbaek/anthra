@@ -253,7 +253,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
      */
     useEffect(() => {
         const connection = new signalR.HubConnectionBuilder()
-            .withUrl("https://api.anthra.dk/chatHub", {
+            .withUrl("http://localhost:5000/chatHub", {
                 accessTokenFactory: () => token || "",
             })
             .withAutomaticReconnect()
@@ -360,7 +360,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
             const response = await axios.get(`/GroupMessages/GetGroupChatHistory`, {
                 params: {
                     groupId,
-                    pageSize: 20
+                    pageSize: 30
                 },
                 headers: { Authorization: `Bearer ${token}` },
             });
@@ -369,7 +369,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
             setMessages(data.messages);
             setNextTokenValue(data.nextToken);
 
-            if (data.messages.length < 20) {
+            if (data.messages.length < 30) {
                 setAllMessagesLoaded(true);
             }
         } catch (error) {
@@ -381,19 +381,16 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
      * Load older messages (paging)
      */
     const fetchMoreMessages = async () => {
-        if (!groupId || isLoadingMore || allMessagesLoaded) return;
         setFirstLoad(false);
+        if (!groupId || isLoadingMore || allMessagesLoaded) return;
         setIsLoadingMore(true);
 
         const container = messagesContainerRef.current;
-        if (!container) return;
 
-        // capture scroll positions
-        const scrollHeightBefore = container.scrollHeight;
-        const scrollTopBefore = container.scrollTop;
+        const scrollHeightBefore = container?.scrollHeight || 0;
 
         try {
-            const params: Record<string, any> = { groupId, pageSize: 30 };
+            const params: Record<string, any> = { groupId, pageSize: 32 };
             if (nextTokenValue) {
                 params.nextToken = nextTokenValue;
             }
@@ -421,10 +418,11 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
         }
 
         requestAnimationFrame(() => {
-            if (!container) return;
-            const scrollHeightAfter = container.scrollHeight;
-            const scrollDifference = scrollHeightAfter - scrollHeightBefore;
-            container.scrollTop = scrollTopBefore + scrollDifference;
+            if (container) {
+                const scrollHeightAfter = container.scrollHeight;
+                const scrollDifference = scrollHeightAfter - scrollHeightBefore;
+                container.scrollTop = scrollDifference;
+            }
         });
     };
 

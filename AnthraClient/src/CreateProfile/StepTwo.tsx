@@ -544,7 +544,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                         >
                             {faculty ? faculty : 'Select Faculty'}
                             <span
-                                className={`dropdown-arrow transition-transform duration-300 ${
+                                className={`dropdown-arrow text-[10px] transition-transform duration-300 ${
                                     isFacultyDropdownOpen ? 'rotate-180' : ''
                                 }`}
                             >
@@ -648,7 +648,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                 ? course.courseLink
                                 : `https://${course.courseLink}`
                         }
-                        className="course-link"
+                        className="course-link text-xs"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
@@ -695,7 +695,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                 }
                             }}
                             className="subject-input disabled:bg-gray-200 disabled:cursor-not-allowed"
-                            maxLength={10}
+                            maxLength={35}
                             disabled={
                                 !institution || // disable if no institution is present
                                 subjects.length >= 5
@@ -719,7 +719,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                 key={index}
                                 className="course-tag flex items-center justify-center"
                             >
-                <p className="mr-1">{subject}</p>
+                <p className="mr-1 text-xs font-medium">{subject}</p>
                 <button
                     type="button"
                     onClick={() => handleRemoveSubject(subject)}
@@ -775,7 +775,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                     onChange={(e) => setAllowEmailUpdates(e.target.checked)}
                     className="mr-2 cursor-pointer"
                 />
-                <label htmlFor="allowEmails" className="font-medium bg-slate-100 p-1 rounded-md text-sm cursor-pointer text-center text-gray-500">
+                <label htmlFor="allowEmails" className="font-medium bg-white p-1 rounded-md text-sm cursor-pointer text-center text-gray-500">
                     Allow email updates about new features and new user sign-ups?
                 </label>
             </div>

@@ -5,7 +5,7 @@ import { mdiArrowRightThin } from '@mdi/js';
 import { useLanguage } from '../../../LanguageContext';
 import homeTranslations from '../../../languages/homeTranslations.json';
 import './Home.css';
-import { faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons';
+import { faWandMagicSparkles, faLink } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
@@ -127,8 +127,8 @@ const Home: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                             rel="noopener noreferrer"
                             className="cursor-pointer"
                         >
-                            <div className="text-gray-400 text-center font-light" data-v-095ba637="">
-                                {t.block3}
+                            <div className="text-gray-200 text-center font-light" data-v-095ba637="">
+                                <FontAwesomeIcon  className="text-gray-200 mr-2" icon={faLink}/>{t.block3}
                             </div>
                         </a>
 

@@ -59,7 +59,7 @@ const DashboardContent: React.FC = () => {
                     <Sidebar onSettingsClick={toggleSettings} />
                     <div className="main-content">
                         <Routes>
-                            <Route element={<MessagesLayout />}>
+                            <Route element={<MessagesLayout isConnections={false} />}>
                                 <Route path="/messages" element={<Messages />} />
                                 <Route path="/messages/:userId" element={<Messages />} />
                             </Route>
@@ -67,7 +67,7 @@ const DashboardContent: React.FC = () => {
                                 <Route index element={<Groups />} />
                                 <Route path=":groupId" element={<Groups />} />
                             </Route>
-                            <Route element={<MessageOptionalLayout/>}>
+                            <Route element={<MessagesLayout isConnections={true} />}>
                                 <Route path="/connections" element={<Connections />} />
                                 {/* Removed Settings route */}
                             </Route>

@@ -91,7 +91,7 @@ const Home: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
 
                 <div
                     className="mission flex gap-2 text-gray-300 text-sm inline-flex items-center px-4 py-2 bg-gray-800/80 backdrop-blur-sm border border-gray-700 rounded-full hover:bg-gray-800 transition-all transform hover:scale-105">
-                    <FontAwesomeIcon className="text-emerald-400" icon={faWandMagicSparkles}/><h2>{t.mission}</h2>
+                    <FontAwesomeIcon className="text-emerald-400" icon={faWandMagicSparkles}/><p>{t.mission}</p>
                 </div>
                 <div className="home-content-text text-center text-white justify-center">
                     <div>

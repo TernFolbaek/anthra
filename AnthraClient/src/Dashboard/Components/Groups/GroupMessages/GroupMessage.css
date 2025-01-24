@@ -167,7 +167,7 @@ body.dark .group-message-input {
 }
 
 .delete-message-btn-group{
-    position: absolute;
+    position: fixed;
     width: 160px;
     height: 30px;
     background-color: #439ef6;

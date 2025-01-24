@@ -664,32 +664,6 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                             </div>
                                         )}
 
-                                        {/* Confirmation dialog (only if this msg is selected) */}
-                                        {isDialogOpen  && (
-                                            <ConfirmationDialog
-                                                message="Are you sure you want to delete this message?"
-                                                onConfirm={() => {
-                                                    void handleDeleteMessage(selectedMessageForDelete);
-                                                }}
-                                                onCancel={closeDialog}
-                                            />
-                                        )}
-
-                                        {/* Show a "Delete" button if this msg is selected */}
-                                        {selectedMessageForDelete === message.id && contextMenuPosition && (
-                                            <button
-                                                className="delete-message-btn-group right-10 p-2 flex items-center gap-2"
-                                                style={{
-                                                    // Move the button to the left by its approximate width (160px) + some padding
-                                                    left: contextMenuPosition.x - 170,
-                                                    top: contextMenuPosition.y - 10
-                                                }}
-                                                onClick={() => openDeleteConfirmation(message.id)}
-                                            >
-                                                <FaTrash size={17} />
-                                                Delete Message
-                                            </button>
-                                        )}
 
                                         <div
                                             className={
@@ -698,6 +672,30 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                                     : "group-message-content-other"
                                             }
                                         >
+                                            {/* Confirmation dialog (only if this msg is selected) */}
+                                            {isDialogOpen  && (
+                                                <ConfirmationDialog
+                                                    message="Are you sure you want to delete this message?"
+                                                    onConfirm={() => {
+                                                        void handleDeleteMessage(selectedMessageForDelete);
+                                                    }}
+                                                    onCancel={closeDialog}
+                                                />
+                                            )}
+
+                                            {selectedMessageForDelete === message.id && contextMenuPosition && (
+                                                <button
+                                                    className="delete-message-btn-group right-10 p-2 flex items-center gap-2"
+                                                    style={{
+                                                        left: contextMenuPosition.x - 170,
+                                                        top: contextMenuPosition.y - 10
+                                                    }}
+                                                    onClick={() => openDeleteConfirmation(message.id)}
+                                                >
+                                                    <FaTrash size={17} />
+                                                    Delete Message
+                                                </button>
+                                            )}
                                             <p>{message.content}</p>
 
                                             {/* Attachments */}

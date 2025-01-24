@@ -345,7 +345,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                         />
 
                         <button type="submit"
-                                className="text-gray-900 bg-emerald-500 w-full px-3 py-2 rounded-lg font-semibold hover:bg-emerald-400 transform hover:scale-105">
+                                className="text-white bg-emerald-500 w-full px-3 py-2 rounded-lg font-semibold hover:bg-emerald-400 transform hover:scale-105">
                             {isSignUp ? 'Sign Up' : 'Log In'}
                         </button>
 

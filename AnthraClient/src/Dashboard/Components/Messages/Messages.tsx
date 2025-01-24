@@ -65,6 +65,8 @@ const Messages: React.FC = () => {
     const [showMenu, setShowMenu] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [removeConnectionDialog, setRemoveConnectionDialog] = useState(false);
+
 
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 1300);
     const [isMobileDeleteMessage, setIsMobileDeleteMessage] = useState(window.innerWidth <= 500);
@@ -447,6 +449,7 @@ const Messages: React.FC = () => {
      * Remove connection
      */
     const handleRemoveConnection = async () => {
+        setRemoveConnectionDialog(false)
         try {
             await axios.post(
                 '/Connections/RemoveConnection',
@@ -619,6 +622,10 @@ const Messages: React.FC = () => {
         };
     }, [selectedMessageForDelete]);
 
+    const openRemoveConnectionDialog = () => {
+        setRemoveConnectionDialog(true);
+    }
+
     return (
         <div className="messages-page">
             <div className="message-page-subset">
@@ -649,7 +656,7 @@ const Messages: React.FC = () => {
                                     <div className="messages-dropdown-menu">
                                         <button
                                             className="flex items-center gap-2 font-medium text-black dark:text-white text-sm"
-                                            onClick={handleRemoveConnection}
+                                            onClick={openRemoveConnectionDialog}
                                         >
                                             <FaUserMinus />
                                             <div>Remove Connection</div>
@@ -741,6 +748,7 @@ const Messages: React.FC = () => {
                                                             onCancel={closeDialog}
                                                         />
                                                     )}
+
                                                     {
                                                         selectedMessageForDelete === msg.id && (
                                                             isMobileDeleteMessage
@@ -897,7 +905,15 @@ const Messages: React.FC = () => {
                     </div>
                 </div>
             )}
-
+            {removeConnectionDialog && (
+                <ConfirmationDialog
+                    message="Are you sure you want to remove this user?"
+                    onConfirm={() => {
+                        void handleRemoveConnection();
+                    }}
+                    onCancel={closeDialog}
+                />
+            )}
 
         </div>
     );

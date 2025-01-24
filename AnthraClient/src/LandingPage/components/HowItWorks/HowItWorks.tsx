@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import './HowItWorks.css';
-import stepOneImage from '../../assets/lol.png';
-import stepTwoImage from '../../assets/lol.png';
-import stepThreeImage from '../../assets/lol.png';
+import stepOneImage from '../../assets/userexplorepage.png';
+import stepTwoImage from '../../assets/connectionpagedemo.png';
+import stepThreeImage from '../../assets/grouppagedemo.png';
 import { useLanguage } from '../../../LanguageContext';
 import translations from '../../../languages/landingPageTranslations.json';
 import {faMagnifyingGlass,faUsersRays, faUserAstronaut} from '@fortawesome/free-solid-svg-icons';

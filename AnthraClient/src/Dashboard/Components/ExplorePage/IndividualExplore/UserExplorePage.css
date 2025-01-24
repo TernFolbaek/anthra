@@ -65,9 +65,9 @@ body.dark .explore-user-card {
     padding: 25px;
     border-radius: 16px;
     width: 100%;
+    max-width: 900px;
     height: 100%;
-    max-width: 1000px;
-    min-height: 700px;
+    min-height: 600px;
     display: flex;
     flex-direction: column;
     justify-content: center;

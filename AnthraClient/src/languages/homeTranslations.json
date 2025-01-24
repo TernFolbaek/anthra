@@ -4,8 +4,8 @@
     "description": "Leder du efter en studie",
     "getStarted": "Kom i gang",
     "block1" : "Understøttede universiteter",
-    "block2" : "Matcher tilgængelighed",
-    "block3" : "Øget ydeevne"
+    "block2" : "Matching tilgængelighed",
+    "block3" : "Øget akademisk ydeevne"
   },
   "en": {
     "mission": "Our Mission",
@@ -13,6 +13,6 @@
     "getStarted": "Get Started",
     "block1" : "Supported Universities",
     "block2" : "Matching availability",
-    "block3" : "Increased performance"
+    "block3" : "Increased academic performance"
   }
 }

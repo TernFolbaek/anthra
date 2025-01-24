@@ -548,8 +548,7 @@ const Messages: React.FC = () => {
      * Mobile: press & hold to show delete
      */
     const handleTouchStart = (msgId: number) => {
-        if (!isMobile) return;
-
+        if (!isMobileDeleteMessage) return;
         // Clear any prior timers
         if (longPressTimerRef.current) {
             clearTimeout(longPressTimerRef.current);
@@ -742,21 +741,34 @@ const Messages: React.FC = () => {
                                                             onCancel={closeDialog}
                                                         />
                                                     )}
-                                                    {selectedMessageForDelete === msg.id && contextMenuPosition && (
-                                                        <button
-                                                            className="delete-message-btn p-2 flex items-center gap-2"
-                                                            style={{
-                                                                // Move the button to the left by its approximate width (160px) + some padding
-                                                                left: contextMenuPosition.x - 170,
-                                                                top: contextMenuPosition.y - 10
-                                                            }}
-                                                            onClick={() => openDeleteConfirmation(msg.id)}
-                                                        >
-                                                            <FaTrash size={17} /> Delete Message
-                                                        </button>
-                                                    )}
-
-
+                                                    {
+                                                        selectedMessageForDelete === msg.id && (
+                                                            isMobileDeleteMessage
+                                                                ? (
+                                                                    <button
+                                                                        className="delete-message-btn p-2 flex items-center gap-2"
+                                                                        style={{ position: 'absolute', right: 0, bottom: '-2rem', zIndex: 2 }}
+                                                                        onClick={() => openDeleteConfirmation(msg.id)}
+                                                                    >
+                                                                        <FaTrash size={17} /> Delete
+                                                                    </button>
+                                                                )
+                                                                : (
+                                                                    contextMenuPosition && (
+                                                                        <button
+                                                                            className="delete-message-btn p-2 flex items-center gap-2"
+                                                                            style={{
+                                                                                left: contextMenuPosition.x - 170,
+                                                                                top: contextMenuPosition.y - 10,
+                                                                            }}
+                                                                            onClick={() => openDeleteConfirmation(msg.id)}
+                                                                        >
+                                                                            <FaTrash size={17} /> Delete
+                                                                        </button>
+                                                                    )
+                                                                )
+                                                        )
+                                                    }
 
                                                     {/* Attachments */}
                                                     {msg.attachments?.map((attachment) => {

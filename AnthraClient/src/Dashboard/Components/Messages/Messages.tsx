@@ -49,6 +49,7 @@ const Messages: React.FC = () => {
     const { userId } = useParams<{ userId: string }>();
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
+    const [contextMenuPosition, setContextMenuPosition] = useState<{ x: number; y: number } | null>(null);
 
     const currentUserId = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
@@ -539,6 +540,8 @@ const Messages: React.FC = () => {
         if (isMobileDeleteMessage) return; // skip on mobile
         e.preventDefault();
         setSelectedMessageForDelete(prev => (prev === messageId ? null : messageId));
+        setContextMenuPosition({ x: e.clientX, y: e.clientY });
+
     };
 
     /**
@@ -739,15 +742,21 @@ const Messages: React.FC = () => {
                                                             onCancel={closeDialog}
                                                         />
                                                     )}
-                                                    {/* Show delete button if selected */}
-                                                    {selectedMessageForDelete === msg.id && (
+                                                    {selectedMessageForDelete === msg.id && contextMenuPosition && (
                                                         <button
                                                             className="delete-message-btn p-2 flex items-center gap-2"
+                                                            style={{
+                                                                // Move the button to the left by its approximate width (160px) + some padding
+                                                                left: contextMenuPosition.x - 170,
+                                                                top: contextMenuPosition.y - 10
+                                                            }}
                                                             onClick={() => openDeleteConfirmation(msg.id)}
                                                         >
                                                             <FaTrash size={17} /> Delete Message
                                                         </button>
                                                     )}
+
+
 
                                                     {/* Attachments */}
                                                     {msg.attachments?.map((attachment) => {

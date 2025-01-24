@@ -75,6 +75,31 @@
     background-color: #b3b3b3;
 }
 
-.crop-button:hover {
-    background-color: #99edac;
+:root {
+    --modal-background: #2e2e2e;
+    --slider-track: #555555;
+    --slider-thumb: #00ff00;
+    --slider-thumb-hover: #00cc00;
+    --text-color: #ffffff;
+}
+
+.crop-modal {
+    background-color: var(--modal-background);
+    color: var(--text-color);
+}
+
+.zoom-slider {
+    background: var(--slider-track);
+}
+
+.zoom-slider::-webkit-slider-thumb,
+.zoom-slider::-moz-range-thumb,
+.zoom-slider::-ms-thumb {
+    background: var(--slider-thumb);
+}
+
+.zoom-slider::-webkit-slider-thumb:hover,
+.zoom-slider::-moz-range-thumb:hover,
+.zoom-slider::-ms-thumb:hover {
+    background: var(--slider-thumb-hover);
 }

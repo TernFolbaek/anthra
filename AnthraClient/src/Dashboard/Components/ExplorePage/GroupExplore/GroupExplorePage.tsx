@@ -588,16 +588,16 @@ const GroupExplorePage: React.FC = () => {
             {currentGroup && (
                 <div className="group-explore-button-container">
                     <button
-                        className="text-white hover:bg-emerald-300 group-explore-apply-button bg-emerald-400 dark:bg-emerald-500 dark:hover:bg-emerald-400 dark:hover:text-white dark:text-gray-900 transform hover:scale-105"
-                        onClick={handleApply}
-                    >
-                        Apply
-                    </button>
-                    <button
                         className="text-emerald-400 hover:bg-emerald-300 hover:text-white hover:border-emerald-300 group-explore-skip-button border-2 border-emerald-400 dark:border-emerald-500 dark:text-emerald-400 dark:hover:border-emerald-400 dark:hover:bg-emerald-400 dark:hover:text-white transform hover:scale-105"
                         onClick={handleSkip}
                     >
                         Skip
+                    </button>
+                    <button
+                        className="text-white hover:bg-emerald-300 group-explore-apply-button bg-emerald-400 dark:bg-emerald-500 dark:hover:bg-emerald-400 dark:hover:text-white transform hover:scale-105"
+                        onClick={handleApply}
+                    >
+                        Apply
                     </button>
                 </div>
             )}

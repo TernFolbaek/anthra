@@ -29,32 +29,29 @@ namespace MyBackendApp.Controllers
         {
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            // Get IDs of connected users
+            // 1) Exclude connected, requested, or skipped users
             var connectedUserIds = await _context.Connections
                 .Where(c => c.UserId1 == currentUserId || c.UserId2 == currentUserId)
                 .Select(c => c.UserId1 == currentUserId ? c.UserId2 : c.UserId1)
                 .ToListAsync();
 
-            // Get IDs of users to whom the current user has sent a connection request
             var sentRequestUserIds = await _context.ConnectionRequests
                 .Where(cr => cr.SenderId == currentUserId && cr.Status == ConnectionStatus.Pending)
                 .Select(cr => cr.ReceiverId)
                 .ToListAsync();
 
-            // Get IDs of skipped users
             var skippedUserIds = await _context.SkippedUsers
                 .Where(su => su.UserId == currentUserId)
                 .Select(su => su.SkippedUserId)
                 .ToListAsync();
 
-            // Combine IDs to exclude
             var excludedUserIds = connectedUserIds
                 .Concat(sentRequestUserIds)
                 .Concat(skippedUserIds)
                 .Append(currentUserId)
                 .ToList();
 
-            // Fetch users excluding the ones in excludedUserIds
+            // 2) Return up to 10
             var users = await _userManager.Users
                 .AsNoTracking()
                 .Where(u => u.ProfileCompleted && !excludedUserIds.Contains(u.Id))
@@ -73,10 +70,12 @@ namespace MyBackendApp.Controllers
                     u.Age,
                     u.ProfilePictureUrl
                 })
+                .Take(8)  // Only take 8 at once
                 .ToListAsync();
 
             return Ok(users);
         }
+
 
 
         [HttpPost("SkipUser")]

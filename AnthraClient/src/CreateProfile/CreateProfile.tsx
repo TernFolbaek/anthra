@@ -54,7 +54,7 @@ const CreateProfile: React.FC<CreateProfileProps> = ({
     const handleNext = () => {
         if (step === 1) {
             if (!firstName || !lastName || !age || !country || !city || !profilePictureFile) {
-                setError('Please fill in all required fields.');
+                setError('Please fill in all required fields');
                 return;
             }
             setError(null);

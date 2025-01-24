@@ -99,7 +99,7 @@ const App: React.FC = () => {
     };
 
     if (loading) {
-        return <div></div>;
+        return ;
     }
     return (
         <LanguageProvider>

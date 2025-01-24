@@ -11,7 +11,7 @@ import { ApplicationUser } from "../types/types";
 import ViewGroupProfile from "../ViewGroupProfile/ViewGroupProfile";
 import Snackbar from "../../Helpers/Snackbar/Snackbar";
 import {NotificationContext} from "../../context/NotificationsContext";
-
+import ConfirmationDialog from "../../Helpers/Dialogs/ConfirmationDialog/ConfirmationDialog";
 interface ConnectionRequestDTO {
     id: number;
     senderId: string;
@@ -56,6 +56,8 @@ const Connections: React.FC = () => {
     const navigate = useNavigate();
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
+    const [isConfirmationDialog, setIsConfirmationDialog] = useState(false);
+    const [removeConnectionId, setRemoveConnectionId] = useState<string>('');
     const notificationContext = useContext(NotificationContext);
     if (!notificationContext) {
         throw new Error("NotificationContext is undefined. Make sure you're inside a NotificationProvider.");
@@ -76,6 +78,7 @@ const Connections: React.FC = () => {
     };
 
     const handleRemoveConnection = async (connectionId: string) => {
+        closeDialog()
         try {
             await axios.post(
                 '/Connections/RemoveConnection',
@@ -345,6 +348,15 @@ const Connections: React.FC = () => {
         setGroupId(null);
     }
 
+    const closeDialog = () => {
+        setIsConfirmationDialog(false)
+    }
+
+    const openRemoveConfirmationDialog = (userId : string) =>{
+        setRemoveConnectionId(userId)
+        setIsConfirmationDialog(true)
+    }
+
     const renderConnections = () => (
         <div className="connections-card-container">
             <p className="dark:text-white pl-2 mt-2 pt-1 pb-2 text-xl font-bold">Connections</p>
@@ -398,7 +410,7 @@ const Connections: React.FC = () => {
                                     >
                                         <button
                                             className="flex items-center gap-2 text-sm font-medium text-black dark:text-white"
-                                            onClick={() => handleRemoveConnection(user.id)}>
+                                            onClick={() => openRemoveConfirmationDialog(user.id)}>
                                             <FaUserMinus />
                                             <div>
                                                 Remove Connection
@@ -608,6 +620,15 @@ const Connections: React.FC = () => {
                     message={snackbarMessage}
                     duration={4000}
                     onClose={() => setSnackbarVisible(false)}
+                />
+            )}
+            {isConfirmationDialog && (
+                <ConfirmationDialog
+                    message="Are you sure you want to remove this user?"
+                    onConfirm={() => {
+                        void handleRemoveConnection(removeConnectionId);
+                    }}
+                    onCancel={closeDialog}
                 />
             )}
         </div>

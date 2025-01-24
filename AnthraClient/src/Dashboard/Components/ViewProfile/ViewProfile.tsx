@@ -32,7 +32,7 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
     const [error, setError] = useState<string | null>(null);
     const modalRef = useRef<HTMLDivElement>(null);
     const token = localStorage.getItem('token');
-
+    const currentUserId = localStorage.getItem('userId');
     // State to track connection status
     const [isConnected, setIsConnected] = useState<boolean>(false);
     const [requestPending, setRequestPending] = useState<boolean>(false);
@@ -67,7 +67,6 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
                 setRequestPending(response.data.requestPending);
                 setHasUserSentRequest(response.data.hasUserSentRequest);
                 setHasUserAcceptedRequest(response.data.hasUserAcceptedRequest);
-
             } catch (error) {
                 console.error('Failed to fetch connection status:', error);
             }
@@ -168,8 +167,12 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
                     <ul className="viewprofile-list">
                         {userProfile.courses.map((course, index) => (
                             <li key={index}>
-                                <a href={course.courseLink} className="text-emerald-400 hover:font-semibold" target="_blank"
-                                   rel="noopener noreferrer">
+                                <a
+                                    href={course.courseLink}
+                                    className="text-emerald-400 hover:font-semibold"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
                                     {course.courseName}
                                 </a>
                             </li>
@@ -186,17 +189,21 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
                             <h3 className="viewprofile-section-title">Status</h3>
                             <div className="flex">
                                 {userProfile.statuses.map((st, i) => (
-                                    <p key={i} className="status-tag-explore dark:bg-emerald-400 bg-emerald-300 text-white mr-1">{st}</p>
+                                    <p key={i} className="status-tag-explore dark:bg-emerald-400 bg-emerald-300 text-white mr-1">
+                                        {st}
+                                    </p>
                                 ))}
                             </div>
                         </div>
                     )}
 
-                    {/* Connection button logic based on isConnected, requestPending, and hasUserSentRequest */}
-                    {!isConnected && (
+                    {/* Corrected Connection button logic */}
+                    {!isConnected && currentUserId !== userId && (
                         <div className="viewprofile-action-button">
                             {hasUserAcceptedRequest && !isConnected ? (
-                                <p className="bg-slate-100 p-1 rounded-md text-sm font-semibold mt-2">You have removed or been removed from this profile</p>
+                                <p className="bg-slate-100 p-1 rounded-md text-sm font-semibold mt-2">
+                                    You have removed or been removed from this profile
+                                </p>
                             ) : hasUserSentRequest && requestPending ? (
                                 <button
                                     className="viewprofile-connect-button bg-emerald-400 hover:bg-emerald-300 text-white dark:bg-emerald-500 dark:text-white dark:hover:bg-emerald-400"
@@ -209,18 +216,17 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
                                     className="viewprofile-connect-button bg-emerald-400 hover:bg-emerald-300 text-white dark:bg-emerald-500 dark:text-white dark:hover:bg-emerald-400"
                                     onClick={handleConnect}
                                 >
-                                Connect
+                                    Connect
                                 </button>
                             ) : (
                                 <button
-                                    className="viewprofile-connect-button bg-emerald-400 hover:bg-emerald-300 text-white dark:bg-emerald-500 dark:text-white dark:hover:bg-emerald-400 "
+                                    className="viewprofile-connect-button bg-emerald-400 hover:bg-emerald-300 text-white dark:bg-emerald-500 dark:text-white dark:hover:bg-emerald-400"
                                     onClick={handleCancelRequest}
                                 >
                                     Cancel Request
                                 </button>
                             )}
                         </div>
-
                     )}
                 </div>
             </div>

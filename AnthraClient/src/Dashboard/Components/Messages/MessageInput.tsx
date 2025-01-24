@@ -177,7 +177,6 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
                     onChange={(e) => setMessageInput(e.target.value)}
                     placeholder="Aa"
                     disabled={!userId}
-                    onKeyDown={(e) => e.key === "Enter" && sendMessage()}
                 />
                 <FaArrowRight onClick={sendMessage} className="send-icon" />
             </div>

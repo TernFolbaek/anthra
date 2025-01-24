@@ -97,6 +97,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
     const [reportFiles, setReportFiles] = useState<File[]>([]);
     const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
     const [showAddMembersModal, setShowAddMembersModal] = useState(false);
+    const [contextMenuPosition, setContextMenuPosition] = useState<{ x: number; y: number } | null>(null);
 
     // Infinite scroll & paging states
     const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -140,6 +141,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
 
         e.preventDefault();
         setSelectedMessageForDelete((prev) => (prev === messageId ? null : messageId));
+        setContextMenuPosition({ x: e.clientX, y: e.clientY });
     };
 
     useEffect(() => {
@@ -560,7 +562,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                     </div>
 
                     <div className="flex items-center gap-2">
-                        {isGroupCreator && (
+                        { (
                             <button
                                 className="add-members-icon dark:text-white"
                                 onClick={(e) => {
@@ -676,9 +678,14 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                         )}
 
                                         {/* Show a "Delete" button if this msg is selected */}
-                                        {selectedMessageForDelete === message.id && (
+                                        {selectedMessageForDelete === message.id && contextMenuPosition && (
                                             <button
                                                 className="delete-message-btn-group right-10 p-2 flex items-center gap-2"
+                                                style={{
+                                                    // Move the button to the left by its approximate width (160px) + some padding
+                                                    left: contextMenuPosition.x - 170,
+                                                    top: contextMenuPosition.y - 10
+                                                }}
                                                 onClick={() => openDeleteConfirmation(message.id)}
                                             >
                                                 <FaTrash size={17} />

@@ -171,105 +171,112 @@ public async Task<IActionResult> GetConnectionStatuses([FromQuery] List<string> 
         }
 
         
-        [HttpPost("SendRequest")]
-        public async Task<IActionResult> SendRequest([FromBody] ConnectionRequestModel model)
+      [HttpPost("SendRequest")]
+public async Task<IActionResult> SendRequest([FromBody] ConnectionRequestModel model)
+{
+    var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+    var session = await _context.UserExploreSessions
+        .Include(s => s.FetchedUsers)
+        .FirstOrDefaultAsync(s => s.UserId == currentUserId);
+
+    if (session != null)
+    {
+        var sessionUser = session.FetchedUsers
+            .FirstOrDefault(fu => fu.FetchedUserId == model.TargetUserId && fu.IsActive);
+
+        if (sessionUser != null)
         {
-            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            _logger.LogInformation("CurrentUserId: {CurrentUserId}, TargetUserId: {TargetUserId}", currentUserId, model.TargetUserId);
+            sessionUser.IsActive = false;
+        }
 
-            if (currentUserId == model.TargetUserId)
+        _context.UserExploreSessions.Update(session);
+        await _context.SaveChangesAsync();
+    }
+
+    // 2) Now handle the actual connection request logic
+    var existingRequest = await _context.ConnectionRequests
+        .FirstOrDefaultAsync(cr =>
+            (cr.SenderId == currentUserId && cr.ReceiverId == model.TargetUserId) ||
+            (cr.SenderId == model.TargetUserId && cr.ReceiverId == currentUserId));
+
+    if (existingRequest != null)
+    {
+        // existing logic for accepted / pending / declined ...
+        if (existingRequest.Status == ConnectionStatus.Accepted)
+        {
+            return BadRequest("You are already connected.");
+        }
+        else if (existingRequest.Status == ConnectionStatus.Pending)
+        {
+            if (existingRequest.SenderId == model.TargetUserId)
             {
-                return BadRequest("You cannot connect with yourself.");
-            }
+                // Accept the request
+                existingRequest.Status = ConnectionStatus.Accepted;
+                existingRequest.RespondedAt = DateTime.UtcNow;
 
-            // Check if a connection request already exists between the two users
-            var existingRequest = await _context.ConnectionRequests
-                .FirstOrDefaultAsync(cr =>
-                    (cr.SenderId == currentUserId && cr.ReceiverId == model.TargetUserId) ||
-                    (cr.SenderId == model.TargetUserId && cr.ReceiverId == currentUserId));
-
-            if (existingRequest != null)
-            {
-                if (existingRequest.Status == ConnectionStatus.Accepted)
+                // Create a new Connection
+                var connection = new Connection
                 {
-                    return BadRequest("You are already connected.");
-                }
-                else if (existingRequest.Status == ConnectionStatus.Pending)
-                {
-                    if (existingRequest.SenderId == model.TargetUserId)
-                    {
-                        // Accept the request
-                        existingRequest.Status = ConnectionStatus.Accepted;
-                        existingRequest.RespondedAt = DateTime.UtcNow;
+                    UserId1 = existingRequest.SenderId,
+                    UserId2 = existingRequest.ReceiverId,
+                    ConnectedAt = DateTime.UtcNow
+                };
+                _context.Connections.Add(connection);
 
-                        // Create a new Connection
-                        var connection = new Connection
-                        {
-                            UserId1 = existingRequest.SenderId,
-                            UserId2 = existingRequest.ReceiverId,
-                            ConnectedAt = DateTime.UtcNow
-                        };
-                        _context.Connections.Add(connection);
-
-                        await _context.SaveChangesAsync();
-                        return Ok("Connection request accepted.");
-                    }
-                    else
-                    {
-                        return BadRequest("Connection request already sent.");
-                    }
-                }
-                else if (existingRequest.Status == ConnectionStatus.Declined)
-                {
-                    // A previous request was declined; we can allow sending a new request
-                    // Update the existing request
-                    existingRequest.Status = ConnectionStatus.Pending;
-                    existingRequest.RequestedAt = DateTime.UtcNow;
-                    existingRequest.RespondedAt = null;
-
-                    await _context.SaveChangesAsync();
-                    return Ok("Connection request sent.");
-                }
+                await _context.SaveChangesAsync();
+                return Ok("Connection request accepted.");
             }
             else
             {
-                // No existing request between the two users
-                // Create a new pending request
-                var connectionRequest = new ConnectionRequest
-                {
-                    SenderId = currentUserId,
-                    ReceiverId = model.TargetUserId,
-                    Status = ConnectionStatus.Pending,
-                    RequestedAt = DateTime.UtcNow
-                };
-
-                _context.ConnectionRequests.Add(connectionRequest);
-                await _context.SaveChangesAsync();
-                
-                // After adding the connection request
-                // Create a notification
-                var sender = await _context.Users.FindAsync(currentUserId);
-
-                var notification = new Notification
-                {
-                    UserId = model.TargetUserId,
-                    Type = "ConnectionRequest",
-                    Content = $"{sender.FirstName} sent you a connection request.",
-                    Timestamp = DateTime.UtcNow,
-                    IsRead = false,
-                    SenderId = sender.Id,
-                    SenderName = sender.FirstName
-                };
-
-                _context.Notifications.Add(notification);
-                await _context.SaveChangesAsync();
-
-
-                return Ok("Connection request sent.");
+                return BadRequest("Connection request already sent.");
             }
-            return BadRequest("Unable to process the connection request.");
         }
-        
+        else if (existingRequest.Status == ConnectionStatus.Declined)
+        {
+            // The previous request was declined => we can allow a new request
+            existingRequest.Status = ConnectionStatus.Pending;
+            existingRequest.RequestedAt = DateTime.UtcNow;
+            existingRequest.RespondedAt = null;
+
+            await _context.SaveChangesAsync();
+            return Ok("Connection request sent.");
+        }
+    }
+    else
+    {
+        // 3) Create a brand new pending request
+        var connectionRequest = new ConnectionRequest
+        {
+            SenderId = currentUserId,
+            ReceiverId = model.TargetUserId,
+            Status = ConnectionStatus.Pending,
+            RequestedAt = DateTime.UtcNow
+        };
+
+        _context.ConnectionRequests.Add(connectionRequest);
+        await _context.SaveChangesAsync();
+
+        // 4) Create a notification
+        var sender = await _context.Users.FindAsync(currentUserId);
+        var notification = new Notification
+        {
+            UserId = model.TargetUserId,
+            Type = "ConnectionRequest",
+            Content = $"{sender.FirstName} sent you a connection request.",
+            Timestamp = DateTime.UtcNow,
+            IsRead = false,
+            SenderId = sender.Id,
+            SenderName = sender.FirstName
+        };
+        _context.Notifications.Add(notification);
+        await _context.SaveChangesAsync();
+    }
+
+    return Ok("Connection request sent.");
+}
+
+
         [HttpGet("List")]
         public async Task<IActionResult> GetConnections([FromQuery] string userId)
         {

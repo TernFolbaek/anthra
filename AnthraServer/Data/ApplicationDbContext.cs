@@ -16,6 +16,9 @@ namespace MyBackendApp.Data
         public DbSet<GroupMessage> GroupMessages { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Attachment> Attachments { get; set; }
+        public DbSet<UserExploreSession> UserExploreSessions { get; set; }
+        public DbSet<GroupExploreSession> GroupExploreSessions { get; set; }
+
 
         public DbSet<GroupApplicationRequest> GroupApplicationRequests { get; set; }
 

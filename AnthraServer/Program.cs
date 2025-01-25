@@ -441,7 +441,7 @@ if (app.Environment.IsDevelopment())
 
     app.MapPost("/delete-test-users", async (ApplicationDbContext db) =>
     {
-        var testUsers = await db.Users.Where(u => u.UserName == "tern" || u.UserName == "gab" || u.UserName == "justin" || u.UserName == "birkk" || u.UserName == "andreas" || u.UserName == "carsten").ToListAsync();
+        var testUsers = await db.Users.Where(u => u.UserName == "tern" || u.UserName == "gab" || u.UserName == "justin" || u.UserName == "birkk" || u.UserName == "andreas" || u.UserName == "carsten" || u.UserName == "thomas").ToListAsync();
         db.Users.RemoveRange(testUsers);
         await db.SaveChangesAsync();
 

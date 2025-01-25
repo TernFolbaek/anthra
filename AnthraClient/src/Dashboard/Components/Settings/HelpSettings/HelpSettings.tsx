@@ -105,7 +105,7 @@ const HelpSettings: React.FC = () => {
                     </button>
                 </div>
                 <button
-                    className={`text-gray-500 dark:text-white  delete-button ${answerInput.trim() === '' ? 'delete-button-disabled' : ''}`}
+                    className={`text-gray-500 dark:text-white hover:underline  delete-button ${answerInput.trim() === '' ? 'delete-button-disabled' : ''}`}
                     onClick={openDeleteModal}
                 >
                     Delete Account

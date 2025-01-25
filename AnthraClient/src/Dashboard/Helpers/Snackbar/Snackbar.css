@@ -16,7 +16,8 @@
 }
 
 body.dark .snackbar {
-    background-color: #757474;
+    background-color: rgba(50,50,50,0.9);
+    border: 2px solid #555;
     box-shadow:none;
     color: white;
 }

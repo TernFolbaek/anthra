@@ -47,11 +47,6 @@
     color: red;
 }
 
-.buttons {
-    display: flex;
-    justify-content: space-between;
-    width: 80%;
-}
 
 .cancel-button,
 .crop-button {

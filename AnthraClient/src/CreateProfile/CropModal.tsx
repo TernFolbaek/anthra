@@ -95,11 +95,11 @@ const CropModal: React.FC<CropModalProps> = ({isOpen, imageSrc, onClose, onCropC
                     onChange={(e) => setZoom(Number(e.target.value))}
                     className="zoom-slider"
                 />
-                <div className="buttons">
-                    <button onClick={onClose} className="cancel-button">
+                <div className="flex justify-around w-full">
+                    <button onClick={onClose} className="px-4 rounded-md py-2 transform hover:scale-105 text-gray-100 bg-gray-500 font-semibold  text-sm">
                         Cancel
                     </button>
-                    <button onClick={handleCrop} className="crop-button bg-blue-500">
+                    <button onClick={handleCrop} className="px-4 rounded-md py-2 transform hover:scale-105 text-sm bg-blue-500">
                         Crop
                     </button>
                 </div>

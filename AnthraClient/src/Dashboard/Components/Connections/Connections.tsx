@@ -274,8 +274,6 @@ const Connections: React.FC = () => {
             return;
         }
 
-        console.log(userId);
-
         const fetchPendingRequests = async () => {
             try {
                 const response = await axios.get(`/Request/Pending`, {

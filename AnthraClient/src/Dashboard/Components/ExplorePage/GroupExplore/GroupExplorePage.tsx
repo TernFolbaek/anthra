@@ -115,91 +115,32 @@ const GroupExplorePage: React.FC = () => {
     // Show "more members" modal
     const [showMembersModal, setShowMembersModal] = useState<boolean>(false);
 
-    // -------------- LOAD GROUPS ON MOUNT -------------
     useEffect(() => {
-        const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000; // FIXED: 24 hours
-
-        // Helper to set our countdown text
-        const updateIntervalMessage = (cachedTimestamp: number) => {
-            const now = Date.now();
-            const elapsed = now - cachedTimestamp;
-            const remaining = TWENTY_FOUR_HOURS - elapsed;
-
-            if (remaining <= 0) {
-                setIntervalMessage(null);
-                return;
-            }
-
-            // Calculate hours/minutes left
-            const hours = Math.floor(remaining / (1000 * 60 * 60));
-            const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-            if(hours === 0 && minutes === 0){
-                setIntervalMessage(null);
-            }else{
-                setIntervalMessage(`You can connect again in : ${hours}h ${minutes}m`);
-            }
-        };
-
-        const cachedStr = localStorage.getItem('exploreGroupsData');
-        if (cachedStr) {
-            const cached: CachedGroupsData = JSON.parse(cachedStr);
-            const now = Date.now();
-            const elapsed = now - cached.timestamp;
-
-            // If data is still valid, use it
-            if (elapsed < TWENTY_FOUR_HOURS) {
-                setGroups(cached.groups);
-                setCurrentIndex(0);
-                updateIntervalMessage(cached.timestamp);
-
-                // Optionally keep updating each minute
-                const timerId = setInterval(() => {
-                    updateIntervalMessage(cached.timestamp);
-                }, 60000);
-
-                // Clean up the interval on unmount
-                return () => clearInterval(timerId);
-            }
-        }
-
-        // Otherwise, fetch from server
         const fetchGroups = async () => {
             try {
                 const response = await axios.get('/GroupsExplore/GetGroups', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
-                const newGroups: Group[] = response.data;
-                setGroups(newGroups);
+
+                const { mustWait, groups, message } = response.data;
+
+                // Example:
+                setIntervalMessage(message || null);
+                setGroups(groups || []);
                 setCurrentIndex(0);
 
-                // Save to localStorage
-                const dataToCache: CachedGroupsData = {
-                    timestamp: Date.now(),
-                    groups: newGroups,
-                };
-                localStorage.setItem('exploreGroupsData', JSON.stringify(dataToCache));
-
-                // Start the countdown now that we've fetched
-                updateIntervalMessage(dataToCache.timestamp);
-
-                const timerId = setInterval(() => {
-                    updateIntervalMessage(dataToCache.timestamp);
-                }, 60000);
-
-                // Cleanup
-                return () => clearInterval(timerId);
-
+                // if mustWait && !groups.length => user is locked out with no leftover
+                // if mustWait && groups.length => leftover batch
+                // if !mustWait && !groups.length => no groups found but not locked out
+                // if !mustWait && groups.length => found new batch => locked out
             } catch (error) {
                 console.error('Error fetching groups:', error);
             }
         };
 
-        // call fetchGroups if not valid
         fetchGroups();
-
-        // If you want to stop the "invalid" fetch from continuing, you can do:
-        // return () => {};
     }, [token]);
+
 
     // -------------- SET CURRENT GROUP -------------
     useEffect(() => {

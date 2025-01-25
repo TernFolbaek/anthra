@@ -8,7 +8,6 @@ import useWindowWidth from '../../../hooks/useWindowWidth';
 import { useSwipeable } from 'react-swipeable';
 import { FaCog, FaBookOpen, FaPencilAlt } from "react-icons/fa";
 
-// -------------- INTERFACES -----------------
 interface Course {
     courseName: string;
     courseLink: string;
@@ -33,110 +32,55 @@ interface UserExplorePageProps {
     onSettingsClick: () => void;
 }
 
-// We can store the fetched time + user array in localStorage:
-interface CachedUsersData {
-    timestamp: number; // Date.now() of when we fetched
-    users: User[];
-}
-
-// -------------- COMPONENT ------------------
 const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) => {
     const [users, setUsers] = useState<User[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [intervalMessage, setIntervalMessage] = useState<string | null>(null);
-    const token = localStorage.getItem('token');
 
-    // For UI feedback
     const [snackbarVisible, setSnackbarVisible] = useState<boolean>(false);
     const [snackbarTitle, setSnackbarTitle] = useState<string>('');
     const [snackbarMessage, setSnackbarMessage] = useState<string>('');
     const [showReferModal, setShowReferModal] = useState(false);
 
-    // For mobile swipe / small screen
     const windowWidth = useWindowWidth();
     const isSmallScreen = windowWidth < 480;
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [shake, setShake] = useState<boolean>(false);
 
-    // For card animation
     const [animating, setAnimating] = useState<boolean>(false);
     const [slideDirection, setSlideDirection] = useState<'in' | 'out'>('in');
     const cardRef = useRef<HTMLDivElement>(null);
 
-    // -------------- USEEFFECT: LOAD USERS -------------
+    const token = localStorage.getItem('token');
+
+    // -------------- FETCH USERS ON MOUNT -------------
     useEffect(() => {
-        const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
-
-        const updateIntervalMessage = (cachedTimestamp: number) => {
-            const now = Date.now();
-            const elapsed = now - cachedTimestamp;
-            const remaining = TWENTY_FOUR_HOURS - elapsed;
-
-            if (remaining <= 0) {
-                setIntervalMessage(null);
-                return;
-            }
-
-            // Calculate hours/minutes left
-            const hours = Math.floor(remaining / (1000 * 60 * 60));
-            const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-            if(hours === 0 && minutes === 0){
-                setIntervalMessage(null);
-            }else{
-                setIntervalMessage(`You can connect again in : ${hours}h ${minutes}m`);
-            }
-        };
-
-        // 1. Attempt to load from localStorage
-        const cachedStr = localStorage.getItem('exploreUsersData');
-        if (cachedStr) {
-            const cached: CachedUsersData = JSON.parse(cachedStr);
-            const now = Date.now();
-
-            // If it's still under 24h old, use it
-            if (now - cached.timestamp < TWENTY_FOUR_HOURS) {
-                setUsers(cached.users);
-                setCurrentIndex(0);
-
-                updateIntervalMessage(cached.timestamp);
-
-                const timerId = setInterval(() => {
-                    updateIntervalMessage(cached.timestamp);
-                }, 60000);
-
-                return () => clearInterval(timerId);
-            }
-        }
-
-        // 2. Otherwise, fetch fresh from server
         const fetchUsers = async () => {
             try {
                 const response = await axios.get('/Explore/GetUsers', {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
+                    headers: { Authorization: `Bearer ${token}` },
                 });
+                const { mustWait, users: fetched, message } = response.data;
 
-                const newUsers: User[] = response.data;
-                setUsers(newUsers);
+                // If mustWait = true and 'fetched' is empty => show locked out message
+                // If mustWait = true and 'fetched' has data => these are the leftover in-session users
+                // If mustWait = false and 'fetched' is empty => no new users but not locked out
+                // If mustWait = false and 'fetched' has data => new batch, user is locked for next fetch
+
+                setIntervalMessage(message || null);
+                setUsers(fetched || []);
                 setCurrentIndex(0);
 
-                // Save to localStorage with current timestamp
-                const dataToCache: CachedUsersData = {
-                    timestamp: Date.now(),
-                    users: newUsers,
-                };
-                localStorage.setItem('exploreUsersData', JSON.stringify(dataToCache));
-            } catch (error) {
-                console.error('Error fetching users:', error);
+            } catch (err) {
+                console.error(err);
             }
         };
 
         fetchUsers();
     }, [token]);
 
-    // -------------- USEEFFECT: SET CURRENT USER -------------
+    // -------------- SET CURRENT USER -------------
     useEffect(() => {
         if (users.length > 0 && currentIndex < users.length) {
             setCurrentUser(users[currentIndex]);
@@ -147,30 +91,10 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
         }
     }, [users, currentIndex]);
 
-    // -------------- ANIMATE TO NEXT USER -------------
-    const animateToNextUser = () => {
-        setCurrentIndex(prev => prev + 1);
-        setCurrentPage(1);
-        setAnimating(false);
-        setSlideDirection('in');
-    };
-
-    // -------------- REMOVE A USER LOCALLY & UPDATE STORAGE -------------
-    // We'll call this whenever we skip or connect, so local storage stays in sync
+    // -------------- REMOVE A USER LOCALLY -------------
     const removeUserFromList = (userId: string) => {
         const updatedUsers = users.filter(u => u.id !== userId);
         setUsers(updatedUsers);
-
-        // Also update local storage so that next time we load, it's accurate
-        const cachedStr = localStorage.getItem('exploreUsersData');
-        if (cachedStr) {
-            const cached: CachedUsersData = JSON.parse(cachedStr);
-            const newData: CachedUsersData = {
-                timestamp: cached.timestamp, // keep the same original fetch time
-                users: updatedUsers,
-            };
-            localStorage.setItem('exploreUsersData', JSON.stringify(newData));
-        }
     };
 
     // -------------- HANDLE CONNECT -------------
@@ -183,18 +107,19 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             setSnackbarTitle('Connection Request Sent');
-            setSnackbarMessage(`You have sent a connection request to ${currentUser.firstName} ${currentUser.lastName}.`);
+            setSnackbarMessage(
+                `You have sent a connection request to ${currentUser.firstName} ${currentUser.lastName}.`
+            );
             setSnackbarVisible(true);
         } catch (error) {
             console.error('Error sending connection request:', error);
         }
 
-        // Remove from list, animate to next
+        // Animate removal
         setSlideDirection('out');
         setAnimating(true);
         setTimeout(() => {
             removeUserFromList(currentUser.id);
-            // No need to call setCurrentIndex(prev => prev+1) if we just removed user from array
         }, 300);
     };
 
@@ -211,7 +136,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
             console.error('Error skipping user:', error);
         }
 
-        // Remove from list, animate to next
+        // Animate removal
         setSlideDirection('out');
         setAnimating(true);
         setTimeout(() => {
@@ -219,7 +144,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
         }, 300);
     };
 
-    // -------------- SWIPE LOGIC FOR MOBILE -------------
+    // -------------- SWIPE LOGIC (MOBILE) -------------
     const triggerShake = () => {
         setShake(true);
         setTimeout(() => setShake(false), 500);
@@ -246,23 +171,20 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
         trackMouse: false,
     });
 
-    // -------------- RENDER -------------
     return (
         <div className="user-explore-container">
             {isSmallScreen && (
                 <div onClick={onSettingsClick} className="settings-explore-mobile">
-                    <FaCog className="sidebar-icon"/>
+                    <FaCog className="sidebar-icon" />
                     <span className="tooltip">Settings</span>
                 </div>
             )}
 
-            {/* If we have a current user, show the card. Otherwise, <NoMoreUsersToExplore> */}
             {currentUser ? (
                 <div
                     className={`explore-user-card ${isSmallScreen ? 'small-screen' : ''} ${shake ? 'shake' : ''} slide-${slideDirection}`}
                     {...(isSmallScreen ? swipeHandlers : {})}
                 >
-                    {/* Page Indicators (for small screens) */}
                     {isSmallScreen && (
                         <div className="page-indicators">
                             <div className={`indicator ${currentPage === 1 ? 'active' : ''}`}></div>
@@ -270,7 +192,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                         </div>
                     )}
 
-                    {/* Page Content (two-page swipe for small screen, single page for desktop) */}
+                    {/* Two-page layout for mobile */}
                     {isSmallScreen ? (
                         <div className="small-screen-content">
                             {currentPage === 1 ? (
@@ -376,7 +298,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                             )}
                         </div>
                     ) : (
-                        // ---------------- DESKTOP LAYOUT ----------------
+                        // ---------- DESKTOP LAYOUT ----------
                         <div className="flex flex-col">
                             <div className="explore-user-card-content">
                                 <div className="flex items-center gap-2 mb-10">
@@ -448,7 +370,6 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                                     <p>{currentUser.subjects.join(', ')}</p>
                                                 </div>
                                             )}
-
                                             {currentUser.courses && currentUser.courses.length > 0 && (
                                                 <div>
                                                     <h3 className="dark:text-emerald-400 text-emerald-500">Courses</h3>
@@ -479,7 +400,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                 <NoMoreUsersToExplore message={intervalMessage} />
             )}
 
-            {/* Action Buttons to Connect/Skip/Refer if a user is present */}
+            {/* Action Buttons */}
             {currentUser && (
                 <div className="user-explore-page-button-container">
                     <button
@@ -503,7 +424,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                 </div>
             )}
 
-            {/* Snackbar for success messages */}
+            {/* Snackbar */}
             {snackbarVisible && !isSmallScreen && (
                 <Snackbar
                     key={snackbarTitle + snackbarMessage}

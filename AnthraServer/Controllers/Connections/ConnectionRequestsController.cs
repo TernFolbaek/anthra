@@ -43,7 +43,8 @@ namespace AnthraBackend.Controllers.Connections
                         ReceiverId = cr.ReceiverId,
                         Status = cr.Status,
                         RequestedAt = cr.RequestedAt,
-                        RespondedAt = cr.RespondedAt
+                        RespondedAt = cr.RespondedAt,
+                        ConnectionNote = cr.ConnectionNote,
                     })
                     .ToListAsync();
 
@@ -118,26 +119,31 @@ namespace AnthraBackend.Controllers.Connections
             return Ok("Connection request accepted and users added to Connections table.");
         }
 
-
         [HttpPost("DeclineRequest")]
-        public async Task<IActionResult> DeclineRequest([FromBody] ConnectionRequestModel model)
+        [Authorize]
+        public async Task<IActionResult> DeclineRequest(int requestId)
         {
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var existingRequest = await _context.ConnectionRequests
-                .FirstOrDefaultAsync(cr =>
-                    cr.SenderId == model.TargetUserId && cr.ReceiverId == currentUserId &&
-                    cr.Status == ConnectionStatus.Pending);
+            var connectionRequest = await _context.ConnectionRequests
+                .FirstOrDefaultAsync(cr => cr.Id == requestId && cr.ReceiverId == currentUserId);
 
-            if (existingRequest != null)
+            if (connectionRequest == null)
             {
-                existingRequest.Status = ConnectionStatus.Declined;
-                existingRequest.RespondedAt = DateTime.UtcNow;
-                await _context.SaveChangesAsync();
-                return Ok("Connection request declined.");
+                return NotFound("Connection request not found or you are not authorized to decline it.");
             }
 
-            return BadRequest("No pending connection request found.");
+            if (connectionRequest.Status != ConnectionStatus.Pending)
+            {
+                return BadRequest("This connection request has already been processed.");
+            }
+
+            connectionRequest.Status = ConnectionStatus.Declined;
+            connectionRequest.RespondedAt = DateTime.UtcNow;
+
+            await _context.SaveChangesAsync();
+
+            return Ok("Connection request declined.");
         }
 
     }

@@ -20,6 +20,7 @@ namespace MyBackendApp.Models
         public string SenderEmail { get; set; }
         public string SenderProfilePicture { get; set; }
         public string SenderInstitution { get; set; }
+        public string? ConnectionNote { get; set; }
 
         public string ReceiverId { get; set; }
         public ConnectionStatus Status { get; set; }
@@ -39,6 +40,7 @@ namespace MyBackendApp.Models
         public ApplicationUser Receiver { get; set; }
 
         public ConnectionStatus Status { get; set; }
+        public string? ConnectionNote { get; set; }
 
         public DateTime RequestedAt { get; set; }
         public DateTime? RespondedAt { get; set; }

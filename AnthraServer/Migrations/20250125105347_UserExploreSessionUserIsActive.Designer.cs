@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyBackendApp.Data;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AnthraBackend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250125105347_UserExploreSessionUserIsActive")]
+    partial class UserExploreSessionUserIsActive
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -378,9 +381,6 @@ namespace AnthraBackend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ConnectionNote")
-                        .HasColumnType("text");
-
                     b.Property<string>("ReceiverId")
                         .IsRequired()
                         .HasColumnType("text");
@@ -447,53 +447,6 @@ namespace AnthraBackend.Migrations
                     b.HasIndex("CreatorId");
 
                     b.ToTable("Groups");
-                });
-
-            modelBuilder.Entity("MyBackendApp.Models.GroupExploreSession", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("LastFetched")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("GroupExploreSessions");
-                });
-
-            modelBuilder.Entity("MyBackendApp.Models.GroupExploreSessionGroup", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("GroupExploreSessionId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("GroupId")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GroupExploreSessionId");
-
-                    b.ToTable("GroupExploreSessionGroup");
                 });
 
             modelBuilder.Entity("MyBackendApp.Models.GroupMember", b =>
@@ -718,9 +671,6 @@ namespace AnthraBackend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
                     b.ToTable("UserExploreSessions");
                 });
 
@@ -925,17 +875,6 @@ namespace AnthraBackend.Migrations
                     b.Navigation("Creator");
                 });
 
-            modelBuilder.Entity("MyBackendApp.Models.GroupExploreSessionGroup", b =>
-                {
-                    b.HasOne("MyBackendApp.Models.GroupExploreSession", "Session")
-                        .WithMany("FetchedGroups")
-                        .HasForeignKey("GroupExploreSessionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Session");
-                });
-
             modelBuilder.Entity("MyBackendApp.Models.GroupMember", b =>
                 {
                     b.HasOne("MyBackendApp.Models.Group", "Group")
@@ -1046,11 +985,6 @@ namespace AnthraBackend.Migrations
                     b.Navigation("Members");
 
                     b.Navigation("Messages");
-                });
-
-            modelBuilder.Entity("MyBackendApp.Models.GroupExploreSession", b =>
-                {
-                    b.Navigation("FetchedGroups");
                 });
 
             modelBuilder.Entity("MyBackendApp.Models.GroupMessage", b =>

@@ -176,6 +176,7 @@ public async Task<IActionResult> SendRequest([FromBody] ConnectionRequestModel m
 {
     var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+    // 1) Handle marking the user as "used up" in the explore session
     var session = await _context.UserExploreSessions
         .Include(s => s.FetchedUsers)
         .FirstOrDefaultAsync(s => s.UserId == currentUserId);
@@ -194,7 +195,7 @@ public async Task<IActionResult> SendRequest([FromBody] ConnectionRequestModel m
         await _context.SaveChangesAsync();
     }
 
-    // 2) Now handle the actual connection request logic
+    // 2) Check if a connection request already exists between these two users
     var existingRequest = await _context.ConnectionRequests
         .FirstOrDefaultAsync(cr =>
             (cr.SenderId == currentUserId && cr.ReceiverId == model.TargetUserId) ||
@@ -239,19 +240,25 @@ public async Task<IActionResult> SendRequest([FromBody] ConnectionRequestModel m
             existingRequest.RequestedAt = DateTime.UtcNow;
             existingRequest.RespondedAt = null;
 
+            // Update the note if provided
+            existingRequest.ConnectionNote = model.ConnectionNote;
+
             await _context.SaveChangesAsync();
             return Ok("Connection request sent.");
         }
     }
     else
     {
-        // 3) Create a brand new pending request
+        // 3) Create a brand-new pending request
         var connectionRequest = new ConnectionRequest
         {
             SenderId = currentUserId,
             ReceiverId = model.TargetUserId,
             Status = ConnectionStatus.Pending,
-            RequestedAt = DateTime.UtcNow
+            RequestedAt = DateTime.UtcNow,
+
+            // Store the note if provided (could be empty string if user typed nothing)
+            ConnectionNote = model.ConnectionNote
         };
 
         _context.ConnectionRequests.Add(connectionRequest);
@@ -275,6 +282,7 @@ public async Task<IActionResult> SendRequest([FromBody] ConnectionRequestModel m
 
     return Ok("Connection request sent.");
 }
+
 
 
         [HttpGet("List")]

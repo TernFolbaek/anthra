@@ -78,7 +78,7 @@ const HelpSettings: React.FC = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            localStorage.removeItem('token');
+            localStorage.clear();
             navigate('/');
             window.location.reload();
         } catch (error) {

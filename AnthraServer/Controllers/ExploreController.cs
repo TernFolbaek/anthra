@@ -128,7 +128,7 @@ public class ExploreController : ControllerBase
             var firstBatch = await _userManager.Users
                 .AsNoTracking()
                 .Where(u => u.ProfileCompleted && !excludedUserIds.Contains(u.Id))
-                .Take(2)
+                .Take(8)
                 .ToListAsync();
 
             if (!firstBatch.Any())
@@ -219,8 +219,7 @@ public class ExploreController : ControllerBase
                     .ToListAsync();
             }
 
-            // If no new users & leftover < 2 => do not lock out => let them try again soon
-            if (!newBatch.Any() && leftoverActiveCount < 2)
+            if (!newBatch.Any() && leftoverActiveCount < 8)
             {
                 return Ok(new
                 {

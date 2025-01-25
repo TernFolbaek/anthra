@@ -166,7 +166,7 @@ namespace MyBackendApp.Controllers
                             })
                             .ToList()
                     })
-                    .Take(2)
+                    .Take(8)
                     .ToListAsync();
 
                 // if none => do not lock out
@@ -267,8 +267,8 @@ namespace MyBackendApp.Controllers
                     newBatch.AddRange(fetched);
                 }
 
-                // 5) If no new and leftover < 2 => do NOT lock out => can try again
-                if (!newBatch.Any() && leftoverActiveCount < 2)
+                // 5) If no new and leftover < 8 => do NOT lock out => can try again
+                if (!newBatch.Any() && leftoverActiveCount < 8)
                 {
                     return Ok(new
                     {

@@ -6,7 +6,7 @@ interface MessagesLayoutProps {
 }
 const MessagesLayout: React.FC<MessagesLayoutProps> = ({isConnections}) => {
     const { userId } = useParams<{ userId?: string }>();
-    let screenWidth = isConnections ? 1200 : 900
+    let screenWidth = isConnections ? 1300 : 900
     const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > screenWidth);
     useEffect(() => {
         setIsWideScreen(window.innerWidth > screenWidth);

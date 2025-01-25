@@ -161,12 +161,12 @@ const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurren
     }
 
     return (
-        <div onClick={() => handleUserSelect(referredUser.id)} className={`cursor-pointer bg-sky-50 referral-card-container ${isCurrentUser ? 'received' : 'sent'}`}>
+        <div onClick={() => handleUserSelect(referredUser.id)} className={`cursor-pointer bg-emerald-50 referral-card-container ${isCurrentUser ? 'received' : 'sent'}`}>
             <div className="referral-card-details">
 
                 <div className="referral-user-info">
                     <div className="flex gap-2">
-                        <div className="bg-sky-100 mb-2 p-2 rounded-md flex flex-col items-center">
+                        <div className="bg-emerald-100 mb-2 p-2 rounded-md flex flex-col items-center">
                             <img
                                 src={referredUser.profilePictureUrl}
                                 alt={`${referredUser.firstName} ${referredUser.lastName}`}
@@ -181,18 +181,18 @@ const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurren
                                     <p className="font-medium text-sm ">
                                         You have referred{' '}
                                         <span
-                                            className="p-1 rounded-md bg-sky-100 font-bold">{referredUser.firstName} {referredUser.lastName}</span>
+                                            className="p-1 rounded-md bg-emerald-100 font-bold">{referredUser.firstName} {referredUser.lastName}</span>
                                     </p>
                                 ) : (
                                     <p className="font-medium text-sm">
                                         You have been referred to{' '}
                                         <span
-                                            className="bg-sky-100 p-1 rounded-md font-bold">{referredUser.firstName} {referredUser.lastName}</span>.
+                                            className="bg-emerald-100 p-1 rounded-md font-bold">{referredUser.firstName} {referredUser.lastName}</span>.
                                     </p>
                                 )}
                             </div>
                             <div className="">
-                                <p className="bg-sky-100 w-fit p-1 rounded-md text-left font-semibold dark:text-white referral-user-location">{referredUser.institution}</p>
+                                <p className="bg-emerald-300 w-fit p-1 rounded-md text-left font-semibold dark:text-white referral-user-location">{referredUser.institution}</p>
                                 {descriptionPreview && (
                                     <p className="font-medium referral-user-about">{descriptionPreview}</p>
                                 )}
@@ -204,18 +204,18 @@ const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurren
 
             {/* Display Action Message if InvitationStatus is true */}
             {message.invitationStatus && (
-                <div className="rounded-md w-full bg-slate-200 font-semibold text-base text-center p-1">
-                    <p className="text-sm text-gray-600">{getActionMessage()}</p>
+                <div className="rounded-md w-full bg-emerald-300 font-semibold text-base text-center p-1">
+                    <p className="text-sm text-white">{getActionMessage()}</p>
                 </div>
             )}
 
             {/* Show buttons only if InvitationStatus is not set */}
             {!message.invitationStatus && isCurrentUser && (
                 <div className="referral-buttons">
-                    <button className="referral-connect-button" onClick={handleConnect}>
+                    <button className="referral-connect-button text-sm bg-emerald-300 text-white hover:bg-emerald-400" onClick={handleConnect}>
                         Connect
                     </button>
-                    <button className="referral-skip-button" onClick={handleSkipClick}>
+                    <button className="referral-skip-button text-sm text-gray-600 w-1/2 border-2 border-gray-300 hover:bg-gray-300 hover:text-white" onClick={handleSkipClick}>
                         Skip
                     </button>
                 </div>
@@ -232,7 +232,7 @@ const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurren
                         <p className="text-base font-semibold">Are you sure you want to skip this user?</p>
                         <div className="flex justify-center gap-2">
                             <button onClick={confirmSkip} className="text-sm font-medium py-2 px-4 rounded-md bg-gray-100">Yes</button>
-                            <button onClick={cancelSkip} className="text-sm font-medium py-2 px-4 rounded-md bg-sky-100">No</button>
+                            <button onClick={cancelSkip} className="text-sm font-medium py-2 px-4 rounded-md bg-emerald-100">No</button>
                         </div>
                     </div>
                 </div>

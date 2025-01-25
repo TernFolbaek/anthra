@@ -55,10 +55,6 @@
 .referral-connect-button,
 .referral-skip-button {
     margin-top: 10px;
-    background-color: rgba(0, 123, 255, 0.2);
-    color: #007BFF;
-    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);
-    padding: 0.5rem 1.2rem;
     cursor: pointer;
     font-weight: 600;
     border-radius: 8px;
@@ -70,20 +66,6 @@
     outline: none;
 }
 
-.referral-connect-button:hover {
-    background-color: rgba(0, 123, 255, 0.5);
-
-}
-
-.referral-skip-button {
-    background-color: transparent;
-    color: #007BFF;
-    border: 2px solid #007BFF;
-    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);}
-
-.referral-skip-button:hover {
-    background-color: rgba(0, 123, 255, 0.2);
-}
 
 
 .referral-confirm-dialog-overlay {

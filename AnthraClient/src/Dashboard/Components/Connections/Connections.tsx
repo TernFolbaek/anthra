@@ -5,7 +5,7 @@ import './Connections.css';
 import { useNavigate } from 'react-router-dom';
 import NoConnectionsRive from "../../Helpers/Animations/NoConnections";
 import ViewProfile from '../ViewProfile/ViewProfile';
-import { FaEllipsisV, FaUserMinus } from 'react-icons/fa';
+import {FaEllipsisV, FaEnvelope, FaUserMinus} from 'react-icons/fa';
 import { FaUser, FaUsers } from "react-icons/fa";
 import { ApplicationUser } from "../types/types";
 import ViewGroupProfile from "../ViewGroupProfile/ViewGroupProfile";
@@ -25,6 +25,7 @@ interface ConnectionRequestDTO {
     status: number;
     requestedAt: string;
     respondedAt?: string;
+    connectionNote?: string;
 }
 
 interface GroupApplicationRequestDTO {
@@ -59,6 +60,9 @@ const Connections: React.FC = () => {
     const [isConfirmationDialog, setIsConfirmationDialog] = useState(false);
     const [removeConnectionId, setRemoveConnectionId] = useState<string>('');
     const notificationContext = useContext(NotificationContext);
+    const [openNoteRequestId, setOpenNoteRequestId] = useState<number | null>(null);
+    const [showNoteModal, setShowNoteModal] = useState<boolean>(false);
+
     if (!notificationContext) {
         throw new Error("NotificationContext is undefined. Make sure you're inside a NotificationProvider.");
     }
@@ -76,6 +80,22 @@ const Connections: React.FC = () => {
     const handleCloseProfile = () => {
         setSelectedUserId(null);
     };
+
+    // Show the note for a specific request
+    const handleShowNote = (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+        requestId: number
+    ) => {
+        e.stopPropagation(); // Prevent the parent click (which opens profile)
+        setOpenNoteRequestId(requestId);
+        setShowNoteModal(true);
+    };
+
+    const handleCloseNote = () => {
+        setShowNoteModal(false);
+        setOpenNoteRequestId(null);
+    };
+
 
     const handleRemoveConnection = async (connectionId: string) => {
         closeDialog()
@@ -427,8 +447,9 @@ const Connections: React.FC = () => {
     const renderPersonalRequests = () => (
         <div className="requests-content">
             {connectionRequests.length === 0 ? (
-                <h2 className=" w-full text-center text-gray-400 text-sm font-medium">No new connection
-                    requests</h2>
+                <h2 className="w-full text-center text-gray-400 text-sm font-medium">
+                    No new connection requests
+                </h2>
             ) : (
                 connectionRequests.map((request) => (
                     <div
@@ -438,18 +459,35 @@ const Connections: React.FC = () => {
                     >
                         <div className="requests-user-info">
                             <img
-                                className="requests-user-card-img "
+                                className="requests-user-card-img"
                                 src={request.senderProfilePicture}
                                 alt="Profile"
                             />
-                            <div className="">
+                            <div>
                                 <div className="ml-2 flex flex-col justify-items-start">
-                                    <p className="connection-name">{request.senderFirstName} {request.senderLastName}</p>
-                                    <p className="text-gray-500 text-xs font-light">{request.senderInstitution}</p>
+                                    <p className="connection-name">
+                                        {request.senderFirstName} {request.senderLastName}
+                                    </p>
+                                    <p className="text-gray-500 text-xs font-light">
+                                        {request.senderInstitution}
+                                    </p>
                                 </div>
                             </div>
                         </div>
+
+                        {/* Buttons */}
                         <div className="requests-button-container">
+                            {/* Only show FaEnvelope if note is present */}
+                            {request.connectionNote && request.connectionNote.trim() !== '' && (
+                                <button
+                                    className="view-note-button mr-2 p-2 dark:text-white text-emerald-400 hover:scale-105"
+                                    onClick={(e) => handleShowNote(e, request.id)}
+                                    title="View Note"
+                                >
+                                    <FaEnvelope size={20} />
+                                </button>
+                            )}
+
                             <button
                                 className="text-sm font-semibold mr-2 text-emerald-400 dark:hover:bg-transparent dark:border-emerald-500 transform dark:hover:border-emerald-400 hover:scale-105"
                                 onClick={(e) => {
@@ -463,7 +501,7 @@ const Connections: React.FC = () => {
                                 className="requests-skip-button dark:text-gray-300 text-gray-700 hover:scale-105"
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    handleDecline(request.id)
+                                    handleDecline(request.id);
                                 }}
                             >
                                 Decline
@@ -471,6 +509,39 @@ const Connections: React.FC = () => {
                         </div>
                     </div>
                 ))
+            )}
+
+            {/* MODAL: Show if showNoteModal === true */}
+            {showNoteModal && (
+                <div className="connection-note-modal-overlay" onClick={handleCloseNote}>
+                    <div
+                        className="connection-note-modal plop-animation"
+                        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+                    >
+                        <h3 className="font-semibold text-lg mb-2">Connection Note</h3>
+                        {/** Find the request with the matching openNoteRequestId */}
+                        {(() => {
+                            const req = connectionRequests.find(
+                                (r) => r.id === openNoteRequestId
+                            );
+                            return req ? (
+                                <p className="whitespace-pre-wrap break-words">
+                                    {req.connectionNote}
+                                </p>
+                            ) : (
+                                <p>No note found.</p>
+                            );
+                        })()}
+                        <div className="mt-4 flex justify-end">
+                            <button
+                                className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold px-3 py-1 rounded"
+                                onClick={handleCloseNote}
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
             )}
         </div>
     );

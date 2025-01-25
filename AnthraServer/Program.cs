@@ -409,9 +409,39 @@ if (app.Environment.IsDevelopment())
             isPublic = true,
             CreatorId = justinUser.Id
         };
+        var group4 = new Group
+        {
+            Name = "Math Olympiads",
+            adminName = justinUser.UserName,
+            GroupDescription = "Focusing on cloud computing best practices and architecture.",
+            GroupMemberDesire = "Cloud developers and architects welcome.",
+            GroupPurpose = "Exam Preparation",
+            isPublic = true,
+            CreatorId = justinUser.Id
+        };
+        var group5 = new Group
+        {
+            Name = "Physics Olympiads",
+            adminName = justinUser.UserName,
+            GroupDescription = "Focusing on cloud computing best practices and architecture.",
+            GroupMemberDesire = "Cloud developers and architects welcome.",
+            GroupPurpose = "Exam Preparation",
+            isPublic = true,
+            CreatorId = justinUser.Id
+        };
+        var group6 = new Group
+        {
+            Name = "Cybersecurity Olympiads",
+            adminName = justinUser.UserName,
+            GroupDescription = "Focusing on cloud computing best practices and architecture.",
+            GroupMemberDesire = "Cloud developers and architects welcome.",
+            GroupPurpose = "Exam Preparation",
+            isPublic = true,
+            CreatorId = justinUser.Id
+        };
 
         // Add groups to the database
-        db.Groups.AddRange(group1, group2, group3);
+        db.Groups.AddRange(group1, group2, group3, group4, group5, group6);
         await db.SaveChangesAsync();
 
         // Add the creators as members of their own groups
@@ -423,16 +453,23 @@ if (app.Environment.IsDevelopment())
             new GroupMember { GroupId = group1.Id, UserId = birkkUser.Id, IsAccepted = true },
             new GroupMember { GroupId = group1.Id, UserId = andreasUser.Id, IsAccepted = true },
             new GroupMember { GroupId = group1.Id, UserId = thomasUser.Id, IsAccepted = true },
-
-
-
+            
             new GroupMember { GroupId = group2.Id, UserId = gabUser.Id, IsAccepted = true },
             new GroupMember { GroupId = group2.Id, UserId = ternUser.Id, IsAccepted = true },
 
             new GroupMember { GroupId = group3.Id, UserId = justinUser.Id, IsAccepted = true },
             new GroupMember { GroupId = group3.Id, UserId = ternUser.Id, IsAccepted = true },
-            new GroupMember { GroupId = group3.Id, UserId = gabUser.Id, IsAccepted = true }
+            new GroupMember { GroupId = group3.Id, UserId = gabUser.Id, IsAccepted = true },
+            
+            new GroupMember { GroupId = group4.Id, UserId = justinUser.Id, IsAccepted = true },
+            new GroupMember { GroupId = group4.Id, UserId = gabUser.Id, IsAccepted = true },
 
+            new GroupMember { GroupId = group5.Id, UserId = justinUser.Id, IsAccepted = true },
+            new GroupMember { GroupId = group5.Id, UserId = gabUser.Id, IsAccepted = true },
+                
+            new GroupMember { GroupId = group6.Id, UserId = andreasUser.Id, IsAccepted = true },
+            new GroupMember { GroupId = group6.Id, UserId = gabUser.Id, IsAccepted = true }
+            
         );
         await db.SaveChangesAsync();
 

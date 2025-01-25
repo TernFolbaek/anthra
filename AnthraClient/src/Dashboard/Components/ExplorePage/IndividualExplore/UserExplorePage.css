@@ -374,7 +374,7 @@ body.dark .user-explore-no-more {
 
 .explore-user-card {
     position: relative;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     opacity: 1;
     transform: translateY(0);
 }

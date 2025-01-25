@@ -66,9 +66,10 @@ const Connections: React.FC = () => {
     if (!notificationContext) {
         throw new Error("NotificationContext is undefined. Make sure you're inside a NotificationProvider.");
     }
-    const { removeNotificationsBySenderId } = notificationContext;
-
-    // Snackbar state
+    const {
+        removeNotificationsBySenderId,
+        removeConnectionRequestNotification
+    } = notificationContext;
     const [snackbarVisible, setSnackbarVisible] = useState<boolean>(false);
     const [snackbarTitle, setSnackbarTitle] = useState<string>('');
     const [snackbarMessage, setSnackbarMessage] = useState<string>('');
@@ -142,6 +143,7 @@ const Connections: React.FC = () => {
                     },
                 }
             );
+            removeConnectionRequestNotification(request.senderId);
 
             if (response.status === 200) {
                 // Remove the request from the connectionRequests state
@@ -173,19 +175,30 @@ const Connections: React.FC = () => {
     };
 
 
-    const handleDecline = async (requestId: number) => {
+    const handleDecline = async (request: ConnectionRequestDTO) => {
         try {
+            console.log(request.id)
             const response = await axios.post(
                 `/Request/DeclineRequest`,
                 null,
                 {
-                    params: { requestId },
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                    params: {
+                        requestId: request.id,
+                    },
                 }
             );
 
+            const declinedRequest = connectionRequests.find(r => r.id === request.id);
+            if (declinedRequest) {
+                removeConnectionRequestNotification(declinedRequest.senderId);
+            }
+
             if (response.status === 200) {
                 setConnectionRequests((prevRequests) =>
-                    prevRequests.filter((req) => req.id !== requestId)
+                    prevRequests.filter((req) => req.id !== request.id)
                 );
 
                 // Optionally, show a decline Snackbar
@@ -501,7 +514,7 @@ const Connections: React.FC = () => {
                                 className="requests-skip-button dark:text-gray-300 text-gray-700 hover:scale-105"
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    handleDecline(request.id);
+                                    handleDecline(request);
                                 }}
                             >
                                 Decline

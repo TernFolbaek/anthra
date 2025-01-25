@@ -6,7 +6,7 @@ import Snackbar from "../../../Helpers/Snackbar/Snackbar";
 import ReferModal from '../ReferModal/ReferModal';
 import useWindowWidth from '../../../hooks/useWindowWidth';
 import { useSwipeable } from 'react-swipeable';
-import { FaCog, FaBookOpen, FaPencilAlt } from "react-icons/fa";
+import { FaCog, FaBookOpen, FaPencilAlt, FaEnvelopeOpenText } from "react-icons/fa";
 
 interface Course {
     courseName: string;
@@ -43,6 +43,10 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
     const [snackbarMessage, setSnackbarMessage] = useState<string>('');
     const [showReferModal, setShowReferModal] = useState(false);
 
+    // NEW: For the Connection Note Popup
+    const [showConnectionNoteModal, setShowConnectionNoteModal] = useState(false);
+    const [connectionNote, setConnectionNote] = useState<string>('');
+
     const windowWidth = useWindowWidth();
     const isSmallScreen = windowWidth < 480;
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -62,11 +66,6 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 const { mustWait, users: fetched, message } = response.data;
-
-                // If mustWait = true and 'fetched' is empty => show locked out message
-                // If mustWait = true and 'fetched' has data => these are the leftover in-session users
-                // If mustWait = false and 'fetched' is empty => no new users but not locked out
-                // If mustWait = false and 'fetched' has data => new batch, user is locked for next fetch
 
                 setIntervalMessage(message || null);
                 setUsers(fetched || []);
@@ -97,13 +96,22 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
         setUsers(updatedUsers);
     };
 
-    // -------------- HANDLE CONNECT -------------
-    const handleConnect = async () => {
+    // -------------- OPEN NOTE MODAL INSTEAD OF DIRECTLY CONNECTING -------------
+    const openConnectionNoteModal = () => {
+        setConnectionNote(''); // clear any old note
+        setShowConnectionNoteModal(true);
+    };
+
+    // -------------- SUBMIT CONNECTION REQUEST WITH NOTE -------------
+    const submitConnectionRequest = async () => {
         if (!currentUser) return;
         try {
             await axios.post(
                 '/Connections/SendRequest',
-                { targetUserId: currentUser.id },
+                {
+                    targetUserId: currentUser.id,
+                    connectionNote: connectionNote.trim() // can be empty string
+                },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             setSnackbarTitle('Connection Request Sent');
@@ -115,11 +123,14 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
             console.error('Error sending connection request:', error);
         }
 
-        // Animate removal
+        // Close the note modal
+        setShowConnectionNoteModal(false);
+
+        // Animate removal from the list
         setSlideDirection('out');
         setAnimating(true);
         setTimeout(() => {
-            removeUserFromList(currentUser.id);
+            if (currentUser) removeUserFromList(currentUser.id);
         }, 300);
     };
 
@@ -417,7 +428,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                     </button>
                     <button
                         className="connect-button hover:bg-emerald-400 text-white transform hover:scale-105 bg-emerald-400 text-gray-900"
-                        onClick={handleConnect}
+                        onClick={openConnectionNoteModal}
                     >
                         Connect
                     </button>
@@ -441,6 +452,38 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                     currentUser={currentUser}
                     onClose={() => setShowReferModal(false)}
                 />
+            )}
+
+            {showConnectionNoteModal && (
+                <div className="connection-note-modal-overlay">
+                    <div className="connection-note-modal plop-animation">
+                        <div className="justify-between flex items-center"><p className="text-base font-semibold flex gap-2 items-center"><FaEnvelopeOpenText
+                            size={17}/>Send a note (optional)</p>
+                            <p className="text-sm dark:text-gray-200 text-gray-500">{connectionNote.length} / 60</p>
+                        </div>
+                        <textarea
+                            value={connectionNote}
+                            onChange={(e) => setConnectionNote(e.target.value)}
+                            placeholder="Stick out from the crowd"
+                            maxLength={60}
+                            className="resize-none"
+                        />
+                        <div className="flex justify-around items-center">
+                            <button
+                                className="text-sm font-semibold transform hover:scale-105"
+                                onClick={() => setShowConnectionNoteModal(false)}
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                className="text-sm text-white font-semibold transform hover:scale-105 bg-emerald-400 px-4 py-2 rounded-md"
+                                onClick={submitConnectionRequest}
+                            >
+                                Send
+                            </button>
+                        </div>
+                    </div>
+                </div>
             )}
         </div>
     );

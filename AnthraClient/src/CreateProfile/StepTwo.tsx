@@ -582,7 +582,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                             placeholder="Add Course"
                             value={courseInput}
                             onChange={handleCourseInputChange}
-                            className="course-input disabled:bg-gray-200 disabled:cursor-not-allowed"
+                            className="course-input disabled:bg-gray-600/50 disabled:cursor-not-allowed"
                             onKeyDown={handleCourseKeyDown}
                             autoComplete="off"
                             disabled={
@@ -694,7 +694,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                     handleAddSubject();
                                 }
                             }}
-                            className="subject-input disabled:bg-gray-200 disabled:cursor-not-allowed"
+                            className="subject-input disabled:bg-gray-600/50 disabled:cursor-not-allowed"
                             maxLength={35}
                             disabled={
                                 !institution || // disable if no institution is present

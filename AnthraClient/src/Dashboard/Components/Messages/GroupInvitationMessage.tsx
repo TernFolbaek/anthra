@@ -1,5 +1,3 @@
-// src/components/GroupInvitationMessage/GroupInvitationMessage.tsx
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { MdGroups } from "react-icons/md";

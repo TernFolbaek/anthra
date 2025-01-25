@@ -320,7 +320,7 @@ const StepOne: React.FC<StepOneProps> = ({
                     </label>
                     <input
                         id="city"
-                        className="disabled:bg-gray-200 disabled:cursor-not-allowed"
+                        className="disabled:bg-gray-700/50 disabled:cursor-not-allowed"
                         type="text"
                         placeholder="City"
                         autoComplete="nope"

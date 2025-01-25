@@ -35,7 +35,8 @@
 }
 
 .create-profile-container {
-    background-color: #2e2e2e;
+    background-color: rgba(46,46,46,0.5);
+    border: 2px solid #555;
     padding: 2rem;
     border-radius: 12px;
     width: 90%;
@@ -70,7 +71,7 @@
 .form-step input,
 .form-step textarea {
     padding: 0.75rem;
-    background-color: #3a3a3a;
+    background-color: rgba(0,0,0,0.35);
     border: 1px solid #555;
     color: oklch(0.928 0.006 264.531);
     border-radius: 8px;
@@ -150,7 +151,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background-color: #3a3a3a;
+    background-color: rgba(0,0,0,0.45);
     color: oklch(0.928 0.006 264.531);
     border-radius: 8px;
     font-size: 0.75rem;
@@ -169,7 +170,7 @@
 /* Dropdown Menu */
 .uni-dropdown-menu {
     position: absolute;
-    background-color: #3a3a3a;
+    background-color: rgba(50,50,50,0.95);
     top: 100%;
     left: 0;
     color: black;
@@ -273,7 +274,7 @@
     top: 70%;
     left: 0;
     z-index: 20;
-    background-color: #3a3a3a;
+    background-color: rgba(50,50,50,0.95);
     border: 1px solid #ccc;
     overflow-y: auto;
     width: 100%;
@@ -310,7 +311,7 @@
 .course-tag {
     display: inline-flex;
     align-items: center;
-    background-color: #3a3a3a;
+    background-color: rgba(80,80,80,0.5);
     border: 2px solid #555;
     color: oklch(0.928 0.006 264.531);
     padding: 8px 12px;

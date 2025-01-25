@@ -28,6 +28,7 @@ interface NotificationContextProps {
     markGroupNotificationsAsRead: (groupId: number) => Promise<void>;
     markAllAsRead: () => Promise<void>;
     removeNotificationsBySenderId: (senderId: string) => void;
+    removeConnectionRequestNotification: (senderId: string) => void;
 }
 
 export const NotificationContext = createContext<NotificationContextProps | undefined>(
@@ -61,6 +62,15 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
             console.error('Failed to fetch notifications.', error);
         }
     }, [token]);
+
+    const removeConnectionRequestNotification = React.useCallback((senderId: string) => {
+        setNotifications((prev) =>
+            prev.filter(
+                (n) => !(n.senderId === senderId && n.type === 'ConnectionRequest')
+            )
+        );
+    }, []);
+
 
     useEffect(() => {
         if (!token) {
@@ -220,6 +230,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
                 markGroupNotificationsAsRead,
                 markAllAsRead,
                 removeNotificationsBySenderId,
+                removeConnectionRequestNotification,
             }}
         >
             {children}

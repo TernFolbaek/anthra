@@ -180,6 +180,16 @@
     z-index: 10;
 }
 
+.uni-dropdown-menu::-webkit-scrollbar{
+    background-color: transparent;
+}
+
+.uni-dropdown-menu::-webkit-scrollbar-thumb{
+    background-color: gray;
+    border-radius: 10px;
+}
+
+
 .uni-dropdown-item {
     padding: 10px;
     cursor: pointer;

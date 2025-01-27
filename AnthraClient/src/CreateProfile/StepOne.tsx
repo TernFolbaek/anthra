@@ -109,6 +109,14 @@ const StepOne: React.FC<StepOneProps> = ({
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
+
+            const maxSizeInBytes = 2 * 1024 * 1024;
+            if (file.size > maxSizeInBytes) {
+                alert("File size must be less than 2MB.");
+                e.target.value = "";
+                return;
+            }
+
             const reader = new FileReader();
             reader.onloadend = () => {
                 if (reader.result) {

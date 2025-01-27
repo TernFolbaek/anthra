@@ -1,4 +1,3 @@
-// StepTwo.tsx
 import React, { useEffect, useRef, useState } from 'react';
 import { FaTimes, FaExternalLinkAlt, FaPlusCircle } from 'react-icons/fa';
 import cbsCourses from './cbs/cbsCourses.json';
@@ -123,13 +122,16 @@ const StepTwo: React.FC<StepTwoProps> = ({
         institution === 'Københavns Universitet';
     const isDTU = institution === 'Technical University of Denmark' || institution === 'DTU';
 
+    // Initially set filtered to entire list (you can limit it to 5 if you prefer on page load)
     useEffect(() => {
-        setFilteredUniversities(universitiesData);
+        setFilteredUniversities(universitiesData.slice(0, 5)); // show first 5 by default
     }, []);
 
+    // Filter universities each time institutionSearch changes
     useEffect(() => {
         if (!institutionSearch.trim()) {
-            setFilteredUniversities(universitiesData);
+            // If empty, show only 5 from the top
+            setFilteredUniversities(universitiesData.slice(0, 5));
         } else {
             const filtered = universitiesData.filter((uni) =>
                 uni.name.toLowerCase().includes(institutionSearch.toLowerCase())
@@ -139,11 +141,14 @@ const StepTwo: React.FC<StepTwoProps> = ({
         setSelectedInstitutionIndex(-1);
     }, [institutionSearch]);
 
+    // Open the dropdown on focus
     const handleInstitutionFocus = () => {
         setIsInstitutionDropdownOpen(true);
     };
 
+    // When an institution is selected
     const handleInstitutionSelect = (name: string) => {
+        // If we select a new institution, reset the courses/faculty if needed
         if (name !== institution) {
             setCourses([]);
             setFaculty('');
@@ -153,6 +158,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
         setSelectedInstitutionIndex(-1);
     };
 
+    // Toggle the KU faculty dropdown
     const handleFacultyDropdownClick = () => {
         setIsFacultyDropdownOpen(!isFacultyDropdownOpen);
     };
@@ -165,6 +171,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
         setIsFacultyDropdownOpen(false);
     };
 
+    // Main form submit
     const handleSubmit = async () => {
         if (!institution) {
             setError('Please select an institution from the dropdown.');
@@ -229,6 +236,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
         }
     };
 
+    // Handle course input changes
     const handleCourseInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setCourseInput(value);
@@ -278,6 +286,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
         setCourseSuggestions(suggestions);
     };
 
+    // Select a suggested course
     const handleCourseSelect = (course: Course) => {
         if (courses.length >= 4) {
             setError('You can only add up to 4 courses.');
@@ -291,6 +300,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
         setCourseSuggestions([]);
     };
 
+    // Add a typed course (no suggestion matched)
     const handleAddCourse = () => {
         if (courses.length >= 4) {
             setError('You can only add up to 4 courses.');
@@ -318,13 +328,13 @@ const StepTwo: React.FC<StepTwoProps> = ({
                 setCourseSuggestions([]);
             }
         };
-
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
 
+    // Close institution/faculty dropdowns when clicking outside
     useEffect(() => {
         const handleClickOutsideDropdowns = (event: MouseEvent) => {
             if (
@@ -350,6 +360,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
         };
     }, [isInstitutionDropdownOpen, isFacultyDropdownOpen]);
 
+    // Keyboard navigation for universities
     const handleInstitutionKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (!isInstitutionDropdownOpen || filteredUniversities.length === 0) return;
 
@@ -378,18 +389,21 @@ const StepTwo: React.FC<StepTwoProps> = ({
         }
     };
 
+    // On blur, if we never actually selected from the dropdown, just clear search.
     const handleInstitutionBlur = () => {
-        // If no institution was selected from the dropdown, reset the field
+        // If no final institution was chosen, you can do something like:
         if (!institution) {
             setInstitutionSearch('');
         }
     };
 
+    // Remove a selected course
     const handleRemoveCourse = (courseName: string) => {
         setCourses(courses.filter((c) => c.courseName !== courseName));
         setError(null);
     };
 
+    // Add subject
     const handleAddSubject = () => {
         const trimmedInput = subjectInput.trim();
         if (trimmedInput === '') {
@@ -397,7 +411,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
             return;
         }
         if (trimmedInput.length < 3) {
-            setError('Subject should be atleast 3 characters long.');
+            setError('Subject should be at least 3 characters long.');
             return;
         }
         if (subjects.length >= 5) {
@@ -409,7 +423,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
             return;
         }
 
-        // Capitalize first letter and lowercase the rest
+        // Capitalize first letter
         const formattedSubject =
             trimmedInput.charAt(0).toUpperCase() + trimmedInput.slice(1).toLowerCase();
 
@@ -423,11 +437,16 @@ const StepTwo: React.FC<StepTwoProps> = ({
         setError(null);
     };
 
-    // Handle keydown events for course input
+    // Handle keydown for course input (arrow keys, enter, escape, etc.)
     const handleCourseKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            e.preventDefault(); // <-- This line prevents form submission
-            handleAddCourse();
+            e.preventDefault();
+            // If there's a highlighted suggestion, select it; otherwise add typed course
+            if (selectedCourseIndex >= 0 && selectedCourseIndex < courseSuggestions.length) {
+                handleCourseSelect(courseSuggestions[selectedCourseIndex]);
+            } else {
+                handleAddCourse();
+            }
         }
 
         if (courseSuggestions.length === 0) return;
@@ -442,17 +461,12 @@ const StepTwo: React.FC<StepTwoProps> = ({
             setSelectedCourseIndex((prev) =>
                 prev - 1 >= 0 ? prev - 1 : prev
             );
-        } else if (e.key === 'Enter') {
-            if (selectedCourseIndex >= 0 && selectedCourseIndex < courseSuggestions.length) {
-                handleCourseSelect(courseSuggestions[selectedCourseIndex]);
-            } else {
-                handleAddCourse();
-            }
         } else if (e.key === 'Escape') {
             setCourseSuggestions([]);
         }
     };
 
+    // Status selection (2-3)
     const handleStatusSelect = (st: string) => {
         if (selectedStatuses.includes(st)) {
             setSelectedStatuses(selectedStatuses.filter((status) => status !== st));
@@ -462,7 +476,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                 setSelectedStatuses([...selectedStatuses, st]);
                 setError(null);
             } else {
-                setError('');
+                setError('You can select up to 3 statuses in total.');
             }
         }
     };
@@ -472,7 +486,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
         handleSubmit();
     };
 
-    // Handle work input with capitalization and max length
+    // Handle "Work/Job Title" with simple formatting
     const handleWorkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let val = e.target.value.slice(0, 25); // enforce max length 25
         if (val) {
@@ -497,6 +511,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                         value={institution ? institution : institutionSearch}
                         autoComplete="off"
                         onChange={(e) => {
+                            // Once user starts typing, we want to treat it as a new search
                             setInstitution('');
                             setInstitutionSearch(e.target.value);
                             setIsInstitutionDropdownOpen(true);
@@ -506,6 +521,8 @@ const StepTwo: React.FC<StepTwoProps> = ({
                         onBlur={handleInstitutionBlur}
                         className="w-full border p-2 rounded"
                     />
+
+                    {/* Show dropdown only if open and we have results */}
                     {isInstitutionDropdownOpen && filteredUniversities.length > 0 && (
                         <div className="uni-dropdown-menu absolute z-10 border shadow-md w-full max-h-60 overflow-auto">
                             {filteredUniversities.map((uni, idx) => (
@@ -514,7 +531,8 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                     className={`suggestion-item p-2 hover:bg-gray-600/50 cursor-pointer ${
                                         idx === selectedInstitutionIndex ? 'bg-gray-600/50' : ''
                                     }`}
-                                    onClick={() => {
+                                    onMouseDown={() => {
+                                        // Use onMouseDown to avoid losing focus before selection
                                         handleInstitutionSelect(uni.name);
                                         setInstitutionSearch('');
                                     }}
@@ -524,6 +542,8 @@ const StepTwo: React.FC<StepTwoProps> = ({
                             ))}
                         </div>
                     )}
+
+                    {/* If open but no results */}
                     {isInstitutionDropdownOpen && filteredUniversities.length === 0 && (
                         <div className="uni-dropdown-menu absolute z-10 border shadow-md w-full max-h-60 overflow-auto p-2">
                             No institutions found.
@@ -534,7 +554,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                 {/* KU Faculty (Only if KU) */}
                 {isKU && (
                     <div
-                        className="custom-dropdown flex items-center gap-x-2 mb-2"
+                        className="custom-dropdown flex items-center gap-x-2 mb-2 relative"
                         ref={facultyDropdownRef}
                     >
                         <label className="input-label">Faculty</label>
@@ -557,7 +577,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                     <div
                                         key={fac}
                                         className="suggestion-item font-semibold p-2 hover:bg-gray-200 cursor-pointer"
-                                        onClick={() => handleFacultyOptionClick(fac)}
+                                        onMouseDown={() => handleFacultyOptionClick(fac)}
                                     >
                                         {fac}
                                     </div>
@@ -605,12 +625,10 @@ const StepTwo: React.FC<StepTwoProps> = ({
                             {courseSuggestions.map((course, index) => (
                                 <li
                                     className={`suggestion-item p-2 cursor-pointer ${
-                                        index === selectedCourseIndex
-                                            ? 'bg-gray-600/50'
-                                            : ''
+                                        index === selectedCourseIndex ? 'bg-gray-600/50' : ''
                                     }`}
                                     key={index}
-                                    onClick={() => handleCourseSelect(course)}
+                                    onMouseDown={() => handleCourseSelect(course)}
                                 >
                                     {course.courseName}
                                 </li>
@@ -694,7 +712,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                     handleAddSubject();
                                 }
                             }}
-                            className="subject-input disabled:bg-gray-600/50 disabled:cursor-not-allowed"
+                            className="subject-input disabled:bg-gray-200 disabled:cursor-not-allowed"
                             maxLength={35}
                             disabled={
                                 !institution || // disable if no institution is present
@@ -745,7 +763,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                     maxLength={25}
                 />
 
-                {/* Status selection */}
+                {/* Status selection (2-3) */}
                 <label className="mt-2 input-label status-label" htmlFor="status">
                     Status (Select 2-3)<span className="required-asterisk">*</span>
                 </label>
@@ -775,7 +793,10 @@ const StepTwo: React.FC<StepTwoProps> = ({
                     onChange={(e) => setAllowEmailUpdates(e.target.checked)}
                     className="mr-2 cursor-pointer"
                 />
-                <label htmlFor="allowEmails" className="font-medium bg-black/30 p-2 rounded-md text-sm cursor-pointer text-center text-gray-200">
+                <label
+                    htmlFor="allowEmails"
+                    className="font-medium bg-black/30 p-2 rounded-md text-sm cursor-pointer text-center text-gray-200"
+                >
                     Allow email updates about new features and new user sign-ups?
                 </label>
             </div>

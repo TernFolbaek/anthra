@@ -19,6 +19,8 @@ body.dark .profile-page {
     font-family: 'Montserrat', sans-serif;
     padding: 20px;
     margin: 0 auto;
+    overflow-y: auto;
+    max-height: 90vh;
 }
 
 /* Dark mode styles */

@@ -505,7 +505,6 @@ body.dark .image-preview-container {
 }
 
 .report-popup-content {
-  background-color: #ECFDF5; /* Light emerald background */
   border-radius: 8px;
   width: 90%;
   max-width: 480px;
@@ -516,10 +515,21 @@ body.dark .image-preview-container {
   gap: 1rem;
 }
 
+body.dark .report-popup-content {
+  background-color: #3a3a3a;
+  border: 2px solid #555;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 480px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 /* Title */
 .report-popup-title {
   margin: 0;
-  color: #065F46; /* Dark emerald text */
   font-size: 1.25rem;
   font-weight: 600;
 }
@@ -528,19 +538,15 @@ body.dark .image-preview-container {
 .report-textarea {
   width: 100%;
   min-height: 100px;
-  resize: vertical;
   padding: 0.75rem;
-  border: 1px solid #A7F3D0; /* light emerald border */
   border-radius: 4px;
   font-size: 0.95rem;
-  color: #065F46; /* Dark emerald text */
   background-color: #ffffff;
 }
 
 /* File input label */
 .screenshot-label {
   display: block;
-  color: #065F46;
   font-weight: 500;
   font-size: 0.9rem;
   margin-bottom: 0.25rem;
@@ -576,7 +582,6 @@ body.dark .image-preview-container {
 
 /* Send Report Button */
 .report-send-btn {
-  background-color: #10B981; /* Emerald-500 */
   color: #fff;
   border: none;
   padding: 0.5rem 1rem;
@@ -586,10 +591,8 @@ body.dark .image-preview-container {
   transition: background-color 0.2s ease;
 }
 .report-send-btn:hover {
-  background-color: #059669; /* Emerald-600 */
 }
 .disabled-btn {
-  background-color: #9CA3AF !important; /* Gray-400 */
   cursor: not-allowed !important;
 }
 

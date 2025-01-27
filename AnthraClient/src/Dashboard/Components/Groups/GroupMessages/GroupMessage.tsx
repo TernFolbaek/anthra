@@ -561,7 +561,6 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                             <div>Edit Group</div>
                                         </button>
                                     )}
-                                    {isGroupCreator && (
                                         <button
                                             className="flex gap-2 items-center font-medium text-black dark:text-white text-sm"
                                             onClick={handleReportUser}
@@ -569,7 +568,6 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                                             <FaFlag />
                                             <div>Report Group</div>
                                         </button>
-                                    )}
                                     <button
                                         className="flex items-center gap-2 text-sm font-medium"
                                         onClick={handleToggleGroupInfoVisibility}
@@ -784,11 +782,13 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
             {/* Report group popup modal */}
             {showReportPopup && (
                 <div className="report-popup-overlay" onClick={handleCloseReportPopup}>
-                    <div className="report-popup-content" onClick={(e) => e.stopPropagation()}>
-                        <h2 className="report-popup-title">Report Group</h2>
+                    <div className="report-popup-content bg-white border-2 border-gray-300 text-gray-600 dark:text-white" onClick={(e) => e.stopPropagation()}>
+                            <h2 className="report-popup-title">Report Group</h2>
+                            <p className="text-xs">{reportDescription.length} / 100</p>
                         <textarea
-                            className="report-textarea"
+                            className="report-textarea text-black resize-none border-2 border-gray-300"
                             rows={4}
+                            maxLength={100}
                             value={reportDescription}
                             onChange={(e) => setReportDescription(e.target.value)}
                             placeholder="Describe the issue..."
@@ -809,7 +809,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                         </label>
                         <div className="report-btn-group">
                             <button
-                                className="report-cancel-btn rounded-lg"
+                                className="text-sm font-medium dark:text-gray-200 rounded-lg"
                                 onClick={handleCloseReportPopup}
                             >
                                 Cancel

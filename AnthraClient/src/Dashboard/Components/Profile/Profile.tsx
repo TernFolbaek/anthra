@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Profile.css';
-import { FaRegHandPointer, FaPlus, FaTrash, FaArrowLeft } from "react-icons/fa";
+import { FaRegHandPointer, FaPlus, FaTrash, FaArrowLeft, FaSpinner } from "react-icons/fa";
 import ViewProfile from "../ViewProfile/ViewProfile";
 
 interface Course {
@@ -45,6 +45,9 @@ const Profile: React.FC = () => {
     const [profilePictureFile, setProfilePictureFile] = useState<File | null>(null);
     const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
 
+    // New state to track saving status for the picture
+    const [isSavingPicture, setIsSavingPicture] = useState<boolean>(false);
+
     // Each section can have its own open/close toggle
     const [editPicturePanelOpen, setEditPicturePanelOpen] = useState(false);
     const [personalPanelOpen, setPersonalPanelOpen] = useState(false);
@@ -53,7 +56,7 @@ const Profile: React.FC = () => {
     const [subjectsPanelOpen, setSubjectsPanelOpen] = useState(false);
     const [coursesPanelOpen, setCoursesPanelOpen] = useState(false);
     const [statusesPanelOpen, setStatusesPanelOpen] = useState(false);
-    const [aboutMeCharCount, setAboutMeCharCount] = useState(profileData?.aboutMe.length);
+    const [aboutMeCharCount, setAboutMeCharCount] = useState(profileData?.aboutMe.length || 0);
     // -------------------
     //  Backup States
     // -------------------
@@ -156,7 +159,14 @@ const Profile: React.FC = () => {
 
     const handleProfilePictureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
-            setProfilePictureFile(e.target.files[0]);
+            const file = e.target.files[0];
+            const maxSizeInBytes = 2 * 1024 * 1024;
+            if (file.size > maxSizeInBytes) {
+                alert("File size must be less than 2MB.");
+                e.target.value = "";
+                return;
+            }
+            setProfilePictureFile(file);
         }
     };
 
@@ -296,6 +306,7 @@ const Profile: React.FC = () => {
         if (!profileData) return;
         setError(null);
         setFieldErrors({});
+        setIsSavingPicture(true); // Start saving
 
         try {
             const formData = buildFormData(profileData, selectedStatuses, profilePictureFile);
@@ -309,6 +320,8 @@ const Profile: React.FC = () => {
             fetchProfile();
         } catch (err) {
             setError('An error occurred. Please try again.');
+        } finally {
+            setIsSavingPicture(false); // End saving
         }
     };
 
@@ -636,434 +649,449 @@ const Profile: React.FC = () => {
     //    Render
     // -----------------------------------
     if (!profileData) {
-        return null; // or a loading state
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <FaSpinner className="animate-spin text-4xl text-emerald-500" />
+            </div>
+        );
     }
 
     return (
-        <div className="overflow-auto h-[100vh]">
-            <div className="profile-page">
-                <div className="profile-card">
-                    {/* Top section: Profile Picture & Username */}
-                    <div className="flex flex-col gap-8 sm:items-center">
-                        <div className="relative flex flex-col items-center ">
-                            <div className="profile-picture mr-auto ml-auto">
-                                <img
-                                    src={
-                                        profilePictureFile
-                                            ? URL.createObjectURL(profilePictureFile)
-                                            : profileData.profilePictureUrl
-                                    }
-                                    alt="Profile"
-                                />
-                                {editPicturePanelOpen && (
-                                    <div className="profile-picture-overlay flex justify-center">
-                                        <input
-                                            type="file"
-                                            name="profileImage"
-                                            accept="image/*"
-                                            onChange={handleProfilePictureChange}
-                                            className="hidden-file-input"
-                                        />
-                                        <div className="overlay-content">
-                                            <FaRegHandPointer className="cursor-icon" />
-                                            <span>Change Picture</span>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                            <button
-                                className="save-button bg-emerald-400 hover:bg-emerald-300 text-white dark:hover:bg-emerald-400 dark:text-white dark:bg-emerald-500 mt-2"
-                                onClick={() => {
-                                    setError(null);
-                                    setFieldErrors({});
-                                    toggleEditPicturePanel();
-                                }}
-                            >
-                                {editPicturePanelOpen ? 'Cancel' : 'Edit Picture'}
-                            </button>
+        <div className="profile-page">
+            <div className="profile-card">
+                {/* Top section: Profile Picture & Username */}
+                <div className="flex flex-col gap-8 sm:items-center">
+                    <div className="relative flex flex-col items-center ">
+                        <div className="profile-picture mr-auto ml-auto">
+                            <img
+                                src={
+                                    profilePictureFile
+                                        ? URL.createObjectURL(profilePictureFile)
+                                        : profileData.profilePictureUrl
+                                }
+                                alt="Profile"
+                            />
                             {editPicturePanelOpen && (
-                                <div className="flex gap-2 mt-2">
-                                    <button
-                                        className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
-                                        onClick={handleSavePicture}
-                                    >
-                                        Save Picture
-                                    </button>
-                                    <button
-                                        className="save-button transform hover:scale-105 dark:text-white text-gray-500 text-sm flex items-center gap-1"
-                                        onClick={handleRevertPicture}
-                                    >
-                                        <FaArrowLeft />
-                                        Revert
-                                    </button>
+                                <div className="profile-picture-overlay flex justify-center">
+                                    <input
+                                        type="file"
+                                        name="profileImage"
+                                        accept="image/*"
+                                        onChange={handleProfilePictureChange}
+                                        className="hidden-file-input"
+                                    />
+                                    <div className="overlay-content">
+                                        <FaRegHandPointer className="cursor-icon" />
+                                        <span>Change Picture</span>
+                                    </div>
                                 </div>
                             )}
                         </div>
-                        <div className="flex flex-col gap-4 items-center">
-                            <p className="font-bold text-xl dark:text-white">@{profileData.userName}</p>
-                            <button className="text-center text-sm font-semibold hover:underline dark:text-gray-200" onClick={()=>handleUserSelect()}>
-                                Preview Profile
-                            </button>
-                        </div>
-                    </div>
-
-
-                    {/* Personal Info Panel */}
-                    <div className="panel-container mt-6">
-                        <div className="panel-header bg-emerald-50" onClick={togglePersonalPanel}>
-                            <h3 className="panel-title">Personal Info</h3>
-                        </div>
-                        {personalPanelOpen && (
-                            <div className="panel-body">
-                                <div className="profile-row">
-                                    <div className="profile-field half-width">
-                                        <label>First Name</label>
-                                        <input
-                                            type="text"
-                                            name="firstName"
-                                            value={profileData.firstName}
-                                            onChange={handleInputChange}
-                                            className={fieldErrors.firstName ? 'border border-red-500' : ''}
-                                        />
-                                        {fieldErrors.firstName && (
-                                            <p className="text-red-500 text-sm">{fieldErrors.firstName}</p>
-                                        )}
+                        <button
+                            className="save-button bg-emerald-400 hover:bg-emerald-300 text-white dark:hover:bg-emerald-400 dark:text-white dark:bg-emerald-500 mt-2"
+                            onClick={() => {
+                                setError(null);
+                                setFieldErrors({});
+                                toggleEditPicturePanel();
+                            }}
+                        >
+                            {editPicturePanelOpen ? 'Cancel' : 'Edit Picture'}
+                        </button>
+                        {editPicturePanelOpen && (
+                            <div className="flex gap-2 mt-2">
+                                {/* Conditionally render buttons or spinner */}
+                                {isSavingPicture ? (
+                                    <div className="flex items-center justify-center w-full">
+                                        <FaSpinner className="animate-spin text-emerald-500 text-xl" />
                                     </div>
-                                    <div className="profile-field half-width">
-                                        <label>Last Name</label>
-                                        <input
-                                            type="text"
-                                            name="lastName"
-                                            value={profileData.lastName}
-                                            onChange={handleInputChange}
-                                            className={fieldErrors.lastName ? 'border border-red-500' : ''}
-                                        />
-                                        {fieldErrors.lastName && (
-                                            <p className="text-red-500 text-sm">{fieldErrors.lastName}</p>
-                                        )}
-                                    </div>
-                                </div>
-                                <div className="profile-row">
-                                    <div className="profile-field half-width">
-                                        <label>Age</label>
-                                        <input
-                                            type="number"
-                                            name="age"
-                                            value={profileData.age}
-                                            onChange={handleInputChange}
-                                        />
-                                    </div>
-                                    <div className="profile-field half-width">
-                                        <label>Institution</label>
-                                        <input
-                                            type="text"
-                                            name="institution"
-                                            value={profileData.institution}
-                                            onChange={handleInputChange}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="profile-row">
-                                    <div className="profile-field half-width">
-                                        <label>Work</label>
-                                        <input
-                                            type="text"
-                                            name="work"
-                                            value={profileData.work}
-                                            onChange={handleInputChange}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="flex gap-2 mt-3">
-                                    <button
-                                        className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
-                                        onClick={handleSavePersonal}
-                                    >
-                                        Save
-                                    </button>
-                                    <button
-                                        className="save-button text-gray-500 dark:text-gray-300 text-sm flex items-center gap-1"
-                                        onClick={handleRevertPersonal}
-                                    >
-                                        <FaArrowLeft size={12}/>
-                                        Revert Back
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Location Panel */}
-                    <div className="panel-container">
-                        <div className="panel-header bg-emerald-50" onClick={toggleLocationPanel}>
-                            <h3 className="panel-title">Location</h3>
-                        </div>
-                        {locationPanelOpen && (
-                            <div className="panel-body">
-                                <div className="profile-row">
-                                    <div className="profile-field half-width">
-                                        <label>Country</label>
-                                        <input
-                                            type="text"
-                                            name="country"
-                                            value={profileData.location.country}
-                                            onChange={handleLocationChange}
-                                            className={fieldErrors.country ? 'border border-red-500' : ''}
-                                        />
-                                        {fieldErrors.country && (
-                                            <p className="text-red-500 text-sm">{fieldErrors.country}</p>
-                                        )}
-                                    </div>
-                                    <div className="profile-field half-width">
-                                        <label>City</label>
-                                        <input
-                                            type="text"
-                                            name="city"
-                                            value={profileData.location.city}
-                                            onChange={handleLocationChange}
-                                            className={fieldErrors.city ? 'border border-red-500' : ''}
-                                        />
-                                        {fieldErrors.city && (
-                                            <p className="text-red-500 text-sm">{fieldErrors.city}</p>
-                                        )}
-                                    </div>
-                                </div>
-                                <div className="flex gap-2 mt-3">
-                                    <button
-                                        className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
-                                        onClick={handleSaveLocation}
-                                    >
-                                        Save
-                                    </button>
-                                    <button
-                                        className="save-button text-gray-500 dark:text-gray-300 text-sm flex items-center gap-1"
-                                        onClick={handleRevertLocation}
-                                    >
-                                        <FaArrowLeft size={12}/>
-                                        Revert Back
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* About Me Panel */}
-                    <div className="panel-container">
-                        <div className="panel-header bg-emerald-50" onClick={toggleAboutPanel}>
-                            <h3 className="panel-title">About Me</h3>
-                        </div>
-                        {aboutPanelOpen && (
-                            <div className="panel-body">
-                                <p className="dark:text-white font-medium  text-sm mb-1 flex items-center gap-1 text-gray-700">Characters: {aboutMeCharCount} <p className="text-xs text-gray-500 dark:text-gray-200">(min. 150, max. 300)</p></p>
-                                <textarea
-                                    name="aboutMe"
-                                    value={profileData.aboutMe}
-                                    onChange={handleInputChange}
-                                    rows={5}
-                                    minLength={150}
-                                    maxLength={300}
-                                    className={`w-full text-sm rounded-md h-[200px] border border-gray-300 ${fieldErrors.aboutMe ? 'border border-red-500' : ''}`}
-                                />
-                                {fieldErrors.aboutMe && (
-                                    <p className="text-red-500 text-sm">{fieldErrors.aboutMe}</p>
-                                )}
-                                <div className="flex gap-2 mt-3">
-                                    <button
-                                        className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
-                                        onClick={handleSaveAbout}
-                                    >
-                                        Save
-                                    </button>
-                                    <button
-                                        className="save-button text-gray-500 dark:text-gray-300 text-sm flex items-center gap-1"
-                                        onClick={handleRevertAbout}
-                                    >
-                                        <FaArrowLeft size={12} />
-                                        Revert Back
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Subjects Panel */}
-                    <div className="panel-container">
-                        <div className="panel-header bg-emerald-50" onClick={toggleSubjectsPanel}>
-                            <h3 className="panel-title">Subjects</h3>
-                        </div>
-                        {subjectsPanelOpen && (
-                            <div className="panel-body">
-                                <div className="flex flex-col gap-2">
-                                    {profileData.subjects.map((subject, index) => (
-                                        <div key={index} className="subject-item flex">
-                                            <input
-                                                type="text"
-                                                value={subject}
-                                                onChange={(e) => handleSubjectChange(index, e.target.value)}
-                                                className={fieldErrors.subjects ? 'border border-red-500 w-full bg-slate-100 text-sm' : 'w-full bg-slate-100 text-sm'}
-                                            />
-                                            <button
-                                                type="button"
-                                                onClick={() => removeSubject(index)}
-                                                className="profile-edit-trash"
-                                            >
-                                                <FaTrash />
-                                            </button>
-                                        </div>
-                                    ))}
-                                    <div className="flex items-center">
+                                ) : (
+                                    <>
                                         <button
-                                            type="button"
-                                            onClick={addSubject}
-                                            className="profile-icon-button bg-emerald-200"
+                                            className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
+                                            onClick={handleSavePicture}
                                         >
-                                            <FaPlus />
+                                            Save Picture
                                         </button>
-                                        <p className="text-gray-500 dark:text-gray-200 text-xs font-semibold">New Subject</p>
-                                    </div>
-                                </div>
-                                {fieldErrors.subjects && (
-                                    <p className="text-red-500 text-sm">{fieldErrors.subjects}</p>
+                                        <button
+                                            className="save-button transform hover:scale-105 dark:text-white text-gray-500 text-sm flex items-center gap-1"
+                                            onClick={handleRevertPicture}
+                                        >
+                                            <FaArrowLeft />
+                                            Revert
+                                        </button>
+                                    </>
                                 )}
-                                <div className="flex gap-2 mt-3">
-                                    <button
-                                        className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
-                                        onClick={handleSaveSubjects}
-                                    >
-                                        Save
-                                    </button>
-                                    <button
-                                        className="save-button text-gray-500 dark:text-gray-300 text-sm flex items-center gap-1"
-                                        onClick={handleRevertSubjects}
-                                    >
-                                        <FaArrowLeft size={12}/>
-                                        Revert Back
-                                    </button>
-                                </div>
                             </div>
                         )}
                     </div>
+                    <div className="flex flex-col gap-4 items-center">
+                        <p className="font-bold text-xl dark:text-white">@{profileData.userName}</p>
+                        <button className="text-center text-sm font-semibold hover:underline dark:text-gray-200" onClick={()=>handleUserSelect()}>
+                            Preview Profile
+                        </button>
+                    </div>
+                </div>
 
-                    {/* Courses Panel */}
-                    <div className="panel-container">
-                        <div className="panel-header bg-emerald-50" onClick={toggleCoursesPanel}>
-                            <h3 className="panel-title">Courses</h3>
+
+                {/* Personal Info Panel */}
+                <div className="panel-container mt-6">
+                    <div className="panel-header bg-emerald-50 cursor-pointer" onClick={togglePersonalPanel}>
+                        <h3 className="panel-title">Personal Info</h3>
+                    </div>
+                    {personalPanelOpen && (
+                        <div className="panel-body">
+                            <div className="profile-row">
+                                <div className="profile-field half-width">
+                                    <label>First Name</label>
+                                    <input
+                                        type="text"
+                                        name="firstName"
+                                        value={profileData.firstName}
+                                        onChange={handleInputChange}
+                                        className={fieldErrors.firstName ? 'border border-red-500' : ''}
+                                    />
+                                    {fieldErrors.firstName && (
+                                        <p className="text-red-500 text-sm">{fieldErrors.firstName}</p>
+                                    )}
+                                </div>
+                                <div className="profile-field half-width">
+                                    <label>Last Name</label>
+                                    <input
+                                        type="text"
+                                        name="lastName"
+                                        value={profileData.lastName}
+                                        onChange={handleInputChange}
+                                        className={fieldErrors.lastName ? 'border border-red-500' : ''}
+                                    />
+                                    {fieldErrors.lastName && (
+                                        <p className="text-red-500 text-sm">{fieldErrors.lastName}</p>
+                                    )}
+                                </div>
+                            </div>
+                            <div className="profile-row">
+                                <div className="profile-field half-width">
+                                    <label>Age</label>
+                                    <input
+                                        type="number"
+                                        name="age"
+                                        value={profileData.age}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                                <div className="profile-field half-width">
+                                    <label>Institution</label>
+                                    <input
+                                        type="text"
+                                        name="institution"
+                                        value={profileData.institution}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className="profile-row">
+                                <div className="profile-field half-width">
+                                    <label>Work</label>
+                                    <input
+                                        type="text"
+                                        name="work"
+                                        value={profileData.work}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex gap-2 mt-3">
+                                <button
+                                    className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
+                                    onClick={handleSavePersonal}
+                                >
+                                    Save
+                                </button>
+                                <button
+                                    className="save-button text-gray-500 dark:text-gray-300 text-sm flex items-center gap-1"
+                                    onClick={handleRevertPersonal}
+                                >
+                                    <FaArrowLeft size={12}/>
+                                    Revert Back
+                                </button>
+                            </div>
                         </div>
-                        {coursesPanelOpen && (
-                            <div className="panel-body">
-                                {profileData.courses.map((course, index) => (
-                                    <div key={index} className="course-item dark:text-emerald-400 gap-2 flex items-center">
-                                        <div className="w-full flex flex-col gap-1">
-                                            <div className="flex gap-2 items-center w-full">
-                                                <p className="w-[100px] text-sm text-gray-500 dark:text-gray-200 font-medium">Name</p> <input
-                                                type="text"
-                                                placeholder="Course Name"
-                                                value={course.courseName}
-                                                onChange={(e) => handleCourseChange(index, 'courseName', e.target.value)}
-                                                className={fieldErrors.courses ? 'border border-red-500 flex-1 text-sm' : 'bg-slate-100 flex-1 text-sm'}
-                                            />
-                                            </div>
-                                            <div className="flex items-center gap-2 w-full">
-                                                <p className="w-[100px] text-sm text-gray-500 dark:text-gray-200 font-medium">Link</p>
-                                                <input
-                                                type="text"
-                                                placeholder="Course Link"
-                                                value={course.courseLink}
-                                                onChange={(e) => handleCourseChange(index, 'courseLink', e.target.value)}
-                                                className={fieldErrors.courses ? 'border border-red-500 flex-1 text-sm' : ' text-sm bg-slate-100 flex-1'}
-                                            />
-                                            </div>
-                                        </div>
+                    )}
+                </div>
+
+                {/* Location Panel */}
+                <div className="panel-container">
+                    <div className="panel-header bg-emerald-50 cursor-pointer" onClick={toggleLocationPanel}>
+                        <h3 className="panel-title">Location</h3>
+                    </div>
+                    {locationPanelOpen && (
+                        <div className="panel-body">
+                            <div className="profile-row">
+                                <div className="profile-field half-width">
+                                    <label>Country</label>
+                                    <input
+                                        type="text"
+                                        name="country"
+                                        value={profileData.location.country}
+                                        onChange={handleLocationChange}
+                                        className={fieldErrors.country ? 'border border-red-500' : ''}
+                                    />
+                                    {fieldErrors.country && (
+                                        <p className="text-red-500 text-sm">{fieldErrors.country}</p>
+                                    )}
+                                </div>
+                                <div className="profile-field half-width">
+                                    <label>City</label>
+                                    <input
+                                        type="text"
+                                        name="city"
+                                        value={profileData.location.city}
+                                        onChange={handleLocationChange}
+                                        className={fieldErrors.city ? 'border border-red-500' : ''}
+                                    />
+                                    {fieldErrors.city && (
+                                        <p className="text-red-500 text-sm">{fieldErrors.city}</p>
+                                    )}
+                                </div>
+                            </div>
+                            <div className="flex gap-2 mt-3">
+                                <button
+                                    className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
+                                    onClick={handleSaveLocation}
+                                >
+                                    Save
+                                </button>
+                                <button
+                                    className="save-button text-gray-500 dark:text-gray-300 text-sm flex items-center gap-1"
+                                    onClick={handleRevertLocation}
+                                >
+                                    <FaArrowLeft size={12}/>
+                                    Revert Back
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                {/* About Me Panel */}
+                <div className="panel-container">
+                    <div className="panel-header bg-emerald-50 cursor-pointer" onClick={toggleAboutPanel}>
+                        <h3 className="panel-title">About Me</h3>
+                    </div>
+                    {aboutPanelOpen && (
+                        <div className="panel-body">
+                            <p className="dark:text-white font-medium  text-sm mb-1 flex items-center gap-1 text-gray-700">
+                                Characters: {aboutMeCharCount}
+                                <span className="text-xs text-gray-500 dark:text-gray-200">(min. 150, max. 300)</span>
+                            </p>
+                            <textarea
+                                name="aboutMe"
+                                value={profileData.aboutMe}
+                                onChange={handleInputChange}
+                                rows={5}
+                                minLength={150}
+                                maxLength={300}
+                                className={`w-full text-sm rounded-md h-[200px] border border-gray-300 ${fieldErrors.aboutMe ? 'border border-red-500' : ''}`}
+                            />
+                            {fieldErrors.aboutMe && (
+                                <p className="text-red-500 text-sm">{fieldErrors.aboutMe}</p>
+                            )}
+                            <div className="flex gap-2 mt-3">
+                                <button
+                                    className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
+                                    onClick={handleSaveAbout}
+                                >
+                                    Save
+                                </button>
+                                <button
+                                    className="save-button text-gray-500 dark:text-gray-300 text-sm flex items-center gap-1"
+                                    onClick={handleRevertAbout}
+                                >
+                                    <FaArrowLeft size={12} />
+                                    Revert Back
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                {/* Subjects Panel */}
+                <div className="panel-container">
+                    <div className="panel-header bg-emerald-50 cursor-pointer" onClick={toggleSubjectsPanel}>
+                        <h3 className="panel-title">Subjects</h3>
+                    </div>
+                    {subjectsPanelOpen && (
+                        <div className="panel-body">
+                            <div className="flex flex-col gap-2">
+                                {profileData.subjects.map((subject, index) => (
+                                    <div key={index} className="subject-item flex">
+                                        <input
+                                            type="text"
+                                            value={subject}
+                                            onChange={(e) => handleSubjectChange(index, e.target.value)}
+                                            className={fieldErrors.subjects ? 'border border-red-500 w-full bg-slate-100 text-sm' : 'w-full bg-slate-100 text-sm'}
+                                        />
                                         <button
                                             type="button"
-                                            onClick={() => removeCourse(index)}
+                                            onClick={() => removeSubject(index)}
                                             className="profile-edit-trash"
                                         >
                                             <FaTrash />
                                         </button>
                                     </div>
                                 ))}
-                                {fieldErrors.courses && (
-                                    <p className="text-red-500 text-sm">{fieldErrors.courses}</p>
-                                )}
                                 <div className="flex items-center">
                                     <button
                                         type="button"
-                                        onClick={addCourse}
+                                        onClick={addSubject}
                                         className="profile-icon-button bg-emerald-200"
                                     >
                                         <FaPlus />
                                     </button>
-                                    <p className="text-gray-500 dark:text-gray-200 text-xs font-semibold">New Course</p>
-                                </div>
-                                <div className="flex gap-2 mt-3">
-                                    <button
-                                        className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
-                                        onClick={handleSaveCourses}
-                                    >
-                                        Save
-                                    </button>
-                                    <button
-                                        className="save-button text-gray-500 dark:text-gray-300 text-sm flex items-center gap-1"
-                                        onClick={handleRevertCourses}
-                                    >
-                                        <FaArrowLeft size={12}/>
-                                        Revert Back
-                                    </button>
+                                    <p className="text-gray-500 dark:text-gray-200 text-xs font-semibold">New Subject</p>
                                 </div>
                             </div>
-                        )}
-                    </div>
-
-                    {/* Statuses Panel */}
-                    <div className="panel-container">
-                        <div className="panel-header bg-emerald-50" onClick={toggleStatusesPanel}>
-                            <h3 className="panel-title">Status</h3>
+                            {fieldErrors.subjects && (
+                                <p className="text-red-500 text-sm">{fieldErrors.subjects}</p>
+                            )}
+                            <div className="flex gap-2 mt-3">
+                                <button
+                                    className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
+                                    onClick={handleSaveSubjects}
+                                >
+                                    Save
+                                </button>
+                                <button
+                                    className="save-button text-gray-500 dark:text-gray-300 text-sm flex items-center gap-1"
+                                    onClick={handleRevertSubjects}
+                                >
+                                    <FaArrowLeft size={12}/>
+                                    Revert Back
+                                </button>
+                            </div>
                         </div>
-                        {statusesPanelOpen && (
-                            <div className="panel-body">
-                                <div className="status-tags-container-profile">
-                                    {allStatuses.map((st, i) => (
-                                        <span
-                                            key={i}
-                                            className={`status-tag hover:scale-105 transform  ${
-                                                selectedStatuses.includes(st)
-                                                    ? 'text-white bg-emerald-500 dark:bg-emerald-900'
-                                                    : 'bg-emerald-400/80 text-white'
-                                            }`}
-                                            onClick={() => {
-                                                setError(null);
-                                                handleStatusSelect(st);
-                                            }}
-                                        >
+                    )}
+                </div>
+
+                {/* Courses Panel */}
+                <div className="panel-container">
+                    <div className="panel-header bg-emerald-50 cursor-pointer" onClick={toggleCoursesPanel}>
+                        <h3 className="panel-title">Courses</h3>
+                    </div>
+                    {coursesPanelOpen && (
+                        <div className="panel-body">
+                            {profileData.courses.map((course, index) => (
+                                <div key={index} className="course-item dark:text-emerald-400 gap-2 flex items-center">
+                                    <div className="w-full flex flex-col gap-1">
+                                        <div className="flex gap-2 items-center w-full">
+                                            <p className="w-[100px] text-sm text-gray-500 dark:text-gray-200 font-medium">Name</p>
+                                            <input
+                                                type="text"
+                                                placeholder="Course Name"
+                                                value={course.courseName}
+                                                onChange={(e) => handleCourseChange(index, 'courseName', e.target.value)}
+                                                className={fieldErrors.courses ? 'border border-red-500 flex-1 text-sm' : 'bg-slate-100 flex-1 text-sm'}
+                                            />
+                                        </div>
+                                        <div className="flex items-center gap-2 w-full">
+                                            <p className="w-[100px] text-sm text-gray-500 dark:text-gray-200 font-medium">Link</p>
+                                            <input
+                                                type="text"
+                                                placeholder="Course Link"
+                                                value={course.courseLink}
+                                                onChange={(e) => handleCourseChange(index, 'courseLink', e.target.value)}
+                                                className={fieldErrors.courses ? 'border border-red-500 flex-1 text-sm' : ' text-sm bg-slate-100 flex-1'}
+                                            />
+                                        </div>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => removeCourse(index)}
+                                        className="profile-edit-trash"
+                                    >
+                                        <FaTrash />
+                                    </button>
+                                </div>
+                            ))}
+                            {fieldErrors.courses && (
+                                <p className="text-red-500 text-sm">{fieldErrors.courses}</p>
+                            )}
+                            <div className="flex items-center">
+                                <button
+                                    type="button"
+                                    onClick={addCourse}
+                                    className="profile-icon-button bg-emerald-200"
+                                >
+                                    <FaPlus />
+                                </button>
+                                <p className="text-gray-500 dark:text-gray-200 text-xs font-semibold">New Course</p>
+                            </div>
+                            <div className="flex gap-2 mt-3">
+                                <button
+                                    className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
+                                    onClick={handleSaveCourses}
+                                >
+                                    Save
+                                </button>
+                                <button
+                                    className="save-button text-gray-500 dark:text-gray-300 text-sm flex items-center gap-1"
+                                    onClick={handleRevertCourses}
+                                >
+                                    <FaArrowLeft size={12}/>
+                                    Revert Back
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                {/* Statuses Panel */}
+                <div className="panel-container">
+                    <div className="panel-header bg-emerald-50 cursor-pointer" onClick={toggleStatusesPanel}>
+                        <h3 className="panel-title">Status</h3>
+                    </div>
+                    {statusesPanelOpen && (
+                        <div className="panel-body">
+                            <div className="status-tags-container-profile">
+                                {allStatuses.map((st, i) => (
+                                    <span
+                                        key={i}
+                                        className={`status-tag hover:scale-105 transform  ${
+                                            selectedStatuses.includes(st)
+                                                ? 'text-white bg-emerald-500 dark:bg-emerald-900'
+                                                : 'bg-emerald-400/80 text-white'
+                                        }`}
+                                        onClick={() => {
+                                            setError(null);
+                                            handleStatusSelect(st);
+                                        }}
+                                    >
                                             {st}
                                         </span>
-                                    ))}
-                                </div>
-                                {fieldErrors.statuses && (
-                                    <p className="text-red-500 text-sm">{fieldErrors.statuses}</p>
-                                )}
-                                <div className="flex gap-2 mt-3">
-                                    <button
-                                        className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
-                                        onClick={handleSaveStatuses}
-                                    >
-                                        Save
-                                    </button>
-                                    <button
-                                        className="save-button text-gray-500 dark:text-gray-300 text-sm flex items-center gap-1"
-                                        onClick={handleRevertStatuses}
-                                    >
-                                        <FaArrowLeft size={12}/>
-                                        Revert Back
-                                    </button>
-                                </div>
+                                ))}
                             </div>
-                        )}
-                    </div>
-
-                    {error && <p className="error-message text-center">{error}</p>}
+                            {fieldErrors.statuses && (
+                                <p className="text-red-500 text-sm">{fieldErrors.statuses}</p>
+                            )}
+                            <div className="flex gap-2 mt-3">
+                                <button
+                                    className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
+                                    onClick={handleSaveStatuses}
+                                >
+                                    Save
+                                </button>
+                                <button
+                                    className="save-button text-gray-500 dark:text-gray-300 text-sm flex items-center gap-1"
+                                    onClick={handleRevertStatuses}
+                                >
+                                    <FaArrowLeft size={12}/>
+                                    Revert Back
+                                </button>
+                            </div>
+                        </div>
+                    )}
                 </div>
+
+                {error && <p className="error-message text-center text-red-500">{error}</p>}
             </div>
             {selectedUserId && (
                 <ViewProfile userId={selectedUserId} onClose={handleCloseProfile} />

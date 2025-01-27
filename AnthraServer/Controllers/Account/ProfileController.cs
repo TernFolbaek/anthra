@@ -66,6 +66,13 @@ namespace AnthraBackend.Controllers.Account
 
             if (model.ProfilePicture != null && model.ProfilePicture.Length > 0)
             {
+                long maxSizeInBytes = 2 * 1024 * 1024;  
+                if (model.ProfilePicture.Length > maxSizeInBytes)
+                {
+                    return BadRequest(new { 
+                        Error = "File size must be less than 2MB."
+                    });
+                }
                 // Delete existing profile picture if it exists
                 if (!string.IsNullOrEmpty(user.ProfilePictureUrl))
                 {

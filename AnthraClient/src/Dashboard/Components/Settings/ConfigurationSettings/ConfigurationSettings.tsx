@@ -29,20 +29,18 @@ const ConfigurationSettings: React.FC = () => {
                 <span className="mode-icon">
                     {darkMode ? <FaMoon size={15} /> : <FaSun size={15} />}
                 </span>
-                <div className="toggle-switch" onClick={toggleDarkMode}>
-                    <input
-                        type="checkbox"
-                        id="darkModeToggle"
-                        checked={darkMode}
-                        onChange={toggleDarkMode}
-                        style={{ display: 'none' }}
-                    />
-                    <label htmlFor="darkModeToggle" className="bg-emerald-400 toggle-label">
-                        <span className={`toggle-thumb ${darkMode ? 'dark' : 'light'}`}></span>
+                <label className="help-settings-toggle-switch" onClick={toggleDarkMode}>
+                    <label className="help-settings-toggle-switch">
+                        <input
+                            type="checkbox"
+                            checked={darkMode}
+                            onChange={toggleDarkMode}
+                        />
+                        <span className="help-settings-slider"></span>
                     </label>
-                </div>
+                </label>
                 <span className="mode-icon">
-                    {darkMode ? <FaSun size={15} /> : <FaMoon size={15} />}
+                    {darkMode ? <FaSun size={15}/> : <FaMoon size={15}/>}
                 </span>
             </div>
         </div>

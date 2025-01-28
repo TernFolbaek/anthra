@@ -59,7 +59,7 @@ namespace AnthraBackend.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("GroupApplicationRequests");
+                    b.ToTable("GroupApplicationRequests", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -342,7 +342,7 @@ namespace AnthraBackend.Migrations
                     b.HasIndex("MessageId")
                         .IsUnique();
 
-                    b.ToTable("Attachments");
+                    b.ToTable("Attachments", (string)null);
                 });
 
             modelBuilder.Entity("MyBackendApp.Models.Connection", b =>
@@ -370,7 +370,7 @@ namespace AnthraBackend.Migrations
 
                     b.HasIndex("UserId2");
 
-                    b.ToTable("Connections");
+                    b.ToTable("Connections", (string)null);
                 });
 
             modelBuilder.Entity("MyBackendApp.Models.ConnectionRequest", b =>
@@ -407,7 +407,7 @@ namespace AnthraBackend.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("ConnectionRequests");
+                    b.ToTable("ConnectionRequests", (string)null);
                 });
 
             modelBuilder.Entity("MyBackendApp.Models.Group", b =>
@@ -449,7 +449,7 @@ namespace AnthraBackend.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("Groups");
+                    b.ToTable("Groups", (string)null);
                 });
 
             modelBuilder.Entity("MyBackendApp.Models.GroupExploreSession", b =>
@@ -472,7 +472,7 @@ namespace AnthraBackend.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("GroupExploreSessions");
+                    b.ToTable("GroupExploreSessions", (string)null);
                 });
 
             modelBuilder.Entity("MyBackendApp.Models.GroupExploreSessionGroup", b =>
@@ -496,7 +496,7 @@ namespace AnthraBackend.Migrations
 
                     b.HasIndex("GroupExploreSessionId");
 
-                    b.ToTable("GroupExploreSessionGroup");
+                    b.ToTable("GroupExploreSessionGroup", (string)null);
                 });
 
             modelBuilder.Entity("MyBackendApp.Models.GroupMember", b =>
@@ -523,7 +523,7 @@ namespace AnthraBackend.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("GroupMembers");
+                    b.ToTable("GroupMembers", (string)null);
                 });
 
             modelBuilder.Entity("MyBackendApp.Models.GroupMessage", b =>
@@ -552,7 +552,7 @@ namespace AnthraBackend.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("GroupMessages");
+                    b.ToTable("GroupMessages", (string)null);
                 });
 
             modelBuilder.Entity("MyBackendApp.Models.Message", b =>
@@ -601,7 +601,7 @@ namespace AnthraBackend.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Messages");
+                    b.ToTable("Messages", (string)null);
                 });
 
             modelBuilder.Entity("MyBackendApp.Models.Notification", b =>
@@ -646,7 +646,7 @@ namespace AnthraBackend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Notifications");
+                    b.ToTable("Notifications", (string)null);
                 });
 
             modelBuilder.Entity("MyBackendApp.Models.SkippedGroup", b =>
@@ -673,7 +673,7 @@ namespace AnthraBackend.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("SkippedGroups");
+                    b.ToTable("SkippedGroups", (string)null);
                 });
 
             modelBuilder.Entity("MyBackendApp.Models.SkippedUserModel", b =>
@@ -701,7 +701,7 @@ namespace AnthraBackend.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("SkippedUsers");
+                    b.ToTable("SkippedUsers", (string)null);
                 });
 
             modelBuilder.Entity("MyBackendApp.Models.UserExploreSession", b =>
@@ -724,7 +724,7 @@ namespace AnthraBackend.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("UserExploreSessions");
+                    b.ToTable("UserExploreSessions", (string)null);
                 });
 
             modelBuilder.Entity("MyBackendApp.Models.UserExploreSessionUser", b =>
@@ -749,7 +749,7 @@ namespace AnthraBackend.Migrations
 
                     b.HasIndex("UserExploreSessionId");
 
-                    b.ToTable("UserExploreSessionUser");
+                    b.ToTable("UserExploreSessionUser", (string)null);
                 });
 
             modelBuilder.Entity("GroupApplicationRequest", b =>
@@ -832,7 +832,7 @@ namespace AnthraBackend.Migrations
 
             modelBuilder.Entity("MyBackendApp.Models.ApplicationUser", b =>
                 {
-                    b.OwnsMany("MyBackendApp.Models.Course", "Courses", b1 =>
+                    b.OwnsMany("MyBackendApp.Models.ApplicationUser.Courses#MyBackendApp.Models.Course", "Courses", b1 =>
                         {
                             b1.Property<string>("ApplicationUserId")
                                 .HasColumnType("text");
@@ -853,7 +853,7 @@ namespace AnthraBackend.Migrations
 
                             b1.HasKey("ApplicationUserId", "Id");
 
-                            b1.ToTable("Course");
+                            b1.ToTable("Course", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("ApplicationUserId");

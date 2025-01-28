@@ -146,7 +146,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
         setIsInstitutionDropdownOpen(true);
     };
 
-    // When an institution is selected
+    // When an institution is selected from the dropdown
     const handleInstitutionSelect = (name: string) => {
         // If we select a new institution, reset the courses/faculty if needed
         if (name !== institution) {
@@ -173,8 +173,8 @@ const StepTwo: React.FC<StepTwoProps> = ({
 
     // Main form submit
     const handleSubmit = async () => {
-        if (!institution) {
-            setError('Please select an institution from the dropdown.');
+        if (!institution.trim()) { // Allow any non-empty institution
+            setError('Please enter your institution.');
             return;
         }
         if (courses.length < 2) {
@@ -198,7 +198,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
         formData.append('FirstName', firstName);
         formData.append('LastName', lastName);
         formData.append('Location', `${city}, ${country}`);
-        formData.append('Institution', institution);
+        formData.append('Institution', institution.trim()); // Use trimmed institution
         formData.append('Work', work);
         formData.append('AboutMe', aboutMe);
         formData.append('Age', age === '' ? '' : age.toString());
@@ -343,6 +343,10 @@ const StepTwo: React.FC<StepTwoProps> = ({
                 !institutionDropdownRef.current.contains(event.target as Node)
             ) {
                 setIsInstitutionDropdownOpen(false);
+                // If user didn't select from dropdown, set institution to the search input
+                if (!universitiesData.some(uni => uni.name.toLowerCase() === institution.trim().toLowerCase())) {
+                    setInstitution(institutionSearch.trim());
+                }
             }
             if (
                 isFacultyDropdownOpen &&
@@ -358,7 +362,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
         return () => {
             document.removeEventListener('mousedown', handleClickOutsideDropdowns);
         };
-    }, [isInstitutionDropdownOpen, isFacultyDropdownOpen]);
+    }, [isInstitutionDropdownOpen, isFacultyDropdownOpen, institutionSearch, institution]);
 
     // Keyboard navigation for universities
     const handleInstitutionKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -386,14 +390,6 @@ const StepTwo: React.FC<StepTwoProps> = ({
                 handleInstitutionSelect(uni.name);
                 setInstitutionSearch('');
             }
-        }
-    };
-
-    // On blur, if we never actually selected from the dropdown, just clear search.
-    const handleInstitutionBlur = () => {
-        // If no final institution was chosen, you can do something like:
-        if (!institution) {
-            setInstitutionSearch('');
         }
     };
 
@@ -507,24 +503,22 @@ const StepTwo: React.FC<StepTwoProps> = ({
                     <input
                         id="institutionSearch"
                         type="text"
-                        placeholder="Search Institution"
-                        value={institution ? institution : institutionSearch}
+                        placeholder="Enter your Institution"
+                        value={institution}
                         autoComplete="off"
                         onChange={(e) => {
-                            // Once user starts typing, we want to treat it as a new search
-                            setInstitution('');
+                            setInstitution(e.target.value);
                             setInstitutionSearch(e.target.value);
                             setIsInstitutionDropdownOpen(true);
                         }}
                         onFocus={handleInstitutionFocus}
                         onKeyDown={handleInstitutionKeyDown}
-                        onBlur={handleInstitutionBlur}
                         className="w-full border p-2 rounded"
                     />
 
                     {/* Show dropdown only if open and we have results */}
                     {isInstitutionDropdownOpen && filteredUniversities.length > 0 && (
-                        <div className="uni-dropdown-menu absolute z-10 border shadow-md w-full max-h-60 overflow-auto">
+                        <div className="uni-dropdown-menu absolute z-10 border shadow-md w-full max-h-60 overflow-auto bg-white">
                             {filteredUniversities.map((uni, idx) => (
                                 <div
                                     key={idx}
@@ -532,7 +526,6 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                         idx === selectedInstitutionIndex ? 'bg-gray-600/50' : ''
                                     }`}
                                     onMouseDown={() => {
-                                        // Use onMouseDown to avoid losing focus before selection
                                         handleInstitutionSelect(uni.name);
                                         setInstitutionSearch('');
                                     }}
@@ -545,8 +538,8 @@ const StepTwo: React.FC<StepTwoProps> = ({
 
                     {/* If open but no results */}
                     {isInstitutionDropdownOpen && filteredUniversities.length === 0 && (
-                        <div className="uni-dropdown-menu absolute z-10 border shadow-md w-full max-h-60 overflow-auto p-2">
-                            No institutions found.
+                        <div className="uni-dropdown-menu absolute z-10 border shadow-md w-full max-h-60 overflow-auto p-2 bg-white">
+                           <p className="text-white text-sm font-medium">No institutions found</p>
                         </div>
                     )}
                 </div>
@@ -606,7 +599,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                             onKeyDown={handleCourseKeyDown}
                             autoComplete="off"
                             disabled={
-                                !institution || // disable if no institution is present
+                                !institution.trim() || // disable if no institution is present
                                 courses.length >= 4
                             }
                         />
@@ -614,7 +607,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                             type="button"
                             onClick={handleAddCourse}
                             className="course-add-button bg-emerald-400 hover:bg-emerald-300"
-                            disabled={!institution || courses.length >= 4}
+                            disabled={!institution.trim() || courses.length >= 4}
                         >
                             <FaPlusCircle />
                         </button>
@@ -622,17 +615,19 @@ const StepTwo: React.FC<StepTwoProps> = ({
 
                     {courseSuggestions.length > 0 && (
                         <div className="suggestions-list" ref={courseSuggestionRef}>
-                            {courseSuggestions.map((course, index) => (
-                                <li
-                                    className={`suggestion-item p-2 cursor-pointer ${
-                                        index === selectedCourseIndex ? 'bg-gray-600/50' : ''
-                                    }`}
-                                    key={index}
-                                    onMouseDown={() => handleCourseSelect(course)}
-                                >
-                                    {course.courseName}
-                                </li>
-                            ))}
+                            <ul>
+                                {courseSuggestions.map((course, index) => (
+                                    <li
+                                        className={`suggestion-item p-2 cursor-pointer ${
+                                            index === selectedCourseIndex ? 'bg-gray-600/50' : ''
+                                        }`}
+                                        key={index}
+                                        onMouseDown={() => handleCourseSelect(course)}
+                                    >
+                                        {course.courseName}
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     )}
                     {courseInput && courseSuggestions.length === 0 && institution && (
@@ -649,7 +644,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                     }
                                 }}
                                 ref={courseLinkInputRef}
-                                disabled={!institution}
+                                disabled={!institution.trim()}
                             />
                         </div>
                     )}
@@ -659,34 +654,34 @@ const StepTwo: React.FC<StepTwoProps> = ({
                     <div className="selected-courses">
                         {courses.map((course, index) => (
                             <span key={index} className="course-tag">
-                {course.courseLink ? (
-                    <a
-                        href={
-                            course.courseLink.startsWith('http')
-                                ? course.courseLink
-                                : `https://${course.courseLink}`
-                        }
-                        className="course-link text-xs"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        {course.courseName}
-                        <FaExternalLinkAlt
-                            size={16}
-                            className="external-link-icon"
-                        />
-                    </a>
-                ) : (
-                    <span>{course.courseName}</span>
-                )}
+                                {course.courseLink ? (
+                                    <a
+                                        href={
+                                            course.courseLink.startsWith('http')
+                                                ? course.courseLink
+                                                : `https://${course.courseLink}`
+                                        }
+                                        className="course-link text-xs"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        {course.courseName}
+                                        <FaExternalLinkAlt
+                                            size={16}
+                                            className="external-link-icon"
+                                        />
+                                    </a>
+                                ) : (
+                                    <span>{course.courseName}</span>
+                                )}
                                 <button
                                     type="button"
                                     onClick={() => handleRemoveCourse(course.courseName)}
                                     className="remove-course-button"
                                 >
-                  <FaTimes size={16} />
-                </button>
-              </span>
+                                    <FaTimes size={16} />
+                                </button>
+                            </span>
                         ))}
                     </div>
                 )}
@@ -715,7 +710,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                             className="subject-input disabled:bg-gray-200 disabled:cursor-not-allowed"
                             maxLength={35}
                             disabled={
-                                !institution || // disable if no institution is present
+                                !institution.trim() || // disable if no institution is present
                                 subjects.length >= 5
                             }
                         />
@@ -723,7 +718,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                             type="button"
                             onClick={handleAddSubject}
                             className="course-add-button bg-emerald-400 hover:bg-emerald-300"
-                            disabled={!institution || subjects.length >= 5}
+                            disabled={!institution.trim() || subjects.length >= 5}
                         >
                             <FaPlusCircle />
                         </button>
@@ -737,15 +732,15 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                 key={index}
                                 className="course-tag flex items-center justify-center"
                             >
-                <p className="mr-1 text-xs font-medium">{subject}</p>
-                <button
-                    type="button"
-                    onClick={() => handleRemoveSubject(subject)}
-                    className="remove-course-button"
-                >
-                  <FaTimes size={16} />
-                </button>
-              </span>
+                                <p className="mr-1 text-xs font-medium">{subject}</p>
+                                <button
+                                    type="button"
+                                    onClick={() => handleRemoveSubject(subject)}
+                                    className="remove-course-button"
+                                >
+                                    <FaTimes size={16} />
+                                </button>
+                            </span>
                         ))}
                     </div>
                 )}
@@ -778,8 +773,8 @@ const StepTwo: React.FC<StepTwoProps> = ({
                             }`}
                             onClick={() => handleStatusSelect(st)}
                         >
-              {st}
-            </span>
+                            {st}
+                        </span>
                     ))}
                 </div>
             </div>

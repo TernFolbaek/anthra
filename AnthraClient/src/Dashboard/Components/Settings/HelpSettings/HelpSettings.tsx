@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './HelpSettings.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import {FaEnvelope, FaSignOutAlt} from "react-icons/fa";
 
 const HelpSettings: React.FC = () => {
     const navigate = useNavigate();
@@ -170,23 +171,18 @@ const HelpSettings: React.FC = () => {
                             <span className="help-settings-slider"></span>
                         </label>
                     </label>
-                </div>
-
-                <div className="flex gap-2 w-full">
-                    <button
-                        className="text-sm font-semibold dark:text-white bg-emerald-400 hover:bg-emerald-300 text-white
-                                   dark:bg-emerald-500 dark:hover:bg-emerald-400 transform hover:scale-105 help-settings-buttons"
-                        onClick={openSupportModal}
-                    >
-                        Contact Support
-                    </button>
-                    <button
-                        className="text-sm help-settings-buttons bg-emerald-400 hover:bg-emerald-300 font-semibold text-white
-                                   dark:text-white dark:bg-emerald-500 dark:hover:bg-emerald-400 transform hover:scale-105"
-                        onClick={handleLogout}
-                    >
-                        Logout
-                    </button>
+                    <label className="flex items-center justify-between w-full text-sm">
+                        <span className="text-sm font-medium">Contact Support</span>
+                         <button onClick={openSupportModal} className="dark:text-emerald-300 w-[42px] flex justify-center text-emerald-400 rounded-md">
+                             <FaEnvelope size={24}/>
+                         </button>
+                    </label>
+                    <label className="flex items-center justify-between w-full text-sm">
+                        <span className="text-sm font-medium">Log Out</span>
+                         <button onClick={handleLogout} className="dark:text-emerald-300 w-[42px] flex justify-center text-emerald-400 rounded-md">
+                             <FaSignOutAlt size={24}/>
+                         </button>
+                    </label>
                 </div>
                 <button
                     className={`text-gray-500 dark:text-white hover:underline delete-button 
@@ -226,7 +222,7 @@ const HelpSettings: React.FC = () => {
             {showSupportModal && (
                 <div className="profile-modal-overlay">
                     <div className="modal">
-                        <p>Contact Support</p>
+                        <p className="font-semibold text-gray-600 dark:text-gray-200">Contact Support</p>
                         <textarea
                             value={supportMessage}
                             onChange={(e) => setSupportMessage(e.target.value)}
@@ -236,13 +232,13 @@ const HelpSettings: React.FC = () => {
                         />
                         <div className="modal-actions">
                             <button
-                                className="text-sm confirm-delete-button bg-emerald-400 font-medium text-white"
+                                className="text-sm px-2 rounded-md hover:bg-emerald-500 bg-emerald-400 font-medium text-white"
                                 onClick={handleContactSupport}
                             >
                                 Send Message
                             </button>
                             <button
-                                className="text-sm dark:bg-emerald-500 bg-gray-300 text-black font-medium dark:hover:bg-emerald-400 delete-account-cancel-button"
+                                className="text-sm dark:bg-emerald-500  bg-gray-300 font-medium dark:text-white text-black dark:hover:bg-emerald-400 delete-account-cancel-button"
                                 onClick={closeSupportModal}
                             >
                                 Cancel

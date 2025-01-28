@@ -130,6 +130,15 @@
     position: relative;
 }
 
+#aboutMe::-webkit-scrollbar{
+    background-color: transparent;
+    width: 8px;
+
+}
+#aboutMe::-webkit-scrollbar-thumb{
+    background-color: gray;
+    border-radius: 7px;
+}
 .char-counter {
     position: absolute;
     top: -20px;

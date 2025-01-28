@@ -101,9 +101,16 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
             const file = event.target.files[0];
+
+            const maxSizeInBytes = 5 * 1024 * 1024;
+            if (file.size > maxSizeInBytes) {
+                alert("File size must be less than 5MB.");
+                event.target.value = "";
+                return;
+            }
+
             setSelectedFile(file);
 
-            // If it's an image, create an object URL for preview
             if (isImageFile(file)) {
                 const imageUrl = URL.createObjectURL(file);
                 setSelectedImagePreview(imageUrl);

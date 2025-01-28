@@ -56,7 +56,7 @@ namespace AnthraBackend.Controllers.Account
             user.Age = model.Age;
             user.CreatedProfile = true;
             user.ProfileCompleted = true;
-            user.AllowEmailUpdates = model.AllowEmailUpdates;
+            user.AllowEmailUpdates = bool.Parse(model.AllowEmailUpdates);
 
             // Update statuses if provided
             if (model.Statuses != null && model.Statuses.Count > 0)
@@ -98,6 +98,74 @@ namespace AnthraBackend.Controllers.Account
             var updateErrors = result.Errors.Select(e => e.Description);
             return BadRequest(new { Errors = updateErrors });
         }
+        
+        [HttpPost("SetProfileVisibility")]
+        [Authorize]
+        public async Task<IActionResult> SetProfileVisibility([FromBody] bool isProfileVisible)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+                return Unauthorized("User is not authenticated.");
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+                return NotFound("User not found.");
+
+            // Update the visibility and save
+            user.IsProfileVisible = isProfileVisible;
+            var result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                var updateErrors = result.Errors.Select(e => e.Description);
+                return BadRequest(new { Errors = updateErrors });
+            }
+
+            return Ok(new
+            {
+                Message = $"Profile visibility updated to {isProfileVisible}."
+            });
+        }
+
+
+        [HttpPost("SetEmailUpdates")]
+        [Authorize]
+        public async Task<IActionResult> SetEmailUpdates([FromBody] string allowEmailUpdates)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+                return Unauthorized("User is not authenticated.");
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+                return NotFound("User not found.");
+
+            // Convert "true"/"false" string to bool
+            bool parsedValue = bool.TryParse(allowEmailUpdates, out var resultValue) && resultValue;
+
+            // Update your user (which might store it as a string or a bool, depending on your design)
+            // If your ApplicationUser has a bool property, do:
+            // user.AllowEmailUpdates = parsedValue;
+            // Or if you want to store the string directly:
+            // user.AllowEmailUpdatesString = allowEmailUpdates; 
+
+            user.AllowEmailUpdates = parsedValue; 
+            // (If you are storing it as a string property in your DB.)
+    
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                var updateErrors = result.Errors.Select(e => e.Description);
+                return BadRequest(new { Errors = updateErrors });
+            }
+
+            return Ok(new
+            {
+                Message = $"Email updates allowed: {allowEmailUpdates}."
+            });
+        }
+
+
 
         [HttpGet("GetProfile")]
         [Authorize]

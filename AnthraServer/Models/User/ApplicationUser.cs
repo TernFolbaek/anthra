@@ -22,7 +22,8 @@ namespace MyBackendApp.Models
         public DateTime? PasswordResetExpiry { get; set; }
         public bool ProfileCompleted { get; set; } 
         public string? EmailVerificationCode { get; set; }
-        public string? AllowEmailUpdates { get; set; }
+        public bool? AllowEmailUpdates { get; set; } = true;
+        public bool? IsProfileVisible { get; set; } = true;
 
         public DateTime? EmailVerificationExpiry { get; set; }
 

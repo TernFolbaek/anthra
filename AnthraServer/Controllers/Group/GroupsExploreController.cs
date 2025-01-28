@@ -216,7 +216,7 @@ namespace MyBackendApp.Controllers
                 // 2) Count how many remain active
                 var leftoverActiveCount = session.FetchedGroups.Count(fg => fg.IsActive);
 
-                // 3) We want 2 total, so how many needed?
+                // 3) We want 8 total, so how many needed?
                 var needed = 8 - leftoverActiveCount;
 
                 // 4) Also exclude leftover active IDs so we never re-fetch the same group

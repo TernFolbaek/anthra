@@ -16,7 +16,8 @@ namespace MyBackendApp.ViewModels
         public List<string>? Statuses { get; set; }
 
         public string? AboutMe { get; set; }
-        public string? AllowEmailUpdates { get; set; }
+        public string? AllowEmailUpdates { get; set; }  
+        public bool? IsProfileVisible { get; set; } 
 
         public int? Age { get; set; }
         public IFormFile? ProfilePicture { get; set; }

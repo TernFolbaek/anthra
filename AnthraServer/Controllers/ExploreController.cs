@@ -26,34 +26,35 @@ public class ExploreController : ControllerBase
     public async Task<IActionResult> GetUsers()
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        // Load session (if any)
+        
         var session = await _context.UserExploreSessions
             .Include(s => s.FetchedUsers)
             .FirstOrDefaultAsync(s => s.UserId == currentUserId);
+        
 
-        // 1) If session exists and user is still locked out => return leftover or empty
         if (session != null)
         {
             var timeSinceLastFetch = DateTime.UtcNow - session.LastFetched;
-            if (timeSinceLastFetch < LOCKOUT_DURATION)
+            if (timeSinceLastFetch >= LOCKOUT_DURATION)
             {
-                var nextAllowedFetch = session.LastFetched.Add(LOCKOUT_DURATION);
-                var waitMinutes = (int)(nextAllowedFetch - DateTime.UtcNow).TotalMinutes;
-                var hoursLeft = waitMinutes / 60;
-                var minsLeft = waitMinutes % 60;
+                session.FetchedUsers.Clear();
+            }
+            else
+            {
+                // Within lockout period, return existing fetched users
+                var remainingLockout = LOCKOUT_DURATION - timeSinceLastFetch;
+                var hoursLeft = (int)remainingLockout.TotalHours;
+                var minsLeft = remainingLockout.Minutes;
 
-                // leftover active user IDs
-                var leftoverIds = session.FetchedUsers
+                var activeFetchedUserIds = session.FetchedUsers
                     .Where(fu => fu.IsActive)
                     .Select(fu => fu.FetchedUserId)
                     .ToList();
 
-                if (leftoverIds.Any())
-                {
-                    var leftoverUsers = await _userManager.Users
+           
+                    var activeUsers = await _userManager.Users
                         .AsNoTracking()
-                        .Where(u => leftoverIds.Contains(u.Id))
+                        .Where(u => activeFetchedUserIds.Contains(u.Id))
                         .Select(u => new
                         {
                             u.Id,
@@ -74,23 +75,22 @@ public class ExploreController : ControllerBase
                     return Ok(new
                     {
                         mustWait = true,
-                        users = leftoverUsers,
-                        message = $"You can explore new users again in {hoursLeft}h {minsLeft}m"
+                        users = activeUsers,
+                        message = $"You can explore new users again in {hoursLeft}h {minsLeft}m."
                     });
-                }
-
-                // no leftover => locked out with empty
-                return Ok(new
-                {
-                    mustWait = true,
-                    users = new List<object>(),
-                    message = $"You can explore new users again in {hoursLeft}h {minsLeft}m"
-                });
             }
-            // else => session is older than lockout => we can fetch again
         }
-
-        // 2) Build the exclude list for new fetches
+        else
+        {
+            session = new UserExploreSession
+            {
+                UserId = currentUserId,
+                LastFetched = DateTime.UtcNow,
+                FetchedUsers = new List<UserExploreSessionUser>()
+            };
+            _context.UserExploreSessions.Add(session);
+        }
+        
         var connectedUserIds = await _context.Connections
             .Where(c => c.UserId1 == currentUserId || c.UserId2 == currentUserId)
             .Select(c => c.UserId1 == currentUserId ? c.UserId2 : c.UserId1)
@@ -113,47 +113,25 @@ public class ExploreController : ControllerBase
             .Distinct()
             .ToList();
 
-        // If no session => create one
-        if (session == null)
+        // Fetch 8 new users
+        var newUsers = await _userManager.Users
+            .AsNoTracking()
+            .Where(u => u.ProfileCompleted && !excludedUserIds.Contains(u.Id))
+            .Take(8)
+            .ToListAsync();
+
+        if (newUsers.Any())
         {
-            session = new UserExploreSession
+            session.LastFetched = DateTime.UtcNow;
+            session.FetchedUsers = newUsers.Select(u => new UserExploreSessionUser
             {
-                UserId = currentUserId,
-                LastFetched = DateTime.UtcNow,
-                FetchedUsers = new List<UserExploreSessionUser>()
-            };
-            _context.UserExploreSessions.Add(session);
-
-            // Grab up to 2 new users
-            var firstBatch = await _userManager.Users
-                .AsNoTracking()
-                .Where(u => u.ProfileCompleted && !excludedUserIds.Contains(u.Id))
-                .Take(8)
-                .ToListAsync();
-
-            if (!firstBatch.Any())
-            {
-                return Ok(new
-                {
-                    mustWait = false,
-                    users = new List<object>(),
-                    message = "No new users found. Try again soon!"
-                });
-            }
-
-            // Add them to session
-            foreach (var user in firstBatch)
-            {
-                session.FetchedUsers.Add(new UserExploreSessionUser
-                {
-                    FetchedUserId = user.Id,
-                    IsActive = true
-                });
-            }
+                FetchedUserId = u.Id,
+                IsActive = true
+            }).ToList();
 
             await _context.SaveChangesAsync();
 
-            var results = firstBatch.Select(u => new
+            var results = newUsers.Select(u => new
             {
                 u.Id,
                 u.FirstName,
@@ -171,118 +149,23 @@ public class ExploreController : ControllerBase
 
             return Ok(new
             {
-                mustWait = true,
+                mustWait = false,
                 users = results,
-                message = "Here is your new batch! Check back after the lockout period for more."
+                message = "Here are your new users to explore!"
             });
         }
         else
         {
-            // Session is older than the lockout => partial fetch
-
-            // Remove all inactive from the session
-            var inactive = session.FetchedUsers
-                .Where(fu => !fu.IsActive)
-                .ToList();
-            foreach (var user in inactive)
-            {
-                session.FetchedUsers.Remove(user);
-            }
-
-            // leftover active count
-            var leftoverActiveCount = session.FetchedUsers.Count(fu => fu.IsActive);
-
-
-            var needed = 8 - leftoverActiveCount;
-
-            // IMPORTANT: also exclude leftover active IDs so we don't re-fetch them
-            var leftoverActiveIds = session.FetchedUsers
-                .Where(fu => fu.IsActive)
-                .Select(fu => fu.FetchedUserId)
-                .ToList();
-
-            var excludeAlso = excludedUserIds
-                .Concat(leftoverActiveIds)
-                .Distinct()
-                .ToList();
-
-            var newBatch = new List<ApplicationUser>();
-            if (needed > 0)
-            {
-                newBatch = await _userManager.Users
-                    .AsNoTracking()
-                    .Where(u => 
-                        u.ProfileCompleted &&
-                        !excludeAlso.Contains(u.Id) // Exclude leftover IDs
-                    )
-                    .Take(needed)
-                    .ToListAsync();
-            }
-
-            if (!newBatch.Any() && leftoverActiveCount < 8)
-            {
-                return Ok(new
-                {
-                    mustWait = false,
-                    users = new List<object>(),
-                    message = "No new users at the moment. Try again soon!"
-                });
-            }
-
-            // Otherwise, lock them out again
-            session.LastFetched = DateTime.UtcNow;
-
-            // Add the newly fetched to session
-            foreach (var user in newBatch)
-            {
-                session.FetchedUsers.Add(new UserExploreSessionUser
-                {
-                    FetchedUserId = user.Id,
-                    IsActive = true
-                });
-            }
-
-            _context.UserExploreSessions.Update(session);
-            await _context.SaveChangesAsync();
-
-            // Build final return
-            var activeUserIds = session.FetchedUsers
-                .Where(fu => fu.IsActive)
-                .Select(fu => fu.FetchedUserId)
-                .ToList();
-
-            var finalList = await _userManager.Users
-                .AsNoTracking()
-                .Where(u => activeUserIds.Contains(u.Id))
-                .Select(u => new
-                {
-                    u.Id,
-                    u.FirstName,
-                    u.LastName,
-                    u.Location,
-                    u.Institution,
-                    u.Work,
-                    u.Courses,
-                    u.Subjects,
-                    u.Statuses,
-                    u.AboutMe,
-                    u.Age,
-                    u.ProfilePictureUrl
-                })
-                .ToListAsync();
-
+            session.LastFetched = DateTime.UtcNow.AddHours(-25);
             return Ok(new
             {
-                mustWait = true,
-                users = finalList,
-                message = "Now we await the users to respond to your requests!"
+                mustWait = false,
+                users = new List<object>(),
+                message = "No new users found. Try again later!"
             });
         }
     }
 
-    // ------------------------------------------------------------------
-    // SkipUser
-    // ------------------------------------------------------------------
     [HttpPost("SkipUser")]
     public async Task<IActionResult> SkipUser([FromBody] SkipUserModel model)
     {

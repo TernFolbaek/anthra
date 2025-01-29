@@ -59,7 +59,6 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
-                        'Content-Type': 'multipart/form-data',
                     },
                 }
             );

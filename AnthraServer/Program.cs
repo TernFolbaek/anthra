@@ -22,7 +22,7 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy.WithOrigins(
-                    "https://anthra.dk", "https://api.anthra.dk", "http://localhost:3000", 
+                    "https://anthra.dk", "http://localhost:3000", 
                     "http://localhost:80", "http://localhost")
                 .AllowAnyHeader()
                 .AllowAnyMethod()
@@ -53,6 +53,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 })
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
+
+
 
 // Configure JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
@@ -132,19 +134,32 @@ using (var scope = app.Services.CreateScope())
 // Enforce HTTPS Redirection
 app.UseHttpsRedirection();
 
+app.UseCors("AllowSpecificOrigin");
 
 app.UseExceptionHandler(a => a.Run(async context =>
 {
+    var origin = context.Request.Headers["Origin"].ToString();
+    var allowedOrigins = new List<string> { "https://anthra.dk", "http://localhost:3000" };
+
+    if (allowedOrigins.Contains(origin))
+    {
+        context.Response.Headers.Add("Access-Control-Allow-Origin", origin);
+        context.Response.Headers.Add("Access-Control-Allow-Credentials", "true");
+    }
+
     var exception = context.Features.Get<IExceptionHandlerPathFeature>()?.Error;
     var result = JsonSerializer.Serialize(new
     {
         error = exception?.Message,
-        stackTrace = exception?.StackTrace // Include stack trace
+        stackTrace = app.Environment.IsDevelopment() ? exception?.StackTrace : null
     });
     context.Response.ContentType = "application/json";
     context.Response.StatusCode = 500;
     await context.Response.WriteAsync(result);
 }));
+
+
+
 
 app.Use(async (context, next) =>
 {
@@ -155,10 +170,6 @@ app.Use(async (context, next) =>
 
 app.UseStaticFiles();
 app.UseRouting();
-
-
-
-app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthentication();
 app.UseAuthorization();

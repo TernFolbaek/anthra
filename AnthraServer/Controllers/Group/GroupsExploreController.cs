@@ -35,30 +35,26 @@ namespace MyBackendApp.Controllers
                 .Include(s => s.FetchedGroups)
                 .FirstOrDefaultAsync(s => s.UserId == currentUserId);
 
-            // ------------------------------------------------------------
-            // CASE A: The session exists and we're still in lockout
-            // ------------------------------------------------------------
             if (session != null)
             {
                 var timeSinceLastFetch = DateTime.UtcNow - session.LastFetched;
                 if (timeSinceLastFetch < LOCKOUT_DURATION)
                 {
-                    var nextAllowedFetch = session.LastFetched.Add(LOCKOUT_DURATION);
-                    var waitMinutes = (int)(nextAllowedFetch - DateTime.UtcNow).TotalMinutes;
-                    var hoursLeft = waitMinutes / 60;
-                    var minsLeft = waitMinutes % 60;
+                    var remainingLockout = LOCKOUT_DURATION - timeSinceLastFetch;
+                    var hoursLeft = (int)remainingLockout.TotalHours;
+                    var minsLeft = remainingLockout.Minutes;
 
-                    // leftover: currently active group IDs
-                    var leftoverGroupIds = session.FetchedGroups
+                    // Return existing fetched groups without calculating leftovers
+                    var activeGroupIds = session.FetchedGroups
                         .Where(fg => fg.IsActive)
                         .Select(fg => fg.GroupId)
                         .ToList();
 
-                    if (leftoverGroupIds.Any())
+                    if (activeGroupIds.Any())
                     {
-                        var leftoverGroups = await _context.Groups
+                        var activeGroups = await _context.Groups
                             .AsNoTracking()
-                            .Where(g => leftoverGroupIds.Contains(g.Id))
+                            .Where(g => activeGroupIds.Contains(g.Id))
                             .Select(g => new
                             {
                                 g.Id,
@@ -85,12 +81,11 @@ namespace MyBackendApp.Controllers
                         return Ok(new
                         {
                             mustWait = true,
-                            groups = leftoverGroups,
+                            groups = activeGroups,
                             message = $"You can explore new groups again in {hoursLeft}h {minsLeft}m"
                         });
                     }
 
-                    // no leftover => locked out with empty
                     return Ok(new
                     {
                         mustWait = true,
@@ -98,7 +93,24 @@ namespace MyBackendApp.Controllers
                         message = $"You can explore new groups again in {hoursLeft}h {minsLeft}m"
                     });
                 }
-                // If here => session is older than lockout => we can fetch new
+                else
+                {
+                    // Lockout period has expired; clear fetched groups
+                    session.FetchedGroups.Clear();
+                    session.LastFetched = DateTime.UtcNow;
+                    await _context.SaveChangesAsync();
+                }
+            }
+            else
+            {
+                // No existing session; create a new one
+                session = new GroupExploreSession
+                {
+                    UserId = currentUserId,
+                    LastFetched = DateTime.UtcNow,
+                    FetchedGroups = new List<GroupExploreSessionGroup>()
+                };
+                _context.GroupExploreSessions.Add(session);
             }
 
             // ------------------------------------------------------------
@@ -130,58 +142,38 @@ namespace MyBackendApp.Controllers
                 .Distinct()
                 .ToList();
 
-            // 3) If there's no session, create a new one
-            if (session == null)
+            // Fetch up to 8 new groups
+            var newGroups = await _context.Groups
+                .AsNoTracking()
+                .Where(g => g.isPublic && !excludedGroupIds.Contains(g.Id))
+                .Select(g => new
+                {
+                    g.Id,
+                    g.Name,
+                    g.GroupDescription,
+                    g.GroupMemberDesire,
+                    g.GroupPurpose,
+                    Members = g.Members
+                        .Where(m => m.IsAccepted)
+                        .Select(m => new
+                        {
+                            m.UserId,
+                            m.User.FirstName,
+                            m.User.LastName,
+                            m.User.ProfilePictureUrl,
+                            m.User.Institution,
+                            m.User.Statuses,
+                            m.User.Location
+                        })
+                        .ToList()
+                })
+                .Take(2)
+                .ToListAsync();
+
+            if (newGroups.Any())
             {
-                session = new GroupExploreSession
-                {
-                    UserId = currentUserId,
-                    LastFetched = DateTime.UtcNow,
-                    FetchedGroups = new List<GroupExploreSessionGroup>()
-                };
-                _context.GroupExploreSessions.Add(session);
-
-                // fetch up to 2 new groups
-                var firstBatch = await _context.Groups
-                    .AsNoTracking()
-                    .Where(g => g.isPublic && !excludedGroupIds.Contains(g.Id))
-                    .Select(g => new
-                    {
-                        g.Id,
-                        g.Name,
-                        g.GroupDescription,
-                        g.GroupMemberDesire,
-                        g.GroupPurpose,
-                        Members = g.Members
-                            .Where(m => m.IsAccepted)
-                            .Select(m => new
-                            {
-                                m.UserId,
-                                m.User.FirstName,
-                                m.User.LastName,
-                                m.User.ProfilePictureUrl,
-                                m.User.Institution,
-                                m.User.Statuses,
-                                m.User.Location
-                            })
-                            .ToList()
-                    })
-                    .Take(8)
-                    .ToListAsync();
-
-                // if none => do not lock out
-                if (!firstBatch.Any())
-                {
-                    return Ok(new
-                    {
-                        mustWait = false,
-                        groups = firstBatch,
-                        message = "No groups found. Try again soon!"
-                    });
-                }
-
-                // otherwise, add them
-                foreach (var gObj in firstBatch)
+                // Add new groups to the session
+                foreach (var gObj in newGroups)
                 {
                     session.FetchedGroups.Add(new GroupExploreSessionGroup
                     {
@@ -190,147 +182,27 @@ namespace MyBackendApp.Controllers
                     });
                 }
 
+                // Update the last fetched time
+                session.LastFetched = DateTime.UtcNow;
+
                 await _context.SaveChangesAsync();
 
                 return Ok(new
                 {
                     mustWait = true,
-                    groups = firstBatch,
+                    groups = newGroups,
                     message = "Here is your new batch! Check back after the lockout period for more."
                 });
             }
             else
             {
-                // We have an existing session older than lockout => partial fetch
-
-                // 1) Remove any that are no longer active
-                var inactiveGroups = session.FetchedGroups
-                    .Where(fg => !fg.IsActive)
-                    .ToList();
-
-                foreach (var inact in inactiveGroups)
-                {
-                    session.FetchedGroups.Remove(inact);
-                }
-
-                // 2) Count how many remain active
-                var leftoverActiveCount = session.FetchedGroups.Count(fg => fg.IsActive);
-
-                // 3) We want 8 total, so how many needed?
-                var needed = 8 - leftoverActiveCount;
-
-                // 4) Also exclude leftover active IDs so we never re-fetch the same group
-                var leftoverActiveIds = session.FetchedGroups
-                    .Where(fg => fg.IsActive)
-                    .Select(fg => fg.GroupId)
-                    .ToList();
-
-                var excludeAdditionally = excludedGroupIds
-                    .Concat(leftoverActiveIds)
-                    .Distinct()
-                    .ToList();
-
-                // fetch new if needed
-                var newBatch = new List<dynamic>();
-                if (needed > 0)
-                {
-                    var fetched = await _context.Groups
-                        .AsNoTracking()
-                        .Where(g =>
-                            g.isPublic &&
-                            !excludeAdditionally.Contains(g.Id)
-                        )
-                        .Select(g => new
-                        {
-                            g.Id,
-                            g.Name,
-                            g.GroupDescription,
-                            g.GroupMemberDesire,
-                            g.GroupPurpose,
-                            Members = g.Members
-                                .Where(m => m.IsAccepted)
-                                .Select(m => new
-                                {
-                                    m.UserId,
-                                    m.User.FirstName,
-                                    m.User.LastName,
-                                    m.User.ProfilePictureUrl,
-                                    m.User.Institution,
-                                    m.User.Statuses,
-                                    m.User.Location
-                                })
-                                .ToList()
-                        })
-                        .Take(needed)
-                        .ToListAsync();
-
-                    newBatch.AddRange(fetched);
-                }
-
-                // 5) If no new and leftover < 8 => do NOT lock out => can try again
-                if (!newBatch.Any() && leftoverActiveCount < 8)
-                {
-                    return Ok(new
-                    {
-                        mustWait = false,
-                        groups = newBatch,
-                        message = "No new groups found. Try again soon!"
-                    });
-                }
-
-                // otherwise => we have leftover or new => user uses fetch => lock out
-                session.LastFetched = DateTime.UtcNow;
-
-                // Add newly fetched to session
-                foreach (var gObj in newBatch)
-                {
-                    session.FetchedGroups.Add(new GroupExploreSessionGroup
-                    {
-                        GroupId = gObj.Id,
-                        IsActive = true
-                    });
-                }
-
-                _context.GroupExploreSessions.Update(session);
-                await _context.SaveChangesAsync();
-
-                // Build final list
-                var activeGroupIds = session.FetchedGroups
-                    .Where(fg => fg.IsActive)
-                    .Select(fg => fg.GroupId)
-                    .ToList();
-
-                var finalList = await _context.Groups
-                    .AsNoTracking()
-                    .Where(g => activeGroupIds.Contains(g.Id))
-                    .Select(g => new
-                    {
-                        g.Id,
-                        g.Name,
-                        g.GroupDescription,
-                        g.GroupMemberDesire,
-                        g.GroupPurpose,
-                        Members = g.Members
-                            .Where(m => m.IsAccepted)
-                            .Select(m => new
-                            {
-                                m.UserId,
-                                m.User.FirstName,
-                                m.User.LastName,
-                                m.User.ProfilePictureUrl,
-                                m.User.Institution,
-                                m.User.Statuses,
-                                m.User.Location
-                            })
-                            .ToList()
-                    })
-                    .ToListAsync();
-
+                session.LastFetched = DateTime.UtcNow.AddHours(-25);
+                // No new groups found
                 return Ok(new
                 {
-                    mustWait = true,
-                    groups = finalList,
-                    message = "Now we await the groups to look at your applications 🎉"
+                    mustWait = false,
+                    groups = new List<object>(),
+                    message = "No groups found. Try again soon!"
                 });
             }
         }

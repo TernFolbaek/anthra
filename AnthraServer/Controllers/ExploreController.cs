@@ -76,7 +76,7 @@ public class ExploreController : ControllerBase
                     {
                         mustWait = true,
                         users = activeUsers,
-                        message = $"You can explore new users again in {hoursLeft}h {minsLeft}m."
+                        message = $"You can explore new users again in {hoursLeft}h {minsLeft}m"
                     });
             }
         }
@@ -117,7 +117,7 @@ public class ExploreController : ControllerBase
         var newUsers = await _userManager.Users
             .AsNoTracking()
             .Where(u => u.ProfileCompleted && !excludedUserIds.Contains(u.Id))
-            .Take(8)
+            .Take(2)
             .ToListAsync();
 
         if (newUsers.Any())

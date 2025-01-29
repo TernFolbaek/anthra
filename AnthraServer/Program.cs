@@ -160,22 +160,6 @@ app.UseRouting();
 
 app.UseCors("AllowSpecificOrigin");
 
-
-app.Use(async (context, next) =>
-{
-    if (context.Request.Method == "OPTIONS")
-    {
-        context.Response.StatusCode = 200;
-        context.Response.Headers.Add("Access-Control-Allow-Origin", "https://anthra.dk"); 
-        context.Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-        context.Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
-        context.Response.Headers.Add("Access-Control-Allow-Credentials", "true");
-        return;
-    }
-    await next();
-});
-
-
 app.UseAuthentication();
 app.UseAuthorization();
 

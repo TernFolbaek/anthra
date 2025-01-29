@@ -83,13 +83,8 @@ body.dark .profile-card textarea{
     padding: 10px;
     justify-content: center;
     align-items: center;
-    opacity: 0;
     transition: opacity 0.3s ease;
     cursor: pointer;
-}
-
-.profile-picture:hover .profile-picture-overlay {
-    opacity: 1;
 }
 
 .hidden-file-input {

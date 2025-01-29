@@ -26,6 +26,7 @@ interface ProfileData {
     userName: string;
     work: string;
     statuses: string[];
+    allowEmailUpdates: string;
 }
 
 // Predefined statuses
@@ -275,6 +276,8 @@ const Profile: React.FC = () => {
         formData.append('Work', profileData.work);
         formData.append('AboutMe', profileData.aboutMe);
         formData.append('Age', profileData.age.toString());
+        formData.append('AllowEmailUpdates', 'true');
+
 
         // Convert courses to JSON
         formData.append('Courses', JSON.stringify(profileData.courses ?? []));
@@ -538,7 +541,8 @@ const Profile: React.FC = () => {
             lastName: personalBackup.lastName,
             age: personalBackup.age,
             institution: personalBackup.institution,
-            work: personalBackup.work
+            work: personalBackup.work,
+            allowEmailUpdates: 'true',
         });
     };
 

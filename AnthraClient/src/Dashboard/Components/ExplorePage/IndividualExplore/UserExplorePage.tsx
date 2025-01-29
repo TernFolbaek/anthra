@@ -77,7 +77,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
         };
 
         fetchUsers();
-    }, [token]);
+    }, []);
 
     // -------------- SET CURRENT USER -------------
     useEffect(() => {

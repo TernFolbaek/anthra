@@ -33,8 +33,6 @@
     background-attachment: fixed;
 }
 
-
-
 .content {
     position: relative;
     max-width: 1400px;
@@ -58,7 +56,6 @@
     transition: all 0.6s ease-out;
     gap: 10px;
 }
-
 
 .step-2 {
     flex-direction: row-reverse;

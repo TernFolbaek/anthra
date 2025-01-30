@@ -85,7 +85,7 @@ const AddMembersModal: React.FC<AddMembersModalProps> = ({ show, onClose, groupI
     return (
         <div className="add-members-modal-overlay" onClick={onClose}>
             <div className="add-members-modal-content " onClick={(e) => e.stopPropagation()}>
-                <button className="add-members-modal-close-button" onClick={onClose}>
+                <button className="add-members-modal-close-button dark:text-white" onClick={onClose}>
                     &times;
                 </button>
                 <p className="dark:text-gray-300 add-members-modal-title">Add Members</p>
@@ -102,7 +102,7 @@ const AddMembersModal: React.FC<AddMembersModalProps> = ({ show, onClose, groupI
                                         alt={user.firstName}
                                         className="add-members-modal-selected-avatar"
                                     />
-                                    <span className="add-members-modal-selected-name dark:text-white">{user.firstName} {user.lastName}</span>
+                                    <span className="add-members-modal-selected-name dark:text-white">{user.firstName}</span>
                                 </div>
                             ))}
                     </div>
@@ -118,7 +118,7 @@ const AddMembersModal: React.FC<AddMembersModalProps> = ({ show, onClose, groupI
                             {connections.map(user => (
                                 <li
                                     key={user.id}
-                                    className={`add-members-modal-member-item dark:hover:bg-black/30 dark:bg-black/20 hover:bg-emerald-100 bg-slate-100  ${selectedUserIds.includes(user.id) ? 'selected' : ''}`}
+                                    className={`add-members-modal-member-item mb-1 hover:bg-emerald-100 bg-slate-100  ${selectedUserIds.includes(user.id) ? 'selected' : ''}`}
                                     onClick={() => toggleUserSelection(user.id)}
                                 >
                                     <img

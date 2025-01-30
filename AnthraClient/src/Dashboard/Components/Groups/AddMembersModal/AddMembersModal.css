@@ -97,12 +97,20 @@ body.dark .add-members-modal-content{
     border-radius: 4px;
 }
 
+
+body.dark .add-members-modal-member-item {
+    background-color: #3a3a3a;
+    border: 1px solid #555
+}
+
+
+
 .add-members-modal-member-item.selected {
     background-color: #ccfdda;
 }
 
 body.dark .add-members-modal-member-item.selected {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: #2e2e2e;
 }
 
 

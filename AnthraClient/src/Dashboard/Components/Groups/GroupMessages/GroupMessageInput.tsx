@@ -1,4 +1,13 @@
-import { FaArrowRight, FaPaperclip, FaRegTimesCircle, FaFileAlt, FaFilePdf, FaFileWord, FaFileExcel } from "react-icons/fa";
+import {
+    FaArrowRight,
+    FaPaperclip,
+    FaRegTimesCircle,
+    FaFileAlt,
+    FaFilePdf,
+    FaFileWord,
+    FaFileExcel,
+    FaSpinner
+} from "react-icons/fa";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
@@ -10,10 +19,12 @@ interface GroupMessageProps {
 function isImageFile(file: File): boolean {
     return file.type.startsWith("image/");
 }
+
 function getFileExtension(fileName: string): string {
     const parts = fileName.split(".");
     return (parts.pop() || "").toLowerCase();
 }
+
 function getFileIcon(extension: string) {
     switch (extension) {
         case "pdf":
@@ -38,6 +49,9 @@ const GroupMessageInput: React.FC<GroupMessageProps> = ({ groupId, showModal }) 
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
 
+    // Loading state to track if a message is being sent
+    const [isSending, setIsSending] = useState(false);
+
     useEffect(() => {
         if (!showModal) {
             const handleKeyDown = (event: KeyboardEvent) => {
@@ -55,14 +69,14 @@ const GroupMessageInput: React.FC<GroupMessageProps> = ({ groupId, showModal }) 
                 if (inputRef.current && !inputRef.current.contains(activeElement)) {
                     inputRef.current.focus();
                 }
-                if (event.key === "Enter") {
+                if (event.key === "Enter" && !isSending) {
                     sendMessage();
                 }
             };
             document.addEventListener("keydown", handleKeyDown);
             return () => document.removeEventListener("keydown", handleKeyDown);
         }
-    }, [showModal]);
+    }, [showModal, isSending]);
 
     const handleRemoveSelectedFile = () => {
         if (selectedImagePreview) {
@@ -81,6 +95,8 @@ const GroupMessageInput: React.FC<GroupMessageProps> = ({ groupId, showModal }) 
         // If there's no text and no file, do nothing
         if (newMessage.trim() === "" && !selectedFile) return;
 
+        setIsSending(true); // Start loading
+
         const formData = new FormData();
         formData.append("SenderId", userId);
         formData.append("Content", newMessage);
@@ -91,12 +107,20 @@ const GroupMessageInput: React.FC<GroupMessageProps> = ({ groupId, showModal }) 
         }
 
         try {
-            await axios.post("/GroupMessages/SendGroupMessage", formData, {
+            const response = await axios.post("/GroupMessages/SendGroupMessage", formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "multipart/form-data",
                 },
             });
+
+            if (response.status !== 200) {
+                console.error("Error sending group message:", response.data);
+                alert("Failed to send group message. Please try again.");
+                return;
+            }
+
+            // Reset input fields after successful send
             setNewMessage("");
             if (selectedImagePreview) {
                 URL.revokeObjectURL(selectedImagePreview);
@@ -105,6 +129,9 @@ const GroupMessageInput: React.FC<GroupMessageProps> = ({ groupId, showModal }) 
             setSelectedImagePreview(null);
         } catch (error) {
             console.error("Error sending group message:", error);
+            alert("An error occurred while sending the group message.");
+        } finally {
+            setIsSending(false); // Stop loading
         }
     };
 
@@ -136,25 +163,35 @@ const GroupMessageInput: React.FC<GroupMessageProps> = ({ groupId, showModal }) 
         if (selectedImagePreview) {
             // It's an image
             return (
-                <div className="image-preview-container">
+                <div className="image-preview-container relative mb-2">
                     <img
                         src={selectedImagePreview}
                         alt="Selected"
-                        className="image-preview-attachment"
+                        className="image-preview-attachment rounded"
                     />
-                    <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
+                    <FaRegTimesCircle
+                        onClick={handleRemoveSelectedFile}
+                        className="absolute top-0 right-0 text-red-500 cursor-pointer"
+                        title="Remove file"
+                    />
                 </div>
             );
         } else {
-            // It's a doc
+            // It's a document
             const ext = getFileExtension(selectedFile.name);
             return (
-                <div className="flex items-center justify-around w-full">
-                    <div className="flex flex-col items-center">
+                <div className="flex items-center justify-between p-2 bg-gray-100 rounded mb-2">
+                    <div className="flex items-center">
                         {getFileIcon(ext)}
-                        <span className="text-sm">{selectedFile.name}</span>
+                        <span className="text-sm ml-2">
+                            {selectedFile.name.length > 15 ? `${selectedFile.name.substring(0, 15)}...` : selectedFile.name}
+                        </span>
                     </div>
-                    <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
+                    <FaRegTimesCircle
+                        onClick={handleRemoveSelectedFile}
+                        className="text-red-500 cursor-pointer"
+                        title="Remove file"
+                    />
                 </div>
             );
         }
@@ -168,27 +205,49 @@ const GroupMessageInput: React.FC<GroupMessageProps> = ({ groupId, showModal }) 
                     {renderFilePreview()}
                 </div>
             )}
-            <div className="group-message-input-container">
+            <div className="group-message-input-container flex items-center p-2">
                 <FaPaperclip
-                    className="paperclip-icon"
-                    onClick={() => fileInputRef.current?.click()}
+                    className={`paperclip-icon cursor-pointer ${isSending ? 'text-gray-400' : 'text-blue-500'}`}
+                    onClick={() => {
+                        if (!isSending) fileInputRef.current?.click();
+                    }}
+                    title="Attach a file"
                 />
                 <input
                     type="file"
                     ref={fileInputRef}
                     style={{ display: "none" }}
                     onChange={handleFileChange}
+                    disabled={isSending}
                 />
                 <input
                     type="text"
-                    className="group-message-input"
+                    className={`group-message-input flex-1 mx-2 p-2 border rounded ${
+                        isSending ? 'bg-gray-100 cursor-not-allowed' : 'bg-white'
+                    }`}
                     ref={inputRef}
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
                     placeholder="Aa"
-                    onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                    disabled={isSending || !groupId}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter" && !isSending) {
+                            sendMessage();
+                        }
+                    }}
                 />
-                <FaArrowRight onClick={sendMessage} className="group-message-send-button text-emerald-400" />
+                <button
+                    onClick={sendMessage}
+                    className="group-message-send-button flex items-center justify-center p-2 rounded bg-emerald-400 text-white hover:bg-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={isSending || (newMessage.trim() === "" && !selectedFile)}
+                    title="Send message"
+                >
+                    {isSending ? (
+                        <FaSpinner className="animate-spin" />
+                    ) : (
+                        <FaArrowRight />
+                    )}
+                </button>
             </div>
         </>
     );

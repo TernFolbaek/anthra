@@ -192,7 +192,7 @@ const Messages: React.FC = () => {
             }
 
             const newConnection = new signalR.HubConnectionBuilder()
-                .withUrl('https://api.anthra.dk/chatHub', {
+                .withUrl('http://localhost:5000/chatHub', {
                     accessTokenFactory: () => token || '',
                 })
                 .withAutomaticReconnect()
@@ -364,6 +364,10 @@ const Messages: React.FC = () => {
             messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
         }
     };
+
+    useEffect(() => {
+        handleMessageRendered();
+    }, [messages, handleMessageRendered]);
 
     /**
      * Group invitation acceptance/decline

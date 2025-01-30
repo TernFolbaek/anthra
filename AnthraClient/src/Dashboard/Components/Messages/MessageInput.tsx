@@ -1,4 +1,13 @@
-import { FaArrowRight, FaPaperclip, FaRegTimesCircle, FaFileAlt, FaFilePdf, FaFileWord, FaFileExcel } from "react-icons/fa";
+import {
+    FaArrowRight,
+    FaPaperclip,
+    FaRegTimesCircle,
+    FaFileAlt,
+    FaFilePdf,
+    FaFileWord,
+    FaFileExcel,
+    FaSpinner
+} from "react-icons/fa";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
@@ -39,9 +48,14 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
     const currentUserId = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
 
+    // Loading state to track if a message is being sent
+    const [isSending, setIsSending] = useState(false);
+
     const sendMessage = async () => {
         if (!userId) return;
         if (messageInput.trim() === "" && !selectedFile) return;
+
+        setIsSending(true); // Start loading
 
         const formData = new FormData();
         formData.append('SenderId', currentUserId!);
@@ -65,8 +79,11 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
 
             if (response.status !== 200) {
                 console.error('Error sending message:', response.data);
+                alert("Failed to send message. Please try again.");
                 return;
             }
+
+            // Reset input fields after successful send
             setMessageInput('');
             if (selectedImagePreview) {
                 URL.revokeObjectURL(selectedImagePreview);
@@ -75,6 +92,9 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
             setSelectedImagePreview(null);
         } catch (error) {
             console.error('Error sending message:', error);
+            alert("An error occurred while sending the message.");
+        } finally {
+            setIsSending(false); // Stop loading
         }
     };
 
@@ -138,19 +158,19 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
                         alt="Selected"
                         className="image-preview-attachment"
                     />
-                    <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
+                    <FaRegTimesCircle onClick={handleRemoveSelectedFile} className="remove-file-icon" />
                 </div>
             );
         } else {
             return (
-                <div className="flex items-center p-2 w-full justify-around">
-                    <div className="flex flex-col">
+                <div className="flex items-center p-2 w-full justify-between bg-gray-100 rounded">
+                    <div className="flex items-center">
                         {getFileIcon(extension)}
-                        <span className="file-preview-name">
-                        {file.name.length > 15 ? `${file.name.substring(0, 15)}...` : file.name}
-                    </span>
+                        <span className="file-preview-name ml-2">
+                            {file.name.length > 15 ? `${file.name.substring(0, 15)}...` : file.name}
+                        </span>
                     </div>
-                    <FaRegTimesCircle onClick={handleRemoveSelectedFile} />
+                    <FaRegTimesCircle onClick={handleRemoveSelectedFile} className="remove-file-icon" />
                 </div>
             );
         }
@@ -159,20 +179,23 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
     return (
         <>
             {selectedFile && (
-                <div className="selected-file-preview">
+                <div className="selected-file-preview mb-2">
                     {renderFilePreview(selectedFile)}
                 </div>
             )}
-            <div className="message-input-container">
+            <div className="message-input-container flex items-center p-2">
                 <FaPaperclip
-                    className="paperclip-icon"
-                    onClick={() => fileInputRef.current?.click()}
+                    className={`paperclip-icon cursor-pointer ${isSending ? 'text-gray-400' : 'text-blue-500'}`}
+                    onClick={() => {
+                        if (!isSending) fileInputRef.current?.click();
+                    }}
                 />
                 <input
                     type="file"
                     ref={fileInputRef}
                     style={{ display: 'none' }}
                     onChange={handleFileChange}
+                    disabled={isSending}
                 />
                 <input
                     ref={inputRef}
@@ -180,10 +203,27 @@ const MessageInput: React.FC<ConnectionUserId> = ({ userId }) => {
                     value={messageInput}
                     onChange={(e) => setMessageInput(e.target.value)}
                     placeholder="Aa"
-                    disabled={!userId}
-                    onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                    disabled={isSending || !userId}
+                    className={`group-message-input flex-1 mx-2 p-2 border rounded ${
+                        isSending ? 'bg-gray-100 cursor-not-allowed' : 'bg-white'
+                    }`}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter" && !isSending) {
+                            sendMessage();
+                        }
+                    }}
                 />
-                <FaArrowRight onClick={sendMessage} className="send-icon" />
+                <button
+                    onClick={sendMessage}
+                    className=" flex items-center justify-center p-2 rounded bg-emerald-400 text-white hover:bg-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={isSending || (!messageInput.trim() && !selectedFile)}
+                >
+                    {isSending ? (
+                        <FaSpinner className="animate-spin" />
+                    ) : (
+                        <FaArrowRight />
+                    )}
+                </button>
             </div>
         </>
     );

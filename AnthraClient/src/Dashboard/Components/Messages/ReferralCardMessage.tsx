@@ -231,8 +231,8 @@ const ReferralCardMessage: React.FC<ReferralCardMessageProps> = ({ msg, isCurren
                     <div className="referral-confirm-dialog">
                         <p className="text-base font-semibold">Are you sure you want to skip this user?</p>
                         <div className="flex justify-center gap-2">
-                            <button onClick={confirmSkip} className="text-sm font-medium py-2 px-4 rounded-md bg-gray-100">Yes</button>
-                            <button onClick={cancelSkip} className="text-sm font-medium py-2 px-4 rounded-md bg-emerald-100">No</button>
+                            <button onClick={(e)=>{e.stopPropagation(); confirmSkip()}} className="text-sm font-medium py-2 px-4 rounded-md hover:cursor-pointer bg-gray-400">Yes</button>
+                            <button onClick={(e)=>{e.stopPropagation(); cancelSkip()}} className="text-sm font-medium py-2 px-4 rounded-md hover:cursor-pointer bg-emerald-400">No</button>
                         </div>
                     </div>
                 </div>

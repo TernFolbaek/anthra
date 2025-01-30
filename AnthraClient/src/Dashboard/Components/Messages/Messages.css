@@ -283,42 +283,6 @@ body.dark .message-timestamp {
   gap: 10px;
 }
 
-.message-input-container input {
-  flex: 1;
-  padding: 8px;
-  font-size: 0.8rem;
-  border-radius: 20px;
-  background-color: rgb(243, 243, 243);
-  margin-right: 10px;
-}
-
-/* Dark mode styles */
-body.dark .message-input-container input {
-  background-color: #2e2e2e;
-  color: #fff;
-  border: 1px solid #555;
-}
-
-.message-input-container input:focus {
-  outline: none;
-}
-
-.message-input-container button {
-  padding: 10px 20px;
-  font-size: 1rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.message-input-container button:hover {
-  background-color: #0056b3;
-}
-
-
 .group-member-avatar {
   width: 40px;
   height: 40px;
@@ -431,7 +395,9 @@ body.dark .selected-file-preview {
 
 /* Style for message attachments */
 .message-attachment {
-  margin-top: 5px;
+  min-height: 80px;
+  max-height: 80px;
+  overflow: hidden;
 }
 
 .attachment-preview {
@@ -488,7 +454,6 @@ body.dark .image-preview-container {
 .message-image {
   max-width: 140px;
   max-height: 140px;
-  margin-top: 5px;
   border-radius: 5px;
 }
 .report-popup-overlay {

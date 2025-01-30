@@ -167,7 +167,7 @@ namespace MyBackendApp.Controllers
                         })
                         .ToList()
                 })
-                .Take(2)
+                .Take(8)
                 .ToListAsync();
 
             if (newGroups.Any())

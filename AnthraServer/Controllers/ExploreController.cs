@@ -117,7 +117,7 @@ public class ExploreController : ControllerBase
         var newUsers = await _userManager.Users
             .AsNoTracking()
             .Where(u => u.ProfileCompleted && !excludedUserIds.Contains(u.Id))
-            .Take(2)
+            .Take(8)
             .ToListAsync();
 
         if (newUsers.Any())

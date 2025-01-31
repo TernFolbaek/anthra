@@ -50,7 +50,7 @@ const ReportUserComponent: React.FC<ReportUserProps> = ({userId, onShowReportFal
             <div className="report-popup-content" onClick={(e) => e.stopPropagation()}>
                 <h2 className="report-popup-title">Report User</h2>
                 <textarea
-                    className="report-textarea"
+                    className="report-textarea text-gray-600"
                     rows={4}
                     value={reportDescription}
                     onChange={(e) => setReportDescription(e.target.value)}
@@ -73,7 +73,7 @@ const ReportUserComponent: React.FC<ReportUserProps> = ({userId, onShowReportFal
 
                 <div className="report-btn-group">
                     <button
-                        className="report-cancel-btn rounded-lg"
+                        className="font-medium text-sm dark:text-white text-black rounded-lg"
                         onClick={handleCloseReportPopup}
                     >
                         Cancel

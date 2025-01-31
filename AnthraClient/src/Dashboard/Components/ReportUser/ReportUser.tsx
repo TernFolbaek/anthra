@@ -48,10 +48,14 @@ const ReportUserComponent: React.FC<ReportUserProps> = ({userId, onShowReportFal
     return (
         <div className="report-popup-overlay" onClick={handleCloseReportPopup}>
             <div className="report-popup-content" onClick={(e) => e.stopPropagation()}>
-                <h2 className="report-popup-title">Report User</h2>
+                <div className="flex flex-col">
+                    <h2 className="report-popup-title">Report User</h2>
+                    <p className="text-xs text-gray-500 dark:text-gray-200">{reportDescription.length}/50</p>
+                </div>
                 <textarea
                     className="report-textarea text-gray-600"
                     rows={4}
+                    maxLength={50}
                     value={reportDescription}
                     onChange={(e) => setReportDescription(e.target.value)}
                     placeholder="Describe the issue..."

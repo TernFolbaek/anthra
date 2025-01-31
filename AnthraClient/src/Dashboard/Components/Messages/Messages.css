@@ -477,13 +477,15 @@ body.dark .image-preview-container {
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
+  background-color: white;
   gap: 1rem;
 }
 
 body.dark .report-popup-content {
-  background-color: #3a3a3a;
+  background-color: #2e2e2e;
   border: 2px solid #555;
   border-radius: 8px;
+  color: white;
   width: 90%;
   max-width: 480px;
   padding: 1.5rem;
@@ -507,6 +509,7 @@ body.dark .report-popup-content {
   border-radius: 4px;
   font-size: 0.95rem;
   background-color: #ffffff;
+  border: 1px solid #555;
 }
 
 /* File input label */
@@ -528,7 +531,7 @@ body.dark .report-popup-content {
 .report-btn-group {
   display: flex;
   justify-content: flex-end;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 /* Cancel Button */

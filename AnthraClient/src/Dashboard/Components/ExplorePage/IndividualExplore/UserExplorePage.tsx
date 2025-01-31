@@ -275,14 +275,19 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                                     <ul className="dark:text-emerald-400">
                                                         {currentUser.courses.map((course, index) => (
                                                             <li key={index}>
-                                                                <a
-                                                                    href={course.courseLink}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className="text-emerald-500 dark:text-emerald-400"
-                                                                >
-                                                                    {course.courseName}
-                                                                </a>
+                                                                {course.courseLink ? (
+                                                                    <a
+                                                                        href={course.courseLink}
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                        className="font-medium underline text-base dark:text-white"
+                                                                    >
+                                                                        {course.courseName}
+                                                                    </a>
+                                                                ): (
+                                                                    <span className="font-medium text-base dark:text-white"> {course.courseName}</span>
+                                                                )}
+
                                                             </li>
                                                         ))}
                                                     </ul>
@@ -291,7 +296,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                         </div>
                                         {currentUser.statuses && currentUser.statuses.length > 0 && (
                                             <div className="user-explore-statuses">
-                                                <h3 className="dark:text-emerald-400">Status</h3>
+                                            <h3 className="dark:text-emerald-400">Status</h3>
                                                 <div className="flex gap-2 text-xs text-center">
                                                     {currentUser.statuses.map((st, i) => (
                                                         <p
@@ -378,7 +383,12 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                             {currentUser.subjects && currentUser.subjects.length > 0 && (
                                                 <div>
                                                     <h3 className="dark:text-emerald-400 text-emerald-500">Subjects</h3>
-                                                    <p>{currentUser.subjects.join(', ')}</p>
+                                                    <div className="flex flex-col gap-2">
+
+                                                    </div>
+                                                    {currentUser.subjects.map((subject, i) => (
+                                                        <p className="text-base dark:text-gray-100" key={i}>{subject}</p>
+                                                    ))}
                                                 </div>
                                             )}
                                             {currentUser.courses && currentUser.courses.length > 0 && (
@@ -387,14 +397,20 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                                     <ul className="user-explore-courses-list">
                                                         {currentUser.courses.map((course, index) => (
                                                             <li key={index}>
-                                                                <a
-                                                                    href={course.courseLink}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className="text-emerald-400"
-                                                                >
-                                                                    {course.courseName}
-                                                                </a>
+                                                                {course.courseLink ? (
+                                                                    <a
+                                                                        href={course.courseLink}
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                        className="underline dark:text-emerald-400"
+                                                                    >
+                                                                        {course.courseName}
+                                                                    </a>
+                                                                ) : (
+                                                                    <span
+                                                                        className="font-medium">{course.courseName}</span>
+                                                                )}
+
                                                             </li>
                                                         ))}
                                                     </ul>
@@ -408,7 +424,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                     )}
                 </div>
             ) : (
-                <NoMoreUsersToExplore message={intervalMessage} />
+                <NoMoreUsersToExplore message={intervalMessage}/>
             )}
 
             {/* Action Buttons */}
@@ -421,7 +437,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                         Skip
                     </button>
                     <button
-                        className="refer-button hover:bg-emerald-400 hover:text-white transform hover:scale-105 bg-emerald-300 text-gray-900"
+                        className="refer-button hover:bg-emerald-400 hover:text-white transform hover:scale-105 bg-emerald-300 text-white"
                         onClick={() => setShowReferModal(true)}
                     >
                         Refer

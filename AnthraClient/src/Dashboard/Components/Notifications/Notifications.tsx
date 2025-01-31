@@ -88,7 +88,7 @@ const Notifications: React.FC = () => {
                             <FaRegBell />
                         </p>
                         <button
-                            className="font-semibold dark:text-white dark:bg-slate-500 text-sm flex items-center gap-2 rounded-md bg-slate-100 hover:bg-slate-200 p-1"
+                            className="font-semibold dark:text-white dark:bg-black/30 text-sm flex items-center gap-2 rounded-md bg-slate-100 hover:bg-slate-200 p-1"
                             onClick={handleMarkAllAsRead}
                         >
                             <FcCheckmark size={15} /> Mark all as read

@@ -576,10 +576,18 @@ body.dark .report-popup-content {
 
 @media (max-width: 480px){
   .contact-header{
+    position: absolute;
+    width: 100vw;
+    top: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+    backdrop-filter: blur(10px);
+    z-index: 4;
   }
-  body.dark .messages-page-container{
+  .messages-container {
+    margin-top: 45px;
+  }
+    body.dark .messages-page-container{
     background-color: #2e2e2e;
   }
 }

@@ -38,6 +38,7 @@ interface Message {
 interface GroupMessageProps {
     groupId: number;
     showModal: boolean;
+    onRemoveGroup: (id: number) => void;
 }
 
 interface GroupDetails {
@@ -76,7 +77,7 @@ function getFileIcon(extension: string) {
     }
 }
 
-const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
+const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal, onRemoveGroup }) => {
     /** ---- STATE ---- **/
         // Main state for messages (in chronological order)
     const [messages, setMessages] = useState<Message[]>([]);
@@ -362,8 +363,8 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal }) => {
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             console.log(`Successfully left group ${groupIdToLeave}`);
-            // Possibly navigate away from the group
-            // navigate("/dashboard/groups");
+            navigate('/dashboard/groups')
+            onRemoveGroup(groupIdToLeave)
             setShowMenu(false);
         } catch (error) {
             console.error("Error leaving group:", error);

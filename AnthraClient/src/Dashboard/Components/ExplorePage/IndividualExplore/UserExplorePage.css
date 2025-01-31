@@ -145,14 +145,11 @@ body.dark .user-explore-location {
 
 .user-explore-courses-list a {
     z-index: 20;
-    text-decoration: none;
     font-weight: 500;
 }
 
 body.dark .user-explore-courses-list a {
     color: white;
-    text-decoration: underline;
-    text-decoration-color: #0dba85;
 }
 
 .user-explore-courses-list a:hover {

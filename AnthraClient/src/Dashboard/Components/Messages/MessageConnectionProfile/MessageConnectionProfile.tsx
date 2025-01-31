@@ -201,14 +201,20 @@ const MessageConnectionProfile: React.FC<Props> = ({ userId }) => {
                 <ul className="profile-info-list">
                     {profileData.courses.map((course, index) => (
                         <li key={index} className="profile-info-list-item">
-                            <a
-                                href={course.courseLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="profile-info-link text-emerald-400"
-                            >
-                                {course.courseName}
-                            </a>
+                            {course.courseLink ? (
+                                <a
+                                    href={course.courseLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="profile-info-link underline text-emerald-400"
+                                >
+                                    {course.courseName}
+                                </a>
+                            ):(
+                                <p className="text-emerald-400"> {course.courseName}
+                                </p>
+                            )}
+
                         </li>
                     ))}
                 </ul>
@@ -217,7 +223,7 @@ const MessageConnectionProfile: React.FC<Props> = ({ userId }) => {
                     <div className="user-explore-statuses">
                         <p className="profile-section-title">Status</p>
                         <div className="flex gap-2">
-                            {profileData.statuses.map((st, i) => (
+                        {profileData.statuses.map((st, i) => (
                                 <p
                                     key={i}
                                     className="status-tag-explore text-white text-center bg-emerald-400 mr-1"

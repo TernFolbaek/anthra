@@ -1,135 +1,107 @@
-import React, {useEffect, useState} from 'react';
-import {useLocation, useNavigate} from 'react-router-dom';
+import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './CurrentConversations.css';
 import CardContainer from '../CardContainer/CardContainer';
-import NoConversationsRive from "../../Helpers/Animations/NoConversations";
-import axios from "axios";
+import NoConversationsRive from '../../Helpers/Animations/NoConversations';
+import {Conversation} from "../../Layouts/MessagesLayout/MessagesLayout";
 
-interface Conversation {
-    userId: string;
-    userName: string;
-    firstName: string;
-    lastName: string;
-    userProfilePicture: string;
-    lastMessageContent: string;
-    lastMessageTimestamp: string;
-    lastMessageSenderId: string;
+interface CurrentConversationsProps {
+    conversations: Conversation[];
+    loading: boolean;
+    error: string | null;
 }
 
-const CurrentConversations: React.FC = React.memo(() => {
-    const [conversations, setConversations] = useState<Conversation[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
-    const [searchQuery, setSearchQuery] = useState<string>('');  // State for the search query
-    const currentUserId = localStorage.getItem('userId');
-    const navigate = useNavigate();
-    const location = useLocation();
+const CurrentConversations: React.FC<CurrentConversationsProps> = React.memo(
+    ({ conversations, loading, error }) => {
+        const [searchQuery, setSearchQuery] = useState<string>('');
+        const navigate = useNavigate();
+        const location = useLocation();
 
-    const pathMatch = location.pathname.match(/\/messages\/(.+)/);
-    const selectedConversationId = pathMatch ? pathMatch[1] : null;
+        // Extract currently-selected conversation from the URL
+        const pathMatch = location.pathname.match(/\/messages\/(.+)/);
+        const selectedConversationId = pathMatch ? pathMatch[1] : null;
 
-    useEffect(() => {
-        if (!currentUserId) {
-            console.error('User ID not found in localStorage.');
-            setError('User ID not found.');
-            return;
+        // Filter by search
+        const filteredConversations = conversations.filter((conv) => {
+            const fullName = `${conv.firstName} ${conv.lastName}`.toLowerCase();
+            return fullName.includes(searchQuery.toLowerCase());
+        });
+
+        if (loading) {
+            return (
+                <CardContainer title="Messages">
+                    <div className="p-4 text-center text-sm">Loading conversations...</div>
+                </CardContainer>
+            );
         }
 
-        const fetchConversations = async () => {
-            try {
-                const response = await axios.get(
-                    `/Messages/GetConversations`,
-                    {
-                        params: { userId: currentUserId },
-                    }
-                );
+        if (error) {
+            return (
+                <CardContainer title="Messages">
+                    <div className="conversations-error">{error}</div>
+                </CardContainer>
+            );
+        }
 
-                setConversations(response.data);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error fetching conversations:', error);
-                setError('Failed to fetch conversations. Please try again later.');
-                setLoading(false);
-            }
-        };
+        return (
+            <CardContainer title="Messages">
+                <div className="search-container">
+                    <input
+                        type="text"
+                        placeholder="Search messages"
+                        className="search-input"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                </div>
 
-        fetchConversations();
-    }, [currentUserId]);
-
-
-    // Filter conversations based on the search query
-    const filteredConversations = conversations.filter((conv) => {
-        const fullName = `${conv.firstName} ${conv.lastName}`.toLowerCase();
-        return fullName.includes(searchQuery.toLowerCase());
-    });
-
-    if (loading) {
-        return;
-    }
-
-    if (error) {
-        return <ul className="conversations-list">
-            <div className="conversations-error">{error}</div>
-        </ul>
-            ;
-    }
-
-    return (
-        <CardContainer title="Messages">
-            <div className="search-container">
-                <input
-                    type="text"
-                    placeholder="Search messages"
-                    className="search-input"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                />
-            </div>
-
-            {filteredConversations.length === 0 ? (
-                <NoConversationsRive/>
-            ) : (
-                <ul className="conversations-list">
-                    {filteredConversations.map((conv) => (
-                        <li
-                            key={conv.userId}
-                            className={`conversation-item ${
-                                selectedConversationId === conv.userId ? 'selected' : ''
-                            }`}
-                            onClick={() => {
-                                navigate(`/dashboard/messages/${conv.userId}`);
-                            }}
-                        >
-                            <img
-                                src={`${conv.userProfilePicture}`}
-                                alt={conv.userName}
-                                className="conversation-profile-picture"
-                            />
-                            <div className="conversation-details">
-                                <p className="font-medium text-sm dark:text-white">{conv.firstName} {conv.lastName}</p>
-                                <p className="last-message">
-                                    {conv.lastMessageContent.length > 15
-                                        ? `${conv.lastMessageContent.substring(0, 10)}...`
-                                        : conv.lastMessageContent}
+                {filteredConversations.length === 0 ? (
+                    <NoConversationsRive />
+                ) : (
+                    <ul className="conversations-list">
+                        {filteredConversations.map((conv) => (
+                            <li
+                                key={conv.userId}
+                                className={`conversation-item ${
+                                    selectedConversationId === conv.userId ? 'selected' : ''
+                                }`}
+                                onClick={() => {
+                                    navigate(`/dashboard/messages/${conv.userId}`);
+                                }}
+                            >
+                                <img
+                                    src={`${conv.userProfilePicture}`}
+                                    alt={conv.userName}
+                                    className="conversation-profile-picture"
+                                />
+                                <div className="conversation-details">
+                                    <p className="font-medium text-sm dark:text-white">
+                                        {conv.firstName} {conv.lastName}
+                                    </p>
+                                    <p className="last-message">
+                                        {conv.lastMessageContent.length > 15
+                                            ? `${conv.lastMessageContent.substring(0, 10)}...`
+                                            : conv.lastMessageContent}
+                                    </p>
+                                </div>
+                                <p className="conversation-timestamp">
+                                    {new Date(conv.lastMessageTimestamp).toLocaleDateString('en-GB', {
+                                        day: 'numeric',
+                                        month: 'numeric',
+                                        year: 'numeric',
+                                    })}{' '}
+                                    {new Date(conv.lastMessageTimestamp).toLocaleTimeString('en-GB', {
+                                        hour: '2-digit',
+                                        minute: '2-digit',
+                                    })}
                                 </p>
-                            </div>
-                            <p className="conversation-timestamp">
-                                {new Date(conv.lastMessageTimestamp).toLocaleDateString('en-GB', {
-                                    day: 'numeric',
-                                    month: 'numeric',
-                                    year: 'numeric'
-                                })}{" "}
-                                {new Date(conv.lastMessageTimestamp).toLocaleTimeString('en-GB', {
-                                    hour: '2-digit',
-                                    minute: '2-digit'
-                                })}
-                            </p>
-                        </li>
-                    ))}
-                </ul>
-            )}
-        </CardContainer>
-    );
-});
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </CardContainer>
+        );
+    }
+);
 
 export default CurrentConversations;

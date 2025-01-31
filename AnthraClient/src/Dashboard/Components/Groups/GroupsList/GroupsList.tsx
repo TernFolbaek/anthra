@@ -1,13 +1,15 @@
 // Components/GroupsList/GroupsList.tsx
-import React, { useState, useEffect, useRef, useContext } from 'react';
-import { FaInfo } from 'react-icons/fa';
+import React, {useState, useEffect, useRef, useContext} from 'react';
+import {FaInfo} from 'react-icons/fa';
 import axios from 'axios';
 import NoGroups from '../../../Helpers/Animations/NoGroups';
 import CardContainer from '../../CardContainer/CardContainer';
 import './GroupsList.css';
-import { MdGroupAdd, MdExitToApp } from 'react-icons/md';
+import {MdGroupAdd, MdExitToApp} from 'react-icons/md';
 import ViewGroupProfile from "../../ViewGroupProfile/ViewGroupProfile";
 import {NotificationContext} from "../../../context/NotificationsContext";
+import {useNavigate} from "react-router-dom";
+
 interface GroupMember {
     userId: string;
     profilePictureUrl: string;
@@ -22,10 +24,11 @@ interface Group {
 }
 
 interface GroupsListProps {
-    groups: Group[];
-    onGroupClick: (groupId: number) => void;
-    onCreateGroup: () => void;
-    selectedGroupId: number | null;
+    groups: Group[],
+    onGroupClick: (groupId: number) => void,
+    onCreateGroup: () => void,
+    selectedGroupId: number | null,
+    onRemoveGroup: (groupId: number) => void
 }
 
 const GroupsList: React.FC<GroupsListProps> = ({
@@ -33,12 +36,14 @@ const GroupsList: React.FC<GroupsListProps> = ({
                                                    onGroupClick,
                                                    onCreateGroup,
                                                    selectedGroupId,
+                                                   onRemoveGroup
                                                }) => {
     const [openMenuGroupId, setOpenMenuGroupId] = useState<number | null>(null);
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [selectedGroupIdInfo, setSelectedGroupIdInfo] = useState<number | null>(null);
     const token = localStorage.getItem('token');
     const menuRef = useRef<HTMLDivElement | null>(null);
+    const navigate = useNavigate();
 
     // Access NotificationContext
     const notificationContext = useContext(NotificationContext);
@@ -47,7 +52,7 @@ const GroupsList: React.FC<GroupsListProps> = ({
         throw new Error('GroupsList must be used within a NotificationProvider');
     }
 
-    const { markGroupNotificationsAsRead } = notificationContext;
+    const {markGroupNotificationsAsRead} = notificationContext;
 
     // Updated handleGroupClick to mark notifications as read
     const handleGroupClick = async (groupId: number) => {
@@ -59,7 +64,7 @@ const GroupsList: React.FC<GroupsListProps> = ({
         try {
             await axios.post(
                 '/Groups/LeaveGroup',
-                { groupId },
+                {groupId},
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -67,8 +72,9 @@ const GroupsList: React.FC<GroupsListProps> = ({
                 }
             );
             console.log(`Successfully left group ${groupId}`);
+            navigate('/dashboard/groups')
+            onRemoveGroup(groupId);
             setOpenMenuGroupId(null);
-            // Optionally, you can refresh the groups list or notify the parent component
         } catch (error) {
             console.error('Error leaving group:', error);
         }
@@ -111,7 +117,9 @@ const GroupsList: React.FC<GroupsListProps> = ({
             <CardContainer title="Groups">
                 {/* Search Input */}
                 <div className="ml-[10px] search-container-groups flex gap-2">
-                    <div className="create-group-button bg-emerald-400 hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 flex items-center justify-center gap-2" onClick={onCreateGroup}>
+                    <div
+                        className="create-group-button bg-emerald-400 hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 flex items-center justify-center gap-2"
+                        onClick={onCreateGroup}>
                         <MdGroupAdd/>
                     </div>
                     <input

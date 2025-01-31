@@ -99,6 +99,10 @@ const Groups: React.FC = () => {
         navigate(`/dashboard/groups/${groupId}`);
     };
 
+    const handleRemoveGroup = (groupId: number) => {
+        setGroups(prev => prev.filter(g => g.id !== groupId));
+    };
+
     return (
         <div className="groups-page">
             {connections.length > 0 || groups.length > 0? (
@@ -109,12 +113,13 @@ const Groups: React.FC = () => {
                             onGroupClick={handleGroupClick}
                             onCreateGroup={handleCreateGroup}
                             selectedGroupId={groupId ? parseInt(groupId) : null}
+                            onRemoveGroup={handleRemoveGroup}
                         />
                     )}
                     {(isWideScreen || groupId) && (
                         <div className="group-message-view">
                             {groupId ? (
-                                <GroupMessage groupId={parseInt(groupId)} showModal={showModal} />
+                                <GroupMessage groupId={parseInt(groupId)} showModal={showModal} onRemoveGroup={handleRemoveGroup} />
                             ) : (
                                 isWideScreen && (
                                     <div className="no-group-selected">
@@ -137,6 +142,7 @@ const Groups: React.FC = () => {
                                 onGroupClick={handleGroupClick}
                                 onCreateGroup={handleCreateGroup}
                                 selectedGroupId={groupId ? parseInt(groupId) : null}
+                                onRemoveGroup={handleRemoveGroup}
                             />
                             <div className="group-message-view">
                                 <NoConnectionsRive/>
@@ -150,6 +156,7 @@ const Groups: React.FC = () => {
                                 onGroupClick={handleGroupClick}
                                 onCreateGroup={handleCreateGroup}
                                 selectedGroupId={groupId ? parseInt(groupId) : null}
+                                onRemoveGroup={handleRemoveGroup}
                             />
                         </>
                     )}

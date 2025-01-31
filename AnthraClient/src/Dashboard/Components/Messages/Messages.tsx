@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import './Messages.css';
 import * as signalR from '@microsoft/signalr';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import MessageConnectionProfile from './MessageConnectionProfile/MessageConnectionProfile';
 import {
@@ -22,6 +22,7 @@ import { Message, InvitationActionType, UserProfile } from '../types/types';
 import { NotificationContext } from "../../context/NotificationsContext";
 import ConfirmationDialog from "../../Helpers/Dialogs/ConfirmationDialog/ConfirmationDialog";
 import ReportUserComponent from "../ReportUser/ReportUser";
+import {Conversation} from "../../Layouts/MessagesLayout/MessagesLayout";
 function isImageFileName(fileName: string) {
     return /\.(jpeg|jpg|gif|png|bmp|webp)$/i.test(fileName);
 }
@@ -86,9 +87,15 @@ const Messages: React.FC = () => {
     if (!notificationContext) {
         throw new Error("NotificationContext is undefined. Make sure you're inside a NotificationProvider.");
     }
-    const { removeNotificationsBySenderId } = notificationContext;
+    const { removeNotificationsBySenderId, removeMessageNotification } = notificationContext;
 
-
+    const {
+        removeConversation,
+        conversations,
+    } = useOutletContext<{
+        removeConversation: (removedUserId: string) => void;
+        conversations: Conversation[];
+    }>();
 
     // Which message is selected for deletion
     const [selectedMessageForDelete, setSelectedMessageForDelete] = useState<number | null>(null);
@@ -144,7 +151,7 @@ const Messages: React.FC = () => {
                         headers: { Authorization: `Bearer ${token}` },
                     }
                 );
-
+                removeMessageNotification(userId)
                 const data = response.data;
                 setMessages(data.messages);
                 setNextTokenValue(data.nextToken);
@@ -460,6 +467,7 @@ const Messages: React.FC = () => {
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             if (userId) {
+                removeConversation(userId);
                 removeNotificationsBySenderId(userId);
             }
             navigate('/dashboard/messages');

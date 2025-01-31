@@ -28,7 +28,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedPurpose, setSelectedPurpose] = useState<string>('');
 
-    // Track all error messages here
+    // Track all error messages
     const [errors, setErrors] = useState<{
         groupName?: string;
         groupDescription?: string;
@@ -78,15 +78,16 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
         }
     };
 
-    const handleUserSelect = (userId: string) => {
-        if (selectedUserIds.includes(userId)) {
-            setSelectedUserIds(selectedUserIds.filter((id) => id !== userId));
+    const handleUserSelect = (connectionId: string) => {
+        if (selectedUserIds.includes(connectionId)) {
+            setSelectedUserIds((prev) => prev.filter((id) => id !== connectionId));
         } else {
-            setSelectedUserIds([...selectedUserIds, userId]);
+            setSelectedUserIds((prev) => [...prev, connectionId]);
         }
     };
 
     const handlePurposeSelect = (value: string) => {
+        // Toggle the selection (only one can be selected)
         setSelectedPurpose(value === selectedPurpose ? '' : value);
     };
 
@@ -151,7 +152,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
 
         setErrors(newErrors);
 
-        // If there are no keys in newErrors, everything is valid
+        // Return true if no errors
         return Object.keys(newErrors).length === 0;
     };
 
@@ -167,7 +168,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                 groupDescription: groupDescription,
                 groupMemberDesire: groupMemberDesire,
                 invitedUserIds: selectedUserIds,
-                isPublic: isPublic,
+                isPublic,
                 adminName: fullName,
                 groupPurpose: selectedPurpose,
             };
@@ -180,7 +181,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
         }
     };
 
-    // Simple convenience check for the Create Group button
+    // Simple convenience check for button disabling
     const isFormValid =
         groupName.trim().length >= 4 &&
         groupName.trim().length <= 15 &&
@@ -203,9 +204,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                     <div className="label-and-counter">
                         <p className="font-bold dark:text-white text-sm">
                             Group Name
-                             <span
-                            className="font-medium text-xs dark:text-emerald-400"> (min. 4 chars)</span>
-
+                            <span className="font-medium text-xs dark:text-emerald-400"> (min. 4 chars)</span>
                         </p>
                         <div className="create-group-char-counter">
                             {groupName.length}/15
@@ -216,20 +215,14 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                         placeholder="Group name"
                         value={groupName}
                         onChange={(e) => setGroupName(e.target.value)}
-                        className={
-                            // Highlight if error
-                            `group-name-input dark:text-black ${
-                                errors.groupName ? 'error-border' : ''
-                            }`
-                        }
+                        className={`group-name-input dark:text-black ${
+                            errors.groupName ? 'error-border' : ''
+                        }`}
                         maxLength={15}
                         minLength={4}
                         required
                     />
-                    {/* Error message for Group Name */}
-                    {errors.groupName && (
-                        <p className="error-message">{errors.groupName}</p>
-                    )}
+                    {errors.groupName && <p className="error-message">{errors.groupName}</p>}
                 </div>
 
                 {/* DESCRIPTION */}
@@ -254,7 +247,6 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                         maxLength={150}
                         required
                     />
-                    {/* Error message for Description */}
                     {errors.groupDescription && (
                         <p className="error-message">{errors.groupDescription}</p>
                     )}
@@ -263,7 +255,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                 {/* GROUP MEMBER DESIRE */}
                 <div className="input-group">
                     <div className="label-and-counter">
-                        <p className="font-bold text-sm dark:text-white ">
+                        <p className="font-bold text-sm dark:text-white">
                             Who are you looking for
                             <span className="font-medium text-xs dark:text-emerald-400"> (min. 80 chars)</span>
                         </p>
@@ -282,7 +274,6 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                         maxLength={150}
                         required
                     />
-                    {/* Error message for "Who are you looking for" */}
                     {errors.groupMemberDesire && (
                         <p className="error-message">{errors.groupMemberDesire}</p>
                     )}
@@ -290,9 +281,8 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
 
                 {/* GROUP PURPOSE */}
                 <div className="input-group">
-                    <p className="font-bold text-sm dark:text-white ">
-                        Group Purpose
-                        (Select exactly one)
+                    <p className="font-bold text-sm dark:text-white">
+                        Group Purpose (Select exactly one)
                     </p>
                     <div className="flex w-full items-center">
                         <div className="purpose-icon-container mr-3">
@@ -309,7 +299,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                             {groupPurposes.map((purpose) => (
                                 <div
                                     key={purpose.value}
-                                    className={`bg-sky-100 dark:text-white dark:bg-emerald-500 dark:hover:bg-emerald-400 group-purpose-tag ${
+                                    className={`bg-emerald-200 dark:text-white dark:bg-emerald-500 dark:hover:bg-emerald-400 group-purpose-tag ${
                                         selectedPurpose === purpose.value ? 'selected' : ''
                                     }`}
                                     onClick={() => handlePurposeSelect(purpose.value)}
@@ -320,7 +310,6 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                             ))}
                         </div>
                     </div>
-                    {/* Error message for Group Purpose */}
                     {errors.selectedPurpose && (
                         <p className="error-message">{errors.selectedPurpose}</p>
                     )}
@@ -332,9 +321,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                 </div>
 
                 {/* SELECT USERS */}
-                <h3 className="font-bold text-sm mt-3 dark:text-white ">
-                    Select Users to Invite
-                </h3>
+                <h3 className="font-bold text-sm mt-3 dark:text-white">Select Users to Invite</h3>
                 <input
                     type="text"
                     placeholder="Search your connections"
@@ -342,6 +329,29 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="group-name-input dark:bg-gray-100"
                 />
+
+                {/* SHOW SELECTED USERS */}
+                {selectedUserIds.length > 0 && (
+                    <div className="group-creation-selected-users p-1">
+                        {connections
+                            .filter((user) => selectedUserIds.includes(user.id))
+                            .map((user) => (
+                                <div
+                                    key={user.id}
+                                    className="flex flex-col items-center p-1"
+                                >
+                                    <img
+                                        src={user.profilePictureUrl}
+                                        alt={user.firstName}
+                                        className="group-creation-selected-avatar"
+                                    />
+                                    <span className="group-creation-selected-name">
+                                        {user.firstName}
+                                    </span>
+                                </div>
+                            ))}
+                    </div>
+                )}
 
                 <div className="group-creation-connections-container">
                     <ul className="group-creation-connections-list">
@@ -364,7 +374,7 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                                         alt={`${user.firstName} ${user.lastName}`}
                                         className="select-user-item-avatar"
                                     />
-                                    <span className="text-sm dark:text-white font-medium ">
+                                    <span className="text-sm dark:text-white font-medium">
                                         {user.firstName} {user.lastName}
                                     </span>
                                 </div>
@@ -372,7 +382,6 @@ const GroupModal: React.FC<Props> = ({ onClose, onGroupCreated }) => {
                         ))}
                     </ul>
                 </div>
-                {/* Error for selected users */}
                 {errors.selectedUsers && (
                     <p className="error-message">{errors.selectedUsers}</p>
                 )}

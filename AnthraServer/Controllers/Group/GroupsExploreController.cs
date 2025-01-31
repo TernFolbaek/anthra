@@ -29,7 +29,29 @@ namespace MyBackendApp.Controllers
         public async Task<IActionResult> GetGroups()
         {
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userGroupIds = await _context.GroupMembers
+                .Where(gm => gm.UserId == currentUserId && gm.IsAccepted)
+                .Select(gm => gm.GroupId)
+                .ToListAsync();
 
+            //  - groups user has skipped
+            var skippedGroupIds = await _context.SkippedGroups
+                .Where(sg => sg.UserId == currentUserId)
+                .Select(sg => sg.GroupId)
+                .ToListAsync();
+
+            //  - groups user has applied to
+            var appliedGroupIds = await _context.GroupApplicationRequests
+                .Where(gar => gar.ApplicantId == currentUserId && !gar.IsDeclined && !gar.IsAccepted)
+                .Select(gar => gar.GroupId)
+                .ToListAsync();
+            
+            var excludedGroupIds = userGroupIds
+                .Concat(skippedGroupIds)
+                .Concat(appliedGroupIds)
+                .Distinct()
+                .ToList();
+            
             // 1) Load (if any) the existing group-explore session
             var session = await _context.GroupExploreSessions
                 .Include(s => s.FetchedGroups)
@@ -46,7 +68,7 @@ namespace MyBackendApp.Controllers
 
                     // Return existing fetched groups without calculating leftovers
                     var activeGroupIds = session.FetchedGroups
-                        .Where(fg => fg.IsActive)
+                        .Where(fg => fg.IsActive && !excludedGroupIds.Contains(fg.Id))
                         .Select(fg => fg.GroupId)
                         .ToList();
 
@@ -119,28 +141,9 @@ namespace MyBackendApp.Controllers
 
             // 2) Build an exclude list
             //  - groups user is a member of
-            var userGroupIds = await _context.GroupMembers
-                .Where(gm => gm.UserId == currentUserId && gm.IsAccepted)
-                .Select(gm => gm.GroupId)
-                .ToListAsync();
+          
 
-            //  - groups user has skipped
-            var skippedGroupIds = await _context.SkippedGroups
-                .Where(sg => sg.UserId == currentUserId)
-                .Select(sg => sg.GroupId)
-                .ToListAsync();
-
-            //  - groups user has applied to
-            var appliedGroupIds = await _context.GroupApplicationRequests
-                .Where(gar => gar.ApplicantId == currentUserId && !gar.IsDeclined && !gar.IsAccepted)
-                .Select(gar => gar.GroupId)
-                .ToListAsync();
-
-            var excludedGroupIds = userGroupIds
-                .Concat(skippedGroupIds)
-                .Concat(appliedGroupIds)
-                .Distinct()
-                .ToList();
+           
 
             // Fetch up to 8 new groups
             var newGroups = await _context.Groups

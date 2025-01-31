@@ -26,6 +26,28 @@ public class ExploreController : ControllerBase
     public async Task<IActionResult> GetUsers()
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var connectedUserIds = await _context.Connections
+            .Where(c => c.UserId1 == currentUserId || c.UserId2 == currentUserId)
+            .Select(c => c.UserId1 == currentUserId ? c.UserId2 : c.UserId1)
+            .ToListAsync();
+
+        var sentRequestUserIds = await _context.ConnectionRequests
+            .Where(cr => cr.SenderId == currentUserId && cr.Status == ConnectionStatus.Pending)
+            .Select(cr => cr.ReceiverId)
+            .ToListAsync();
+
+        var skippedUserIds = await _context.SkippedUsers
+            .Where(su => su.UserId == currentUserId)
+            .Select(su => su.SkippedUserId)
+            .ToListAsync();
+
+        var excludedUserIds = connectedUserIds
+            .Concat(sentRequestUserIds)
+            .Concat(skippedUserIds)
+            .Append(currentUserId)
+            .Distinct()
+            .ToList();
+        
         
         var session = await _context.UserExploreSessions
             .Include(s => s.FetchedUsers)
@@ -47,7 +69,7 @@ public class ExploreController : ControllerBase
                 var minsLeft = remainingLockout.Minutes;
 
                 var activeFetchedUserIds = session.FetchedUsers
-                    .Where(fu => fu.IsActive)
+                    .Where(fu => fu.IsActive && !excludedUserIds.Contains(fu.FetchedUserId))
                     .Select(fu => fu.FetchedUserId)
                     .ToList();
 
@@ -91,29 +113,6 @@ public class ExploreController : ControllerBase
             _context.UserExploreSessions.Add(session);
         }
         
-        var connectedUserIds = await _context.Connections
-            .Where(c => c.UserId1 == currentUserId || c.UserId2 == currentUserId)
-            .Select(c => c.UserId1 == currentUserId ? c.UserId2 : c.UserId1)
-            .ToListAsync();
-
-        var sentRequestUserIds = await _context.ConnectionRequests
-            .Where(cr => cr.SenderId == currentUserId && cr.Status == ConnectionStatus.Pending)
-            .Select(cr => cr.ReceiverId)
-            .ToListAsync();
-
-        var skippedUserIds = await _context.SkippedUsers
-            .Where(su => su.UserId == currentUserId)
-            .Select(su => su.SkippedUserId)
-            .ToListAsync();
-
-        var excludedUserIds = connectedUserIds
-            .Concat(sentRequestUserIds)
-            .Concat(skippedUserIds)
-            .Append(currentUserId)
-            .Distinct()
-            .ToList();
-
-        // Fetch 8 new users
         var newUsers = await _userManager.Users
             .AsNoTracking()
             .Where(u => u.ProfileCompleted && !excludedUserIds.Contains(u.Id))

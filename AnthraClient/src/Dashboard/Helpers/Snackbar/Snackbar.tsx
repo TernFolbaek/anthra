@@ -8,13 +8,19 @@ interface SnackbarProps {
     onClose?: () => void;
 }
 
-const Snackbar: React.FC<SnackbarProps> = ({ title, message, duration = 3000, onClose }) => {
+const Snackbar: React.FC<SnackbarProps> = ({
+                                               title,
+                                               message,
+                                               duration = 3000,
+                                               onClose
+                                           }) => {
     const [show, setShow] = useState<boolean>(true);
     const [animationKey, setAnimationKey] = useState<number>(0);
 
     useEffect(() => {
+        // Whenever title/message/duration changes, re-show
         setShow(true);
-        setAnimationKey(prev => prev + 1);
+        setAnimationKey((prev) => prev + 1);
 
         const timer = setTimeout(() => {
             setShow(false);
@@ -22,12 +28,12 @@ const Snackbar: React.FC<SnackbarProps> = ({ title, message, duration = 3000, on
         }, duration);
 
         return () => clearTimeout(timer);
-    }, [duration, onClose, title, message]);
+    }, [title, message, duration]);
 
     if (!show) return null;
 
     return (
-        <div className="snackbar-container" onClick={()=>setShow(false)}>
+        <div className="snackbar-container" onClick={() => setShow(false)}>
             <div className="snackbar bg-white border-1 border-gray-300">
                 <div className="snackbar-content">
                     <div className="snackbar-title">{title}</div>

@@ -127,7 +127,7 @@ const Home: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                             rel="noopener noreferrer"
                             className="cursor-pointer"
                         >
-                            <div className="text-gray-200 text-center font-light" data-v-095ba637="">
+                            <div className="text-gray-400 text-center font-light" data-v-095ba637="">
                                 <FontAwesomeIcon  className="text-gray-200 mr-2" icon={faLink}/>{t.block3}
                             </div>
                         </a>

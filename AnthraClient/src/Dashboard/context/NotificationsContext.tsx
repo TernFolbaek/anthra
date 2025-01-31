@@ -1,4 +1,3 @@
-// src/context/NotificationsContext.tsx
 import React, {
     createContext,
     useState,
@@ -29,6 +28,7 @@ interface NotificationContextProps {
     markAllAsRead: () => Promise<void>;
     removeNotificationsBySenderId: (senderId: string) => void;
     removeConnectionRequestNotification: (senderId: string) => void;
+    removeMessageNotification: (senderId: string) => void;
 }
 
 export const NotificationContext = createContext<NotificationContextProps | undefined>(
@@ -63,13 +63,8 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
         }
     }, [token]);
 
-    const removeConnectionRequestNotification = React.useCallback((senderId: string) => {
-        setNotifications((prev) =>
-            prev.filter(
-                (n) => !(n.senderId === senderId && n.type === 'ConnectionRequest')
-            )
-        );
-    }, []);
+
+
 
 
     useEffect(() => {
@@ -184,6 +179,48 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
         },
         [token]
     );
+    const removeConnectionRequestNotification = React.useCallback(
+        (senderId: string) => {
+            setNotifications((prevNotifications) => {
+                // Find all matching notifications
+                const notificationsToRemove = prevNotifications.filter(
+                    (n) => n.senderId === senderId && n.type === 'ConnectionRequest'
+                );
+
+                // Mark each one as read using its actual ID
+                notificationsToRemove.forEach((notification) => {
+                    markAsRead(notification.id);
+                });
+
+                // Remove them from local state
+                return prevNotifications.filter(
+                    (n) => !(n.senderId === senderId && n.type === 'ConnectionRequest')
+                );
+            });
+        },
+        [markAsRead]
+    );
+
+
+    const removeMessageNotification = React.useCallback(
+        (senderId: string) => {
+            setNotifications((prevNotifications) => {
+                const notificationsToRemove = prevNotifications.filter(
+                    (n) => n.senderId === senderId && n.type === 'Message'
+                );
+
+                notificationsToRemove.forEach((notification) => {
+                    markAsRead(notification.id);
+                });
+
+                return prevNotifications.filter(
+                    (n) => !(n.senderId === senderId && n.type === 'Message')
+                );
+            });
+        },
+        [markAsRead]
+    );
+
 
     const markGroupNotificationsAsRead = useCallback(
         async (groupId: number) => {
@@ -231,6 +268,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
                 markAllAsRead,
                 removeNotificationsBySenderId,
                 removeConnectionRequestNotification,
+                removeMessageNotification
             }}
         >
             {children}

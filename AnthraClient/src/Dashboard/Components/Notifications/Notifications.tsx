@@ -1,5 +1,4 @@
-// Notifications.tsx
-import React, { useContext, useState, useRef } from 'react';
+import React, {useContext, useState, useRef} from 'react';
 import './Notifications.css';
 import {
     FaBell,
@@ -26,6 +25,7 @@ const Notifications: React.FC = () => {
     const [showDropdown, setShowDropdown] = useState(false);
     const bellRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
+
 
     if (!notificationContext) {
         throw new Error('Notifications must be used within a NotificationProvider');
@@ -68,10 +68,8 @@ const Notifications: React.FC = () => {
         setShowDropdown(false);
     };
 
-    // UPDATED: close the dropdown after marking all as read
     const handleMarkAllAsRead = async () => {
         await markAllAsRead();
-        // Once done, close the dropdown so user sees the UI update
         setShowDropdown(false);
     };
 
@@ -88,7 +86,7 @@ const Notifications: React.FC = () => {
                             <FaRegBell />
                         </p>
                         <button
-                            className="font-semibold dark:text-white dark:bg-black/30 text-sm flex items-center gap-2 rounded-md bg-slate-100 hover:bg-slate-200 p-1"
+                            className="font-semibold dark:text-white dark:bg-transparent text-sm flex items-center gap-2 rounded-md bg-slate-100 hover:bg-slate-200 p-1"
                             onClick={handleMarkAllAsRead}
                         >
                             <FcCheckmark size={15} /> Mark all as read

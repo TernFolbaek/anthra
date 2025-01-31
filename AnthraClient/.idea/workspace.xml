@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f6ef597-b7bd-442f-8da7-2cf448f0ba4c" name="Changes" comment="Only load 5 universities to begin with">
+    <list default="true" id="0f6ef597-b7bd-442f-8da7-2cf448f0ba4c" name="Changes" comment="Stop propagation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -15,18 +15,129 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "git-widget-placeholder": "main",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "ts.external.directory.path": "/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraClient/node_modules/typescript/lib"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;TernFolbaek&quot;
   }
-}]]></component>
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/TernFolbaek/anthra.git&quot;,
+    &quot;accountId&quot;: &quot;e943ea23-8f28-436d-91a4-2bb6444702ef&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2sJgLmAxQ71xMK4jxJiwQOKl0bh" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/tyf/Documents/software-programming/personal-coding-projects/Anthra/AnthraClient/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-WS-242.21829.149" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0f6ef597-b7bd-442f-8da7-2cf448f0ba4c" name="Changes" comment="Only load 5 universities to begin with" />
+      <created>1738179038135</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1738179038135</updated>
+      <workItem from="1738179040288" duration="7032000" />
+      <workItem from="1738224696317" duration="2169000" />
+      <workItem from="1738244253865" duration="5642000" />
+      <workItem from="1738310276928" duration="8000" />
+    </task>
+    <task id="LOCAL-00001" summary="Yeet whitespace">
+      <option name="closed" value="true" />
+      <created>1738268430054</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1738268430054</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Refine styling when adding new users to groups">
+      <option name="closed" value="true" />
+      <created>1738271290273</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1738271290273</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Refine group message input when sending message is loading">
+      <option name="closed" value="true" />
+      <created>1738271305296</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1738271305296</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Refine  message input when sending message is loading">
+      <option name="closed" value="true" />
+      <created>1738271311595</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1738271311595</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Remove input container ot use groupmessages">
+      <option name="closed" value="true" />
+      <created>1738271330702</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1738271330702</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Use groupmessages classes">
+      <option name="closed" value="true" />
+      <created>1738271339039</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1738271339039</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Stop propagation">
+      <option name="closed" value="true" />
+      <created>1738271349162</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1738271349162</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Only load 5 universities to begin with" />
-    <option name="LAST_COMMIT_MESSAGE" value="Only load 5 universities to begin with" />
+    <MESSAGE value="Yeet whitespace" />
+    <MESSAGE value="Refine styling when adding new users to groups" />
+    <MESSAGE value="Refine group message input when sending message is loading" />
+    <MESSAGE value="Refine  message input when sending message is loading" />
+    <MESSAGE value="Remove input container ot use groupmessages" />
+    <MESSAGE value="Use groupmessages classes" />
+    <MESSAGE value="Stop propagation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Stop propagation" />
   </component>
 </project>

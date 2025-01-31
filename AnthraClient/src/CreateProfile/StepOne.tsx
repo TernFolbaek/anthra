@@ -110,9 +110,9 @@ const StepOne: React.FC<StepOneProps> = ({
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
 
-            const maxSizeInBytes = 2 * 1024 * 1024;
+            const maxSizeInBytes = 4 * 1024 * 1024;
             if (file.size > maxSizeInBytes) {
-                alert("File size must be less than 2MB.");
+                alert("File size must be less than 4MB.");
                 e.target.value = "";
                 return;
             }

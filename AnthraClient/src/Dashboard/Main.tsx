@@ -68,7 +68,6 @@ const DashboardContent: React.FC = () => {
                             </Route>
                             <Route element={<MessagesLayout isConnections={true} />}>
                                 <Route path="/connections" element={<Connections />} />
-                                {/* Removed Settings route */}
                             </Route>
                             <Route path="/" element={<ExplorePage  onSettingsClick={toggleSettings}  />} />
                             <Route path="/explore" element={<ExplorePage onSettingsClick={toggleSettings} />} />

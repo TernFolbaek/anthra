@@ -118,9 +118,9 @@ const GroupInvitationMessage: React.FC<GroupInvitationMessageProps> = ({
 
         switch (actionType) {
             case InvitationActionType.Accepted:
-                return `${otherUser} accepted the group invitation.`;
+                return `${otherUser} accepted the group invitation!`;
             case InvitationActionType.Declined:
-                return `${otherUser} declined the group invitation.`;
+                return `${otherUser} declined the group invitation`;
             default:
                 return null;
         }

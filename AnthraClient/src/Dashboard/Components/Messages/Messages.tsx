@@ -192,7 +192,7 @@ const Messages: React.FC = () => {
             }
 
             const newConnection = new signalR.HubConnectionBuilder()
-                .withUrl('https://api.anthra/chatHub', {
+                .withUrl('https://api.anthra.dk/chatHub', {
                     accessTokenFactory: () => token || '',
                 })
                 .withAutomaticReconnect()

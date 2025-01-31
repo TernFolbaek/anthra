@@ -10,7 +10,6 @@ import Profile from './Components/Profile/Profile';
 import Groups from './Components/Groups/Groups';
 import MessagesLayout from './Layouts/MessagesLayout/MessagesLayout';
 import GroupsLayout from './Layouts/GroupsLayout/GroupsLayout';
-import MessageOptionalLayout from './Layouts/MessageOptionalLayout/MessageOptionalLayout';
 import './Main.css';
 import DevelopmentTools from '../DevelopmentTools';
 import Notifications from './Components/Notifications/Notifications';

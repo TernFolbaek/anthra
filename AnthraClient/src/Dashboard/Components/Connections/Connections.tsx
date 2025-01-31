@@ -143,7 +143,11 @@ const Connections: React.FC = () => {
                     },
                 }
             );
-            removeConnectionRequestNotification(request.senderId);
+            const acceptedRequest = connectionRequests.find(r => r.id === request.id);
+
+            if(acceptedRequest){
+                removeConnectionRequestNotification(acceptedRequest.senderId);
+            }
 
             if (response.status === 200) {
                 // Remove the request from the connectionRequests state

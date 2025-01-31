@@ -1,0 +1,96 @@
+import React, {useState} from "react";
+import axios from "axios";
+
+interface ReportUserProps {
+    userId: string | undefined,
+    onShowReportFalse: () => void,
+}
+
+const ReportUserComponent: React.FC<ReportUserProps> = ({userId, onShowReportFalse}) => {
+    const [reportDescription, setReportDescription] = useState('');
+    const [reportFiles, setReportFiles] = useState<File[]>([]);
+    const token = localStorage.getItem('token');
+
+    const handleCloseReportPopup = () => {
+        onShowReportFalse();
+        setReportDescription('');
+        setReportFiles([]);
+    };
+
+    const handleSendReport = async () => {
+        if (!reportDescription.trim()) return;
+        try {
+            const formData = new FormData();
+            formData.append('ReportedUserId', userId || '');
+            formData.append('Description', reportDescription);
+
+            reportFiles.forEach((file) => {
+                formData.append('Screenshots', file);
+            });
+
+            await axios.post('/Report/SendReport', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            alert('Your report has been sent successfully. Thank you!');
+            setReportDescription('');
+            setReportFiles([]);
+            onShowReportFalse();
+        } catch (error) {
+            console.error('Error sending report: ', error);
+            alert('Failed to send report. Please try again later.');
+        }
+    };
+
+    return (
+        <div className="report-popup-overlay" onClick={handleCloseReportPopup}>
+            <div className="report-popup-content" onClick={(e) => e.stopPropagation()}>
+                <h2 className="report-popup-title">Report User</h2>
+                <textarea
+                    className="report-textarea"
+                    rows={4}
+                    value={reportDescription}
+                    onChange={(e) => setReportDescription(e.target.value)}
+                    placeholder="Describe the issue..."
+                />
+                <label className="screenshot-label">
+                    Attach Screenshots (optional)
+                    <input
+                        className="report-file-input"
+                        type="file"
+                        multiple
+                        accept="image/*"
+                        onChange={(e) => {
+                            if (e.target.files) {
+                                setReportFiles(Array.from(e.target.files));
+                            }
+                        }}
+                    />
+                </label>
+
+                <div className="report-btn-group">
+                    <button
+                        className="report-cancel-btn rounded-lg"
+                        onClick={handleCloseReportPopup}
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        className={`bg-emerald-400 text-white font-medium px-3 rounded-lg py-2 ${
+                            !reportDescription.trim() ? 'disabled-btn' : ''
+                        }`}
+                        onClick={handleSendReport}
+                        disabled={!reportDescription.trim()}
+                    >
+                        Send Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default ReportUserComponent;

@@ -21,6 +21,7 @@ import ReferralCardMessage from "./ReferralCardMessage";
 import { Message, InvitationActionType, UserProfile } from '../types/types';
 import { NotificationContext } from "../../context/NotificationsContext";
 import ConfirmationDialog from "../../Helpers/Dialogs/ConfirmationDialog/ConfirmationDialog";
+import ReportUserComponent from "../ReportUser/ReportUser";
 function isImageFileName(fileName: string) {
     return /\.(jpeg|jpg|gif|png|bmp|webp)$/i.test(fileName);
 }
@@ -50,6 +51,7 @@ const Messages: React.FC = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
     const [contextMenuPosition, setContextMenuPosition] = useState<{ x: number; y: number } | null>(null);
+    const [showReportPopup, setShowReportPopup] = useState(false);
 
     const currentUserId = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
@@ -86,10 +88,7 @@ const Messages: React.FC = () => {
     }
     const { removeNotificationsBySenderId } = notificationContext;
 
-    // For reporting user
-    const [showReportPopup, setShowReportPopup] = useState(false);
-    const [reportDescription, setReportDescription] = useState('');
-    const [reportFiles, setReportFiles] = useState<File[]>([]);
+
 
     // Which message is selected for deletion
     const [selectedMessageForDelete, setSelectedMessageForDelete] = useState<number | null>(null);
@@ -478,39 +477,9 @@ const Messages: React.FC = () => {
         setShowMenu(false);
     };
 
-    const handleSendReport = async () => {
-        if (!reportDescription.trim()) return;
-        try {
-            const formData = new FormData();
-            formData.append('ReportedUserId', userId || '');
-            formData.append('Description', reportDescription);
-
-            reportFiles.forEach((file) => {
-                formData.append('Screenshots', file);
-            });
-
-            await axios.post('/Report/SendReport', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
-            alert('Your report has been sent successfully. Thank you!');
-            setReportDescription('');
-            setReportFiles([]);
-            setShowReportPopup(false);
-        } catch (error) {
-            console.error('Error sending report: ', error);
-            alert('Failed to send report. Please try again later.');
-        }
-    };
-
-    const handleCloseReportPopup = () => {
+    const setShowReportPopupFalse = () => {
         setShowReportPopup(false);
-        setReportDescription('');
-        setReportFiles([]);
-    };
+    }
 
     /**
      * View group profile if user clicks a group link
@@ -864,50 +833,7 @@ const Messages: React.FC = () => {
             )}
 
             {showReportPopup && (
-                <div className="report-popup-overlay" onClick={handleCloseReportPopup}>
-                    <div className="report-popup-content" onClick={(e) => e.stopPropagation()}>
-                        <h2 className="report-popup-title">Report User</h2>
-                        <textarea
-                            className="report-textarea"
-                            rows={4}
-                            value={reportDescription}
-                            onChange={(e) => setReportDescription(e.target.value)}
-                            placeholder="Describe the issue..."
-                        />
-                        <label className="screenshot-label">
-                            Attach Screenshots (optional)
-                            <input
-                                className="report-file-input"
-                                type="file"
-                                multiple
-                                accept="image/*"
-                                onChange={(e) => {
-                                    if(e.target.files){
-                                        setReportFiles(Array.from(e.target.files));
-                                    }
-                                }}
-                            />
-                        </label>
-
-                        <div className="report-btn-group">
-                            <button
-                                className="report-cancel-btn rounded-lg"
-                                onClick={handleCloseReportPopup}
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                className={`bg-emerald-400 text-white font-medium px-3 rounded-lg py-2 ${
-                                    !reportDescription.trim() ? 'disabled-btn' : ''
-                                }`}
-                                onClick={handleSendReport}
-                                disabled={!reportDescription.trim()}
-                            >
-                                Send Report
-                            </button>
-                        </div>
-                    </div>
-                </div>
+               <ReportUserComponent userId={userId} onShowReportFalse={setShowReportPopupFalse}/>
             )}
             {removeConnectionDialog && (
                 <ConfirmationDialog

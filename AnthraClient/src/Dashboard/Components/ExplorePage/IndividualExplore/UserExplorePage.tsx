@@ -324,12 +324,12 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                                                         href={course.courseLink}
                                                                         target="_blank"
                                                                         rel="noopener noreferrer"
-                                                                        className="font-medium underline text-base dark:text-white"
+                                                                        className="font-medium underline break-words text-sm dark:text-white"
                                                                     >
                                                                         {course.courseName}
                                                                     </a>
                                                                 ): (
-                                                                    <span className="font-medium text-base dark:text-white"> {course.courseName}</span>
+                                                                    <span className="font-medium text-sm break-words dark:text-white"> {course.courseName}</span>
                                                                 )}
 
                                                             </li>
@@ -445,13 +445,13 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                                                         href={course.courseLink}
                                                                         target="_blank"
                                                                         rel="noopener noreferrer"
-                                                                        className="underline dark:text-emerald-400"
+                                                                        className="underline text-sm break-words dark:text-emerald-400"
                                                                     >
                                                                         {course.courseName}
                                                                     </a>
                                                                 ) : (
                                                                     <span
-                                                                        className="font-medium">{course.courseName}</span>
+                                                                        className="font-medium text-sm break-words">{course.courseName}</span>
                                                                 )}
 
                                                             </li>

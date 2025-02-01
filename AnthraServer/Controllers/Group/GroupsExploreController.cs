@@ -46,9 +46,15 @@ namespace MyBackendApp.Controllers
                 .Select(gar => gar.GroupId)
                 .ToListAsync();
             
+            var privateGroupIds = await _context.Groups
+                .Where(g => !g.isPublic)
+                .Select(g => g.Id)
+                .ToListAsync();
+            
             var excludedGroupIds = userGroupIds
                 .Concat(skippedGroupIds)
                 .Concat(appliedGroupIds)
+                .Concat(privateGroupIds)
                 .Distinct()
                 .ToList();
             
@@ -134,21 +140,11 @@ namespace MyBackendApp.Controllers
                 };
                 _context.GroupExploreSessions.Add(session);
             }
-
-            // ------------------------------------------------------------
-            // CASE B: No session or lockout expired => fetch new groups
-            // ------------------------------------------------------------
-
-            // 2) Build an exclude list
-            //  - groups user is a member of
-          
-
-           
-
+            
             // Fetch up to 8 new groups
             var newGroups = await _context.Groups
                 .AsNoTracking()
-                .Where(g => g.isPublic && !excludedGroupIds.Contains(g.Id))
+                .Where(g => !excludedGroupIds.Contains(g.Id))
                 .Select(g => new
                 {
                     g.Id,

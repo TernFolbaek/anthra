@@ -161,8 +161,8 @@ private string MapIdentityErrorCodeToMessage(string errorCode)
             var from = new EmailAddress("admin@anthra.dk", "Anthra");
             var to = new EmailAddress(email);
             var subject = "Email Verification Code";
-            var plainTextContent = $"Welcome to Anthra 🎉!";
-            var htmlContent = $"<p>Your email verification code is: <strong>{verificationCode}</strong></p>";
+            var plainTextContent = $"Welcome to Anthra 🎉! <p>Your email verification code is: <strong>{verificationCode}</strong></p>";
+            var htmlContent = $"Welcome to Anthra 🎉! <br> <p>Your email verification code is: <strong>{verificationCode}</strong></p>";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             await client.SendEmailAsync(msg);
         }
@@ -369,7 +369,7 @@ public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordViewMod
         var to = new EmailAddress(model.Email);
         var subject = "Password Reset Code";
         var plainTextContent = $"Your password reset code is: {resetCode}";
-        var htmlContent = $"<p>Your password reset code is: <strong>{resetCode}</strong></p>";
+        var htmlContent = $"<p>Happens to the best of us 😉 <br> Your password reset code is: <strong>{resetCode}</strong></p>";
         var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
 
         var response = await client.SendEmailAsync(msg);

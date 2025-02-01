@@ -40,10 +40,17 @@ public class ExploreController : ControllerBase
             .Where(su => su.UserId == currentUserId)
             .Select(su => su.SkippedUserId)
             .ToListAsync();
+        
+        var invisibleUserIds = await _userManager.Users
+            .Where(u => !u.IsProfileVisible)
+            .Select(u => u.Id)
+            .ToListAsync();
+
 
         var excludedUserIds = connectedUserIds
             .Concat(sentRequestUserIds)
             .Concat(skippedUserIds)
+            .Concat(invisibleUserIds)
             .Append(currentUserId)
             .Distinct()
             .ToList();
@@ -150,7 +157,7 @@ public class ExploreController : ControllerBase
             {
                 mustWait = false,
                 users = results,
-                message = "Here are your new users to explore!"
+                message = "Now we wait for the users to respond 🎉!"
             });
         }
         else

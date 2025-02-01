@@ -7,6 +7,7 @@ import ReferModal from '../ReferModal/ReferModal';
 import useWindowWidth from '../../../hooks/useWindowWidth';
 import { useSwipeable } from 'react-swipeable';
 import { FaCog, FaBookOpen, FaPencilAlt, FaEnvelopeOpenText } from "react-icons/fa";
+import Confetti from 'react-confetti';  // <-- Import a confetti component
 
 interface Course {
     courseName: string;
@@ -43,9 +44,12 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
     const [snackbarMessage, setSnackbarMessage] = useState<string>('');
     const [showReferModal, setShowReferModal] = useState(false);
 
-    // NEW: For the Connection Note Popup
     const [showConnectionNoteModal, setShowConnectionNoteModal] = useState(false);
     const [connectionNote, setConnectionNote] = useState<string>('');
+
+    // NEW states for "Connection Accepted" scenario
+    const [showConnectionAcceptedModal, setShowConnectionAcceptedModal] = useState(false);
+    const [acceptedConnectionUser, setAcceptedConnectionUser] = useState<User | null>(null);
 
     const windowWidth = useWindowWidth();
     const isSmallScreen = windowWidth < 480;
@@ -77,7 +81,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
         };
 
         fetchUsers();
-    }, []);
+    }, [token]);
 
     // -------------- SET CURRENT USER -------------
     useEffect(() => {
@@ -96,42 +100,68 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
         setUsers(updatedUsers);
     };
 
-    // -------------- OPEN NOTE MODAL INSTEAD OF DIRECTLY CONNECTING -------------
+    // -------------- OPEN NOTE MODAL -------------
     const openConnectionNoteModal = () => {
         setConnectionNote(''); // clear any old note
         setShowConnectionNoteModal(true);
     };
 
-    // -------------- SUBMIT CONNECTION REQUEST WITH NOTE -------------
+    // -------------- SUBMIT CONNECTION REQUEST -------------
     const submitConnectionRequest = async () => {
         if (!currentUser) return;
         try {
-            await axios.post(
+            const response = await axios.post(
                 '/Connections/SendRequest',
                 {
                     targetUserId: currentUser.id,
-                    connectionNote: connectionNote.trim() // can be empty string
+                    connectionNote: connectionNote.trim()
                 },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-            setSnackbarTitle('Connection Request Sent');
-            setSnackbarMessage(
-                `You have sent a connection request to ${currentUser.firstName} ${currentUser.lastName}.`
-            );
-            setSnackbarVisible(true);
+
+            const responseMessage = response.data;
+            if (responseMessage === "Connection request accepted.") {
+                // The other user had sent us a request, so this is instantly accepted!
+                setAcceptedConnectionUser(currentUser);
+                setShowConnectionAcceptedModal(true);
+
+                // We do NOT remove the user yet. We'll remove them once
+                // user closes the success modal or after a short timer.
+                // Just close the note modal:
+                setShowConnectionNoteModal(false);
+
+            } else if (responseMessage === "Connection request sent." ||
+                responseMessage === "Connection request already sent." ||
+                responseMessage === "Connection request declined and re-sent.") {
+                // Normal scenario: Show snack bar, move on
+                setSnackbarTitle('Connection Request');
+                setSnackbarMessage(responseMessage);
+                setSnackbarVisible(true);
+
+                // Animate card removal
+                setShowConnectionNoteModal(false);
+                setSlideDirection('out');
+                setAnimating(true);
+                setTimeout(() => {
+                    removeUserFromList(currentUser.id);
+                }, 300);
+            } else {
+                // Potential fallback if the endpoint returns another message
+                setSnackbarTitle('Connection Request');
+                setSnackbarMessage(responseMessage);
+                setSnackbarVisible(true);
+
+                // Animate card removal
+                setShowConnectionNoteModal(false);
+                setSlideDirection('out');
+                setAnimating(true);
+                setTimeout(() => {
+                    removeUserFromList(currentUser.id);
+                }, 300);
+            }
         } catch (error) {
             console.error('Error sending connection request:', error);
         }
-
-        // Close the note modal
-        setShowConnectionNoteModal(false);
-
-        // Animate removal from the list
-        setSlideDirection('out');
-        setAnimating(true);
-        setTimeout(() => {
-            if (currentUser) removeUserFromList(currentUser.id);
-        }, 300);
     };
 
     // -------------- HANDLE SKIP -------------
@@ -181,6 +211,20 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
         delta: 50,
         trackMouse: false,
     });
+
+    // -------------- CLOSE THE "CONNECTION ACCEPTED" MODAL -------------
+    const handleCloseConnectionAcceptedModal = () => {
+        setShowConnectionAcceptedModal(false);
+        if (acceptedConnectionUser) {
+            // Now remove from the list and proceed
+            setSlideDirection('out');
+            setAnimating(true);
+            setTimeout(() => {
+                removeUserFromList(acceptedConnectionUser.id);
+                setAcceptedConnectionUser(null);
+            }, 300);
+        }
+    };
 
     return (
         <div className="user-explore-container">
@@ -296,7 +340,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                         </div>
                                         {currentUser.statuses && currentUser.statuses.length > 0 && (
                                             <div className="user-explore-statuses">
-                                            <h3 className="dark:text-emerald-400">Status</h3>
+                                                <h3 className="dark:text-emerald-400">Status</h3>
                                                 <div className="flex gap-2 text-xs text-center">
                                                     {currentUser.statuses.map((st, i) => (
                                                         <p
@@ -384,11 +428,10 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                                 <div>
                                                     <h3 className="dark:text-emerald-400 text-emerald-500">Subjects</h3>
                                                     <div className="flex flex-col gap-2">
-
+                                                        {currentUser.subjects.map((subject, i) => (
+                                                            <p className="text-base dark:text-gray-100" key={i}>{subject}</p>
+                                                        ))}
                                                     </div>
-                                                    {currentUser.subjects.map((subject, i) => (
-                                                        <p className="text-base dark:text-gray-100" key={i}>{subject}</p>
-                                                    ))}
                                                 </div>
                                             )}
                                             {currentUser.courses && currentUser.courses.length > 0 && (
@@ -470,12 +513,17 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                 />
             )}
 
+            {/* Connection Note Modal */}
             {showConnectionNoteModal && (
                 <div className="connection-note-modal-overlay">
                     <div className="connection-note-modal plop-animation">
-                        <div className="justify-between flex items-center"><p className="text-base font-semibold flex gap-2 items-center"><FaEnvelopeOpenText
-                            size={17}/>Send a note (optional)</p>
-                            <p className="text-sm dark:text-gray-200 text-gray-500">{connectionNote.length} / 60</p>
+                        <div className="justify-between flex items-center">
+                            <p className="text-base font-semibold flex gap-2 items-center">
+                                <FaEnvelopeOpenText size={17}/>Send a note (optional)
+                            </p>
+                            <p className="text-sm dark:text-gray-200 text-gray-500">
+                                {connectionNote.length} / 60
+                            </p>
                         </div>
                         <textarea
                             value={connectionNote}
@@ -498,6 +546,33 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                 Send
                             </button>
                         </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Connection Accepted Modal (confetti) */}
+            {showConnectionAcceptedModal && acceptedConnectionUser && (
+                <div className="connection-accepted-modal-overlay">
+                    <Confetti
+                        width={windowWidth}
+                        height={window.innerHeight}
+                        recycle={false}
+                        numberOfPieces={500}
+                    />
+                    <div className="connection-accepted-modal">
+                        <img
+                            src={acceptedConnectionUser.profilePictureUrl}
+                            alt="User"
+                            className="accepted-modal-profile-picture"
+                        />
+                        <h2>Congratulations!</h2>
+                        <p className="text-gray-500 dark:text-gray-200">You and {acceptedConnectionUser.firstName} are now connected!</p>
+                        <button
+                            className="close-accepted-modal-btn"
+                            onClick={handleCloseConnectionAcceptedModal}
+                        >
+                            Close
+                        </button>
                     </div>
                 </div>
             )}

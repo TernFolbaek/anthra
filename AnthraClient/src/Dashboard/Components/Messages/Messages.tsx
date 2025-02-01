@@ -23,6 +23,7 @@ import { NotificationContext } from "../../context/NotificationsContext";
 import ConfirmationDialog from "../../Helpers/Dialogs/ConfirmationDialog/ConfirmationDialog";
 import ReportUserComponent from "../ReportUser/ReportUser";
 import {Conversation} from "../../Layouts/MessagesLayout/MessagesLayout";
+
 function isImageFileName(fileName: string) {
     return /\.(jpeg|jpg|gif|png|bmp|webp)$/i.test(fileName);
 }
@@ -45,6 +46,71 @@ function getFileIcon(extension: string) {
         default:
             return <FaFileAlt className="file-icon generic" />;
     }
+}
+
+/**
+ * Format a date according to these rules:
+ * - Today HH:MM
+ * - Yesterday HH:MM
+ * - <Weekday> HH:MM if within the last 3 days
+ * - DD/MM HH:MM if older than 3 days
+ */
+function getFormattedTimestamp(date: Date): string {
+    const now = new Date();
+    // Start of today's date (00:00)
+    const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const dateTime = date.getTime();
+    const todayTime = startOfToday.getTime();
+
+    const ONE_DAY = 24 * 60 * 60 * 1000;
+
+    // If it's today
+    if (dateTime >= todayTime) {
+        return 'Today ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+    // If it's yesterday
+    else if (dateTime >= (todayTime - ONE_DAY)) {
+        return 'Yesterday ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+    // Within the last 3 days
+    else if (dateTime >= (todayTime - 3 * ONE_DAY)) {
+        const weekday = date.toLocaleDateString([], { weekday: 'long' });
+        return weekday + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+    // More than 3 days ago
+    else {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        return `${day}/${month} ` + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+}
+
+/**
+ * Decide whether to show timestamp for the current message.
+ * We show if:
+ * - it's the last message in the list, OR
+ * - the sender changes compared to the next message, OR
+ * - at least 20 minutes have passed between consecutive messages from the same sender
+ */
+function shouldShowTimestamp(messages: Message[], currentIndex: number): boolean {
+    if (currentIndex === messages.length - 1) {
+        return true;
+    }
+
+    const currentMessage = messages[currentIndex];
+    const nextMessage = messages[currentIndex + 1];
+
+    // If different sender => show
+    if (currentMessage.senderId !== nextMessage.senderId) {
+        return true;
+    }
+
+    // If time difference >= 20 minutes => show
+    const currentTime = new Date(currentMessage.timestamp).getTime();
+    const nextTime = new Date(nextMessage.timestamp).getTime();
+    const diffMins = Math.abs(nextTime - currentTime) / (1000 * 60);
+
+    return diffMins >= 20;
 }
 
 const Messages: React.FC = () => {
@@ -151,7 +217,7 @@ const Messages: React.FC = () => {
                         headers: { Authorization: `Bearer ${token}` },
                     }
                 );
-                removeMessageNotification(userId)
+                removeMessageNotification(userId);
                 const data = response.data;
                 setMessages(data.messages);
                 setNextTokenValue(data.nextToken);
@@ -426,27 +492,6 @@ const Messages: React.FC = () => {
     };
 
     /**
-     * Decide when to show timestamps
-     */
-    const shouldShowTimestamp = (currentIndex: number): boolean => {
-        if (currentIndex === messages.length - 1) {
-            return true;
-        }
-        const currentMessage = messages[currentIndex];
-        const nextMessage = messages[currentIndex + 1];
-
-        const currentSender = currentMessage.senderId;
-        const nextSender = nextMessage.senderId;
-
-        const currentTime = new Date(currentMessage.timestamp);
-        const nextTime = new Date(nextMessage.timestamp);
-
-        const timeDiffHours = Math.abs(nextTime.getTime() - currentTime.getTime()) / (1000 * 60 * 60);
-
-        return (currentSender !== nextSender || timeDiffHours >= 2);
-    };
-
-    /**
      * Toggle or hide top-right menu
      */
     const toggleMenu = () => setShowMenu(!showMenu);
@@ -459,7 +504,7 @@ const Messages: React.FC = () => {
      * Remove connection
      */
     const handleRemoveConnection = async () => {
-        setRemoveConnectionDialog(false)
+        setRemoveConnectionDialog(false);
         try {
             await axios.post(
                 '/Connections/RemoveConnection',
@@ -484,10 +529,9 @@ const Messages: React.FC = () => {
         setShowReportPopup(true);
         setShowMenu(false);
     };
-
     const setShowReportPopupFalse = () => {
         setShowReportPopup(false);
-    }
+    };
 
     /**
      * View group profile if user clicks a group link
@@ -525,7 +569,6 @@ const Messages: React.FC = () => {
         e.preventDefault();
         setSelectedMessageForDelete(prev => (prev === messageId ? null : messageId));
         setContextMenuPosition({ x: e.clientX, y: e.clientY });
-
     };
 
     /**
@@ -545,7 +588,6 @@ const Messages: React.FC = () => {
 
     const handleTouchEnd = () => {
         if (!isMobile) return;
-
         // If the user lifts their finger before the LONG_PRESS_DELAY,
         // clear the timer => no delete button
         if (longPressTimerRef.current) {
@@ -563,12 +605,13 @@ const Messages: React.FC = () => {
         setIsDialogOpen(false);
         setSelectedMessageForDelete(null);
     };
+
     /**
      * Delete message
      */
     const handleDeleteMessage = async (messageId: number | null) => {
         if (selectedMessageForDelete === null) return;
-        closeDialog()
+        closeDialog();
 
         try {
             await axios.delete('/Messages/DeleteMessage', {
@@ -589,7 +632,6 @@ const Messages: React.FC = () => {
     useEffect(() => {
         const handleGlobalClick = (e: globalThis.MouseEvent) => {
             if (selectedMessageForDelete === null) return;
-
             const target = e.target as HTMLElement;
             if (target.closest('.delete-message-btn')) {
                 return;
@@ -605,7 +647,7 @@ const Messages: React.FC = () => {
 
     const openRemoveConnectionDialog = () => {
         setRemoveConnectionDialog(true);
-    }
+    };
 
     return (
         <div className="messages-page">
@@ -622,8 +664,8 @@ const Messages: React.FC = () => {
                                 className="contact-avatar"
                             />
                             <span className="contact-name">
-                {contactProfile.firstName} {contactProfile.lastName}
-              </span>
+                                {contactProfile.firstName} {contactProfile.lastName}
+                            </span>
                         </div>
                         <div className="menu-container" ref={dropdownRef}>
                             <div
@@ -715,8 +757,11 @@ const Messages: React.FC = () => {
                                                     } ${isLastMessage ? 'last-message' : ''}`}
                                                     // Desktop: right-click to toggle
                                                     onContextMenu={
-                                                        !isCurrentUser ? (e) => handleMessageContextMenu(e, msg.id) : undefined
-                                                    }                                                       // Mobile: hold down to reveal delete
+                                                        !isCurrentUser
+                                                            ? (e) => handleMessageContextMenu(e, msg.id)
+                                                            : undefined
+                                                    }
+                                                    // Mobile: hold down to reveal delete
                                                     onTouchStart={() => handleTouchStart(msg.id)}
                                                     onTouchEnd={handleTouchEnd}
                                                 >
@@ -730,34 +775,32 @@ const Messages: React.FC = () => {
                                                         />
                                                     )}
 
-                                                    {
-                                                        selectedMessageForDelete === msg.id && (
-                                                            isMobileDeleteMessage
-                                                                ? (
+                                                    {selectedMessageForDelete === msg.id && (
+                                                        isMobileDeleteMessage
+                                                            ? (
+                                                                <button
+                                                                    className="delete-message-btn p-2 flex items-center gap-2"
+                                                                    style={{ position: 'absolute', right: 0, bottom: '-2rem', zIndex: 2 }}
+                                                                    onClick={() => openDeleteConfirmation(msg.id)}
+                                                                >
+                                                                    <FaTrash size={17} /> Delete
+                                                                </button>
+                                                            )
+                                                            : (
+                                                                contextMenuPosition && (
                                                                     <button
                                                                         className="delete-message-btn p-2 flex items-center gap-2"
-                                                                        style={{ position: 'absolute', right: 0, bottom: '-2rem', zIndex: 2 }}
+                                                                        style={{
+                                                                            left: contextMenuPosition.x - 170,
+                                                                            top: contextMenuPosition.y - 10,
+                                                                        }}
                                                                         onClick={() => openDeleteConfirmation(msg.id)}
                                                                     >
                                                                         <FaTrash size={17} /> Delete
                                                                     </button>
                                                                 )
-                                                                : (
-                                                                    contextMenuPosition && (
-                                                                        <button
-                                                                            className="delete-message-btn p-2 flex items-center gap-2"
-                                                                            style={{
-                                                                                left: contextMenuPosition.x - 170,
-                                                                                top: contextMenuPosition.y - 10,
-                                                                            }}
-                                                                            onClick={() => openDeleteConfirmation(msg.id)}
-                                                                        >
-                                                                            <FaTrash size={17} /> Delete
-                                                                        </button>
-                                                                    )
-                                                                )
-                                                        )
-                                                    }
+                                                            )
+                                                    )}
 
                                                     {/* Attachments */}
                                                     {msg.attachments?.map((attachment) => {
@@ -792,10 +835,10 @@ const Messages: React.FC = () => {
                                                                         <div className="attachment-preview">
                                                                             {getFileIcon(ext)}
                                                                             <span className="attachment-filename">
-                                        {attachment.fileName.length > 10
-                                            ? `${attachment.fileName.substring(0, 10)}...`
-                                            : attachment.fileName}
-                                      </span>
+                                                                                {attachment.fileName.length > 10
+                                                                                    ? `${attachment.fileName.substring(0, 10)}...`
+                                                                                    : attachment.fileName}
+                                                                            </span>
                                                                         </div>
                                                                     </a>
                                                                 )}
@@ -805,12 +848,10 @@ const Messages: React.FC = () => {
                                                     <p>{msg.content || ""}</p>
                                                 </div>
                                             )}
-                                            {shouldShowTimestamp(index) && (
+
+                                            {shouldShowTimestamp(messages, index) && (
                                                 <div className="message-timestamp">
-                                                    {new Date(msg.timestamp).toLocaleTimeString([], {
-                                                        hour: '2-digit',
-                                                        minute: '2-digit',
-                                                    })}
+                                                    {getFormattedTimestamp(new Date(msg.timestamp))}
                                                 </div>
                                             )}
                                         </React.Fragment>
@@ -841,7 +882,7 @@ const Messages: React.FC = () => {
             )}
 
             {showReportPopup && (
-               <ReportUserComponent userId={userId} onShowReportFalse={setShowReportPopupFalse}/>
+                <ReportUserComponent userId={userId} onShowReportFalse={setShowReportPopupFalse}/>
             )}
             {removeConnectionDialog && (
                 <ConfirmationDialog

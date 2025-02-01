@@ -161,6 +161,7 @@
     border-radius: 2px;
     font-weight: 300;
     text-align: center;
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .language-dropdown-item:hover {
@@ -186,7 +187,7 @@
         top: 0;
         left: 0;
         right: 0;
-        background-color: rgba(0, 0, 0, 1);
+        background-color: rgba(0, 0, 0, 0.85);
         padding: 1rem;
         gap: 0.5rem;
         transform: translateX(-100%);

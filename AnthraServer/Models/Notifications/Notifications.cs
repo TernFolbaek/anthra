@@ -1,4 +1,3 @@
-// Models/Notification.cs
 using System;
 
 namespace MyBackendApp.Models

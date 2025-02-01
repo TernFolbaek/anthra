@@ -256,6 +256,7 @@ const StepOne: React.FC<StepOneProps> = ({
                 <input
                     id="firstName"
                     type="text"
+                    maxLength={20}
                     placeholder="First Name"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
@@ -269,6 +270,7 @@ const StepOne: React.FC<StepOneProps> = ({
                 <input
                     id="lastName"
                     type="text"
+                    maxLength={20}
                     placeholder="Last Name"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}

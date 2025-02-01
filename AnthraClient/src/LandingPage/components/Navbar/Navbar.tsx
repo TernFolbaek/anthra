@@ -96,12 +96,6 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                 className={`nav-buttons flex animate-nav-buttons ${isMobile ? (isMenuOpen ? 'mobile-open' : 'mobile-closed') : ''}`}>
                 <button
                     className="nav-button animate"
-                    onClick={() => scrollToSection('features')}
-                >
-                    {t.features}
-                </button>
-                <button
-                    className="nav-button animate"
                     onClick={() => scrollToSection('how-it-works')}
                 >
                     {t.howItWorks}

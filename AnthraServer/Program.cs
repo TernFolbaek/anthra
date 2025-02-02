@@ -207,7 +207,7 @@ if (app.Environment.IsDevelopment())
                 CreatedProfile = true,
                 ProfileCompleted = true,
                 EmailConfirmed = true,
-                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/d1ce40a4-fb10-41d7-ae72-0e1addde8756_638696442365304750.avif?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D" 
+                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/Screenshot 2025-02-01 at 22.13.56.png" 
             },
             new ApplicationUser 
             { 
@@ -230,7 +230,7 @@ if (app.Environment.IsDevelopment())
                 CreatedProfile = true,
                 ProfileCompleted = true,
                 EmailConfirmed = true,
-                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/d1ce40a4-fb10-41d7-ae72-0e1addde8756_638696442365304750.avif?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D" 
+                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/Screenshot 2025-02-01 at 22.12.53.png" 
             },
             new ApplicationUser 
             { 
@@ -253,14 +253,14 @@ if (app.Environment.IsDevelopment())
                 CreatedProfile = true,
                 ProfileCompleted = true,
                 EmailConfirmed = true,
-                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/14074ea9-e7d2-484a-b2fa-b39b07e56a20_638696441434379230.jpg?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D" 
+                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/Screenshot 2025-02-01 at 22.14.40.png" 
             },
             new ApplicationUser 
             { 
                 UserName = "birkk", 
                 Email = "test4@example.com", 
-                FirstName = "Birk", 
-                LastName = "Andersen", 
+                FirstName = "Sophie", 
+                LastName = "Jebsen", 
                 Location = "Oslo, Norway", 
                 Age = 26, 
                 Institution = "Norwegian University of Science and Technology", 
@@ -276,7 +276,7 @@ if (app.Environment.IsDevelopment())
                 CreatedProfile = true,
                 ProfileCompleted = true,
                 EmailConfirmed = true,
-                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/d1ce40a4-fb10-41d7-ae72-0e1addde8756_638696442365304750.avif?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D" 
+                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/Screenshot 2025-02-01 at 22.15.48.png" 
             },
             new ApplicationUser 
             { 
@@ -299,7 +299,7 @@ if (app.Environment.IsDevelopment())
                 CreatedProfile = true,
                 ProfileCompleted = true,
                 EmailConfirmed = true,
-                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/14074ea9-e7d2-484a-b2fa-b39b07e56a20_638696441434379230.jpg?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D" 
+                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/Screenshot 2025-02-01 at 22.16.56.png" 
             },
             new ApplicationUser 
             { 
@@ -324,13 +324,13 @@ if (app.Environment.IsDevelopment())
                 CreatedProfile = true,
                 ProfileCompleted = true,
                 EmailConfirmed = true,
-                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/d1ce40a4-fb10-41d7-ae72-0e1addde8756_638696442365304750.avif?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D" 
+                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/Screenshot 2025-02-01 at 22.17.49.png" 
             },
             new ApplicationUser 
             { 
                 UserName = "thomas", 
                 Email = "test7@example.com", 
-                FirstName = "Thomas", 
+                FirstName = "Marie", 
                 LastName = "Johansen", 
                 Location = "Rio, Brazil", 
                 Age = 33, 
@@ -349,7 +349,7 @@ if (app.Environment.IsDevelopment())
                 CreatedProfile = true,
                 ProfileCompleted = true,
                 EmailConfirmed = true,
-                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/d1ce40a4-fb10-41d7-ae72-0e1addde8756_638696442365304750.avif?sv=2022-11-02&ss=bfqt&srt=sco&spr=https&st=2024-10-01T08%3A15%3A49Z&se=2026-10-01T16%3A15%3A49Z&sp=rwdlacupiytfx&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D" 
+                ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/Screenshot 2025-02-01 at 22.18.41.png" 
             }
             
         };
@@ -361,79 +361,83 @@ if (app.Environment.IsDevelopment())
         }
 
         // Retrieve the newly created users
+        var thomasUser = await userManager.FindByNameAsync("thomas");
         var ternUser = await userManager.FindByNameAsync("tern");
         var gabUser = await userManager.FindByNameAsync("gab");
         var justinUser = await userManager.FindByNameAsync("justin");
         var andreasUser = await userManager.FindByNameAsync("andreas");
         var birkkUser = await userManager.FindByNameAsync("birkk");
         var carstenUser = await userManager.FindByNameAsync("carsten");
-        var thomasUser = await userManager.FindByNameAsync("thomas");
 
 
 
         // Create 3 seed groups
-        var group1 = new Group
-        {
-            Name = "Quantum Explorers",
-            adminName = ternUser.UserName,
-            GroupDescription = "Discussing advanced quantum physics and related research.",
-            GroupMemberDesire = "Open to researchers and students interested in quantum mechanics.",
-            GroupPurpose = "Social",
-            isPublic = true,
-            CreatorId = ternUser.Id
-        };
+      var group1 = new Group
+{
+    Name = "Quantum Explorers",
+    adminName = ternUser.UserName,
+    GroupDescription = "Discussing advanced quantum physics and related research. Join us for bi-weekly discussions on groundbreaking quantum discoveries.",
+    GroupMemberDesire = "Open to researchers and students interested in quantum mechanics. Members should be excited to challenge conventional theories.",
+    GroupPurpose = "Social",
+    isPublic = true,
+    CreatorId = ternUser.Id
+};
 
-        var group2 = new Group
-        {
-            Name = "Data Science Innovators",
-            adminName = gabUser.UserName,
-            GroupDescription = "Exploring cutting-edge data science tools and techniques.",
-            GroupMemberDesire = "Open to data enthusiasts and ML engineers.",
-            GroupPurpose = "General",
-            isPublic = true,
-            CreatorId = gabUser.Id
-        };
+var group2 = new Group
+{
+    Name = "Data Science Innovators",
+    adminName = gabUser.UserName,
+    GroupDescription = "Exploring cutting-edge data science tools and techniques. Our regular meet-ups encourage collaborative innovation in data analysis.",
+    GroupMemberDesire = "Open to data enthusiasts and ML engineers. Candidates must be eager to dive into complex data challenges.",
+    GroupPurpose = "General",
+    isPublic = true,
+    CreatorId = gabUser.Id
+};
 
-        var group3 = new Group
-        {
-            Name = "Cloud Builders",
-            adminName = justinUser.UserName,
-            GroupDescription = "Focusing on cloud computing best practices and architecture.",
-            GroupMemberDesire = "Cloud developers and architects welcome.",
-            GroupPurpose = "Exam Preparation",
-            isPublic = true,
-            CreatorId = justinUser.Id
-        };
-        var group4 = new Group
-        {
-            Name = "Math Olympiads",
-            adminName = justinUser.UserName,
-            GroupDescription = "Focusing on cloud computing best practices and architecture.",
-            GroupMemberDesire = "Cloud developers and architects welcome.",
-            GroupPurpose = "Exam Preparation",
-            isPublic = true,
-            CreatorId = justinUser.Id
-        };
-        var group5 = new Group
-        {
-            Name = "Physics Olympiads",
-            adminName = justinUser.UserName,
-            GroupDescription = "Focusing on cloud computing best practices and architecture.",
-            GroupMemberDesire = "Cloud developers and architects welcome.",
-            GroupPurpose = "Exam Preparation",
-            isPublic = true,
-            CreatorId = justinUser.Id
-        };
-        var group6 = new Group
-        {
-            Name = "Cybersecurity Olympiads",
-            adminName = justinUser.UserName,
-            GroupDescription = "Focusing on cloud computing best practices and architecture.",
-            GroupMemberDesire = "Cloud developers and architects welcome.",
-            GroupPurpose = "Exam Preparation",
-            isPublic = true,
-            CreatorId = justinUser.Id
-        };
+var group3 = new Group
+{
+    Name = "Cloud Builders",
+    adminName = justinUser.UserName,
+    GroupDescription = "Focusing on cloud computing best practices and architecture. Discussions include real-world cloud deployment challenges.",
+    GroupMemberDesire = "Cloud developers and architects welcome. Members are encouraged to share innovative cloud solutions.",
+    GroupPurpose = "Exam Preparation",
+    isPublic = true,
+    CreatorId = justinUser.Id
+};
+
+var group4 = new Group
+{
+    Name = "Math Olympiads",
+    adminName = justinUser.UserName,
+    GroupDescription = "Focusing on cloud computing best practices and architecture. We also emphasize advanced problem-solving techniques for competitive mathematics.",
+    GroupMemberDesire = "Cloud developers and architects welcome. Contestants with a passion for rigorous mathematical challenges are invited.",
+    GroupPurpose = "Exam Preparation",
+    isPublic = true,
+    CreatorId = justinUser.Id
+};
+
+var group5 = new Group
+{
+    Name = "Physics Olympiads",
+    adminName = justinUser.UserName,
+    GroupDescription = "Focusing on cloud computing best practices and architecture. Our sessions further explore experimental methods and theoretical physics puzzles.",
+    GroupMemberDesire = "Cloud developers and architects welcome. Members must show a genuine passion for unraveling physics complexities.",
+    GroupPurpose = "Exam Preparation",
+    isPublic = true,
+    CreatorId = justinUser.Id
+};
+
+var group6 = new Group
+{
+    Name = "Cybersecurity Olympiads",
+    adminName = justinUser.UserName,
+    GroupDescription = "Focusing on cloud computing best practices and architecture. We also incorporate discussions on emerging cybersecurity trends.",
+    GroupMemberDesire = "Cloud developers and architects welcome. Members should be motivated to explore innovative solutions in digital security.",
+    GroupPurpose = "Exam Preparation",
+    isPublic = true,
+    CreatorId = justinUser.Id
+};
+
 
         // Add groups to the database
         db.Groups.AddRange(group1, group2, group3, group4, group5, group6);

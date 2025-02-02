@@ -102,7 +102,7 @@ const HowItWorks: React.FC = () => {
                 <div className="demo-video-container mb-16">
                     <div className="demo-video-iframe">
                         <iframe
-                            src="https://www.youtube.com/embed/_HYSb0Z-owk"
+                            src="https://www.youtube.com/embed/v8KcsEe383M"
                             title="Demo Video"
                             frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

@@ -131,7 +131,7 @@ body.dark #viewprofile .viewprofile-section-title {
     text-align: left;
     margin-top: 10px;
     font-size: 0.9rem;
-    line-break: anywhere;
+    line-break: normal;
     color: #333;
 }
 

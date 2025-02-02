@@ -89,7 +89,7 @@ body.dark .profile-age-label {
 ---------------------------------------------------- */
 .profile-info-text {
     font-size: 0.85rem;
-    line-break: anywhere;
+    line-break: normal;
     color: #666;
     margin-bottom: 6px;
 }

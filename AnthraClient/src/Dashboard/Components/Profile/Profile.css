@@ -197,7 +197,7 @@ body.dark .profile-field textarea {
 
 .about-me-text {
     white-space: pre-wrap;
-    line-break: anywhere;
+    line-break: normal;
     font-size: 0.9rem;
 }
 

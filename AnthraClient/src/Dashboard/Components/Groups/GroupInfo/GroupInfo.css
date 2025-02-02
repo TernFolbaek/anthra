@@ -48,7 +48,7 @@ body.dark .group-section-title {
 .group-desired-members {
     font-size: 0.85rem;
     color: #666;
-    line-break: anywhere;
+    line-break: normal;
     margin-bottom: 10px;
 }
 

@@ -550,7 +550,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                         className="custom-dropdown flex items-center gap-x-2 mb-2 relative"
                         ref={facultyDropdownRef}
                     >
-                        <label className="input-label">Faculty</label>
+                        <label className="input-label">Select Faculty :</label>
                         <div
                             className="create-profile-dropdown-header text-gray-600 font-semibold border p-2 rounded cursor-pointer"
                             onClick={handleFacultyDropdownClick}

@@ -404,11 +404,11 @@ const GroupExplorePage: React.FC = () => {
                                 <h3 className="group-explore-section-heading">About the group:</h3>
                                 <p className="group-explore-description">{currentGroup.groupDescription}</p>
                                 <h3 className="group-explore-section-heading">What the group is looking for:</h3>
-                                <p className="group-explore-member-desire break-all">
+                                <p className="group-explore-member-desire break-normal">
                                     {currentGroup.groupMemberDesire}
                                 </p>
                                 <h3 className="group-explore-section-heading">Group Purpose:</h3>
-                                <p className="group-explore-member-desire break-all">
+                                <p className="group-explore-member-desire break-normal">
                                     {currentGroup.groupPurpose}
                                 </p>
                                 <div className="group-explore-info">

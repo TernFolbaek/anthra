@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f6ef597-b7bd-442f-8da7-2cf448f0ba4c" name="Changes" comment="Stop propagation">
+    <list default="true" id="0f6ef597-b7bd-442f-8da7-2cf448f0ba4c" name="Changes" comment="More described label">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/CurrentConversations/CurrentConversations.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/CurrentConversations/CurrentConversations.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +67,8 @@
       <workItem from="1738224696317" duration="2169000" />
       <workItem from="1738244253865" duration="5642000" />
       <workItem from="1738310276928" duration="8000" />
+      <workItem from="1738318235162" duration="55222000" />
+      <workItem from="1738506163692" duration="2470000" />
     </task>
     <task id="LOCAL-00001" summary="Yeet whitespace">
       <option name="closed" value="true" />
@@ -123,21 +126,305 @@
       <option name="project" value="LOCAL" />
       <updated>1738271349162</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Create report user component, remove logic from Messages component">
+      <option name="closed" value="true" />
+      <created>1738337503045</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1738337503045</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Change index content">
+      <option name="closed" value="true" />
+      <created>1738337511729</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1738337511729</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Fix: Remove connection request from notifications after accepting">
+      <option name="closed" value="true" />
+      <created>1738337890579</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1738337890579</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Dimmer text color for link">
+      <option name="closed" value="true" />
+      <created>1738337900710</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1738337900710</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Whichever instead of whatever">
+      <option name="closed" value="true" />
+      <created>1738337907595</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1738337907595</updated>
+    </task>
+    <task id="LOCAL-00013" summary="More fitting background color">
+      <option name="closed" value="true" />
+      <created>1738337917017</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1738337917017</updated>
+    </task>
+    <task id="LOCAL-00014" summary="fix snackbar by removing onclose effect">
+      <option name="closed" value="true" />
+      <created>1738337939345</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1738337939345</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Only make course clickable when there is a link present">
+      <option name="closed" value="true" />
+      <created>1738338686778</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1738338686778</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Only make course clickable when there is a link present">
+      <option name="closed" value="true" />
+      <created>1738338689069</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1738338689069</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Use tailwind">
+      <option name="closed" value="true" />
+      <created>1738338700699</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1738338700699</updated>
+    </task>
+    <task id="LOCAL-00018" summary="If user is already in group, do not show in list">
+      <option name="closed" value="true" />
+      <created>1738342181069</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1738342181069</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Refine status message">
+      <option name="closed" value="true" />
+      <created>1738342189956</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1738342189956</updated>
+    </task>
+    <task id="LOCAL-00020" summary="onremovegroup callback when you leave group">
+      <option name="closed" value="true" />
+      <created>1738343558641</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1738343558641</updated>
+    </task>
+    <task id="LOCAL-00021" summary="onremovegroup callback when you leave group">
+      <option name="closed" value="true" />
+      <created>1738343564103</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1738343564103</updated>
+    </task>
+    <task id="LOCAL-00022" summary="show connections you have selected for the grou">
+      <option name="closed" value="true" />
+      <created>1738343605409</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1738343605409</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Remove unused components">
+      <option name="closed" value="true" />
+      <created>1738345542236</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1738345542236</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Underline course that actually has a link">
+      <option name="closed" value="true" />
+      <created>1738345920533</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1738345920533</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Refine report popup content">
+      <option name="closed" value="true" />
+      <created>1738346010625</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1738346010625</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Remove import of unused component">
+      <option name="closed" value="true" />
+      <created>1738346025386</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1738346025386</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Refine styling">
+      <option name="closed" value="true" />
+      <created>1738347240309</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1738347240310</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Remove useless comment">
+      <option name="closed" value="true" />
+      <created>1738350394675</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1738350394675</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Add migrations">
+      <option name="closed" value="true" />
+      <created>1738350724607</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1738350724607</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Add max length to report component">
+      <option name="closed" value="true" />
+      <created>1738363198790</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1738363198790</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Remove conversation from currentconversations on remove connection">
+      <option name="closed" value="true" />
+      <created>1738363263208</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1738363263208</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Removemessageconnection when message is opened">
+      <option name="closed" value="true" />
+      <created>1738363323592</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1738363323592</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Install react confetti">
+      <option name="closed" value="true" />
+      <created>1738370086820</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1738370086820</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Celebrate on automatic match">
+      <option name="closed" value="true" />
+      <created>1738370102720</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1738370102720</updated>
+    </task>
+    <task id="LOCAL-00035" summary="yarn install confetti">
+      <option name="closed" value="true" />
+      <created>1738370114092</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1738370114092</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Refine navbar">
+      <option name="closed" value="true" />
+      <created>1738371942861</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1738371942861</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Refine navbar">
+      <option name="closed" value="true" />
+      <created>1738422444403</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1738422444403</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Updated youtube video">
+      <option name="closed" value="true" />
+      <created>1738494719076</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1738494719076</updated>
+    </task>
+    <task id="LOCAL-00039" summary="More described label">
+      <option name="closed" value="true" />
+      <created>1738494728901</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1738494728901</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Only load 5 universities to begin with" />
-    <MESSAGE value="Yeet whitespace" />
-    <MESSAGE value="Refine styling when adding new users to groups" />
-    <MESSAGE value="Refine group message input when sending message is loading" />
-    <MESSAGE value="Refine  message input when sending message is loading" />
-    <MESSAGE value="Remove input container ot use groupmessages" />
-    <MESSAGE value="Use groupmessages classes" />
-    <MESSAGE value="Stop propagation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Stop propagation" />
+    <MESSAGE value="Whichever instead of whatever" />
+    <MESSAGE value="More fitting background color" />
+    <MESSAGE value="fix snackbar by removing onclose effect" />
+    <MESSAGE value="Only make course clickable when there is a link present" />
+    <MESSAGE value="Use tailwind" />
+    <MESSAGE value="If user is already in group, do not show in list" />
+    <MESSAGE value="Refine status message" />
+    <MESSAGE value="onremovegroup callback when you leave group" />
+    <MESSAGE value="show connections you have selected for the grou" />
+    <MESSAGE value="Remove unused components" />
+    <MESSAGE value="Underline course that actually has a link" />
+    <MESSAGE value="Refine report popup content" />
+    <MESSAGE value="Remove import of unused component" />
+    <MESSAGE value="Refine styling" />
+    <MESSAGE value="Remove useless comment" />
+    <MESSAGE value="Add migrations" />
+    <MESSAGE value="Add max length to report component" />
+    <MESSAGE value="Remove conversation from currentconversations on remove connection" />
+    <MESSAGE value="Removemessageconnection when message is opened" />
+    <MESSAGE value="Install react confetti" />
+    <MESSAGE value="Celebrate on automatic match" />
+    <MESSAGE value="yarn install confetti" />
+    <MESSAGE value="Refine navbar" />
+    <MESSAGE value="Updated youtube video" />
+    <MESSAGE value="More described label" />
+    <option name="LAST_COMMIT_MESSAGE" value="More described label" />
   </component>
 </project>

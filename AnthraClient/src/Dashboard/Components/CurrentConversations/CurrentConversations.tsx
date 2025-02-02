@@ -30,7 +30,7 @@ const CurrentConversations: React.FC<CurrentConversationsProps> = React.memo(
         if (loading) {
             return (
                 <CardContainer title="Messages">
-                    <div className="p-4 text-center text-sm">Loading conversations...</div>
+                <></>
                 </CardContainer>
             );
         }

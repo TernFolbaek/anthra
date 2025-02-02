@@ -284,8 +284,8 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                                 </p>
                                             </div>
                                         </div>
-                                        <h3 className="dark:text-emerald-400 text-emerald-500 break-all">About Me</h3>
-                                        <p className="break-all">{currentUser.aboutMe}</p>
+                                        <h3 className="dark:text-emerald-400 text-emerald-500">About Me</h3>
+                                        <p className="break-normal">{currentUser.aboutMe}</p>
                                     </div>
                                 </div>
                             ) : (
@@ -403,7 +403,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                             </div>
                                             <div className="flex flex-col items-start">
                                                 <h3 className="dark:text-emerald-400 text-emerald-500">About Me</h3>
-                                                <p className="break-all">{currentUser.aboutMe}</p>
+                                                <p className="break-normal">{currentUser.aboutMe}</p>
                                             </div>
                                             {currentUser.statuses && currentUser.statuses.length > 0 && (
                                                 <div className="user-explore-statuses">

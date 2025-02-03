@@ -96,7 +96,8 @@ const Home: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                 <div className="home-content-text text-center text-white justify-center">
                     <div>
                         {t.description}
-                        <span className="dynamic-text text-emerald-400">{displayedText}</span>?
+                        <span className="dynamic-text text-emerald-400">{displayedText}</span>
+                        {t.description2}
                     </div>
                 </div>
                 <button

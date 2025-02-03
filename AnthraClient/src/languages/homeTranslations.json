@@ -1,7 +1,8 @@
 {
   "da": {
     "mission": "Vores Mission",
-    "description": "Leder du efter en studie",
+    "description": "Find din akademisk",
+    "description2": "eller medpartner til dine drømmeprojekter",
     "getStarted": "Kom i gang",
     "block1" : "Understøttede universiteter",
     "block2" : "Matching tilgængelighed",
@@ -9,7 +10,8 @@
   },
   "en": {
     "mission": "Our Mission",
-    "description": "Are you looking for a study",
+    "description": "Find your study",
+    "description2": "or collaborator for your dream projects",
     "getStarted": "Get Started",
     "block1" : "Supported Universities",
     "block2" : "Matching availability",

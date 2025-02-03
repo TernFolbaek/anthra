@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, MouseEvent } from 'react';
+import React, {useState, useEffect, useRef, MouseEvent, useContext} from 'react';
 import axios from 'axios';
 import './GroupMessage.css';
 import { useNavigate } from 'react-router-dom';
@@ -16,6 +16,7 @@ import AddMembersModal from "../AddMembersModal/AddMembersModal";
 import Snackbar from "../../../Helpers/Snackbar/Snackbar";
 import useWindowWidth from "../../../hooks/useWindowWidth";
 import ConfirmationDialog from "../../../Helpers/Dialogs/ConfirmationDialog/ConfirmationDialog";
+import {NotificationContext} from "../../../context/NotificationsContext";
 
 /** ---- TYPES ---- **/
 interface Attachment {
@@ -159,7 +160,12 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal, onRemov
     const [showReportPopup, setShowReportPopup] = useState(false);
     const [reportDescription, setReportDescription] = useState('');
     const [reportFiles, setReportFiles] = useState<File[]>([]);
-
+    // Notification context
+    const notificationContext = useContext(NotificationContext);
+    if (!notificationContext) {
+        throw new Error("NotificationContext is undefined. Make sure you're inside a NotificationProvider.");
+    }
+    const {removeGroupMessageNotification } = notificationContext;
     // For viewing another user's profile
     const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
@@ -195,6 +201,8 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal, onRemov
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
+
+
 
     /** ---- EFFECT: Resize => update isMobile ---- **/
     useEffect(() => {
@@ -317,7 +325,8 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal, onRemov
                 params: { groupId, pageSize: 30 },
                 headers: { Authorization: `Bearer ${token}` },
             });
-
+            let groupIdString = groupId.toString()
+            removeGroupMessageNotification(groupIdString)
             const data = response.data;
             setMessages(data.messages);
             setNextTokenValue(data.nextToken);

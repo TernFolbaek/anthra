@@ -29,6 +29,7 @@ interface NotificationContextProps {
     removeNotificationsBySenderId: (senderId: string) => void;
     removeConnectionRequestNotification: (senderId: string) => void;
     removeMessageNotification: (senderId: string) => void;
+    removeGroupMessageNotification: (senderId: string) => void;
 }
 
 export const NotificationContext = createContext<NotificationContextProps | undefined>(
@@ -201,6 +202,24 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
         [markAsRead]
     );
 
+    const removeGroupMessageNotification = React.useCallback(
+        (senderId: string) => {
+            setNotifications((prevNotifications) => {
+                const notificationsToRemove = prevNotifications.filter(
+                    (n) => n.senderId === senderId && n.type === 'GroupMessage'
+                );
+
+                notificationsToRemove.forEach((notification) => {
+                    markAsRead(notification.id);
+                });
+
+                return prevNotifications.filter(
+                    (n) => !(n.senderId === senderId && n.type === 'GroupMessage')
+                );
+            });
+        },
+        [markAsRead]
+    );
 
     const removeMessageNotification = React.useCallback(
         (senderId: string) => {
@@ -268,7 +287,8 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
                 markAllAsRead,
                 removeNotificationsBySenderId,
                 removeConnectionRequestNotification,
-                removeMessageNotification
+                removeGroupMessageNotification,
+                removeMessageNotification,
             }}
         >
             {children}

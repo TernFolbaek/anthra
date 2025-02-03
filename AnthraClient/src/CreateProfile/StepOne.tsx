@@ -357,14 +357,14 @@ const StepOne: React.FC<StepOneProps> = ({
 
             <label htmlFor="aboutMe" className="input-label">
                 About Me <span className="required-asterisk">*</span>
-                <span className="font-medium text-xs"> min. 150 chars.</span>
+                <span className="font-medium text-xs"> min. 80 chars.</span>
             </label>
             <div className="textarea-with-counter">
                 <div className="char-counter">{aboutMe.length}/300</div>
                 <textarea
                     id="aboutMe"
                     placeholder="About Me"
-                    minLength={150}
+                    minLength={80}
                     maxLength={300}
                     value={aboutMe}
                     onChange={(e) => setAboutMe(e.target.value)}

@@ -885,14 +885,14 @@ const Profile: React.FC = () => {
                         <div className="panel-body">
                             <p className="dark:text-white font-medium  text-sm mb-1 flex items-center gap-1 text-gray-700">
                                 Characters: {aboutMeCharCount}
-                                <span className="text-xs text-gray-500 dark:text-gray-200">(min. 150, max. 300)</span>
+                                <span className="text-xs text-gray-500 dark:text-gray-200">(min. 80, max. 300)</span>
                             </p>
                             <textarea
                                 name="aboutMe"
                                 value={profileData.aboutMe}
                                 onChange={handleInputChange}
                                 rows={5}
-                                minLength={150}
+                                minLength={80}
                                 maxLength={300}
                                 className={`w-full text-sm rounded-md h-[200px] border border-gray-300 ${fieldErrors.aboutMe ? 'border border-red-500' : ''}`}
                             />

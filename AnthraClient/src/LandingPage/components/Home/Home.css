@@ -1,17 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Home Container */
-.home-container {
-    width: 100vw;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
-}
-
+/* Ensure the background is behind everything */
 .home-background {
     position: absolute;
     top: 0;
@@ -23,14 +10,55 @@
     background-repeat: no-repeat;
     backdrop-filter: blur(100px);
     background-color: rgba(0, 0, 0, 0.2);
-    z-index: 0;
+    z-index: -1; /* Send background behind demo cards and content */
 }
 
+/* Demo Card Styles */
+.demo-card {
+    position: absolute;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    z-index: 10; /* Lies above the background (-1) but below the main content (z-index:1) */
+}
 
-/* Home Content */
+.block{
+    z-index: 20;
+}
+
+.demo-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    opacity: 0.8;
+}
+
+/* Positioning & Initial Rotation for the Left Demo Card */
+.demo-left {
+    left: 5%;
+    top: calc(50% + 60px); /* Shifts the card lower so it peeks beneath the left block */
+    width: 350px; /* Slightly larger */
+    transform: translateY(-50%) rotate(-10deg);
+}
+
+/* On hover, “unrotate” the card */
+.demo-card:hover {
+    transform: translateY(-50%) rotate(0deg);
+}
+
+/* Home Container */
+.home-container {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
 .home-content {
     position: relative;
-    z-index: 1;
     width: 100%;
     margin-top: 13%;
 }
@@ -54,6 +82,7 @@
     align-items: center;
     line-height: 1.5;
     width: 50%;
+    z-index: 11;
     pointer-events: none;
 }
 
@@ -64,9 +93,26 @@
     width: 300px;
 }
 
-@media (max-width: 700px) {
+/* Responsive adjustments for smaller screens */
+
+/* For screens below 700px, reduce font size */
+@media (max-width: 850px) {
+    .home-content-text {
+        font-size: 40px;
+    }
+
+    .demo-left{
+        width: 280px;
+    }
+}
+
+@media (max-width: 550px) {
     .home-content-text {
         font-size: 30px;
+    }
+
+    .demo-left{
+        width: 250px;
     }
 }
 
@@ -79,13 +125,13 @@
     font-weight: 600;
     transition: background-color 0.3s;
     margin-top: 0.5rem;
+    z-index: 11;
     border-radius: 30px;
 }
 
-.get-started-button:hover {
-}
+.get-started-button:hover {}
 
-/* Image Banner Styles */
+/* Image Banner Styles (unchanged) */
 .image-banner {
     overflow: hidden;
     width: 100%;
@@ -98,7 +144,6 @@
     display: flex;
     align-items: center;
     animation: scrollLeft 15s linear infinite;
-    /* Extra length ensures there are always images in view */
 }
 
 .banner-image {
@@ -117,7 +162,6 @@
     vertical-align: middle;
 }
 
-/* Keyframes for smooth scrolling */
 @keyframes scrollLeft {
     0% {
         transform: translateX(0);
@@ -127,10 +171,8 @@
     }
 }
 
-
 @media (max-width: 768px) {
     .home-content {
         margin-top: 25%;
     }
 }
-

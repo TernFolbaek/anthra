@@ -84,7 +84,6 @@ body.dark .group-explore-indicator.active{
     background-color: rgb(192, 251, 206);
 }
 
-/* Overlays for navigation */
 .group-explore-click-overlay {
     position: absolute;
     top: 0;

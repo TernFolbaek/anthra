@@ -190,7 +190,7 @@ namespace MyBackendApp.Controllers
                 {
                     mustWait = true,
                     groups = newGroups,
-                    message = "Here is your new batch! Check back after the lockout period for more."
+                    message = "Now we wait for the groups to respond 🎉!"
                 });
             }
             else

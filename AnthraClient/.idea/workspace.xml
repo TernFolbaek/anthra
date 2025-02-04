@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f6ef597-b7bd-442f-8da7-2cf448f0ba4c" name="Changes" comment="" />
+    <list default="true" id="0f6ef597-b7bd-442f-8da7-2cf448f0ba4c" name="Changes" comment="Allow user select throughout the application">
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/Folder.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Folder.DotSettings.user" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -72,6 +74,7 @@
       <workItem from="1738310276928" duration="8000" />
       <workItem from="1738318235162" duration="55222000" />
       <workItem from="1738506163692" duration="2470000" />
+      <workItem from="1738670340495" duration="1757000" />
     </task>
     <task id="LOCAL-00001" summary="Yeet whitespace">
       <option name="closed" value="true" />

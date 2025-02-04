@@ -135,7 +135,7 @@ const Home: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                             className="text-xl font-bold text-emerald-400 mb-2 text-center"
                             data-v-095ba637=""
                         >
-                            Collaborators
+                            {t.block2title}
                         </div>
                             <div
                                 className="text-gray-400 text-center font-light"

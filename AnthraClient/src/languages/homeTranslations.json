@@ -5,6 +5,7 @@
     "description2": "eller medpartner til dine drømmeprojekter",
     "getStarted": "Kom i gang",
     "block1" : "Voks dit netværk med ligesindet individer",
+    "block2title" : "kollaboratøre",
     "block2" : "Samarbejde om projekter med andre målrettede personer"
   },
   "en": {
@@ -13,6 +14,7 @@
     "description2": "or collaborators for your dream projects",
     "getStarted": "Get Started",
     "block1" : "Grow your network with likeminded users",
+    "block2title" :  "Collaborators",
     "block2" : "Tackle projects with other determined individuals"
   }
 }

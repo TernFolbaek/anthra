@@ -1,20 +1,18 @@
 {
   "da": {
     "mission": "Vores Mission",
-    "description": "Find din akademisk",
+    "description": "Find dine akademiske",
     "description2": "eller medpartner til dine drømmeprojekter",
     "getStarted": "Kom i gang",
-    "block1" : "Understøttede universiteter",
-    "block2" : "Matching tilgængelighed",
-    "block3" : "Øget akademisk ydeevne"
+    "block1" : "Voks dit netværk med ligesindet individer",
+    "block2" : "Samarbejde om projekter med andre målrettede personer"
   },
   "en": {
     "mission": "Our Mission",
     "description": "Find your study",
-    "description2": "or collaborator for your dream projects",
+    "description2": "or collaborators for your dream projects",
     "getStarted": "Get Started",
-    "block1" : "Supported Universities",
-    "block2" : "Matching availability",
-    "block3" : "Increased academic performance"
+    "block1" : "Grow your network with likeminded users",
+    "block2" : "Tackle projects with other determined individuals"
   }
 }

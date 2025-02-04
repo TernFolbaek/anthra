@@ -23,7 +23,7 @@ const Home: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
 
     // Memoize words to prevent re-creation on every render
     const words = useMemo(() => {
-        return language === 'da' ? ['makker', 'gruppe'] : ['partner', 'group'];
+        return language === 'da' ? ['partnere', 'grupper'] : ['partners', 'groups'];
     }, [language]);
 
     useEffect(() => {
@@ -112,16 +112,16 @@ const Home: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                     {t.getStarted}
                     <Icon path={mdiArrowRightThin} size={1} />
                 </button>
-                <div className="grid mt-10 grid-cols-1 md:grid-cols-3 gap-8 mb-12" data-v-095ba637="">
+                <div className="grid mt-10 grid-cols-1 md:grid-cols-2 gap-8 mb-12" data-v-095ba637="">
                     <div
                         className="bg-gray-800/50 rounded-xl block p-6 backdrop-blur-sm border border-gray-700"
                         data-v-095ba637=""
                     >
                         <div
-                            className="text-3xl font-bold text-emerald-400 mb-2 text-center"
+                            className="text-xl font-bold text-emerald-400 mb-2 text-center"
                             data-v-095ba637=""
                         >
-                            3+
+                            Ambition
                         </div>
                         <div className="text-gray-400 text-center font-light" data-v-095ba637="">
                             {t.block1}
@@ -132,42 +132,17 @@ const Home: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                         data-v-095ba637=""
                     >
                         <div
-                            className="text-3xl font-bold text-emerald-400 mb-2 text-center"
+                            className="text-xl font-bold text-emerald-400 mb-2 text-center"
                             data-v-095ba637=""
                         >
-                            24 / 7
+                            Collaborators
                         </div>
-                        <div className="text-gray-400 text-center font-light" data-v-095ba637="">
-                            {t.block2}
-                        </div>
-                    </div>
-                    <div
-                        className="bg-gray-800/50 rounded-xl block p-6 backdrop-blur-sm border border-gray-700"
-                        data-v-095ba637=""
-                    >
-                        <div
-                            className="text-3xl font-bold text-emerald-400 mb-2 text-center"
-                            data-v-095ba637=""
-                        >
-                            15%
-                        </div>
-                        <a
-                            href="https://en.wikipedia.org/wiki/Peer-led_team_learning?utm_source=chatgpt.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="cursor-pointer"
-                        >
                             <div
                                 className="text-gray-400 text-center font-light"
                                 data-v-095ba637=""
                             >
-                                <FontAwesomeIcon
-                                    className="text-gray-200 mr-2"
-                                    icon={faLink}
-                                />
-                                {t.block3}
+                                {t.block2}
                             </div>
-                        </a>
                     </div>
                 </div>
             </div>

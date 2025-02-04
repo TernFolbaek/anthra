@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f6ef597-b7bd-442f-8da7-2cf448f0ba4c" name="Changes" comment="More described label">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/CurrentConversations/CurrentConversations.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/CurrentConversations/CurrentConversations.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="0f6ef597-b7bd-442f-8da7-2cf448f0ba4c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,6 +45,12 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/LandingPage/assets" />
+      <recent name="$PROJECT_DIR$/src/LandingPage/demo1.png" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -382,7 +385,31 @@
       <option name="project" value="LOCAL" />
       <updated>1738494728901</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Refined home landing page">
+      <option name="closed" value="true" />
+      <created>1738628336161</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1738628336161</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Create info for marie jensen seed user">
+      <option name="closed" value="true" />
+      <created>1738629876143</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1738629876143</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Allow user select throughout the application">
+      <option name="closed" value="true" />
+      <created>1738629886307</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1738629886307</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -400,9 +427,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Whichever instead of whatever" />
-    <MESSAGE value="More fitting background color" />
-    <MESSAGE value="fix snackbar by removing onclose effect" />
     <MESSAGE value="Only make course clickable when there is a link present" />
     <MESSAGE value="Use tailwind" />
     <MESSAGE value="If user is already in group, do not show in list" />
@@ -425,6 +449,9 @@
     <MESSAGE value="Refine navbar" />
     <MESSAGE value="Updated youtube video" />
     <MESSAGE value="More described label" />
-    <option name="LAST_COMMIT_MESSAGE" value="More described label" />
+    <MESSAGE value="Refined home landing page" />
+    <MESSAGE value="Create info for marie jensen seed user" />
+    <MESSAGE value="Allow user select throughout the application" />
+    <option name="LAST_COMMIT_MESSAGE" value="Allow user select throughout the application" />
   </component>
 </project>

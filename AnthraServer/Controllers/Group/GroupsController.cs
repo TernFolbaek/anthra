@@ -98,7 +98,6 @@ public class GroupsController : ControllerBase
 public async Task<IActionResult> CreateGroup([FromBody] CreateGroupModel model)
 {
     var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-    var currentUserName = User.Identity.Name;
 
     if (string.IsNullOrEmpty(model.Name))
     {

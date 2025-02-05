@@ -70,7 +70,6 @@ namespace AnthraBackend.Controllers.Connections
                 {
                     Id = cr.Id,
                     SenderId = cr.SenderId,
-                    SenderName = cr.Sender.UserName, // Assuming UserName is the name you need
                     SenderEmail = cr.Sender.Email,
                     SenderProfilePicture = cr.Sender.ProfilePictureUrl, // Adjust field name accordingly
                     ReceiverId = cr.ReceiverId,

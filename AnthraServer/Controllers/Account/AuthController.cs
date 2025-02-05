@@ -28,8 +28,7 @@ namespace AnthraBackend.Controllers.Account
             SignInManager<ApplicationUser> signInManager,
             ILogger<AuthController> logger,
             IConfiguration configuration,
-            ApplicationDbContext context
-            )
+            ApplicationDbContext context)
         {
             _context = context;
             _userManager = userManager;
@@ -52,28 +51,28 @@ namespace AnthraBackend.Controllers.Account
 
                 var payload = await GoogleJsonWebSignature.ValidateAsync(model.TokenId, settings);
 
-                // Check if the user already exists
+                // Check if the user already exists by email.
                 var user = await _userManager.FindByEmailAsync(payload.Email);
 
                 if (user == null)
                 {
-                    // Create a new user without a password
+                    // Create a new user with the email (use email for UserName as well, since username is no longer used).
                     user = new ApplicationUser
                     {
+                        // Although Identity still requires a UserName, we now set it automatically to the email.
                         UserName = payload.Email,
                         Email = payload.Email,
-                        EmailConfirmed = true // Since Google already verified the email
+                        EmailConfirmed = true // Google has already verified the email.
                     };
 
                     var result = await _userManager.CreateAsync(user);
                     if (!result.Succeeded)
                     {
-                        
                         return BadRequest("Failed to create user.");
                     }
                 }
 
-                // Generate JWT token
+                // Generate JWT token (note: username claim removed).
                 var token = GenerateJwtToken(user);
 
                 return Ok(new { token, userId = user.Id, fullName = user.FirstName + " " + user.LastName });
@@ -81,78 +80,77 @@ namespace AnthraBackend.Controllers.Account
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Google login failed.");
-                
                 return StatusCode(500, new { Error = ex.Message });
             }
         }
-    [HttpPost("Register")]
-public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
-{
-    _logger.LogInformation("Register action called");
 
-    if (!ModelState.IsValid)
-    {
-        var errors = ModelState.Values.SelectMany(v => v.Errors)
-            .Select(e => e.ErrorMessage).ToArray();
-        _logger.LogWarning("ModelState is invalid: {Errors}", string.Join("; ", errors));
-        return BadRequest(new { errors });
-    }
+        [HttpPost("Register")]
+        public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
+        {
+            _logger.LogInformation("Register action called");
 
-    var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
-    var result = await _userManager.CreateAsync(user, model.Password);
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage).ToArray();
+                _logger.LogWarning("ModelState is invalid: {Errors}", string.Join("; ", errors));
+                return BadRequest(new { errors });
+            }
 
-    if (result.Succeeded)
-    {
-        _logger.LogInformation("User created a new account with password.");
+            // Create a new user using the provided email.
+            var user = new ApplicationUser 
+            { 
+                // Use the email for UserName as well.
+                UserName = model.Email,  
+                Email = model.Email 
+            };
+            var result = await _userManager.CreateAsync(user, model.Password);
 
-        // Generate email verification code
-        var verificationCode = new Random().Next(100000, 999999).ToString();
+            if (result.Succeeded)
+            {
+                _logger.LogInformation("User created a new account with password.");
 
-        // Store the code and its expiry
-        user.EmailVerificationCode = verificationCode;
-        user.EmailVerificationExpiry = DateTime.UtcNow.AddHours(1);
+                // Generate email verification code.
+                var verificationCode = new Random().Next(100000, 999999).ToString();
 
-        await _userManager.UpdateAsync(user);
+                // Store the code and its expiry.
+                user.EmailVerificationCode = verificationCode;
+                user.EmailVerificationExpiry = DateTime.UtcNow.AddHours(1);
 
-        // Send verification email
-        await SendVerificationEmail(user.Email, verificationCode);
+                await _userManager.UpdateAsync(user);
 
-        return Ok(new { Message = "Registration successful. Verification code sent to email.", userId = user.Id });
-    }
+                // Send verification email.
+                await SendVerificationEmail(user.Email, verificationCode);
 
-    var errorMessages = result.Errors.Select(e => MapIdentityErrorCodeToMessage(e.Code)).ToArray();
-    _logger.LogWarning("Error creating user: {Errors}", string.Join("; ", errorMessages));
-    return BadRequest(new { errors = errorMessages });
-}
+                return Ok(new { Message = "Registration successful. Verification code sent to email.", userId = user.Id });
+            }
 
-// Helper method to map Identity error codes to custom messages
-private string MapIdentityErrorCodeToMessage(string errorCode)
-{
-    switch (errorCode)
-    {
-        case "PasswordTooShort":
-            return "Password should container min. 6 characters, one uppercase letter, one digit & one special character ";
-        case "PasswordRequiresNonAlphanumeric":
-            return "Password should container min. 6 characters, one uppercase letter, one digit & one special character ";
-        case "PasswordRequiresDigit":
-            return "Password should container min. 6 characters, one uppercase letter, one digit & one special character ";
-        case "PasswordRequiresUpper":
-            return "Password should container min. 6 characters, one uppercase letter, one digit & one special character ";
-        case "PasswordRequiresLower":
-            return "Password should container min. 6 characters, one uppercase letter, one digit & one special character ";
-        case "DuplicateUserName":
-            return "Username is already taken.";
-        case "InvalidUserName":
-            return "Username is invalid. Make sure there are no spaces";
-        case "DuplicateEmail":
-            return "Email is already taken. Try logging in.";
-        case "InvalidEmail":
-            return "Email is invalid.";
-        default:
-            return "An error occurred during registration.";
-    }
-}
+            // Map error codes (note: removed username-related messages).
+            var errorMessages = result.Errors.Select(e => MapIdentityErrorCodeToMessage(e.Code)).ToArray();
+            _logger.LogWarning("Error creating user: {Errors}", string.Join("; ", errorMessages));
+            return BadRequest(new { errors = errorMessages });
+        }
 
+        // Helper method to map Identity error codes to custom messages.
+        private string MapIdentityErrorCodeToMessage(string errorCode)
+        {
+            switch (errorCode)
+            {
+                case "PasswordTooShort":
+                case "PasswordRequiresNonAlphanumeric":
+                case "PasswordRequiresDigit":
+                case "PasswordRequiresUpper":
+                case "PasswordRequiresLower":
+                    return "Password should contain at least 6 characters, one uppercase letter, one digit & one special character.";
+                // Removed DuplicateUserName and InvalidUserName cases.
+                case "DuplicateEmail":
+                    return "Email is already taken. Try logging in.";
+                case "InvalidEmail":
+                    return "Email is invalid.";
+                default:
+                    return "An error occurred during registration.";
+            }
+        }
 
         private async Task SendVerificationEmail(string email, string verificationCode)
         {
@@ -161,7 +159,7 @@ private string MapIdentityErrorCodeToMessage(string errorCode)
             var from = new EmailAddress("admin@anthra.dk", "Anthra");
             var to = new EmailAddress(email);
             var subject = "Email Verification Code";
-            var plainTextContent = $"Welcome to Anthra 🎉! <p>Your email verification code is: <strong>{verificationCode}</strong></p>";
+            var plainTextContent = $"Welcome to Anthra 🎉! Your email verification code is: {verificationCode}";
             var htmlContent = $"Welcome to Anthra 🎉! <br> <p>Your email verification code is: <strong>{verificationCode}</strong></p>";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             await client.SendEmailAsync(msg);
@@ -190,40 +188,39 @@ private string MapIdentityErrorCodeToMessage(string errorCode)
             var token = GenerateJwtToken(user);
             return Ok(new { Message = "Email verified successfully", userId = user.Id, token, fullName = user.FirstName + " " + user.LastName });
         }
-
     
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            var user = await _userManager.FindByNameAsync(model.Username) ?? await _userManager.FindByEmailAsync(model.Username);
-            
+
+            // Since username is no longer used, look up the user by email.
+            var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
-                return Unauthorized("Invalid username/email or password.");
+                return Unauthorized("Invalid email or password.");
             }
 
             var result = await _signInManager.PasswordSignInAsync(
-                userName: user.UserName,
+                userName: user.Email,  // using email as username
                 password: model.Password,
                 isPersistent: false,
                 lockoutOnFailure: false);
 
             if (result.Succeeded)
             {
-                
                 if (!user.EmailConfirmed)
                 {
                     return BadRequest("Email not verified.");
                 }
 
                 var token = GenerateJwtToken(user);
-
-                return Ok(new { Message = "Login successful", userId = user.Id, token, userName = user.UserName, fullName = user.FirstName + " " + user.LastName });
+                // Note: We no longer return userName in the response.
+                return Ok(new { Message = "Login successful", userId = user.Id, token, fullName = user.FirstName + " " + user.LastName });
             }
 
-            return Unauthorized("Invalid username or password.");
+            return Unauthorized("Invalid email or password.");
         }
 
         private string GenerateJwtToken(ApplicationUser user)
@@ -232,10 +229,10 @@ private string MapIdentityErrorCodeToMessage(string errorCode)
             var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings["Secret"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
+            // Note: The claim for UniqueName (username) has been removed.
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id),
-                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email)
                 // Add more claims if needed
             };
@@ -279,7 +276,6 @@ private string MapIdentityErrorCodeToMessage(string errorCode)
             public string UserId { get; set; }
         }
 
-        
         [HttpGet("ExternalLogin")]
         public IActionResult ExternalLogin(string provider, string returnUrl = null)
         {
@@ -307,16 +303,21 @@ private string MapIdentityErrorCodeToMessage(string errorCode)
 
             if (signInResult.Succeeded)
             {
-                // User logged in with external provider
+                // User logged in with external provider.
                 var user = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
                 var token = GenerateJwtToken(user);
                 return Redirect($"{returnUrl}?token={token}&userId={user.Id}");
             }
             else
             {
-                // If the user does not have an account, create one
+                // If the user does not have an account, create one using the email only.
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-                var user = new ApplicationUser { UserName = email, Email = email };
+                var user = new ApplicationUser 
+                { 
+                    // Again, set UserName automatically to email.
+                    UserName = email, 
+                    Email = email 
+                };
 
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
@@ -332,65 +333,63 @@ private string MapIdentityErrorCodeToMessage(string errorCode)
             }
         }
         
-
-   [HttpPost("ForgotPassword")]
-public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordViewModel model)
-{
-    _logger.LogInformation("ForgotPassword action called");
-
-    var user = await _userManager.FindByEmailAsync(model.Email);
-    if (user == null)
-    {
-        return BadRequest("User not found.");
-    }
-
-    // Generate reset code
-    var resetCode = new Random().Next(100000, 999999).ToString();
-
-    // Set code and expiry
-    user.PasswordResetCode = resetCode;
-    user.PasswordResetExpiry = DateTime.UtcNow.AddHours(1);
-
-    await _userManager.UpdateAsync(user);
-
-    // Send email using SendGrid
-    try
-    {
-        var apiKey = _configuration["SendGrid:ApiKey"];
-        if (string.IsNullOrEmpty(apiKey))
+        [HttpPost("ForgotPassword")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordViewModel model)
         {
-            _logger.LogError("SendGrid API Key is not configured.");
-            return StatusCode(500, "Email service is not configured.");
+            _logger.LogInformation("ForgotPassword action called");
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                return BadRequest("User not found.");
+            }
+
+            // Generate reset code.
+            var resetCode = new Random().Next(100000, 999999).ToString();
+
+            // Set code and expiry.
+            user.PasswordResetCode = resetCode;
+            user.PasswordResetExpiry = DateTime.UtcNow.AddHours(1);
+
+            await _userManager.UpdateAsync(user);
+
+            // Send email using SendGrid.
+            try
+            {
+                var apiKey = _configuration["SendGrid:ApiKey"];
+                if (string.IsNullOrEmpty(apiKey))
+                {
+                    _logger.LogError("SendGrid API Key is not configured.");
+                    return StatusCode(500, "Email service is not configured.");
+                }
+
+                var client = new SendGridClient(apiKey);
+                var fromEmail = "admin@anthra.dk";
+                var from = new EmailAddress(fromEmail, "Anthra");
+                var to = new EmailAddress(model.Email);
+                var subject = "Password Reset Code";
+                var plainTextContent = $"Your password reset code is: {resetCode}";
+                var htmlContent = $"<p>Happens to the best of us 😉 <br> Your password reset code is: <strong>{resetCode}</strong></p>";
+                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+
+                var response = await client.SendEmailAsync(msg);
+                var responseBody = await response.Body.ReadAsStringAsync();
+
+                if (response.StatusCode != System.Net.HttpStatusCode.Accepted)
+                {
+                    _logger.LogError("Failed to send email via SendGrid: {StatusCode} - {ResponseBody}", response.StatusCode, responseBody);
+                    return StatusCode(500, "Error sending password reset email.");
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error sending password reset email.");
+                return StatusCode(500, "Error sending password reset email.");
+            }
+
+            return Ok("Password reset code sent to your email.");
         }
 
-        var client = new SendGridClient(apiKey);
-        var fromEmail = "admin@anthra.dk";
-        var from = new EmailAddress(fromEmail, "admin@anthra.dk");
-        var to = new EmailAddress(model.Email);
-        var subject = "Password Reset Code";
-        var plainTextContent = $"Your password reset code is: {resetCode}";
-        var htmlContent = $"<p>Happens to the best of us 😉 <br> Your password reset code is: <strong>{resetCode}</strong></p>";
-        var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-
-        var response = await client.SendEmailAsync(msg);
-        var responseBody = await response.Body.ReadAsStringAsync();
-
-        if (response.StatusCode != System.Net.HttpStatusCode.Accepted)
-        {
-            _logger.LogError("Failed to send email via SendGrid: {StatusCode} - {ResponseBody}", response.StatusCode, responseBody);
-            return StatusCode(500, "Error sending password reset email.");
-        }
-    }
-    catch (Exception ex)
-    {
-        _logger.LogError(ex, "Error sending password reset email.");
-        return StatusCode(500, "Error sending password reset email.");
-    }
-
-    return Ok("Password reset code sent to your email.");
-}
-
-        
         [HttpPost("ResetPassword")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordViewModel model)
         {
@@ -412,7 +411,7 @@ public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordViewMod
 
             if (result.Succeeded)
             {
-                // Clear reset code and expiry
+                // Clear reset code and expiry.
                 user.PasswordResetCode = null;
                 user.PasswordResetExpiry = null;
                 await _userManager.UpdateAsync(user);
@@ -424,8 +423,5 @@ public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordViewMod
                 return BadRequest("Error resetting password.");
             }
         }
-
-
-        
     }
 }

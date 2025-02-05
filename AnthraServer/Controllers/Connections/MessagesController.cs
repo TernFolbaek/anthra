@@ -31,15 +31,14 @@ namespace MyBackendApp.Controllers
 
         // 1) Container name for direct message attachments
         private readonly string _storageConnectionString =
-            "BlobEndpoint=https://anthra.blob.core.windows.net/;QueueEndpoint=https://anthra.queue.core.windows.net/;FileEndpoint=https://anthra.file.core.windows.net/;TableEndpoint=https://anthra.table.core.windows.net/;SharedAccessSignature=sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2026-10-01T16:15:49Z&st=2024-10-01T08:15:49Z&spr=https&sig=SHmifWmLLf50pO0nqEVnIBYTqRx0QHmJpS5iAiYXq%2F0%3D";
+            "BlobEndpoint=https://anthra.blob.core.windows.net/;QueueEndpoint=https://anthra.queue.core.windows.net/;FileEndpoint=https://anthra.file.core.windows.net/;TableEndpoint=https://anthra.table.core.windows.net/;SharedAccessSignature=YOUR_SAS_TOKEN";
         private readonly string _attachmentsContainerName = "direct-messages";
 
         public MessagesController(
             ApplicationDbContext context,
             IHubContext<ChatHub> hubContext,
             IHubContext<NotificationHub> notificationHub,
-            ILogger<MessagesController> logger
-        )
+            ILogger<MessagesController> logger)
         {
             _context = context;
             _hubContext = hubContext;
@@ -53,27 +52,22 @@ namespace MyBackendApp.Controllers
         [HttpGet("GetConversations")]
         public async Task<IActionResult> GetConversations(string userId)
         {
-            // Query all messages where userId is sender or receiver
+            // Query all messages where userId is sender or receiver.
             var messagesQuery = _context.Messages
                 .Include(m => m.Sender)
                 .Include(m => m.Receiver)
                 .Where(m => m.SenderId == userId || m.ReceiverId == userId);
 
-            // Group by conversation partner
+            // Group by conversation partner.
             var conversations = await messagesQuery
                 .GroupBy(m => m.SenderId == userId ? m.ReceiverId : m.SenderId)
-                .Select(g => new ConversationDTO
+                .Select(g => new
                 {
                     UserId = g.Key,
-                    UserName = g.Select(m => m.SenderId == g.Key 
-                        ? m.Sender.UserName 
-                        : m.Receiver.UserName).FirstOrDefault(),
-                    FirstName = g.Select(m => m.SenderId == g.Key 
-                        ? m.Sender.FirstName 
-                        : m.Receiver.FirstName).FirstOrDefault(),
-                    LastName = g.Select(m => m.SenderId == g.Key 
-                        ? m.Sender.LastName 
-                        : m.Receiver.LastName).FirstOrDefault(),
+                    // Removed the explicit UserName field.
+                    FullName = g.Select(m => m.SenderId == g.Key 
+                        ? (m.Sender.FirstName + " " + m.Sender.LastName) 
+                        : (m.Receiver.FirstName + " " + m.Receiver.LastName)).FirstOrDefault(),
                     UserEmail = g.Select(m => m.SenderId == g.Key 
                         ? m.Sender.Email 
                         : m.Receiver.Email).FirstOrDefault(),
@@ -81,7 +75,7 @@ namespace MyBackendApp.Controllers
                         ? m.Sender.ProfilePictureUrl 
                         : m.Receiver.ProfilePictureUrl).FirstOrDefault(),
 
-                    // Safely coalesce content so it never returns null to the front-end
+                    // Safely coalesce content so it never returns null to the front-end.
                     LastMessageContent = g.OrderByDescending(m => m.Timestamp)
                         .Select(m => m.Content ?? "")
                         .FirstOrDefault(),
@@ -114,19 +108,19 @@ namespace MyBackendApp.Controllers
                     (m.SenderId == userId && m.ReceiverId == contactId) ||
                     (m.SenderId == contactId && m.ReceiverId == userId));
 
-            // handle pagination
+            // Handle pagination.
             if (!string.IsNullOrEmpty(nextToken))
             {
                 try
                 {
-                    // Decode the nextToken from base64
+                    // Decode the nextToken from base64.
                     var decodedBytes = Convert.FromBase64String(nextToken);
                     var decodedString = Encoding.UTF8.GetString(decodedBytes);
                     var token = JsonConvert.DeserializeObject<NextToken>(decodedString);
 
                     if (token != null)
                     {
-                        // Fetch messages before the lastTimestamp/lastId
+                        // Fetch messages before the lastTimestamp/lastId.
                         query = query.Where(m => m.Timestamp < token.Timestamp
                             || (m.Timestamp == token.Timestamp && m.Id < token.Id));
                     }
@@ -145,7 +139,7 @@ namespace MyBackendApp.Controllers
                 }
             }
 
-            // Order by descending (latest first)
+            // Order by descending (latest first).
             query = query.OrderByDescending(m => m.Timestamp).ThenByDescending(m => m.Id);
 
             var fetchedMessages = await query
@@ -155,7 +149,7 @@ namespace MyBackendApp.Controllers
                     m.Id,
                     m.SenderId,
                     m.ReceiverId,
-                    // Coalesce content to "" so the front-end won't get null
+                    // Coalesce content to "" so the front-end won't get null.
                     Content = m.Content ?? "",
                     m.Timestamp,
                     m.IsGroupInvitation,
@@ -178,7 +172,7 @@ namespace MyBackendApp.Controllers
                 })
                 .ToListAsync();
 
-            // Check if there's a next page
+            // Check if there's a next page.
             string newNextToken = null;
             if (fetchedMessages.Count == pageSize)
             {
@@ -192,7 +186,7 @@ namespace MyBackendApp.Controllers
                 newNextToken = Convert.ToBase64String(Encoding.UTF8.GetBytes(tokenJson));
             }
 
-            // Reverse back to chronological order
+            // Reverse back to chronological order.
             var messages = fetchedMessages
                 .OrderBy(m => m.Timestamp)
                 .ThenBy(m => m.Id)
@@ -223,14 +217,14 @@ namespace MyBackendApp.Controllers
             {
                 SenderId = model.SenderId,
                 ReceiverId = model.ReceiverId,
-                Content = model.Content, // might be null
+                Content = model.Content, // might be null.
                 Timestamp = DateTime.UtcNow,
                 IsReferralCard = model.IsReferralCard
             };
 
             _context.Messages.Add(message);
 
-            // If there's a file, upload it to Azure
+            // If there's a file, upload it to Azure.
             if (model.File != null && model.File.Length > 0)
             {
                 var chatGroupId = GetChatGroupId(message.SenderId, message.ReceiverId);
@@ -249,7 +243,7 @@ namespace MyBackendApp.Controllers
 
             var sender = await _context.Users.FindAsync(message.SenderId);
 
-            // Check for existing unread notification
+            // Check for existing unread notification.
             var existingNotification = await _context.Notifications
                 .FirstOrDefaultAsync(n =>
                     n.UserId == message.ReceiverId &&
@@ -267,7 +261,7 @@ namespace MyBackendApp.Controllers
                     Timestamp = DateTime.UtcNow,
                     IsRead = false,
                     SenderId = sender.Id,
-                    SenderName = sender.FirstName,
+                    SenderName = sender.FirstName, // using first name only (username removed)
                     MessageCount = 1
                 };
 
@@ -307,14 +301,14 @@ namespace MyBackendApp.Controllers
                     });
             }
 
-            // Broadcast the message via SignalR
+            // Broadcast the message via SignalR.
             var groupId = GetChatGroupId(message.SenderId, message.ReceiverId);
             await _hubContext.Clients.Group(groupId).SendAsync("ReceiveMessage", new
             {
                 message.Id,
                 message.SenderId,
                 message.ReceiverId,
-                // Coalesce content to empty string for the broadcast
+                // Coalesce content to empty string for the broadcast.
                 Content = message.Content ?? "",
                 message.Timestamp,
                 message.IsGroupInvitation,
@@ -343,23 +337,23 @@ namespace MyBackendApp.Controllers
         {
             try
             {
-                // Create the BlobServiceClient
+                // Create the BlobServiceClient.
                 BlobServiceClient blobServiceClient = new BlobServiceClient(_storageConnectionString);
 
-                // Get the container (creates if not exists)
+                // Get the container (creates if not exists).
                 BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(_attachmentsContainerName);
                 await containerClient.CreateIfNotExistsAsync();
 
-                // Generate a unique file name
+                // Generate a unique file name.
                 var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
 
-                // The blob path: "userA-userB/uniqueFileName.ext"
+                // The blob path: "userA-userB/uniqueFileName.ext".
                 var blobPath = $"{subFolderName}/{uniqueFileName}";
 
-                // Get a reference to the blob
+                // Get a reference to the blob.
                 BlobClient blobClient = containerClient.GetBlobClient(blobPath);
 
-                // Upload the file
+                // Upload the file.
                 using (var stream = file.OpenReadStream())
                 {
                     await blobClient.UploadAsync(stream, new BlobUploadOptions
@@ -368,7 +362,7 @@ namespace MyBackendApp.Controllers
                     });
                 }
 
-                // Return the full blob URL
+                // Return the full blob URL.
                 return blobClient.Uri.ToString();
             }
             catch (Exception ex)
@@ -404,13 +398,13 @@ namespace MyBackendApp.Controllers
                 return NotFound("Message not found.");
             }
 
-            // Only the sender or receiver can delete the message
+            // Only the sender or receiver can delete the message.
             if (message.SenderId != userId && message.ReceiverId != userId)
             {
                 return Forbid();
             }
 
-            // Delete from Azure if there's an attachment
+            // Delete from Azure if there's an attachment.
             if (message.Attachment != null && !string.IsNullOrEmpty(message.Attachment.FileUrl))
             {
                 await DeleteAttachmentFromAzure(message.Attachment.FileUrl);
@@ -420,7 +414,7 @@ namespace MyBackendApp.Controllers
             _context.Messages.Remove(message);
             await _context.SaveChangesAsync();
 
-            // Notify the other user that the message was deleted
+            // Notify the other user that the message was deleted.
             var otherUserId = message.SenderId == userId ? message.ReceiverId : message.SenderId;
             var groupId = GetChatGroupId(userId, otherUserId);
             await _hubContext.Clients.Group(groupId).SendAsync("MessageDeleted", new { messageId = message.Id });
@@ -436,7 +430,7 @@ namespace MyBackendApp.Controllers
             try
             {
                 var uri = new Uri(blobUrl);
-                // The blob name is the path after the container name, e.g. "userA-userB/guid.jpg"
+                // The blob name is the path after the container name.
                 var blobName = uri.LocalPath.TrimStart('/'); 
 
                 var blobServiceClient = new BlobServiceClient(_storageConnectionString);
@@ -479,19 +473,18 @@ namespace MyBackendApp.Controllers
                 return NotFound("Message not found.");
             }
 
-            // Only the receiver can update invitation status
+            // Only the receiver can update invitation status.
             if (message.ReceiverId != userId)
             {
                 return Forbid("You are not authorized to update this message.");
             }
 
-            // Update fields
+            // Update fields.
             message.InvitationStatus = true;
             message.ActionType = request.ActionType;
 
             await _context.SaveChangesAsync();
 
-            // Optionally notify the sender that it was updated
             return Ok(new { message = "Message updated successfully." });
         }
 
@@ -519,7 +512,7 @@ namespace MyBackendApp.Controllers
                 return NotFound("No conversations found for this user.");
             }
 
-            // Identify the other user
+            // Identify the other user.
             var contactId = (latestMessage.SenderId == userId) 
                 ? latestMessage.ReceiverId 
                 : latestMessage.SenderId;
@@ -530,13 +523,13 @@ namespace MyBackendApp.Controllers
                 return NotFound("The contact user was not found.");
             }
 
-            var latestConversation = new ConversationDTO
+            var latestConversation = new
             {
                 UserId = contactUser.Id,
-                UserName = contactUser.UserName,
+                // Removed UserName; only return email and full name.
+                FullName = contactUser.FirstName + " " + contactUser.LastName,
                 UserEmail = contactUser.Email,
                 UserProfilePicture = contactUser.ProfilePictureUrl,
-                // Coalesce content in case it's null
                 LastMessageContent = latestMessage.Content ?? "",
                 LastMessageTimestamp = latestMessage.Timestamp,
                 LastMessageSenderId = latestMessage.SenderId
@@ -545,12 +538,6 @@ namespace MyBackendApp.Controllers
             return Ok(latestConversation);
         }
         
-        // Add this inside MessagesController
-
-        /// <summary>
-        /// Returns all attachments exchanged between two users (userA and userB).
-        /// Example usage: GET /api/Messages/GetAttachmentsForUsers?userA=123&userB=456
-        /// </summary>
         [HttpGet("GetAttachmentsForUsers")]
         public async Task<IActionResult> GetAttachmentsForUsers(string userA, string userB)
         {
@@ -559,18 +546,14 @@ namespace MyBackendApp.Controllers
                 return BadRequest("Both userA and userB are required.");
             }
 
-            // Retrieve all messages involving these two users
             var attachments = await _context.Messages
                 .Include(m => m.Attachment)
                 .Where(m =>
                     (m.SenderId == userA && m.ReceiverId == userB)
                     || (m.SenderId == userB && m.ReceiverId == userA)
                 )
-                // Only messages that actually have an attachment
                 .Where(m => m.Attachment != null)
-                // Order by newest message first (optional)
                 .OrderByDescending(m => m.Timestamp)
-                // Project into a DTO
                 .Select(m => new AttachmentDTO
                 {
                     Id = m.Attachment.Id,
@@ -588,10 +571,5 @@ namespace MyBackendApp.Controllers
             public string FileName { get; set; }
             public string FileUrl { get; set; }
         }
-
     }
-    
-    
-    
-
 }

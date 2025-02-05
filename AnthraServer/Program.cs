@@ -360,14 +360,15 @@ if (app.Environment.IsDevelopment())
             await userManager.CreateAsync(user, "Tern2004!!");
         }
 
-        // Retrieve the newly created users
-        var thomasUser = await userManager.FindByNameAsync("thomas");
-        var ternUser = await userManager.FindByNameAsync("tern");
-        var gabUser = await userManager.FindByNameAsync("gab");
-        var justinUser = await userManager.FindByNameAsync("justin");
-        var andreasUser = await userManager.FindByNameAsync("andreas");
-        var birkkUser = await userManager.FindByNameAsync("birkk");
-        var carstenUser = await userManager.FindByNameAsync("carsten");
+        // Retrieve the newly created users by their unique email addresses
+        var thomasUser = await userManager.FindByEmailAsync("test7@example.com"); // Marie (formerly "thomas" as UserName)
+        var ternUser = await userManager.FindByEmailAsync("test1@example.com");
+        var gabUser = await userManager.FindByEmailAsync("test2@example.com");
+        var justinUser = await userManager.FindByEmailAsync("test3@example.com");
+        var andreasUser = await userManager.FindByEmailAsync("test5@example.com");
+        var birkkUser = await userManager.FindByEmailAsync("test4@example.com");
+        var carstenUser = await userManager.FindByEmailAsync("test6@example.com");
+
 
 
 
@@ -375,7 +376,7 @@ if (app.Environment.IsDevelopment())
       var group1 = new Group
 {
     Name = "Quantum Explorers",
-    adminName = ternUser.UserName,
+    adminName = ternUser.FirstName,
     GroupDescription = "Discussing advanced quantum physics and related research. Join us for bi-weekly discussions on groundbreaking quantum discoveries.",
     GroupMemberDesire = "Open to researchers and students interested in quantum mechanics. Members should be excited to challenge conventional theories.",
     GroupPurpose = "Social",
@@ -386,7 +387,7 @@ if (app.Environment.IsDevelopment())
 var group2 = new Group
 {
     Name = "Data Science Innovators",
-    adminName = gabUser.UserName,
+    adminName = gabUser.FirstName,
     GroupDescription = "Exploring cutting-edge data science tools and techniques. Our regular meet-ups encourage collaborative innovation in data analysis.",
     GroupMemberDesire = "Open to data enthusiasts and ML engineers. Candidates must be eager to dive into complex data challenges.",
     GroupPurpose = "General",
@@ -397,7 +398,7 @@ var group2 = new Group
 var group3 = new Group
 {
     Name = "Cloud Builders",
-    adminName = justinUser.UserName,
+    adminName = justinUser.FirstName,
     GroupDescription = "Focusing on cloud computing best practices and architecture. Discussions include real-world cloud deployment challenges.",
     GroupMemberDesire = "Cloud developers and architects welcome. Members are encouraged to share innovative cloud solutions.",
     GroupPurpose = "Exam Preparation",
@@ -408,7 +409,7 @@ var group3 = new Group
 var group4 = new Group
 {
     Name = "Math Olympiads",
-    adminName = justinUser.UserName,
+    adminName = justinUser.FirstName,
     GroupDescription = "Focusing on cloud computing best practices and architecture. We also emphasize advanced problem-solving techniques for competitive mathematics.",
     GroupMemberDesire = "Cloud developers and architects welcome. Contestants with a passion for rigorous mathematical challenges are invited.",
     GroupPurpose = "Exam Preparation",
@@ -419,7 +420,7 @@ var group4 = new Group
 var group5 = new Group
 {
     Name = "Physics Olympiads",
-    adminName = justinUser.UserName,
+    adminName = justinUser.FirstName,
     GroupDescription = "Focusing on cloud computing best practices and architecture. Our sessions further explore experimental methods and theoretical physics puzzles.",
     GroupMemberDesire = "Cloud developers and architects welcome. Members must show a genuine passion for unraveling physics complexities.",
     GroupPurpose = "Exam Preparation",
@@ -430,7 +431,7 @@ var group5 = new Group
 var group6 = new Group
 {
     Name = "Cybersecurity Olympiads",
-    adminName = justinUser.UserName,
+    adminName = justinUser.FirstName,
     GroupDescription = "Focusing on cloud computing best practices and architecture. We also incorporate discussions on emerging cybersecurity trends.",
     GroupMemberDesire = "Cloud developers and architects welcome. Members should be motivated to explore innovative solutions in digital security.",
     GroupPurpose = "Exam Preparation",
@@ -477,7 +478,7 @@ var group6 = new Group
 
     app.MapPost("/delete-test-users", async (ApplicationDbContext db) =>
     {
-        var testUsers = await db.Users.Where(u => u.UserName == "tern" || u.UserName == "gab" || u.UserName == "justin" || u.UserName == "birkk" || u.UserName == "andreas" || u.UserName == "carsten" || u.UserName == "thomas").ToListAsync();
+        var testUsers = await db.Users.Where(u => u.FirstName == "Marie" || u.FirstName == "Carsten" || u.FirstName == "Andreas" || u.FirstName == "Birk" || u.FirstName == "Justin" || u.FirstName == "Gab" || u.FirstName == "Tern").ToListAsync();
         db.Users.RemoveRange(testUsers);
         await db.SaveChangesAsync();
 

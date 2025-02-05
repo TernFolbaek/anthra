@@ -183,7 +183,6 @@ namespace AnthraBackend.Controllers.Account
 
             var profile = new
             {
-                user.UserName,
                 user.Email,
                 user.FirstName,
                 user.LastName,
@@ -214,7 +213,6 @@ namespace AnthraBackend.Controllers.Account
             var profile = new
             {
                 user.Id,
-                user.UserName,
                 user.Email,
                 user.FirstName,
                 user.LastName,

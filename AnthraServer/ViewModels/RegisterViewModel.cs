@@ -3,10 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace MyBackendApp.ViewModels
 {
     public class RegisterViewModel
-    {
-        [Required]
-        public string Username { get; set; }
-
+    {        
         [Required]
         [EmailAddress]
         public string Email { get; set; }

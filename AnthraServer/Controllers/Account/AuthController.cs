@@ -202,11 +202,8 @@ namespace AnthraBackend.Controllers.Account
                 return Unauthorized("Invalid email or password.");
             }
 
-            var result = await _signInManager.PasswordSignInAsync(
-                userName: user.Email,  // using email as username
-                password: model.Password,
-                isPersistent: false,
-                lockoutOnFailure: false);
+            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, lockoutOnFailure: false);
+
 
             if (result.Succeeded)
             {

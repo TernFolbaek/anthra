@@ -188,8 +188,9 @@ if (app.Environment.IsDevelopment())
         {
             new ApplicationUser 
             { 
-                UserName = "tern", 
+
                 Email = "test1@example.com", 
+                UserName = "test1@example.com", 
                 FirstName = "Tern", 
                 LastName = "Folbaek", 
                 Location = "Copenhagen, Denmark", 
@@ -211,8 +212,8 @@ if (app.Environment.IsDevelopment())
             },
             new ApplicationUser 
             { 
-                UserName = "gab", 
                 Email = "test2@example.com", 
+                UserName = "test2@example.com", 
                 FirstName = "Gab", 
                 LastName = "Smith", 
                 Location = "New York, USA", 
@@ -234,8 +235,8 @@ if (app.Environment.IsDevelopment())
             },
             new ApplicationUser 
             { 
-                UserName = "justin", 
-                Email = "test3@example.com", 
+                Email = "test3@example.com",
+                UserName = "test3@example.com", 
                 FirstName = "Justin", 
                 LastName = "Lee", 
                 Location = "Toronto, Canada", 
@@ -257,8 +258,8 @@ if (app.Environment.IsDevelopment())
             },
             new ApplicationUser 
             { 
-                UserName = "birkk", 
-                Email = "test4@example.com", 
+                Email = "test4@example.com",
+                UserName = "test4@example.com", 
                 FirstName = "Sophie", 
                 LastName = "Jebsen", 
                 Location = "Oslo, Norway", 
@@ -280,8 +281,8 @@ if (app.Environment.IsDevelopment())
             },
             new ApplicationUser 
             { 
-                UserName = "andreas", 
                 Email = "test5@example.com", 
+                UserName = "test5@example.com", 
                 FirstName = "Andreas", 
                 LastName = "Johansson", 
                 Location = "Stockholm, Sweden", 
@@ -303,8 +304,8 @@ if (app.Environment.IsDevelopment())
             },
             new ApplicationUser 
             { 
-                UserName = "carsten", 
                 Email = "test6@example.com", 
+                UserName = "test6@example.com", 
                 FirstName = "Carsten", 
                 LastName = "Folbaek", 
                 Location = "Stockholm, Sweden", 
@@ -328,8 +329,8 @@ if (app.Environment.IsDevelopment())
             },
             new ApplicationUser 
             { 
-                UserName = "thomas", 
                 Email = "test7@example.com", 
+                UserName = "test7@example.com", 
                 FirstName = "Marie", 
                 LastName = "Johansen", 
                 Location = "Østerbro, Danmark", 
@@ -368,9 +369,6 @@ if (app.Environment.IsDevelopment())
         var andreasUser = await userManager.FindByEmailAsync("test5@example.com");
         var birkkUser = await userManager.FindByEmailAsync("test4@example.com");
         var carstenUser = await userManager.FindByEmailAsync("test6@example.com");
-
-
-
 
         // Create 3 seed groups
       var group1 = new Group

@@ -106,7 +106,7 @@ const Home: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                     </div>
                 </div>
                 <button
-                    className="text-lg flex items-center bg-emerald-500 text-gray-900 hover:bg-emerald-400 transform hover:scale-105 get-started-button"
+                    className="text-lg text-white flex items-center bg-emerald-500 hover:bg-emerald-400 transform hover:scale-105 get-started-button"
                     onClick={onGetStartedClick}
                 >
                     {t.getStarted}

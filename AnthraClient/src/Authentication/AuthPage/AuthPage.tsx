@@ -111,9 +111,6 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
 
     const validatePassword = (password: string): void => {
         setIsPasswordLengthValid(password.length >= 6);
-        setHasUppercase(/[A-Z]/.test(password));
-        setHasDigit(/\d/.test(password));
-        setHasSpecialChar(/[^A-Za-z0-9]/.test(password));
     };
 
     useEffect(() => {
@@ -131,7 +128,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
         if (isSignUp) {
 
             // 2) Check password validations
-            if (!isPasswordLengthValid || !hasUppercase || !hasDigit || !hasSpecialChar) {
+            if (!isPasswordLengthValid ) {
                 setError('Password does not meet the required criteria.');
                 return;
             }

@@ -21,7 +21,7 @@ const HowItWorks: React.FC = () => {
 
     useEffect(() => {
         const options: IntersectionObserverInit = {
-            threshold: 0.5,
+            threshold: 0.2,
         };
 
         const handleIntersection = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {

@@ -18,6 +18,8 @@ interface StepOneProps {
     setCity: React.Dispatch<React.SetStateAction<string>>;
     profilePictureFile: File | null;
     setProfilePictureFile: React.Dispatch<React.SetStateAction<File | null>>;
+    onNext: () => void;
+    error: string | null;
 }
 
 const StepOne: React.FC<StepOneProps> = ({
@@ -34,8 +36,11 @@ const StepOne: React.FC<StepOneProps> = ({
                                              profilePictureFile,
                                              setProfilePictureFile,
                                              setAboutMe,
-                                             aboutMe
+                                             aboutMe,
+                                             onNext,
+                                             error
                                          }) => {
+    // State for countries, cities, suggestions, etc.
     const [countrySuggestions, setCountrySuggestions] = useState<string[]>([]);
     const [countries, setCountries] = useState<string[]>([]);
     const [cities, setCities] = useState<string[]>([]);
@@ -87,7 +92,6 @@ const StepOne: React.FC<StepOneProps> = ({
         };
     }, []);
 
-    // Handle city input change
     const handleCityInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setCity(value);
@@ -109,14 +113,12 @@ const StepOne: React.FC<StepOneProps> = ({
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
-
             const maxSizeInBytes = 4 * 1024 * 1024;
             if (file.size > maxSizeInBytes) {
                 alert("File size must be less than 4MB.");
                 e.target.value = "";
                 return;
             }
-
             const reader = new FileReader();
             reader.onloadend = () => {
                 if (reader.result) {
@@ -172,16 +174,11 @@ const StepOne: React.FC<StepOneProps> = ({
         setCountrySuggestions([]);
         setSelectedCountryIndex(-1);
 
-        // Fetch cities for the selected country
         axios
             .post(
                 'https://countriesnow.space/api/v0.1/countries/cities',
-                {
-                    country: countryName,
-                },
-                {
-                    withCredentials: false,
-                }
+                { country: countryName },
+                { withCredentials: false }
             )
             .then((response) => {
                 const cityList = response.data.data;
@@ -194,7 +191,6 @@ const StepOne: React.FC<StepOneProps> = ({
 
     const handleCountryKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (countrySuggestions.length === 0) return;
-
         if (e.key === 'ArrowDown') {
             e.preventDefault();
             setSelectedCountryIndex((prevIndex) =>
@@ -210,7 +206,6 @@ const StepOne: React.FC<StepOneProps> = ({
             if (selectedCountryIndex >= 0 && selectedCountryIndex < countrySuggestions.length) {
                 handleCountrySelect(countrySuggestions[selectedCountryIndex]);
             } else if (countrySuggestions.length > 0) {
-                // fallback to first suggestion if none selected
                 handleCountrySelect(countrySuggestions[0]);
             }
         }
@@ -218,7 +213,6 @@ const StepOne: React.FC<StepOneProps> = ({
 
     const handleCityKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (citySuggestions.length === 0) return;
-
         if (e.key === 'ArrowDown') {
             e.preventDefault();
             setSelectedCityIndex((prevIndex) =>
@@ -234,175 +228,189 @@ const StepOne: React.FC<StepOneProps> = ({
             if (selectedCityIndex >= 0 && selectedCityIndex < citySuggestions.length) {
                 handleCitySelect(citySuggestions[selectedCityIndex]);
             } else if (citySuggestions.length > 0) {
-                // fallback to first suggestion if none selected
                 handleCitySelect(citySuggestions[0]);
             }
         }
     };
 
     const handleCountryBlur = () => {
-        // If the entered country isn't a valid one from the list, reset it
         if (country && !countries.includes(country)) {
             setCountry('');
         }
     };
+    const onNextClick = (e: any) => {
+        e.preventDefault();
+        onNext();
+    }
+
 
     return (
-        <div className="form-step">
-            <div className="flex items-center mb-2">
-                <label htmlFor="firstName" className="w-1/3">
-                    First Name<span className="required-asterisk">*</span>
-                </label>
-                <input
-                    id="firstName"
-                    type="text"
-                    maxLength={20}
-                    placeholder="First Name"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                />
-            </div>
-
-            <div className="flex items-center mb-2">
-                <label htmlFor="lastName" className="w-1/3">
-                    Last Name<span className="required-asterisk">*</span>
-                </label>
-                <input
-                    id="lastName"
-                    type="text"
-                    maxLength={20}
-                    placeholder="Last Name"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                />
-            </div>
-
-            <div className="flex items-center mb-2">
-                <label htmlFor="age" className="w-1/3">
-                    Age<span className="required-asterisk">*</span>
-                </label>
-                <input
-                    id="age"
-                    type="number"
-                    placeholder="Age"
-                    value={age === '' ? '' : age}
-                    onChange={(e) => setAge(e.target.value === '' ? '' : parseInt(e.target.value))}
-                />
-            </div>
-
-            {/* Country Input */}
-            <div className="autocomplete-container mb-2" ref={countryInputRef}>
-                <div className="autocomplete-input-with-label">
-                    <label htmlFor="country" className="w-1/3">
-                        Country<span className="required-asterisk">*</span>
-                    </label>
-                    <input
-                        id="country"
-                        type="text"
-                        placeholder="Country"
-                        autoComplete="nope"
-                        value={country}
-                        onChange={handleCountryInputChange}
-                        onKeyDown={handleCountryKeyDown}
-                        onBlur={handleCountryBlur}
-                    />
+            <div className="form-step w-full">
+                <div className="flex gap-2 mt-1">
+                    <div className="floating-label-group flex-1">
+                        <input
+                            id="firstName"
+                            name="firstName"
+                            autoComplete="lol"
+                            type="text"
+                            maxLength={20}
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                            className="floating-label-input"
+                            placeholder=" "
+                        />
+                        <label htmlFor="firstName" className="floating-label">First Name</label>
+                    </div>
+                    <div className="floating-label-group flex-1">
+                        <input
+                            id="lastName"
+                            name="lastName"
+                            type="text"
+                            autoComplete="false"
+                            maxLength={20}
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                            className="floating-label-input"
+                            placeholder=" "
+                        />
+                        <label htmlFor="lastName" className="floating-label">Last Name</label>
+                    </div>
                 </div>
-                {countrySuggestions.length > 0 && (
-                    <ul className="uni-dropdown-menu">
-                        {countrySuggestions.map((countryName, index) => (
-                            <li
-                                className={`suggestion-item ${index === selectedCountryIndex ? 'bg-gray-600/50' : ''}`}
-                                key={index}
-                                onMouseDown={() => handleCountrySelect(countryName)}
-                            >
-                                {countryName}
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </div>
 
-            {/* City Input */}
-            <div className="autocomplete-container" ref={cityInputRef}>
-                <div className="autocomplete-input-with-label">
-                    <label htmlFor="city" className="w-1/3">
-                        City<span className="required-asterisk">*</span>
-                    </label>
+                <div className="floating-label-group mt-1 age-group">
                     <input
-                        id="city"
-                        className="disabled:bg-gray-700/50 disabled:cursor-not-allowed"
-                        type="text"
-                        placeholder="City"
-                        autoComplete="nope"
-                        value={city}
-                        onChange={handleCityInputChange}
-                        onKeyDown={handleCityKeyDown}
-                        disabled={!country}
+                        id="age"
+                        type="number"
+                        autoComplete="false"
+                        value={age === '' ? '' : age}
+                        onChange={(e) =>
+                            setAge(e.target.value === '' ? '' : parseInt(e.target.value))
+                        }
+                        className="floating-label-input"
+                        placeholder=" "
                     />
+                    <label htmlFor="age" className="floating-label">Age</label>
                 </div>
-                {citySuggestions.length > 0 && (
-                    <ul className="uni-dropdown-menu">
-                        {citySuggestions.map((cityName, index) => (
-                            <li
-                                className={`suggestion-item ${index === selectedCityIndex ? 'bg-gray-600/50' : ''}`}
-                                key={index}
-                                onMouseDown={() => handleCitySelect(cityName)}
-                            >
-                                {cityName}
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </div>
+                <div className="flex gap-2 mt-1">
+                    <div className="autocomplete-container flex-1 mb-4" ref={countryInputRef}>
+                        <input
+                            id="country"
+                            type="text"
+                            name="country"
+                            autoComplete="false"
+                            value={country}
+                            onChange={handleCountryInputChange}
+                            onKeyDown={handleCountryKeyDown}
+                            onBlur={handleCountryBlur}
+                            className="floating-label-input"
+                            placeholder=" "
+                        />
+                        <label htmlFor="country" className="floating-label">Country</label>
+                        {countrySuggestions.length > 0 && (
+                            <ul className="uni-dropdown-menu">
+                                {countrySuggestions.map((countryName, index) => (
+                                    <li
+                                        className={`suggestion-item ${index === selectedCountryIndex ? 'active' : ''}`}
+                                        key={index}
+                                        onMouseDown={() => handleCountrySelect(countryName)}
+                                    >
+                                        {countryName}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
 
-            <label htmlFor="aboutMe" className="input-label">
-                About Me <span className="required-asterisk">*</span>
-                <span className="font-medium text-xs"> min. 80 chars.</span>
-            </label>
-            <div className="textarea-with-counter">
-                <div className="char-counter">{aboutMe.length}/300</div>
-                <textarea
-                    id="aboutMe"
-                    placeholder="About Me"
-                    minLength={80}
-                    maxLength={300}
-                    value={aboutMe}
-                    onChange={(e) => setAboutMe(e.target.value)}
-                />
-            </div>
+
+                    <div className="floating-label-group flex-1" ref={cityInputRef}>
+                        <input
+                            id="city"
+                            type="text"
+                            autoComplete="off"
+                            value={city}
+                            onChange={handleCityInputChange}
+                            onKeyDown={handleCityKeyDown}
+                            disabled={!country}
+
+                            className="floating-label-input disabled:bg-gray-700/30 disabled:cursor-not-allowed"
+                            placeholder=" "
+                        />
+                        <label htmlFor="city" className="floating-label">City</label>
+                        {citySuggestions.length > 0 && (
+                            <ul className="uni-dropdown-menu">
+                                {citySuggestions.map((cityName, index) => (
+                                    <li
+                                        className={`suggestion-item ${index === selectedCityIndex ? 'active' : ''}`}
+                                        key={index}
+                                        onMouseDown={() => handleCitySelect(cityName)}
+                                    >
+                                        {cityName}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                </div>
 
 
-            <label htmlFor="profilePicture">
-                Profile Picture<span className="required-asterisk">*</span>
-            </label>
-            <div className="profile-picture-picker">
-                <input
-                    id="profilePicture"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                    className="file-input"
-                />
-                <label htmlFor="profilePicture" className="file-input-label">
-                    {previewUrl ? (
-                        <img src={previewUrl} alt="Profile Preview" className="image-preview"/>
-                    ) : (
-                        <span className="placeholder-text">Click to upload</span>
-                    )}
+                {/* About Me textarea with character counter */}
+                <div className="floating-label-group mt-2 textarea-group">
+        <textarea
+            id="aboutMe"
+            minLength={60}
+            maxLength={300}
+            value={aboutMe}
+            onChange={(e) => setAboutMe(e.target.value)}
+            className="floating-label-input textarea-input"
+            placeholder=" "
+        />
+                    <label htmlFor="aboutMe" className="floating-label">About Yourself</label>
+                    <div className="char-counter flex gap-2 items-center text-gray-200">{aboutMe.length}/300 <p
+                        className="text-xs">min 60 cha.</p></div>
+                </div>
+
+                {/* Profile Picture Picker */}
+                <label htmlFor="profilePicture" id="profile-picture-label" className="profile-picture-label">
+                    Profile Picture
                 </label>
+                <div className="profile-picture-picker">
+                    <input
+                        id="profilePicture"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        className="file-input"
+                    />
+                    <label htmlFor="profilePicture" className="file-input-label">
+                        {previewUrl ? (
+                            <img src={previewUrl} alt="Profile Preview" className="image-preview"/>
+                        ) : (
+                            <span className="placeholder-text">Click to upload</span>
+                        )}
+                    </label>
+                </div>
+
+                {/* Crop Modal */}
+                {isCropModalOpen && (
+                    <CropModal
+                        isOpen={isCropModalOpen}
+                        imageSrc={selectedImage}
+                        onClose={handleCropModalClose}
+                        onCropComplete={handleCropComplete}
+                    />
+                )}
+                <div className="create-profile-button-container">
+                    <button
+                        type="submit"
+                        onClick={(e)=>onNextClick(e)}
+                        className="create-profile-next-button w-[80px] bg-emerald-400/20  transform hover:scale-105 text-emerald-400"
+                    >
+                        Next
+                    </button>
+                </div>
+                <p className="text-sm text-white text-center mt-1">{error}</p>
             </div>
+            );
+            };
 
-            {/* Crop Modal */}
-            {isCropModalOpen && (
-                <CropModal
-                    isOpen={isCropModalOpen}
-                    imageSrc={selectedImage}
-                    onClose={handleCropModalClose}
-                    onCropComplete={handleCropComplete}
-                />
-            )}
-        </div>
-    );
-};
-
-export default StepOne;
+            export default StepOne;

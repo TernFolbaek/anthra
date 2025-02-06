@@ -130,7 +130,6 @@
     font-weight: 300;
     font-size: 0.85rem;
     position: relative;
-    border: 1px solid white;
 }
 
 .flag-icon {
@@ -143,14 +142,19 @@
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.1);
-    border: 1px solid white;
+    background-color: rgba(0, 0, 0, 0.2);
     border-radius: 4px;
     width: 100%;
     z-index: 10;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+@media(max-width: 500px) {
+    .dropdown-menu{
+        background-color: rgba(0, 0, 0, 0.9);
+    }
 }
 
 .language-dropdown.open .dropdown-menu {
@@ -166,7 +170,6 @@
     border-radius: 2px;
     font-weight: 300;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .language-dropdown-item:hover {

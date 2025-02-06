@@ -1,50 +1,296 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* PREVIEW CONTAINER */
+.profile-preview-container{
+    max-width: 600px;
+    width: 100%;
+    height: 700px;
+    padding: 2rem 1rem;
+    border: 2px solid #555;
+    background-color: rgba(40,40,40,0.5);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
 
 .create-profile-page {
     background: radial-gradient(
-            ellipse at top,
+            circle at top,
             #0c6e56 0%,
             #0b4e3e 20%,
             #0c2e37 40%,
             #081924 70%,
             #000 100%
-    );    color: #333;
+    );
+    background-blend-mode: multiply;
+    color: #333;
     font-family: 'Montserrat', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     overflow: hidden;
+    display: flex;
+    height: 100vh;
+    align-items: center;
+}
+
+
+.floating-label-input::-webkit-scrollbar{
+    background-color: transparent;
+    width: 6px;
+}
+.floating-label-input::-webkit-scrollbar-thumb{
+    background-color: gray;
+    border-radius: 5px;
 }
 
 .progress-bar {
-    width: calc(100% - 10px);
+    width: 100%;
     max-width: 600px;
     height: 8px;
-    background-color: #e0e0e0;
-    margin: 1rem 0;
-    border-radius: 4px;
-    overflow: hidden;
+    background-color: #efefef;
+    border-radius: 2px;
+}
+
+@media (max-width: 500px) {
+    .progress-bar {
+        position: absolute;
+        top: 0;
+        width: 95%;
+    }
+    .create-profile-page {
+        background: none;
+        background-color: rgba(0,0,0,0.9);
+    }
+    .form-step{
+        margin-top: 2rem;
+    }
 }
 
 .progress-bar-fill {
     height: 100%;
-    background-color: #99edac;
     transition: width 0.3s ease-in-out;
 }
 
-.create-profile-container {
-    background-color: rgba(46,46,46,0.5);
-    border: 2px solid #555;
-    padding: 2rem;
-    border-radius: 12px;
-    width: 90%;
+/* ====== Form Container & Steps ====== */
+.form-step {
     max-width: 600px;
+    max-height: 800px;
+    padding: 2rem 1rem;
+    border: 2px solid #555;
+    background-color: rgba(40,40,40,0.5);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+
+.form-step label {
+    text-align: left;
+    font-weight: 500;
+    color: oklch(0.928 0.006 264.531);
+    font-size: 0.9rem;
+}
+
+/* ====== Floating Label Styles ====== */
+.floating-label-group {
+    position: relative;
+    margin-bottom: 1rem; /* using the smaller spacing from the later rule */
+    display: flex;
+    flex-direction: column;
+}
+
+.floating-label-input {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: rgba(60, 60, 60, 0.45);
+    border-bottom: 1px solid #555;
+    color: oklch(0.928 0.006 264.531);
+    font-size: 0.85rem;
+    outline: none;
+}
+
+.floating-label-input::placeholder {
+    color: transparent;
+}
+
+/* The Floating Label */
+.floating-label {
+    position: absolute;
+    top: 45%;
+    left: 0.75rem;
+    color: #999;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition: 0.2s ease all;
+    font-size: 0.85rem;
+}
+
+.floating-label-input:focus ~ .floating-label,
+.floating-label-input:not(:placeholder-shown) ~ .floating-label {
+    top: -0.45rem;
+    left: 0.1rem;
+    font-size: 0.75rem;
+    color: white;
+}
+.form-step input:focus,
+.form-step textarea:focus {
+    border-bottom: 2px solid #34D399;
+}
+.form-step .floating-label-input:focus,
+.form-step .floating-label-input:not(:placeholder-shown) {
+    border-bottom: 2px solid #34D399;
+}
+
+
+/* ====== Textarea Specific ====== */
+.textarea-group {
+    position: relative;
+}
+
+.textarea-input {
+    min-height: 100px;
+    resize: none;
+}
+
+/* Character Counter (merged color choice from later rule) */
+.char-counter {
+    position: absolute;
+    top: -20px;
+    right: 0;
+    font-size: 0.8rem;
+    color: grey;
+}
+
+/* ====== Flex Row ====== */
+.flex-row {
+    display: flex;
+}
+.flex-row .floating-label-group {
+    flex: 1;
+}
+
+/* ====== Age Input Width ====== */
+.age-group {
+    width: 120px;
+}
+
+/* ====== Dropdown Suggestions ====== */
+.uni-dropdown-menu {
+    position: absolute;
+    background-color: rgba(25, 25, 25, 0.95);
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid lightgray;
+    border-radius: 2px;
+    color: black;
+}
+
+.uni-dropdown-menu::-webkit-scrollbar {
+    background-color: transparent;
+}
+
+.uni-dropdown-menu::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 10px;
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: oklch(0.928 0.006 264.531);
+    font-weight: 600;
     text-align: center;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-    overflow-y: auto; /* Enable vertical scrolling within the container */
-    max-height: 90vh; /* Set maximum height to prevent overflow */
+}
+
+.suggestion-item.active,
+.suggestion-item:hover {
+    background-color: #555;
+}
+
+
+
+.profile-picture-picker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 1rem auto;
+    border: 3px dashed #ccc;  /* merged: using 3px from later */
+    border-radius: 10%;       /* merged: using 10% from later */
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.profile-picture-picker:hover {
+    border-color: #34d399;
+    cursor: pointer;
+}
+
+.file-input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
+
+.file-input:hover, .file-input-label:hover{
+    cursor: pointer;
+}
+
+.file-input-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.placeholder-text {
+    /* Merged: using the later color and added pointer-events */
+    color: #666;
+    font-size: 14px;
+    text-align: center;
+    pointer-events: none;
+}
+
+.image-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10%;
+}
+
+.create-profile-container {
+    width: 90%;
+    text-align: center;
+    overflow-y: auto;
 }
 
 .create-profile-container h2 {
@@ -53,28 +299,15 @@
     font-size: 2rem;
 }
 
-.form-step {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
-.form-step label {
-    text-align: left;
-    font-weight: bold;
-    color: oklch(0.928 0.006 264.531);
-    font-size: 0.9rem;
-}
-
+/* Additional form input styling */
 .form-step input,
 .form-step textarea {
+    border-top-left-radius: 2px;
+    border-top-right-radius:2px;
     padding: 0.75rem;
-    background-color: rgba(0,0,0,0.35);
-    border: 1px solid #555;
+    background-color: rgba(60, 60, 60, 0.55);
+    border-bottom: 2px solid #555;
     color: oklch(0.928 0.006 264.531);
-    border-radius: 8px;
     font-size: 0.85rem;
     width: 100%;
 }
@@ -84,8 +317,9 @@
     min-height: 100px;
 }
 
+/* Button Containers */
 .create-profile-button-container {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     display: flex;
     justify-content: center;
     gap: 1rem;
@@ -93,18 +327,18 @@
 
 .create-profile-back-button,
 .create-profile-next-button {
-    padding: 0.4rem;
+    padding: 0.2rem;
     cursor: pointer;
     font-weight: 600;
     transition: background-color 0.3s, color 0.3s;
     border-radius: 8px;
 }
 
-
 /* Autocomplete Input with Label */
 .autocomplete-input-with-label {
     display: flex;
     align-items: center;
+    flex: 1;
 }
 
 .autocomplete-input-with-label .input-label {
@@ -116,157 +350,16 @@
     flex-grow: 1;
 }
 
-.autocomplete-container{
+.autocomplete-container {
     position: relative;
+    display: flex;
 }
 
-.autocomplete-container input{
+.autocomplete-container input {
     width: 100%;
 }
 
-
-/* Character Counter */
-.textarea-with-counter {
-    position: relative;
-}
-
-#aboutMe::-webkit-scrollbar{
-    background-color: transparent;
-    width: 8px;
-
-}
-#aboutMe::-webkit-scrollbar-thumb{
-    background-color: gray;
-    border-radius: 7px;
-}
-.char-counter {
-    position: absolute;
-    top: -20px;
-    right: 0;
-    font-size: 0.8rem;
-    color: grey;
-}
-
-/* Custom Dropdown */
-.custom-dropdown {
-    display: flex;
-    position: relative;
-    cursor: pointer;
-    margin: 0 auto;
-}
-
-.create-profile-dropdown-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: rgba(0,0,0,0.45);
-    color: oklch(0.928 0.006 264.531);
-    border-radius: 8px;
-    font-size: 0.75rem;
-}
-
-.dropdown-arrow {
-    display: inline-block;
-    margin-left: 10px;
-    transition: transform 0.3s ease; /* Smooth rotation */
-}
-
-.rotate-180 {
-    transform: rotate(180deg); /* Rotate arrow when dropdown is open */
-}
-
-/* Dropdown Menu */
-.uni-dropdown-menu {
-    position: absolute;
-    background-color: rgba(25,25,25,0.95);
-    top: 100%;
-    left: 0;
-    color: black;
-    border: 1px solid lightgray;
-    border-radius: 4px;
-    width: 100%;
-    z-index: 10;
-}
-
-.uni-dropdown-menu::-webkit-scrollbar{
-    background-color: transparent;
-}
-
-.uni-dropdown-menu::-webkit-scrollbar-thumb{
-    background-color: gray;
-    border-radius: 10px;
-}
-
-
-.uni-dropdown-item {
-    padding: 10px;
-    cursor: pointer;
-    color: black;
-    border-bottom: 1px solid #eee;
-}
-
-.uni-dropdown-item:last-child {
-    border-bottom: none;
-}
-
-/* Container for the profile picture picker */
-.profile-picture-picker {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    width: 150px;
-    height: 150px;
-    margin: 1rem auto;
-    border: 3px dashed #ccc;
-    border-radius: 10%;
-    cursor: pointer;
-    transition: border-color 0.3s ease;
-}
-
-.profile-picture-picker:hover {
-    border-color: #99edac;
-    cursor: pointer;
-}
-
-/* Hidden file input */
-.file-input {
-    position: absolute;
-    width: 0;
-    height: 0;
-    opacity: 0;
-}
-
-/* Label for the file input */
-.file-input-label {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    overflow: hidden;
-}
-
-/* Placeholder text inside the file picker */
-.placeholder-text {
-    color: #666;
-    font-size: 14px;
-    text-align: center;
-    pointer-events: none;
-}
-
-/* Preview image styling */
-.image-preview {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10%;
-}
-
-
-/* Course Input Container */
+/* Custom Dropdown for Courses / Subjects */
 .course-input-container {
     position: relative;
 }
@@ -277,7 +370,6 @@
 }
 
 .course-add-button {
-    flex: 1;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -286,14 +378,13 @@
     transition: transform 0.8s;
 }
 
-
 /* Suggestions List */
 .suggestions-list {
     position: absolute;
     top: 70%;
     left: 0;
     z-index: 20;
-    background-color: rgba(25,25,25,0.95);
+    background-color: rgba(25, 25, 25, 0.95);
     border: 1px solid #ccc;
     overflow-y: auto;
     width: 100%;
@@ -305,32 +396,22 @@
     scrollbar-color: #e4e4e4 transparent;
 }
 
+/* Required Asterisk */
 .required-asterisk {
     color: red;
     margin-left: 2px;
 }
 
-.suggestion-item {
-    font-size: 0.85rem;
-    padding: 10px;
-    cursor: pointer;
-    color: oklch(0.928 0.006 264.531);
-    font-weight: 600;
-}
-
-.suggestion-item:hover {
-    background-color: #555;
-}
-
 /* Selected Courses */
 .selected-courses {
     margin: 5px;
+    text-align: center;
 }
 
 .course-tag {
     display: inline-flex;
     align-items: center;
-    background-color: rgba(80,80,80,0.5);
+    background-color: rgba(80, 80, 80, 0.5);
     border: 2px solid #555;
     color: oklch(0.928 0.006 264.531);
     padding: 8px 12px;
@@ -347,12 +428,20 @@
 }
 
 .course-tag button:hover {
-    color: #ff0000;
+    color: rgba(244, 36, 36, 0.66);
 }
 
 /* Subject Input */
 .subject-input-container {
     position: relative;
+}
+.form-step::-webkit-scrollbar{
+    background-color: transparent;
+    width: 6px;
+}
+
+.form-step::-webkit-scrollbar-thumb{
+    border-radius: 6px;
 }
 
 .subject-input {
@@ -381,12 +470,11 @@
 .remove-course-button {
     background: none;
     border: none;
-    color: rgba(244, 36, 36, 0.66);
+    color: white;
     margin-left: 10px;
     cursor: pointer;
     font-size: 1.2rem;
 }
-
 
 /* Status Tags */
 .status-tags-container {
@@ -397,10 +485,8 @@
     justify-content: center;
 }
 
-
 .status-tag {
     font-weight: 600;
-    color: white;
     padding: 0.2rem 0.3rem;
     border-radius: 5px;
     font-size: 0.85rem;
@@ -411,9 +497,10 @@
 
 /* Error/Success Messages */
 .error-message {
-    color: #f66d6d;
+    color: white;
     margin-bottom: 1rem;
-    font-weight: bold;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .success-message {
@@ -422,25 +509,87 @@
     font-weight: bold;
 }
 
+/* Additional Custom Dropdown */
+.custom-dropdown {
+    display: flex;
+    position: relative;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+.create-profile-dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.45);
+    color: oklch(0.928 0.006 264.531);
+    border-radius: 8px;
+    font-size: 0.75rem;
+}
+
+.dropdown-arrow {
+    display: inline-block;
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+.rotate-180 {
+    transform: rotate(180deg);
+}
+
+.allow-emails-step-two input{
+    flex: 0;
+}
+
+/* ====== Profile Picture Picker ====== */
+.profile-picture-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+#profile-picture-label{
+    text-align: center;
+}
+
+/* ====== Responsive Adjustments for Smaller Screens ====== */
 @media (max-width: 480px) {
-    /* Adjust container alignment */
-    .create-profile-page {
-        background-color: white;
+    /* Adjustments from earlier */
+    .form-step {
+        width: 95%;
+        padding: 1rem 0rem;
+    }
+    .error-message{
+        margin-bottom: 0rem;
+    }
+    .progress-bar{
+        margin-top: 1rem;
+    }
+    .create-profile-page{
+        padding-top: 0;
+    }
+    .age-group {
+        width: 120px;
+    }
+    .create-profile-wrapper{
         justify-content: start;
     }
+
     .course-tag {
         font-size: 0.7rem;
     }
-
     .create-profile-container {
         width: 100%;
-        padding: 1rem;
-        max-height: 90vh;
+        padding: 0;
         overflow-y: auto;
         box-shadow: none;
     }
 
-    /* Reduce font sizes */
+    .form-step{
+        background: none;
+        border: none;
+    }
     .create-profile-container h2 {
         font-size: 1.5rem;
     }
@@ -448,40 +597,29 @@
         font-size: 0.8rem;
         padding: 10px;
     }
-
     .form-step label {
         font-size: 0.8rem;
     }
-
     .form-step input,
     .form-step textarea {
         font-size: 0.75rem;
         padding: 0.5rem;
     }
-
     .create-profile-back-button,
     .create-profile-next-button {
         padding: 0.5rem;
     }
-
-    .custom-dropdown {
-        width: 100%;
-    }
-
+    .custom-dropdown,
     .dropdown-header-home-navbar {
         width: 100%;
     }
-
-    /* Adjust profile picture picker */
     .profile-picture-picker {
         width: 120px;
         height: 120px;
     }
-
-    /* Adjust buttons and inputs within modals if any */
 }
 
-/* Optional: Smooth scrolling within the container */
+/* ====== Optional: Smooth Scrolling ====== */
 .create-profile-container {
     scroll-behavior: smooth;
 }

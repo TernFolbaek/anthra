@@ -5,8 +5,8 @@ import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
 import ResetPassword from '../ResetPassword/ResetPassword';
 import EmailVerification from '../EmailVerification/EmailVerification';
-import { FaCheck, FaTimes } from 'react-icons/fa';
-import {useNavigate} from "react-router-dom";
+import {FaCheck, FaHouseUser, FaTimes} from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 interface AuthPageProps {
     onBackClick: () => void;
@@ -17,66 +17,65 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
     const [isSignUp, setIsSignUp] = useState(true);
     const [showForgotPassword, setShowForgotPassword] = useState(false);
     const [showResetPassword, setShowResetPassword] = useState(false);
-    const [username, setUsername] = useState('');
+
+    // Form fields
     const [email, setEmail] = useState('');
+    const [confirmEmail, setConfirmEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    // UI and validation states
     const [message, setMessage] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [showEmailVerification, setShowEmailVerification] = useState(false);
     const [userId, setUserId] = useState('');
     const navigate = useNavigate();
-    const [isUsernameValid, setIsUsernameValid] = useState(false);
+
+    // Password validation states
     const [isPasswordLengthValid, setIsPasswordLengthValid] = useState(false);
     const [hasUppercase, setHasUppercase] = useState(false);
     const [hasDigit, setHasDigit] = useState(false);
     const [hasSpecialChar, setHasSpecialChar] = useState(false);
 
-    const [hasTypedUsername, setHasTypedUsername] = useState(false);
+    // Track whether user has begun typing in fields (for showing validations)
     const [hasTypedPassword, setHasTypedPassword] = useState(false);
 
-    // State to check if the screen is mobile
+    // Check if the screen is mobile
     const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 768);
 
     const switchAuthMode = () => {
         setIsSignUp(!isSignUp);
-        setUsername('');
         setEmail('');
+        setConfirmEmail('');
         setPassword('');
         setMessage(null);
         setError(null);
-        setHasTypedUsername(false);
         setHasTypedPassword(false);
     };
 
     const handleGoogleSuccess = async (credentialResponse: CredentialResponse) => {
         if (credentialResponse.credential) {
             const tokenId = credentialResponse.credential;
-
             try {
                 const backendResponse = await axios.post(
                     '/Auth/GoogleLogin',
                     { tokenId },
-                    {
-                        headers: {
-                            'Content-Type': 'application/json',
-                        }
-                    }
+                    { headers: { 'Content-Type': 'application/json' } }
                 );
+
                 const { token, userId, fullName } = backendResponse.data;
                 localStorage.setItem('token', token);
                 localStorage.setItem('userId', userId);
                 localStorage.setItem('fullName', fullName);
 
-                const profileResponse = await axios.get(
-                    '/Profile/GetProfile',
-                    {
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                        }
-                    }
-                );
+                // Load the user profile
+                const profileResponse = await axios.get('/Profile/GetProfile', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
                 const userProfile = profileResponse.data;
-                localStorage.setItem('userProfilePicture', profileResponse.data.profilePictureUrl);
+                localStorage.setItem('userProfilePicture', userProfile.profilePictureUrl);
                 onAuthSuccess(userProfile.createdProfile);
                 navigate('/create-profile');
             } catch (error) {
@@ -92,7 +91,12 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
     };
 
     const goBack = () => {
-            onBackClick();
+        onBackClick();
+    };
+
+    const handleForgotPasswordSuccess = () => {
+        setShowForgotPassword(false);
+        setShowResetPassword(true);
     };
 
     const handleResetPasswordSuccess = () => {
@@ -100,8 +104,9 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
         setIsSignUp(false);
     };
 
-    const validateUsername = (username: string): boolean => {
-        return username.length >= 5;
+    const handleEmailVerified = () => {
+        setShowEmailVerification(false);
+        onAuthSuccess(false);
     };
 
     const validatePassword = (password: string): void => {
@@ -113,31 +118,34 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
 
     useEffect(() => {
         if (isSignUp) {
-            setIsUsernameValid(validateUsername(username));
             validatePassword(password);
         }
-    }, [username, password, isSignUp]);
+    }, [email,password, isSignUp]);
 
+    // Handle sign-up / login
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setError(null);
 
-        if (isSignUp && !isUsernameValid) {
-            setError("Username must be at least 5 characters long.");
-            return;
+        // If signing up, check all validations first
+        if (isSignUp) {
+
+            // 2) Check password validations
+            if (!isPasswordLengthValid || !hasUppercase || !hasDigit || !hasSpecialChar) {
+                setError('Password does not meet the required criteria.');
+                return;
+            }
+            // 3) Check if email matches confirm email
+            if (email !== confirmEmail) {
+                setError('Email and Confirm Email do not match.');
+                return;
+            }
         }
 
-        if (isSignUp && (!isPasswordLengthValid || !hasUppercase || !hasDigit || !hasSpecialChar)) {
-            setError("Password does not meet the required criteria.");
-            return;
-        }
-
-        const endpoint = isSignUp
-            ? '/Auth/Register'
-            : '/Auth/Login';
-
+        const endpoint = isSignUp ? '/Auth/Register' : '/Auth/Login';
         const payload = isSignUp
-            ? { username, email, password }
-            : { username, password };
+            ? { email, password }
+            : { email, password };
 
         try {
             const response = await axios.post(endpoint, payload, { withCredentials: true });
@@ -153,23 +161,20 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                 localStorage.setItem('userId', userId);
                 localStorage.setItem('fullName', fullName);
 
-                const profileResponse = await axios.get(
-                    '/Profile/GetProfile',
-                    {
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                        }
-                    }
-                );
+                // Load user profile
+                const profileResponse = await axios.get('/Profile/GetProfile', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
                 const userProfile = profileResponse.data;
-                localStorage.setItem('userProfilePicture', profileResponse.data.profilePictureUrl);
+                localStorage.setItem('userProfilePicture', userProfile.profilePictureUrl);
                 onAuthSuccess(userProfile.createdProfile);
                 navigate('/create-profile');
             }
         } catch (err: any) {
             if (axios.isAxiosError(err) && err.response) {
                 const errorData = err.response.data;
-
                 if (errorData === 'Email not verified.') {
                     setError('Please verify your email before logging in.');
                 } else if (errorData.errors) {
@@ -183,17 +188,17 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
             setMessage(null);
         }
     };
+
+    // Handle mobile 'back' hardware button
     useEffect(() => {
         const handlePopState = (event: PopStateEvent) => {
             event.preventDefault();
             onBackClick();
         };
 
-        // Only add the event listener on mobile
         if (isMobile) {
             window.addEventListener('popstate', handlePopState);
         }
-
         return () => {
             if (isMobile) {
                 window.removeEventListener('popstate', handlePopState);
@@ -201,22 +206,11 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
         };
     }, [isMobile, onBackClick]);
 
-    const handleForgotPasswordSuccess = () => {
-        setShowForgotPassword(false);
-        setShowResetPassword(true);
-    };
-
-    const handleEmailVerified = () => {
-        setShowEmailVerification(false);
-        onAuthSuccess(false);
-    };
-
     // Update isMobile state on window resize
     useEffect(() => {
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 768);
         };
-
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
@@ -232,9 +226,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
 
     if (showResetPassword) {
         return (
-            <ResetPassword onBack={() => setShowResetPassword(false)}
-                           onResetSuccess={handleResetPasswordSuccess}
-            />
+            <ResetPassword onBack={() => setShowResetPassword(false)} onResetSuccess={handleResetPasswordSuccess} />
         );
     }
 
@@ -248,35 +240,17 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
         );
     }
 
-    const UsernameValidation = ({ isMobile }: { isMobile: boolean }) => (
-        hasTypedUsername && (
-            <div className={`validation-wrapper ${isMobile ? 'mobile-validation' : ''}`}>
-                <p className={`validation-item text-xs font-semibold ${isUsernameValid ? 'text-green-400' : 'text-red-400'}`}>
-                    {isUsernameValid ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
-                    Username is at least 5 characters
-                </p>
-            </div>
-        )
-    );
-
+    // Small helper component for password tips
     const PasswordValidation = ({ isMobile }: { isMobile: boolean }) => (
         hasTypedPassword && (
             <div className={`validation-wrapper ${isMobile ? 'mobile-validation' : ''}`}>
-                <p className={`validation-item text-xs font-semibold ${isPasswordLengthValid ? 'text-green-400' : 'text-red-400'}`}>
+                <p
+                    className={`validation-item text-xs font-semibold ${
+                        isPasswordLengthValid ? 'text-green-400' : 'text-red-400'
+                    }`}
+                >
                     {isPasswordLengthValid ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
                     At least 6 characters
-                </p>
-                <p className={`validation-item text-xs font-semibold ${hasUppercase ? 'text-green-400' : 'text-red-400'}`}>
-                    {hasUppercase ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
-                    One uppercase letter
-                </p>
-                <p className={`validation-item text-xs font-semibold ${hasDigit ? 'text-green-400' : 'text-red-400'}`}>
-                    {hasDigit ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
-                    One digit
-                </p>
-                <p className={`validation-item text-xs font-semibold ${hasSpecialChar ? 'text-green-400' : 'text-red-400'}`}>
-                    {hasSpecialChar ? <FaCheck className="valid-icon" /> : <FaTimes className="invalid-icon" />}
-                    One special character
                 </p>
             </div>
         )
@@ -284,8 +258,11 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
 
     return (
         <div className="auth-page">
-            <button className="bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 font-semibold text-sm text-gray-300 absolute top-4 left-4" onClick={goBack}>
-                Back
+            <button
+                className=" font-semibold text-sm text-gray-300 absolute top-4 left-4"
+                onClick={goBack}
+            >
+                <FaHouseUser size={24}/>
             </button>
             <div className="auth-content">
                 <div className="auth-container">
@@ -295,43 +272,41 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                     {error && <p className="text-sm font-medium text-white">{error}</p>}
 
                     <form onSubmit={handleSubmit}>
-                        {isMobile && isSignUp && <UsernameValidation isMobile={isMobile}/>}
-                        {!isSignUp && (<input
-                            type="text"
-                            placeholder="Username or Email"
-                            required
-                            value={username}
-                            onChange={(e) => {
-                                setUsername(e.target.value);
-                                if (!hasTypedUsername) setHasTypedUsername(true);
-                            }}
-                            className="text-white auth-input px-3 py-2 focus:ring-emerald-50 border border-gray-600 focus:ring-2 rounded-lg bg-gray-700/50"
-                        />)}
-
-                        {isSignUp && (<input
-                            type="text"
-                            placeholder="Username"
-                            required
-                            value={username}
-                            onChange={(e) => {
-                                setUsername(e.target.value);
-                                if (!hasTypedUsername) setHasTypedUsername(true);
-                            }}
-                            className="text-white auth-input px-3 py-2 focus:ring-emerald-50 border border-gray-600 focus:ring-2 rounded-lg bg-gray-700/50"
-                        />)}
-
-                        {isSignUp && (
+                        {isSignUp ? (
+                            <>
+                                <input
+                                    type="email"
+                                    placeholder="Email"
+                                    required
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className="text-white auth-input px-3 py-2 focus:ring-emerald-50 border border-gray-600 focus:ring-2 rounded-lg bg-gray-700/50"
+                                />
+                                <input
+                                    type="email"
+                                    placeholder="Confirm Email"
+                                    required
+                                    value={confirmEmail}
+                                    onChange={(e) => setConfirmEmail(e.target.value)}
+                                    className="text-white auth-input px-3 py-2 focus:ring-emerald-50 border border-gray-600 focus:ring-2 rounded-lg bg-gray-700/50"
+                                />
+                            </>
+                        ) : (
                             <input
-                                type="email"
+                                type="text"
                                 placeholder="Email"
                                 required
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                onChange={(e) => {
+                                    setEmail(e.target.value);
+                                }}
                                 className="text-white auth-input px-3 py-2 focus:ring-emerald-50 border border-gray-600 focus:ring-2 rounded-lg bg-gray-700/50"
                             />
                         )}
 
-                        {isMobile && isSignUp && <PasswordValidation isMobile={isMobile}/>}
+                        {/* Mobile-First Password Validation Tips (when user starts typing) */}
+                        {isMobile && isSignUp && <PasswordValidation isMobile={isMobile} />}
+
                         <input
                             type="password"
                             placeholder="Password"
@@ -344,11 +319,14 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                             className="text-white auth-input px-3 py-2 focus:ring-emerald-50 border border-gray-600 focus:ring-2 rounded-lg bg-gray-700/50"
                         />
 
-                        <button type="submit"
-                                className="text-white bg-emerald-500 w-full px-3 py-2 rounded-lg font-semibold hover:bg-emerald-400 transform hover:scale-105">
+                        <button
+                            type="submit"
+                            className="text-white bg-emerald-500 w-full px-3 py-2 rounded-lg font-semibold hover:bg-emerald-400 transform hover:scale-105"
+                        >
                             {isSignUp ? 'Sign Up' : 'Log In'}
                         </button>
 
+                        {/* Forgot Password Link (login only) */}
                         {!isSignUp && (
                             <p className="auth-container-p">
                                 <button
@@ -362,13 +340,12 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                         )}
                     </form>
 
+                    {/* Social login (Google, etc.) */}
                     <div className="social-login">
-                        <GoogleLogin
-                            onSuccess={handleGoogleSuccess}
-                            onError={handleGoogleFailure}
-                        />
+                        <GoogleLogin onSuccess={handleGoogleSuccess} onError={handleGoogleFailure} />
                     </div>
 
+                    {/* Toggle sign-up / login */}
                     <p className="auth-container-p text-gray-400">
                         {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
                         <button className="switch-button hover:underline text-emerald-400" onClick={switchAuthMode}>
@@ -376,17 +353,15 @@ const AuthPage: React.FC<AuthPageProps> = ({ onBackClick, onAuthSuccess }) => {
                         </button>
                     </p>
 
-                    {/* Desktop Validation Display */}
+                    {/* Desktop Validation Tips */}
                     {!isMobile && isSignUp && (
                         <div className="validation-container">
-                            {(hasTypedPassword || hasTypedUsername) && (
-                                <div className="w-full border-t border-gray-300 mb-2"></div>
-                            )}
-                            <UsernameValidation isMobile={isMobile} />
+                            {(hasTypedPassword) && <div className="w-full border-t border-gray-300 mb-2"></div>}
                             <PasswordValidation isMobile={isMobile} />
                         </div>
                     )}
                 </div>
+
                 <img src="/authimage.png" alt="Authentication Illustration" className="auth-image" />
             </div>
         </div>

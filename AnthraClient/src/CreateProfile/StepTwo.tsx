@@ -23,7 +23,7 @@ interface University {
     web_pages: string[];
     country: string;
     alpha_two_code: string;
-    "state-province": string | null;
+    'state-province': string | null;
 }
 
 interface StepTwoProps {
@@ -47,7 +47,7 @@ interface StepTwoProps {
     city: string;
     profilePictureFile: File | null;
 
-    // StepTwo data (lifted from parent)
+    // StepTwo data (lifted from parent or managed here)
     institution: string;
     setInstitution: React.Dispatch<React.SetStateAction<string>>;
     faculty: string;
@@ -100,44 +100,43 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                              onProfileCreated,
                                              token,
                                          }) => {
-    // We remove your old local state for institution, courses, etc.
-    // Instead, we use the props + setInstitution, setCourses, etc.
+    // ---------------- STAGE OF LIFE ----------------
+    const [stageOfLife, setStageOfLife] = useState<string>('');
 
+    // --------------- Institution Autosuggest ---------------
     const [institutionSearch, setInstitutionSearch] = useState('');
     const [filteredUniversities, setFilteredUniversities] = useState<University[]>([]);
     const [isInstitutionDropdownOpen, setIsInstitutionDropdownOpen] = useState(false);
     const [selectedInstitutionIndex, setSelectedInstitutionIndex] = useState<number>(-1);
 
+    // --------------- Faculty ---------------
     const [isFacultyDropdownOpen, setIsFacultyDropdownOpen] = useState(false);
+
+    // --------------- Courses ---------------
     const [selectedCourseIndex, setSelectedCourseIndex] = useState<number>(-1);
     const [courseInput, setCourseInput] = useState('');
     const [courseLinkInput, setCourseLinkInput] = useState('');
     const [courseSuggestions, setCourseSuggestions] = useState<Course[]>([]);
+
+    // --------------- Self-Study Focus Topics ---------------
+    // If you want a separate array instead of reusing courses, do this:
+    const [focusTopicInput, setFocusTopicInput] = useState('');
+    const [focusTopics, setFocusTopics] = useState<string[]>([]);
+
+    // --------------- Subjects (existing) ---------------
     const [subjectInput, setSubjectInput] = useState('');
 
-    const faculties: string[] = [
-        'Health & Medical',
-        'Humanities',
-        'Sciences',
-        'Theology',
-        'Social Sciences',
-        'Law',
-    ];
+    // --------------- Status tags ---------------
     const statuses: string[] = [
-        "✎ exam preparations",
-        "☺ expanding my network",
-        "☏ looking for collaboration",
-        "❊ general studies",
-        "❀ on exchange",
-        "☂ seeking mentorship"
+        '✎ exam preparations',
+        '☺ expanding my network',
+        '☏ looking for collaboration',
+        '❊ general studies',
+        '❀ on exchange',
+        '☂ seeking mentorship',
     ];
 
-    // Refs
-    const courseSuggestionRef = useRef<HTMLDivElement>(null);
-    const institutionDropdownRef = useRef<HTMLDivElement>(null);
-    const facultyDropdownRef = useRef<HTMLDivElement>(null);
-
-    // JSON => array
+    // --------------- JSON => array ---------------
     const cbsCoursesArray: Course[] = cbsCourses as Course[];
     const dtuCoursesArray: Course[] = dtuCourses as Course[];
     const lawCoursesArray: Course[] = lawCourses as Course[];
@@ -147,13 +146,32 @@ const StepTwo: React.FC<StepTwoProps> = ({
     const theologyCoursesArray: Course[] = theologyCourses as Course[];
     const healthAndMedicalCoursesArray: Course[] = healthAndMedicalCourses as Course[];
 
-    // Helpers to detect institution
-    const isCBS = institution === 'Copenhagen Business School' || institution === 'CBS';
+    // --------------- Refs ---------------
+    const courseSuggestionRef = useRef<HTMLDivElement>(null);
+    const institutionDropdownRef = useRef<HTMLDivElement>(null);
+    const facultyDropdownRef = useRef<HTMLDivElement>(null);
+
+    // --------------- Helpers for Institution Logic ---------------
+    const isCBS =
+        institution === 'Copenhagen Business School' ||
+        institution === 'CBS';
     const isKU =
         institution === 'University of Copenhagen' ||
         institution === 'KU' ||
         institution === 'Københavns Universitet';
-    const isDTU = institution === 'Technical University of Denmark' || institution === 'DTU';
+    const isDTU =
+        institution === 'Technical University of Denmark' ||
+        institution === 'DTU';
+
+    // --------------- Faculties (used only if isKU = true) ---------------
+    const faculties: string[] = [
+        'Health & Medical',
+        'Humanities',
+        'Sciences',
+        'Theology',
+        'Social Sciences',
+        'Law',
+    ];
 
     // On mount, show a few universities
     useEffect(() => {
@@ -182,8 +200,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                 !institutionDropdownRef.current.contains(event.target as Node)
             ) {
                 setIsInstitutionDropdownOpen(false);
-                // If the user typed a custom institution not in the list, we keep it
-                // or revert to whatever they typed
+                // If the user typed a custom institution not in the list, keep it
                 if (
                     !universitiesData.some(
                         (uni) => uni.name.toLowerCase() === institution.trim().toLowerCase()
@@ -212,7 +229,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
         setInstitution,
     ]);
 
-    // Institution handlers
+    // ---------------- Institution Handlers ----------------
     const handleInstitutionKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (!isInstitutionDropdownOpen || filteredUniversities.length === 0) return;
         if (e.key === 'ArrowDown') {
@@ -250,7 +267,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
         setSelectedInstitutionIndex(-1);
     };
 
-    // Faculty
+    // ---------------- Faculty Handlers (KU only) ----------------
     const handleFacultyDropdownClick = () => {
         setIsFacultyDropdownOpen(!isFacultyDropdownOpen);
     };
@@ -262,7 +279,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
         setIsFacultyDropdownOpen(false);
     };
 
-    // Courses
+    // ---------------- Courses Handlers (for Uni Student) ----------------
     const handleCourseInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setCourseInput(value);
@@ -308,7 +325,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
             setError('You can only add up to 4 courses.');
             return;
         }
-        // avoid duplicates
+        // Avoid duplicates
         if (!courses.some((c) => c.courseName === course.courseName)) {
             setCourses([...courses, course]);
             setError(null);
@@ -378,7 +395,35 @@ const StepTwo: React.FC<StepTwoProps> = ({
         setError(null);
     };
 
-    // Subjects
+    // ---------------- Self Studying: Focus Topics Handlers ----------------
+    const handleAddFocusTopic = () => {
+        const trimmed = focusTopicInput.trim();
+        if (!trimmed) {
+            setError('Focus topic cannot be empty.');
+            return;
+        }
+        if (trimmed.length < 2) {
+            setError('Please enter a focus topic of at least 2 characters.');
+            return;
+        }
+        if (focusTopics.length >= 5) {
+            setError('You can only add up to 5 focus topics.');
+            return;
+        }
+        if (focusTopics.includes(trimmed)) {
+            setError('This focus topic has already been added.');
+            return;
+        }
+        setFocusTopics([...focusTopics, trimmed]);
+        setFocusTopicInput('');
+        setError(null);
+    };
+
+    const handleRemoveFocusTopic = (topic: string) => {
+        setFocusTopics(focusTopics.filter((t) => t !== topic));
+    };
+
+    // ---------------- Subjects (Common to all) ----------------
     const handleAddSubject = () => {
         const trimmedInput = subjectInput.trim();
         if (!trimmedInput) {
@@ -409,7 +454,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
         setError(null);
     };
 
-    // Status selection
+    // ---------------- Status selection (Common to all) ----------------
     const handleStatusSelect = (st: string) => {
         if (selectedStatuses.includes(st)) {
             // unselect
@@ -426,30 +471,51 @@ const StepTwo: React.FC<StepTwoProps> = ({
         }
     };
 
-    // Job title
+    // ---------------- Work / Job Title => "Area of work" for Fulltime Worker ----------------
     const handleWorkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let val = e.target.value.slice(0, 25);
         if (val) {
-            val = val.charAt(0).toUpperCase() + val.slice(1).toLowerCase();
+            val = val.charAt(0).toUpperCase() + val.slice(1);
         }
         setWork(val);
     };
 
-    // Final submit
+    // ---------------- Final Submit ----------------
     const onFormSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Validate required fields for StepTwo
-        if (!institution.trim()) {
-            setError('Please enter your institution.');
+        // Basic validations differ by stageOfLife
+        if (!stageOfLife) {
+            setError('Please select your stage of life.');
             return;
         }
-        if (courses.length < 2) {
-            setError('Please add at least 2 courses.');
-            return;
+
+        // Validate each stage
+        if (stageOfLife === 'UniStudent') {
+            if (!institution.trim()) {
+                setError('Please enter your institution.');
+                return;
+            }
+            if (courses.length < 2) {
+                setError('Please add at least 2 courses.');
+                return;
+            }
+        } else if (stageOfLife === 'FulltimeWorker') {
+            if (!work.trim()) {
+                setError('Please enter your area of work.');
+                return;
+            }
+        } else if (stageOfLife === 'SelfStudying') {
+            // Validate that we have enough focus topics
+            if (focusTopics.length < 2) {
+                setError('Please add at least 2 Focus Topics.');
+                return;
+            }
         }
+
+        // Validate universal fields
         if (subjects.length < 2) {
-            setError('Please add at least 2 subjects.');
+            setError('Please add at least 2 subjects of interest.');
             return;
         }
         if (selectedStatuses.length < 2 || selectedStatuses.length > 3) {
@@ -461,28 +527,52 @@ const StepTwo: React.FC<StepTwoProps> = ({
             return;
         }
 
-        // Gather all data for final API call
+        // Gather form data
         const formData = new FormData();
         formData.append('FirstName', firstName);
         formData.append('LastName', lastName);
         formData.append('Location', `${city}, ${country}`);
-        formData.append('Institution', institution.trim());
-        formData.append('Work', work);
         formData.append('AboutMe', aboutMe);
         formData.append('Age', age === '' ? '' : age.toString());
-        formData.append('Courses', JSON.stringify(courses));
-        subjects.forEach((subject) => formData.append('Subjects', subject));
-        selectedStatuses.forEach((status) => formData.append('Statuses', status));
         formData.append('ProfilePicture', profilePictureFile);
         formData.append('AllowEmailUpdates', allowEmailUpdates.toString());
+        formData.append('StageOfLife', stageOfLife);
 
-        axios.post('/Profile/UpdateProfile', formData, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data',
-            },
-            withCredentials: true,
-        })
+        // If Uni. Student, append institution, courses
+        if (stageOfLife === 'UniStudent') {
+            formData.append('Institution', institution.trim());
+            formData.append('Work', ''); // or skip entirely if you want
+            formData.append('Courses', JSON.stringify(courses));
+        }
+
+        // If Fulltime Worker, append area of work
+        if (stageOfLife === 'FulltimeWorker') {
+            formData.append('Institution', '');
+            formData.append('Courses', '[]');
+            formData.append('Work', work.trim());
+        }
+
+        // If Self Studying, append focusTopics
+        if (stageOfLife === 'SelfStudying') {
+            formData.append('Institution', '');
+            formData.append('Work', '');
+            formData.append('Courses', JSON.stringify(focusTopics)); // Reuse "Courses" key if that’s how your backend expects it
+        }
+
+        // Append subjects (common)
+        subjects.forEach((subject) => formData.append('Subjects', subject));
+        // Append statuses (common)
+        selectedStatuses.forEach((status) => formData.append('Statuses', status));
+
+        // Submit to API
+        axios
+            .post('/Profile/UpdateProfile', formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data',
+                },
+                withCredentials: true,
+            })
             .then((response) => {
                 const data = response.data;
                 localStorage.setItem('fullName', `${firstName} ${lastName}`);
@@ -504,165 +594,308 @@ const StepTwo: React.FC<StepTwoProps> = ({
             });
     };
 
+    // --------------------------------- RENDER ---------------------------------
     return (
         <div className="form-step">
-            {/* Institution Input */}
-            <div className="floating-label-group" ref={institutionDropdownRef}>
-                <input
-                    id="institution"
-                    type="text"
-                    placeholder=" "
-                    value={institution}
-                    onChange={(e) => {
-                        setInstitution(e.target.value);
-                        setInstitutionSearch(e.target.value);
-                        setIsInstitutionDropdownOpen(true);
+            {/* ---------- 1) STAGE OF LIFE BUBBLES  ---------- */}
+            <label className="input-label">Stage of life</label>
+            <div className="flex flex-wrap gap-2 mb-4 justify-center">
+                {/* A simple approach: three clickable bubbles */}
+                <div
+                    className={`px-3 py-2 text-sm rounded-full cursor-pointer 
+            ${
+                        stageOfLife === 'Student'
+                            ? 'bg-emerald-700 text-white'
+                            : 'bg-emerald-400/20 text-emerald-200'
+                    }`}
+                    onClick={() => {
+                        setStageOfLife('Student');
+                        // optionally reset fields:
+                        setInstitution('');
+                        setFaculty('');
+                        setCourses([]);
+                        setWork('');
+                        setFocusTopics([]);
                     }}
-                    onFocus={handleInstitutionFocus}
-                    onKeyDown={handleInstitutionKeyDown}
-                    className="floating-label-input"
-                    autoComplete="off"
-                />
-                <label htmlFor="institution" className="floating-label">
-                    Institution
-                </label>
-                {isInstitutionDropdownOpen && filteredUniversities.length > 0 && (
-                    <ul className="uni-dropdown-menu">
-                        {filteredUniversities.map((uni, idx) => (
-                            <li
-                                key={idx}
-                                className={`suggestion-item ${idx === selectedInstitutionIndex ? 'active' : ''}`}
-                                onMouseDown={() => {
-                                    handleInstitutionSelect(uni.name);
-                                    setInstitutionSearch('');
-                                }}
-                            >
-                                {uni.name}
-                            </li>
-                        ))}
-                    </ul>
-                )}
+                >
+                    Student
+                </div>
+                <div
+                    className={`px-3 py-2 text-sm rounded-full cursor-pointer 
+            ${
+                        stageOfLife === 'Professional'
+                            ? 'bg-emerald-700 text-white'
+                            : 'bg-emerald-400/20 text-emerald-200'
+                    }`}
+                    onClick={() => {
+                        setStageOfLife('Professional');
+                        // optionally reset fields:
+                        setInstitution('');
+                        setFaculty('');
+                        setCourses([]);
+                        setWork('');
+                        setFocusTopics([]);
+                    }}
+                >
+                    Professional
+                </div>
+                <div
+                    className={`px-3 py-2 text-sm rounded-full cursor-pointer 
+            ${
+                        stageOfLife === 'SelfStudying'
+                            ? 'bg-emerald-700 text-white'
+                            : 'bg-emerald-400/20 text-emerald-200'
+                    }`}
+                    onClick={() => {
+                        setStageOfLife('SelfStudying');
+                        // optionally reset fields:
+                        setInstitution('');
+                        setFaculty('');
+                        setCourses([]);
+                        setWork('');
+                        setFocusTopics([]);
+                    }}
+                >
+                    Self Studying
+                </div>
             </div>
 
-            {/* KU Faculty Dropdown – only show for KU */}
-            {isKU && (
-                <div className="floating-label-group w-[200px] mt-1" ref={facultyDropdownRef}>
-                    <div
-                        className="floating-label-input text-center "
-                        onClick={handleFacultyDropdownClick}
-                        style={{cursor: 'pointer'}}
-                    >
-                        {faculty ? faculty : 'Select Faculty'}
+            {/* ---------- UNI STUDENT FIELDS  ---------- */}
+            {stageOfLife === 'Student' && (
+                <>
+                    {/* Institution */}
+                    <div className="floating-label-group" ref={institutionDropdownRef}>
+                        <input
+                            id="institution"
+                            type="text"
+                            placeholder=" "
+                            value={institution}
+                            onChange={(e) => {
+                                setInstitution(e.target.value);
+                                setInstitutionSearch(e.target.value);
+                                setIsInstitutionDropdownOpen(true);
+                            }}
+                            onFocus={handleInstitutionFocus}
+                            onKeyDown={handleInstitutionKeyDown}
+                            className="floating-label-input"
+                            autoComplete="off"
+                        />
+                        <label htmlFor="institution" className="floating-label">
+                            Institution
+                        </label>
+                        {isInstitutionDropdownOpen && filteredUniversities.length > 0 && (
+                            <ul className="uni-dropdown-menu">
+                                {filteredUniversities.map((uni, idx) => (
+                                    <li
+                                        key={idx}
+                                        className={`suggestion-item ${
+                                            idx === selectedInstitutionIndex ? 'active' : ''
+                                        }`}
+                                        onMouseDown={() => {
+                                            handleInstitutionSelect(uni.name);
+                                            setInstitutionSearch('');
+                                        }}
+                                    >
+                                        {uni.name}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
                     </div>
-                    <label className="floating-label">Select Faculty</label>
-                    {isFacultyDropdownOpen && (
-                        <ul className="uni-dropdown-menu">
-                            {faculties.map((fac) => (
-                                <li
-                                    key={fac}
-                                    className="suggestion-item"
-                                    onMouseDown={() => handleFacultyOptionClick(fac)}
-                                >
-                                    {fac}
-                                </li>
-                            ))}
-                        </ul>
+
+                    {/* KU Faculty Dropdown – only show for KU */}
+                    {isKU && (
+                        <div
+                            className="floating-label-group w-[200px] mt-1"
+                            ref={facultyDropdownRef}
+                        >
+                            <div
+                                className="floating-label-input text-center cursor-pointer"
+                                onClick={handleFacultyDropdownClick}
+                            >
+                                {faculty ? faculty : 'Select Faculty'}
+                            </div>
+                            <label className="floating-label">Select Faculty</label>
+                            {isFacultyDropdownOpen && (
+                                <ul className="uni-dropdown-menu">
+                                    {faculties.map((fac) => (
+                                        <li
+                                            key={fac}
+                                            className="suggestion-item"
+                                            onMouseDown={() => handleFacultyOptionClick(fac)}
+                                        >
+                                            {fac}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
                     )}
-                </div>
+
+                    {/* Courses */}
+                    <label className="input-label mb-2" htmlFor="courseInput">
+                        Courses <span className="counter">({courses.length}/4)</span>{' '}
+                        <span className="font-medium text-xs">min. 2</span>
+                    </label>
+                    <div
+                        className="course-input-container"
+                        style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                        ref={courseSuggestionRef}
+                    >
+                        <div style={{ flex: 1 }} className="floating-label-group w-full">
+                            <input
+                                id="courseInput"
+                                type="text"
+                                placeholder=" "
+                                value={courseInput}
+                                onChange={handleCourseInputChange}
+                                onKeyDown={handleCourseKeyDown}
+                                className="floating-label-input disabled:bg-gray-700/30 disabled:cursor-not-allowed"
+                                autoComplete="off"
+                                disabled={!institution.trim() || courses.length >= 4}
+                            />
+                            {courseSuggestions.length > 0 && (
+                                <ul className="uni-dropdown-menu">
+                                    {courseSuggestions.map((course, index) => (
+                                        <li
+                                            className={`suggestion-item p-2 cursor-pointer ${
+                                                index === selectedCourseIndex ? 'bg-gray-600/50' : ''
+                                            }`}
+                                            key={index}
+                                            onMouseDown={() => handleCourseSelect(course)}
+                                        >
+                                            {course.courseName}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                        <button
+                            type="button"
+                            onClick={handleAddCourse}
+                            className="course-add-button"
+                            disabled={!institution.trim() || courses.length >= 4}
+                        >
+                            <FaPlusCircle />
+                        </button>
+                    </div>
+                    {courses.length > 0 && (
+                        <div className="selected-courses">
+                            {courses.map((c, i) => (
+                                <span key={i} className="course-tag">
+                  {c.courseLink ? (
+                      <a
+                          href={
+                              c.courseLink.startsWith('http')
+                                  ? c.courseLink
+                                  : `https://${c.courseLink}`
+                          }
+                          className="course-link text-xs"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                      >
+                          {c.courseName}
+                          <FaExternalLinkAlt size={16} className="external-link-icon" />
+                      </a>
+                  ) : (
+                      <span>{c.courseName}</span>
+                  )}
+                                    <button
+                                        type="button"
+                                        onClick={() => handleRemoveCourse(c.courseName)}
+                                        className="remove-course-button"
+                                    >
+                    <FaTimes size={16} />
+                  </button>
+                </span>
+                            ))}
+                        </div>
+                    )}
+                </>
             )}
 
-            {/* Courses Input */}
-            <label className="input-label mb-2" htmlFor="courseInput">
-                Areas of expertise <span className="counter"> ({courses.length}/4)</span>{' '}
-                <span className="font-medium text-xs">min. 2</span>
-            </label>
-            <div
-                className="course-input-container"
-                style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}
-                ref={courseSuggestionRef}
-            >
-                <div style={{flex: 1}} className="floating-label-group w-full">
+            {/* ---------- FULLTIME WORKER FIELDS  ---------- */}
+            {stageOfLife === 'Professional' && (
+                <div className="floating-label-group mt-1">
                     <input
-                        id="courseInput"
+                        id="work"
                         type="text"
                         placeholder=" "
-                        value={courseInput}
-                        onChange={handleCourseInputChange}
-                        onKeyDown={handleCourseKeyDown}
-                        className="floating-label-input disabled:bg-gray-700/30 disabled:cursor-not-allowed"
-                        autoComplete="off"
-                        disabled={!institution.trim() || courses.length >= 4}
+                        value={work}
+                        onChange={handleWorkChange}
+                        maxLength={25}
+                        className="floating-label-input"
                     />
-                    {courseSuggestions.length > 0 && (
-                        <ul className="uni-dropdown-menu">
-                            {courseSuggestions.map((course, index) => (
-                                <li
-                                    className={`suggestion-item p-2 cursor-pointer ${
-                                        index === selectedCourseIndex ? 'bg-gray-600/50' : ''
-                                    }`}
-                                    key={index}
-                                    onMouseDown={() => handleCourseSelect(course)}
-                                >
-                                    {course.courseName}
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </div>
-                <button
-                    type="button"
-                    onClick={handleAddCourse}
-                    className="course-add-button"
-                    disabled={!institution.trim() || courses.length >= 4}
-                >
-                    <FaPlusCircle/>
-                </button>
-            </div>
-
-            {/* Render selected courses */}
-            {courses.length > 0 && (
-                <div className="selected-courses">
-                    {courses.map((c, i) => (
-                        <span key={i} className="course-tag">
-                {c.courseLink ? (
-                    <a
-                        href={
-                            c.courseLink.startsWith('http')
-                                ? c.courseLink
-                                : `https://${c.courseLink}`
-                        }
-                        className="course-link text-xs"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        {c.courseName}
-                        <FaExternalLinkAlt size={16} className="external-link-icon"/>
-                    </a>
-                ) : (
-                    <span>{c.courseName}</span>
-                )}
-                            <button
-                                type="button"
-                                onClick={() => handleRemoveCourse(c.courseName)}
-                                className="remove-course-button"
-                            >
-                  <FaTimes size={16}/>
-                </button>
-              </span>
-                    ))}
+                    <label htmlFor="work" className="floating-label">
+                        Area of Work
+                    </label>
                 </div>
             )}
 
-            {/* Subjects Input */}
-            <label className="input-label" htmlFor="subjectInput">
+            {/* ---------- SELF STUDYING FIELDS  ---------- */}
+            {stageOfLife === 'SelfStudying' && (
+                <>
+                    <label className="input-label mb-2" htmlFor="focusTopicInput">
+                        What subjects are you learning <span className="counter">({focusTopics.length}/5)</span>{' '}
+                        <span className="font-medium text-xs">min. 2</span>
+                    </label>
+                    <div className="flex items-center gap-2 mb-2">
+                        <div className="floating-label-group w-full">
+                            <input
+                                id="focusTopicInput"
+                                type="text"
+                                placeholder=" "
+                                value={focusTopicInput}
+                                onChange={(e) => setFocusTopicInput(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        handleAddFocusTopic();
+                                    }
+                                }}
+                                className="floating-label-input"
+                                disabled={focusTopics.length >= 5}
+                                maxLength={35}
+                            />
+                            <label htmlFor="focusTopicInput" className="floating-label">
+                                Add a focus topic
+                            </label>
+                        </div>
+                        <button
+                            type="button"
+                            onClick={handleAddFocusTopic}
+                            className="course-add-button"
+                            disabled={focusTopics.length >= 5}
+                        >
+                            <FaPlusCircle />
+                        </button>
+                    </div>
+                    {focusTopics.length > 0 && (
+                        <div className="flex flex-wrap justify-center gap-2">
+                            {focusTopics.map((topic, index) => (
+                                <span key={index} className="course-tag flex items-center justify-center">
+                  <p className="mr-1 text-xs font-medium">{topic}</p>
+                  <button
+                      type="button"
+                      onClick={() => handleRemoveFocusTopic(topic)}
+                      className="remove-course-button"
+                  >
+                    <FaTimes size={16} />
+                  </button>
+                </span>
+                            ))}
+                        </div>
+                    )}
+                </>
+            )}
+
+            {/* ---------- SUBJECTS (Common for all) ---------- */}
+            <label className="input-label mt-4" htmlFor="subjectInput">
                 Topics of interest <span className="counter">({subjects.length}/5)</span>{' '}
                 <span className="font-medium text-xs">min. 2</span>
             </label>
-            <div
-                className="flex-row"
-                style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}
-            >
-                <div style={{flex: 1}} className="floating-label-group">
+            <div className="flex items-center gap-2 mb-2">
+                <div className="floating-label-group w-full">
                     <input
                         id="subjectInput"
                         type="text"
@@ -679,53 +912,36 @@ const StepTwo: React.FC<StepTwoProps> = ({
                         disabled={subjects.length >= 5}
                         maxLength={35}
                     />
-                    <label htmlFor="subjectInput" className="floating-label"/>
+                    <label htmlFor="subjectInput" className="floating-label" />
                 </div>
                 <button
                     type="button"
                     onClick={handleAddSubject}
                     className="course-add-button"
-                    disabled={!institution.trim() || subjects.length >= 5}
+                    disabled={subjects.length >= 5}
                 >
-                    <FaPlusCircle/>
+                    <FaPlusCircle />
                 </button>
             </div>
-            {/* Display selected subjects */}
             {subjects.length > 0 && (
-                <div className="flex flex-wrap justify-center gap-2">
+                <div className="flex flex-wrap justify-center gap-2 mb-2">
                     {subjects.map((subject, index) => (
                         <span key={index} className="course-tag flex items-center justify-center">
-                <p className="mr-1 text-xs font-medium">{subject}</p>
-                <button
-                    type="button"
-                    onClick={() => handleRemoveSubject(subject)}
-                    className="remove-course-button"
-                >
-                  <FaTimes size={16}/>
-                </button>
-              </span>
+              <p className="mr-1 text-xs font-medium">{subject}</p>
+              <button
+                  type="button"
+                  onClick={() => handleRemoveSubject(subject)}
+                  className="remove-course-button"
+              >
+                <FaTimes size={16} />
+              </button>
+            </span>
                     ))}
                 </div>
             )}
 
-            {/* Work / Job Title */}
-            <div className="floating-label-group mt-1">
-                <input
-                    id="work"
-                    type="text"
-                    placeholder=" "
-                    value={work}
-                    onChange={handleWorkChange}
-                    maxLength={25}
-                    className="floating-label-input"
-                />
-                <label htmlFor="work" className="floating-label">
-                    Job Title
-                </label>
-            </div>
-
-            {/* Status Selection */}
-            <label className="input-label status-label" htmlFor="status">
+            {/* ---------- STATUS (Common for all) ---------- */}
+            <label className="input-label status-label mt-4" htmlFor="status">
                 Status (Select 2-3)
             </label>
             <div className="status-tags-container">
@@ -739,12 +955,12 @@ const StepTwo: React.FC<StepTwoProps> = ({
                         }`}
                         onClick={() => handleStatusSelect(st)}
                     >
-              {st}
-            </span>
+            {st}
+          </span>
                 ))}
             </div>
 
-            {/* Allow Email Updates */}
+            {/* ---------- Allow Email Updates (Common) ---------- */}
             <div className="allow-emails-step-two flex items-center my-4">
                 <input
                     id="allowEmails"
@@ -758,7 +974,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                 </p>
             </div>
 
-            {/* Navigation Buttons */}
+            {/* ---------- Nav Buttons ---------- */}
             <div className="create-profile-button-container">
                 <button
                     type="button"
@@ -775,8 +991,8 @@ const StepTwo: React.FC<StepTwoProps> = ({
                     Create
                 </button>
             </div>
-            <p className="text-sm text-white text-center mt-1">{error}</p>
 
+            {error && <p className="text-sm text-white text-center mt-1">{error}</p>}
         </div>
     );
 };

@@ -184,7 +184,6 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
             {!isTablet && (
                 <>
                     {/* Vertical Divider */}
-                    <div className="w-[2px] h-[80%] rounded bg-gray-500 my-4" />
 
                     <div className="flex-1 flex justify-center">
                         <ProfilePreview

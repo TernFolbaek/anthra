@@ -4,23 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f6ef597-b7bd-442f-8da7-2cf448f0ba4c" name="Changes" comment="Allow user select throughout the application">
-      <change afterPath="$PROJECT_DIR$/src/CreateProfile/ProfilePreview.tsx" afterDir="false" />
+    <list default="true" id="0f6ef597-b7bd-442f-8da7-2cf448f0ba4c" name="Changes" comment="Migrate removing username">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Authentication/AuthPage/AuthPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Authentication/AuthPage/AuthPage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Authentication/AuthPage/AuthPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Authentication/AuthPage/AuthPage.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CreateProfile/CreateProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/CreateProfile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CreateProfile/CreateProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/CreateProfile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CreateProfile/StepOne.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/StepOne.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CreateProfile/StepTwo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/StepTwo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CreateProfile/universities.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/universities.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Profile/Profile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LandingPage/components/Home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/LandingPage/components/Home/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LandingPage/components/HowItWorks/HowItWorks.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/LandingPage/components/HowItWorks/HowItWorks.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LandingPage/components/HowItWorks/HowItWorks.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/LandingPage/components/HowItWorks/HowItWorks.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LandingPage/components/Navbar/Navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/LandingPage/components/Navbar/Navbar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Controllers/Account/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Controllers/Account/AuthController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,31 +77,7 @@
       <workItem from="1738318235162" duration="55222000" />
       <workItem from="1738506163692" duration="2470000" />
       <workItem from="1738670340495" duration="1757000" />
-      <workItem from="1738679476956" duration="49655000" />
-    </task>
-    <task id="LOCAL-00001" summary="Yeet whitespace">
-      <option name="closed" value="true" />
-      <created>1738268430054</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1738268430054</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Refine styling when adding new users to groups">
-      <option name="closed" value="true" />
-      <created>1738271290273</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1738271290273</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Refine group message input when sending message is loading">
-      <option name="closed" value="true" />
-      <created>1738271305296</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1738271305296</updated>
+      <workItem from="1738679476956" duration="50728000" />
     </task>
     <task id="LOCAL-00004" summary="Refine  message input when sending message is loading">
       <option name="closed" value="true" />
@@ -428,7 +391,87 @@
       <option name="project" value="LOCAL" />
       <updated>1738629886307</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Restyle auth page">
+      <option name="closed" value="true" />
+      <created>1738833207516</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1738833207516</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Restyle Create profile">
+      <option name="closed" value="true" />
+      <created>1738833214663</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1738833214663</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Restyle Get started button">
+      <option name="closed" value="true" />
+      <created>1738833238578</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1738833238578</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Restyle how it works">
+      <option name="closed" value="true" />
+      <created>1738833251767</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1738833251767</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Restyle Navbar">
+      <option name="closed" value="true" />
+      <created>1738833258236</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1738833258236</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Remove username usage">
+      <option name="closed" value="true" />
+      <created>1738833267791</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1738833267791</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Create profile preview component">
+      <option name="closed" value="true" />
+      <created>1738833276156</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1738833276156</updated>
+    </task>
+    <task id="LOCAL-00050" summary="New steptwo with preview component">
+      <option name="closed" value="true" />
+      <created>1738833309923</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1738833309923</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Universities.json">
+      <option name="closed" value="true" />
+      <created>1738833317709</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1738833317709</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Migrate removing username">
+      <option name="closed" value="true" />
+      <created>1738833331233</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1738833331233</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -446,16 +489,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Only make course clickable when there is a link present" />
-    <MESSAGE value="Use tailwind" />
-    <MESSAGE value="If user is already in group, do not show in list" />
-    <MESSAGE value="Refine status message" />
-    <MESSAGE value="onremovegroup callback when you leave group" />
-    <MESSAGE value="show connections you have selected for the grou" />
-    <MESSAGE value="Remove unused components" />
-    <MESSAGE value="Underline course that actually has a link" />
-    <MESSAGE value="Refine report popup content" />
-    <MESSAGE value="Remove import of unused component" />
     <MESSAGE value="Refine styling" />
     <MESSAGE value="Remove useless comment" />
     <MESSAGE value="Add migrations" />
@@ -471,6 +504,16 @@
     <MESSAGE value="Refined home landing page" />
     <MESSAGE value="Create info for marie jensen seed user" />
     <MESSAGE value="Allow user select throughout the application" />
-    <option name="LAST_COMMIT_MESSAGE" value="Allow user select throughout the application" />
+    <MESSAGE value="Restyle auth page" />
+    <MESSAGE value="Restyle Create profile" />
+    <MESSAGE value="Restyle Get started button" />
+    <MESSAGE value="Restyle how it works" />
+    <MESSAGE value="Restyle Navbar" />
+    <MESSAGE value="Remove username usage" />
+    <MESSAGE value="Create profile preview component" />
+    <MESSAGE value="New steptwo with preview component" />
+    <MESSAGE value="Universities.json" />
+    <MESSAGE value="Migrate removing username" />
+    <option name="LAST_COMMIT_MESSAGE" value="Migrate removing username" />
   </component>
 </project>

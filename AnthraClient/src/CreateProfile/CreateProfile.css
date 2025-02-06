@@ -18,14 +18,7 @@
 
 
 .create-profile-page {
-    background: radial-gradient(
-            circle at top,
-            #0c6e56 0%,
-            #0b4e3e 20%,
-            #0c2e37 40%,
-            #081924 70%,
-            #000 100%
-    );
+    background-color: rgba(0,0,0,0.9);
     background-blend-mode: multiply;
     color: #333;
     font-family: 'Montserrat', sans-serif;
@@ -602,7 +595,7 @@ input[type='number'] {
     }
     .form-step input,
     .form-step textarea {
-        font-size: 0.75rem;
+        font-size: 1rem;
         padding: 0.5rem;
     }
     .create-profile-back-button,
@@ -618,6 +611,32 @@ input[type='number'] {
         height: 120px;
     }
 }
+
+/* Example bubble styling */
+.flex.flex-wrap.gap-2.mb-4.justify-center > div {
+    border: 1px solid #34d399;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+.flex.flex-wrap.gap-2.mb-4.justify-center > div:hover {
+    transform: scale(1.05);
+}
+
+/* Or define a more specific class for stage-of-life bubbles: */
+.stage-of-life-bubble {
+    padding: 0.2rem 0.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.stage-of-life-bubble.selected {
+    background-color: #065f46; /* Or any “selected” color */
+    color: #fff;
+}
+
 
 /* ====== Optional: Smooth Scrolling ====== */
 .create-profile-container {

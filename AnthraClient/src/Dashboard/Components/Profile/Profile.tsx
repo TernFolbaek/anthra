@@ -23,7 +23,6 @@ interface ProfileData {
     };
     profilePictureUrl: string;
     subjects: string[];
-    userName: string;
     work: string;
     statuses: string[];
     allowEmailUpdates: string;
@@ -729,7 +728,6 @@ const Profile: React.FC = () => {
                         )}
                     </div>
                     <div className="flex flex-col gap-4 items-center">
-                        <p className="font-bold text-xl dark:text-white">@{profileData.userName}</p>
                         <button className="text-center text-sm font-semibold hover:underline dark:text-gray-200" onClick={()=>handleUserSelect()}>
                             Preview Profile
                         </button>

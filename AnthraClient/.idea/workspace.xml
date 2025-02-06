@@ -5,7 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f6ef597-b7bd-442f-8da7-2cf448f0ba4c" name="Changes" comment="Allow user select throughout the application">
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Folder.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Folder.DotSettings.user" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/CreateProfile/ProfilePreview.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Authentication/AuthPage/AuthPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Authentication/AuthPage/AuthPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Authentication/AuthPage/AuthPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Authentication/AuthPage/AuthPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CreateProfile/CreateProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/CreateProfile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CreateProfile/CreateProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/CreateProfile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CreateProfile/StepOne.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/StepOne.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CreateProfile/StepTwo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/StepTwo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CreateProfile/universities.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/universities.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Profile/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LandingPage/components/Home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/LandingPage/components/Home/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LandingPage/components/HowItWorks/HowItWorks.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/LandingPage/components/HowItWorks/HowItWorks.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LandingPage/components/HowItWorks/HowItWorks.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/LandingPage/components/HowItWorks/HowItWorks.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LandingPage/components/Navbar/Navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/LandingPage/components/Navbar/Navbar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/Controllers/Account/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Controllers/Account/AuthController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +90,7 @@
       <workItem from="1738318235162" duration="55222000" />
       <workItem from="1738506163692" duration="2470000" />
       <workItem from="1738670340495" duration="1757000" />
+      <workItem from="1738679476956" duration="49655000" />
     </task>
     <task id="LOCAL-00001" summary="Yeet whitespace">
       <option name="closed" value="true" />

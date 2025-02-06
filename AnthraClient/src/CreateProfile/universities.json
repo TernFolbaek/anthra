@@ -1,13 +1,5 @@
 [
   {
-    "name": "Engineering Institute of Technology",
-    "domains": ["student.eit.edu.au"],
-    "web_pages": ["https://www.eit.edu.au/"],
-    "country": "Australia",
-    "alpha_two_code": "AU",
-    "state-province": null
-  },
-  {
     "name": "Københavns Universitet",
     "domains": [""],
     "web_pages": ["https://www.ku.dk/"],
@@ -28,6 +20,38 @@
     "domains": ["dtu.dk"],
     "web_pages": ["https://www.dtu.dk"],
     "country": "Denmark",
+    "alpha_two_code": "AU",
+    "state-province": null
+  },
+  {
+    "web_pages": ["http://www.auc.dk/"],
+    "name": "Aalborg University",
+    "alpha_two_code": "DK",
+    "state-province": null,
+    "domains": ["auc.dk", "aau.dk", "student.aau.dk"],
+    "country": "Denmark"
+  },
+  {
+    "web_pages": ["http://www.au.dk/"],
+    "name": "Aarhus University",
+    "alpha_two_code": "DK",
+    "state-province": null,
+    "domains": ["au.dk"],
+    "country": "Denmark"
+  },
+  {
+    "web_pages": ["http://www.dtu.dk/"],
+    "name": "Technical University of Denmark",
+    "alpha_two_code": "DK",
+    "state-province": null,
+    "domains": ["dtu.dk"],
+    "country": "Denmark"
+  },
+  {
+    "name": "Engineering Institute of Technology",
+    "domains": ["student.eit.edu.au"],
+    "web_pages": ["https://www.eit.edu.au/"],
+    "country": "Australia",
     "alpha_two_code": "AU",
     "state-province": null
   },
@@ -23125,22 +23149,6 @@
     "country": "Denmark"
   },
   {
-    "web_pages": ["http://www.auc.dk/"],
-    "name": "Aalborg University",
-    "alpha_two_code": "DK",
-    "state-province": null,
-    "domains": ["auc.dk", "aau.dk", "student.aau.dk"],
-    "country": "Denmark"
-  },
-  {
-    "web_pages": ["http://www.au.dk/"],
-    "name": "Aarhus University",
-    "alpha_two_code": "DK",
-    "state-province": null,
-    "domains": ["au.dk"],
-    "country": "Denmark"
-  },
-  {
     "web_pages": ["http://www.cbs.dk/"],
     "name": "Copenhagen Business School",
     "alpha_two_code": "DK",
@@ -23194,14 +23202,6 @@
     "alpha_two_code": "DK",
     "state-province": null,
     "domains": ["dpu.dk"],
-    "country": "Denmark"
-  },
-  {
-    "web_pages": ["http://www.dtu.dk/"],
-    "name": "Technical University of Denmark",
-    "alpha_two_code": "DK",
-    "state-province": null,
-    "domains": ["dtu.dk"],
     "country": "Denmark"
   },
   {

@@ -7,36 +7,17 @@ import ReferModal from '../ReferModal/ReferModal';
 import useWindowWidth from '../../../hooks/useWindowWidth';
 import { useSwipeable } from 'react-swipeable';
 import { FaCog, FaBookOpen, FaPencilAlt, FaEnvelopeOpenText } from "react-icons/fa";
-import Confetti from 'react-confetti';  // <-- Import a confetti component
-
-interface Course {
-    courseName: string;
-    courseLink: string;
-}
-
-interface User {
-    id: string;
-    firstName: string;
-    lastName: string;
-    location: string;
-    institution: string;
-    work: string;
-    courses: Course[];
-    subjects: string[];
-    statuses: string[];
-    aboutMe: string;
-    age: number;
-    profilePictureUrl: string;
-}
+import Confetti from 'react-confetti';
+import {UserProfile} from "../../types/types";
 
 interface UserExplorePageProps {
     onSettingsClick: () => void;
 }
 
 const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) => {
-    const [users, setUsers] = useState<User[]>([]);
+    const [users, setUsers] = useState<UserProfile[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [currentUser, setCurrentUser] = useState<User | null>(null);
+    const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
     const [intervalMessage, setIntervalMessage] = useState<string | null>(null);
 
     const [snackbarVisible, setSnackbarVisible] = useState<boolean>(false);
@@ -47,9 +28,8 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
     const [showConnectionNoteModal, setShowConnectionNoteModal] = useState(false);
     const [connectionNote, setConnectionNote] = useState<string>('');
 
-    // NEW states for "Connection Accepted" scenario
     const [showConnectionAcceptedModal, setShowConnectionAcceptedModal] = useState(false);
-    const [acceptedConnectionUser, setAcceptedConnectionUser] = useState<User | null>(null);
+    const [acceptedConnectionUser, setAcceptedConnectionUser] = useState<UserProfile | null>(null);
 
     const windowWidth = useWindowWidth();
     const isSmallScreen = windowWidth < 480;
@@ -62,7 +42,6 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
 
     const token = localStorage.getItem('token');
 
-    // -------------- FETCH USERS ON MOUNT -------------
     useEffect(() => {
         const fetchUsers = async () => {
             try {
@@ -268,21 +247,44 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                         </div>
                                     </div>
                                     <div className="user-info">
-                                        <div className="flex flex-col bg-emerald-100 dark:bg-emerald-500/10 rounded-lg p-1">
-                                            <h3 className="dark:text-emerald-400 text-emerald-500">Institution</h3>
-                                            <div className="flex gap-1 items-center">
-                                                <FaBookOpen size={12} color={"#6AD09D"} />
-                                                <p className="font-medium dark:text-gray-300">
-                                                    {currentUser.institution}
-                                                </p>
+                                        <div
+                                            className="flex flex-col bg-emerald-100 dark:bg-emerald-500/10 rounded-lg p-1">
+                                            <div className="flex flex-col">
+                                                <h3 className="dark:text-emerald-400 text-emerald-500">Stage Of
+                                                    Life</h3>
+                                                <div className="flex gap-1 items-center">
+                                                    <p className="font-medium dark:text-gray-300">
+                                                        {currentUser.stageOfLife === "SelfStudying" ? (
+                                                            <p>Self Studying</p>
+                                                        ) : (
+                                                            <p>{currentUser.stageOfLife}</p>
+                                                        )}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <h3 className="dark:text-emerald-400 text-emerald-500">Work</h3>
-                                            <div className="flex gap-1 items-center">
-                                                <FaPencilAlt size={12} color={"#6AD09D"} />
-                                                <p className="font-medium dark:text-gray-300">
-                                                    {currentUser.work}
-                                                </p>
-                                            </div>
+                                            {currentUser.stageOfLife === "Student" && (
+                                                <>
+                                                    <h3 className="dark:text-emerald-400 text-emerald-500">Institution</h3>
+                                                    <div className="flex gap-1 items-center">
+                                                        <FaBookOpen size={12} color={"#6AD09D"}/>
+                                                        <p className="font-medium dark:text-gray-300">
+                                                            {currentUser.institution}
+                                                        </p>
+                                                    </div>
+                                                </>
+                                            )}
+                                            {currentUser.stageOfLife === "Professional" && (
+                                                <>
+                                                    <h3 className="dark:text-emerald-400 text-emerald-500">Work</h3>
+                                                    <div className="flex gap-1 items-center">
+                                                        <FaPencilAlt size={12} color={"#6AD09D"}/>
+                                                        <p className="font-medium dark:text-gray-300">
+                                                            {currentUser.work}
+                                                        </p>
+                                                    </div>
+                                                </>
+                                            )}
+
                                         </div>
                                         <h3 className="dark:text-emerald-400 text-emerald-500">About Me</h3>
                                         <p className="break-normal">{currentUser.aboutMe}</p>
@@ -298,7 +300,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                         />
                                         <div className="flex flex-col">
                                             <h2 className="user-name">
-                                                {currentUser.firstName} {currentUser.lastName}, {currentUser.age}
+                                            {currentUser.firstName} {currentUser.lastName}, {currentUser.age}
                                             </h2>
                                             <p className="user-location font-semibold dark:text-emerald-400 text-emerald-500">
                                                 {currentUser.location}
@@ -309,11 +311,11 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                         <div className="flex flex-col bg-emerald-100 dark:bg-emerald-500/10 rounded-lg p-1">
                                             {currentUser.subjects && currentUser.subjects.length > 0 && (
                                                 <div>
-                                                    <h3 className="dark:text-emerald-400 text-emerald-500">Subjects</h3>
+                                                    <h3 className="dark:text-emerald-400 text-emerald-500">Areas of Interest</h3>
                                                     <p>{currentUser.subjects.join(', ')}</p>
                                                 </div>
                                             )}
-                                            {currentUser.courses && currentUser.courses.length > 0 && (
+                                            {currentUser.stageOfLife === "Student" && currentUser.courses && currentUser.courses.length > 0 && (
                                                 <div>
                                                     <h3 className="dark:text-emerald-400 text-emerald-500">Courses</h3>
                                                     <ul className="dark:text-emerald-400">
@@ -337,6 +339,18 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                                     </ul>
                                                 </div>
                                             )}
+                                            {currentUser.stageOfLife === "SelfStudying" && currentUser.selfStudyingSubjects && currentUser.selfStudyingSubjects.length > 0 && (
+                                                <div>
+                                                    <h3 className="dark:text-emerald-400 text-emerald-500">Learning Following Subjects</h3>
+                                                    <ul className="dark:text-emerald-400">
+                                                        {currentUser.selfStudyingSubjects.map((subject, index) => (
+                                                            <li key={index}>
+                                                                    <span className="font-medium text-sm break-words dark:text-white"> {subject}</span>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                            )}
                                         </div>
                                         {currentUser.statuses && currentUser.statuses.length > 0 && (
                                             <div className="user-explore-statuses">
@@ -345,7 +359,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                                     {currentUser.statuses.map((st, i) => (
                                                         <p
                                                             key={i}
-                                                            className="status-tag-explore text-center p-1 text-white bg-emerald-400"
+                                                            className="status-tag-explore text-center p-1 text-white bg-emerald-400 dark:bg-emerald-400/20 dark:text-emerald-400"
                                                         >
                                                             {st}
                                                         </p>
@@ -383,23 +397,39 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                                 className="flex px-5 py-2 gap-5 dark:bg-emerald-500/10 bg-emerald-100 w-fit rounded-xl backdrop-blur-sm dark:border-gray-600 items-center"
                                             >
                                                 <div className="flex flex-col">
-                                                    <h3 className="dark:text-emerald-400 text-emerald-500">Institution</h3>
+                                                    <h3 className="dark:text-emerald-400 text-emerald-500">Stage Of Life</h3>
                                                     <div className="flex gap-1 items-center">
-                                                        <FaBookOpen size={14} color={"#6AD09D"} />
                                                         <p className="font-medium dark:text-gray-300">
-                                                            {currentUser.institution}
+                                                            {currentUser.stageOfLife === "SelfStudying" ? (
+                                                                <p>Self Studying</p>
+                                                            ): (
+                                                             <p>{currentUser.stageOfLife}</p>
+                                                        )}
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <div className="flex flex-col">
-                                                    <h3 className="dark:text-emerald-400 text-emerald-500">Work</h3>
-                                                    <div className="flex gap-1 items-center">
-                                                        <FaPencilAlt size={14} color={"#6AD09D"} />
-                                                        <p className="font-medium dark:text-gray-300">
-                                                            {currentUser.work}
-                                                        </p>
+                                                {currentUser.stageOfLife === "Student" && (
+                                                    <div className="flex flex-col">
+                                                        <h3 className="dark:text-emerald-400 text-emerald-500">Institution</h3>
+                                                        <div className="flex gap-1 items-center">
+                                                            <FaBookOpen size={14} color={"#6AD09D"}/>
+                                                            <p className="font-medium dark:text-gray-300">
+                                                                {currentUser.institution}
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                )}
+                                                {currentUser.stageOfLife === "Professional" && (
+                                                    <div className="flex flex-col">
+                                                        <h3 className="dark:text-emerald-400 text-emerald-500">Work</h3>
+                                                        <div className="flex gap-1 items-center">
+                                                            <FaPencilAlt size={14} color={"#6AD09D"}/>
+                                                            <p className="font-medium dark:text-gray-300">
+                                                                {currentUser.work}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                )}
                                             </div>
                                             <div className="flex flex-col items-start">
                                                 <h3 className="dark:text-emerald-400 text-emerald-500">About Me</h3>
@@ -412,7 +442,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                                         {currentUser.statuses.map((st, i) => (
                                                             <p
                                                                 key={i}
-                                                                className="status-tag-explore text-center text-white bg-emerald-400"
+                                                                className="status-tag-explore text-center text-white bg-emerald-400 dark:bg-emerald-400/20 dark:text-emerald-400"
                                                             >
                                                                 {st}
                                                             </p>
@@ -422,11 +452,11 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                             )}
                                         </div>
                                         <div
-                                            className="flex max-w-[35%] min-w-[25%] flex-col px-5 py-2 gap-10 dark:bg-emerald-500/10 bg-emerald-100 w-fit rounded-xl backdrop-blur-sm dark:border-gray-600"
+                                            className="flex ml-auto max-w-[35%] min-w-[25%] flex-col px-5 py-2 gap-10 dark:bg-emerald-500/10 bg-emerald-100 w-fit rounded-xl backdrop-blur-sm dark:border-gray-600"
                                         >
                                             {currentUser.subjects && currentUser.subjects.length > 0 && (
                                                 <div>
-                                                    <h3 className="dark:text-emerald-400 text-emerald-500">Subjects</h3>
+                                                    <h3 className="dark:text-emerald-400 text-emerald-500">Areas of Interest</h3>
                                                     <div className="flex flex-col gap-2">
                                                         {currentUser.subjects.map((subject, i) => (
                                                             <p className="text-base dark:text-gray-100" key={i}>{subject}</p>
@@ -434,7 +464,7 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                                     </div>
                                                 </div>
                                             )}
-                                            {currentUser.courses && currentUser.courses.length > 0 && (
+                                                {currentUser.stageOfLife === "Student" && currentUser.courses && currentUser.courses.length > 0 && (
                                                 <div>
                                                     <h3 className="dark:text-emerald-400 text-emerald-500">Courses</h3>
                                                     <ul className="user-explore-courses-list">
@@ -454,6 +484,19 @@ const UserExplorePage: React.FC<UserExplorePageProps> = ({ onSettingsClick }) =>
                                                                         className="font-medium text-sm break-words">{course.courseName}</span>
                                                                 )}
 
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                            )}
+                                            {currentUser.stageOfLife === "SelfStudying" && currentUser.selfStudyingSubjects && currentUser.selfStudyingSubjects.length > 0 && (
+                                                <div>
+                                                    <h3 className="dark:text-emerald-400 text-emerald-500">Learning Following Subjects</h3>
+                                                    <ul className="user-explore-courses-list">
+                                                        {currentUser.selfStudyingSubjects.map((subject, index) => (
+                                                            <li key={index}>
+                                                                    <span
+                                                                        className="font-medium text-sm break-words">{subject}</span>
                                                             </li>
                                                         ))}
                                                     </ul>

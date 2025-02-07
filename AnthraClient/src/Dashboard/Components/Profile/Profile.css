@@ -277,11 +277,16 @@ body.dark .profile-field textarea {
     color: #007bff;
 }
 
+
 .error-message {
-    color: #ef6060;
+    color: black;
     margin-top: 10px;
     font-weight: 600;
     font-size: 0.85rem;
+}
+
+body.dark .error-message{
+    color: white;
 }
 
 /* Dark mode styles */

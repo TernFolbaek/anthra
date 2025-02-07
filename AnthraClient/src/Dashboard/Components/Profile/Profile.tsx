@@ -26,6 +26,8 @@ interface ProfileData {
     work: string;
     statuses: string[];
     allowEmailUpdates: string;
+    stageOfLife: string;
+    selfStudyingSubjects: string[];
 }
 
 // Predefined statuses
@@ -54,6 +56,7 @@ const Profile: React.FC = () => {
     const [locationPanelOpen, setLocationPanelOpen] = useState(false);
     const [aboutPanelOpen, setAboutPanelOpen] = useState(false);
     const [subjectsPanelOpen, setSubjectsPanelOpen] = useState(false);
+    const [selfStudyingTopicsPanelOpen, setSelfStudyingTopicsPanelOpen] = useState(false);
     const [coursesPanelOpen, setCoursesPanelOpen] = useState(false);
     const [statusesPanelOpen, setStatusesPanelOpen] = useState(false);
     const [aboutMeCharCount, setAboutMeCharCount] = useState(profileData?.aboutMe.length || 0);
@@ -73,6 +76,7 @@ const Profile: React.FC = () => {
     });
     const [aboutBackup, setAboutBackup] = useState("");
     const [subjectsBackup, setSubjectsBackup] = useState<string[]>([]);
+    const [selfStudyingBackup, setSelfStudyingBackup] = useState<string[]>([]);
     const [coursesBackup, setCoursesBackup] = useState<Course[]>([]);
     const [statusesBackup, setStatusesBackup] = useState<string[]>([]);
     const [profilePictureBackup, setProfilePictureBackup] = useState<File | null>(null);
@@ -232,6 +236,26 @@ const Profile: React.FC = () => {
         }
     };
 
+    const handleSelfStudyingSubjectChange = (index: number, value: string) => {
+        if (profileData) {
+            const updatedSubjects = [...profileData.selfStudyingSubjects];
+            updatedSubjects[index] = value;
+            setProfileData({
+                ...profileData,
+                selfStudyingSubjects: updatedSubjects,
+            });
+        }
+    };
+
+    const addSelfStudyingSubject = () => {
+        if (profileData && profileData.selfStudyingSubjects.length < 5) {
+            setProfileData({
+                ...profileData,
+                selfStudyingSubjects: [...profileData.selfStudyingSubjects, ''],
+            });
+        }
+    };
+
     const removeSubject = (index: number) => {
         if (profileData) {
             const updatedSubjects = [...profileData.subjects];
@@ -242,6 +266,17 @@ const Profile: React.FC = () => {
             });
         }
     };
+    const removeSelfStudyingSubject = (index: number) => {
+        if (profileData) {
+            const updatedSubjects = [...profileData.selfStudyingSubjects];
+            updatedSubjects.splice(index, 1);
+            setProfileData({
+                ...profileData,
+                selfStudyingSubjects: updatedSubjects,
+            });
+        }
+    };
+
 
     // Status selection
     const handleStatusSelect = (st: string) => {
@@ -271,12 +306,26 @@ const Profile: React.FC = () => {
         formData.append('FirstName', profileData.firstName);
         formData.append('LastName', profileData.lastName);
         formData.append('Location', `${profileData.location.country},${profileData.location.city}`);
-        formData.append('Institution', profileData.institution);
         formData.append('Work', profileData.work);
         formData.append('AboutMe', profileData.aboutMe);
+        formData.append('StageOfLife', profileData.stageOfLife);
         formData.append('Age', profileData.age.toString());
         formData.append('AllowEmailUpdates', 'true');
 
+        if (profileData.stageOfLife === 'Student') {
+            formData.append('Institution', profileData.institution.trim());
+            formData.append('Courses', JSON.stringify(profileData.courses));
+        }
+
+        // If Fulltime Worker, append area of work
+        if (profileData.stageOfLife === 'Professional') {
+            formData.append('Work', profileData.work.trim());
+        }
+
+        // If Self Studying, append focusTopics
+        if (profileData.stageOfLife === 'SelfStudying') {
+            formData.append('SelfStudyingSubjects', JSON.stringify(profileData.selfStudyingSubjects));
+        }
 
         // Convert courses to JSON
         formData.append('Courses', JSON.stringify(profileData.courses ?? []));
@@ -463,6 +512,34 @@ const Profile: React.FC = () => {
         }
     };
 
+    const handleSaveSelfStudyingSubjects = async () => {
+        if (!profileData) return;
+        setError(null);
+        setFieldErrors({});
+
+        // Must have 2-5 subjects
+        if (profileData.selfStudyingSubjects.length < 2 || profileData.selfStudyingSubjects.length > 5) {
+            setFieldErrors({
+                subjects: 'Please add between 2 and 5 self studying subjects'
+            });
+            return;
+        }
+
+        try {
+            const formData = buildFormData(profileData, selectedStatuses, profilePictureFile);
+            await axios.post('/Profile/UpdateProfile', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setSelfStudyingTopicsPanelOpen(false);
+            fetchProfile();
+        } catch (err) {
+            setError('An error occurred while saving subjects.');
+        }
+    };
+
     // 6) Save Courses
     const handleSaveCourses = async () => {
         if (!profileData) return;
@@ -572,6 +649,13 @@ const Profile: React.FC = () => {
         });
     };
 
+    const handleRevertSelfStudyingTopics = () => {
+        if (!profileData) return;
+        setProfileData({
+            ...profileData,
+            selfStudyingSubjects: [...selfStudyingBackup]
+        });
+    };
     const handleRevertCourses = () => {
         if (!profileData) return;
         setProfileData({
@@ -632,6 +716,13 @@ const Profile: React.FC = () => {
             setSubjectsBackup([...profileData.subjects]);
         }
         setSubjectsPanelOpen(!subjectsPanelOpen);
+    };
+
+    const toggleSelfStudyingTopicsPanel = () => {
+        if (!selfStudyingTopicsPanelOpen && profileData) {
+            setSelfStudyingBackup([...profileData.selfStudyingSubjects]);
+        }
+        setSelfStudyingTopicsPanelOpen(!selfStudyingTopicsPanelOpen);
     };
 
     const toggleCoursesPanel = () => {
@@ -728,6 +819,7 @@ const Profile: React.FC = () => {
                         )}
                     </div>
                     <div className="flex flex-col gap-4 items-center">
+                        <p className="text-xl text-gray-500 dark:text-gray-200 text-center">@{profileData.stageOfLife}</p>
                         <button className="text-center text-sm font-semibold hover:underline dark:text-gray-200" onClick={()=>handleUserSelect()}>
                             Preview Profile
                         </button>
@@ -753,7 +845,7 @@ const Profile: React.FC = () => {
                                         className={fieldErrors.firstName ? 'border border-red-500' : ''}
                                     />
                                     {fieldErrors.firstName && (
-                                        <p className="text-red-500 text-sm">{fieldErrors.firstName}</p>
+                                        <p className="text-black dark:text-white text-center text-sm">{fieldErrors.firstName}</p>
                                     )}
                                 </div>
                                 <div className="profile-field half-width">
@@ -766,7 +858,7 @@ const Profile: React.FC = () => {
                                         className={fieldErrors.lastName ? 'border border-red-500' : ''}
                                     />
                                     {fieldErrors.lastName && (
-                                        <p className="text-red-500 text-sm">{fieldErrors.lastName}</p>
+                                        <p className="text-black dark:text-white text-center text-sm">{fieldErrors.lastName}</p>
                                     )}
                                 </div>
                             </div>
@@ -780,27 +872,32 @@ const Profile: React.FC = () => {
                                         onChange={handleInputChange}
                                     />
                                 </div>
-                                <div className="profile-field half-width">
-                                    <label>Institution</label>
-                                    <input
-                                        type="text"
-                                        name="institution"
-                                        value={profileData.institution}
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
+                                {profileData.stageOfLife === "Student" && (
+                                    <div className="profile-field half-width">
+                                        <label>Institution</label>
+                                        <input
+                                            type="text"
+                                            name="institution"
+                                            value={profileData.institution}
+                                            onChange={handleInputChange}
+                                        />
+                                    </div>
+                                )}
+
                             </div>
-                            <div className="profile-row">
-                                <div className="profile-field half-width">
-                                    <label>Work</label>
-                                    <input
-                                        type="text"
-                                        name="work"
-                                        value={profileData.work}
-                                        onChange={handleInputChange}
-                                    />
+                            {profileData.stageOfLife === "Professional" && (
+                                <div className="profile-row">
+                                    <div className="profile-field half-width">
+                                        <label>Work</label>
+                                        <input
+                                            type="text"
+                                            name="work"
+                                            value={profileData.work}
+                                            onChange={handleInputChange}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                             <div className="flex gap-2 mt-3">
                                 <button
                                     className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
@@ -838,7 +935,7 @@ const Profile: React.FC = () => {
                                         className={fieldErrors.country ? 'border border-red-500' : ''}
                                     />
                                     {fieldErrors.country && (
-                                        <p className="text-red-500 text-sm">{fieldErrors.country}</p>
+                                        <p className="text-black dark:text-white text-center text-sm">{fieldErrors.country}</p>
                                     )}
                                 </div>
                                 <div className="profile-field half-width">
@@ -851,7 +948,7 @@ const Profile: React.FC = () => {
                                         className={fieldErrors.city ? 'border border-red-500' : ''}
                                     />
                                     {fieldErrors.city && (
-                                        <p className="text-red-500 text-sm">{fieldErrors.city}</p>
+                                        <p className="text-black dark:text-white text-center text-sm">{fieldErrors.city}</p>
                                     )}
                                 </div>
                             </div>
@@ -895,7 +992,7 @@ const Profile: React.FC = () => {
                                 className={`w-full text-sm rounded-md h-[200px] border border-gray-300 ${fieldErrors.aboutMe ? 'border border-red-500' : ''}`}
                             />
                             {fieldErrors.aboutMe && (
-                                <p className="text-red-500 text-sm">{fieldErrors.aboutMe}</p>
+                                <p className="text-black dark:text-white text-center text-sm">{fieldErrors.aboutMe}</p>
                             )}
                             <div className="flex gap-2 mt-3">
                                 <button
@@ -916,10 +1013,10 @@ const Profile: React.FC = () => {
                     )}
                 </div>
 
-                {/* Subjects Panel */}
+                {/* Topics of interest Panel */}
                 <div className="panel-container">
                     <div className="panel-header bg-emerald-50 cursor-pointer" onClick={toggleSubjectsPanel}>
-                        <h3 className="panel-title">Subjects</h3>
+                        <h3 className="panel-title">Topics of Interest</h3>
                     </div>
                     {subjectsPanelOpen && (
                         <div className="panel-body">
@@ -949,11 +1046,11 @@ const Profile: React.FC = () => {
                                     >
                                         <FaPlus />
                                     </button>
-                                    <p className="text-gray-500 dark:text-gray-200 text-xs font-semibold">New Subject</p>
+                                    <p className="text-gray-500 dark:text-gray-200 text-xs font-semibold">New Topic</p>
                                 </div>
                             </div>
                             {fieldErrors.subjects && (
-                                <p className="text-red-500 text-sm">{fieldErrors.subjects}</p>
+                                <p className="text-black dark:text-white text-center text-sm">{fieldErrors.subjects}</p>
                             )}
                             <div className="flex gap-2 mt-3">
                                 <button
@@ -974,77 +1071,139 @@ const Profile: React.FC = () => {
                     )}
                 </div>
 
-                {/* Courses Panel */}
-                <div className="panel-container">
-                    <div className="panel-header bg-emerald-50 cursor-pointer" onClick={toggleCoursesPanel}>
-                        <h3 className="panel-title">Courses</h3>
-                    </div>
-                    {coursesPanelOpen && (
-                        <div className="panel-body">
-                            {profileData.courses.map((course, index) => (
-                                <div key={index} className="course-item dark:text-emerald-400 gap-2 flex items-center">
-                                    <div className="w-full flex flex-col gap-1">
-                                        <div className="flex gap-2 items-center w-full">
-                                            <p className="w-[100px] text-sm text-gray-500 dark:text-gray-200 font-medium">Name</p>
+                {profileData.stageOfLife === "SelfStudying" && (
+                    <div className="panel-container">
+                        <div className="panel-header bg-emerald-50 cursor-pointer" onClick={toggleSelfStudyingTopicsPanel}>
+                            <h3 className="panel-title">Learning subjects</h3>
+                        </div>
+                        {selfStudyingTopicsPanelOpen && (
+                            <div className="panel-body">
+                                <div className="flex flex-col gap-2">
+                                    {profileData.selfStudyingSubjects.map((subject, index) => (
+                                        <div key={index} className="subject-item flex">
                                             <input
                                                 type="text"
-                                                placeholder="Course Name"
-                                                value={course.courseName}
-                                                onChange={(e) => handleCourseChange(index, 'courseName', e.target.value)}
-                                                className={fieldErrors.courses ? 'border border-red-500 flex-1 text-sm' : 'bg-slate-100 flex-1 text-sm'}
+                                                value={subject}
+                                                onChange={(e) => handleSelfStudyingSubjectChange(index, e.target.value)}
+                                                className={fieldErrors.subjects ? 'border border-red-500 w-full bg-slate-100 text-sm' : 'w-full bg-slate-100 text-sm'}
                                             />
+                                            <button
+                                                type="button"
+                                                onClick={() => removeSelfStudyingSubject(index)}
+                                                className="profile-edit-trash"
+                                            >
+                                                <FaTrash/>
+                                            </button>
                                         </div>
-                                        <div className="flex items-center gap-2 w-full">
-                                            <p className="w-[100px] text-sm text-gray-500 dark:text-gray-200 font-medium">Link</p>
-                                            <input
-                                                type="text"
-                                                placeholder="Course Link"
-                                                value={course.courseLink}
-                                                onChange={(e) => handleCourseChange(index, 'courseLink', e.target.value)}
-                                                className={fieldErrors.courses ? 'border border-red-500 flex-1 text-sm' : ' text-sm bg-slate-100 flex-1'}
-                                            />
-                                        </div>
+                                    ))}
+                                    <div className="flex items-center">
+                                        <button
+                                            type="button"
+                                            onClick={addSelfStudyingSubject}
+                                            className="profile-icon-button bg-emerald-200"
+                                        >
+                                            <FaPlus/>
+                                        </button>
+                                        <p className="text-gray-500 dark:text-gray-200 text-xs font-semibold">New
+                                            Subject</p>
                                     </div>
+                                </div>
+                                {fieldErrors.subjects && (
+                                    <p className="text-black dark:text-white text-center text-sm">{fieldErrors.subjects}</p>
+                                )}
+                                <div className="flex gap-2 mt-3">
                                     <button
-                                        type="button"
-                                        onClick={() => removeCourse(index)}
-                                        className="profile-edit-trash"
+                                        className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
+                                        onClick={handleSaveSelfStudyingSubjects}
                                     >
-                                        <FaTrash />
+                                        Save
+                                    </button>
+                                    <button
+                                        className="save-button text-gray-500 dark:text-gray-300 text-sm flex items-center gap-1"
+                                        onClick={handleRevertSelfStudyingTopics}
+                                    >
+                                        <FaArrowLeft size={12}/>
+                                        Revert Back
                                     </button>
                                 </div>
-                            ))}
-                            {fieldErrors.courses && (
-                                <p className="text-red-500 text-sm">{fieldErrors.courses}</p>
-                            )}
-                            <div className="flex items-center">
-                                <button
-                                    type="button"
-                                    onClick={addCourse}
-                                    className="profile-icon-button bg-emerald-200"
-                                >
-                                    <FaPlus />
-                                </button>
-                                <p className="text-gray-500 dark:text-gray-200 text-xs font-semibold">New Course</p>
                             </div>
-                            <div className="flex gap-2 mt-3">
-                                <button
-                                    className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
-                                    onClick={handleSaveCourses}
-                                >
-                                    Save
-                                </button>
-                                <button
-                                    className="save-button text-gray-500 dark:text-gray-300 text-sm flex items-center gap-1"
-                                    onClick={handleRevertCourses}
-                                >
-                                    <FaArrowLeft size={12}/>
-                                    Revert Back
-                                </button>
-                            </div>
+                        )}
+                    </div>
+                )}
+                {/* Courses Panel */}
+                {profileData.stageOfLife === "Student" && (
+                    <div className="panel-container">
+                        <div className="panel-header bg-emerald-50 cursor-pointer" onClick={toggleCoursesPanel}>
+                            <h3 className="panel-title">Courses</h3>
                         </div>
-                    )}
-                </div>
+                        {coursesPanelOpen && (
+                            <div className="panel-body">
+                                {profileData.courses.map((course, index) => (
+                                    <div key={index}
+                                         className="course-item dark:text-emerald-400 gap-2 flex items-center">
+                                        <div className="w-full flex flex-col gap-1">
+                                            <div className="flex gap-2 items-center w-full">
+                                                <p className="w-[100px] text-sm text-gray-500 dark:text-gray-200 font-medium">Name</p>
+                                                <input
+                                                    type="text"
+                                                    placeholder="Course Name"
+                                                    value={course.courseName}
+                                                    onChange={(e) => handleCourseChange(index, 'courseName', e.target.value)}
+                                                    className={fieldErrors.courses ? 'border border-red-500 flex-1 text-sm' : 'bg-slate-100 flex-1 text-sm'}
+                                                />
+                                            </div>
+                                            <div className="flex items-center gap-2 w-full">
+                                                <p className="w-[100px] text-sm text-gray-500 dark:text-gray-200 font-medium">Link</p>
+                                                <input
+                                                    type="text"
+                                                    placeholder="Course Link"
+                                                    value={course.courseLink}
+                                                    onChange={(e) => handleCourseChange(index, 'courseLink', e.target.value)}
+                                                    className={fieldErrors.courses ? 'border border-red-500 flex-1 text-sm' : ' text-sm bg-slate-100 flex-1'}
+                                                />
+                                            </div>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            onClick={() => removeCourse(index)}
+                                            className="profile-edit-trash"
+                                        >
+                                            <FaTrash/>
+                                        </button>
+                                    </div>
+                                ))}
+                                {fieldErrors.courses && (
+                                    <p className="text-black dark:text-white text-center text-sm">{fieldErrors.courses}</p>
+                                )}
+                                <div className="flex items-center">
+                                    <button
+                                        type="button"
+                                        onClick={addCourse}
+                                        className="profile-icon-button bg-emerald-200"
+                                    >
+                                        <FaPlus/>
+                                    </button>
+                                    <p className="text-gray-500 dark:text-gray-200 text-xs font-semibold">New Course</p>
+                                </div>
+                                <div className="flex gap-2 mt-3">
+                                    <button
+                                        className="save-button bg-emerald-400 text-white hover:bg-emerald-300 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm"
+                                        onClick={handleSaveCourses}
+                                    >
+                                        Save
+                                    </button>
+                                    <button
+                                        className="save-button text-gray-500 dark:text-gray-300 text-sm flex items-center gap-1"
+                                        onClick={handleRevertCourses}
+                                    >
+                                        <FaArrowLeft size={12}/>
+                                        Revert Back
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
 
                 {/* Statuses Panel */}
                 <div className="panel-container">
@@ -1059,8 +1218,8 @@ const Profile: React.FC = () => {
                                         key={i}
                                         className={`status-tag hover:scale-105 transform  ${
                                             selectedStatuses.includes(st)
-                                                ? 'text-white bg-emerald-500 dark:bg-emerald-900'
-                                                : 'bg-emerald-400/80 text-white'
+                                                ? 'text-white bg-emerald-500 dark:bg-emerald-400/20 dark:text-white'
+                                                : 'bg-emerald-400/80 text-white dark:bg-emerald-400/20 dark:text-emerald-400'
                                         }`}
                                         onClick={() => {
                                             setError(null);
@@ -1072,7 +1231,7 @@ const Profile: React.FC = () => {
                                 ))}
                             </div>
                             {fieldErrors.statuses && (
-                                <p className="text-red-500 text-sm">{fieldErrors.statuses}</p>
+                                <p className="text-black dark:text-white text-center text-sm">{fieldErrors.statuses}</p>
                             )}
                             <div className="flex gap-2 mt-3">
                                 <button
@@ -1093,10 +1252,10 @@ const Profile: React.FC = () => {
                     )}
                 </div>
 
-                {error && <p className="error-message text-center text-red-500">{error}</p>}
+                {error && <p className="error-message text-center text-black dark:text-white text-center">{error}</p>}
             </div>
             {selectedUserId && (
-                <ViewProfile userId={selectedUserId} onClose={handleCloseProfile} />
+                <ViewProfile userId={selectedUserId} onClose={handleCloseProfile}/>
             )}
         </div>
     );

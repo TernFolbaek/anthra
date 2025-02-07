@@ -305,6 +305,9 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal, onRemov
         if (firstLoad && messages.length > 0) {
             messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
         }
+        console.log("her")
+        let groupIdString = groupId.toString()
+        removeGroupMessageNotification(groupIdString)
     }, [messages, firstLoad]);
 
     /** ---- API CALLS ---- **/
@@ -325,8 +328,7 @@ const GroupMessage: React.FC<GroupMessageProps> = ({ groupId, showModal, onRemov
                 params: { groupId, pageSize: 30 },
                 headers: { Authorization: `Bearer ${token}` },
             });
-            let groupIdString = groupId.toString()
-            removeGroupMessageNotification(groupIdString)
+
             const data = response.data;
             setMessages(data.messages);
             setNextTokenValue(data.nextToken);

@@ -10,6 +10,9 @@
     width: 100%;
     scrollbar-color: #e4e4e4 transparent;
 }
+body.dark .group-message-page{
+    scrollbar-color: gray transparent;
+}
 
 /* Dark mode styles */
 body.dark .group-message-page {

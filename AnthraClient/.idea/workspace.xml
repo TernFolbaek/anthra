@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f6ef597-b7bd-442f-8da7-2cf448f0ba4c" name="Changes" comment="Add self studying subjects and stage of life">
+    <list default="true" id="0f6ef597-b7bd-442f-8da7-2cf448f0ba4c" name="Changes" comment="import userprofile instead of declaring it again">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/ExplorePage/GroupExplore/GroupExplorePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/ExplorePage/GroupExplore/GroupExplorePage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/ExplorePage/IndividualExplore/UserExplorePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/ExplorePage/IndividualExplore/UserExplorePage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Messages/Messages.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Messages/Messages.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Messages/Messages.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Messages/Messages.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/ViewProfile/ViewProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/ViewProfile/ViewProfile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Groups/GroupMessages/GroupMessage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Groups/GroupMessages/GroupMessage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Groups/GroupMessages/GroupMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Groups/GroupMessages/GroupMessage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,39 +79,7 @@
       <workItem from="1738670340495" duration="1757000" />
       <workItem from="1738679476956" duration="69989000" />
       <workItem from="1738934516978" duration="6000" />
-      <workItem from="1738942014611" duration="1702000" />
-    </task>
-    <task id="LOCAL-00015" summary="Only make course clickable when there is a link present">
-      <option name="closed" value="true" />
-      <created>1738338686778</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1738338686778</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Only make course clickable when there is a link present">
-      <option name="closed" value="true" />
-      <created>1738338689069</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1738338689069</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Use tailwind">
-      <option name="closed" value="true" />
-      <created>1738338700699</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1738338700699</updated>
-    </task>
-    <task id="LOCAL-00018" summary="If user is already in group, do not show in list">
-      <option name="closed" value="true" />
-      <created>1738342181069</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1738342181069</updated>
+      <workItem from="1738942014611" duration="3068000" />
     </task>
     <task id="LOCAL-00019" summary="Refine status message">
       <option name="closed" value="true" />
@@ -476,7 +441,39 @@
       <option name="project" value="LOCAL" />
       <updated>1738942640537</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="Attempt to fix broken styling on mobile">
+      <option name="closed" value="true" />
+      <created>1738943934070</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1738943934070</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Remove odd checker">
+      <option name="closed" value="true" />
+      <created>1738943948636</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1738943948636</updated>
+    </task>
+    <task id="LOCAL-00066" summary="Remove height 100% on explore card">
+      <option name="closed" value="true" />
+      <created>1738943960063</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1738943960063</updated>
+    </task>
+    <task id="LOCAL-00067" summary="import userprofile instead of declaring it again">
+      <option name="closed" value="true" />
+      <created>1738943971815</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1738943971815</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -494,10 +491,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="More described label" />
-    <MESSAGE value="Refined home landing page" />
-    <MESSAGE value="Create info for marie jensen seed user" />
-    <MESSAGE value="Allow user select throughout the application" />
     <MESSAGE value="Restyle auth page" />
     <MESSAGE value="Restyle Create profile" />
     <MESSAGE value="Restyle Get started button" />
@@ -519,6 +512,10 @@
     <MESSAGE value="Add statuses stageoflife and selfstudying subjects to userprofile" />
     <MESSAGE value="Add self studying subjects and stage of life, as well as conditional rendering depending on your stage of life" />
     <MESSAGE value="Add self studying subjects and stage of life" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add self studying subjects and stage of life" />
+    <MESSAGE value="Attempt to fix broken styling on mobile" />
+    <MESSAGE value="Remove odd checker" />
+    <MESSAGE value="Remove height 100% on explore card" />
+    <MESSAGE value="import userprofile instead of declaring it again" />
+    <option name="LAST_COMMIT_MESSAGE" value="import userprofile instead of declaring it again" />
   </component>
 </project>

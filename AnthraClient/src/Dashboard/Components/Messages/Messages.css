@@ -579,7 +579,7 @@ body.dark .report-popup-content {
 
 @media (max-width: 480px){
   .contact-header{
-    position: absolute;
+    position: fixed;
     width: 100vw;
     top: 0;
     border-top-left-radius: 0;
@@ -589,7 +589,7 @@ body.dark .report-popup-content {
   }
 
   .message-input-container {
-    position: absolute;
+    position: fixed;
     width: 100vw;
     bottom: 0;
     border-radius: 0;

@@ -25,80 +25,130 @@ namespace AnthraBackend.Controllers.Account
         }
 
         [HttpPost("UpdateProfile")]
-        public async Task<IActionResult> UpdateProfile([FromForm] UpdateProfileViewModel model)
+public async Task<IActionResult> UpdateProfile([FromForm] UpdateProfileViewModel model)
+{
+    if (!ModelState.IsValid)
+        return BadRequest(ModelState);
+
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    if (userId == null)
+        return Unauthorized("User is not authenticated.");
+
+    var user = await _userManager.FindByIdAsync(userId);
+    if (user == null)
+        return NotFound("User not found.");
+
+    // Handle courses (JSON string)
+    if (!string.IsNullOrEmpty(model.Courses))
+    {
+        try
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            user.Courses = JsonConvert.DeserializeObject<List<Course>>(model.Courses);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { Error = "Invalid courses format.", Details = ex.Message });
+        }
+    }
 
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    // Update common properties
+    user.FirstName = model.FirstName;
+    user.LastName = model.LastName;
+    user.Location = model.Location;
+    user.AboutMe = model.AboutMe;
+    user.Age = model.Age;
+    user.Subjects = model.Subjects;
+    user.Statuses = (model.Statuses != null && model.Statuses.Any()) ? model.Statuses : user.Statuses;
+    user.CreatedProfile = true;
+    user.ProfileCompleted = true;
+    
+    if (!string.IsNullOrEmpty(model.AllowEmailUpdates))
+    {
+        if (bool.TryParse(model.AllowEmailUpdates, out bool allowEmailUpdates))
+        {
+            user.AllowEmailUpdates = allowEmailUpdates;
+        }
+        else
+        {
+            return BadRequest(new { Error = "AllowEmailUpdates must be a valid boolean value." });
+        }
+    }
 
-            if (userId == null)
-                return Unauthorized("User is not authenticated.");
+    // Update StageOfLife
+    user.StageOfLife = model.StageOfLife;
 
-            var user = await _userManager.FindByIdAsync(userId);
-
-            if (user == null) return NotFound("User not found.");
-
-            // Handle courses (JSON)
-            if (!string.IsNullOrEmpty(model.Courses))
-            {
-                user.Courses = JsonConvert.DeserializeObject<List<Course>>(model.Courses);
-            }
-
-            // Update user properties
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            user.Location = model.Location;
+    // Update additional properties based on StageOfLife
+    switch (model.StageOfLife)
+    {
+        case StageOfLife.Student:
             user.Institution = model.Institution;
+            // Courses already handled above
+            break;
+
+        case StageOfLife.Professional:
+            // Assuming your model has "AreaOfWork" on the view model but your ApplicationUser property is "Work"
             user.Work = model.Work;
-            user.Subjects = model.Subjects;
-            user.AboutMe = model.AboutMe;
-            user.Age = model.Age;
-            user.CreatedProfile = true;
-            user.ProfileCompleted = true;
-            user.AllowEmailUpdates = bool.Parse(model.AllowEmailUpdates);
+            break;
 
-            // Update statuses if provided
-            if (model.Statuses != null && model.Statuses.Count > 0)
+        case StageOfLife.SelfStudying:
+            if (!string.IsNullOrEmpty(model.SelfStudyingSubjects))
             {
-                user.Statuses = model.Statuses;
-            }
-
-            if (model.ProfilePicture != null && model.ProfilePicture.Length > 0)
-            {
-                long maxSizeInBytes = 5 * 1024 * 1024;  
-                if (model.ProfilePicture.Length > maxSizeInBytes)
+                try
                 {
-                    return BadRequest(new { 
-                        Error = "File size must be less than 2MB."
-                    });
+                    user.SelfStudyingSubjects = JsonConvert.DeserializeObject<List<string>>(model.SelfStudyingSubjects);
                 }
-                // Delete existing profile picture if it exists
-                if (!string.IsNullOrEmpty(user.ProfilePictureUrl))
+                catch (Exception ex)
                 {
-                    await DeleteProfilePictureFromAzure(user.ProfilePictureUrl);
+                    return BadRequest(new { Error = "Invalid SelfStudyingSubjects format.", Details = ex.Message });
                 }
-
-                // Upload new profile picture to Azure Blob Storage
-                var blobUrl = await UploadProfilePictureToAzure(userId, model.ProfilePicture);
-                user.ProfilePictureUrl = blobUrl;
             }
-
-            var result = await _userManager.UpdateAsync(user);
-
-            if (result.Succeeded)
+            else
             {
-                return Ok(new
-                {
-                    Message = "Profile updated successfully.",
-                    profilePictureUrl = user.ProfilePictureUrl
-                });
+                // Optionally clear or initialize if none is provided
+                user.SelfStudyingSubjects = new List<string>();
             }
+            break;
 
-            var updateErrors = result.Errors.Select(e => e.Description);
-            return BadRequest(new { Errors = updateErrors });
+        default:
+            // Optionally clear fields that are not relevant for the new stage
+            user.SelfStudyingSubjects = null;
+            break;
+    }
+
+    // Handle profile picture upload
+    if (model.ProfilePicture != null && model.ProfilePicture.Length > 0)
+    {
+        long maxSizeInBytes = 5 * 1024 * 1024;  // 5 MB limit, adjust as needed
+        if (model.ProfilePicture.Length > maxSizeInBytes)
+        {
+            return BadRequest(new { Error = "File size must be less than 5MB." });
         }
         
+        // Delete the existing profile picture from Azure if it exists
+        if (!string.IsNullOrEmpty(user.ProfilePictureUrl))
+        {
+            await DeleteProfilePictureFromAzure(user.ProfilePictureUrl);
+        }
+
+        // Upload new profile picture to Azure Blob Storage
+        var blobUrl = await UploadProfilePictureToAzure(userId, model.ProfilePicture);
+        user.ProfilePictureUrl = blobUrl;
+    }
+
+    var result = await _userManager.UpdateAsync(user);
+    if (result.Succeeded)
+    {
+        return Ok(new
+        {
+            Message = "Profile updated successfully.",
+            profilePictureUrl = user.ProfilePictureUrl
+        });
+    }
+
+    var updateErrors = result.Errors.Select(e => e.Description);
+    return BadRequest(new { Errors = updateErrors });
+}
+
         [HttpPost("SetProfileVisibility")]
         [Authorize]
         public async Task<IActionResult> SetProfileVisibility([FromBody] bool isProfileVisible)
@@ -191,11 +241,13 @@ namespace AnthraBackend.Controllers.Account
                 user.Work,
                 user.Courses,
                 user.Subjects,
+                user.SelfStudyingSubjects,
                 user.AboutMe,
                 user.Age,
                 user.ProfilePictureUrl,
                 user.CreatedProfile,
-                user.Statuses
+                user.Statuses,
+                user.StageOfLife,
             };
 
             return Ok(profile);
@@ -221,11 +273,13 @@ namespace AnthraBackend.Controllers.Account
                 user.Work,
                 user.Courses,
                 user.Subjects,
+                user.SelfStudyingSubjects,
                 user.AboutMe,
                 user.Age,
                 user.ProfilePictureUrl,
                 user.CreatedProfile,
-                user.Statuses
+                user.Statuses,
+                user.StageOfLife,
             };
 
             return Ok(profile);

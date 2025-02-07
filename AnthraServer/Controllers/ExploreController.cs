@@ -97,7 +97,9 @@ public class ExploreController : ControllerBase
                             u.Statuses,
                             u.AboutMe,
                             u.Age,
-                            u.ProfilePictureUrl
+                            u.ProfilePictureUrl,
+                            u.SelfStudyingSubjects,
+                            u.StageOfLife
                         })
                         .ToListAsync();
 
@@ -150,7 +152,9 @@ public class ExploreController : ControllerBase
                 u.Statuses,
                 u.AboutMe,
                 u.Age,
-                u.ProfilePictureUrl
+                u.ProfilePictureUrl,
+                u.StageOfLife,
+                u.SelfStudyingSubjects
             }).ToList();
 
             return Ok(new

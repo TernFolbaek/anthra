@@ -197,10 +197,11 @@ if (app.Environment.IsDevelopment())
                 Age = 25, 
                 Institution = "University of Copenhagen", 
                 Work = "Student Researcher", 
-                Courses = new List<Course> 
+                StageOfLife = StageOfLife.SelfStudying,
+                SelfStudyingSubjects = new List<string> 
                 {
-                    new Course { CourseName = "Quantum Physics", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
-                    new Course { CourseName = "Advanced Algorithms", CourseLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
+                   "oiaerngoe nrogergoinerg oerigoergnreogergerg",
+                   "oqinrge rgw gr rwg wergwetgtwrg wrgtrwrt g"
                 }, 
                 Subjects = new List<string> { "Physics", "Mathematics", "Computer Science" },
                 Statuses = new List<string> { "✎ exam preparations", "☺ grow network", "☏ looking for collaboration" },
@@ -231,6 +232,7 @@ if (app.Environment.IsDevelopment())
                 CreatedProfile = true,
                 ProfileCompleted = true,
                 EmailConfirmed = true,
+                StageOfLife = StageOfLife.Student,
                 ProfilePictureUrl = "https://anthra.blob.core.windows.net/profile-pictures/Screenshot 2025-02-01 at 22.12.53.png" 
             },
             new ApplicationUser 
@@ -238,6 +240,7 @@ if (app.Environment.IsDevelopment())
                 Email = "test3@example.com",
                 UserName = "test3@example.com", 
                 FirstName = "Justin", 
+                StageOfLife = StageOfLife.Student,
                 LastName = "Lee", 
                 Location = "Toronto, Canada", 
                 Age = 24, 
@@ -261,6 +264,7 @@ if (app.Environment.IsDevelopment())
                 Email = "test4@example.com",
                 UserName = "test4@example.com", 
                 FirstName = "Sophie", 
+                StageOfLife = StageOfLife.Student,
                 LastName = "Jebsen", 
                 Location = "Oslo, Norway", 
                 Age = 26, 
@@ -287,6 +291,7 @@ if (app.Environment.IsDevelopment())
                 LastName = "Johansson", 
                 Location = "Stockholm, Sweden", 
                 Age = 23, 
+                StageOfLife = StageOfLife.Student,
                 Institution = "KTH Royal Institute of Technology", 
                 Work = "Freelance Developer", 
                 Courses = new List<Course> 
@@ -305,6 +310,7 @@ if (app.Environment.IsDevelopment())
             new ApplicationUser 
             { 
                 Email = "test6@example.com", 
+                StageOfLife = StageOfLife.Student,
                 UserName = "test6@example.com", 
                 FirstName = "Carsten", 
                 LastName = "Folbaek", 
@@ -335,6 +341,7 @@ if (app.Environment.IsDevelopment())
                 LastName = "Johansen", 
                 Location = "Østerbro, Danmark", 
                 Age = 23, 
+                StageOfLife = StageOfLife.Student,
                 Institution = "Københavns Universitet", 
                 Work = "Juridisk Assistent", 
                 Courses = new List<Course> 

@@ -24,6 +24,8 @@ interface UserProfile {
     statuses: string[];
     aboutMe: string;
     profilePictureUrl: string;
+    stageOfLife: string;
+    selfStudySubjects: string[];
 }
 
 const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
@@ -33,7 +35,6 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
     const modalRef = useRef<HTMLDivElement>(null);
     const token = localStorage.getItem('token');
     const currentUserId = localStorage.getItem('userId');
-    // State to track connection status
     const [isConnected, setIsConnected] = useState<boolean>(false);
     const [requestPending, setRequestPending] = useState<boolean>(false);
     const [hasUserSentRequest, setHasUserSentRequest] = useState<boolean>(false);

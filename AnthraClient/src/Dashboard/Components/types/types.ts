@@ -54,5 +54,8 @@ export interface UserProfile {
     aboutMe: string;
     age: number;
     profilePictureUrl: string;
+    statuses: string[];
     createdProfile: Date;
+    stageOfLife: string;
+    selfStudyingSubjects: string[];
 }

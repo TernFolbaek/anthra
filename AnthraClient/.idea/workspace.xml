@@ -4,10 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f6ef597-b7bd-442f-8da7-2cf448f0ba4c" name="Changes" comment="Migrate removing username">
+    <list default="true" id="0f6ef597-b7bd-442f-8da7-2cf448f0ba4c" name="Changes" comment="Add self studying subjects and stage of life">
+      <change afterPath="$PROJECT_DIR$/../AnthraServer/Models/StageOfLife.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CreateProfile/CreateProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/CreateProfile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CreateProfile/StepTwo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateProfile/StepTwo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/Controllers/Account/ProfileController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Controllers/Account/ProfileController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/Controllers/ExploreController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Controllers/ExploreController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/Data/ApplicationDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Data/ApplicationDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/Folder.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Folder.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/Migrations/ApplicationDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Migrations/ApplicationDbContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/Models/User/ApplicationUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Models/User/ApplicationUser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AnthraServer/ViewModels/UpdateProfileViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/ViewModels/UpdateProfileViewModel.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,95 +84,9 @@
       <workItem from="1738318235162" duration="55222000" />
       <workItem from="1738506163692" duration="2470000" />
       <workItem from="1738670340495" duration="1757000" />
-      <workItem from="1738679476956" duration="50728000" />
-    </task>
-    <task id="LOCAL-00004" summary="Refine  message input when sending message is loading">
-      <option name="closed" value="true" />
-      <created>1738271311595</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1738271311595</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Remove input container ot use groupmessages">
-      <option name="closed" value="true" />
-      <created>1738271330702</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1738271330702</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Use groupmessages classes">
-      <option name="closed" value="true" />
-      <created>1738271339039</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1738271339039</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Stop propagation">
-      <option name="closed" value="true" />
-      <created>1738271349162</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1738271349162</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Create report user component, remove logic from Messages component">
-      <option name="closed" value="true" />
-      <created>1738337503045</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1738337503045</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Change index content">
-      <option name="closed" value="true" />
-      <created>1738337511729</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1738337511729</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Fix: Remove connection request from notifications after accepting">
-      <option name="closed" value="true" />
-      <created>1738337890579</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1738337890579</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Dimmer text color for link">
-      <option name="closed" value="true" />
-      <created>1738337900710</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1738337900710</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Whichever instead of whatever">
-      <option name="closed" value="true" />
-      <created>1738337907595</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1738337907595</updated>
-    </task>
-    <task id="LOCAL-00013" summary="More fitting background color">
-      <option name="closed" value="true" />
-      <created>1738337917017</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1738337917017</updated>
-    </task>
-    <task id="LOCAL-00014" summary="fix snackbar by removing onclose effect">
-      <option name="closed" value="true" />
-      <created>1738337939345</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1738337939345</updated>
+      <workItem from="1738679476956" duration="69989000" />
+      <workItem from="1738934516978" duration="6000" />
+      <workItem from="1738942014611" duration="630000" />
     </task>
     <task id="LOCAL-00015" summary="Only make course clickable when there is a link present">
       <option name="closed" value="true" />
@@ -471,7 +392,95 @@
       <option name="project" value="LOCAL" />
       <updated>1738833331233</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Style">
+      <option name="closed" value="true" />
+      <created>1738851585311</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1738851585311</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Add preview profile">
+      <option name="closed" value="true" />
+      <created>1738942482702</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1738942482702</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Max height of 700px for card wrapper">
+      <option name="closed" value="true" />
+      <created>1738942496156</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1738942496156</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Better home description">
+      <option name="closed" value="true" />
+      <created>1738942506343</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1738942506343</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Fix property name">
+      <option name="closed" value="true" />
+      <created>1738942514124</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1738942514124</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Remove digit spinner">
+      <option name="closed" value="true" />
+      <created>1738942524094</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1738942524094</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Add stage of life and self study subjects states">
+      <option name="closed" value="true" />
+      <created>1738942537557</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1738942537557</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Stageoflife and selfstudy subject props">
+      <option name="closed" value="true" />
+      <created>1738942549969</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1738942549969</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Add statuses stageoflife and selfstudying subjects to userprofile">
+      <option name="closed" value="true" />
+      <created>1738942591909</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1738942591909</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Add self studying subjects and stage of life, as well as conditional rendering depending on your stage of life">
+      <option name="closed" value="true" />
+      <created>1738942623249</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1738942623249</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Add self studying subjects and stage of life">
+      <option name="closed" value="true" />
+      <created>1738942640537</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1738942640537</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -489,17 +498,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Refine styling" />
-    <MESSAGE value="Remove useless comment" />
-    <MESSAGE value="Add migrations" />
-    <MESSAGE value="Add max length to report component" />
-    <MESSAGE value="Remove conversation from currentconversations on remove connection" />
-    <MESSAGE value="Removemessageconnection when message is opened" />
-    <MESSAGE value="Install react confetti" />
-    <MESSAGE value="Celebrate on automatic match" />
-    <MESSAGE value="yarn install confetti" />
-    <MESSAGE value="Refine navbar" />
-    <MESSAGE value="Updated youtube video" />
     <MESSAGE value="More described label" />
     <MESSAGE value="Refined home landing page" />
     <MESSAGE value="Create info for marie jensen seed user" />
@@ -514,6 +512,17 @@
     <MESSAGE value="New steptwo with preview component" />
     <MESSAGE value="Universities.json" />
     <MESSAGE value="Migrate removing username" />
-    <option name="LAST_COMMIT_MESSAGE" value="Migrate removing username" />
+    <MESSAGE value="Style" />
+    <MESSAGE value="Add preview profile" />
+    <MESSAGE value="Max height of 700px for card wrapper" />
+    <MESSAGE value="Better home description" />
+    <MESSAGE value="Fix property name" />
+    <MESSAGE value="Remove digit spinner" />
+    <MESSAGE value="Add stage of life and self study subjects states" />
+    <MESSAGE value="Stageoflife and selfstudy subject props" />
+    <MESSAGE value="Add statuses stageoflife and selfstudying subjects to userprofile" />
+    <MESSAGE value="Add self studying subjects and stage of life, as well as conditional rendering depending on your stage of life" />
+    <MESSAGE value="Add self studying subjects and stage of life" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add self studying subjects and stage of life" />
   </component>
 </project>

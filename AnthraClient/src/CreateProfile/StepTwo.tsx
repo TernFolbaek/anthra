@@ -967,7 +967,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                     onChange={(e) => setAllowEmailUpdates(e.target.checked)}
                     className="mr-2 cursor-pointer"
                 />
-                <p className="font-medium bg-black/30 p-2 rounded-md text-sm cursor-pointer text-center text-gray-200">
+                <p className="font-medium bg-black/30 p-2 rounded-md text-sm cursor-pointer text-center text-white">
                     Allow email updates about new features and new user sign-ups?
                 </p>
             </div>

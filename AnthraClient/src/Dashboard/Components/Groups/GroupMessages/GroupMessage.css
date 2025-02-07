@@ -189,3 +189,18 @@ body.dark .delete-message-btn-group:hover{
     background-color: #555;
 }
 
+@media (max-width: 480px) {
+    .group-message-container {
+        padding: 45px 0;
+    }
+
+    .group-message-input-container {
+        position: absolute;
+        width: 100vw;
+        bottom: 0;
+        border-radius: 0;
+        backdrop-filter: blur(10px);
+        z-index: 4;
+    }
+}
+

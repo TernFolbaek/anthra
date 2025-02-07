@@ -26,6 +26,8 @@ namespace MyBackendApp.Models
         public bool IsProfileVisible { get; set; } = true;
 
         public DateTime? EmailVerificationExpiry { get; set; }
+        public StageOfLife? StageOfLife { get; set; }
+        public List<string>? SelfStudyingSubjects { get; set; }
 
 
     }

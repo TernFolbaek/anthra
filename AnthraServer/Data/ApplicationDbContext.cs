@@ -19,7 +19,6 @@ namespace MyBackendApp.Data
         public DbSet<UserExploreSession> UserExploreSessions { get; set; }
         public DbSet<GroupExploreSession> GroupExploreSessions { get; set; }
 
-
         public DbSet<GroupApplicationRequest> GroupApplicationRequests { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -31,8 +30,7 @@ namespace MyBackendApp.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-
+            
             builder.Entity<SkippedUserModel>()
                 .HasOne(su => su.User)
                 .WithMany()
@@ -49,6 +47,8 @@ namespace MyBackendApp.Data
             {
                 b.OwnsMany(u => u.Courses);
             });
+
+            builder.Entity<ApplicationUser>().Property(u => u.StageOfLife).HasDefaultValue(StageOfLife.Student);
             
             builder.Entity<Group>()
                 .HasMany(g => g.Members)

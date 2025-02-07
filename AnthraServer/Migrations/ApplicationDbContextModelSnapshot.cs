@@ -284,6 +284,12 @@ namespace AnthraBackend.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
+                    b.Property<List<string>>("SelfStudyingSubjects")
+                        .HasColumnType("text[]");
+
+                    b.Property<int>("StageOfLife")
+                        .HasColumnType("integer");
+
                     b.Property<List<string>>("Statuses")
                         .HasColumnType("text[]");
 

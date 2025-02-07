@@ -29,6 +29,9 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
     const [city, setCity] = useState('');
     const [aboutMe, setAboutMe] = useState('');
     const [profilePictureFile, setProfilePictureFile] = useState<File | null>(null);
+    const [stageOfLife, setStageOfLife] = useState('');
+    const [selfStudySubjects, setSelfStudySubjects] = useState<string[]>([]);
+
 
     // StepTwo states (lift them up from StepTwo!)
     const [institution, setInstitution] = useState('');
@@ -172,6 +175,10 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                                 allowEmailUpdates={allowEmailUpdates}
                                 setAllowEmailUpdates={setAllowEmailUpdates}
                                 onProfileCreated={onProfileCreated}
+                                stageOfLife={stageOfLife}
+                                setStageOfLife={setStageOfLife}
+                                selfStudySubjects={selfStudySubjects}
+                                setSelfStudySubjects={setSelfStudySubjects}
                                 token={token}
                             />
                         }
@@ -201,6 +208,8 @@ const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated, onBackC
                             subjects={subjects}
                             selectedStatuses={selectedStatuses}
                             work={work}
+                            stageOfLife={stageOfLife}
+                            selfStudyingSubjects={selfStudySubjects}
                         />
                     </div>
                 </>

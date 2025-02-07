@@ -64,6 +64,7 @@
     <None Remove="Hubs\NotificationsHub\**" />
     <None Remove="wwwroot\uploads\**" />
     <None Remove="Controllers\Support\**" />
+    <None Remove=".env" />
   </ItemGroup>
 
   <ItemGroup>

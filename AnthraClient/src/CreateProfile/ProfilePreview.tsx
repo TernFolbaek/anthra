@@ -17,11 +17,13 @@ interface ProfilePreviewProps {
 
     // StepTwo fields
     institution: string;
+    stageOfLife: string;
     faculty: string;
     courses: Course[];
     subjects: string[];
     selectedStatuses: string[];
     work: string;
+    selfStudyingSubjects: string[];
 }
 
 // A small helper for placeholder elements
@@ -32,7 +34,7 @@ const Placeholder: React.FC<{ width: string; height: string; className?: string 
                                                                                       }) => (
     <span
         className={`inline-block bg-gray-700 rounded ${className}`}
-        style={{ width, height }}
+        style={{width, height}}
     />
 );
 
@@ -50,6 +52,8 @@ const ProfilePreview: React.FC<ProfilePreviewProps> = ({
                                                            subjects,
                                                            selectedStatuses,
                                                            work,
+                                                           stageOfLife,
+                                                           selfStudyingSubjects
                                                        }) => {
     // Create a local URL for the image if available
     const previewUrl = profilePictureFile
@@ -77,18 +81,18 @@ const ProfilePreview: React.FC<ProfilePreviewProps> = ({
                         {firstName ? (
                             firstName
                         ) : (
-                            <Placeholder width="80px" height="1em" />
+                            <Placeholder width="80px" height="1em"/>
                         )}{' '}
                         {lastName ? (
                             lastName
                         ) : (
-                            <Placeholder width="80px" height="1em" />
+                            <Placeholder width="80px" height="1em"/>
                         )}
                     </p>
                     {age ? (
                         <p className="text-sm text-gray-400">Age: {age}</p>
                     ) : (
-                        <Placeholder width="60px" height="1em" className="mt-1" />
+                        <Placeholder width="60px" height="1em" className="mt-1"/>
                     )}
                     {/* Location */}
                     {(country || city) ? (
@@ -98,12 +102,11 @@ const ProfilePreview: React.FC<ProfilePreviewProps> = ({
                     ) : (
                         <p className="text-sm mb-2">
                             <strong>Location:</strong>{' '}
-                            <Placeholder width="150px" height="1em" />
+                            <Placeholder width="150px" height="1em"/>
                         </p>
                     )}
                 </div>
             </div>
-
 
 
             {/* About Me */}
@@ -114,68 +117,95 @@ const ProfilePreview: React.FC<ProfilePreviewProps> = ({
             ) : (
                 <p className="mb-4 flex flex-col">
                     <strong>About Me:</strong>{' '}
-                    <Placeholder width="100%" height="5em" />
+                    <Placeholder width="100%" height="5em"/>
                 </p>
             )}
 
             {/* Step Two Fields */}
-            {institution ? (
-                <p className="mb-2 flex items-center gap-2">
-                    <strong>Institution:</strong> <p className="text-gray-400">{institution}</p>
-                </p>
-            ) : (
-                <p className="mb-2">
-                    <strong>Institution:</strong>{' '}
-                    <Placeholder width="150px" height="1em" />
-                </p>
-            )}
-
-            {faculty ? (
-                <p className="mb-2 flex items-center gap-2">
-                    <strong>Faculty:</strong> <p className="text-gray-400">{faculty}</p>
-                </p>
-            ) : (
-                <></>
-            )}
-
-            {/* Courses */}
-            <div className="mb-2">
-                <strong>Courses (expertise):</strong>
-                {courses && courses.length > 0 ? (
-                    <ul className="list-disc ml-5">
-                        {courses.map((c, i) => (
-                            <li key={i}>
-                                {c.courseLink ? (
-                                    <a
-                                        href={
-                                            c.courseLink.startsWith('http')
-                                                ? c.courseLink
-                                                : `https://${c.courseLink}`
-                                        }
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="text-emerald-300 underline ml-1"
-                                    >
-                                        {c.courseName}
-                                    </a>
-                                ) : (
-                                    c.courseName
-                                )}
-                            </li>
-                        ))}
-                    </ul>
+            {stageOfLife === "Student" && (
+                institution ? (
+                    <p className="mb-2 flex items-center gap-2">
+                        <strong>Institution:</strong> <p className="text-gray-400">{institution}</p>
+                    </p>
                 ) : (
-                    <ul className="list-disc ml-5">
-                        <li>
-                            <Placeholder width="100px" height="1em" />
-                        </li>
-                    </ul>
-                )}
-            </div>
+                    <p className="mb-2">
+                        <strong>Institution:</strong>{' '}
+                        <Placeholder width="150px" height="1em"/>
+                    </p>
+                )
+            )}
+
+            {stageOfLife === "Student" && (
+                faculty ? (
+                    <p className="mb-2 flex items-center gap-2">
+                        <strong>Faculty:</strong> <p className="text-gray-400">{faculty}</p>
+                    </p>
+                ) : (
+                    <></>
+                )
+            )}
+
+            {stageOfLife === "Student" && (
+                <div className="mb-2">
+                    <strong>Courses (expertise):</strong>
+                    {courses && courses.length > 0 ? (
+                        <ul className="list-disc ml-5">
+                            {courses.map((c, i) => (
+                                <li key={i}>
+                                    {c.courseLink ? (
+                                        <a
+                                            href={
+                                                c.courseLink.startsWith('http')
+                                                    ? c.courseLink
+                                                    : `https://${c.courseLink}`
+                                            }
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="text-emerald-300 underline ml-1"
+                                        >
+                                            {c.courseName}
+                                        </a>
+                                    ) : (
+                                        c.courseName
+                                    )}
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <ul className="list-disc ml-5">
+                            <li>
+                                <Placeholder width="100px" height="1em"/>
+                            </li>
+                        </ul>
+                    )}
+                </div>
+            )}
+
+            {stageOfLife === "SelfStudying" && (
+                <div className="mb-2">
+                    <strong>Learning Following Subjects:</strong>
+                    {selfStudyingSubjects && selfStudyingSubjects.length > 0 ? (
+                        <ul className="list-disc ml-5">
+                            {selfStudyingSubjects.map((c, i) => (
+                                <li key={i}>
+                                    {c}
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <ul className="list-disc ml-5">
+                            <li>
+                                <Placeholder width="100px" height="1em"/>
+                            </li>
+                        </ul>
+                    )}
+                </div>
+            )}
+
 
             {/* Subjects */}
             <div className="mb-2">
-                <strong>Topics of Interest:</strong>
+                <strong>Areas of Interest:</strong>
                 {subjects && subjects.length > 0 ? (
                     <ul className="list-disc ml-5">
                         {subjects.map((subj, idx) => (
@@ -194,19 +224,19 @@ const ProfilePreview: React.FC<ProfilePreviewProps> = ({
                 )}
             </div>
 
-            {/* Work */}
-            {work ? (
-                <p className="mb-2 flex items-center gap-2">
-                    <strong>Job Title:</strong> <p className="text-gray-400">{work}</p>
-                </p>
-            ) : (
-                <p className="mb-2">
-                    <strong>Job Title:</strong>{' '}
-                    <Placeholder width="120px" height="1em" />
-                </p>
+            {stageOfLife === "Professional" && (
+                work ? (
+                    <p className="mb-2 flex items-center gap-2">
+                        <strong>Job Title:</strong> <p className="text-gray-400">{work}</p>
+                    </p>
+                ) : (
+                    <p className="mb-2">
+                        <strong>Job Title:</strong>{' '}
+                        <Placeholder width="120px" height="1em"/>
+                    </p>
+                )
             )}
 
-            {/* Selected Statuses */}
             <div className="mb-2">
                 <strong>Status:</strong>
                 {selectedStatuses && selectedStatuses.length > 0 ? (

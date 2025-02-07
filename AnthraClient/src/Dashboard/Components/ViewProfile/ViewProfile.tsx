@@ -1,34 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import axios from 'axios';
 import './ViewProfile.css';
+import {UserProfile} from "../types/types";
 
 interface ViewProfileProps {
     userId: string;
     onClose: () => void;
 }
 
-interface Course {
-    courseName: string;
-    courseLink: string;
-}
-
-interface UserProfile {
-    firstName: string;
-    lastName: string;
-    age: number;
-    location: string;
-    institution: string;
-    work: string;
-    courses: Course[];
-    subjects: string[];
-    statuses: string[];
-    aboutMe: string;
-    profilePictureUrl: string;
-    stageOfLife: string;
-    selfStudySubjects: string[];
-}
-
-const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
+const ViewProfile: React.FC<ViewProfileProps> = ({userId, onClose}) => {
     const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -96,7 +76,7 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
         try {
             await axios.post(
                 '/Connections/SendRequest',
-                { targetUserId: userId },
+                {targetUserId: userId},
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -114,7 +94,7 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
         try {
             await axios.post(
                 '/Connections/RevokeRequest',
-                { targetUserId: userId },
+                {targetUserId: userId},
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -161,28 +141,51 @@ const ViewProfile: React.FC<ViewProfileProps> = ({ userId, onClose }) => {
                         </div>
                     </div>
                     <p className="viewprofile-institution">{userProfile.institution}</p>
-                    <p className="viewprofile-work">{userProfile.work}</p>
+                    {userProfile.stageOfLife === "Professional" && (
+                        <p className="viewprofile-work">{userProfile.work}</p>
+                    )}
                     <h3 className="viewprofile-section-title">About Me</h3>
                     <p className="viewprofile-aboutme">{userProfile.aboutMe}</p>
-                    <h3 className="viewprofile-section-title">Courses</h3>
-                    <ul className="viewprofile-list">
-                        {userProfile.courses.map((course, index) => (
-                            <li key={index}>
-                                {course.courseLink ? (
-                                    <a
-                                        href={course.courseLink}
-                                        className="text-emerald-400 underline hover:font-semibold"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        {course.courseName}
-                                    </a>
-                                ) : (
-                                    <span className="text-emerald-400">{course.courseName}</span>
-                                )}
-                            </li>
-                        ))}
-                    </ul>
+                    {userProfile.stageOfLife === "Student" &&
+                        (
+                            <>
+                                <h3 className="viewprofile-section-title">Courses</h3>
+                                <ul className="viewprofile-list">
+                                    {userProfile.courses.map((course, index) => (
+                                        <li key={index}>
+                                            {course.courseLink ? (
+                                                <a
+                                                    href={course.courseLink}
+                                                    className="text-emerald-400 underline hover:font-semibold"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    {course.courseName}
+                                                </a>
+                                            ) : (
+                                                <span className="text-emerald-400">{course.courseName}</span>
+                                            )}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </>
+                        )
+                    }
+                    {userProfile.stageOfLife === "SelfStudying" &&
+                        (
+                            <>
+                                <h3 className="viewprofile-section-title">Learning Following Subjects</h3>
+                                <ul className="viewprofile-list">
+                                    {userProfile.selfStudyingSubjects.map((subject, index) => (
+                                        <li key={index}>
+                                                <span className="text-emerald-400">{subject}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </>
+                        )
+                    }
+
 
                     <h3 className="viewprofile-section-title">Subjects</h3>
                     <ul className="viewprofile-list">

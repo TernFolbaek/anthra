@@ -5,16 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f6ef597-b7bd-442f-8da7-2cf448f0ba4c" name="Changes" comment="Add self studying subjects and stage of life">
-      <change afterPath="$PROJECT_DIR$/../AnthraServer/Models/StageOfLife.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Controllers/Account/ProfileController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Controllers/Account/ProfileController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Controllers/ExploreController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Controllers/ExploreController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Data/ApplicationDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Data/ApplicationDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Folder.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Folder.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Migrations/ApplicationDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Migrations/ApplicationDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Models/User/ApplicationUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Models/User/ApplicationUser.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AnthraServer/ViewModels/UpdateProfileViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../AnthraServer/ViewModels/UpdateProfileViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/ExplorePage/GroupExplore/GroupExplorePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/ExplorePage/GroupExplore/GroupExplorePage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/ExplorePage/IndividualExplore/UserExplorePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/ExplorePage/IndividualExplore/UserExplorePage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Messages/Messages.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Messages/Messages.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/Messages/Messages.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/Messages/Messages.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Components/ViewProfile/ViewProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Components/ViewProfile/ViewProfile.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +82,7 @@
       <workItem from="1738670340495" duration="1757000" />
       <workItem from="1738679476956" duration="69989000" />
       <workItem from="1738934516978" duration="6000" />
-      <workItem from="1738942014611" duration="630000" />
+      <workItem from="1738942014611" duration="1702000" />
     </task>
     <task id="LOCAL-00015" summary="Only make course clickable when there is a link present">
       <option name="closed" value="true" />

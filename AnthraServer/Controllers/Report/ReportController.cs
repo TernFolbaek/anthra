@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json; // If using Newtonsoft for JSON
 using System.Security.Claims;
 
+
 namespace MyBackendApp.Controllers
 {
     [ApiController]
@@ -19,20 +20,16 @@ namespace MyBackendApp.Controllers
     [Authorize]  // Ensure the user is authenticated
     public class ReportController : ControllerBase
     {
-        // Ideally, these should come from your appsettings.json or secure config (not hardcoded)
-        private readonly string _telegramBotToken = "7954138299:AAGPne8Z1-KpG9LpHCFD9FoEMtXItCOMUPc";
-        private readonly string _telegramChatId   = "7731233891";
-
+        private readonly IConfiguration _configuration;
         private readonly ApplicationDbContext _context;
 
-        public ReportController(ApplicationDbContext context)
+        public ReportController(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
-
-        // -------------------------------------------------
-        // POST: api/Report/SendReport
-        // -------------------------------------------------
+        
+      
         [HttpPost("SendReport")]
         public async Task<IActionResult> SendReport([FromForm] ReportRequest request)
         {
@@ -94,6 +91,9 @@ namespace MyBackendApp.Controllers
         // -------------------------------------------------
         private async Task SendTelegramMessageAsync(string messageText)
         {
+        // Instead of hardcoding values:
+            var _telegramBotToken = _configuration["Telegram:TELEGRAM_BOT_TOKEN"];
+            var _telegramChatId   = _configuration["Telegram:TELEGRAM_CHAT_ID"];
             using var client = new HttpClient();
             client.Timeout = TimeSpan.FromSeconds(30);
 
@@ -116,6 +116,8 @@ namespace MyBackendApp.Controllers
         // -------------------------------------------------
         private async Task SendTelegramPhotoAsync(IFormFile file)
         {
+            var _telegramBotToken = _configuration["Telegram:TELEGRAM_BOT_TOKEN"];
+            var _telegramChatId   = _configuration["Telegram:TELEGRAM_CHAT_ID"];
             using var client = new HttpClient();
             client.Timeout = TimeSpan.FromSeconds(30);
 

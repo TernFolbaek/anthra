@@ -11,7 +11,6 @@ using MyBackendApp.Data;
 using MyBackendApp.Hubs;
 using MyBackendApp.Models;
 using Microsoft.AspNetCore.Identity;
-
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -42,7 +41,6 @@ builder.Services.AddControllers();
 // Configure Entity Framework and PostgreSQL
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 // Add SignalR
 builder.Services.AddSignalR();
 

@@ -62,6 +62,10 @@ interface StepTwoProps {
     setWork: React.Dispatch<React.SetStateAction<string>>;
     allowEmailUpdates: boolean;
     setAllowEmailUpdates: React.Dispatch<React.SetStateAction<boolean>>;
+    stageOfLife: string;
+    setStageOfLife: React.Dispatch<React.SetStateAction<string>>;
+    selfStudySubjects: string[];
+    setSelfStudySubjects: React.Dispatch<React.SetStateAction<string[]>>;
 
     // Misc
     onProfileCreated: () => void;
@@ -98,10 +102,13 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                              allowEmailUpdates,
                                              setAllowEmailUpdates,
                                              onProfileCreated,
+                                            stageOfLife,
+                                            setStageOfLife,
+                                            selfStudySubjects,
+                                            setSelfStudySubjects,
                                              token,
                                          }) => {
     // ---------------- STAGE OF LIFE ----------------
-    const [stageOfLife, setStageOfLife] = useState<string>('');
 
     // --------------- Institution Autosuggest ---------------
     const [institutionSearch, setInstitutionSearch] = useState('');
@@ -121,7 +128,6 @@ const StepTwo: React.FC<StepTwoProps> = ({
     // --------------- Self-Study Focus Topics ---------------
     // If you want a separate array instead of reusing courses, do this:
     const [focusTopicInput, setFocusTopicInput] = useState('');
-    const [focusTopics, setFocusTopics] = useState<string[]>([]);
 
     // --------------- Subjects (existing) ---------------
     const [subjectInput, setSubjectInput] = useState('');
@@ -406,21 +412,21 @@ const StepTwo: React.FC<StepTwoProps> = ({
             setError('Please enter a focus topic of at least 2 characters.');
             return;
         }
-        if (focusTopics.length >= 5) {
+        if (selfStudySubjects.length >= 5) {
             setError('You can only add up to 5 focus topics.');
             return;
         }
-        if (focusTopics.includes(trimmed)) {
+        if (selfStudySubjects.includes(trimmed)) {
             setError('This focus topic has already been added.');
             return;
         }
-        setFocusTopics([...focusTopics, trimmed]);
+        setSelfStudySubjects([...selfStudySubjects, trimmed]);
         setFocusTopicInput('');
         setError(null);
     };
 
     const handleRemoveFocusTopic = (topic: string) => {
-        setFocusTopics(focusTopics.filter((t) => t !== topic));
+        setSelfStudySubjects(selfStudySubjects.filter((t) => t !== topic));
     };
 
     // ---------------- Subjects (Common to all) ----------------
@@ -490,8 +496,9 @@ const StepTwo: React.FC<StepTwoProps> = ({
             return;
         }
 
+
         // Validate each stage
-        if (stageOfLife === 'UniStudent') {
+        if (stageOfLife === 'Student') {
             if (!institution.trim()) {
                 setError('Please enter your institution.');
                 return;
@@ -500,20 +507,19 @@ const StepTwo: React.FC<StepTwoProps> = ({
                 setError('Please add at least 2 courses.');
                 return;
             }
-        } else if (stageOfLife === 'FulltimeWorker') {
+        } else if (stageOfLife === 'Professional') {
             if (!work.trim()) {
                 setError('Please enter your area of work.');
                 return;
             }
         } else if (stageOfLife === 'SelfStudying') {
             // Validate that we have enough focus topics
-            if (focusTopics.length < 2) {
+            if (selfStudySubjects.length < 2) {
                 setError('Please add at least 2 Focus Topics.');
                 return;
             }
         }
 
-        // Validate universal fields
         if (subjects.length < 2) {
             setError('Please add at least 2 subjects of interest.');
             return;
@@ -539,24 +545,19 @@ const StepTwo: React.FC<StepTwoProps> = ({
         formData.append('StageOfLife', stageOfLife);
 
         // If Uni. Student, append institution, courses
-        if (stageOfLife === 'UniStudent') {
+        if (stageOfLife === 'Student') {
             formData.append('Institution', institution.trim());
-            formData.append('Work', ''); // or skip entirely if you want
             formData.append('Courses', JSON.stringify(courses));
         }
 
         // If Fulltime Worker, append area of work
-        if (stageOfLife === 'FulltimeWorker') {
-            formData.append('Institution', '');
-            formData.append('Courses', '[]');
+        if (stageOfLife === 'Professional') {
             formData.append('Work', work.trim());
         }
 
         // If Self Studying, append focusTopics
         if (stageOfLife === 'SelfStudying') {
-            formData.append('Institution', '');
-            formData.append('Work', '');
-            formData.append('Courses', JSON.stringify(focusTopics)); // Reuse "Courses" key if that’s how your backend expects it
+            formData.append('SelfStudyingSubjects', JSON.stringify(selfStudySubjects));
         }
 
         // Append subjects (common)
@@ -599,7 +600,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
         <div className="form-step">
             {/* ---------- 1) STAGE OF LIFE BUBBLES  ---------- */}
             <label className="input-label">Stage of life</label>
-            <div className="flex flex-wrap gap-2 mb-4 justify-center">
+            <div className="flex flex-wrap gap-2 mb-4 justify-center mt-1">
                 {/* A simple approach: three clickable bubbles */}
                 <div
                     className={`px-3 py-2 text-sm rounded-full cursor-pointer 
@@ -615,7 +616,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                         setFaculty('');
                         setCourses([]);
                         setWork('');
-                        setFocusTopics([]);
+                        setSelfStudySubjects([]);
                     }}
                 >
                     Student
@@ -634,7 +635,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                         setFaculty('');
                         setCourses([]);
                         setWork('');
-                        setFocusTopics([]);
+                        setSelfStudySubjects([]);
                     }}
                 >
                     Professional
@@ -653,7 +654,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                         setFaculty('');
                         setCourses([]);
                         setWork('');
-                        setFocusTopics([]);
+                        setSelfStudySubjects([]);
                     }}
                 >
                     Self Studying
@@ -827,7 +828,7 @@ const StepTwo: React.FC<StepTwoProps> = ({
                         className="floating-label-input"
                     />
                     <label htmlFor="work" className="floating-label">
-                        Area of Work
+                        Job Title
                     </label>
                 </div>
             )}
@@ -835,9 +836,9 @@ const StepTwo: React.FC<StepTwoProps> = ({
             {/* ---------- SELF STUDYING FIELDS  ---------- */}
             {stageOfLife === 'SelfStudying' && (
                 <>
-                    <label className="input-label mb-2" htmlFor="focusTopicInput">
-                        What subjects are you learning <span className="counter">({focusTopics.length}/5)</span>{' '}
-                        <span className="font-medium text-xs">min. 2</span>
+                    <label className="input-label mb-2 flex items-center gap-2" htmlFor="focusTopicInput">
+                        Which subjects are you studying
+                        <span className="font-medium text-xs">2 - 5</span>
                     </label>
                     <div className="flex items-center gap-2 mb-2">
                         <div className="floating-label-group w-full">
@@ -854,25 +855,22 @@ const StepTwo: React.FC<StepTwoProps> = ({
                                     }
                                 }}
                                 className="floating-label-input"
-                                disabled={focusTopics.length >= 5}
+                                disabled={selfStudySubjects.length >= 5}
                                 maxLength={35}
                             />
-                            <label htmlFor="focusTopicInput" className="floating-label">
-                                Add a focus topic
-                            </label>
                         </div>
                         <button
                             type="button"
                             onClick={handleAddFocusTopic}
                             className="course-add-button"
-                            disabled={focusTopics.length >= 5}
+                            disabled={selfStudySubjects.length >= 5}
                         >
                             <FaPlusCircle />
                         </button>
                     </div>
-                    {focusTopics.length > 0 && (
+                    {selfStudySubjects.length > 0 && (
                         <div className="flex flex-wrap justify-center gap-2">
-                            {focusTopics.map((topic, index) => (
+                            {selfStudySubjects.map((topic, index) => (
                                 <span key={index} className="course-tag flex items-center justify-center">
                   <p className="mr-1 text-xs font-medium">{topic}</p>
                   <button
@@ -890,9 +888,9 @@ const StepTwo: React.FC<StepTwoProps> = ({
             )}
 
             {/* ---------- SUBJECTS (Common for all) ---------- */}
-            <label className="input-label mt-4" htmlFor="subjectInput">
-                Topics of interest <span className="counter">({subjects.length}/5)</span>{' '}
-                <span className="font-medium text-xs">min. 2</span>
+            <label className="input-label mt-4 flex items-center gap-2" htmlFor="subjectInput">
+                Areas of interest / Hobbies
+                <span className="font-medium text-xs"> 2 - 5</span>
             </label>
             <div className="flex items-center gap-2 mb-2">
                 <div className="floating-label-group w-full">
@@ -941,8 +939,8 @@ const StepTwo: React.FC<StepTwoProps> = ({
             )}
 
             {/* ---------- STATUS (Common for all) ---------- */}
-            <label className="input-label status-label mt-4" htmlFor="status">
-                Status (Select 2-3)
+            <label className="input-label status-label flex items-center gap-2 mt-4" htmlFor="status">
+                Status <span className="font-medium text-xs">2 - 3</span>
             </label>
             <div className="status-tags-container">
                 {statuses.map((st, i) => (

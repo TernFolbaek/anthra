@@ -587,8 +587,17 @@ body.dark .report-popup-content {
     backdrop-filter: blur(10px);
     z-index: 4;
   }
-  .messages-container {
-    margin-top: 45px;
+
+  .message-input-container {
+    position: absolute;
+    width: 100vw;
+    bottom: 0;
+    border-radius: 0;
+    backdrop-filter: blur(10px);
+    z-index: 4;
+  }
+    .messages-container {
+    padding: 45px 0;
   }
     body.dark .messages-page-container{
     background-color: #2e2e2e;

@@ -868,7 +868,7 @@ const Messages: React.FC = () => {
                     )}
                 </div>
 
-                {userId && (!isMobile || !showProfile) && (
+                {userId && !showProfile && (
                     <MessageInput userId={userId} />
                 )}
 

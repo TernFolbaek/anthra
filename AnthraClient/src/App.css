@@ -1,2 +1,9 @@
+.dark-background-generic{
+    border: 1px solid #555;
+    background-color: #2e2e2e;
+}
 
-
+.dark-background-light-generic{
+    border: 1px solid #555;
+    background-color: #3a3a3a;
+}

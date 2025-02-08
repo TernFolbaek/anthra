@@ -7,7 +7,7 @@ import { LanguageProvider } from './LanguageContext';
 import axios from 'axios';
 import apiUrl from './config';
 
-// Lazy imports (same as your code)
+// Lazy imports
 const Home = lazy(() => import('./LandingPage/components/Home/Home'));
 const HowItWorks = lazy(() => import('./LandingPage/components/HowItWorks/HowItWorks'));
 const Features = lazy(() => import('./LandingPage/components/Features/Features'));
@@ -26,9 +26,13 @@ const App: React.FC = () => {
     const [showAuthPage, setShowAuthPage] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [profileCreated, setProfileCreated] = useState(false);
-
     const [loading, setLoading] = useState(true);
-    localStorage.setItem('isDark', 'true')
+
+    // State to control the mobile disclaimer modal
+    const [showMobileDisclaimer, setShowMobileDisclaimer] = useState(false);
+
+    // Set dark mode flag and update body class accordingly
+    localStorage.setItem('isDark', 'true');
     useEffect(() => {
         const flag = localStorage.getItem('isDark');
         if (flag === 'true') {
@@ -38,23 +42,21 @@ const App: React.FC = () => {
         }
     }, []);
 
+    // Verify the token and user on load
     useEffect(() => {
         const token = localStorage.getItem('token');
         const userId = localStorage.getItem('userId');
 
         if (!token || !userId) {
-            // Not logged in at all
+            // Not logged in
             setIsAuthenticated(false);
             setLoading(false);
             return;
         }
 
-        // We have a token and userId; let's verify them on the server
         axios
             .get('/Profile/GetProfile', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+                headers: { Authorization: `Bearer ${token}` },
             })
             .then((response) => {
                 const userProfile = response.data;
@@ -70,6 +72,24 @@ const App: React.FC = () => {
                 setLoading(false);
             });
     }, []);
+
+    // Check for mobile devices and if no flag exists, show the disclaimer.
+    useEffect(() => {
+        const isMobile = window.innerWidth < 768; // adjust threshold as needed
+        if (isMobile) {
+            const isFirstLoadMobile = localStorage.getItem('isFirstLoadMobile');
+            if (!isFirstLoadMobile) {
+                setShowMobileDisclaimer(true);
+            }
+        }
+    }, []);
+
+    // Handler for closing the mobile disclaimer
+    const handleCloseMobileDisclaimer = () => {
+        setShowMobileDisclaimer(false);
+        // Store a flag so the disclaimer won't show again on mobile
+        localStorage.setItem('isFirstLoadMobile', 'dismissed');
+    };
 
     const handleCreateProfileBackClick = () => {
         setIsAuthenticated(false);
@@ -99,12 +119,46 @@ const App: React.FC = () => {
     };
 
     if (loading) {
-        return ;
+        return null;
     }
+
     return (
         <LanguageProvider>
             <Router>
                 <div className="App">
+                    {/* Mobile Disclaimer Modal */}
+                    {showMobileDisclaimer && (
+                        <div
+                            style={{
+                                position: 'fixed',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                zIndex: 1000,
+                            }}
+                        >
+                            <div
+                                className="tw-full rounded-xl h-1/3 dark-background-generic z-100 m-2 p-3 flex flex-col items-center justify-around"
+                            >
+                                <p className="text-lg text-gray-200 font-medium text-center font-mono">
+                                    This application is visually designed for desktop use, however our team is working on
+                                    making it as comfortable as possible on mobile as well :)
+                                </p>
+                                <button
+                                    onClick={handleCloseMobileDisclaimer}
+                                    className="text-center px-3 py-1 text-gray-100 dark-background-light-generic rounded font-mono"
+                                >
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
                     <Suspense fallback={<div></div>}>
                         <Routes>
                             <Route path="/privacy-policy" element={<PrivacyPolicy />} />

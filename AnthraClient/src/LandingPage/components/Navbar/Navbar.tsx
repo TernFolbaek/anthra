@@ -73,10 +73,6 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
 
     const handleLanguageChange = (lang: string) => {
         switchLanguage(lang);
-        setIsDropdownOpen(false);
-        if (isMenuOpen) {
-            setIsMenuOpen(false);
-        }
     };
 
     return (
@@ -93,7 +89,7 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
             )}
 
             <div
-                className={`nav-buttons flex animate-nav-buttons ${isMobile ? (isMenuOpen ? 'mobile-open' : 'mobile-closed') : ''}`}>
+                className={`nav-buttons rounded-b-2xl flex animate-nav-buttons ${isMobile ? (isMenuOpen ? 'mobile-open' : 'mobile-closed') : ''}`}>
                 <button
                     className="nav-button animate"
                     onClick={() => scrollToSection('how-it-works')}
@@ -127,28 +123,17 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                         aria-haspopup="true"
                         aria-expanded={isDropdownOpen}
                     >
-                        <div className="dropdown-header-home-navbar">
-                            {language === 'da' ? (
-                                <>
-                                    Dansk
-                                </>
-                            ) : (
-                                <>
-                                    English
-                                </>
-                            )}
-                            {/* Arrow Element */}
-                            <span className={`arrow ${isDropdownOpen ? 'open' : ''}`}></span>
-                        </div>
+                        {language === 'da' ? (
+                            <div className="dropdown-header-home-navbar flex gap-2">
+                                <p className="font-bold" onClick={() => handleLanguageChange('da')}>DA</p> | <p
+                                onClick={() => handleLanguageChange('en')}>EN</p>
 
-                        {isDropdownOpen && (
-                            <div className="dropdown-menu animate">
-                                <div className="language-dropdown-item" onClick={() => handleLanguageChange('da')}>
-                                    Dansk
-                                </div>
-                                <div className="language-dropdown-item" onClick={() => handleLanguageChange('en')}>
-                                    English
-                                </div>
+                            </div>
+                        ) : (
+                            <div className="dropdown-header-home-navbar flex gap-2">
+                                <p onClick={() => handleLanguageChange('da')}>DA</p> | <p className="font-bold"
+                                                                                          onClick={() => handleLanguageChange('en')}>EN</p>
+
                             </div>
                         )}
                     </div>
@@ -165,28 +150,19 @@ const Navbar: React.FC<NavbarProps> = ({ onGetStartedClick }) => {
                 >
                     <div className="dropdown-header-home-navbar">
                         {language === 'da' ? (
-                            <>
-                                Dansk
-                            </>
-                        ) : (
-                            <>
-                                English
-                            </>
-                        )}
-                        {/* Arrow Element */}
-                        <span className={`arrow ${isDropdownOpen ? 'open' : ''}`}></span>
-                    </div>
+                            <div className="dropdown-header-home-navbar flex gap-2">
+                                <p className="font-bold" onClick={() => handleLanguageChange('da')}>DA</p> | <p
+                                onClick={() => handleLanguageChange('en')}>EN</p>
 
-                    {isDropdownOpen && (
-                        <div className="dropdown-menu animate">
-                            <div className="language-dropdown-item" onClick={() => handleLanguageChange('da')}>
-                                Dansk
                             </div>
-                            <div className="language-dropdown-item" onClick={() => handleLanguageChange('en')}>
-                                English
+                        ) : (
+                            <div className="dropdown-header-home-navbar flex gap-2">
+                                <p onClick={() => handleLanguageChange('da')}>DA</p> | <p className="font-bold"
+                                onClick={() => handleLanguageChange('en')}>EN</p>
+
                             </div>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
             )}
         </nav>

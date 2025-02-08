@@ -1,5 +1,5 @@
 # Anthra
-## Accessible at: https://Anthra.dk
+## Accessible at: https://anthra.dk
 
 Platform where you create a profile based on your "Stage of life", a Professional, Student or Self Studying, list your academic interests, amongst other properties. Connect with other users, chat, create groups across your connections and have 
 the opportunity to study together or work on projects that interest the both of you. I believe many would find studying and work to be more enjoyable when its done alongside someone that shares your passion and discipline.

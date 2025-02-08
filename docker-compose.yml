@@ -3,15 +3,15 @@ services:
   db:
     image: postgres:15
     environment:
-      - POSTGRES_USER=anthra_user
-      - POSTGRES_PASSWORD=jelkokelkojelkomerlin
-      - POSTGRES_DB=anthra
+      - POSTGRES_USER={your_username}
+      - POSTGRES_PASSWORD={your_password}
+      - POSTGRES_DB={your-pg-database}
     ports:
       - "5433:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
     networks:
-      - anthra-network
+      - {create_your_network}
     restart: unless-stopped
 
   backend:

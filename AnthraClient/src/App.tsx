@@ -1,4 +1,3 @@
-// App.tsx
 import React, { useEffect, useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
@@ -10,7 +9,6 @@ import apiUrl from './config';
 // Lazy imports
 const Home = lazy(() => import('./LandingPage/components/Home/Home'));
 const HowItWorks = lazy(() => import('./LandingPage/components/HowItWorks/HowItWorks'));
-const Features = lazy(() => import('./LandingPage/components/Features/Features'));
 const FAQ = lazy(() => import('./LandingPage/components/FAQ/FAQ'));
 const Contact = lazy(() => import('./LandingPage/components/Contact/Contact'));
 const AuthPage = lazy(() => import('./Authentication/AuthPage/AuthPage'));
@@ -224,9 +222,6 @@ const App: React.FC = () => {
                                             <Navbar onGetStartedClick={handleGetStartedClick} />
                                             <div id="home">
                                                 <Home onGetStartedClick={handleGetStartedClick} />
-                                            </div>
-                                            <div id="features">
-                                                <Features />
                                             </div>
                                             <div id="how-it-works">
                                                 <HowItWorks />

@@ -1,8 +1,5 @@
-// HowItWorks.tsx
-
 import React, { useEffect, useRef } from 'react';
 import './HowItWorks.css';
-import '../Features/Features.css'
 import stepOneImage from '../../assets/userexplorepage.png';
 import stepTwoImage from '../../assets/connectionpagedemo.png';
 import stepThreeImage from '../../assets/grouppagedemo.png';

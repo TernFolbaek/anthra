@@ -575,6 +575,7 @@ input[type='number'] {
     }
     .create-profile-page{
         padding-top: 0;
+        overflow: hidden;
     }
     .age-group {
         width: 120px;

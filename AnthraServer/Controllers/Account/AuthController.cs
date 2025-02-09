@@ -46,7 +46,8 @@ namespace AnthraBackend.Controllers.Account
             {
                 var settings = new GoogleJsonWebSignature.ValidationSettings()
                 {
-                    Audience = new List<string> { "995421977806-tf8qlcn3jt95q5m5ug5ppbqq4c0mnj6o.apps.googleusercontent.com" }
+                    Audience = new List<string>
+                        { "995421977806-tf8qlcn3jt95q5m5ug5ppbqq4c0mnj6o.apps.googleusercontent.com" }
                 };
 
                 var payload = await GoogleJsonWebSignature.ValidateAsync(model.TokenId, settings);
@@ -98,11 +99,11 @@ namespace AnthraBackend.Controllers.Account
             }
 
             // Create a new user using the provided email.
-            var user = new ApplicationUser 
-            { 
+            var user = new ApplicationUser
+            {
                 // Use the email for UserName as well.
-                UserName = model.Email,  
-                Email = model.Email 
+                UserName = model.Email,
+                Email = model.Email
             };
             var result = await _userManager.CreateAsync(user, model.Password);
 
@@ -122,7 +123,8 @@ namespace AnthraBackend.Controllers.Account
                 // Send verification email.
                 await SendVerificationEmail(user.Email, verificationCode);
 
-                return Ok(new { Message = "Registration successful. Verification code sent to email.", userId = user.Id });
+                return Ok(new
+                    { Message = "Registration successful. Verification code sent to email.", userId = user.Id });
             }
 
             // Map error codes (note: removed username-related messages).
@@ -141,7 +143,8 @@ namespace AnthraBackend.Controllers.Account
                 case "PasswordRequiresDigit":
                 case "PasswordRequiresUpper":
                 case "PasswordRequiresLower":
-                    return "Password should contain at least 6 characters, one uppercase letter, one digit & one special character.";
+                    return
+                        "Password should contain at least 6 characters, one uppercase letter, one digit & one special character.";
                 // Removed DuplicateUserName and InvalidUserName cases.
                 case "DuplicateEmail":
                     return "Email is already taken. Try logging in.";
@@ -160,11 +163,12 @@ namespace AnthraBackend.Controllers.Account
             var to = new EmailAddress(email);
             var subject = "Email Verification Code";
             var plainTextContent = $"Welcome to Anthra 🎉! Your email verification code is: {verificationCode}";
-            var htmlContent = $"Welcome to Anthra 🎉! <br> <p>Your email verification code is: <strong>{verificationCode}</strong></p>";
+            var htmlContent =
+                $"Welcome to Anthra 🎉! <br> <p>Your email verification code is: <strong>{verificationCode}</strong></p>";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             await client.SendEmailAsync(msg);
         }
-        
+
         [HttpPost("VerifyEmail")]
         public async Task<IActionResult> VerifyEmail([FromBody] VerifyEmailViewModel model)
         {
@@ -186,9 +190,13 @@ namespace AnthraBackend.Controllers.Account
             await _userManager.UpdateAsync(user);
 
             var token = GenerateJwtToken(user);
-            return Ok(new { Message = "Email verified successfully", userId = user.Id, token, fullName = user.FirstName + " " + user.LastName });
+            return Ok(new
+            {
+                Message = "Email verified successfully", userId = user.Id, token,
+                fullName = user.FirstName + " " + user.LastName
+            });
         }
-    
+
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
@@ -214,7 +222,11 @@ namespace AnthraBackend.Controllers.Account
 
                 var token = GenerateJwtToken(user);
                 // Note: We no longer return userName in the response.
-                return Ok(new { Message = "Login successful", userId = user.Id, token, fullName = user.FirstName + " " + user.LastName });
+                return Ok(new
+                {
+                    Message = "Login successful", userId = user.Id, token,
+                    fullName = user.FirstName + " " + user.LastName
+                });
             }
 
             return Unauthorized("Invalid email or password.");
@@ -261,7 +273,7 @@ namespace AnthraBackend.Controllers.Account
             await SendVerificationEmail(user.Email, verificationCode);
             return Ok("Verification code resent.");
         }
-        
+
         public class VerifyEmailViewModel
         {
             public string UserId { get; set; }
@@ -296,7 +308,9 @@ namespace AnthraBackend.Controllers.Account
                 return BadRequest("Error loading external login information.");
             }
 
-            var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
+            var signInResult =
+                await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey,
+                    isPersistent: false);
 
             if (signInResult.Succeeded)
             {
@@ -309,11 +323,11 @@ namespace AnthraBackend.Controllers.Account
             {
                 // If the user does not have an account, create one using the email only.
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-                var user = new ApplicationUser 
-                { 
+                var user = new ApplicationUser
+                {
                     // Again, set UserName automatically to email.
-                    UserName = email, 
-                    Email = email 
+                    UserName = email,
+                    Email = email
                 };
 
                 var result = await _userManager.CreateAsync(user);
@@ -326,10 +340,11 @@ namespace AnthraBackend.Controllers.Account
                         return Redirect($"{returnUrl}?token={token}&userId={user.Id}");
                     }
                 }
+
                 return BadRequest("External login failed.");
             }
         }
-        
+
         [HttpPost("ForgotPassword")]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordViewModel model)
         {
@@ -366,7 +381,8 @@ namespace AnthraBackend.Controllers.Account
                 var to = new EmailAddress(model.Email);
                 var subject = "Password Reset Code";
                 var plainTextContent = $"Your password reset code is: {resetCode}";
-                var htmlContent = $"<p>Happens to the best of us 😉 <br> Your password reset code is: <strong>{resetCode}</strong></p>";
+                var htmlContent =
+                    $"<p>Happens to the best of us 😉 <br> Your password reset code is: <strong>{resetCode}</strong></p>";
                 var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
 
                 var response = await client.SendEmailAsync(msg);
@@ -374,7 +390,8 @@ namespace AnthraBackend.Controllers.Account
 
                 if (response.StatusCode != System.Net.HttpStatusCode.Accepted)
                 {
-                    _logger.LogError("Failed to send email via SendGrid: {StatusCode} - {ResponseBody}", response.StatusCode, responseBody);
+                    _logger.LogError("Failed to send email via SendGrid: {StatusCode} - {ResponseBody}",
+                        response.StatusCode, responseBody);
                     return StatusCode(500, "Error sending password reset email.");
                 }
             }

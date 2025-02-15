@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f6ef597-b7bd-442f-8da7-2cf448f0ba4c" name="Changes" comment="import userprofile instead of declaring it again" />
+    <list default="true" id="0f6ef597-b7bd-442f-8da7-2cf448f0ba4c" name="Changes" comment="Remove unused features component">
+      <change afterPath="$PROJECT_DIR$/src/example.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LandingPage/assets/demo1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LandingPage/assets/demo2.png" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -75,15 +80,8 @@
       <workItem from="1738670340495" duration="1757000" />
       <workItem from="1738679476956" duration="69989000" />
       <workItem from="1738934516978" duration="6000" />
-      <workItem from="1738942014611" duration="4357000" />
-    </task>
-    <task id="LOCAL-00019" summary="Refine status message">
-      <option name="closed" value="true" />
-      <created>1738342189956</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1738342189956</updated>
+      <workItem from="1738942014611" duration="28181000" />
+      <workItem from="1739658028503" duration="1017000" />
     </task>
     <task id="LOCAL-00020" summary="onremovegroup callback when you leave group">
       <option name="closed" value="true" />
@@ -469,7 +467,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738943971815</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="Remove unused features component">
+      <option name="closed" value="true" />
+      <created>1739018907258</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1739018907258</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -487,7 +493,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Restyle auth page" />
     <MESSAGE value="Restyle Create profile" />
     <MESSAGE value="Restyle Get started button" />
     <MESSAGE value="Restyle how it works" />
@@ -512,6 +517,7 @@
     <MESSAGE value="Remove odd checker" />
     <MESSAGE value="Remove height 100% on explore card" />
     <MESSAGE value="import userprofile instead of declaring it again" />
-    <option name="LAST_COMMIT_MESSAGE" value="import userprofile instead of declaring it again" />
+    <MESSAGE value="Remove unused features component" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove unused features component" />
   </component>
 </project>
